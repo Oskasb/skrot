@@ -1,0 +1,595 @@
+body.item_card_container {
+    top: 0.7em;
+    left: 0.5em;
+    bottom: 0.5em;
+    right: auto;
+    width: 39.5em;
+    height:auto;
+    min-height: 9em;
+    position: absolute;
+    margin:0;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 0;
+    box-shadow: 0 0 1.0em rgba(0, 0, 0, 1);
+}
+
+body.item_container {
+    overflow:hidden;
+    position:absolute;
+    top: 0.2em;
+    left: 0.2em;
+    bottom: 0.2em;
+    right: 0.2em;
+    width: auto;
+    height: auto;
+    border-radius: 10%;
+    background:none;
+    margin: 0;
+    border: none;
+}
+
+div.item_backplate {
+    overflow:hidden;
+    position:absolute;
+    top: 5%;
+    left: 5%;
+    bottom: 5%;
+    right: 5%;
+    height: 90%;
+    width: 90%;
+    border-radius: 9%;
+    background-size: 100%;
+    transform: translate3d(-0.3em, -0.3em, 0);
+    margin: 0;
+    border: 0.3em solid;
+}
+
+div.container_item_potency {
+    margin: 0;
+    padding: 0;
+    color: #c9c9c9;
+    position: absolute;
+    top: -3%;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+div.container_item_stack {
+    margin: 0;
+    padding: 0;
+    font-size: 1.8em;
+    text-shadow: inherit;
+    color: inherit;
+    position: absolute;
+    bottom: -3%;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+div.container_item_type {
+    margin: 0;
+    padding: 0;
+    color: #c9c9c9;
+    position: absolute;
+    top: -11%;
+    right: -5px;
+    width: 5em;
+    height: 5em;
+    display: flex;
+    flex-direction: row;
+    background-size: 100% 100%;
+}
+
+div.item_type_RECIPE {
+    background-image: url("/client/assets/images/textures/gui/icons_lore/note_recipe.png");
+}
+
+div.potency_itemcard {
+    left:5.3em;
+    top: 3.2em;
+    font-size: 1.2em;
+}
+
+div.item_buy_button {
+    font-size: 2em;
+    height: 2.0em;
+    border: 0.1em solid;
+    border-radius: 0.2em;
+
+    background-size: 100%;
+    margin: 0.2em;
+    margin-left: 2em;
+    margin-right: 2em;
+    padding: 0;
+    /* transform: translate3d(-0%, -0%, 0); */
+    color: #000000;
+    text-shadow: 0.02em 0.02em 0.2em rgb(255, 255, 255);
+    text-align: center;
+    scale: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+div.button_can_afford {
+    background-color: #65ff00;
+    border-color: rgb(106, 255, 101);
+    box-shadow: 0 0 1.5em rgb(42, 78, 0);
+}
+
+div.button_not_afford {
+    pointer-events: none;
+    background-color: #601919;
+    border-color: rgb(57, 23, 15);
+    box-shadow: 0 0 1.5em rgb(46, 9, 0);
+}
+
+div.item_buy_button p {
+    position: relative;
+}
+
+div.item_buy_button h6 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.1em;
+    width: 100%;
+    text-align: center;
+    top: 0;
+    height: 1.0em;
+    position: relative;
+    color: #000000;
+    text-shadow: 0.02em 0.02em 0.2em rgb(255, 255, 255);
+}
+
+div.pricing_values {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+}
+
+div.item_buy_currency_frame {
+    position: relative;
+    height: 1.0em;
+    width: 1.0em;
+    scale: 1.5;
+    background-size: 100% 100%;
+}
+
+div.currency_icon {
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    bottom: auto;
+    right: auto;
+    height: 96%;
+    width: 96%;
+    border-radius: 9%;
+    background-size: 100%;
+    margin: 0;
+    background-image: url("/client/assets/images/textures/gui/items/icon_nyi.png");
+    transform: translate3d(-50%, -50%, 0);
+}
+
+
+
+div.label_item_level {
+    margin: 0;
+    padding: 0;
+    color: #c9c9c9;
+    position:absolute;
+    bottom: 1%;
+    left: 5%;
+
+    text-shadow: 0.12em 0.12em 0 #000,
+    -0.12em -0.12em 0 #000,
+    0.12em -0.12em 0 #000,
+    -0.12em 0.12em 0 #000,
+    0 0.12em 0 #000,
+    0.12em 0 0 #000,
+    0 -0.12em 0 #000,
+    -0.12em 0 0 #000;
+
+}
+
+div.label_item_level p {
+    color: inherit;
+    text-shadow: inherit;
+    margin: 0;
+    padding: 0;
+    font-size: 1.3em;
+    position:absolute;
+    bottom: 0;
+    left: 0;
+}
+div.label_item_level h2 {
+    color: #66d9ff;
+    text-shadow: inherit;
+    margin: 0;
+    padding: 0;
+    font-size: 1.3em;
+    position:absolute;
+    bottom: 0;
+    left: 2.6em;
+}
+
+div.item_card_panel {
+    pointer-events: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    top: 0;
+    left: 0;
+    right: auto;
+    width: 100%;
+    bottom: 0;
+    min-height: 9em;
+    font-size: 1.4em;
+    border-radius: 0.5em;
+    position: absolute;
+    margin:0;
+    padding: 0;
+    text-align: center;
+    background-image: inherit;
+    background-size: 100%;
+    background-color: none;
+    opacity: 100;
+    color: black;
+    background: radial-gradient(circle, rgb(121, 121, 121) 0%, rgb(47, 47, 47) 99%);
+    border: 0.3em solid;
+    border-color: rgb(255, 255, 255);
+    box-shadow: 0 0 1.5em rgba(115, 180, 250, 0.5);
+}
+
+div.item_card_panel h1 {
+    color: rgba(245, 245, 245, 0.95);
+    text-shadow: 0 0 0.5em rgba(255, 255, 255, 0.4);
+    top: 0em;
+    font-size: 1.7em;
+    position: absolute;
+    display: inline-block;
+    width: auto;
+    left: 3.7em;
+    text-align: left;
+    padding: 0;
+    padding-top: 0;
+    margin: 0;
+}
+
+div.item_card_panel p {
+    color: rgba(245, 245, 245, 0.95);
+    text-shadow: 0 0 16px rgb(255, 255, 255);
+    top: 20%;
+    font-size: 2em;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    padding-top: 0;
+    margin: 0;
+}
+
+div.icon_container {
+    top: -0.5em;
+    left: -0.5em;
+    right: auto;
+    width: 6em;
+    height: 6em;
+    font-size: 1em;
+    border-radius: 1em;
+    position: absolute;
+    margin:0;
+    padding: 0;
+    text-align: center;
+    background-image: inherit;
+    background-size: 100%;
+    background-color: none;
+    opacity: 100;
+    color: black;
+
+    background: radial-gradient(circle, rgb(121, 121, 121) 0%, rgb(47, 47, 47) 99%);
+    border: none;
+    box-shadow: 0 0 0.4em rgba(0, 0, 0, 1);
+}
+
+div.item_properties {
+    top: 2em;
+    left: 6em;
+    position: absolute;
+    color: white;
+}
+
+div.item_property {
+    top:0.3em;
+    left:0.3em;
+    height: 1.3em;
+    padding: 0.5em;
+    font-size: 0.8em;
+    position: relative;
+    color: inherit;
+    display: inline-block;
+}
+
+div.params_container {
+    top: 6em;
+    left: 0;
+    right: 0;
+    nottom: 0.1em;
+    position: absolute;
+    height: auto;
+    display: block;
+    overflow: visible;
+}
+
+div.item_param {
+    border-radius: 0.7em;
+    margin-bottom: 0.5em;
+    left: 2%;
+    width: 96%;
+    background: linear-gradient(rgba(0, 0, 0, 0.58) 0%, rgba(54, 54, 54, 0.24) 7%, rgba(0, 0, 0, 0.2) 70%, rgba(5, 5, 5, 0.4) 100%);
+    display: inline-block;
+    box-shadow: 0px 0px 0.5em rgba(255, 255, 255, 0.5);
+    text-align: left;
+}
+
+div.ingredient_backdrop {
+    background: linear-gradient(rgba(0, 0, 0, 0.68) 0%, rgba(54, 54, 54, 0.44) 7%, rgba(0, 0, 0, 0.4) 70%, rgba(5, 5, 5, 0.4) 100%);
+}
+
+div.item_param h3 {
+    font-size: 1.2em;
+    left: 0.2em;
+    right: auto;
+    top: auto;
+    bottom: 100%;
+    min-width: 78%;
+    min-height: 100%;
+    color: #ffdfb2;
+    text-shadow: 0 0 0.2em rgb(0, 0, 0);
+    padding: 0;
+    margin: 0;
+    margin-top: 0.2em;
+    padding-left: 0.3em;
+    text-align: left;
+    display: inline-block;
+}
+
+div.item_param h4 {
+    font-size: 1.0em;
+    left: 0.1em;
+    right: auto;
+    top: auto;
+    bottom: 100%;
+    width: 60%;
+    min-height: 100%;
+    color: #a3e5ff;
+    text-shadow: 0 0 0.2em rgb(0, 0, 0);
+    padding: 0;
+    margin: 0;
+    margin-top: -0.5em;
+    padding-left: 3%;
+    text-align: left;
+    display: inline-block;
+}
+div.item_param h5 {
+    font-size: 1.3em;
+    left: 4.1em;
+    right: auto;
+    top: auto;
+    bottom: 100%;
+    width: 34%;
+    min-height: 100%;
+    color: #e3ffd3;
+    text-shadow: 0 0 0.2em rgb(0, 0, 0);
+    padding: 0;
+    margin: 0;
+    margin-top: -0.5em;
+    text-align: right;
+    overflow: visible;
+    display: inline-block;
+}
+div.item_param h7 {
+    font-size: 1.2em;
+    width: 60%;
+    top:0;
+    right: 0;
+    left: auto;
+    text-shadow: 0 0 0.3em rgb(0, 0, 0);
+    padding: 0;
+    margin: 0;
+    margin-top: -0.2em;
+    padding-left: 0.2em;
+    text-align: left;
+    display: inline-block;
+}
+
+div.item_param p {
+    font-size: 1.2em;
+    width: 60%;
+    top:0;
+    right: 0;
+    left: auto;
+    color: #90f2ff;
+    text-shadow: 0 0 0.3em rgb(0, 0, 0);
+    padding: 0;
+    margin: 0;
+    margin-top: -0.2em;
+    padding-left: 0.2em;
+    text-align: left;
+    display: inline-block;
+}
+
+div.price_container {
+    height: 100%;
+    width: 24em;
+    display: inline-block;
+}
+
+div.currency_slot {
+    position: relative;
+    top: 5em;
+    left: 1em;
+    height: 3em;
+    width: 3em;
+}
+
+div.vendor_slot_info {
+    display: inline-flex;
+    width: 34em;
+    height: 9.5em;
+background-image: linear-gradient(rgba(26, 56, 56, 0.65) 1%, rgba(53, 43, 23, 0.5) 99%);
+
+    border: solid rgba(0, 0, 0, 0.5);
+    border-width: 0.3em;
+    border-radius: 1em;
+    box-shadow: 0 0 0.5em rgba(175, 220, 255, 0.5);
+    margin: 0.2em;
+}
+
+div.vendor_slot_info h2 {
+    position: relative;
+    left: 0.4em;
+    top: 0.8em;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 2em;
+    width: 12em;
+}
+
+div.vendor_slot_info h3 {
+    position: relative;
+    display: block;
+    top: 1em;
+    left: 2.7em;
+    right: auto;
+    bottom: 0.3em;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 2em;
+    width: 12em;
+}
+
+div.item_container {
+    top: auto;
+    left: auto;
+    right: auto;
+    width: 9em;
+    height: 9em;
+    font-size: 1em;
+    border-radius: 1em;
+    position: absolute;
+    margin:0;
+    padding: 0;
+    text-align: center;
+    background-image: inherit;
+    background-size: 100%;
+    background-color: none;
+    opacity: 100;
+    color: black;
+    background-image: radial-gradient(circle, rgb(66, 66, 66) 10%, rgb(33, 33, 33) 99%);
+    border: solid rgba(0, 0, 0, 0.5);
+    border-width: 0.7em;
+    box-shadow: 0 0 1.5em rgba(115, 180, 250, 0.5);
+}
+
+div.item_container p {
+    pointer-events: none;
+    color: rgba(0, 0, 0, 0.95);
+    text-shadow: 0 0 16px rgb(255, 255, 255);
+    top: 20%;
+    font-size: 2em;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+    padding-top: 20%;
+    margin: 0;
+}
+
+div.SLOT_HAND_R {
+    font-size: 1.2em;
+    top: 85%;
+    right : 24%;
+}
+
+div.SLOT_HAND_L {
+    font-size: 1.2em;
+    top: 85%;
+    left : 24%;
+}
+
+div.SLOT_HEAD {
+    top: 10%;
+    left : 2%;
+}
+
+div.SLOT_CHEST {
+    top: 22%;
+    left : 2%;
+}
+
+
+div.SLOT_BODY {
+    top: 34%;
+    left : 2%;
+}
+
+div.SLOT_WAIST {
+    top:46%;
+    left : 2%;
+}
+
+div.SLOT_WRIST {
+    top: 58%;
+    left: 2%;
+}
+
+div.SLOT_HANDS {
+    top: 70%;
+    left : 2%;
+}
+
+div.SLOT_WRIST_L {
+    font-size: 0.8em;
+    top:72%;
+    right : 1%;
+}
+
+div.SLOT_WRIST_R {
+    font-size: 0.8em;
+    top: 72%;
+    right : 19%;
+}
+
+
+div.SLOT_NECK {
+    top: 10%;
+    right : 2%;
+}
+
+div.SLOT_BACK {
+    top: 22%;
+    right : 2%;
+}
+
+div.SLOT_SKIRT {
+    top: 34%;
+    right : 2%;
+}
+
+div.SLOT_LEGS {
+    top: 46%;
+    right : 2%;
+}
+
+div.SLOT_FEET {
+    top: 58%;
+    right : 2%;
+}
+
+
+
+
+

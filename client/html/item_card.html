@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="css/character.css">
+<link rel="stylesheet" type="text/css" href="css/items.css">
+<link rel="stylesheet" type="text/css" href="css/item_icons.css" />
+<link rel="stylesheet" type="text/css" href="css/gui.css">
+<link rel="stylesheet" type="text/css" href="css/base.css">
+
+
+<body id="container" class="item_card_container">
+
+<div id="item_card_panel" class="item_card_panel">
+    <div id="anchor_close" class="anchor_close anchor_inner_corner"></div>
+    <h1 id="NAME">NAME</h1>
+    <div id="icon_container" class="icon_container">
+        <div id="backplate" class="item_backplate">
+            <div id="item_icon"  class="item_icon"></div>
+        </div>
+        <div id="container_item_rank" class="container_item_rank"></div>
+
+    </div>
+    <div class="item_properties">
+        <div id="ITEM_TYPE"  class="item_property">ITEM_TYPE</div>
+        <div id="RARITY"     class="item_property">RARITY</div>
+        <div id="ITEM_LEVEL" class="item_property">ITEM_LEVEL</div>
+        <div id="QUALITY"    class="item_property">QUALITY</div>
+        <div id="SLOT_ID"    class="item_property">SLOT_ID</div>
+    </div>
+
+    <div class="params_container">
+        <div  id="param_TEXT" class="item_card_text">
+            <p id="TEXT"></p>
+        </div>
+        <div id="param_EQUIPPED_SLOT" class="item_param">
+            <h3>EQUIPPED_SLOT:</h3>
+            <p id="EQUIPPED_SLOT">x</p>
+        </div>
+        <div id="param_MODIFIERS" class="item_param">
+            <h3>MODIFIERS:</h3>
+            <p id="MODIFIERS">x</p>
+        </div>
+        <div id="param_PALETTE_VALUES" class="item_param">
+            <h3>PALETTE_VALUES:</h3>
+            <p id="PALETTE_VALUES">x</p>
+            <div id="palette_edit" class="edit_button">EDIT</div>
+        </div>
+        <div id="param_RANK" class="item_param">
+            <h3>RANK:</h3>
+            <p id="item_rank_echelon">x</p>
+            <div id="rank_up" class="edit_button">RANK</div>
+        </div>
+        <div id="param_POTENCY" class="item_param">
+            <h3>POTENCY:</h3>
+            <p id="item_potency_echelon">x</p>
+            <div id="empower" class="edit_button">POW</div>
+        </div>
+        <div id="param_INGREDIENTS" class="item_param ingredient_backdrop">
+            <h3>INGREDIENTS:</h3>
+            <div id="container_ingredients" class="container_ingredients"></div>
+        </div>
+        <div id="param_CRAFT" class="item_param">
+            <h3>CRAFTING COST:</h3>
+            <p id="item_recipe_cost">cost</p>
+            <div id="button_craft" class="edit_button">CRAFT</div>
+        </div>
+        <div id="param_BUILD" class="item_param">
+            <h3>BUILD:</h3>
+            <p id="item_deed_build">Select Location</p>
+            <div id="button_build" class="edit_button">BUILD</div>
+        </div>
+        <div id="param_AQUIRE" class="item_param">
+            <h3>VISIT:</h3>
+            <p id="item_aquire">coords</p>
+            <div id="button_aquire" class="edit_button">AQUIRE</div>
+        </div>
+        <div id="param_DEMOLISH" class="item_param">
+            <h3>DEMOLISH:</h3>
+            <p id="item_deed_demolish">edit_id</p>
+            <div id="button_demolish" class="edit_button">RAZE</div>
+        </div>
+        <div id="param_TRAVEL" class="item_param">
+            <h3>TRAVEL:</h3>
+            <p id="item_travel">Teleport</p>
+            <div id="button_travel" class="edit_button">GO</div>
+        </div>
+
+        <div id="param_STASH" class="item_param">
+            <h3>STASH:</h3>
+            <p id="item_stash">Stash Switch</p>
+            <div id="button_stash" class="edit_button">SWITCH</div>
+        </div>
+        <div id="param_BUY" class="item_param">
+            <div id="button_buy"  class="item_buy_button">
+                <h6>BUY</h6>
+                <div class="pricing_values">
+                    <div id="currency_frame" class="item_buy_currency_frame">
+                        <div id="currency_icon" class="currency_icon"></div>
+                    </div>
+                    <h7 id="vendor_buy_price">price</h7>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="TEMPLATE"  class="item_type">TEMPLATE</div>
+    <div id="ITEM_ID"   class="item_id">ID</div>
+    <div id="container_item_potency" class="container_item_potency potency_itemcard"></div>
+   </div>
+</body>
+
+

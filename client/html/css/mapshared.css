@@ -1,0 +1,211 @@
+@font-face {
+    font-family: 'Russo One';
+    src: url('fonts/RussoOne-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Berlin Sans Demi';
+    src: url('fonts/BRLNSDB.TTF');
+}
+
+@font-face {
+    font-family: 'Berlin Sans Bold';
+    src: url('fonts/BRLNSB.TTF');
+}
+span {
+    display:block;
+    left:0em;
+    right:0em;
+}
+
+div.point {
+    position: absolute;
+}
+
+body {
+    cursor:none;
+    touch-action: none;
+    pointer-events: none;
+    font-family: 'Russo One';
+    font-weight: 400;
+    position: absolute;
+    user-select:none;
+    background: none;
+}
+
+body.minimap_container {
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+
+div.zoom_in {
+    background-image: url("/client/assets/images/textures/gui/button/plus.png");
+}
+div.zoom_out {
+    background-image: url("/client/assets/images/textures/gui/button/minus.png");
+}
+
+h3 {
+    top: -1.23em;
+    left: 0.02em;
+    width: 100%;
+    height: 100%;
+    font-size: 1.3em;
+    text-align: center;
+    position: absolute;
+    color: #2c2c2c;
+    text-shadow: 0px 0px 5px rgb(255, 255, 255);
+}
+
+div.level_20 {
+    background-image: url("/client/assets/images/textures/worldmap_w01_20.png");
+    background-color: rgb(66, 71, 98);
+}
+div.level_19 {
+    background-image: url("/client/assets/images/textures/worldmap_w01_19.png");
+}
+div.level_13 {
+    background-image: url("/client/assets/images/textures/worldmap_w01_13.png");
+}
+div.level_12 {
+background-image: url("/client/assets/images/textures/worldmap_w01_12.png");
+}
+div.level_11 {
+background-image: url("/client/assets/images/textures/worldmap_w01_11.png");
+}
+div.level_10 {
+background-image: url("/client/assets/images/textures/worldmap_w01_10.png");
+}
+div.level_09 {
+background-image: url("/client/assets/images/textures/worldmap_w01_09.png");
+}
+div.level_08 {
+background-image: url("/client/assets/images/textures/worldmap_w01_08.png");
+}
+div.level_07 {
+background-image: url("/client/assets/images/textures/worldmap_w01_07.png");
+}
+div.level_06 {
+background-image: url("/client/assets/images/textures/worldmap_w01_06.png");
+}
+div.level_05 {
+background-image: url("/client/assets/images/textures/worldmap_w01_05.png");
+}
+div.level_04 {
+background-image: url("/client/assets/images/textures/worldmap_w01_04.png");
+}
+div.level_03 {
+background-image: url("/client/assets/images/textures/worldmap_w01_03.png");
+}
+div.level_02 {
+background-image: url("/client/assets/images/textures/worldmap_w01_02.png");
+}
+div.level_01 {
+background-image: url("/client/assets/images/textures/worldmap_w01_01.png");
+}
+
+div.indicator_path {
+position: absolute;
+top: 50%;
+left: 50%;
+margin: 0;
+width: 0.15em;
+height: 0.15em;
+background-color: rgba(235, 255, 255, 1);
+border-style: solid;
+border-color: rgba(25, 195, 255, 1);
+border-width: 0.08em;
+border-radius: 50%;
+display: inline-block;
+padding: 0;
+box-shadow: 0 0 0.5em rgba(185, 255, 255, 1);
+}
+
+div.indicator_tile {
+position: absolute;
+top: 50%;
+left: 50%;
+bottom: auto;
+right: auto;
+margin: 0;
+width: 0;
+height: 0;
+background-color: rgba(0, 0, 0, 0.25);
+border-color: rgba(55, 255, 255, 0.5);
+border-style: solid;
+border-width: 0.12em;
+border-radius: 0;
+display: inline-block;
+padding: 0;
+box-shadow: 0 0 0.14em rgba(55, 255, 255, 0.75);
+transform: translate(-50%, -50%)
+}
+
+div.center {
+    pointer-events: none;
+position: absolute;
+top: 50%;
+right: 50%;
+width: 0;
+height: 0;
+}
+
+div.heading {
+    pointer-events: none;
+position: absolute;
+top: 50%;
+right: 50%;
+margin: 0;
+width: 0;
+height: 0;
+padding: 0.35em;
+border: solid;
+background-color: rgba(0, 0, 0, 0.75);
+border-width: 0 0.5em 0.5em 0;
+border-radius:  50%  50% 0 50%;
+display: block;
+box-shadow: 0 0 2px rgba(5, 0, 0, 0.75);
+}
+
+div.actor {
+pointer-events: none;
+    position: absolute;
+top: 50%;
+right: 50%;
+margin: 0;
+width: 0;
+height: 0;
+padding: 0.35em;
+border: solid;
+background-color: rgba(0, 0, 0, 0.75);
+border-width: 0 0.5em 0.5em 0;
+border-radius:  50%  50% 0 50%;
+display: block;
+box-shadow: 0 0 2px rgba(5, 0, 0, 0.75);
+}
+
+div.actor p {
+pointer-events: none;
+position: absolute;
+top: auto;
+left: auto;
+font-size: 1.2em;
+bottom:0;
+right:0;
+margin: 0;
+width: auto;
+min-width: 5em;
+height: auto;
+padding: 0.12em;
+border: solid;
+border-width: 0.1em;
+border-radius:  15%;
+color: #edff00;
+display: inline-block;
+transform-origin: center;
+transform: translate3d(0, -0.1em, 0);
+rotate: revert;
+}

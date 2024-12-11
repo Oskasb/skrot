@@ -1,0 +1,562 @@
+@font-face {
+    font-family: 'Russo One';
+    src: url('fonts/RussoOne-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Berlin Sans Demi';
+    src: url('fonts/BRLNSDB.TTF');
+}
+
+@font-face {
+    font-family: 'Berlin Sans Bold';
+    src: url('fonts/BRLNSB.TTF');
+}
+
+span {
+    display:block;
+    left:0em;
+    right:0em;
+}
+
+
+div.point {
+    position: absolute;
+}
+
+.button {
+    z-index: 1000;
+    font-size: 20em;
+    min-width: 1em;
+    height: 1em;
+    margin-bottom: 0.1em;
+    width: 2.2em;
+    padding: 0;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    color: #ffe6bf;
+    position: absolute;
+    border-radius: 0.4em;
+    border: 0.2em solid #f1a535;
+    background-color: rgba(108, 71, 0, 0.5);
+    overflow: hidden;
+}
+
+.button_encounter_edit {
+    color: #f693ae;
+    border: 0.1em solid #ff0c26;
+    background-color: rgba(101, 0, 0, 0.5);
+}
+
+.general_map {
+    background-image: url("/client/assets/images/textures/generalmap_w01.png"), linear-gradient(rgba(187, 162, 97, 1) 0, rgba(140, 83, 45, 1) 40%, rgba(42, 34, 10, 1) 99%);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 90%;
+}
+
+iframe.layer_button {
+    z-index: 1000;
+    font-size: 20em;
+    min-width: 1em;
+    height: 1.4em;
+    margin-bottom: 0.1em;
+    width: 3.2em;
+    padding: 0;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    color: #ffe6bf;
+    position: absolute;
+    border-radius: 0.4em;
+    border: 0.2em solid #f1a535;
+    background-color: rgba(108, 71, 0, 0.5);
+    overflow: hidden;
+}
+
+canvas {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: 'Russo One';
+    font-weight: 400;
+    position: fixed;
+    background-color: #e1e1e1;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    perspective: 400em;
+    perspective-origin: 50% 50%;
+}
+
+
+div.canvas_window {
+    top: 0em;
+    left: 0em;
+    right: 0em;
+    bottom: 0em;
+    position: fixed;
+    display: block;
+    transform: translate3d(0px, 0px, 0px);
+}
+
+iframe.chat_frame {
+    pointer-events:none;
+    z-index: 90;
+    top: 90em;
+    left: 20em;
+    width: 550em;
+    height: 200em;
+    position: absolute;
+    border: none;
+    color: #ecffdc;
+    background: none;
+    transform-origin: bottom;
+}
+
+iframe.chat_frame_input {
+    z-index: 100;
+    top: 300em;
+    left: 20em;
+    width: 550em;
+    height: 50em;
+    position: absolute;
+    border: none;
+    color: #ecffdc;
+    background: none;
+    transform-origin: top;
+}
+
+iframe.edit_frame {
+    z-index: 100000;
+    top: 0;
+    left: 0;
+    width: 205em;
+    height: 120em;
+    position: absolute;
+    border: none;
+    color: #ecffdc;
+    background: none;
+}
+
+iframe.edit_frame_taller {
+    height: 250em;
+}
+
+iframe.edit_assets {
+    left: 210em;
+    height: 120em;
+}
+
+
+iframe.edit_actor {
+    left: 220em;
+    top: 130em;
+    height: 120em;
+}
+
+iframe.edit_env {
+    left: 20em;
+    top: 130em;
+    height: 250em;
+}
+
+iframe.edit_terrain {
+    left: 20em;
+    top: 130em;
+    height: 380em;
+}
+
+iframe.edit_location {
+    left: 20em;
+    top: 130em;
+}
+
+iframe.edit_grid {
+    left: 20em;
+    top: 250em;
+}
+
+iframe.edit_add {
+    left: 20em;
+    top: 250em;
+    height: 150em;
+}
+
+iframe.edit_create {
+    left: 20em;
+    top: 250em;
+    height: 350em;
+}
+
+iframe.edit_template {
+    left: auto;
+    right: 50em;
+    top: 250em;
+    height: 350em;
+}
+
+iframe.edit_attach {
+    left: auto;
+    right:20em;
+    top: 310em;
+    height: 350em;
+}
+
+iframe.edit_config {
+    left: 10em;
+    top: 250em;
+    height:550em;
+    background: #2c2c2c;
+    overflow: auto;
+}
+
+iframe.edit_equipment {
+    left: 10em;
+    top: 250em;
+    width: 350em;
+    height:550em;
+    background: #2c2c2c;
+    overflow: auto;
+}
+
+
+
+iframe.edit_values {
+    left: 220em;
+    top: 280em;
+    height: 250em;
+    background: #2c2c2c;
+}
+
+iframe.edit_string {
+    left: 50%;
+    width: 100%;
+    top: 50%;
+    height: 100%;
+    transform: rotate3d(0, 0, 0, 1rad) translate3d(-50%, -50%, 0px);
+    transform-origin: center;
+    background-color: rgba(0, 40, 65, 0.56);
+}
+
+iframe.edit_spawns {
+    left: 20em;
+    top: 250em;
+    height: 350em;
+}
+
+iframe.tool_selector {
+    left: 20em;
+    top: 130em;
+    height: 170em;
+}
+
+iframe.bar_right {
+    z-index: 100000;
+    top: auto;
+    bottom: 250em;
+    right: 10em;
+    left: auto;
+    width: 135em;
+    height: 400em;
+    position: absolute;
+    border: none;
+    color: #ecffdc;
+}
+
+iframe.bar_wallet {
+    z-index: 1;
+    pointer-events: none;
+    top: 5em;
+    bottom: 302em;
+    right: auto;
+    left: 5em;
+    width: 600em;
+    height: 150em;
+    position: absolute;
+    border: none;
+    color: #ecffdc;
+}
+
+iframe.party {
+    z-index: 1;
+    bottom: 302em;
+    left: 5em;
+    width: 120em;
+    height: 400em;
+    position: absolute;
+    color: #ecffdc;
+    background-color: rgba(181, 198, 255, 0.34);
+    border: 1px solid grey;
+}
+
+iframe.bottom_bar {
+    z-index: 200;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 80em;
+    position: absolute;
+    color: #ecffdc;
+    background-color: rgba(181, 198, 255, 0.34);
+    border: 1px solid grey;
+}
+
+iframe.nav_bar {
+    z-index: 200;
+    bottom: 80em;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 60em;
+    position: absolute;
+    color: #ecffdc;
+    background-color: rgba(181, 198, 255, 0.34);
+}
+
+iframe.palette_frame {
+    z-index: 100000;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    border: none;
+    color: #ecffdc;
+}
+
+iframe.settings_frame {
+    top: 0;
+    left: 0;
+    width: 430em;
+    height: inherit;
+    position: absolute;
+    border: none;
+    z-index: 100;
+    color: #ecffdc;
+}
+
+iframe.full_screen {
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    border: none;
+    z-index: 100;
+    color: #ecffdc;
+}
+
+iframe.hud_battle_details {
+    pointer-events: none;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 350em;
+    position: absolute;
+    border: none;
+    z-index: 5;
+}
+
+iframe.world_map {
+    top: 10em;
+    left: 10em;
+    width: 820em;
+    height: 800em;
+    position: absolute;
+    border: 4em solid rgba(255, 244, 219, 0.5);
+    border-radius: 24em;
+    z-index: 100;
+    color: #ecffdc;
+    background: linear-gradient(rgba(187, 102, 17, 0.5) 0, rgba(110, 63, 5, 0.5) 8em, rgba(52, 34, 0, 0.5) 99%);
+    box-shadow: 0px 0px 12em rgba(5, 0, 0, 0.95);
+
+}
+
+iframe.inventory {
+    z-index: 200;
+    top: 50%;
+    right: 50%;
+    width: 195em;
+    height: 650em;
+    position: absolute;
+    color: #ecffdc;
+    border: none;
+    background-color: #f0f8ff00;
+}
+
+iframe.inventory_vendor {
+    z-index: 200;
+    top: 41%;
+    right: 10%;
+    width: 350em;
+    height: 650em;
+    position: absolute;
+    color: #ecffdc;
+    border: none;
+    background-color: #f0f8ff00;
+}
+
+iframe.stash {
+    z-index: 200;
+    top: 90em;
+    left: 50%;
+    width: 880em;
+    height: 650em;
+    position: absolute;
+    color: #ecffdc;
+    border: none;
+    background-color: #f0f8ff00;
+}
+
+
+iframe.node_edit {
+    bottom: 0;
+    left: 50%;
+    width: 15em;
+    height:15em;
+    position: absolute;
+    border-radius: 3em;
+    z-index: 2000;
+    border: none;
+    box-shadow: none;
+    transform: translate3d(-50%, -50%, 0);
+    background-color: #f0f8ff;
+}
+
+iframe.edit_cursor {
+    bottom: 0;
+    left: 50%;
+    width: 150em;
+    height:150em;
+    position: absolute;
+    z-index: 10000000;
+    background: none;
+    border: 1em solid #5ce6ff;
+    border-radius: 50%  10%  50%  50%;
+    transform: translate3d(-50%, -50%, 0);
+    box-shadow: 0px 0px 11em rgba(62, 255, 242, 0.7);
+}
+
+iframe.item {
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    position: absolute;
+    border-radius: 10%;
+    z-index: 1000;
+    background: none;
+    border: none;
+    box-shadow: none;
+    transform: translate3d(-50%, -50%, 0);
+}
+
+
+iframe.item_card {
+    bottom: 0;
+    top:auto;
+    margin: 0;
+    padding: 5em;
+    left: 50%;
+    width: 410em;
+    height: auto;
+    min-height: 400em;
+    position: absolute;
+    border-radius: 10em;
+    z-index: 2000;
+    border: none;
+}
+
+iframe.interact_page {
+    top: 12%;
+    right: 52%;
+    height: 600em;
+    width: 340em;
+    border: 0;
+    position: fixed;
+    transform: scale3d(0, 0, 0);
+    background: none;
+}
+
+iframe.party_page {
+    top: 44%;
+    left: 8%;
+    height: 320em;
+    width: 240em;
+    border: 0;
+    position: fixed;
+    transform: scale3d(0, 0, 0);
+    background: none;
+}
+
+iframe.loot_notice {
+    z-index: 9999999;
+    opacity: 1;
+    top: 15%;
+    right: 52%;
+    height: auto;
+    width: 260em;
+    border: 0;
+    position: fixed;
+    transform: scale3d(0, 0, 0);
+    background: none;
+}
+
+iframe.adventure_note {
+    top: 150em;
+    right: 30em;
+    height: 60em;
+    width: 220em;
+    border: 0;
+    position: fixed;
+    background: none;
+}
+
+iframe.encounter_status {
+    z-index: 100;
+    top: 3em;
+    right: 3em;
+    height: 40em;
+    width: 140em;
+    border: 0;
+    position: fixed;
+    transform: translate3d(0px, 0px, 0px);
+    background: none;
+}
+
+iframe.minimap {
+    top: 32em;
+    right: 30em;
+    width: 240em;
+    height: 240em;
+    position: absolute;
+    color: #ecffdc;
+    border: none;
+    background-color: #f0f8ff00;
+}
+
+div.canvas_window_landscape {
+    top: 0em;
+    left: 0em;
+    right: 0em;
+    bottom: 0em;
+    position: absolute;
+}
+
+div.canvas_window_portrait {
+    top: 0em;
+    left: 0em;
+    right: 0em;
+    bottom: 0em;
+    position: absolute;
+}
+

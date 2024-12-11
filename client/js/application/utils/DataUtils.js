@@ -40,7 +40,7 @@ function initPipelineAPI(pipeReadyCB) {
 }
 
 function loadEditIndex(url, callback) {
-    console.log("loadEditIndex", pipelineAPI, url, callback)
+  //  console.log("loadEditIndex", pipelineAPI, url, callback)
 
     const dataPipelineOptions = {
         "jsonRegUrl":url,

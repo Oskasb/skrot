@@ -7,7 +7,12 @@ class GameDataPipeline {
 
 		constructor(pipeReady, pipeMsgCB) {
 			this.jsonPipe = new JsonPipe(pipeReady, pipeMsgCB);
-            this.imagePipe = new ImagePipe(pipeReady, pipeMsgCB);
+
+            function imgPipeRdy(x, y) {
+                console.log("Img pipe ready", x, y)
+            }
+
+            this.imagePipe = new ImagePipe(imgPipeRdy, pipeMsgCB);
 		}
 
 		loadConfigFromUrl = function(url, dataUpdated, fail) {

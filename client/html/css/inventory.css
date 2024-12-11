@@ -1,0 +1,334 @@
+div.stash_page {
+    top: 2%;
+    left: 2%;
+    right: auto;
+    border: 0;
+    position: fixed;
+    width: 93%;
+    height: 90%;
+    transform: translate3d(0px, 0px, 0px);
+    color: azure;
+    background: radial-gradient(circle, rgb(0, 126, 154) 50%, rgb(0, 81, 110) 99%);
+    border-radius: 2em;
+    border-width: 0.4em;
+    border-style: solid;
+    border-color: #00c4ff;
+    box-shadow: 0px 0px 0.3em rgb(0, 20, 28);
+
+}
+
+div.inventory_container {
+    z-index: 200;
+    font-size: 1em;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    width: auto;
+    padding: 0;
+    margin: 0.2em;
+    margin-right: -0.2em;
+    position: absolute;
+    border: solid #232323;
+    transition-property: transform;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.0) 50%, rgba(0, 126, 188, 0.52) 99%);
+    box-shadow: 0px 0px 4em rgba(0, 0, 0, 1);
+}
+
+div.inventory_container h1 {
+    margin: 0;
+    margin-left: 1.8em;
+    padding: 0.5em;
+    color: white;
+    font-size: 2.6em;
+}
+
+div.inventory_slots_container {
+
+}
+
+div.inv_slot {
+    margin: 0.15em;
+    width: 7.8em;
+    height: 7.8em;
+    position: relative;
+    display: inline-block;
+}
+
+div.stash_container {
+    position: absolute;
+    z-index: 200;
+    font-size: 1em;
+    top: 5em;
+    left: 15em;
+    right: 7em;
+    height: auto;
+    width: auto;
+    padding: 0;
+    margin: 0.2em;
+    margin-right: -1em;
+    border-radius: 1em;
+    transition-property: transform;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: space-evenly;
+}
+
+div.stash_container h1 {
+    margin: 0;
+
+    margin-left: 1.8em;
+    padding: 0.5em;
+    color: white;
+    font-size: 2.6em;
+}
+
+div.stash_header {
+    position: absolute;
+    left: 9em;
+    top: 0.4em;
+}
+
+div.stash_header h1 {
+    margin:0;
+    padding: 0;
+    font-size: 4em;
+}
+
+div.stash_header h2 {
+    position:absolute;
+    width: 6.5em;
+    top: 0.07em;
+    left: 15em;
+    right: 5em;
+    margin:0;
+
+    padding: 0;
+    padding-top: 0.2em;
+    font-size: 2.5em;
+    border-radius: 0.3em;
+    text-align: center;
+    border: solid #000c36;
+    border-width: 0.2em;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.1) 20%, rgba(0, 0, 0, 1) 90%);
+    box-shadow: 0px 0px 2em rgb(117, 215, 255);
+}
+
+div.stash_slot {
+    margin: 0.15em;
+    width: 10.6em;
+    height: 10.6em;
+    position: relative;
+    display: inline-block;
+}
+
+div.stash_close {
+    border: inherit;
+    box-shadow:inherit;
+    position: absolute;
+    font-size: 2.5em;
+    top: 0.8em;
+    right: 0.4em;
+}
+
+div.stash_tab_button {
+    left: -0.6em;
+    width: 5em;
+    height: 1.2em;
+    border-radius: 0.6em;
+    border: #bebebe;
+    border-style: solid;
+    border-width: 0.14em;
+    position: absolute;
+    background-size: 100%;
+    box-shadow: 0 0 0.2em rgba(5, 0, 0, 0.5);
+    margin:0;
+    padding-top: 0.1em;
+    padding-left: 0.4em;
+    font-size: 2.8em;
+    text-align: left;
+    color: rgba(0, 0, 0, 0.8);
+    text-shadow: 0 0 0.7em rgb(255, 255, 255);
+}
+
+div.stash_tab_button h2 {
+    color: #ffefce;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    bottom:auto;
+    left: auto;
+    right: 0.2em;
+    top: 1.2em;
+    font-size: 0.7em;
+    text-align: left;
+    text-shadow: 0.1em 0.1em 0.4em rgb(0, 0, 0);
+    background-size: 100% 25%;
+}
+
+div.button_items {
+    background: radial-gradient(circle, rgb(2, 195, 255) 0%, rgb(0, 128, 255) 47%, rgb(0, 65, 231) 83%, rgb(0, 0, 217) 99%);
+    top: 20%;
+}
+div.button_materials {
+    background: radial-gradient(circle, rgb(160, 255, 87) 0%, rgb(115, 255, 45) 47%, rgb(12, 197, 0) 83%, rgb(0, 150, 2) 99%);
+    top: 30%;
+}
+
+div.button_currencies {
+    background: radial-gradient(circle, rgb(255, 231, 78) 0%, rgb(255, 224, 69) 42%, rgb(255, 166, 0) 83%, rgb(182, 109, 0) 99%);
+    top: 40%;
+}
+
+div.button_lore {
+    background: radial-gradient(circle, rgb(255, 46, 227) 0%, rgba(255,45,215,1) 47%, rgb(213, 0, 123) 83%, rgb(141, 0, 60) 99%);
+    top: 50%;
+}
+
+div.button_craft {
+    background: radial-gradient(circle, rgb(0, 227, 208) 0%, rgb(0, 163, 185) 47%, rgb(0, 114, 124) 83%, rgb(0, 85, 112) 99%);
+    top: 60%;
+}
+
+div.button_housing {
+    background: radial-gradient(circle, rgb(255, 209, 163) 0%, rgb(255, 153, 69) 42%, rgb(169, 77, 1) 83%, rgb(55, 28, 0) 99%);
+    top: 70%;
+}
+
+div.button_cheat {
+    background: radial-gradient(circle, rgb(255, 89, 0) 0%, rgb(229, 33, 0) 47%, rgb(227, 0, 0) 83%, rgb(173, 0, 0) 99%);
+    top: 90%;
+}
+
+div.vendor_pagination_container {
+    position: absolute;
+    top: auto;
+    bottom: -8em;
+    height: 6em;
+    right: 15em;
+    width: 20em;
+    background: inherit;
+    border: inherit;
+    border-radius: 3em;
+    box-shadow: inherit;
+}
+
+div.stash_pagination_container {
+    position: absolute;
+    top:auto;
+    bottom: -3em;
+    height: 6em;
+    right:5em;
+    width: 20em;
+    background: inherit;
+    border:inherit;
+    border-radius: 3em;
+    box-shadow: inherit;
+}
+
+div.stash_content_shading {
+    border: solid #000c36;
+    border-width: 0.2em;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.1) 20%, rgba(0, 0, 0, 1) 90%);
+    box-shadow: 0px 0px 2em rgb(117, 215, 255);
+}
+
+div.page_value_container {
+    position: absolute;
+    top:1.8em;
+    bottom: 0.4em;
+    left: 6em;
+    right:6em;
+    border-radius: 1em;
+    text-align: center;
+}
+
+div.page_value_container h1 {
+    position: absolute;
+    text-align: center;
+    left:0;
+    right:0;
+    top:-1.4em;
+    margin:0;
+    padding: 0;
+}
+
+div.page_value_container h2 {
+    font-size: 2.4em;
+    position: absolute;
+    text-align: center;
+    left:0.3em;
+    right:auto;
+    top:0.2em;
+    margin:0;
+    padding: 0;
+}
+
+div.page_value_container h3 {
+    font-size: 2.4em;
+    position: absolute;
+    text-align: center;
+    left:auto;
+    right:0.3em;
+    top:0.2em;
+    margin:0;
+    padding: 0;
+}
+
+div.page_value_container h4 {
+    font-size: 2.4em;
+    position: absolute;
+    text-align: center;
+    left:50%;
+    right:auto;
+    top:0.2em;
+    margin:0;
+    padding: 0;
+    transform: translateX(-50%);
+}
+
+div.pagination_button {
+    z-index: 100;
+    top: 0.5em;
+    right: auto;
+    left: auto;
+    width: 4.5em;
+    height: 4.5em;
+    border-radius: 50%;
+    border: #bebebe;
+    border-style: solid;
+    border-width: 0.1em;
+    position: absolute;
+
+    background-size: 100%;
+    box-shadow: 0 0px 0px 2px rgba(5, 0, 0, 0.5);
+    text-align: center;
+}
+
+div.pagination_button p {
+    color: inherit;
+    position: absolute;
+    top: -0.2em;
+    left: 0.2em;
+    margin:0;
+    padding: 0;
+    font-size: 5em;
+    text-shadow: inherit;
+}
+
+div.stash_page_back {
+    background-color: #ff319e;
+    color: #2d0020;
+    background: radial-gradient(circle, rgb(216, 47, 255) 0%, rgb(255, 0, 203) 47%, rgb(91, 0, 31) 83%, rgb(31, 1, 0) 99%);
+    left: 0.5em;
+    text-shadow: 0 0 0.8em rgb(255, 201, 248);
+}
+
+div.stash_page_forward {
+    background-color: #35ff5d;
+    color: #033800;
+    background: radial-gradient(circle, rgb(90, 255, 0) 0%, rgb(67, 199, 0) 47%, rgb(30, 84, 0) 83%, rgb(2, 17, 0) 99%);
+    right:0.5em;
+    text-shadow: 0 0 0.8em rgb(220, 255, 214);
+}
