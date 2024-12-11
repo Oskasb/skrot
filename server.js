@@ -127,6 +127,8 @@ server.readdir = readdir;
 
 let wss = new WebSocketServer({server: server});
 
+serverMain.indexContentData(server);
+
 serverMain.initServerConnection(wss, server);
 
 console.log('Server running at port: '+port);

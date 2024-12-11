@@ -1,0 +1,721 @@
+[{
+  "PHYSICS":{
+    "ASSET_SHAPES":[
+      {
+        "id":"default",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [1, 1, 1], "asset": null, "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_box",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_box_dynamic",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "box_dyn", "convex": false, "mass": 10, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_bed",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0], "pos": [0, 0.25, 0], "scale": [90, 50, 180], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_chair",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0], "pos": [0, 0.25, 0], "scale": [50, 50, 50], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_table",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0], "pos": [0, 0.45, 0], "scale": [80, 90, 120], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_table_2",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0], "pos": [0, 0.45, 0], "scale": [90, 90, 190], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_table_3",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0], "pos": [0, 0.45, 0], "scale": [90, 90, 290], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_table_4",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0], "pos": [0, 0.45, 0], "scale": [98, 90, 390], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_ship_pirate",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0], "pos": [0, 15, 0], "scale": [1200, 5000, 6000], "asset": "box", "convex": true, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_cottage",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_cottage_hull_1", "convex": true, "mass": 0, "friction": 2.9},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_cottage_hull_2", "convex": true, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_house_small",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_house_small", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_house_t",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_house_t", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_town_house",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_town_house", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_castle_floor_10",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [1000, 50, 1000], "asset": "box", "convex": true, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_castle_pillar",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_castle_pillar_hull", "convex": true, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, 0], "scale": [125, 420, 125], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_castle_wall_10",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, -0.1, 0], "scale": [50, 104, 100], "asset": "asset_castle_wall_10_hull", "convex": true, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, 0], "scale": [50, 500, 10], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_castle_wall_10_windows",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, -0.1, 0], "scale": [50, 104, 100], "asset": "asset_castle_wall_10_hull", "convex": true, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, 0], "scale": [50, 500, 10], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_castle_wall_10_door",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [50, 100, 100], "asset": "asset_castle_wall_10_door_hull_1", "convex": true, "mass": 0, "friction": 2.9},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [50, 100, 100], "asset": "asset_castle_wall_10_door_hull_2", "convex": true, "mass": 0, "friction": 2.9},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [50, 100, 100], "asset": "asset_castle_wall_10_door_hull_3", "convex": true, "mass": 0, "friction": 2.9},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [50, 100, 100], "asset": "asset_castle_wall_10_door_hull_4", "convex": true, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+      {
+        "id":"asset_file_cavern_entrance",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0, 0], "scale": [125, 20, 125], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+      {
+        "id":"asset_floor_2_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, -0.2, 0], "scale": [200, 50, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wall_1_logs",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0, -0.4], "scale": [20, 400, 110], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0, -0.4], "scale": [40, 120, 120], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wall_1_planks",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0, -0.45], "scale": [20, 300, 140], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0, -0.45], "scale": [40, 120, 140], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wall_2_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, 0], "scale": [80, 400, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wall_2_door_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0, 0], "scale": [80, 20, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 3.7, 0], "scale": [80, 60, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, -0.9], "scale": [80, 400, 20], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, 0.9], "scale": [80, 400, 20], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wall_2_window_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, 0], "scale": [80, 400, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_stairs_2_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0.75, 0.25, 0], "scale": [100, 50, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0.25 , 0.5,  0], "scale": [100, 100, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [-0.25, 0.75, 0], "scale": [100, 150, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [-0.75 , 1.0,  0], "scale": [100, 200, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_fence_2_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0.7, 0], "scale": [80, 140, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+
+      {
+        "id":"asset_floor_3_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, -0.2, 0], "scale": [310, 50, 310], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+      {
+        "id":"asset_wall_3_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, 0], "scale": [80, 400, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wall_3_door_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0, 0], "scale": [120, 20, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 3.7, 0], "scale": [80, 60, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, -1.4], "scale": [80, 400, 20], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, 1.4], "scale": [80, 400, 20], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wall_3_window_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, 0], "scale": [80, 400, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_stairs_3_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0.75, 0.25, 0], "scale": [100, 50, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0.25 , 0.5,  0], "scale": [100, 100, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [-0.25, 0.75, 0], "scale": [100, 150, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [-0.75 , 1.0,  0], "scale": [100, 200, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_fence_3_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0.7, 0], "scale": [80, 140, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+
+
+      {
+        "id":"asset_floor_6_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, -0.2, 0], "scale": [610, 50, 610], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wall_6_window_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, 0], "scale": [80, 400, 600], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_fence_6_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0.7, 0], "scale": [80, 140, 600], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wall_6_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, 0], "scale": [80, 400, 600], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wall_6_door_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, -0.05, 0], "scale": [120, 10, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0, 0], "scale": [80, 20, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 3.7, 0], "scale": [80, 60, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, -2], "scale": [80, 400, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2, 2], "scale": [80, 400, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+      {
+        "id":"asset_stairs_6_stone",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0.75, 0.25, 0], "scale": [100, 50, 600], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0.25 , 0.5,  0], "scale": [100, 100, 600], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [-0.25, 0.75, 0], "scale": [100, 150, 600], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [-0.75 , 1.0,  0], "scale": [100, 200, 600], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+      {
+        "id":"asset_floor_6_stone_round",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [2.5, -0.2, -2.5], "scale": [510, 50, 510], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [3, -0.2, -1], "scale": [610, 50, 210], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [1, -0.2, -3], "scale": [210, 50, 610], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wall_6_window_stone_round",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0.7, 0],  "pos": [4.3, 2, -4.3], "scale": [80, 400, 400], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 1.2, 0],  "pos": [1.3, 2, -5.7], "scale": [80, 400, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0.2, 0],  "pos": [5.7, 2, -1.3], "scale": [80, 400, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_fence_6_stone_round",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0.7, 0],  "pos": [4.3, 0.7, -4.3], "scale": [80, 140, 400], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 1.2, 0],  "pos": [1.3, 0.7, -5.7], "scale": [80, 140, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0.2, 0],  "pos": [5.7, 0.7, -1.3], "scale": [80, 140, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+
+
+      {
+        "id":"asset_wood_6_floor",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0, 0], "scale": [610, 50, 610], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+      {
+        "id":"asset_wood_6_window",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2.5, 0], "scale": [80, 500, 600], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+      {
+        "id":"asset_wood_6_wall",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2.5, 0], "scale": [80, 500, 600], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wood_6_door",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0, 0], "scale": [80, 20, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 4.0, 0], "scale": [80, 60, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2.5, -2], "scale": [80, 500, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2.5, 2], "scale": [80, 500, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wood_6_wedge",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_hull_6_wedge", "convex": true, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wood_6_fence",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0.6, 0], "scale": [80, 120, 600], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_wood_6_roof",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_hull_6_roof", "convex": true, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+
+      {
+        "id":"asset_wood_6_stairs",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [1.0, 0.3, 0], "scale": [100, 40, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0.5 , 0.6,  0], "scale": [100, 80, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [-0.0, 1.0, 0], "scale": [100, 100, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [-0.5, 1.5,  0], "scale": [100, 100, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [-1.0, 2.0,  0], "scale": [100, 100, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [-1.5, 2.5,  0], "scale": [100, 100, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [-2.0, 3.0,  0], "scale": [100, 100, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [-2.5, 3.5,  0], "scale": [100, 100, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [-3.0, 4.0,  0], "scale": [100, 100, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+      {
+        "id":"asset_wood_6_roof_peak",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0.5, 0], "scale": [600, 100, 600], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 1.5, 0], "scale": [600, 100, 400], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2.5, 0], "scale": [600, 100, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 3.5, 0], "scale": [600, 100,  50], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, -0.5, 3.5], "scale": [600, 100, 150], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, -0.5,-3.5], "scale": [600, 100, 150], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+
+      {
+        "id":"asset_logs_5_floor",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0.2, 0], "scale": [550, 60, 550], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+      {
+        "id":"asset_logs_5_window",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2.5, 0], "scale": [80, 400, 500], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+      {
+        "id":"asset_logs_5_wall",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2.5, 0], "scale": [80, 400, 500], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_logs_5_door",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0, 0], "scale": [80, 20, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 3.75, 0], "scale": [80, 30, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2.0, -1.75], "scale": [80, 400, 125], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2.0, 1.75], "scale": [80, 400, 125], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_logs_5_roof_peak",
+        "data":{
+          "shapes": [
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 0.5, 0], "scale": [500, 100, 500], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 1.5, 0], "scale": [500, 100, 300], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 2.5, 0], "scale": [500, 100, 200], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, 3.5, 0], "scale": [500, 100,  50], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, -0.5, 3.5], "scale": [500, 100, 150], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "box", "rot": [0, 0, 0],  "pos": [0, -0.5,-3.5], "scale": [500, 100, 150], "asset": "box", "convex": false, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+
+      {
+        "id":"asset_pine_1",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_1", "convex": true, "mass": 0, "friction": 2.9},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_1_1", "convex": true, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_pine_2",
+        "data":{
+          "shapes": [
+            {"shape": "box",  "rot": [0, 0, 0], "pos": [0, 0, 10], "scale": [3, 3, 15], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 4], "scale": [100, 100, 100], "asset": "asset_convex_tree_2", "convex": true, "mass": 0},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_2_1", "convex": true, "mass": 0}
+          ]
+        }
+      },
+      {
+        "id":"asset_pine_3",
+        "data":{
+          "shapes": [
+            {"shape": "box",  "rot": [0, 0, 0], "pos": [0, 0, 20], "scale": [4, 4, 25], "asset": "box", "convex": false, "mass": 0, "friction": 2.9},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 4], "scale": [120, 120, 120], "asset": "asset_convex_tree_3", "convex": true, "mass": 0},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_3_1", "convex": true, "mass": 0},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [70, 70, 70], "asset": "asset_convex_tree_3_2", "convex": true, "mass": 0}
+          ]
+        }
+      },
+
+      {
+        "id":"asset_palm_1",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_1", "convex": true, "mass": 0, "friction": 2.9},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_1_1", "convex": true, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_palm_2",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 6], "scale": [100, 100, 100], "asset": "asset_convex_tree_3", "convex": true, "mass": 0},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_2_1", "convex": true, "mass": 0}
+          ]
+        }
+      },
+
+
+      {
+        "id":"asset_tree_1",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_1", "convex": true, "mass": 0, "friction": 2.9},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_1_1", "convex": true, "mass": 0, "friction": 2.9}
+          ]
+        }
+      },
+      {
+        "id":"asset_tree_2",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_2", "convex": true, "mass": 0},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_2_1", "convex": true, "mass": 0}
+          ]
+        }
+      },
+      {
+        "id":"asset_tree_3",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_3", "convex": true, "mass": 0},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_3_1", "convex": true, "mass": 0},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_3_2", "convex": true, "mass": 0}
+          ]
+        }
+      },
+      {
+        "id":"asset_tree_4",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_4", "convex": true, "mass": 0},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_4_1", "convex": true, "mass": 0}
+          ]
+        }
+      },
+      {
+        "id":"asset_tree_5",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_5", "convex": true, "mass": 0},
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_convex_tree_5_1", "convex": true, "mass": 0}
+          ]
+        }
+      },
+      {
+        "id":"asset_jetpack",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_jetpack", "convex": false, "mass": 0}
+          ]
+        }
+      },
+      {
+        "id":"asset_oomba",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_oomba", "convex": false, "mass": 0}
+          ]
+        }
+      },
+      {
+        "id":"asset_svigg",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_svigg", "convex": false, "mass": 0}
+          ]
+        }
+      },
+      {
+        "id":"asset_mansion_roof",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_mansion_roof", "convex": false, "mass": 0}
+          ]
+        }
+      },
+      {
+        "id":"asset_mansion_main",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_mansion_main", "convex": false, "mass": 0}
+          ]
+        }
+      },
+      {
+        "id":"asset_block_4",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_block_4", "convex": false, "mass": 0}
+          ]
+        }
+      },
+      {
+        "id":"asset_scraper_10",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_scraper_10", "convex": false, "mass": 0}
+          ]
+        }
+      },
+      {
+        "id":"asset_scraper_17",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_scraper_17", "convex": false, "mass": 0}
+          ]
+        }
+      },
+      {
+        "id":"asset_sword_fancy",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_sword_fancy", "convex": true, "mass": 5}
+          ]
+        }
+      },
+      {
+        "id":"asset_helmetviking",
+        "data":{
+          "shapes": [
+            {"shape": "mesh", "rot": [0, 0, 0], "pos": [0, 0, 0], "scale": [100, 100, 100], "asset": "asset_helmetviking", "convex": true, "mass": 5}
+          ]
+        }
+      }
+    ]
+  }
+}]
+
