@@ -42,7 +42,7 @@
         scene = new THREE.Scene();
 
         new RGBELoader()
-            .setPath( '/client/assets/test/' )
+            .setPath( './client/assets/test/' )
             .load( 'royal_esplanade_1k.hdr', function ( texture ) {
 
                 texture.mapping = THREE.EquirectangularReflectionMapping;
@@ -56,7 +56,7 @@
 
                 // model
 
-                const loader = new GLTFLoader().setPath( '/client/assets/test/glTF/' );
+                const loader = new GLTFLoader().setPath( './client/assets/test/glTF/' );
                 loader.load( 'DamagedHelmet.gltf', function ( gltf ) {
 
                     scene.add( gltf.scene );
