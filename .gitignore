@@ -1,0 +1,4 @@
+.idea
+.bin
+/node_modules
+/client/assets/images/textures/tiles/*.psd

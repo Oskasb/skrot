@@ -1,0 +1,13 @@
+{
+  "engines": {
+    "node": "21.x"
+  },
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
