@@ -2,7 +2,7 @@
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-
+import {setRefDiv} from "./application/ui/dom/DomUtils.js";
 
 import {
     ACESFilmicToneMapping,
@@ -66,6 +66,8 @@ function init3d() {
         renderer.setSize( window.innerWidth, window.innerHeight );
         renderer.toneMapping = ACESFilmicToneMapping;
         container.appendChild( renderer.domElement );
+
+        setRefDiv(renderer.domElement)
 
         const controls = new OrbitControls( camera, renderer.domElement );
         controls.addEventListener( 'change', render ); // use if there is no animation loop

@@ -7,16 +7,21 @@ let rect = {
     y:0
 };
 
-class DomUtils {
-    constructor() {
-        this.refDiv = document.getElementById("canvas_window");
+let refDiv;
+
+    function setRefDiv(div) {
+        refDiv = div;
     }
 
-    getWindowBoundingRect() {
+    function getRefDiv() {
+        return refDiv;
+    }
+
+    function getWindowBoundingRect() {
         return document.body.getBoundingClientRect();
     }
 
-    xyInsideRect(x, y, rect) {
+    function xyInsideRect(x, y, rect) {
         if (rect.x < x && rect.x+rect.width > x) {
             if (rect.y < y && rect.y+rect.height > y) {
                 return true;
@@ -25,8 +30,8 @@ class DomUtils {
         return false;
     }
 
-    getElementCenter(element, iframeBody) {
-        let bodyRect = this.getWindowBoundingRect();
+    function getElementCenter(element, iframeBody) {
+        let bodyRect = getWindowBoundingRect();
         let rootRect = iframeBody.getBoundingClientRect();
         let elemRect = element.getBoundingClientRect();
         rect.width = elemRect.width;
@@ -38,88 +43,66 @@ class DomUtils {
         return rect;
     }
 
-    getElementById = function(id) {
+    function getElementById(id) {
         return document.getElementById(id);
-    };
-
-    rootFontSize() {
-        return this.refDiv.style.fontSize;
     }
 
-    removeDivElement = function(div) {
-        if (div.parentNode) div.parentNode.removeChild(div);
-    };
+    function rootFontSize() {
+        return refDiv.style.fontSize;
+    }
 
-    clearDivArray = function(array) {
+    function removeDivElement(div) {
+        if (div.parentNode) div.parentNode.removeChild(div);
+    }
+
+    function clearDivArray(array) {
             while(array.length) {
-                this.removeDivElement(array.pop());
+                removeDivElement(array.pop());
             }
     }
 
-    checkForStylePrefix = function(prefix) {
-        if (this.refDiv.style[prefix] === "") return prefix;
-    };
-
-    checkStylePrefixList = function(prefixes) {
-        for (var i in prefixes) {
-            var prefix = checkForStylePrefix(prefixes[i]);
-            if (prefix) return prefix;
-        }
-    };
-
-
-    getTransformPrefix = function() {
-        var prefixes = ["transform", "webkitTransform", "MozTransform", "msTransform", "OTransform"];
-        return checkStylePrefixList(prefixes);
-    };
-
-    getTransitionPrefix = function() {
-        var prefixes = ["transition", "WebkitTransition", "MozTransition", "msTransition", "OTransition"];
-        return checkStylePrefixList(prefixes);
-    };
-
-    setDivElementParent = function(id, parentId) {
+    function setDivElementParent(id, parentId) {
         var divId = document.getElementById(id);
         var parentDiv = document.getElementById(parentId);
         parentDiv.appendChild(divId)
 
-    };
+    }
 
-    applyElementStyleParams = function(element, styleParams) {
+    function applyElementStyleParams(element, styleParams) {
         for(let index in styleParams) {
             element.style[index] = styleParams[index];
         }
-    };
+    }
 
-    removeElementStyleParams = function(element, styleParams) {
+    function removeElementStyleParams(element, styleParams) {
         for(let index in styleParams) {
             element.style[index] = "";
         }
-    };
+    }
 
-    addElementClass = function(element, styleClass) {
+    function  addElementClass(element, styleClass) {
         element.classList.add(styleClass);
-    };
+    }
 
-    removeElementClass = function(element, styleClass) {
+    function removeElementClass(element, styleClass) {
         element.classList.remove(styleClass);
-    };
+    }
 
-    setElementClass = function(element, styleClass) {
+    function setElementClass(element, styleClass) {
     //    setTimeout(function() {
             element.className = styleClass; //  "game_base "+styleClass;
     //    }, 0);
-    };
+    }
 
-    createDivElement = function(parent, id, html, styleClass) {
+    function createDivElement(parent, id, html, styleClass) {
         if (typeof(parent) === "string") parent = document.getElementById(parent);
-        let newdiv = this.createElement(parent, id, 'div', html, styleClass);
+        let newdiv = createElement(parent, id, 'div', html, styleClass);
         return newdiv;
-    };
+    }
 
-    createCanvasElement = function(parentId, id, source, styleClass, loadedCallback) {
+    function createCanvasElement(parentId, id, source, styleClass, loadedCallback) {
         let  parent = document.getElementById(parentId);
-        let  canvas = this.createElement(parent, id, 'canvas', "", styleClass)
+        let  canvas = createElement(parent, id, 'canvas', "", styleClass)
         let  image = new Image()
         image.setAttribute('src', source);
         canvas.setAttribute('name', id);
@@ -129,11 +112,14 @@ class DomUtils {
         };
 
         return canvas;
-    };
+    }
 
-    createIframeElement = function(parentId, id, source, styleClass, loadedCallback) {
-        let  parent = document.getElementById(parentId);
-        let  iframe = this.createElement(parent, id, 'iframe', "", styleClass)
+    function createIframeElement(parent, id, source, styleClass, loadedCallback) {
+        if (typeof (parent) === 'string') {
+             parent = document.getElementById(parent);
+        }
+
+        let  iframe = createElement(parent, id, 'iframe', "", styleClass)
         iframe.setAttribute('src', source);
         iframe.setAttribute('name', id);
         iframe.onload = function(){
@@ -141,24 +127,24 @@ class DomUtils {
         };
 
         return iframe;
-    };
+    }
 
-    createElement = function(parent, id, type, html, styleClass) {
+    function createElement(parent, id, type, html, styleClass) {
         let index = parent.getElementsByTagName("*");
         let elem = document.createElement(type, [index]);
         elem.setAttribute('id', id);
         elem.className = styleClass; // "game_base "+styleClass;
 
         if (html) {
-            this.setElementHtml(elem, html)
+            setElementHtml(elem, html)
         }
 
         parent.appendChild(elem);
         return elem;
-    };
+    }
 
 
-    createTextInputElement = function(parent, id, varName, styleClass) {
+    function createTextInputElement(parent, id, varName, styleClass) {
         let index = parent.getElementsByTagName("*");
         let newdiv = document.createElement('input', [index]);
 
@@ -170,48 +156,48 @@ class DomUtils {
 
         parent.appendChild(newdiv);
         return newdiv;
-    };
+    }
 
-    setElementHtml = function(element, text) {
-        if (typeof(element) == "string") element = this.getElementById(element);
+    function setElementHtml(element, text) {
+        if (typeof(element) == "string") element = getElementById(element);
 
         setTimeout(function() {
             element.innerHTML = text;
         },1)
-    };
+    }
 
-    setElementBackgroundImg = function(element, url) {
+    function setElementBackgroundImg(element, url) {
         setTimeout(function() {
             element.style.backgroundImage = "url("+url+")";
         },1)
-    };
+    }
 
-    applyElementTransform = function(element, transform, time) {
+    function applyElementTransform(element, transform, time) {
         if (!time) time = 0;
         let transformPrefix = getTransformPrefix();
  //       setTimeout(function() {
             element.style[transformPrefix] = transform;
  //       },time)
-    };
+    }
 
-    setElementTransition = function(element, transition) {
+    function setElementTransition(element, transition) {
         let transitionPrefix = getTransitionPrefix();
         element.style[transitionPrefix] = transition;
-    };
+    }
 
-    removeElement = function(element) {
-        this.removeElementChildren(element);
-        this.removeDivElement(element);
-    };
+    function removeElement(element) {
+        removeElementChildren(element);
+        removeDivElement(element);
+    }
 
-    getChildCount = function(element) {
+    function getChildCount(element) {
         if (element.childNodes) {
             return element.childNodes.length
         }
         return 0;
-    };
+    }
 
-    removeElementChildren = function(element) {
+    function removeElementChildren(element) {
         if (element.childNodes )
         {
             while ( element.childNodes.length >= 1 )
@@ -219,10 +205,10 @@ class DomUtils {
                 element.removeChild(element.firstChild);
             }
         }
-    };
+    }
 
 
-    addElementClickFunction = function(element, cFunc) {
+    function addElementClickFunction(element, cFunc) {
 
         disableElementInteraction(element);
         element.interactionListeners = {};
@@ -233,17 +219,17 @@ class DomUtils {
         element.interactionListeners[inType] = {clickFunc:cFunc, isEnabled:false};
         registerInputSoundElement(element, inType, "UI_HOVER", "UI_ACTIVE", "UI_CLICK", "UI_OUT");
         enableElementInteraction(element);
-    };
+    }
 
 
-    disableElementInteraction = function(element) {
+    function disableElementInteraction(element) {
 
         element.style.pointerEvents = "none";
         element.style.cursor = "";
 
         for (let index in element.soundInteractionListeners) {
             element.removeEventListener(index, element.soundInteractionListeners[index], null);
-        };
+        }
 
 
         for (let index in element.interactionListeners) {
@@ -253,15 +239,15 @@ class DomUtils {
                 element.interactionListeners[index].isEnabled = false;
             }
         }
-    };
+    }
 
-    enableElementInteraction = function(element) {
+    function enableElementInteraction(element) {
         element.style.pointerEvents = "auto";
         element.style.cursor = "pointer";
 
         for (let index in element.soundInteractionListeners) {
             element.addEventListener(index, element.soundInteractionListeners[index], null);
-        };
+        }
 
 
         for (let index in element.interactionListeners) {
@@ -270,25 +256,25 @@ class DomUtils {
                 element.interactionListeners[index].isEnabled = true;
             }
         }
-    };
+    }
 
-    performifyAllElements = function() {
+    function performifyAllElements() {
         let tags = document.getElementsByTagName("div");
         let total = tags.length;
         for (let i = 0; i < total; i++ ) {
             tags[i].style["webkitTransformStyle"] = "preserve-3d";
         }
-    };
+    }
 
-    applyStyleToAllDivs = function(doc, styleName, styleValue) {
+    function applyStyleToAllDivs(doc, styleName, styleValue) {
         let tags = doc.getElementsByTagName("div");
         let total = tags.length;
         for (let i = 0; i < total; i++ ) {
             tags[i].style[styleName] = styleValue;
         }
-    };
+    }
 
-    quickHideElement = function(element) {
+    function quickHideElement(element) {
         element.style.display = "none"
         element.style.visibility = "hidden"
         return;
@@ -307,50 +293,50 @@ class DomUtils {
         }
 
         applyElementTransform(element, transform);
-    };
+    }
 
-    quickShowElement = function(element) {
+    function quickShowElement(element) {
         element.style.display = "";
         //    var transform = "";
         element.style.visibility = "visible"
     //    applyElementTransform(element, transform);
-    };
+    }
 
-    addClickFunction(element, clickFunc) {
+    function addClickFunction(element, clickFunc) {
         element.style.pointerEvents = "auto";
         element.style.cursor = "pointer";
         element.addEventListener('click', clickFunc);
     }
 
-    addHoverFunction(element, cb) {
+    function addHoverFunction(element, cb) {
         element.style.pointerEvents = "auto";
         element.style.cursor = "pointer";
         element.addEventListener('mouseover',  cb);
         element.addEventListener('touchstart', cb);
     }
 
-    addMouseMoveFunction(element, cb) {
+    function addMouseMoveFunction(element, cb) {
         element.style.pointerEvents = "auto";
         element.style.cursor = "pointer";
         element.addEventListener('mousemove', cb, { passive: true});
         element.addEventListener('touchmove', cb, { passive: true});
     }
 
-    addPointerExitFunction(element, cb) {
+    function addPointerExitFunction(element, cb) {
         element.style.pointerEvents = "auto";
         element.style.cursor = "pointer";
         element.addEventListener('touchend', cb);
         element.addEventListener('mouseout', cb);
     }
 
-    addPressStartFunction(element, cb) {
+    function addPressStartFunction(element, cb) {
         element.style.pointerEvents = "auto";
         element.style.cursor = "pointer";
         element.addEventListener('mousedown', cb);
         element.addEventListener('touchstart', cb);
     }
 
-    addPressEndFunction(element, cb) {
+    function addPressEndFunction(element, cb) {
         element.style.pointerEvents = "auto";
         element.style.cursor = "pointer";
         element.addEventListener('mouseup', cb);
@@ -359,7 +345,7 @@ class DomUtils {
     //    element.addEventListener('touchcancel', cb);
     }
 
-    translateElement3DPercent(element, x, y, z) {
+    function translateElement3DPercent(element, x, y, z) {
         let trf = "translate3d("+x+"%, "+y+"%, "+z+")";
         if (element.style.transform !== trf) {
             element.style.transform = trf;
@@ -367,7 +353,7 @@ class DomUtils {
     }
 
 
-    buildCssTransform(x, y, z, rotY, scale, unit) {
+    function buildCssTransform(x, y, z, rotY, scale, unit) {
         let trf = "translate3d("+MATH.decimalify(x, 10)+unit+", "+MATH.decimalify(y, 10)+unit+", "+z+")";
 
         if (typeof(rotY) === 'number') {
@@ -380,9 +366,9 @@ class DomUtils {
         return trf;
     }
 
-    transformElement3DPercent(element, x, y, z, rotY, scale) { // div, left, top, depth, eulerY
+    function transformElement3DPercent(element, x, y, z, rotY, scale) { // div, left, top, depth, eulerY
 
-        let trf = this.buildCssTransform(x, y, z, rotY, scale, '%')
+        let trf = buildCssTransform(x, y, z, rotY, scale, '%')
 
         if (element.style.transform !== trf) {
             element.style.transform = trf;
@@ -390,6 +376,48 @@ class DomUtils {
     }
 
 
-}
-
-export { DomUtils };
+export {
+    setRefDiv,
+    getRefDiv,
+    getWindowBoundingRect,
+    xyInsideRect,
+    getElementCenter,
+    getElementById,
+    rootFontSize,
+    removeDivElement,
+    clearDivArray,
+    setDivElementParent,
+    applyElementStyleParams,
+    removeElementStyleParams,
+    addElementClass,
+    removeElementClass,
+    setElementClass,
+    createDivElement,
+    createCanvasElement,
+    createIframeElement,
+    createElement,
+    createTextInputElement,
+    setElementHtml,
+    setElementBackgroundImg,
+    applyElementTransform,
+    setElementTransition,
+    removeElement,
+    getChildCount,
+    removeElementChildren,
+    addElementClickFunction,
+    disableElementInteraction,
+    enableElementInteraction,
+    performifyAllElements,
+    applyStyleToAllDivs,
+    quickHideElement,
+    quickShowElement,
+    addClickFunction,
+    addHoverFunction,
+    addMouseMoveFunction,
+    addPointerExitFunction,
+    addPressStartFunction,
+    addPressEndFunction,
+    translateElement3DPercent,
+    transformElement3DPercent,
+    buildCssTransform
+};

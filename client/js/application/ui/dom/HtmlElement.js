@@ -1,6 +1,14 @@
 import {updateKeyState} from "../input/KeyboardState.js";
 import {getSetting} from "../../utils/StatusUtils.js";
+import {MATH} from "../../MATH.js";
 import {ENUMS} from "../../ENUMS.js";
+import {
+    addClickFunction,
+    buildCssTransform,
+    createDivElement, createIframeElement,
+    getElementById, getRefDiv, removeElement,
+    removeElementChildren
+} from "./DomUtils.js";
 
 let index = 0;
 
@@ -157,7 +165,7 @@ class HtmlElement {
         }
 
         let getRootElement = function() {
-            return DomUtils.getElementById(this.id)
+            return getElementById(this.id)
         }.bind(this);
 
         let getChildElement = function(id) {
@@ -175,7 +183,7 @@ class HtmlElement {
 
         let populateSelectList = function(id, list) {
             let selectElem = getChildElement(id);
-            DomUtils.removeElementChildren(selectElem);
+            removeElementChildren(selectElem);
             list.forEach(function(item){
                 let option = createElement('option');
                 option.value = item;
@@ -217,7 +225,7 @@ class HtmlElement {
             let offsetY = getSetting(settingKeyY)*10;
             let offsetScale = 1 + getSetting(settingKeyScale) / 100
 
-            let trf = DomUtils.buildCssTransform(offsetX, offsetY, 0, 0, offsetScale, 'em')
+            let trf = buildCssTransform(offsetX, offsetY, 0, 0, offsetScale, 'em')
 
             setBaseTransform(trf);
         }
@@ -264,9 +272,7 @@ class HtmlElement {
         }
         index++;
         this.id = url+"_"+index;
-    //    this.container = DomUtils.createDivElement(DomUtils.refDiv, this.id, "", "overlay_page")
         let file = "html/"+url+".html";
-    //    this.container.innerHTML='<object type="text/html" data='+file+'></object>';
 
         this.iframe = null;
 
@@ -298,16 +304,16 @@ class HtmlElement {
             }
 
             if (typeof (onCloseCB) === 'function') {
-                let closeButton = DomUtils.createDivElement(closeAnchor, this.id+'_close', "", "button_close")
+                let closeButton = createDivElement(closeAnchor, this.id+'_close', "", "button_close")
                 closeButton.style.pointerEvents = "auto";
                 closeButton.style.cursor = "pointer";
-                DomUtils.addClickFunction(closeButton, onCloseClick)
+                addClickFunction(closeButton, onCloseClick)
                 this.onCloseCallbacks.push(onCloseCB);
             }
 
             let backdrop = iframeDocument.getElementById('backdrop')
             if (backdrop) {
-                DomUtils.addClickFunction(backdrop, onCloseClick)
+                addClickFunction(backdrop, onCloseClick)
             }
 
 
@@ -353,15 +359,15 @@ class HtmlElement {
 
         }.bind(this);
 
-        this.container = DomUtils.createIframeElement('canvas_window', this.id, file, containerClass, onLoad)
+        this.container = createIframeElement(document.body, this.id, file, containerClass, onLoad)
         this.container.style.display = "none";
         this.container.style.visibility = "hidden";
         this.container.style.opacity = 0;
         let rebuild = function() {
 
             if (this.container) {
-                DomUtils.removeElement(this.container);
-                this.container = DomUtils.createIframeElement('canvas_window', this.id, file, containerClass, onLoad)
+                removeElement(this.container);
+                this.container = createIframeElement(document.body, this.id, file, containerClass, onLoad)
             } else {
                 if (reload) {
                     clearInterval(reload);
@@ -439,7 +445,7 @@ class HtmlElement {
         if (this.container !== null) {
             this.container.showing = null;
             MATH.splice(activeRootElements, this.container);
-            DomUtils.removeElement(this.container);
+            removeElement(this.container);
         }
         this.container = null;
         this.statusMap = null;

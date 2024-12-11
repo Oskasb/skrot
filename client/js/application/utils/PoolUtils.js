@@ -8,6 +8,7 @@ import {HtmlElement} from "../ui/dom/HtmlElement.js";
 import {ScalarTransition} from "./ScalarTransition.js";
 import {AsynchQueueFeedback} from "./AsynchQueueFeedback.js";
 import {Vector3} from "../../../../libs/three/math/Vector3.js";
+import {DomQueueNotice} from "../ui/dom/DomQueueNotice.js";
 
 let pools = {}
 let stats = {};
@@ -24,7 +25,8 @@ function initPools() {
     registerPool(WorldActorStatusUI);
     registerPool(HtmlElement);
     registerPool(ScalarTransition);
-    registerPool(AsynchQueueFeedback)
+    registerPool(AsynchQueueFeedback);
+    registerPool(DomQueueNotice);
 }
 
 function registerPool(DataObj) {
