@@ -1,0 +1,156 @@
+[{
+  "GAME":{
+    "ITEMS":[
+      {
+        "id": "ITEM_DRAKEN",
+        "data": {
+          "visual_id":"VISUAL_DRAKEN",
+          "equip_slot": "SLOT_HAND_L",
+          "status_add_modifiers": [
+            {"status": "TRAVEL", "value":"ACTION_TRAVEL_FLY"}
+          ],
+          "status": {
+            "NAME":"Plane",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "VEHICLE"
+          }
+        }
+      },
+      {
+        "id": "ITEM_DRAKEN_GOLDRED",
+        "data": {
+          "visual_id":"VISUAL_DRAKEN_GOLDRED",
+          "equip_slot": "SLOT_HAND_L",
+          "status_add_modifiers": [
+            {"status": "TRAVEL", "value":"ACTION_TRAVEL_FLY"}
+          ],
+          "status": {
+            "NAME":"Plane",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "VEHICLE"
+          }
+        }
+      },
+      {
+        "id": "ITEM_DRAKEN_WHITE",
+        "data": {
+          "visual_id":"VISUAL_DRAKEN_WHITE",
+          "equip_slot": "SLOT_HAND_L",
+          "status_add_modifiers": [
+            {"status": "TRAVEL", "value":"ACTION_TRAVEL_FLY"}
+          ],
+          "status": {
+            "NAME":"Plane",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "VEHICLE"
+          }
+        }
+      },
+      {
+        "id": "ITEM_JETPACK",
+        "data": {
+          "visual_id":"VISUAL_JETPACK",
+          "equip_slot": "SLOT_BACK",
+          "status_add_modifiers": [
+              {"status": "TRAVEL", "value":"ACTION_TRAVEL_JETPACK"}
+          ],
+          "status": {
+            "NAME":"Jetpack",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "GADGET"
+          }
+        }
+      },
+      {
+        "id": "ITEM_JETPACK_GOLDRED",
+        "data": {
+          "visual_id":"VISUAL_JETPACK_GOLDRED",
+          "equip_slot": "SLOT_BACK",
+          "status_add_modifiers": [
+            {"status": "TRAVEL", "value":"ACTION_TRAVEL_JETPACK"}
+          ],
+          "status": {
+            "NAME":"Jetpack",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "GADGET"
+          }
+        }
+      },
+      {
+        "id": "ITEM_JETPACK_WHITE",
+        "data": {
+          "visual_id":"VISUAL_JETPACK_WHITE",
+          "equip_slot": "SLOT_BACK",
+          "status_add_modifiers": [
+            {"status": "TRAVEL", "value":"ACTION_TRAVEL_JETPACK"}
+          ],
+          "status": {
+            "NAME":"Jetpack",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "GADGET"
+          }
+        }
+      },
+      {
+        "id": "ITEM_WRIST_COMPUTER",
+        "data": {
+          "visual_id":"VISUAL_WRIST_COMPUTER",
+          "equip_slot": "SLOT_WRIST_L",
+          "status": {
+            "NAME":"Computer",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "GADGET"
+          }
+        }
+      },
+      {
+        "id": "ITEM_WRIST_COMPUTER_GOLDRED",
+        "data": {
+          "visual_id":"VISUAL_WRIST_COMPUTER_GOLDRED",
+          "equip_slot": "SLOT_WRIST_L",
+          "status": {
+            "NAME":"Computer",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "GADGET"
+          }
+        }
+      },
+      {
+        "id": "ITEM_WRIST_COMPUTER_WHITE",
+        "data": {
+          "visual_id":"VISUAL_WRIST_COMPUTER_WHITE",
+          "equip_slot": "SLOT_WRIST_L",
+          "status": {
+            "NAME":"Computer",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "GADGET"
+          }
+        }
+      },
+      {
+        "id": "SVIGG",
+        "data": {
+          "model_asset":"asset_svigg"
+        }
+      },
+      {
+        "id": "J35_DRAKEN",
+        "data": {
+          "model_asset":"asset_j35draken"
+        }
+      },
+      {
+        "id":"BARB_BREASTPLATE",
+        "data":{
+          "model_asset":"skinned_barb_bp"
+        }
+      },
+      {
+        "id":"BARB_GREAVES",
+        "data":{
+          "model_asset":"skinned_barb_greaves"
+        }
+      }
+    ]
+  }
+}]

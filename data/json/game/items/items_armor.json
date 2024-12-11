@@ -1,0 +1,1034 @@
+[{
+  "GAME":{
+    "ITEMS":[
+      {
+        "id": "ITEM_HELMET_BRONZE",
+        "data": {
+          "visual_id":"VISUAL_HELMET_BRONZE",
+          "equip_slot": "SLOT_HEAD",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":1}
+          ],
+          "status": {
+            "NAME":"Bronze Helmet",
+            "ITEM_LEVEL": 2,
+            "ITEM_TYPE" : "PLATE_MAIL",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_HELMET_STEEL",
+        "data": {
+          "visual_id":"VISUAL_HELMET_STEEL",
+          "equip_slot": "SLOT_HEAD",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":8}
+          ],
+          "status": {
+            "NAME":"Steel Helmet",
+            "ITEM_LEVEL": 15,
+            "ITEM_TYPE" : "PLATE_MAIL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD",
+            "RESOURCE_MATERIALS": [
+              { "material": "METAL_STEEL", "component": "PLATING"  },
+              { "material": "LEATHER_OXEN", "component": "PLATING"  }
+            ]
+          }
+        }
+      },
+      {
+        "id": "ITEM_HELMET_VIKING",
+        "data": {
+          "visual_id":"VISUAL_HELMET_VIKING",
+          "equip_slot": "SLOT_HEAD",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":2}
+          ],
+          "status": {
+            "NAME":"Viking Helmet",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "PLATE_MAIL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_HELMET_VIKING_BLUE",
+        "data": {
+          "visual_id":"VISUAL_HELMET_VIKING_BLUE",
+          "equip_slot": "SLOT_HEAD",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Viking Helmet",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "PLATE_MAIL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_HELMET_VIKING_GOLDRED",
+        "data": {
+          "visual_id":"VISUAL_HELMET_VIKING_GOLDRED",
+          "equip_slot": "SLOT_HEAD",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Fire God Helmet",
+            "ITEM_LEVEL": 53,
+            "ITEM_TYPE" : "PLATE_MAIL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "EXCEPTIONAL"
+          }
+        }
+      },
+      {
+        "id": "ITEM_HELMET_VIKING_BLACK",
+        "data": {
+          "visual_id":"VISUAL_HELMET_VIKING_BLACK",
+          "equip_slot": "SLOT_HEAD",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Helmet",
+            "ITEM_LEVEL": 15,
+            "ITEM_TYPE" : "PLATE_MAIL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_BELT_PLATE",
+        "data": {
+          "visual_id":"VISUAL_BELT_PLATE",
+          "equip_slot": "SLOT_WAIST",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Steel Belt",
+            "ITEM_LEVEL": 10,
+            "ITEM_TYPE" : "PLATE_MAIL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_BELT_PLATE_BLACK",
+        "data": {
+          "visual_id":"VISUAL_BELT_PLATE_BLACK",
+          "equip_slot": "SLOT_WAIST",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Helmet",
+            "ITEM_LEVEL": 20,
+            "ITEM_TYPE" : "PLATE_MAIL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_HELMET_VIKING_WHITE",
+        "data": {
+          "visual_id":"VISUAL_HELMET_VIKING_WHITE",
+          "equip_slot": "SLOT_HEAD",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Helmet",
+            "ITEM_LEVEL": 30,
+            "ITEM_TYPE" : "PLATE_MAIL",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_BELT_PLATE_WHITE",
+        "data": {
+          "visual_id":"VISUAL_BELT_PLATE_WHITE",
+          "equip_slot": "SLOT_WAIST",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Belt",
+            "ITEM_LEVEL": 40,
+            "ITEM_TYPE" : "PLATE_MAIL",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_BELT_PLATE_GOLDRED",
+        "data": {
+          "visual_id":"VISUAL_BELT_PLATE_GOLDRED",
+          "equip_slot": "SLOT_WAIST",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Fire God Belt",
+            "ITEM_LEVEL": 53,
+            "ITEM_TYPE" : "PLATE_MAIL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "EXCEPTIONAL"
+          }
+        }
+      },
+      {
+        "id": "ITEM_GLOVES_SCALE",
+        "data": {
+          "visual_id":"VISUAL_GLOVES_SCALE",
+          "equip_slot": "SLOT_HANDS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Scalemail Gloves",
+            "ITEM_LEVEL": 25,
+            "ITEM_TYPE" : "SCALE_MAIL",
+            "RARITY":"EPIC",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_BOOTS_SCALE",
+        "data": {
+          "visual_id":"VISUAL_BOOTS_SCALE",
+          "equip_slot": "SLOT_FEET",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Scalemail Boots",
+            "ITEM_LEVEL": 25,
+            "ITEM_TYPE" : "SCALE_MAIL",
+            "RARITY":"EPIC",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_GLOVES_CHAIN",
+        "data": {
+          "visual_id":"VISUAL_GLOVES_CHAIN",
+          "equip_slot": "SLOT_HANDS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":2}
+          ],
+          "status": {
+            "NAME":"Chainmail Gloves",
+            "ITEM_LEVEL": 15,
+            "ITEM_TYPE" : "ARMOR",
+            "RARITY":"UNCOMMON"
+          }
+        }
+      },
+      {
+        "id": "ITEM_BOOTS_CHAIN",
+        "data": {
+          "visual_id":"VISUAL_BOOTS_CHAIN",
+          "equip_slot": "SLOT_FEET",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":2}
+          ],
+          "status": {
+            "NAME":"Chainmail Boots",
+            "ITEM_LEVEL": 15,
+            "ITEM_TYPE" : "ARMOR",
+            "RARITY": "UNCOMMON"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_GLOVES_LEATHER_STUDDED",
+        "data": {
+          "visual_id":"VISUAL_GLOVES_LEATHER_STUDDED",
+          "equip_slot": "SLOT_HANDS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":2}
+          ],
+          "status": {
+            "NAME":"Studded Gloves",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "ARMOR",
+            "RARITY":"UNCOMMON"
+          }
+        }
+      },
+      {
+        "id": "ITEM_BOOTS_LEATHER_STUDDED",
+        "data": {
+          "visual_id":"VISUAL_BOOTS_LEATHER_STUDDED",
+          "equip_slot": "SLOT_FEET",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":2},
+            {"status": "TRAVEL", "value":"ACTION_TRAVEL_LEAP"}
+          ],
+          "status": {
+            "NAME":"Studded Boots",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "ARMOR",
+            "RARITY": "UNCOMMON"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_GLOVES_LEATHER",
+        "data": {
+          "visual_id":"VISUAL_GLOVES_LEATHER",
+          "equip_slot": "SLOT_HANDS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":1}
+          ],
+          "status": {
+            "NAME":"Leather Gloves",
+            "ITEM_LEVEL": 2,
+            "ITEM_TYPE" : "ARMOR",
+            "RARITY":"COMMON"
+          }
+        }
+      },
+      {
+        "id": "ITEM_BOOTS_LEATHER",
+        "data": {
+          "visual_id":"VISUAL_BOOTS_LEATHER",
+          "equip_slot": "SLOT_FEET",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":1},
+            {"status": "TRAVEL", "value":"ACTION_TRAVEL_LEAP"}
+          ],
+          "status": {
+            "NAME":"Leather Boots",
+            "ITEM_LEVEL": 2,
+            "ITEM_TYPE" : "ARMOR",
+            "RARITY": "COMMON"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_LEGS_BRONZE",
+        "data": {
+          "visual_id":"VISUAL_LEGS_BRONZE",
+          "equip_slot": "SLOT_SKIRT",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Bronze Greaves",
+            "ITEM_LEVEL": 25,
+            "ITEM_TYPE" : "ARMOR"
+          }
+        }
+      },
+      {
+        "id": "ITEM_CHEST_STEEL",
+        "data": {
+          "visual_id":"VISUAL_BP_STEEL",
+          "equip_slot": "SLOT_CHEST",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":15}
+          ],
+          "status": {
+            "NAME":"Steel Breastplate",
+            "ITEM_LEVEL": 35,
+            "ITEM_TYPE" : "ARMOR"
+          }
+        }
+      },
+      {
+        "id": "ITEM_LEGS_STEEL",
+        "data": {
+          "visual_id":"VISUAL_LEGS_STEEL",
+          "equip_slot": "SLOT_SKIRT",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":15}
+          ],
+          "status": {
+            "NAME":"Steel Greaves",
+            "ITEM_LEVEL": 35,
+            "ITEM_TYPE" : "ARMOR"
+          }
+        }
+      },
+      {
+        "id": "ITEM_CHEST_BRONZE",
+        "data": {
+          "visual_id":"VISUAL_BP_BRONZE",
+          "equip_slot": "SLOT_CHEST",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Bronze Breastplate",
+            "ITEM_LEVEL": 25,
+            "ITEM_TYPE" : "ARMOR"
+          }
+        }
+      },
+
+
+      {
+        "id": "ITEM_SKIRT_SCALE",
+        "data": {
+          "visual_id":"VISUAL_LEGS_SCALE",
+          "equip_slot": "SLOT_SKIRT",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Scalemail Skirt",
+            "ITEM_LEVEL": 25,
+            "ITEM_TYPE" : "SCALE_MAIL",
+            "RARITY":"EPIC",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_CHEST_SCALE",
+        "data": {
+          "visual_id":"VISUAL_SHIRT_SCALE",
+          "equip_slot": "SLOT_CHEST",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Scalemail Harness",
+            "ITEM_LEVEL": 25,
+            "ITEM_TYPE" : "SCALE_MAIL",
+            "RARITY":"EPIC",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_SHIRT_CHAIN",
+        "data": {
+          "visual_id":"VISUAL_SHIRT_CHAIN",
+          "equip_slot": "SLOT_BODY",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Chainmail Shirt",
+            "ITEM_LEVEL": 22,
+            "ITEM_TYPE" : "CHAIN_MAIL"
+          }
+        }
+      },
+      {
+        "id": "ITEM_LEGS_CHAIN",
+        "data": {
+          "visual_id":"VISUAL_LEGS_CHAIN",
+          "equip_slot": "SLOT_LEGS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Chainmail Leggings",
+            "ITEM_LEVEL": 15,
+            "ITEM_TYPE" : "CHAIN_MAIL"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_SHIRT_LEATHER",
+        "data": {
+          "visual_id":"VISUAL_SHIRT_LEATHER",
+          "equip_slot": "SLOT_BODY",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Leather Body Armor",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "LEATHER_ARMOR"
+          }
+        }
+      },
+      {
+        "id": "ITEM_LEGS_LEATHER",
+        "data": {
+          "visual_id":"VISUAL_LEGS_LEATHER",
+          "equip_slot": "SLOT_LEGS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Leather Leggings",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "LEATHER_ARMOR"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_SHIRT_CLOTH_WHITE",
+        "data": {
+          "visual_id":"VISUAL_SHIRT_CLOTH_WHITE",
+          "equip_slot": "SLOT_BODY",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"White Shirt",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "CLOTH"
+          }
+        }
+      },
+      {
+        "id": "ITEM_LEGS_CLOTH_WHITE",
+        "data": {
+          "visual_id":"VISUAL_LEGS_CLOTH_WHITE",
+          "equip_slot": "SLOT_LEGS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Cloth Leggings",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "CLOTH"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_SHIRT_CLOTH_RED",
+        "data": {
+          "visual_id":"VISUAL_SHIRT_CLOTH_RED",
+          "equip_slot": "SLOT_BODY",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Red Shirt",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "ARMOR"
+          }
+        }
+      },
+      {
+        "id": "ITEM_LEGS_CLOTH_RED",
+        "data": {
+          "visual_id":"VISUAL_LEGS_CLOTH_RED",
+          "equip_slot": "SLOT_LEGS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Cloth Leggings",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "CLOTH"
+          }
+        }
+      },
+
+
+      {
+        "id": "ITEM_SHIRT_CLOTH_BLUE",
+        "data": {
+          "visual_id":"VISUAL_SHIRT_CLOTH_BLUE",
+          "equip_slot": "SLOT_BODY",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Blue Shirt",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "ARMOR"
+          }
+        }
+      },
+      {
+        "id": "ITEM_LEGS_CLOTH_BLUE",
+        "data": {
+          "visual_id":"VISUAL_LEGS_CLOTH_BLUE",
+          "equip_slot": "SLOT_LEGS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Blue Leggings",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "ARMOR"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_SHIRT_CLOTH_YELLOW",
+        "data": {
+          "visual_id":"VISUAL_SHIRT_CLOTH_YELLOW",
+          "equip_slot": "SLOT_BODY",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Yellow Shirt",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "ARMOR"
+          }
+        }
+      },
+      {
+        "id": "ITEM_LEGS_CLOTH_YELLOW",
+        "data": {
+          "visual_id":"VISUAL_LEGS_CLOTH_YELLOW",
+          "equip_slot": "SLOT_LEGS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Cloth Leggings",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "CLOTH"
+          }
+        }
+      },
+
+
+      {
+        "id": "ITEM_GLOVES_CLOTH_WHITE",
+        "data": {
+          "visual_id":"VISUAL_GLOVES_CLOTH_WHITE",
+          "equip_slot": "SLOT_HANDS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"White Gloves",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "ARMOR"
+          }
+        }
+      },
+      {
+        "id": "ITEM_BOOTS_CLOTH_WHITE",
+        "data": {
+          "visual_id":"VISUAL_BOOTS_CLOTH_WHITE",
+          "equip_slot": "SLOT_FEET",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5},
+            {"status": "TRAVEL", "value":"ACTION_TRAVEL_LEAP"}
+          ],
+          "status": {
+            "NAME":"Cloth Leggings",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "CLOTH"
+          }
+        }
+      },
+      {
+        "id": "ITEM_GLOVES_CLOTH_RED",
+        "data": {
+          "visual_id":"VISUAL_GLOVES_CLOTH_RED",
+          "equip_slot": "SLOT_HANDS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Red Gloves",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "ARMOR"
+          }
+        }
+      },
+      {
+        "id": "ITEM_BOOTS_CLOTH_RED",
+        "data": {
+          "visual_id":"VISUAL_BOOTS_CLOTH_RED",
+          "equip_slot": "SLOT_FEET",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Cloth Leggings",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "CLOTH"
+          }
+        }
+      },
+      {
+        "id": "ITEM_GLOVES_CLOTH_BLUE",
+        "data": {
+          "visual_id":"VISUAL_GLOVES_CLOTH_BLUE",
+          "equip_slot": "SLOT_HANDS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Blue Gloves",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "ARMOR"
+          }
+        }
+      },
+      {
+        "id": "ITEM_BOOTS_CLOTH_BLUE",
+        "data": {
+          "visual_id":"VISUAL_BOOTS_CLOTH_BLUE",
+          "equip_slot": "SLOT_FEET",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Cloth Boots",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "CLOTH"
+          }
+        }
+      },
+      {
+        "id": "ITEM_GLOVES_CLOTH_YELLOW",
+        "data": {
+          "visual_id":"VISUAL_GLOVES_CLOTH_YELLOW",
+          "equip_slot": "SLOT_HANDS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Yellow Gloves",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "ARMOR"
+          }
+        }
+      },
+      {
+        "id": "ITEM_BOOTS_CLOTH_YELLOW",
+        "data": {
+          "visual_id":"VISUAL_BOOTS_CLOTH_YELLOW",
+          "equip_slot": "SLOT_FEET",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Cloth Boots",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "CLOTH"
+          }
+        }
+      },
+
+
+
+      {
+        "id": "ITEM_GLOVES_SCALE_PURPLE",
+        "data": {
+          "visual_id":"VISUAL_GLOVES_SCALE_PURPLE",
+          "equip_slot": "SLOT_HANDS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Purple Scalemail Gloves",
+            "ITEM_LEVEL": 25,
+            "ITEM_TYPE" : "SCALE_MAIL",
+            "RARITY":"EPIC",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_BOOTS_SCALE_PURPLE",
+        "data": {
+          "visual_id":"VISUAL_BOOTS_SCALE_PURPLE",
+          "equip_slot": "SLOT_FEET",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Purple Scalemail Boots",
+            "ITEM_LEVEL": 25,
+            "ITEM_TYPE" : "SCALE_MAIL",
+            "RARITY":"EPIC",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_SKIRT_SCALE_PURPLE",
+        "data": {
+          "visual_id":"VISUAL_LEGS_SCALE_PURPLE",
+          "equip_slot": "SLOT_SKIRT",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Scalemail Skirt",
+            "ITEM_LEVEL": 25,
+            "ITEM_TYPE" : "SCALE_MAIL",
+            "RARITY":"EPIC",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_CHEST_SCALE_PURPLE",
+        "data": {
+          "visual_id":"VISUAL_SHIRT_SCALE_PURPLE",
+          "equip_slot": "SLOT_CHEST",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Belt",
+            "ITEM_LEVEL": 25,
+            "ITEM_TYPE" : "SCALE_MAIL",
+            "RARITY":"EPIC",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_SHIRT_CHAIN_PURPLE",
+        "data": {
+          "visual_id":"VISUAL_SHIRT_CHAIN_PURPLE",
+          "equip_slot": "SLOT_BODY",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Armor",
+            "ITEM_LEVEL": 15,
+            "ITEM_TYPE" : "CHAIN_MAIL",
+            "RARITY":"RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_LEGS_CHAIN_PURPLE",
+        "data": {
+          "visual_id":"VISUAL_LEGS_CHAIN_PURPLE",
+          "equip_slot": "SLOT_LEGS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":10}
+          ],
+          "status": {
+            "NAME":"Armor",
+            "ITEM_LEVEL": 15,
+            "ITEM_TYPE" : "CHAIN_MAIL",
+            "RARITY":"RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_GLOVES_SCALE_RED",
+        "data": {
+          "visual_id":"VISUAL_GLOVES_SCALE_RED",
+          "equip_slot": "SLOT_HANDS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":10}
+          ],
+          "status": {
+            "NAME":"Fire God Gloves",
+            "ITEM_LEVEL": 53,
+            "ITEM_TYPE" : "SCALE_MAIL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "EXCEPTIONAL"
+          }
+        }
+      },
+      {
+        "id": "ITEM_BOOTS_SCALE_RED",
+        "data": {
+          "visual_id":"VISUAL_BOOTS_SCALE_RED",
+          "equip_slot": "SLOT_FEET",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":10},
+            {"status": "MOVEMENT_SPEED", "value":2}
+          ],
+          "status": {
+            "NAME":"Fire God Boots",
+            "ITEM_LEVEL": 53,
+            "ITEM_TYPE" : "SCALE_MAIL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "EXCEPTIONAL"
+          }
+        }
+      },
+      {
+        "id": "ITEM_SKIRT_SCALE_RED",
+        "data": {
+          "visual_id":"VISUAL_LEGS_SCALE_RED",
+          "equip_slot": "SLOT_SKIRT",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Fire God Scale Kilt",
+            "ITEM_LEVEL": 53,
+            "ITEM_TYPE" : "SCALE_MAIL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "EXCEPTIONAL"
+          }
+        }
+      },
+      {
+        "id": "ITEM_CHEST_SCALE_RED",
+        "data": {
+          "visual_id":"VISUAL_SHIRT_SCALE_RED",
+          "equip_slot": "SLOT_CHEST",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Fire God Scales",
+            "ITEM_LEVEL": 53,
+            "ITEM_TYPE" : "SCALE_MAIL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "EXCEPTIONAL"
+          }
+        }
+
+      },
+      {
+        "id": "ITEM_SHIRT_CHAIN_RED",
+        "data": {
+          "visual_id":"VISUAL_SHIRT_CHAIN_RED",
+          "equip_slot": "SLOT_BODY",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Fire God Chain",
+            "ITEM_LEVEL": 53,
+            "ITEM_TYPE" : "SCALE_MAIL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "EXCEPTIONAL"
+          }
+        }
+      },
+      {
+        "id": "ITEM_LEGS_CHAIN_RED",
+        "data": {
+          "visual_id":"VISUAL_LEGS_CHAIN_RED",
+          "equip_slot": "SLOT_LEGS",
+          "status_add_modifiers": [
+            {"status": "MAX_HP", "value":5}
+          ],
+          "status": {
+            "NAME":"Fire God Greaves",
+            "ITEM_LEVEL": 53,
+            "ITEM_TYPE" : "CHAIN_MAIL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "EXCEPTIONAL"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_HAT_BLUE",
+        "data": {
+          "visual_id":"VISUAL_HAT_BLUE",
+          "equip_slot": "SLOT_HEAD",
+          "status_add_modifiers": [
+
+          ],
+          "status": {
+            "NAME":"Blue Hat",
+            "ITEM_LEVEL": 3,
+            "ITEM_TYPE" : "CLOTH",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_HAT_WHITE",
+        "data": {
+          "visual_id":"VISUAL_HAT_WHITE",
+          "equip_slot": "SLOT_HEAD",
+          "status_add_modifiers": [
+
+          ],
+          "status": {
+            "NAME":"White Hat",
+            "ITEM_LEVEL": 3,
+            "ITEM_TYPE" : "CLOTH",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_HAT_POINTY_WHITE",
+        "data": {
+          "visual_id":"VISUAL_HAT_POINTY_WHITE",
+          "equip_slot": "SLOT_HEAD",
+          "status_add_modifiers": [
+
+          ],
+          "status": {
+            "NAME":"Pointy White Hat",
+            "ITEM_LEVEL": 7,
+            "ITEM_TYPE" : "CLOTH",
+            "RARITY": "RARE",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_HAT_LEATHER",
+        "data": {
+          "visual_id":"VISUAL_HAT_LEATHER",
+          "equip_slot": "SLOT_HEAD",
+          "status_add_modifiers": [
+
+          ],
+          "status": {
+            "NAME":"Leather Hat",
+            "ITEM_LEVEL": 4,
+            "ITEM_TYPE" : "LEATHER",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_HAT_RED",
+        "data": {
+          "visual_id":"VISUAL_HAT_RED",
+          "equip_slot": "SLOT_HEAD",
+          "status_add_modifiers": [
+
+          ],
+          "status": {
+            "NAME":"Red Hat",
+            "ITEM_LEVEL": 4,
+            "ITEM_TYPE" : "CLOTH",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      }
+    ]
+  }
+}]

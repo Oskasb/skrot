@@ -1,0 +1,273 @@
+[
+  {
+    "UI": {
+      "PAGES":[
+        {
+          "id": "page_perf_mon",
+          "data": [
+            {
+              "containers":[
+                {
+                  "widget_id":"page_system_container_tpf_1",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "offset_x": 0.14,
+                    "offset_y": 0.200
+                  }
+                },
+                {
+                  "widget_id":"page_system_container_tpf_2",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "offset_x": 0.14,
+                    "offset_y": 0.180
+                  }
+                },
+                {
+                  "widget_id":"page_system_container_cpu_1",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "offset_x": 0.14,
+                    "offset_y": 0.160
+                  }
+                },
+                {
+                  "widget_id":"page_system_container_cpu_2",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "offset_x": 0.14,
+                    "offset_y": 0.140
+                  }
+                },
+                {
+                  "widget_id":"page_system_container_mem_1",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "offset_x": 0.14,
+                    "offset_y": 0.120
+                  }
+                },
+
+                {
+                  "widget_id":"page_system_container_scene_1",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "offset_x": 0.14,
+                    "offset_y": 0.100
+                  }
+                },
+
+                {
+                  "widget_id":"page_system_container_scene_2",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "offset_x": 0.14,
+                    "offset_y": 0.080
+                  }
+                },
+
+                {
+                  "widget_id":"page_system_container_phys_1",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "offset_x": 0.14,
+                    "offset_y": 0.060
+                  }
+                },
+
+                {
+                  "widget_id": "container_system_stats",
+                  "widget_class": "GuiStatsPanel",
+                  "widget_config_id":"widget_stats_container_tiny",
+                  "options": {
+                    "container_id": "page_system_container_tpf_1",
+                    "key_box" : "widget_stats_key_box_tiny",
+                    "value_box" : "widget_stats_value_box_tiny",
+                    "offset_x": 0.0,
+                    "offset_y": -0.0,
+                    "track_config": {"category": "DEBUG","key": "SYSTEM",
+                      "samplers": [
+                        {
+                          "key": "fps",
+                          "label": "FPS",
+                          "digits": 0
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "widget_id": "container_system_stats",
+                  "widget_class": "GuiStatsPanel",
+                  "widget_config_id":"widget_stats_container_tiny",
+                  "options": {
+                    "container_id": "page_system_container_tpf_2",
+                    "key_box" : "widget_stats_key_box_tiny",
+                    "value_box" : "widget_stats_value_box_tiny",
+                    "offset_x": 0.0,
+                    "offset_y": -0.0,
+                    "track_config": {"category": "DEBUG","key": "SYSTEM",
+                      "samplers": [
+                        {
+                          "key": "avgTpf",
+                          "label": "Tpf Avg",
+                          "digits": 1,
+                          "unit": "ms"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "widget_id": "container_system_stats",
+                  "widget_class": "GuiStatsPanel",
+                  "widget_config_id":"widget_stats_container_tiny",
+                  "options": {
+                    "container_id": "page_system_container_cpu_1",
+                    "key_box" : "widget_stats_key_box_tiny",
+                    "value_box" : "widget_stats_value_box_tiny",
+                    "offset_x": -0.2,
+                    "offset_y": -0.0,
+                    "track_config": {"category": "DEBUG","key": "SYSTEM",
+                      "samplers": [
+                        {
+                          "key": "cpuLoad",
+                          "label": "Cpu Load",
+                          "digits": 0,
+                          "unit": "%"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "widget_id": "container_system_stats",
+                  "widget_class": "GuiStatsPanel",
+                  "widget_config_id":"widget_stats_container_tiny",
+                  "options": {
+                    "container_id": "page_system_container_cpu_2",
+                    "key_box" : "widget_stats_key_box_tiny",
+                    "value_box" : "widget_stats_value_box_tiny",
+                    "offset_x": -0.2,
+                    "offset_y": -0.0,
+                    "track_config": {"category": "DEBUG","key": "SYSTEM",
+                      "samplers": [
+                        {
+                          "key": "idle",
+                          "label": "Idle",
+                          "digits": 0,
+                          "unit": "ns"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "widget_id": "container_system_stats",
+                  "widget_class": "GuiStatsPanel",
+                  "widget_config_id":"widget_stats_container_tiny",
+                  "options": {
+                    "container_id": "page_system_container_mem_1",
+                    "key_box" : "widget_stats_key_box_tiny",
+                    "value_box" : "widget_stats_value_box_tiny",
+                    "offset_x": -0.2,
+                    "offset_y": -0.0,
+                    "track_config": {"category": "DEBUG","key": "SYSTEM",
+                      "samplers": [
+                        {
+                          "key": "heapUsed",
+                          "label": "MEM",
+                          "digits": 0,
+                          "unit": "MB"
+                        }
+                      ]
+                    }
+                  }
+                },
+
+                {
+                  "widget_id": "container_system_stats",
+                  "widget_class": "GuiStatsPanel",
+                  "widget_config_id":"widget_stats_container_tiny",
+                  "options": {
+                    "container_id": "page_system_container_scene_1",
+                    "key_box" : "widget_stats_key_box_tiny",
+                    "value_box" : "widget_stats_value_box_tiny",
+                    "offset_x": -0.2,
+                    "offset_y": -0.0,
+                    "track_config": {"category": "DEBUG","key": "SYSTEM",
+                      "samplers": [
+                        {
+                          "key": "calls",
+                          "label": "CALLS",
+                          "digits": 0
+                        }
+                      ]
+                    }
+                  }
+                },
+
+                {
+                  "widget_id": "container_system_stats",
+                  "widget_class": "GuiStatsPanel",
+                  "widget_config_id":"widget_stats_container_tiny",
+                  "options": {
+                    "container_id": "page_system_container_scene_2",
+                    "key_box" : "widget_stats_key_box_tiny",
+                    "value_box" : "widget_stats_value_box_tiny",
+                    "offset_x": -0.2,
+                    "offset_y": -0.0,
+                    "track_config": {"category": "DEBUG","key": "SYSTEM",
+                      "samplers": [
+                        {
+                          "key": "tris",
+                          "label": "TRIS",
+                          "digits": 0,
+                          "unit": "k"
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "widget_id": "container_system_stats",
+                  "widget_class": "GuiStatsPanel",
+                  "widget_config_id":"widget_stats_container_tiny",
+                  "options": {
+                    "container_id": "page_system_container_phys_1",
+                    "key_box" : "widget_stats_key_box_tiny",
+                    "value_box" : "widget_stats_value_box_tiny",
+                    "offset_x": -0.2,
+                    "offset_y": -0.0,
+                    "track_config": {"category": "DEBUG","key": "SYSTEM",
+                      "samplers": [
+                        {
+                          "key": "physicsTpf",
+                          "label": "PHYS T",
+                          "digits": 0,
+                          "unit": "ms"
+                        }
+                      ]
+                    }
+                  }
+                }
+
+              ],
+              "buttons":[
+
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

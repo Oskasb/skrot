@@ -1,0 +1,329 @@
+[{
+  "WORLD_ENCOUNTERS":{
+    "ENCOUNTERS":[
+      {
+        "id": "outlaw_start_encounters",
+        "data": [
+          {
+            "data_key":"encounter_data",
+            "config": {
+              "treasures": [
+                {
+                  "pos": [-728, 2, 791],
+                  "visibility": 2,
+                  "indicator_id": "treasure_indicator",
+                  "trigger_radius": 2,
+                  "spawn": {
+                    "items": [
+                      {
+                        "item": "ITEM_HATCHET",
+                        "scale": [1.5, 1.5, 1.5],
+                        "rot": [-1, 0, 0],
+                        "spin": [0, 1.5, 0.0]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pos": [-729, 2, 794],
+                  "visibility": 2,
+                  "indicator_id": "treasure_indicator",
+                  "trigger_radius": 1,
+                  "spawn": {
+                    "items": [
+                      {
+                        "item": "ITEM_HELMET_VIKING_WHITE",
+                        "scale": [1.5, 1.5, 1.5],
+                        "rot": [-2, 0, 0],
+                        "spin": [0, 1.5, 0.0]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pos": [-732, 2, 793],
+                  "visibility": 2,
+                  "indicator_id": "treasure_indicator",
+                  "trigger_radius": 1,
+                  "spawn": {
+                    "items": [
+                      {
+                        "item": "ITEM_BOOTS_SCALE",
+                        "scale": [1.2, 1.2, 1.2],
+                        "rot": [0.3, 0, 0],
+                        "spin": [0, 1.5, 0.0]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pos": [-742, 2, 802],
+                  "visibility": 2,
+                  "indicator_id": "treasure_indicator",
+                  "trigger_radius": 1,
+                  "spawn": {
+                    "items": [
+                      {
+                        "item": "ITEM_GLOVES_SCALE",
+                        "scale": [1.2, 1.2, 1.2],
+                        "rot": [-0.2, 0, 0],
+                        "spin": [0.0, 1.5, 0.0]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "encounters": [
+                {
+                  "pos": [-731, 2, 799],
+                  "visibility": 2,
+                  "grid_id": "grid_7x7",
+                  "host_id": "bandit_basic",
+                  "indicator_id": "battle_indicator",
+                  "trigger_radius": 3,
+
+                  "interact_options": [
+                    {"interaction": "FIGHT", "text": "Attack", "dispatch":  {
+                      "event":"ENCOUNTER_ENGAGE", "value":{}}
+                    },
+                    {"interaction": "PARTY", "text": "Seek Party", "dispatch":  {
+                      "event":"ENCOUNTER_PARTY", "value":{}}
+                    },
+                    {"interaction": "TALK",  "text": "Hi! Please go away so I can pass", "dispatch":  {
+                      "event":"ENCOUNTER_CONVERSE", "value":{"skip": true}}
+                    },
+                    {"interaction": "LEAVE", "text": "Sorry to disturb you, just leaving."}
+                  ],
+                  "spawn": {
+                    "actors": [
+                      {
+                        "actor": "ACTOR_FIGHTER",
+                        "rot": [0, 1.2, 0],
+                        "on_ground": true,
+                        "tile": [3, 3]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pos": [-737, 2, 800],
+                  "visibility": 2,
+                  "grid_id": "grid_5x5",
+                  "host_id": "bandit_basic",
+                  "indicator_id": "battle_indicator",
+                  "trigger_radius": 2,
+                  "interact_options": [
+                    {"interaction": "FIGHT", "text": "Attack", "dispatch":  {
+                      "event":"ENCOUNTER_ENGAGE", "value":{}}
+                    },
+                    {"interaction": "TALK",  "text": "Hi! Please go away so I can pass", "dispatch":  {
+                      "event":"ENCOUNTER_CONVERSE", "value":{"skip": true}}
+                    },
+                    {"interaction": "LEAVE", "text": "Sorry to disturb you, just leaving."}
+                  ],
+                  "spawn": {
+                    "actors": [
+                      {
+                        "actor": "ACTOR_FIGHTER",
+                        "rot": [0, 2.2, 0],
+                        "on_ground": true,
+                        "tile": [2, 2]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pos": [-740, 2, 794],
+                  "visibility": 2,
+                  "grid_id": "grid_5x5",
+                  "host_id": "bandit_basic",
+                  "indicator_id": "battle_indicator",
+                  "trigger_radius": 2,
+                  "interact_options": [
+                    {"interaction": "FIGHT", "text": "Attack", "dispatch":  {
+                      "event":"ENCOUNTER_ENGAGE", "value":{}}
+                    },
+                    {"interaction": "TALK",  "text": "Hi! Please go away so I can pass", "dispatch":  {
+                      "event":"ENCOUNTER_CONVERSE", "value":{"skip": true}}
+                    },
+                    {"interaction": "LEAVE", "text": "Sorry to disturb you, just leaving."}
+                  ],
+                  "spawn": {
+                    "actors": [
+                      {
+                        "actor": "ACTOR_FIGHTER",
+                        "rot": [0, 0.2, 0],
+                        "on_ground": true,
+                        "tile": [2, 3]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "outlaw_cavern_encounters",
+        "data": [
+          {
+            "data_key":"encounter_data",
+            "config": {
+              "treasures": [
+                {
+                  "pos": [-728, 2, 791],
+                  "visibility": 2,
+                  "indicator_id": "treasure_indicator",
+                  "trigger_radius": 2,
+                  "spawn": {
+                    "items": [
+                      {
+                        "item": "ITEM_HATCHET",
+                        "scale": [1.5, 1.5, 1.5],
+                        "rot": [-1, 0, 0],
+                        "spin": [0, 1.5, 0.0]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pos": [-729, 2, 794],
+                  "visibility": 2,
+                  "indicator_id": "treasure_indicator",
+                  "trigger_radius": 1,
+                  "spawn": {
+                    "items": [
+                      {
+                        "item": "ITEM_HELMET_VIKING_WHITE",
+                        "scale": [1.5, 1.5, 1.5],
+                        "rot": [-2, 0, 0],
+                        "spin": [0, 1.5, 0.0]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pos": [-732, 2, 793],
+                  "visibility": 2,
+                  "indicator_id": "treasure_indicator",
+                  "trigger_radius": 1,
+                  "spawn": {
+                    "items": [
+                      {
+                        "item": "ITEM_BOOTS_SCALE",
+                        "scale": [1.2, 1.2, 1.2],
+                        "rot": [0.3, 0, 0],
+                        "spin": [0, 1.5, 0.0]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pos": [-742, 2, 802],
+                  "visibility": 2,
+                  "indicator_id": "treasure_indicator",
+                  "trigger_radius": 1,
+                  "spawn": {
+                    "items": [
+                      {
+                        "item": "ITEM_GLOVES_SCALE",
+                        "scale": [1.2, 1.2, 1.2],
+                        "rot": [-0.2, 0, 0],
+                        "spin": [0.0, 1.5, 0.0]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "encounters": [
+                {
+                  "pos": [-709, 2, 778],
+                  "visibility": 2,
+                  "grid_id": "grid_7x7",
+                  "host_id": "bandit_basic",
+                  "indicator_id": "battle_indicator",
+                  "trigger_radius": 2,
+
+                  "interact_options": [
+                    {"interaction": "FIGHT", "text": "Attack", "dispatch":  {
+                      "event":"ENCOUNTER_ENGAGE", "value":{}}
+                    },
+                    {"interaction": "TALK",  "text": "Hi! Please go away so I can pass", "dispatch":  {
+                      "event":"ENCOUNTER_CONVERSE", "value":{"skip": true}}
+                    },
+                    {"interaction": "LEAVE", "text": "Sorry to disturb you, just leaving."}
+                  ],
+                  "spawn": {
+                    "actors": [
+                      {
+                        "actor": "ACTOR_FIGHTER",
+                        "rot": [0, 1.2, 0],
+                        "on_ground": true,
+                        "tile": [3, 3]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pos": [-704, 2, 766],
+                  "visibility": 2,
+                  "grid_id": "grid_5x5",
+                  "host_id": "bandit_basic",
+                  "indicator_id": "battle_indicator",
+                  "trigger_radius": 2,
+                  "interact_options": [
+                    {"interaction": "FIGHT", "text": "Attack", "dispatch":  {
+                      "event":"ENCOUNTER_ENGAGE", "value":{}}
+                    },
+                    {"interaction": "TALK",  "text": "Hi! Please go away so I can pass", "dispatch":  {
+                      "event":"ENCOUNTER_CONVERSE", "value":{"skip": true}}
+                    },
+                    {"interaction": "LEAVE", "text": "Sorry to disturb you, just leaving."}
+                  ],
+                  "spawn": {
+                    "actors": [
+                      {
+                        "actor": "ACTOR_FIGHTER",
+                        "rot": [0, 2.2, 0],
+                        "on_ground": true,
+                        "tile": [2, 2]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "pos": [-720, 2, 759],
+                  "visibility": 2,
+                  "grid_id": "grid_5x5",
+                  "host_id": "bandit_basic",
+                  "indicator_id": "battle_indicator",
+                  "trigger_radius": 2,
+                  "interact_options": [
+                    {"interaction": "FIGHT", "text": "Attack", "dispatch":  {
+                      "event":"ENCOUNTER_ENGAGE", "value":{}}
+                    },
+                    {"interaction": "TALK",  "text": "Hi! Please go away so I can pass", "dispatch":  {
+                      "event":"ENCOUNTER_CONVERSE", "value":{"skip": true}}
+                    },
+                    {"interaction": "LEAVE", "text": "Sorry to disturb you, just leaving."}
+                  ],
+                  "spawn": {
+                    "actors": [
+                      {
+                        "actor": "ACTOR_FIGHTER",
+                        "rot": [0, 0.2, 0],
+                        "on_ground": true,
+                        "tile": [2, 3]
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}]

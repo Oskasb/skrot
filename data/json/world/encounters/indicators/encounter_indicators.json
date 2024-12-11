@@ -1,0 +1,146 @@
+[{
+  "ENCOUNTER_INDICATORS":{
+    "INDICATORS":[
+      {
+        "id": "unknown_indicator",
+        "data": [
+          {
+            "data_key":"indicator_data",
+            "config": {
+              "sprite": [4, 4],
+              "height": 1.6,
+              "rgba": [0.55, 0.55, 0.55, 1],
+              "size": 2.4
+            }
+          }
+        ]
+      },
+      {
+        "id": "encounter_indicator",
+        "data": [
+          {
+            "data_key":"indicator_data",
+            "config": {
+              "sprite": [6, 6],
+              "height": 1.6,
+              "rgba": [0.7, 0.7, 0.7, 1],
+              "size": 2.4
+            }
+          }
+        ]
+      },
+      {
+        "id": "travel_indicator",
+        "data": [
+          {
+            "data_key":"indicator_data",
+            "config": {
+              "sprite": [4, 6],
+              "height": 1.6,
+              "rgba": [0.49, 0.85, 0.99, 1],
+              "size": 2.4
+            }
+          }
+        ]
+      },
+      {
+        "id": "adventure_indicator",
+        "data": [
+          {
+            "data_key":"indicator_data",
+            "config": {
+              "sprite": [7, 6],
+              "height": 2.3,
+              "rgba": [0.99, 0.85, 0.39, 1],
+              "size": 3.4
+            }
+          }
+        ]
+      },
+      {
+        "id": "converse_indicator",
+        "data": [
+          {
+            "data_key":"indicator_data",
+            "config": {
+              "sprite": [6, 6],
+              "height": 2.8,
+              "rgba": [0.89, 0.88, 0.89, 1],
+              "size": 1.4
+            }
+          }
+        ]
+      },
+      {
+        "id": "vendor_indicator",
+        "data": [
+          {
+            "data_key":"indicator_data",
+            "config": {
+              "sprite": [7, 5],
+              "height": 2.8,
+              "rgba": [0.29, 0.85, 0.99, 1],
+              "size": 1.4
+            }
+          }
+        ]
+      },
+      {
+        "id": "quest_indicator",
+        "data": [
+          {
+            "data_key":"indicator_data",
+            "config": {
+              "sprite": [7, 6],
+              "height": 2.8,
+              "rgba": [0.99, 0.85, 0.39, 1],
+              "size": 1.4
+            }
+          }
+        ]
+      },
+      {
+        "id": "quest_end_indicator",
+        "data": [
+          {
+            "data_key":"indicator_data",
+            "config": {
+              "sprite": [4, 4],
+              "height": 2.8,
+              "rgba": [0.97, 0.87, 0.27, 1],
+              "size": 1.4
+            }
+          }
+        ]
+      },
+      {
+        "id": "treasure_indicator",
+        "data": [
+          {
+            "data_key":"indicator_data",
+            "config": {
+                "sprite": [7, 7],
+                "height": 1.6,
+                "rgba": [0.3, 0.75, 0.99, 1],
+                "size": 0.8
+            }
+          }
+        ]
+      },
+      {
+        "id": "battle_indicator",
+        "data": [
+          {
+            "data_key":"indicator_data",
+            "config": {
+              "sprite": [3, 5],
+              "height": 2.6,
+              "rgba": [1, 0.1, 0.3, 1],
+              "size": 1.6
+            }
+          }
+        ]
+      }
+    ]
+  }
+}]

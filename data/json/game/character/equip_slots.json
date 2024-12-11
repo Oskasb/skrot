@@ -1,0 +1,70 @@
+[{
+  "GAME":{
+    "EQUIP_SLOTS":[
+      {
+        "id":"SLOTS_FIGHTER",
+        "data":{
+          "slots": [
+            {"slot_id": "SLOT_HEAD"      ,"joint": "HEAD"   },
+            {"slot_id": "SLOT_BODY"      ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_CHEST"     ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_WRIST"     ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_HANDS"     ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_WAIST"     ,"joint": "PELVIS" },
+            {"slot_id": "SLOT_LEGS"      ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_SKIRT"     ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_FEET"      ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_HAND_R"    ,"joint": "GRIP_R" },
+            {"slot_id": "SLOT_HAND_L"    ,"joint": "GRIP_L" },
+            {"slot_id": "SLOT_BACK"      ,"joint": "SPINE_1"},
+            {"slot_id": "SLOT_WRIST_L"   ,"joint": "FOREARM_L"},
+            {"slot_id": "SLOT_WRIST_R"   ,"joint": "FOREARM_R"}
+          ]
+        }
+      },
+      {
+        "id":"SLOTS_NONE",
+        "data":{
+          "slots": [
+
+          ]
+        }
+      },
+      {
+        "id":"SLOTS_BARB",
+        "data":{
+          "slots": [
+            {"slot_id": "SLOT_HEAD"      ,"joint": "HEAD"   },
+            {"slot_id": "SLOT_BODY"      ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_CHEST"     ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_WRIST"     ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_HANDS"     ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_WAIST"     ,"joint": "PELVIS" },
+            {"slot_id": "SLOT_LEGS"      ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_SKIRT"     ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_HAND_R"    ,"joint": "GRIP_R" },
+            {"slot_id": "SLOT_HAND_L"    ,"joint": "GRIP_L" }
+          ]
+        }
+      },
+      {
+        "id":"SLOTS_DUDE",
+        "data":{
+          "slots": [
+            {"slot_id": "SLOT_HEAD"      ,"joint": "HEAD"   },
+            {"slot_id": "SLOT_BODY"      ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_CHEST"     ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_WRIST"     ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_HANDS"     ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_WAIST"     ,"joint": "PELVIS" },
+            {"slot_id": "SLOT_LEGS"      ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_SKIRT"     ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_FEET"      ,"joint": "SKIN"   },
+            {"slot_id": "SLOT_HAND_R"    ,"joint": "GRIP_R" },
+            {"slot_id": "SLOT_HAND_L"    ,"joint": "GRIP_L" }
+          ]
+        }
+      }
+    ]
+  }
+}]

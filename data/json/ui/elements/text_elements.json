@@ -1,0 +1,38 @@
+
+[
+  {
+    "UI": {
+      "SPRITE_FONT":[
+        {
+          "id": "FONT_16x16",
+          "data": [
+            {
+              "id":"sprite_font_button_big",
+              "config": {
+                "letter_width": 0.0012,
+                "letter_height": 0.0025,
+                "row_spacing": 0.00001
+              }
+            },
+            {
+              "id":"sprite_font_main_text",
+              "config": {
+                "letter_width": 0.0012,
+                "letter_height": 0.0025,
+                "row_spacing": 0.00001
+              }
+            },
+            {
+              "id":"sprite_font_debug",
+              "config": {
+                "letter_width": 0.0011,
+                "letter_height": 0.0025,
+                "row_spacing": 0.00000001
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

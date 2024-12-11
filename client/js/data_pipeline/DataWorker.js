@@ -1,6 +1,7 @@
 "use strict";
 
 import { DataPipelineMessageHandler } from './DataPipelineMessageHandler.js';
+import { ENUMS } from "../application/ENUMS.js";
 
 class DataWorker {
 

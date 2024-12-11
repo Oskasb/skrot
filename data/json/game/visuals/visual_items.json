@@ -1,0 +1,2105 @@
+[{
+  "GAME":{
+    "VISUALS":[
+      {
+        "id": "VISUAL_MATERIAL_INGOT_LEAD",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_ingot_lead"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_INGOT_COPPER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_ingot_copper"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_INGOT_SILVER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_ingot_silver"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_INGOT_GOLD",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_ingot_gold"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_INGOT_PLATINUM",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_ingot_platinum"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_INGOT_MITHRIL",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_ingot_mithril"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_INGOT_BRONZE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_ingot_bronze"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_INGOT_IRON",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_ingot_iron"
+        }
+      },
+
+      {
+        "id": "VISUAL_MATERIAL_INGOT_STEEL",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_ingot_steel"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_INGOT_TITANIUM",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_ingot_titanium"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_INGOT_ADAMANTIUM",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_ingot_adamantium"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_LEATHER_FLIMSY",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_leather_flimsy"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_LEATHER_PATCHED",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_leather_patched"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_LEATHER_LIGHT",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_leather_light"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_LEATHER_ROUGH",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_leather_rough"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_LEATHER_THICK",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_leather_thick"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_LEATHER_STRONG",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_leather_strong"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_LEATHER_OXEN",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_leather_oxen"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_LIQUID_CHEMICALS",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_liquid_chemicals"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_LIQUID_COOLANT",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_liquid_coolant"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_LIQUID_POISON",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_liquid_poison"
+        }
+      },
+
+      {
+        "id": "VISUAL_MATERIAL_PLATE_COPPER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_plate_copper"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_PLATE_BRONZE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_plate_bronze"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_PLATE_IRON",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_plate_iron"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_PLATE_STEEL",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_plate_steel"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_PLATE_TITANIUM",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_plate_titanium"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_PLATE_ADAMANTIUM",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_plate_adamantium"
+        }
+      },
+
+
+      {
+        "id": "VISUAL_MATERIAL_RINGS_COPPER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_rings_copper"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_RINGS_BRONZE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_rings_bronze"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_RINGS_IRON",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_rings_iron"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_RINGS_STEEL",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_rings_steel"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_RINGS_TITANIUM",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_rings_titanium"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_RINGS_ADAMANTIUM",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_rings_adamantium"
+        }
+      },
+
+
+
+      {
+        "id": "VISUAL_MATERIAL_SCALES_COPPER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_scales_copper"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_SCALES_BRONZE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_scales_bronze"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_SCALES_IRON",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_scales_iron"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_SCALES_STEEL",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_scales_steel"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_SCALES_TITANIUM",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_scales_titanium"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_SCALES_ADAMANTIUM",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_scales_adamantium"
+        }
+      },
+
+      {
+        "id": "VISUAL_MATERIAL_SCALES_FLIMSY",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_scales_flimsy"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_SCALES_PATCHED",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_scales_patched"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_SCALES_LIGHT",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_scales_light"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_SCALES_ROUGH",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_scales_rough"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_SCALES_THICK",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_scales_thick"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_SCALES_STRONG",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_scales_strong"
+        }
+      },
+
+
+
+      {
+        "id": "VISUAL_MATERIAL_STRIPS_FLIMSY",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_strips_flimsy"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_STRIPS_PATCHED",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_strips_patched"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_STRIPS_LIGHT",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_strips_light"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_STRIPS_ROUGH",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_strips_rough"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_STRIPS_THICK",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_strips_thick"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_STRIPS_STRONG",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_strips_strong"
+        }
+      },
+
+
+      {
+        "id": "VISUAL_MATERIAL_FABRIC_WEAK",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_fabric_weak"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_FABRIC_WEAK",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_fabric_weak"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_FABRIC_WEAK",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_fabric_weak"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_FABRIC_WEAK",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_fabric_weak"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_FABRIC_WEAK",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_fabric_weak"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_FABRIC_WEAK",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_fabric_weak"
+        }
+      },
+
+
+      {
+        "id": "VISUAL_MATERIAL_FABRIC_WEAK",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_fabric_weak"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_FABRIC_STITCHED",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_fabric_stitched"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_FABRIC_PLAIN",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_fabric_plain"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_FABRIC_DURABLE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_fabric_durable"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_FABRIC_DYNAMIC",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_fabric_dynamic"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_FABRIC_VIBRANT",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_fabric_vibrant"
+        }
+      },
+
+
+      {
+        "id": "VISUAL_MATERIAL_BLADE_COPPER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_blade_copper"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_BLADE_BRONZE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_blade_bronze"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_BLADE_IRON",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_blade_iron"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_BLADE_STEEL",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_blade_steel"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_BLADE_TITANIUM",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_blade_titanium"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_BLADE_ADAMANTIUM",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_blade_adamantium"
+        }
+      },
+
+
+
+      {
+        "id": "VISUAL_MATERIAL_CHEMICALS_MURKY",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_chemicals_murky"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_CHEMICALS_IMPURE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_chemicals_impure"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_CHEMICALS_CLEAR",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_chemicals_clear"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_CHEMICALS_PURE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_chemicals_pure"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_CHEMICALS_BRIGHT",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_chemicals_bright"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_CHEMICALS_INFUSED",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_chemicals_infused"
+        }
+      },
+
+
+
+      {
+        "id": "VISUAL_MATERIAL_COOLANT_DIRT",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_coolant_dirt"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_COOLANT_WATER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_coolant_water"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_COOLANT_SAND",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_coolant_sand"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_COOLANT_OIL",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_coolant_oil"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_COOLANT_ADVANCED",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_coolant_advanced"
+        }
+      },
+      {
+        "id": "VISUAL_MATERIAL_COOLANT_MYSTICAL",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_material_coolant_mystical"
+        }
+      },
+
+      {
+        "id": "VISUAL_CURRENCY_GOLD",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_currency_gold"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_DIAMOND",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_currency_diamond"
+        }
+      },
+
+      {
+        "id": "VISUAL_CURRENCY_CLASS_BARBARIAN",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_class_barbarian"
+        }
+      },
+
+      {
+        "id": "VISUAL_CURRENCY_CLASS_BARD",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_class_bard"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_CLASS_CLERIC",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_class_cleric"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_CLASS_DRUID",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_class_druid"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_CLASS_FIGHTER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_class_fighter"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_CLASS_MONK",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_class_monk"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_CLASS_PALADIN",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_class_paladin"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_CLASS_RANGER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_class_ranger"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_CLASS_ROGUE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_class_rogue"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_CLASS_SORCERER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_class_sorcerer"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_CLASS_WARLOCK",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_class_warlock"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_CLASS_WIZARD",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_class_wizard"
+        }
+      },
+
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_ABJURATION",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_abjuration"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_ANCESTRAL_GUARDIAN",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_ancestral_guardian"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_ARCANA",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_arcana"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_ARCANE_ARCHER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_arcane_archer"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_ARCANE_TRIXTER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_arcane_trixter"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_ARCHFEY",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_archfey"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_ASSASSIN",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_assassin"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_BATTLE_MASTER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_battle_master"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_BATTLERAGER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_battlerager"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_BEAST_MASTER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_beast_master"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_BERZERKER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_berzerker"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_BLADESINGING",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_bladesinging"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_CAVALIER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_cavalier"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_CELESTIAL",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_celestial"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_CHAMPION",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_champion"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_CHRONURGY",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_chronurgy"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_CONJURATION",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_conjuration"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_CONQUEST",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_conquest"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_DEATH",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_death"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_DEVOTION",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_devotion"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_DIVINATION",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_divination"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_DIVINE_SOUL",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_divine_soul"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_DRACONIC_BLOODLINE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_draconic_bloodline"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_DRAGON_KNIGHT",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_dragon_knight"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_DREAMS",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_dreams"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_DRUNKEN_MASTER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_drunken_master"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_ECHO_KNIGHT",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_echo_knight"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_ELDRITCH_KNIGHT",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_eldritch_knight"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_ENCHANTMENT",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_enchantment"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_EVOCATION",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_evocation"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_FIEND",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_fiend"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_FORGE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_forge"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_FOUR_ELEMENTS",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_four_elements"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_GLAMOUR",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_glamour"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_GLOOM_STALKER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_gloom_stalker"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_GRAVE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_grave"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_GRAVITURGY",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_graviturgy"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_GREAT_OLD_ONE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_great_old_one"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_GUARDIAN",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_guardian"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_HEXBLADE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_hexblade"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_HORIZON_WALKER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_horizon_walker"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_HUNTER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_hunter"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_ILLUSION",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_illusion"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_INQUISITOR",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_inquisitor"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_KENSEI",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_kensei"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_KNOWLEDGE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_knowledge"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_LIFE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_life"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_LIGHT",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_light"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_LONG_DEATH",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_long_death"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_LORE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_lore"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_MASTERMIND",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_mastermind"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_MONSTER_SLAYER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_monster_slayer"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_NATURE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_nature"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_NECROMANCY",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_necromancy"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_OATHBREAKER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_oathbreaker"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_OPEN_HAND",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_open_hand"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_ORDER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_order"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_REDEMPTION",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_redemption"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_SAMURAI",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_samurai"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_SCOUT",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_scout"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_SHADOW",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_shadow"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_SHADOW_MAGIC",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_shadow_magic"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_SPORES",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_spores"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_STORM_HERALD",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_storm_herald"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_STORM_SORCERY",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_storm_sorcery"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_SUN_SOUL",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_sun_soul"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_SWASHBUCKLER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_swashbuckler"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_SWORDS",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_swords"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_TEMPEST",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_tempest"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_THE_ANCIENTS",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_the_ancients"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_THE_CROWN",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_the_crown"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_THE_LAND",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_the_land"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_THE_MOON",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_the_moon"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_THE_SHEPHERD",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_the_shepherd"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_THIEF",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_thief"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_TOTEM_WARRIOR",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_totem_warrior"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_TRANSMUTATION",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_transmutation"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_TRICKERY",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_trickery"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_UNDYING",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_undying"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_VALOR",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_valor"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_VENGEANCE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_vengeance"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_WAR",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_war"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_WAR_MAGIC",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_war_magic"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_WHISPER",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_whisper"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_ZEALOT",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_zealot"
+        }
+      },
+      {
+        "id": "VISUAL_CURRENCY_SUBCLASS_WILD_SOUL",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_subclass_wild_soul"
+        }
+      },
+      {
+        "id": "VISUAL_DRAKEN",
+        "data": {
+          "model_asset":"asset_svigg",
+          "base_size": 0.1,
+          "palette":"ITEMS_BLUE"
+        }
+      },
+      {
+        "id": "VISUAL_JETPACK",
+        "data": {
+          "model_asset":"asset_jetpack",
+          "base_size": 10,
+          "palette":"ITEMS_BLUE"
+        }
+      },
+      {
+        "id": "VISUAL_WRIST_COMPUTER",
+        "data": {
+          "model_asset":"asset_wrist_computer",
+          "base_size": 10,
+          "palette":"ITEMS_BLUE"
+        }
+      },
+      {
+        "id": "VISUAL_DRAKEN_GOLDRED",
+        "data": {
+          "model_asset":"asset_svigg",
+          "base_size": 0.1,
+          "palette":"ITEMS_GOLDRED"
+        }
+      },
+      {
+        "id": "VISUAL_JETPACK_GOLDRED",
+        "data": {
+          "model_asset":"asset_jetpack",
+          "base_size": 10,
+          "palette":"ITEMS_GOLDRED"
+        }
+      },
+      {
+        "id": "VISUAL_WRIST_COMPUTER_GOLDRED",
+        "data": {
+          "model_asset":"asset_wrist_computer",
+          "base_size": 10,
+          "palette":"ITEMS_GOLDRED"
+        }
+      },
+      {
+        "id": "VISUAL_DRAKEN_WHITE",
+        "data": {
+          "model_asset":"asset_svigg",
+          "base_size": 0.1,
+          "palette":"ITEMS_WHITE"
+        }
+      },
+      {
+        "id": "VISUAL_JETPACK_WHITE",
+        "data": {
+          "model_asset":"asset_jetpack",
+          "base_size": 10,
+          "palette":"ITEMS_WHITE"
+        }
+      },
+      {
+        "id": "VISUAL_WRIST_COMPUTER_WHITE",
+        "data": {
+          "model_asset":"asset_wrist_computer",
+          "base_size": 10,
+          "palette":"ITEMS_WHITE"
+        }
+      },
+      {
+        "id": "VISUAL_HAT_BLUE",
+        "data": {
+          "model_asset":"asset_hat_cloth_blue",
+          "icon_class": "icon_hat_blue"
+        }
+      },
+      {
+        "id": "VISUAL_HAT_RED",
+        "data": {
+          "model_asset":"asset_hat_cloth_red",
+          "icon_class": "icon_hat_red"
+        }
+      },
+      {
+        "id": "VISUAL_HAT_WHITE",
+        "data": {
+          "model_asset":"asset_hat_cloth_white",
+          "icon_class": "icon_hat_pointy_white"
+        }
+      },
+      {
+        "id": "VISUAL_HAT_YELLOW",
+        "data": {
+          "model_asset":"asset_hat_cloth_yellow",
+          "icon_class": "icon_hat_pointy_white"
+        }
+      },
+      {
+        "id": "VISUAL_HAT_LEATHER",
+        "data": {
+          "model_asset":"asset_hat_leather_brown",
+          "icon_class": "icon_hat_pointy_white"
+        }
+      },
+      {
+        "id": "VISUAL_HAT_POINTY_WHITE",
+        "data": {
+          "model_asset":"asset_hat_pointy_white",
+          "icon_class": "icon_hat_pointy_white"
+        }
+      },
+      {
+        "id": "VISUAL_STAFF_BASIC",
+        "data": {
+          "model_asset":"asset_staff_basic",
+          "icon_class": "icon_weapon_2h_staff_basic"
+        }
+      },
+      {
+        "id": "VISUAL_KATANA",
+        "data": {
+          "model_asset":"asset_ninjablade",
+          "icon_class": "icon_weapon_1h_katana"
+        }
+      },
+      {
+        "id": "VISUAL_KATANA_GREEN",
+        "data": {
+          "model_asset":"asset_katana_green",
+          "icon_class": "icon_weapon_1h_katana"
+        }
+      },
+      {
+        "id": "VISUAL_PITCHFORK",
+        "data": {
+          "model_asset":"asset_pitchfork",
+          "icon_class": "icon_weapon_2h_pitchfork"
+        }
+      },
+      {
+        "id": "VISUAL_AXE_SLICER",
+        "data": {
+          "model_asset":"asset_slicer_axe_2h",
+          "icon_class": "icon_weapon_2h_axe_slicer"
+        }
+      },
+      {
+        "id": "VISUAL_AXE_SLICER_GOLDRED",
+        "data": {
+          "model_asset":"asset_slicer_axe_2h",
+          "palette":"ITEMS_GOLDRED",
+          "icon_class": "icon_weapon_2h_axe_slicer"
+        }
+      },
+      {
+        "id": "VISUAL_AXE_SLICER_BLUE",
+        "data": {
+          "model_asset":"asset_slicer_axe_2h",
+          "palette":"ITEMS_BLUE",
+          "icon_class": "icon_weapon_2h_axe_slicer"
+        }
+      },
+      {
+        "id": "VISUAL_AXE_SLICER_WHITE",
+        "data": {
+          "model_asset":"asset_slicer_axe_2h",
+          "palette":"ITEMS_WHITE",
+          "icon_class": "icon_weapon_2h_axe_slicer"
+        }
+      },
+      {
+        "id": "VISUAL_AXE_SLICER_BLACK",
+        "data": {
+          "model_asset":"asset_slicer_axe_2h",
+          "palette":"ITEMS_BLACK",
+          "icon_class": "icon_weapon_2h_axe_slicer"
+        }
+      },
+      {
+        "id": "VISUAL_SWORD_FANCY",
+        "data": {
+          "model_asset":"asset_sword_fancy",
+          "icon_class": "icon_weapon_1h_sword_fancy"
+        }
+      },
+      {
+        "id": "VISUAL_EMERALD_BLADE",
+        "data": {
+          "model_asset":"asset_emerald_blade",
+          "icon_class": "icon_weapon_1h_sword_emerald"
+        }
+      },
+      {
+        "id": "VISUAL_HATCHET",
+        "data": {
+          "model_asset":"asset_hatchet_nice",
+          "icon_class": "icon_weapon_1h_axe_hatchet",
+          "palette": "DEFAULT"
+        }
+      },
+      {
+        "id": "VISUAL_HELMET_RED",
+        "data": {
+          "model_asset":"asset_helmet_red",
+          "icon_class": "icon_helmet_steel"
+        }
+      },
+      {
+        "id": "VISUAL_HELMET_VIKING_RED",
+        "data": {
+          "model_asset":"asset_helmetviking_red",
+          "icon_class": "icon_helmet_viking_white"
+        }
+      },
+      {
+        "id": "VISUAL_BELT_PLATE_RED",
+        "data": {
+          "model_asset":"asset_beltplate_red",
+          "icon_class": "icon_belt_steel"
+        }
+      },
+      {
+        "id": "VISUAL_BELT_RED",
+        "data": {
+          "model_asset":"asset_belt_red",
+          "icon_class": "icon_belt_steel"
+        }
+      },
+      {
+        "id": "VISUAL_HELMET_BRONZE",
+        "data": {
+          "model_asset":"asset_helmet_bronze",
+          "icon_class": "icon_helmet_bronze"
+        }
+      },
+      {
+        "id": "VISUAL_HELMET_STEEL",
+        "data": {
+          "model_asset":"asset_helmet_steel",
+          "icon_class": "icon_helmet_steel"
+        }
+      },
+      {
+        "id": "VISUAL_HELMET_VIKING",
+        "data": {
+          "model_asset":"asset_helmetviking",
+          "icon_class": "icon_helmet_viking_white",
+          "palette":"ITEMS_STEEL"
+        }
+      },
+      {
+        "id": "VISUAL_BELT_PLATE",
+        "data": {
+          "model_asset":"asset_beltplate",
+          "icon_class": "icon_belt_steel"
+        }
+      },
+      {
+        "id": "VISUAL_HELMET_VIKING_BLUE",
+        "data": {
+          "model_asset":"asset_helmetviking",
+          "icon_class": "icon_helmet_viking_white",
+          "palette":"ITEMS_BLUE"
+        }
+      },
+      {
+        "id": "VISUAL_BELT_PLATE_BLUE",
+        "data": {
+          "model_asset":"asset_beltplate",
+          "icon_class": "icon_belt_steel",
+          "palette":"ITEMS_BLUE"
+        }
+      },
+      {
+        "id": "VISUAL_HELMET_VIKING_GOLDRED",
+        "data": {
+          "model_asset":"asset_helmetviking",
+          "icon_class": "icon_helmet_viking_white",
+          "palette":"ITEMS_GOLDRED"
+        }
+      },
+      {
+        "id": "VISUAL_BELT_PLATE_GOLDRED",
+        "data": {
+          "model_asset":"asset_beltplate",
+          "icon_class": "icon_belt_steel",
+          "palette":"ITEMS_GOLDREDE"
+        }
+      },
+      {
+        "id": "VISUAL_HELMET_VIKING_BLACK",
+        "data": {
+          "model_asset":"asset_helmetviking",
+          "icon_class": "icon_helmet_viking_white",
+          "palette":"ITEMS_BLACK"
+        }
+      },
+      {
+        "id": "VISUAL_BELT_PLATE_BLACK",
+        "data": {
+          "model_asset":"asset_beltplate",
+          "icon_class": "icon_belt_steel",
+          "palette":"ITEMS_BLACK"
+        }
+      },
+      {
+        "id": "VISUAL_HELMET_VIKING_WHITE",
+        "data": {
+          "model_asset":"asset_helmetviking",
+          "palette":"ITEMS_WHITE",
+          "icon_class": "icon_helmet_viking_white"
+        }
+      },
+      {
+        "id": "VISUAL_BELT_PLATE_WHITE",
+        "data": {
+          "model_asset":"asset_beltplate",
+          "icon_class": "icon_belt_steel",
+          "palette":"ITEMS_WHITE"
+        }
+      },
+      {
+        "id": "VISUAL_BELT_PLATE_GOLDRED",
+        "data": {
+          "model_asset":"asset_beltplate",
+          "icon_class": "icon_belt_steel",
+          "palette":"ITEMS_GOLDRED"
+        }
+      },
+      {
+        "id": "VISUAL_BELT_BRONZE",
+        "data": {
+          "model_asset":"asset_belt_bronze",
+          "icon_class": "icon_belt_bronze"
+        }
+      },
+      {
+        "id": "VISUAL_LEGS_SCALE_PURPLE",
+        "data": {
+          "model_asset":"asset_scale_purple_legs",
+          "icon_class": "icon_legs_scale"
+        }
+      },
+
+      {
+        "id": "VISUAL_SHIRT_SCALE_PURPLE",
+        "data": {
+          "model_asset":"asset_scale_purple_shirt",
+          "icon_class": "icon_chest_scale"
+        }
+      },
+      {
+        "id": "VISUAL_LEGS_CHAIN_PURPLE",
+        "data": {
+          "model_asset":"asset_chain_legs_purple",
+          "icon_class": "icon_legs_chain"
+        }
+      },
+      {
+        "id": "VISUAL_SHIRT_CHAIN_PURPLE",
+        "data": {
+          "model_asset":"asset_chain_shirt_purple",
+          "icon_class": "icon_shirt_chain"
+        }
+      },      {
+        "id": "VISUAL_GLOVES_SCALE_PURPLE",
+        "data": {
+          "model_asset":"asset_scale_purple_gloves",
+          "icon_class": "icon_gloves_scale_white"
+        }
+      },      {
+        "id": "VISUAL_BOOTS_SCALE_PURPLE",
+        "data": {
+          "model_asset":"asset_scale_purple_boots",
+          "icon_class": "icon_boots_scale_white"
+        }
+      },      {
+        "id": "VISUAL_BP_PURPLE",
+        "data": {
+          "model_asset":"asset_purple_bp",
+          "icon_class": "icon_chest_scale"
+        }
+      },      {
+        "id": "VISUAL_LEGS_PURPLE",
+        "data": {
+          "model_asset":"asset_purple_legs",
+          "icon_class": "icon_legs_scale"
+        }
+      },      {
+        "id": "VISUAL_SHIRT_SCALE_RED",
+        "data": {
+          "model_asset":"asset_scale_shirt_red",
+          "icon_class": "icon_chest_scale"
+        }
+      },      {
+        "id": "VISUAL_LEGS_SCALE_RED",
+        "data": {
+          "model_asset":"asset_scale_red_legs",
+          "icon_class": "icon_legs_scale"
+        }
+      },      {
+        "id": "VISUAL_LEGS_CHAIN_RED",
+        "data": {
+          "model_asset":"asset_chain_legs_red",
+          "icon_class": "icon_legs_chain"
+        }
+      },      {
+        "id": "VISUAL_SHIRT_CHAIN_RED",
+        "data": {
+          "model_asset":"asset_chain_shirt_red",
+          "icon_class": "icon_shirt_chain"
+        }
+      },      {
+        "id": "VISUAL_GLOVES_SCALE_RED",
+        "data": {
+          "model_asset":"asset_scale_red_gloves",
+          "icon_class": "icon_gloves_scale_white"
+        }
+      },      {
+        "id": "VISUAL_BOOTS_SCALE_RED",
+        "data": {
+          "model_asset":"asset_scale_red_boots",
+          "icon_class": "icon_boots_scale_white"
+        }
+      },      {
+        "id": "VISUAL_BP_RED",
+        "data": {
+          "model_asset":"asset_red_bp",
+          "icon_class": "icon_chest_scale"
+        }
+      },      {
+        "id": "VISUAL_LEGS_RED",
+        "data": {
+          "model_asset":"asset_red_legs",
+          "icon_class": "icon_legs_scale"
+        }
+      },
+      {
+        "id": "VISUAL_GLOVES_SCALE",
+        "data": {
+          "model_asset":"asset_scale_gloves",
+          "icon_class": "icon_gloves_scale_white"
+        }
+      },      {
+        "id": "VISUAL_BOOTS_SCALE",
+        "data": {
+          "model_asset":"asset_scale_boots",
+          "icon_class": "icon_boots_scale_white"
+        }
+      },
+
+      {
+        "id": "VISUAL_GLOVES_CHAIN",
+        "data": {
+          "model_asset":"asset_chain_gloves",
+          "icon_class": "icon_gloves_chain"
+        }
+      },      {
+        "id": "VISUAL_BOOTS_CHAIN",
+        "data": {
+          "model_asset":"asset_chain_boots",
+          "icon_class": "icon_boots_chain"
+        }
+      },
+      {
+        "id": "VISUAL_GLOVES_LEATHER",
+        "data": {
+          "model_asset":"asset_leather_gloves",
+          "icon_class": "icon_gloves_leather"
+        }
+      },      {
+        "id": "VISUAL_BOOTS_LEATHER",
+        "data": {
+          "model_asset":"asset_leather_boots",
+          "icon_class": "icon_boots_leather"
+        }
+      },
+      {
+        "id": "VISUAL_GLOVES_LEATHER_STUDDED",
+        "data": {
+          "model_asset":"asset_leather_gloves_studded",
+          "icon_class": "icon_gloves_leather_studded"
+        }
+      },      {
+        "id": "VISUAL_BOOTS_LEATHER_STUDDED",
+        "data": {
+          "model_asset":"asset_leather_boots_studded",
+          "icon_class": "icon_boots_leather_studded"
+        }
+      },
+
+      {
+        "id": "VISUAL_BP_STEEL",
+        "data": {
+          "model_asset":"asset_steel_bp",
+          "icon_class": "icon_bp_steel"
+        }
+      },
+      {
+        "id": "VISUAL_LEGS_STEEL",
+        "data": {
+          "model_asset":"asset_steel_legs",
+          "icon_class": "icon_legs_steel"
+        }
+      },
+      {
+      "id": "VISUAL_BP_BRONZE",
+      "data": {
+        "model_asset":"asset_bronze_bp",
+        "icon_class": "icon_bp_bronze"
+      }
+      },
+
+      {
+        "id": "VISUAL_LEGS_BRONZE",
+        "data": {
+          "model_asset":"asset_bronze_legs",
+          "icon_class": "icon_legs_bronze"
+        }
+      },      {
+        "id": "VISUAL_LEGS_SCALE",
+        "data": {
+          "model_asset":"asset_scale_legs",
+          "icon_class": "icon_legs_scale"
+        }
+      },      {
+        "id": "VISUAL_SHIRT_SCALE",
+        "data": {
+          "model_asset":"asset_scale_shirt",
+          "icon_class": "icon_chest_scale"
+        }
+      },
+
+      {
+        "id": "VISUAL_LEGS_LEATHER",
+        "data": {
+          "model_asset":"asset_leather_legs",
+          "icon_class": "icon_legs_leather"
+        }
+      },      {
+        "id": "VISUAL_SHIRT_LEATHER",
+        "data": {
+          "model_asset":"asset_leather_shirt",
+          "icon_class": "icon_shirt_leather"
+        }
+      },
+
+
+      {
+        "id": "VISUAL_LEGS_CLOTH_WHITE",
+        "data": {
+          "model_asset":"asset_cloth_legs_white",
+          "icon_class": "icon_legs_white"
+        }
+      },      {
+        "id": "VISUAL_SHIRT_CLOTH_WHITE",
+        "data": {
+          "model_asset":"asset_cloth_shirt_white",
+          "icon_class": "icon_shirt_white"
+        }
+      },
+      {
+        "id": "VISUAL_LEGS_CLOTH_RED",
+        "data": {
+          "model_asset":"asset_cloth_legs_red",
+          "icon_class": "icon_legs_red"
+        }
+      },      {
+        "id": "VISUAL_SHIRT_CLOTH_RED",
+        "data": {
+          "model_asset":"asset_cloth_shirt_red",
+          "icon_class": "icon_shirt_red"
+        }
+      },
+      {
+        "id": "VISUAL_LEGS_CLOTH_BLUE",
+        "data": {
+          "model_asset":"asset_cloth_legs_blue",
+          "icon_class": "icon_legs_blue"
+        }
+      },      {
+        "id": "VISUAL_SHIRT_CLOTH_BLUE",
+        "data": {
+          "model_asset":"asset_cloth_shirt_blue",
+          "icon_class": "icon_shirt_blue"
+        }
+      },
+      {
+        "id": "VISUAL_LEGS_CLOTH_YELLOW",
+        "data": {
+          "model_asset":"asset_cloth_legs_yellow",
+          "icon_class": "icon_legs_yellow"
+        }
+      },      {
+        "id": "VISUAL_SHIRT_CLOTH_YELLOW",
+        "data": {
+          "model_asset":"asset_cloth_shirt_yellow",
+          "icon_class": "icon_shirt_yellow"
+        }
+      },
+
+
+      {
+        "id": "VISUAL_BOOTS_CLOTH_WHITE",
+        "data": {
+          "model_asset":"asset_cloth_boots_white",
+          "icon_class": "icon_boots_white"
+        }
+      },      {
+        "id": "VISUAL_GLOVES_CLOTH_WHITE",
+        "data": {
+          "model_asset":"asset_cloth_gloves_white",
+          "icon_class": "icon_gloves_white"
+        }
+      },
+      {
+        "id": "VISUAL_BOOTS_CLOTH_RED",
+        "data": {
+          "model_asset":"asset_cloth_boots_red",
+          "icon_class": "icon_boots_red"
+        }
+      },      {
+        "id": "VISUAL_GLOVES_CLOTH_RED",
+        "data": {
+          "model_asset":"asset_cloth_gloves_red",
+          "icon_class": "icon_gloves_red"
+        }
+      },
+      {
+        "id": "VISUAL_BOOTS_CLOTH_BLUE",
+        "data": {
+          "model_asset":"asset_cloth_boots_blue",
+          "icon_class": "icon_boots_blue"
+        }
+      },      {
+        "id": "VISUAL_GLOVES_CLOTH_BLUE",
+        "data": {
+          "model_asset":"asset_cloth_gloves_blue",
+          "icon_class": "icon_gloves_yellow"
+        }
+      },
+      {
+        "id": "VISUAL_BOOTS_CLOTH_YELLOW",
+        "data": {
+          "model_asset":"asset_cloth_boots_yellow",
+          "icon_class": "icon_boots_yellow"
+        }
+      },      {
+        "id": "VISUAL_GLOVES_CLOTH_YELLOW",
+        "data": {
+          "model_asset":"asset_cloth_gloves_yellow",
+          "icon_class": "icon_gloves_yellow"
+        }
+      },
+
+
+
+
+      {
+        "id": "VISUAL_LEGS_CHAIN",
+        "data": {
+          "model_asset":"asset_chain_legs",
+          "icon_class": "icon_legs_chain"
+        }
+      },      {
+        "id": "VISUAL_SHIRT_CHAIN",
+        "data": {
+          "model_asset":"asset_chain_shirt",
+          "icon_class": "icon_shirt_chain"
+        }
+      },
+
+      {
+        "id": "VISUAL_LEGS_SCALE_GREEN",
+        "data": {
+          "model_asset":"asset_scale_green_legs",
+          "icon_class": "icon_legs_scale"
+        }
+      },
+
+      {
+        "id": "VISUAL_LEGS_CHAIN_GREEN",
+        "data": {
+          "model_asset":"asset_chain_legs_green",
+          "icon_class": "icon_legs_chain"
+        }
+      },      {
+        "id": "VISUAL_SHIRT_CHAIN_GREEN",
+        "data": {
+          "model_asset":"asset_chain_shirt_green",
+          "icon_class": "icon_shirt_chain"
+        }
+      },      {
+        "id": "VISUAL_GLOVES_SCALE_GREEN",
+        "data": {
+          "model_asset":"asset_scale_green_gloves",
+          "icon_class": "icon_gloves_scale_white"
+        }
+      },      {
+        "id": "VISUAL_BOOTS_SCALE_GREEN",
+        "data": {
+          "model_asset":"asset_scale_green_boots",
+          "icon_class": "icon_boots_scale_white"
+        }
+      },      {
+        "id": "VISUAL_BP_GREEN",
+        "data": {
+          "model_asset":"asset_green_bp",
+          "icon_class": "icon_bp_steel"
+        }
+      },      {
+        "id": "VISUAL_LEGS_GREEN",
+        "data": {
+          "model_asset":"asset_green_legs",
+          "icon_class": "icon_legs_scale"
+        }
+      },      {
+        "id": "VISUAL_HELMET_GREEN",
+        "data": {
+          "model_asset":"asset_helmet_green",
+          "icon_class": "icon_helmet_steel"
+        }
+      },      {
+        "id": "VISUAL_HELMET_VIKING_GREEN",
+        "data": {
+          "model_asset":"asset_helmetviking_green",
+          "icon_class": "icon_helmet_viking_white"
+        }
+      },      {
+        "id": "VISUAL_BELT_PLATE_GREEN",
+        "data": {
+          "model_asset":"asset_beltplate_green",
+          "icon_class": "icon_belt_steel"
+        }
+      },      {
+        "id": "VISUAL_BELT_GREEN",
+        "data": {
+          "model_asset":"asset_belt_green",
+          "icon_class": "icon_belt_steel"
+        }
+      },
+
+
+      {
+        "id": "SVIGG",
+        "data": {
+          "model_asset":"asset_svigg"
+        }
+      },
+      {
+        "id": "J35_DRAKEN",
+        "data": {
+          "model_asset":"asset_svigg"
+        }
+      },
+      {
+        "id":"BARB_BREASTPLATE",
+        "data":{
+          "model_asset":"skinned_barb_bp"
+        }
+      },
+      {
+        "id":"BARB_GREAVES",
+        "data":{
+          "model_asset":"skinned_barb_greaves"
+        }
+      },
+      {
+        "id": "VISUAL_LORE_NOTE_SCRIBBLED",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_lore_note_scribbled"
+        }
+      },
+      {
+        "id": "VISUAL_BUILDING_COTTAGE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_building_cottage"
+        }
+      },
+      {
+        "id": "VISUAL_DEED_ESTATE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_deed_cottage"
+        }
+      },
+      {
+        "id": "VISUAL_ICON_ESTATE",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_estate"
+        }
+      },
+      {
+        "id": "VISUAL_ICON_KIT_HOVEL",
+        "data": {
+          "model_asset":"asset_box_dynamic",
+          "icon_class": "icon_kit_house"
+        }
+      }
+    ]
+  }
+}]

@@ -1,0 +1,27 @@
+[{
+  "DYNAMIC_SCENARIOS":{
+
+    "GAME_SCENARIOS":[
+      {
+        "id": "town_merchant_dynamic",
+        "data": [
+          {
+            "data_key":"dynamic_view_init",
+            "config": {
+              "gui_page":"page_scene_merchant",
+              "player": {
+                "pos": [-13, 0, -215],
+                "rot": [0, 1.3, 0]
+              },
+              "environment": "sunny_day",
+
+              "spawn":[
+
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}]

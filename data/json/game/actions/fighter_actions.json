@@ -1,0 +1,72 @@
+[{
+  "GAME":{
+    "COMBAT_ACTIONS":[
+      {
+        "id":"CHOP",
+        "data":{
+          "activationTime":0.25,
+          "activeTime": 0.3,
+          "recoverTime": 0.25,
+          "cooldownTime":1.35,
+          "action_points": 1,
+          "name":"CHOP",
+          "icon":"rot_htl",
+          "action_type": "ATTACK_GREATSWORD_CHOP"
+        }
+      },
+      {
+
+        "id":"SLASH",
+        "data":{
+          "activationTime":0.25,
+          "activeTime": 0.24,
+          "recoverTime": 0.35,
+          "cooldownTime":3.35,
+          "action_points": 2,
+          "name":"SLASH",
+          "icon":"rot_ccw",
+          "action_type": "ATTACK_GREATSWORD_SLASH"
+        }
+      },
+      {
+        "id":"SWIPE",
+        "data":{
+          "activationTime":0.25,
+          "activeTime": 0.34,
+          "recoverTime": 0.35,
+          "cooldownTime":4.35,
+          "action_points": 4,
+          "name":"SWIPE",
+          "icon":"rot_cw",
+          "action_type": "ATTACK_GREATSWORD_SWIPE"
+        }
+      },
+      {
+        "id":"SWING",
+        "data":{
+          "activationTime":0.21,
+          "activeTime": 0.25,
+          "recoverTime": 0.21,
+          "cooldownTime":7.21,
+          "action_points": 5,
+          "name":"SWING",
+          "icon":"rot_htl",
+          "action_type": "ATTACK_GREATSWORD_SWING"
+        }
+      },
+      {
+        "id":"CUT",
+        "data":{
+          "activationTime":0.25,
+          "activeTime": 0.34,
+          "recoverTime": 0.25,
+          "cooldownTime":5.25,
+          "action_points": 8,
+          "name":"CUT",
+          "icon":"rot_lth",
+          "action_type": "ATTACK_GREATSWORD_CUT"
+        }
+      }
+    ]
+  }
+}]

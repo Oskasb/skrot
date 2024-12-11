@@ -1,0 +1,764 @@
+[
+  {
+    "ASSETS": {
+      "MATERIAL_SETTINGS":[
+        {
+          "id": "mat_settings_glass" ,
+          "config": {
+            "shader":"MeshStandardMaterial",
+            "properties": {
+              "blending": "AdditiveBlending",
+              "combine": "AddOperation",
+              "color": { "r": 0.8, "g": 0.8, "b": 0.8},
+              "side": "FrontSide",
+              "settings": {
+                "refractionRatio": 0,
+                "roughness": 0.35,
+                "metalness": 0.0,
+                "envMapIntensity": 3,
+                "transparent": true,
+                "depthTest": true,
+                "depthWrite": false,
+                "opacity": 1.0
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_lambert_instancing"  ,
+          "config": {
+            "shader": "MeshLambertMaterial",
+            "properties": {
+              "defines": {"INSTANCED": ""},
+              "blending": "NoBlending",
+              "color": {"r": 1, "g": 1, "b": 1 },
+              "settings": {
+
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_phong_instancing"  ,
+          "config": {
+            "shader": "MeshPhongMaterial",
+            "properties": {
+              "instanced": true,
+              "blending": "NoBlending",
+              "color": {"r": 1, "g": 1, "b": 1 },
+              "specular": {"r": 1, "g": 1, "b": 1 },
+              "combine": "AddOperation",
+              "settings": {
+                "reflectivity":1,
+                "shininess": 50
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_standard_instancing"  ,
+          "config": {
+            "shader": "MeshStandardMaterial",
+            "properties": {
+              "defines": {"INSTANCED": ""},
+              "blending": "NoBlending",
+              "combine": "AddOperation",
+              "color": {"r": 1, "g": 1, "b": 1 },
+              "settings": {
+                "roughness":1,
+                "metalness":2,
+                "envMapIntensity":2,
+                "aoMapIntensity":1
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_standard_opaque"  ,
+          "config": {
+            "shader": "MeshStandardMaterial",
+            "properties": {
+              "blending": "NoBlending",
+              "combine": "AddOperation",
+              "color": {"r": 1, "g": 1, "b": 1 },
+              "settings": {
+                "alphaTest": 0.25,
+                "roughness":1.0,
+                "metalness":5.0,
+                "envMapIntensity":2.0
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_standard_decals"  ,
+          "config": {
+            "shader": "MeshStandardMaterial",
+            "properties": {
+              "blending": "NoBlending",
+              "combine": "AddOperation",
+              "color": {"r": 1, "g": 1, "b": 1 },
+              "settings": {
+                "alphaTest": 0.25,
+                "roughness":0.1,
+                "metalness":0.0,
+                "envMapIntensity":2.5
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_phong_opaque"  ,
+          "config": {
+            "shader": "MeshPhongMaterial",
+            "properties": {
+              "blending": "NoBlending",
+              "color": {"r": 1, "g": 1, "b": 1 },
+              "specular": {"r": 1, "g": 1, "b": 1 },
+              "combine": "MixOperation",
+              "settings": {
+                "depthTest": true,
+                "alphaTest": 0.8,
+                "reflectivity":1,
+                "shininess": 5
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_terrain_big"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "TERRAIN_BIG",
+              "blending": "NoBlending",
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "FrontSide",
+              "texture_uniforms": [
+                {"key":"terrainmap",  "tiles":[0,   0]},
+                {"key":"heightmap",   "tiles":[0,   0]},
+                {"key":"tx0",         "tiles":[16,   16]},
+                {"key":"tx0nm",       "tiles":[16,   16]},
+                {"key":"envMap",      "tiles":[0,    0]}
+              ],
+              "settings": {
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_terrain_instanced"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "TERRAIN_BIG",
+              "blending": "NoBlending",
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "FrontSide",
+              "texture_uniforms": [
+
+                {"key":"terrainmap",  "tiles":[0,   0]},
+                {"key":"heightmap",   "tiles":[0,   0]},
+                {"key":"tx0",         "tiles":[16,   16]},
+                {"key":"tx0nm",       "tiles":[16,   16]}
+              ],
+              "settings": {
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_ocean_big"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "OCEAN_BIG",
+              "blending": "NoBlending",
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "DoubleSide",
+              "texture_uniforms": [
+
+                {"key":"heightmap",   "tiles":[0,   0]},
+                {"key":"tx0",         "tiles":[16,   16]},
+                {"key":"tx0nm",       "tiles":[16,   16]},
+                {"key":"envMap",      "tiles":[16,   16]}
+              ],
+              "settings": {
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_ocean"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "OCEAN_BIG",
+              "blending": "NoBlending",
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "FrontSide",
+              "texture_uniforms": [
+
+                {"key":"terrainmap",  "tiles":[0,   0]},
+                {"key":"heightmap",   "tiles":[0,   0]},
+                {"key":"tx0",         "tiles":[8,   8]},
+                {"key":"tx0nm",       "tiles":[8,   8]},
+                {"key":"envMap",      "tiles":[8,   8]}
+              ],
+              "settings": {
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_terrain_basic"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "TERRAIN_SHADER",
+              "blending": "NoBlending",
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "FrontSide",
+              "texture_uniforms": [
+                {"key":"tx0",  "repeat":[11,   11]},
+                {"key":"tx1",  "repeat":[43,   43]},
+                {"key":"tx2",  "repeat":[198, 198]},
+                {"key":"tx3",  "repeat":[64,   64]},
+                {"key":"tx4",  "repeat":[75,   75]},
+                {"key":"tx5",  "repeat":[82,   82]},
+                {"key":"tx6",  "repeat":[4,     4]}
+              ],
+              "settings": {
+              }
+            }
+          }
+        },
+
+        {
+          "id": "mat_settings_instancing_basic"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "GEOMETRY_INSTANCING_STANDARD",
+              "blending": "NoBlending",
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}},
+                "clearViewPos1": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "FrontSide",
+              "data_texture": "data_texture",
+              "texture_uniforms": [
+                {"key":"materialEps" , "repeat":[1,   1]},
+                {"key":"envMap",       "repeat":[1,   1]},
+                {"key":"normalMap",    "repeat":[1,   1]}
+              ],
+              "settings": {
+                "alphaTest": 0.75
+              }
+            }
+          }
+        },
+
+        {
+          "id": "mat_settings_instancing_simple"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "GEOMETRY_INSTANCING_SIMPLE",
+              "blending": "NoBlending",
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}},
+                "clearViewPos1": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "DoubleSide",
+              "data_texture": "data_texture",
+              "texture_uniforms": [
+                {"key":"materialEps" , "repeat":[1,   1]},
+                {"key":"envMap",       "repeat":[1,   1]},
+                {"key":"normalMap",    "repeat":[1,   1]}
+              ],
+              "settings": {
+                "alphaTest": 0.75
+              }
+            }
+          }
+        },
+
+        {
+          "id": "mat_settings_instancing_tileset"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "BOX_INSTANCING",
+              "blending": "CustomBlending",
+              "customBlending": {
+                "blendEquation": "AddEquation",
+                "blendSrc": "SrcAlphaFactor",
+                "blendDst": "OneMinusSrcAlphaFactor"
+              },
+              "data_texture": "data_texture",
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}},
+                "clearViewPos1": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "FrontSide",
+              "settings": {
+                "depthTest": true,
+                "alphaTest": 0.05,
+                "transparent": false,
+                "depthWrite": true,
+                "premultipliedAlpha": true
+              }
+            }
+          }
+        },
+
+        {
+          "id": "mat_settings_instancing_groundtileset"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "BOX_INSTANCING",
+              "blending": "CustomBlending",
+              "customBlending": {
+                "blendEquation": "AddEquation",
+                "blendSrc": "SrcAlphaFactor",
+                "blendDst": "OneMinusSrcAlphaFactor"
+              },
+              "data_texture": "data_texture",
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}},
+                "clearViewPos1": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "FrontSide",
+              "settings": {
+                "depthTest": true,
+                "alphaTest": 0.05,
+                "transparent": false,
+                "depthWrite": true,
+                "premultipliedAlpha": true
+              }
+            }
+          }
+        },
+
+        {
+          "id": "mat_settings_instancing_vegetation"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "VEGETATION_INSTANCING",
+              "blending": "NoBlending",
+              "data_texture": "data_texture",
+              "global_uniforms":{
+                "character0": { "value": {"x":1, "y":1, "z":1}},
+                "character1": { "value": {"x":1, "y":1, "z":1}},
+                "character2": { "value": {"x":1, "y":1, "z":1}},
+                "character3": { "value": {"x":1, "y":1, "z":1}},
+                "character4": { "value": {"x":1, "y":1, "z":1}},
+                "character5": { "value": {"x":1, "y":1, "z":1}},
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "DoubleSide",
+              "settings": {
+                "depthTest": true,
+                "alphaTest": 0.25,
+                "transparent": false,
+                "depthWrite": true,
+                "premultipliedAlpha": true
+              }
+            }
+          }
+        },
+
+        {
+          "id": "mat_settings_particle_stamp"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "STAMP_INSTANCING",
+              "blending": "CustomBlending",
+              "customBlending": {
+                "blendEquation": "AddEquation",
+                "blendSrc": "SrcAlphaFactor",
+                "blendDst": "OneMinusSrcAlphaFactor"
+              },
+              "data_texture": "data_texture",
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "DoubleSide",
+              "settings": {
+                "depthTest": true,
+                "alphaTest": 0.05,
+                "transparent": false,
+                "depthWrite": false,
+                "premultipliedAlpha": true
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_particle_stamp_additive"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "STAMP_INSTANCING",
+              "blending": "CustomBlending",
+              "customBlending": {
+                "blendEquation": "AddEquation",
+                "blendSrc": "SrcAlphaFactor",
+                "blendDst": "OneFactor"
+              },
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "DoubleSide",
+              "settings": {
+                "depthTest": true,
+                "alphaTest": 0.01,
+                "transparent": false,
+                "depthWrite": false,
+                "premultipliedAlpha": true
+              }
+            }
+          }
+        },        {
+          "id": "mat_settings_particle_stamp_overlay"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "STAMP_INSTANCING",
+              "blending": "CustomBlending",
+              "customBlending": {
+                "blendEquation": "AddEquation",
+                "blendSrc": "SrcColorFactor",
+                "blendDst": "OneFactor"
+              },
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "DoubleSide",
+              "settings": {
+                "depthTest": false,
+                "alphaTest": 0.01,
+                "transparent": false,
+                "depthWrite": false,
+                "premultipliedAlpha": true
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_instancing_normal"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "GEOMETRY_INSTANCING_STANDARD",
+              "blending": "CustomBlending",
+              "customBlending": {
+                "blendEquation": "AddEquation",
+                "blendSrc": "SrcAlphaFactor",
+                "blendDst": "OneMinusSrcAlphaFactor"
+              },
+              "data_texture": "data_texture",
+              "side": "DoubleSide",
+              "settings": {
+                "depthTest": true,
+                "alphaTest": 0.05,
+                "transparent": false,
+                "depthWrite": false,
+                "premultipliedAlpha": true
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_particle_additive"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "PARTICLE_INSTANCING",
+              "blending": "CustomBlending",
+              "customBlending": {
+                "blendEquation": "AddEquation",
+                "blendSrc": "SrcAlphaFactor",
+                "blendDst": "OneFactor"
+              },
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "DoubleSide",
+              "settings": {
+                "depthTest": true,
+                "alphaTest": 0.005,
+                "transparent": false,
+                "depthWrite": false,
+                "premultipliedAlpha": false
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_instancing_additive"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "GEOMETRY_INSTANCING_STANDARD",
+              "blending": "AdditiveBlending",
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "DoubleSide",
+              "settings": {
+                "depthTest": true,
+                "alphaTest": 0.05,
+                "transparent": false,
+                "depthWrite": false,
+                "premultipliedAlpha": true
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_vegetation"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "VEGETATION_INSTANCING",
+              "blending": "NoBlending",
+              "global_uniforms":{
+                "character0": { "value": {"x":1, "y":1, "z":1}},
+                "character1": { "value": {"x":1, "y":1, "z":1}},
+                "character2": { "value": {"x":1, "y":1, "z":1}},
+                "character3": { "value": {"x":1, "y":1, "z":1}},
+                "character4": { "value": {"x":1, "y":1, "z":1}},
+                "character5": { "value": {"x":1, "y":1, "z":1}},
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "side": "DoubleSide",
+              "settings": {
+                "alphaTest": 0.5,
+                "depthTest": true,
+                "transparent": false,
+                "depthWrite": true,
+                "premultipliedAlpha": false
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_nature_instancing"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "GEOMETRY_INSTANCING_STANDARD",
+              "blending": "NoBlending",
+              "global_uniforms":{
+                "fogDensity": { "value": 0.00025 },
+                "fogColor": { "value": {"r":1, "g":1, "b":1}},
+                "ambientLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightColor": { "value": {"r":1, "g":1, "b":1}},
+                "sunLightDirection": { "value": {"x":1, "y":1, "z":1}}
+              },
+              "data_texture": "data_texture",
+              "side": "DoubleSide",
+              "settings": {
+                "alphaTest": 0.5
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_ui_add"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "GUI_INSTANCING_STANDARD",
+              "blending": "CustomBlending",
+              "customBlending": {
+                "blendEquation": "AddEquation",
+                "blendSrc": "SrcColorFactor",
+                "blendDst": "OneFactor"
+              },
+              "data_texture": "data_texture",
+              "side": "DoubleSide",
+              "settings": {
+                "depthTest": false,
+                "alphaTest": 0.03,
+                "transparent": false,
+                "depthWrite": false,
+                "premultipliedAlpha": true
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_ui_back"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "GUI_INSTANCING_STANDARD",
+              "blending": "CustomBlending",
+              "customBlending": {
+                "blendEquation": "AddEquation",
+                "blendSrc": "SrcAlphaFactor",
+                "blendDst": "OneMinusSrcAlphaFactor"
+              },
+              "data_texture": "data_texture",
+              "side": "DoubleSide",
+              "settings": {
+                "depthTest": false,
+                "alphaTest": 0.001,
+                "transparent": false,
+                "depthWrite": true,
+                "premultipliedAlpha": true
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_ui"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "GUI_INSTANCING_STANDARD",
+              "blending": "CustomBlending",
+              "customBlending": {
+                "blendEquation": "AddEquation",
+                "blendSrc": "SrcAlphaFactor",
+                "blendDst": "OneMinusSrcAlphaFactor"
+              },
+              "data_texture": "data_texture",
+              "side": "DoubleSide",
+              "settings": {
+                "depthTest": false,
+                "alphaTest": 0.05,
+                "transparent": false,
+                "depthWrite": false,
+                "premultipliedAlpha": true
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_font"  ,
+          "config": {
+            "shader": "RawShaderMaterial",
+            "properties": {
+              "program": "GUI_INSTANCING_STANDARD",
+              "blending": "CustomBlending",
+              "customBlending": {
+                "blendEquation": "AddEquation",
+                "blendSrc": "SrcAlphaFactor",
+                "blendDst": "OneMinusSrcAlphaFactor"
+              },
+              "data_texture": "data_texture",
+              "side": "BackSide",
+              "settings": {
+                "depthTest": false,
+                "alphaTest": 0.05,
+                "transparent": false,
+                "depthWrite": false,
+                "premultipliedAlpha": true
+              }
+            }
+          }
+        },
+        {
+          "id": "mat_settings_phong_nature"  ,
+          "config": {
+            "shader": "MeshPhongMaterial",
+            "properties": {
+              "blending": "NoBlending",
+              "side": "DoubleSide",
+              "color": {  "r": 1,  "g": 1, "b": 1 },
+              "settings": {
+                "alphaTest": 0.5,
+                "shininess": 0.1,
+                "reflectivity": 0.4,
+                "aoMapIntensity": 0.5,
+                "lightMapIntensity": 1,
+                "emissiveIntensity": 1
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+]

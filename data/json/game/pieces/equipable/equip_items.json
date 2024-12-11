@@ -1,0 +1,32 @@
+[{
+  "GAME":{
+    "PIECES":[
+      {
+        "id":"BARB_BREASTPLATE",
+        "data":{
+          "model_asset":"skinned_barb_bp",
+          "slot": "SLOT_BODY",
+          "status": {
+            "name": "Big Armor",
+            "item_type": "Junk",
+            "level_table": "level_table_armor_default",
+            "level": 5
+          }
+        }
+      },
+      {
+        "id":"BARB_GREAVES",
+        "data":{
+          "model_asset":"skinned_barb_greaves",
+          "slot": "SLOT_LEGS",
+          "status": {
+            "name": "Big Greaves",
+            "item_type": "Junk",
+            "level_table": "level_table_armor_default",
+            "level": 5
+          }
+        }
+      }
+    ]
+  }
+}]

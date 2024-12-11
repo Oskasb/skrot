@@ -1,0 +1,24 @@
+[{
+  "GEOMETRY": {
+    "DYNAMIC_FEEDBACK":[
+      {
+        "id": "crate_feedback",
+        "data": {
+          "force_feedback":["sparkly_stars_effect"],
+          "torque_feedback":["shield_module_sparks_effect"],
+          "velocity_feedback":["big_sparkly_shatter"],
+          "angular_velocity_feedback":["big_leafy_swirl"]
+        }
+      },
+      {
+        "id": "creative_crate",
+        "data": {
+          "force_feedback":["thruster_flame_effect"],
+          "torque_feedback":["sparkly_stars_effect"],
+          "velocity_feedback":["bright_little_sparks"],
+          "angular_velocity_feedback":["shield_module_sparks_effect"]
+        }
+      }
+    ]
+  }
+}]

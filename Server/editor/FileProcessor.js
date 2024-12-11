@@ -10,9 +10,10 @@ function updateEditWriteIndex(message, deleted) {
 
 let folder;
 let root;
+let synchList = {};
 
-function registerEntryUpdate(entry) {
-
+function registerEntryUpdate(file, entry) {
+    console.log("File Change; ", file, entry);
 }
 
 function getAllEditFiles(dir, done) {
@@ -49,8 +50,7 @@ function getAllEditFiles(dir, done) {
                     entry.push(splits[splits.length-1]);
 
                     function notifyFileChanged(curr, prev) {
-                        console.log("File Changed", file, entry);
-                        registerEntryUpdate(entry);
+                        registerEntryUpdate(file, entry);
                     }
 
                     server.watchFile(file, notifyFileChanged)
@@ -95,7 +95,7 @@ function loadEditIndex(cb) {
         }
 
         edit_index = data;
-        server.writeFile(rootPath+"/"+editsFolder+"/index.json", JSON.stringify(data), writeCB)
+        server.writeFile(rootPath+"/"+editsFolder+"/json/setup/index.json", JSON.stringify(data), writeCB)
     }
 
     setEditIndex({});

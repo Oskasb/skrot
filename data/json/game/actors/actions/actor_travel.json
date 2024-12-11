@@ -1,0 +1,60 @@
+[{
+  "GAME_ACTORS":{
+    "ACTIONS":[
+      {
+        "id":"ACTION_TRAVEL_LEAP",
+        "data":{
+          "visual_action": "VISUAL_TRAVEL_LEAP",
+          "status": {
+            "TRAVEL_MODE": "TRAVEL_MODE_LEAP"
+          }
+        }
+      },
+      {
+        "id":"ACTION_TRAVEL_GRID",
+        "data":{
+          "visual_action": "VISUAL_TRAVEL_GRID",
+          "status": {
+            "TRAVEL_MODE": "TRAVEL_MODE_GRID"
+          }
+        }
+      },
+      {
+        "id":"ACTION_TRAVEL_WALK",
+        "data":{
+          "visual_action": "VISUAL_TRAVEL_WALK",
+          "status": {
+            "TRAVEL_MODE": "TRAVEL_MODE_WALK"
+          }
+        }
+      },
+      {
+        "id":"ACTION_TRAVEL_RUN",
+        "data":{
+          "visual_action": "VISUAL_TRAVEL_RUN",
+          "status": {
+            "TRAVEL_MODE": "TRAVEL_MODE_RUN"
+          }
+        }
+      },
+      {
+        "id":"ACTION_TRAVEL_FLY",
+        "data":{
+          "visual_action": "VISUAL_TRAVEL_FLY",
+          "status": {
+            "TRAVEL_MODE": "TRAVEL_MODE_FLY"
+          }
+        }
+      },
+      {
+        "id":"ACTION_TRAVEL_JETPACK",
+        "data":{
+          "visual_action": "VISUAL_TRAVEL_JETPACK",
+          "status": {
+            "TRAVEL_MODE": "TRAVEL_MODE_JETPACK"
+          }
+        }
+      }
+    ]
+  }
+}]

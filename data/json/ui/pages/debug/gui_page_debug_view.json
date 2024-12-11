@@ -1,0 +1,379 @@
+[
+  {
+    "UI": {
+      "PAGES":[
+        {
+          "id": "page_debug_view",
+          "data": [
+            {
+              "containers":[
+                {
+                  "widget_id":"page_debug_center",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "anchor":"center"
+                  }
+                },
+
+                {
+                  "widget_id":"page_debug_bottom_right",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "anchor":"bottom_right"
+                  }
+                },
+                {
+                  "widget_id":"page_debug_top_right",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "anchor":"top_right"
+                  }
+                },
+                {
+                  "widget_id":"page_debug_top_left",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "anchor":"top_left"
+                  }
+                },
+                {
+                  "widget_id":"page_debug_mid_left",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "anchor":"mid_left"
+                  }
+                },
+                {
+                  "widget_id":"page_debug_bottom_left",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "anchor":"bottom_left"
+                  }
+                },
+                {
+                  "widget_id": "debug_text",
+                  "widget_class": "GuiExpandingContainer",
+                  "widget_config_id": "debug_text_box",
+                  "options": {
+                    "on_event": {"event_id": "DEBUG_TEXT", "call": "printWidgetText"},
+                    "anchor": "bottom_left",
+                    "offset_x": -0.01,
+                    "offset_y": 0.08,
+                    "text": "debug text here"
+                  }
+                },
+                {
+                  "widget_id": "button_container_system",
+                  "widget_class": "GuiExpandingContainer",
+                  "widget_config_id": "widget_gui_anchor",
+                  "options": {
+                    "container_id": "page_debug_top_left"
+                  }
+                },
+                {
+                  "widget_id": "button_container_pools",
+                  "widget_class": "GuiExpandingContainer",
+                  "widget_config_id": "widget_gui_anchor",
+                  "options": {
+                    "container_id": "page_debug_top_left"
+                  }
+                },
+                {
+                  "widget_id": "button_container_buffers",
+                  "widget_class": "GuiExpandingContainer",
+                  "widget_config_id": "widget_gui_anchor",
+                  "options": {
+                    "container_id": "page_debug_top_left"
+                  }
+                }
+              ],
+              "buttons":[
+                {
+                  "widget_id":"button_view_system",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"SYSTEM",
+                    "container_id":"page_debug_bottom_left",
+                    "offset_x": 0.05,
+                    "offset_y": 0.08,
+                    "dispatch":{
+                      "event":"TOGGLE_GUI_PAGE",
+                      "value":{
+                        "page_id":"page_debug_view_system",
+                        "parent_page_id":"page_debug_view",
+                        "parent_container_id": "button_container_system"
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_view_world",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"WORLD",
+                    "container_id":"page_debug_bottom_left",
+                    "offset_x": 0.15,
+                    "offset_y": 0.05,
+                    "dispatch":{
+                      "event":"TOGGLE_GUI_PAGE",
+                      "value":{
+                        "page_id":"page_debug_view_world",
+                        "parent_page_id":"page_debug_view",
+                        "parent_container_id": "button_container_system"
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_view_pools",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"POOLS",
+                    "container_id":"page_debug_bottom_left",
+                    "offset_x": 0.14,
+                    "offset_y": 0.012,
+                    "dispatch":{
+                      "event":"TOGGLE_GUI_PAGE",
+                      "value":{
+                        "page_id":"page_debug_view_pools",
+                        "parent_page_id":"page_debug_view",
+                        "parent_container_id": "button_container_pools"
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_view_buffers",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"BUFFERS",
+                    "container_id":"page_debug_bottom_left",
+                    "offset_x": 0.26,
+                    "offset_y": 0.012,
+                    "dispatch":{
+                      "event":"TOGGLE_GUI_PAGE",
+                      "value":{
+                        "page_id":"page_debug_view_buffers",
+                        "parent_page_id":"page_debug_view",
+                        "parent_container_id": "button_container_buffers"
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_view_vegetation",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"PLANTS",
+                    "container_id":"page_debug_bottom_left",
+                    "offset_x": 0.38,
+                    "offset_y": 0.012,
+                    "dispatch":{
+                      "event":"TOGGLE_GUI_PAGE",
+                      "value":{
+                        "page_id":"page_debug_view_vegetation",
+                        "parent_page_id":"page_debug_view",
+                        "parent_container_id": "button_container_system"
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_cam_home",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"HOME",
+                    "container_id":"page_debug_bottom_right",
+                    "offset_x": -0.05,
+                    "offset_y": 0.08,
+                    "dispatch":{
+                      "event":"TRAVEL_TO",
+                      "value":{
+                        "pos": [-886, 2, 525]
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_physics",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"PHYSICS",
+                    "container_id":"page_debug_bottom_right",
+                    "offset_x": -0.05,
+                    "offset_y": 0.12,
+                    "dispatch":{
+                      "event":"DEBUG_STATUS_TOGGLE",
+                      "value":{"status":"physics"}
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_visual_fighter",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"FIGHTER",
+                    "container_id":"page_debug_bottom_right",
+                    "offset_x": -0.05,
+                    "offset_y": 0.24,
+                    "dispatch":{
+                      "event":"LOAD_ACTOR",
+                      "value":{
+                        "id": "ACTOR_FIGHTER"
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_debug_dig",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_red",
+                  "options":{
+                    "text":"DIG",
+                    "container_id":"page_debug_bottom_right",
+                    "offset_x": -0.05,
+                    "offset_y": 0.32,
+                    "dispatch":{
+                      "event":"EDIT_GROUND",
+                      "value":{
+                        "delta": -2,
+                        "size": 3
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_debug_flatten",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_red",
+                  "options":{
+                    "text":"FLATTEN",
+                    "container_id":"page_debug_bottom_right",
+                    "offset_x": -0.05,
+                    "offset_y": 0.38,
+                    "dispatch":{
+                      "event":"EDIT_GROUND",
+                      "value":{
+                        "delta": 0.0,
+                        "size": 3
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_debug_raise",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_red",
+                  "options":{
+                    "text":"RAISE",
+                    "container_id":"page_debug_bottom_right",
+                    "offset_x": -0.05,
+                    "offset_y": 0.44,
+                    "dispatch":{
+                      "event":"EDIT_GROUND",
+                      "value":{
+                        "delta": 2,
+                        "size": 3
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_debug_param_more_str",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"DEEPER",
+                    "container_id":"page_debug_bottom_right",
+                    "offset_x": -0.05,
+                    "offset_y": 0.50,
+                    "dispatch":{
+                      "event":"EDIT_PARAMETERS",
+                      "value":{
+                        "params": {
+                          "dig_strength": 1
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_debug_param_less_str",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"SHALLOWER",
+                    "container_id":"page_debug_bottom_right",
+                    "offset_x": -0.05,
+                    "offset_y": 0.54,
+                    "dispatch":{
+                      "event":"EDIT_PARAMETERS",
+                      "value":{
+                        "params": {
+                          "dig_strength": -1
+                        }
+                      }
+                    }
+                  }
+                },
+
+                {
+                  "widget_id":"button_debug_param_less_wide",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"SMALLER",
+                    "container_id":"page_debug_bottom_right",
+                    "offset_x": -0.05,
+                    "offset_y": 0.58,
+                    "dispatch":{
+                      "event":"EDIT_PARAMETERS",
+                      "value":{
+                        "params": {
+                          "brush_size": -1
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_debug_param_more_wide",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"BIGGER",
+                    "container_id":"page_debug_bottom_right",
+                    "offset_x": -0.05,
+                    "offset_y": 0.62,
+                    "dispatch":{
+                      "event":"EDIT_PARAMETERS",
+                      "value":{
+                        "params": {
+                          "brush_size": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

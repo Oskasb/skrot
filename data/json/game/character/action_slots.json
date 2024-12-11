@@ -1,0 +1,18 @@
+[{
+  "GAME":{
+    "ACTION_SLOTS":[
+      {
+        "id":"ACTION_SLOTS_FIGHTER",
+        "data":{
+          "slots": [
+            {"slot_id": "SLOT_1"  ,"x": -0.40,  "y":  0.08   },
+            {"slot_id": "SLOT_2"  ,"x": -0.39,  "y":  0.19   },
+            {"slot_id": "SLOT_3"  ,"x": -0.30,  "y":  0.28   },
+            {"slot_id": "SLOT_4"  ,"x": -0.19,  "y":  0.30   },
+            {"slot_id": "SLOT_5"  ,"x": -0.08,  "y":  0.31   }
+          ]
+        }
+      }
+    ]
+  }
+}]

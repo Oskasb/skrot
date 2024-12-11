@@ -1,0 +1,13 @@
+[{
+    "ASSETS": {
+      "WORLD":{
+        "defaultEnvId":"high_noon",
+        "params":[
+          {"id":"sun",      "THREE":"DirectionalLight"},
+          {"id":"ambient",  "THREE":"AmbientLight"    },
+          {"id":"fog",      "THREE":"Fog"         }
+        ]
+      }
+    }
+  }
+]

@@ -1,0 +1,817 @@
+
+[
+  {
+    "UI": {
+      "FEEDBACK":[
+        {
+          "id": "SURFACE",
+          "data": [
+            {
+              "id":"feedback_surface_anchor",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.85, "g": 0.45, "b": 0.15, "a": 0.0}
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.01, "g": 0.99, "b": 0.01, "a": 0.0},
+                  "sprite": "container_box_framed"
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_action_point_icon",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.15, "g": -0.15, "b": -0.25, "a": 0.5},
+                  "sprite": "ap_light"
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_attack_icon",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.15, "g": 0.15, "b": 0.45, "a": 0.02},
+                  "sprite": "atk_on"
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_header_text_box",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.01, "g": 0.81, "b": 0.99, "a": 1.0},
+                  "sprite": "text_box_framed"
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_page_text_box",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.01, "g": 0.31, "b": 0.69, "a": 1.0},
+                  "sprite": "text_box_framed"
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_hidden",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.01, "g": 0.31, "b": 0.69, "a": 0.0}
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_stat_label",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.65, "g": 0.65, "b": 0.75, "a": 1.0},
+                  "sprite": "text_plate_label_underline"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.2, "g": 0.6, "b": 0.75, "a": 0.85}
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.8, "a": 0.75}
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.01, "g": 0.99, "b": 0.01, "a": 1.0}
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.15, "g": 0.99, "b": 0.25, "a": 1.0}
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.1, "g": 0.65, "b": 0.15, "a": 1.0}
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 1.0, "g": 1.0, "b": 1.0, "a": 1.0}
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_container",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.35, "g": 0.45, "b": 0.75, "a": 0.85},
+                  "sprite": "container_box_framed"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.2, "g": 0.6, "b": 0.75, "a": 0.85}
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.8, "a": 0.75}
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.01, "g": 0.99, "b": 0.01, "a": 1.0}
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.15, "g": 0.99, "b": 0.25, "a": 1.0}
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.1, "g": 0.65, "b": 0.15, "a": 1.0}
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 1.0, "g": 1.0, "b": 1.0, "a": 1.0}
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_container_tiny",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.35, "g": 0.45, "b": 0.75, "a": 0.55},
+                  "sprite": "container_box_framed"
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_hint",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.35, "g": 0.35, "b": 0.35, "a": 1.85},
+                  "sprite": "pinpoint_crosshair"
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_stat_elem",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.05, "g": 0.15, "b": 0.75, "a": 0.65},
+                  "sprite": "text_box_framed"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.2, "g": 0.6, "b": 0.75, "a": 0.85}
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.8, "a": 0.75}
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.01, "g": 0.99, "b": 0.01, "a": 1.0}
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.15, "g": 0.99, "b": 0.25, "a": 1.0}
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.1, "g": 0.65, "b": 0.15, "a": 1.0}
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 1.0, "g": 1.0, "b": 1.0, "a": 1.0}
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_swing_container",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.6, "g": 0.4, "b": -0.3, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "button_action_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.21, "g": 0.71, "b": 0.91, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "button_action_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "button_action"
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_hp_bar_container",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.6, "g": -0.3, "b": -0.1, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "button_action_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.21, "g": 0.71, "b": 0.91, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "button_action_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "button_action"
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_xp_bar_container",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.15, "g": 0.15, "b": 0.35, "a": 0.6},
+                  "sprite": "button_action"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "button_action_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.21, "g": 0.71, "b": 0.91, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "button_action_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "button_action"
+                }
+              }
+            },
+            {
+              "id":"feedback_icon_button",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.1, "g": 0.4, "b": 0.65, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.21, "g": 0.71, "b": 0.91, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "icon_button"
+                }
+              }
+            },
+            {
+              "id":"feedback_icon_button_item",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.1, "g": 0.4, "b": 0.65, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.15, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.6, "b": 0.8, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.25, "g": 0.7, "b": 0.9, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.3, "g": 0.8, "b": 0.96, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.35, "g": 0.8, "b": 0.99, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "icon_button"
+                }
+              }
+            },
+            {
+              "id":"feedback_action_button_disabled",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.4, "g": 0.2, "b": 0.2, "a": 1.0},
+                  "sprite": "icon_button"
+                }
+              }
+            },
+            {
+              "id":"feedback_action_button_unavailable",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.2, "g": 0.2, "b": 0.4, "a": 1.0},
+                  "sprite": "icon_button"
+                }
+              }
+            },
+            {
+              "id":"feedback_action_button_available",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.01, "g": 0.7, "b": 0.1, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.05, "g": 0.8, "b": 0.15, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.9, "b": 0.2, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.1, "g": 0.99, "b": 0.4, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.41, "g": 0.96, "b": 0.41, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.46, "g": 0.99, "b": 0.46, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "icon_button"
+                }
+              }
+            },
+            {
+              "id":"feedback_action_button_enabled",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.3, "g": 0.7, "b": 0.3, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.4, "g": 0.8, "b": 0.4, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.5, "g": 0.9, "b": 0.5, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.6, "g": 0.99, "b": 0.6, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.7, "g": 0.96, "b": 0.7, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.8, "g": 0.99, "b": 0.8, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "icon_button"
+                }
+              }
+            },
+            {
+              "id":"feedback_action_button_activating",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.8, "g": 0.95, "b": 0.4, "a": 1.0},
+                  "sprite": "icon_button"
+                }
+              }
+            },
+            {
+              "id":"feedback_action_button_active",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.89, "g": 0.99, "b": 0.7, "a": 1.0},
+                  "sprite": "icon_button"
+                }
+              }
+            },
+            {
+              "id":"feedback_action_button_cooldown",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.5, "g": 0.5, "b": 0.8, "a": 1.0},
+                  "sprite": "icon_button"
+                }
+              }
+            },
+            {
+              "id":"feedback_icon_button_friendly",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.01, "g": 0.7, "b": 0.1, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.05, "g": 0.8, "b": 0.15, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.9, "b": 0.2, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.1, "g": 0.99, "b": 0.4, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.41, "g": 0.96, "b": 0.41, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.46, "g": 0.99, "b": 0.46, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "icon_button"
+                }
+              }
+            },
+            {
+              "id":"feedback_icon_button_neutral",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.7, "g": 0.7, "b": 0.1, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.75, "g": 0.75, "b": 0.2, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.8, "g": 0.8, "b": 0.3, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.85, "g": 0.85, "b": 0.4, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.9, "g": 0.9, "b": 0.5, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.95, "g": 0.95, "b": 0.6, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "icon_button"
+                }
+              }
+            },
+            {
+              "id":"feedback_icon_button_hostile",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.7, "g": 0.4, "b": 0.4, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.85, "g": 0.45, "b": 0.45, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.9, "g": 0.5, "b": 0.5, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.9, "g": 0.6, "b": 0.6, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.9, "g": 0.4, "b": 0.4, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.99, "g": 0.4, "b": 0.4, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "icon_button"
+                }
+              }
+            },
+            {
+              "id":"feedback_opponent_icon_button",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.7, "g": 0.1, "b": 0.1, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.8, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.9, "g": 0.4, "b": 0.4, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.9, "g": 0.6, "b": 0.6, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.9, "g": 0.4, "b": 0.4, "a": 1.0},
+                  "sprite": "icon_button"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.99, "g": 0.4, "b": 0.4, "a": 1.0},
+                  "sprite": "icon_button_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "icon_button"
+                }
+              }
+            },
+            {
+              "id":"feedback_button_action",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.1, "g": 0.8, "b": 0.55, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "button_action_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.35, "g": 0.75, "b": 0.65, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "button_action"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.46, "g": 0.26, "b": 0.35, "a": 1.0},
+                  "sprite": "button_action_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "button_action"
+                }
+              }
+            },
+            {
+              "id":"feedback_button_sharp_blue",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.1, "g": 0.4, "b": 0.75, "a": 1.0},
+                  "sprite": "button_sharp"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "button_sharp"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "button_sharp_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.21, "g": 0.71, "b": 0.91, "a": 1.0},
+                  "sprite": "button_sharp"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "button_sharp"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "button_sharp_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "button_sharp_pressed"
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_debug",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.05, "g": 0.25, "b": 0.35, "a": 0.45},
+                  "sprite": "text_box_framed"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.2, "g": 0.6, "b": 0.75, "a": 0.85}
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.8, "a": 0.75}
+                },
+
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.01, "g": 0.99, "b": 0.01, "a": 1.0}
+                },
+
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.15, "g": 0.99, "b": 0.25, "a": 1.0}
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.1, "g": 0.65, "b": 0.15, "a": 1.0}
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 1.0, "g": 1.0, "b": 1.0, "a": 1.0}
+                }
+              }
+            },
+            {
+              "id":"feedback_button_rounded_red",
+              "config": {
+
+                "NONE": {
+                  "color_rgba": {"r": 0.8, "g": 0.1, "b": 0.05, "a": 1.0},
+                  "sprite": "button_rounded"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.99, "g": 0.15, "b": 0.05, "a": 1.0},
+                  "sprite": "button_rounded"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.95, "g": 0.10, "b": 0.0, "a": 1.0},
+                  "sprite": "button_rounded_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.99, "g": 0.79, "b": 0.25, "a": 1.0},
+                  "sprite": "button_rounded"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.99, "g": 0.89, "b": 0.45, "a": 1.0},
+                  "sprite": "button_rounded"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.99, "g": 0.89, "b": 0.45, "a": 1.0},
+                  "sprite": "button_rounded_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "button_rounded"
+                }
+
+              }
+            },
+            {
+              "id":"feedback_progress_button_red",
+              "config": {
+
+                "NONE": {
+                  "color_rgba": {"r": 0.8, "g": 0.1, "b": 0.05, "a": 1.0},
+                  "sprite": "button_fat_progress"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.99, "g": 0.15, "b": 0.05, "a": 1.0},
+                  "sprite": "button_fat_progress"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.95, "g": 0.10, "b": 0.0, "a": 1.0},
+                  "sprite": "button_fat_progress_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.99, "g": 0.79, "b": 0.25, "a": 1.0},
+                  "sprite": "button_fat_progress"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.99, "g": 0.89, "b": 0.45, "a": 1.0},
+                  "sprite": "button_fat_progress"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.99, "g": 0.89, "b": 0.45, "a": 1.0},
+                  "sprite": "button_fat_progress_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "button_fat_progress"
+                }
+
+              }
+            },
+            {
+              "id":"feedback_surface_blue",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.1, "g": 0.4, "b": 0.65, "a": 1.0},
+                  "sprite": "button_rounded"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "button_rounded"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.5, "b": 0.75, "a": 1.0},
+                  "sprite": "button_rounded_pressed"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.21, "g": 0.71, "b": 0.91, "a": 1.0},
+                  "sprite": "button_rounded"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "button_rounded"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "button_rounded_pressed"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "button_rounded_pressed"
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_axis",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.1, "g": 0.3, "b": 0.55, "a": 0.6},
+                  "sprite": "inverted_corners"
+                }
+              }
+            },
+            {
+              "id":"feedback_surface_thumbstick",
+              "config": {
+                "NONE": {
+                  "color_rgba": {"r": 0.1, "g": 0.3, "b": 0.55, "a": 0.6},
+                  "sprite": "thumbstick_circle"
+                },
+                "HOVER": {
+                  "color_rgba": {"r": 0.1, "g": 0.5, "b": 0.85, "a":0.6},
+                  "sprite": "thumbstick_circle"
+                },
+                "PRESS": {
+                  "color_rgba": {"r": 0.2, "g": 0.6, "b": 0.95, "a": 1.0},
+                  "sprite": "thumbstick_circle"
+                },
+                "ACTIVE": {
+                  "color_rgba": {"r": 0.21, "g": 0.71, "b": 0.91, "a": 1.0},
+                  "sprite": "thumbstick_circle"
+                },
+                "ACTIVE_HOVER": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "thumbstick_circle"
+                },
+                "ACTIVE_PRESS": {
+                  "color_rgba": {"r": 0.41, "g": 0.81, "b": 0.97, "a": 1.0},
+                  "sprite": "thumbstick_circle"
+                },
+                "DISABLED": {
+                  "color_rgba": {"r": 0.3, "g": 0.3, "b": 0.3, "a": 1.0},
+                  "sprite": "thumbstick_circle"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,105 @@
+[
+  {
+    "UI": {
+      "PAGES":[
+        {
+          "id": "page_debug_view_encounter",
+          "data": [
+            {
+              "containers":[
+                {
+                  "widget_id":"page_container",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "offset_x": -0.1,
+                    "offset_y": 0.0
+                  }
+                },
+                {
+                  "widget_id": "container_stats",
+                  "widget_class": "GuiStatsPanel",
+                  "widget_config_id":"widget_stats_container",
+                  "options": {
+                    "container_id": "page_container",
+                    "offset_x": 0.0,
+                    "offset_y": -0.0,
+                    "track_config": {"category": "DEBUG","key": "ENCOUNTER_STATUS",
+                      "samplers": [
+                        {
+                          "key": "TURN_STATE",
+                          "label": "TURN_ST"
+                        },
+                        {
+                          "key": "TURN_INDEX",
+                          "label": "TURN"
+                        },
+                        {
+                          "key": "HAS_TURN_ACTOR",
+                          "label": "HAS_TURN"
+                        },
+                        {
+                          "key": "GRID_ID",
+                          "label": "GRID"
+                        },
+
+                        {
+                          "key": "ACTIVE_TURN_SIDE",
+                          "label": "ACTIVE"
+                        },
+
+                        {
+                          "key": "TURN_ACTOR_INITIATIVE",
+                          "label": "INITIATIVE"
+                        },
+                        {
+                          "key": "TURN_ACTOR_TARGET",
+                          "label": "TARGET"
+                        },
+                        {
+                          "key": "TURN_ACTOR_ACTION",
+                          "label": "ACTION"
+                        },
+                        {
+                          "key": "TURN_ACTION_STATE",
+                          "label": "ACT STATE"
+                        },
+                        {
+                          "key": "OPPONENT_COUNT",
+                          "label": "ENEMIES"
+                        },
+                        {
+                          "key": "OPPONENTS_ENGAGED",
+                          "label": "ENM ACTIVE"
+                        },
+                        {
+                          "key": "OPPONENTS_DEAD",
+                          "label": "ENM DEAD"
+                        },
+                        {
+                          "key": "PLAYER_COUNT",
+                          "label": "FRIENDS"
+                        },
+                        {
+                          "key": "PLAYERS_ENGAGED",
+                          "label": "FND ACTIVE"
+                        },
+                        {
+                          "key": "PLAYERS_DEAD",
+                          "label": "FND DEAD"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "buttons":[
+
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

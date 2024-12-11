@@ -1,0 +1,74 @@
+[
+  {
+    "UI": {
+      "PAGES":[
+        {
+          "id": "page_debug_view_pools",
+          "data": [
+            {
+              "containers":[
+                {
+                  "widget_id":"page_pools_container",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "offset_x": 0.18,
+                    "offset_y": -0.13
+                  }
+                },
+                {
+                  "widget_id": "container_pool_stats",
+                  "widget_class": "GuiStatsPanel",
+                  "widget_config_id":"widget_stats_container",
+                  "options": {
+                    "container_id": "page_pools_container",
+                    "offset_x": 0.0,
+                    "offset_y": -0.0,
+                    "track_config": {"category": "DEBUG","key": "POOLS",
+                      "samplers": [
+
+                        {
+                          "key": "pools",
+                          "digits": 1
+                        },
+                        {
+                          "key": "added",
+                          "digits": 1
+                        },
+                        {
+                          "key": "active",
+                          "digits": 1
+                        },
+                        {
+                          "key": "big"
+                        },
+                        {
+                          "key": "bigSize",
+                          "digits": 1
+                        },
+                        {
+                          "key": "passive",
+                          "digits": 1
+                        },
+                        {
+                          "key": "addId"
+                        },
+                        {
+                          "key": "mostAdd",
+                          "digits": 1
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "buttons":[
+
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

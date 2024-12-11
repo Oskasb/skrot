@@ -1,0 +1,20 @@
+[{
+  "GAME_ACTORS":{
+    "ACTIONS":[
+      {
+        "id":"ACTION_FREEHACK_MELEE",
+        "data":{
+          "visual_action": "VISUAL_FREEHACK_MELEE",
+          "statistical_actions": ["STATISTICAL_FREEHACK_MELEE"],
+          "sequencing": {
+            "SELECTED": {"time": 0.1},
+            "PRECAST":  {"time": 0.2},
+            "ACTIVE":   {"time": 8},
+            "APPLY_HIT":{"time": 0.25},
+            "POST_HIT": {"time": 0.15}
+          }
+        }
+      }
+    ]
+  }
+}]

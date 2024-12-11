@@ -1,0 +1,22 @@
+[{
+  "GAME":{
+    "CONTROL_MOVEMENT":[
+      {
+        "id":"MOVEMENT_FIGHTER",
+        "data":{
+          "turn_rate": 5,
+          "input_thresh": 0.15,
+          "speed": 2.0,
+          "walk_cycle_speed": 2.8,
+          "walk_combat_speed": 2.8,
+          "move_force":  0.022,
+          "foot_margin": 0.2,
+          "foot_force":  0.1,
+          "foot_reach": 0.33,
+          "sphere_radius": 0.5,
+          "sphere_mass": 100
+        }
+      }
+    ]
+  }
+}]

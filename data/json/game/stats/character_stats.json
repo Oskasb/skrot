@@ -1,0 +1,543 @@
+[{
+  "GAME":{
+    "CHARACTER_STATS":[
+      {
+        "id":"STATS_ACTOR_HORSE",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": [],
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.4,
+            "SIZE": 1,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "entrance_1",
+            "DEAD": false,
+            "NAME": "Horse",
+            "MAX_HP": 2,
+            "ENGAGE_MAX": 1,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_WALK",
+            "ATTITUDE": "NEUTRAL"
+          }
+        }
+      },
+      {
+        "id":"STATS_CAVERN_ENTRANCE",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": ["ITEM_HATCHET"],
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 0.8,
+            "SIZE": 1.0,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "entrance_1",
+            "DEAD": false,
+            "NAME": "Caves",
+            "MAX_HP": 2,
+            "ENGAGE_MAX": 1,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_WALK",
+            "ATTITUDE": "NEUTRAL"
+          }
+        }
+      },
+      {
+        "id":"STATS_GOD_1",
+        "data":{
+          "status": {
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_CHARGE", "ACTION_FIREBALL", "ACTION_HEAL_BOLT"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN", "ACTION_TRAVEL_LEAP","ACTION_TRAVEL_GRID", "ACTION_TRAVEL_FLY"],
+            "EQUIPPED_ITEMS": [
+              "ITEM_HELMET_VIKING_GOLDRED",
+              "ITEM_AXE_SLICER_GOLDRED",
+              "ITEM_BELT_PLATE_GOLDRED",
+
+              "ITEM_DRAKEN_GOLDRED",
+              "ITEM_JETPACK_GOLDRED",
+              "ITEM_WRIST_COMPUTER_GOLDRED",
+
+              "ITEM_CHEST_SCALE_RED",
+              "ITEM_SHIRT_CHAIN_RED",
+              "ITEM_SKIRT_SCALE_RED",
+              "ITEM_LEGS_CHAIN_RED",
+              "ITEM_BOOTS_SCALE_RED",
+              "ITEM_GLOVES_SCALE_RED"
+            ],
+            "MOVEMENT_SPEED": 7,
+            "HEIGHT": 2.2,
+            "SIZE": 1.5,
+            "HAND_SIZE": 0.7,
+            "ICON_KEY": "face_13",
+            "DEAD": false,
+            "NAME": "Fire",
+            "MAX_HP": 100,
+            "ENGAGE_MAX": 4,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_INACTIVE"
+          }
+        }
+      },
+      {
+        "id":"STATS_GOD_2",
+        "data":{
+          "status": {
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_CHARGE", "ACTION_FREEZE_BOLT", "ACTION_HEAL_BOLT"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN", "ACTION_TRAVEL_LEAP", "ACTION_TRAVEL_FLY"],
+
+            "INVENTORY_ITEMS": [],
+            "EQUIPPED_ITEMS": [
+              "ITEM_HELMET_VIKING_WHITE",
+              "ITEM_AXE_SLICER_WHITE",
+              "ITEM_BELT_PLATE_WHITE",
+
+              "ITEM_DRAKEN_WHITE",
+              "ITEM_JETPACK_WHITE",
+              "ITEM_WRIST_COMPUTER_WHITE",
+
+              "ITEM_CHEST_SCALE",
+              "ITEM_SHIRT_CHAIN",
+              "ITEM_LEGS_CHAIN",
+              "ITEM_BOOTS_SCALE",
+              "ITEM_GLOVES_SCALE"
+            ],
+
+            "ATTITUDE": "FRIENDLY",
+            "MOVEMENT_SPEED": 7,
+            "HEIGHT": 2.2,
+            "SIZE": 1.5,
+            "HAND_SIZE": 0.7,
+            "ICON_KEY": "face_14",
+            "DEAD": false,
+            "NAME": "Ice",
+            "MAX_HP": 100,
+            "ENGAGE_MAX": 4,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_INACTIVE"
+          }
+        }
+      },
+      {
+        "id":"STATS_BOATMAN",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": ["ITEM_GLOVES_CLOTH_BLUE" ,"ITEM_HAT_BLUE", "ITEM_BOOTS_LEATHER", "ITEM_SHIRT_LEATHER", "ITEM_LEGS_CLOTH_BLUE"],
+            "PASSIVE_ACTIONS": [],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN"],
+            "MOVEMENT_SPEED": 2,
+            "HEIGHT": 1.8,
+            "SIZE": 1.0,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_5",
+            "DEAD": false,
+            "NAME": "Skipper",
+            "MAX_HP": 2,
+            "ENGAGE_MAX": 1,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_WALK",
+            "ATTITUDE": "NEUTRAL"
+          }
+        }
+      },
+      {
+        "id":"STATS_VENDOR_HOUSING",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": ["ITEM_GLOVES_LEATHER" ,"ITEM_HAT_LEATHER", "ITEM_BOOTS_LEATHER", "ITEM_SHIRT_LEATHER", "ITEM_LEGS_LEATHER"],
+            "PASSIVE_ACTIONS": [],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN"],
+            "MOVEMENT_SPEED": 2,
+            "HEIGHT": 1.8,
+            "SIZE": 1.0,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_5",
+            "DEAD": false,
+            "NAME": "Estate Vendor",
+            "MAX_HP": 2,
+            "ENGAGE_MAX": 1,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_WALK",
+            "ATTITUDE": "NEUTRAL"
+          }
+        }
+      },
+      {
+        "id":"STATS_QUESTGIVER",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": ["ITEM_STAFF_BASIC", "ITEM_BELT_PLATE", "ITEM_GLOVES_CLOTH_BLUE" ,"ITEM_HAT_POINTY_WHITE", "ITEM_BOOTS_LEATHER", "ITEM_SHIRT_CLOTH_BLUE", "ITEM_LEGS_CLOTH_BLUE"],
+            "PASSIVE_ACTIONS": [],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN"],
+            "MOVEMENT_SPEED": 2,
+            "HEIGHT": 1.8,
+            "SIZE": 1.0,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_5",
+            "DEAD": false,
+            "NAME": "Wise Elder",
+            "MAX_HP": 2,
+            "ENGAGE_MAX": 1,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_WALK",
+            "ATTITUDE": "NEUTRAL"
+          }
+        }
+      },
+      {
+        "id":"STATS_FIGHTER",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": ["ITEM_HATCHET"],
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 1.0,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_4",
+            "DEAD": false,
+            "NAME": "Fighter",
+            "MAX_HP": 2,
+            "ENGAGE_MAX": 1,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_WALK",
+            "ATTITUDE": "NEUTRAL"
+          }
+        }
+      },
+      {
+        "id":"STATS_OUTLAW",
+        "data":{
+          "status": {
+            "PASSIVE_ACTIONS": [],
+            "ACTIONS": ["ACTION_MELEE_BASH"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 1.0,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_6",
+            "DEAD": false,
+            "NAME": "Outlaw",
+            "MAX_HP": 8,
+            "ENGAGE_MAX": 0,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_INACTIVE"
+          }
+        }
+      },
+      {
+        "id":"STATS_FARMER",
+        "data":{
+          "status": {
+            "PASSIVE_ACTIONS": [],
+            "ACTIONS": ["ACTION_CHARGE"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 1.0,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_12",
+            "DEAD": false,
+            "NAME": "Farmer",
+            "MAX_HP": 12,
+            "ENGAGE_MAX": 1,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_INACTIVE"
+          }
+        }
+      },
+      {
+        "id":"STATS_PRINCESS",
+        "data":{
+          "status": {
+            "PASSIVE_ACTIONS": [],
+            "ACTIONS": ["ACTION_FREEZE_BOLT", "ACTION_HEAL_BOLT"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 1.0,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_11",
+            "DEAD": false,
+            "NAME": "Princess",
+            "MAX_HP": 11,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_INACTIVE"
+          }
+        }
+      },
+      {
+        "id":"STATS_PIRATE",
+        "data":{
+          "status": {
+            "PASSIVE_ACTIONS": [],
+            "ACTIONS": ["ACTION_FIREBALL", "ACTION_HEAL_BOLT"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 1.0,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_10",
+            "DEAD": false,
+            "NAME": "Pirate",
+            "MAX_HP": 10,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_INACTIVE"
+          }
+        }
+      },
+      {
+        "id":"STATS_ALIEN",
+        "data":{
+          "status": {
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_MAGIC_MISSILE", "ACTION_HEAL_BOLT"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 1.0,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_9",
+            "DEAD": false,
+            "NAME": "Alien",
+            "MAX_HP": 10,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_INACTIVE"
+          }
+        }
+      },
+      {
+        "id":"STATS_BARBARIAN",
+        "data":{
+          "status": {
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_MAGIC_MISSILE", "ACTION_HEAL_BOLT"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 1.0,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_9",
+            "DEAD": false,
+            "NAME": "Alien",
+            "MAX_HP": 10,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_INACTIVE"
+          }
+        }
+      },
+      {
+        "id":"STATS_DUDE",
+        "data":{
+          "status": {
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_MAGIC_MISSILE", "ACTION_HEAL_BOLT"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK", "ACTION_TRAVEL_RUN"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 1.0,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_1",
+            "DEAD": false,
+            "NAME": "Alien",
+            "MAX_HP": 10,
+            "IN_COMBAT": false,
+            "TRAVEL_MODE": "TRAVEL_MODE_INACTIVE"
+          }
+        }
+      },
+      {
+        "id":"STATS_BANDIT_0",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": ["ITEM_STAFF_BASIC", "ITEM_LEGS_LEATHER"],
+            "PASSIVE_ACTIONS": [],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.7,
+            "SIZE": 0.75,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_2",
+            "DEAD": false,
+            "NAME": "Ruffian",
+            "MAX_HP": 3,
+            "ATTITUDE": "HOSTILE"
+          }
+        }
+      },
+      {
+        "id":"STATS_BANDIT_1",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": ["ITEM_STAFF_BASIC", "ITEM_BOOTS_LEATHER", "ITEM_LEGS_LEATHER", "ITEM_GLOVES_LEATHER"],
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 0.87,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_3",
+            "DEAD": false,
+            "NAME": "Crook",
+            "MAX_HP": 5,
+            "ATTITUDE": "HOSTILE"
+          }
+        }
+      },
+      {
+        "id":"STATS_BANDIT_2",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": ["ITEM_PITCHFORK", "ITEM_HAT_LEATHER", "ITEM_BOOTS_LEATHER" , "ITEM_SHIRT_LEATHER" ,"ITEM_LEGS_LEATHER","ITEM_GLOVES_LEATHER"],
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 0.95,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_4",
+            "DEAD": false,
+            "NAME": "Hooligan",
+            "MAX_HP": 8,
+            "ATTITUDE": "HOSTILE"
+          }
+        }
+      },
+      {
+        "id":"STATS_BANDIT_3",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": ["ITEM_HATCHET", "ITEM_HELMET_BRONZE", "ITEM_BOOTS_LEATHER_STUDDED" , "ITEM_SHIRT_LEATHER" ,"ITEM_LEGS_LEATHER","ITEM_GLOVES_LEATHER_STUDDED"],
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 1.0,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_5",
+            "DEAD": false,
+            "NAME": "Robber",
+            "MAX_HP": 12,
+            "ATTITUDE": "HOSTILE"
+          }
+        }
+      },
+      {
+        "id":"STATS_BANDIT_4",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": ["ITEM_HATCHET", "ITEM_HELMET_BRONZE", "ITEM_CHEST_BRONZE", "ITEM_LEGS_BRONZE", "ITEM_BOOTS_LEATHER_STUDDED" , "ITEM_SHIRT_LEATHER" ,"ITEM_LEGS_LEATHER","ITEM_GLOVES_LEATHER_STUDDED"],
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 1.03,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_6",
+            "DEAD": false,
+            "NAME": "Raider",
+            "MAX_HP": 16,
+            "ATTITUDE": "HOSTILE"
+          }
+        }
+      },
+      {
+        "id":"STATS_BANDIT_5",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": ["ITEM_HATCHET", "ITEM_HELMET_BRONZE", "ITEM_CHEST_BRONZE", "ITEM_LEGS_BRONZE", "ITEM_BOOTS_CHAIN" , "ITEM_SHIRT_CHAIN" ,"ITEM_LEGS_CHAIN","ITEM_GLOVES_CHAIN"],
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 1.07,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_7",
+            "DEAD": false,
+            "NAME": "Gangster",
+            "MAX_HP": 21,
+            "ATTITUDE": "HOSTILE"
+          }
+        }
+      },
+      {
+        "id":"STATS_BANDIT_6",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": ["ITEM_SWORD_FANCY", "ITEM_HELMET_STEEL", "ITEM_BELT_PLATE", "ITEM_CHEST_STEEL", "ITEM_LEGS_STEEL", "ITEM_BOOTS_LEATHER_STUDDED" , "ITEM_SHIRT_LEATHER" ,"ITEM_LEGS_LEATHER","ITEM_GLOVES_LEATHER_STUDDED"],
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 1.1,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_8",
+            "DEAD": false,
+            "NAME": "Brigand",
+            "MAX_HP": 28,
+            "ATTITUDE": "HOSTILE"
+          }
+        }
+      },
+      {
+        "id":"STATS_BANDIT_7",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": ["ITEM_SWORD_FANCY", "ITEM_HELMET_VIKING", "ITEM_BELT_PLATE", "ITEM_CHEST_STEEL", "ITEM_LEGS_STEEL", "ITEM_BOOTS_CHAIN" , "ITEM_SHIRT_CHAIN" ,"ITEM_LEGS_CHAIN","ITEM_GLOVES_CHAIN"],
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 1.14,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_10",
+            "DEAD": false,
+            "NAME": "Marauder",
+            "MAX_HP": 35,
+            "ATTITUDE": "HOSTILE"
+          }
+        }
+      },
+      {
+        "id":"STATS_BANDIT_8",
+        "data":{
+          "status": {
+            "EQUIPPED_ITEMS": ["ITEM_SWORD_FANCY", "ITEM_HELMET_VIKING_BLACK", "ITEM_BELT_PLATE_BLACK", "ITEM_CHEST_SCALE_PURPLE", "ITEM_SKIRT_SCALE_PURPLE", "ITEM_BOOTS_SCALE_PURPLE" , "ITEM_SHIRT_CHAIN_PURPLE" ,"ITEM_LEGS_CHAIN_PURPLE","ITEM_GLOVES_SCALE_PURPLE"],
+            "PASSIVE_ACTIONS": ["ACTION_FREEHACK_MELEE"],
+            "ACTIONS": ["ACTION_MELEE_BASH", "ACTION_THROW"],
+            "TRAVEL":  ["ACTION_TRAVEL_WALK"],
+            "MOVEMENT_SPEED": 4,
+            "HEIGHT": 1.8,
+            "SIZE": 1.2,
+            "HAND_SIZE": 0.4,
+            "ICON_KEY": "face_11",
+            "DEAD": false,
+            "NAME": "Corsair",
+            "MAX_HP": 48,
+            "ATTITUDE": "HOSTILE"
+          }
+        }
+      }
+    ]
+  }
+}]

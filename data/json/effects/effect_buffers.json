@@ -1,0 +1,46 @@
+[
+    {
+        "EFFECT": {
+            "BUFFERS":[
+                {
+                    "id":"spawners_default",
+                    "data": [
+                                                {
+                            "spawner": "additive_particles_8x8",
+                            "asset_id":  "asset_additiveQuad",
+                            "pool_size": 5500,
+                            "render_order": 6
+                        },
+                        {
+                            "spawner": "additive_stamps_8x8",
+                            "asset_id":  "asset_additiveStamp",
+                            "pool_size": 10000,
+                            "render_order": 5
+                        },
+                        {
+                            "spawner": "overlay_stamps_8x8",
+                            "asset_id":  "asset_overlayStamp",
+                            "pool_size": 10000,
+                            "render_order": 4
+                        },
+                        {
+                            "spawner": "normal_stamps_8x8",
+                            "asset_id":  "asset_normalStamp",
+                            "pool_size": 5300,
+                            "render_order": 5
+                        },
+                        {
+                            "spawner": "normal_particles_8x8",
+                            "asset_id":  "asset_normalQuad",
+                            "pool_size": 5200,
+                            "render_order": 5
+                        }
+                    ]
+                }
+            ],
+            "NOT_LOADED_BUFFERS":[
+
+            ]
+        }
+    }
+]

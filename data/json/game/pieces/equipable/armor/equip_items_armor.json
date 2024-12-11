@@ -1,0 +1,261 @@
+[{
+  "GAME":{
+    "PIECES":[
+      {
+        "id":"LEGS_BRONZE",
+        "data":{
+
+          "model_asset":"asset_bronze_legs",
+          "slot": "SLOT_LEGS",
+          "status": {
+            "name": "Bronze Greaves",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 3
+          }
+        }
+      },
+      {
+        "id":"BREASTPLATE_BRONZE",
+        "data":{
+          "model_asset":"asset_bronze_bp",
+          "slot": "SLOT_CHEST",
+          "status": {
+            "name": "Bronze Plate",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 4
+          }
+        }
+      },
+      {
+        "id":"HELMET_BRONZE",
+        "data":{
+          "model_asset":"asset_helmet_bronze",
+          "slot": "SLOT_HEAD",
+
+          "status": {
+            "name": "Bronze Helmet",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 2
+          }
+
+        }
+      },
+      {
+        "id":"HAT_CLOTH_WHITE",
+        "data":{
+          "model_asset":"asset_hat_cloth_white",
+          "slot": "SLOT_HEAD",
+          "status": {
+            "name": "White Cloth Hat",
+            "item_type": "Clothes",
+            "level_table": "level_table_armor_default",
+            "level": 8
+          }
+
+        }
+      },
+      {
+        "id":"HAT_CLOTH_YELLOW",
+        "data":{
+          "model_asset":"asset_hat_cloth_yellow",
+          "slot": "SLOT_HEAD",
+          "status": {
+            "name": "Yellow Cloth Hat",
+            "item_type": "Clothes",
+            "level_table": "level_table_armor_default",
+            "level": 6
+          }
+        }
+      },
+      {
+        "id":"HAT_POINTY_WHITE",
+        "data":{
+          "model_asset":"asset_hat_pointy_white",
+          "slot": "SLOT_HEAD",
+          "status": {
+            "name": "White Pointy Hat",
+            "item_type": "Clothes",
+            "level_table": "level_table_armor_default",
+            "level": 15
+          }
+
+        }
+      },
+      {
+        "id":"HAT_CLOTH_BLUE",
+        "data":{
+          "model_asset":"asset_hat_cloth_blue",
+          "slot": "SLOT_HEAD",
+          "status": {
+            "name": "Blue Cloth Hat",
+            "item_type": "Clothes",
+            "level_table": "level_table_armor_default",
+            "level": 4
+          }
+        }
+      },
+      {
+        "id":"HAT_CLOTH_RED",
+        "data":{
+          "model_asset":"asset_hat_cloth_red",
+          "slot": "SLOT_HEAD",
+          "status": {
+            "name": "Red Cloth Hat",
+            "item_type": "Clothes",
+            "level_table": "level_table_armor_default",
+            "level": 7
+          }
+
+        }
+      },
+      {
+        "id":"HAT_LEATHER_BROWN",
+        "data":{
+          "model_asset":"asset_hat_leather_brown",
+          "slot": "SLOT_HEAD",
+          "status": {
+            "name": "Brown Leather Hat",
+            "item_type": "Clothes",
+            "level_table": "level_table_armor_default",
+            "level": 4
+          }
+        }
+      },
+      {
+        "id":"BRACER_BRONZE",
+        "data":{
+          "model_asset":"asset_bracer_bronze",
+          "slot": "SLOT_WRIST",
+          "status": {
+            "name": "Bronze Bracers",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 3
+          }
+        }
+      },
+      {
+        "id":"BELT_BRONZE",
+        "data":{
+          "model_asset":"asset_belt_bronze",
+          "slot": "SLOT_WAIST",
+          "status": {
+            "name": "Bronze Belt",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 3
+          }
+        }
+      },
+
+
+      {
+        "id":"HELMET_VIKING",
+        "data":{
+          "model_asset":"asset_helmetviking",
+          "slot": "SLOT_HEAD",
+          "status": {
+            "name": "Viking Helmet",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 9
+          }
+        }
+      },
+      {
+        "id":"BELT_PLATE",
+        "data":{
+          "model_asset":"asset_beltplate",
+          "slot": "SLOT_WAIST",
+          "status": {
+            "name": "Plate Girdle",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 9
+          }
+        }
+      },
+      {
+        "id":"SHIRT_CHAIN",
+        "data":{
+          "model_asset":"asset_chain_shirt",
+          "slot": "SLOT_BODY",
+          "status": {
+            "name": "Chain Shirt",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 5
+          }
+        }
+      },
+      {
+        "id":"SHIRT_SCALE",
+        "data":{
+          "model_asset":"asset_scale_shirt",
+          "slot": "SLOT_CHEST",
+          "status": {
+            "name": "Scale Plates",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 15
+          }
+        }
+      },
+      {
+        "id":"LEGS_CHAIN",
+        "data":{
+          "model_asset":"asset_chain_legs",
+          "slot": "SLOT_LEGS",
+          "status": {
+            "name": "Chain Skirt",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 5
+          }
+        }
+      },
+      {
+        "id":"LEGS_SCALE",
+        "data":{
+          "model_asset":"asset_scale_legs",
+          "slot": "SLOT_LEGS",
+          "status": {
+            "name": "Scale Skirt",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 15
+          }
+        }
+      },
+      {
+        "id":"BOOTS_SCALE",
+        "data":{
+          "model_asset":"asset_scale_boots",
+          "slot": "SLOT_FEET",
+          "status": {
+            "name": "Scale Boots",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 7
+          }
+        }
+      },
+      {
+        "id":"GLOVES_SCALE",
+        "data":{
+          "model_asset":"asset_scale_gloves",
+          "slot": "SLOT_HANDS",
+          "status": {
+            "name": "Scale Gloves",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 7
+          }
+        }
+      }
+    ]
+  }
+}]

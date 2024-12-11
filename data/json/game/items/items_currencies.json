@@ -1,0 +1,1407 @@
+[{
+  "GAME":{
+    "ITEMS":[
+      {
+        "id": "ITEM_CURRENCY_GOLD",
+        "data": {
+          "visual_id":"VISUAL_CURRENCY_GOLD",
+          "status": {
+            "NAME":"Gold",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "CURRENCY",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Suitable for regular purchases and trade."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_DIAMOND",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_DIAMOND",
+          "status": {
+            "NAME":"Diamond",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "CURRENCY",
+            "RARITY": "EPIC",
+            "QUALITY": "SUPERB",
+            "TEXT": "Useful for acquiring extraordinary things."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_CLASS_BARBARIAN",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_CLASS_BARBARIAN",
+          "status": {
+            "NAME":"Barbarian Shard",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "CLASS",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for creating Heroes."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_CLASS_BARD",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_CLASS_BARD",
+          "status": {
+            "NAME":"Bard Shard",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "CLASS",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for creating Heroes."
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_CURRENCY_CLASS_CLERIC",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_CLASS_CLERIC",
+          "status": {
+            "NAME":"Cleric Shard",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "CLASS",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for creating Heroes."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_CLASS_DRUID",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_CLASS_DRUID",
+          "status": {
+            "NAME":"Druid Shard",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "CLASS",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for creating Heroes."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_CLASS_FIGHTER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_CLASS_FIGHTER",
+          "status": {
+            "NAME":"Fighter Shard",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "CLASS",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for creating Heroes."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_CLASS_MONK",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_CLASS_MONK",
+          "status": {
+            "NAME":"Monk Shard",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "CLASS",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for creating Heroes."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_CLASS_PALADIN",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_CLASS_PALADIN",
+          "status": {
+            "NAME":"Paladin Shard",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "CLASS",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for creating Heroes."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_CLASS_RANGER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_CLASS_RANGER",
+          "status": {
+            "NAME":"Ranger Shard",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "CLASS",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for creating Heroes."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_CLASS_ROGUE",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_CLASS_ROGUE",
+          "status": {
+            "NAME":"Rogue Shard",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "CLASS",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for creating Heroes."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_CLASS_SORCERER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_CLASS_SORCERER",
+          "status": {
+            "NAME":"Sorcerer Shard",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "CLASS",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for creating Heroes."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_CLASS_WARLOCK",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_CLASS_WARLOCK",
+          "status": {
+            "NAME":"Warlock Shard",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "CLASS",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for creating Heroes."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_CLASS_WIZARD",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_CLASS_WIZARD",
+          "status": {
+            "NAME":"Wizard Shard",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "CLASS",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for creating Heroes."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_ABJURATION",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_ABJURATION",
+          "status": {
+            "NAME":"Abjuration Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_ANCESTRAL_GUARDIAN",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_ANCESTRAL_GUARDIAN",
+          "status": {
+            "NAME":"Ancestral Guardian Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_ARCANA",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_ARCANA",
+          "status": {
+            "NAME":"Arcana Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_ARCANE_ARCHER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_ARCANE_ARCHER",
+          "status": {
+            "NAME":"Arcane Archer Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_ARCANE_TRIXTER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_ARCANE_TRIXTER",
+          "status": {
+            "NAME":"Arcane Trickster Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_ARCHFEY",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_ARCHFEY",
+          "status": {
+            "NAME":"Archfey Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_ASSASSIN",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_ASSASSIN",
+          "status": {
+            "NAME":"Assassin Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_BATTLE_MASTER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_BATTLE_MASTER",
+          "status": {
+            "NAME":"Battle Master Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_BATTLERAGER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_BATTLERAGER",
+          "status": {
+            "NAME":"Battlerager Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_BEAST_MASTER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_BEAST_MASTER",
+          "status": {
+            "NAME":"Beast Master Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_BERZERKER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_BERZERKER",
+          "status": {
+            "NAME":"Berzerker Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_BLADESINGING",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_BLADESINGING",
+          "status": {
+            "NAME":"Bladesinging Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_CAVALIER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_CAVALIER",
+          "status": {
+            "NAME":"Cavalier Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_CELESTIAL",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_CELESTIAL",
+          "status": {
+            "NAME":"Celestial Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_CHAMPION",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_CHAMPION",
+          "status": {
+            "NAME":"Champion Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_CHRONURGY",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_CHRONURGY",
+          "status": {
+            "NAME":"Chronurgy Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_CONJURATION",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_CONJURATION",
+          "status": {
+            "NAME":"Conjuration Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_CONQUEST",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_CONQUEST",
+          "status": {
+            "NAME":"Conquest Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_DEATH",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_DEATH",
+          "status": {
+            "NAME":"Death Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_DEVOTION",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_DEVOTION",
+          "status": {
+            "NAME":"Devotion Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_DIVINATION",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_DIVINATION",
+          "status": {
+            "NAME":"Divination Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_DIVINE_SOUL",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_DIVINE_SOUL",
+          "status": {
+            "NAME":"Divine Soul Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_DRACONIC_BLOODLINE",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_DRACONIC_BLOODLINE",
+          "status": {
+            "NAME":"Draconic Bloodline Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_DRAGON_KNIGHT",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_DRAGON_KNIGHT",
+          "status": {
+            "NAME":"Dragon Knight Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_DREAMS",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_DREAMS",
+          "status": {
+            "NAME":"Dreams Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_DRUNKEN_MASTER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_DRUNKEN_MASTER",
+          "status": {
+            "NAME":"Drunken Master Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_ECHO_KNIGHT",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_ECHO_KNIGHT",
+          "status": {
+            "NAME":"Echo Knight Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_ELDRITCH_KNIGHT",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_ELDRITCH_KNIGHT",
+          "status": {
+            "NAME":"Eldritch Knight Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_ENCHANTMENT",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_ENCHANTMENT",
+          "status": {
+            "NAME":"Enchantment Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_EVOCATION",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_EVOCATION",
+          "status": {
+            "NAME":"Evocation Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_FIEND",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_FIEND",
+          "status": {
+            "NAME":"Fiend Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_FORGE",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_FORGE",
+          "status": {
+            "NAME":"Forge Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_FOUR_ELEMENTS",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_FOUR_ELEMENTS",
+          "status": {
+            "NAME":"Four Elements Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_GLAMOUR",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_GLAMOUR",
+          "status": {
+            "NAME":"Glamour Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_GLOOM_STALKER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_GLOOM_STALKER",
+          "status": {
+            "NAME":"Gloom Stalker Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_GRAVE",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_GRAVE",
+          "status": {
+            "NAME":"Grave Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_GRAVITURGY",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_GRAVITURGY",
+          "status": {
+            "NAME":"Graviturgy Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_GREAT_OLD_ONE",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_GREAT_OLD_ONE",
+          "status": {
+            "NAME":"Great Old Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_GUARDIAN",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_GUARDIAN",
+          "status": {
+            "NAME":"Guardian Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_HEXBLADE",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_HEXBLADE",
+          "status": {
+            "NAME":"Hexblade Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_HORIZON_WALKER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_HORIZON_WALKER",
+          "status": {
+            "NAME":"Horizon Walker Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_HUNTER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_HUNTER",
+          "status": {
+            "NAME":"Hunter Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_ILLUSION",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_ILLUSION",
+          "status": {
+            "NAME":"Illusion Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_INQUISITOR",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_INQUISITOR",
+          "status": {
+            "NAME":"Inquisitor Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_KENSEI",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_KENSEI",
+          "status": {
+            "NAME":"Kensei Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_KNOWLEDGE",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_KNOWLEDGE",
+          "status": {
+            "NAME":"Knowledge Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_LIFE",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_LIFE",
+          "status": {
+            "NAME":"Life Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_LIGHT",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_LIGHT",
+          "status": {
+            "NAME":"Light Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_LONG_DEATH",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_LONG_DEATH",
+          "status": {
+            "NAME":"Long Death Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_LORE",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_LORE",
+          "status": {
+            "NAME":"Lore Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_MASTERMIND",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_MASTERMIND",
+          "status": {
+            "NAME":"Mastermind Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_MONSTER_SLAYER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_MONSTER_SLAYER",
+          "status": {
+            "NAME":"Monster Slayer Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_NATURE",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_NATURE",
+          "status": {
+            "NAME":"Nature Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_NECROMANCY",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_NECROMANCY",
+          "status": {
+            "NAME":"Necromancy Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_OATHBREAKER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_OATHBREAKER",
+          "status": {
+            "NAME":"Oathbreaker Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_OPEN_HAND",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_OPEN_HAND",
+          "status": {
+            "NAME":"Open Hand Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_ORDER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_ORDER",
+          "status": {
+            "NAME":"Order Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_REDEMPTION",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_REDEMPTION",
+          "status": {
+            "NAME":"Redemption Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_SAMURAI",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_SAMURAI",
+          "status": {
+            "NAME":"Samurai Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_SCOUT",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_SCOUT",
+          "status": {
+            "NAME":"Scout Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_SHADOW",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_SHADOW",
+          "status": {
+            "NAME":"Shadow Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_SHADOW_MAGIC",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_SHADOW_MAGIC",
+          "status": {
+            "NAME":"Shadow Magic Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_SPORES",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_SPORES",
+          "status": {
+            "NAME":"Spores Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_STORM_HERALD",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_STORM_HERALD",
+          "status": {
+            "NAME":"Storm Herald Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_STORM_SORCERY",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_STORM_SORCERY",
+          "status": {
+            "NAME":"Storm Sorcery Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_SUN_SOUL",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_SUN_SOUL",
+          "status": {
+            "NAME":"Sun Soul Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_SWASHBUCKLER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_SWASHBUCKLER",
+          "status": {
+            "NAME":"Swashbuckler Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_SWORDS",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_SWORDS",
+          "status": {
+            "NAME":"Swords Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_TEMPEST",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_TEMPEST",
+          "status": {
+            "NAME":"Tempest Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_THE_ANCIENTS",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_THE_ANCIENTS",
+          "status": {
+            "NAME":"The Ancients Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_THE_CROWN",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_THE_CROWN",
+          "status": {
+            "NAME":"The Crown Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_THE_LAND",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_THE_LAND",
+          "status": {
+            "NAME":"The Land Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_THE_MOON",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_THE_MOON",
+          "status": {
+            "NAME":"The Moon Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_THE_SHEPHERD",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_THE_SHEPHERD",
+          "status": {
+            "NAME":"The Shepherd Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_THIEF",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_THIEF",
+          "status": {
+            "NAME":"Thief Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_TOTEM_WARRIOR",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_TOTEM_WARRIOR",
+          "status": {
+            "NAME":"Totem Warrior Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_TRANSMUTATION",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_TRANSMUTATION",
+          "status": {
+            "NAME":"Transmutation Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+      }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_TRICKERY",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_TRICKERY",
+          "status": {
+            "NAME":"Trickery Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_UNDYING",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_UNDYING",
+          "status": {
+            "NAME":"Undying Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_VALOR",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_VALOR",
+          "status": {
+            "NAME":"Valor Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_VENGEANCE",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_VENGEANCE",
+          "status": {
+            "NAME":"Vengeance Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_WAR",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_WAR",
+          "status": {
+            "NAME":"War Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_WAR_MAGIC",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_WAR_MAGIC",
+          "status": {
+            "NAME":"War Magic Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_WHISPER",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_WHISPER",
+          "status": {
+            "NAME":"Whisper Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_WILD_SOUL",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_WILD_SOUL",
+          "status": {
+            "NAME":"Wild Soul Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      },
+      {
+        "id": "ITEM_CURRENCY_SUBCLASS_ZEALOT",
+        "data":       {
+          "visual_id":"VISUAL_CURRENCY_SUBCLASS_ZEALOT",
+          "status": {
+            "NAME":"Zealot Sliver",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "SUBCLASS",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD",
+            "TEXT": "Required for selecting subclass."
+          }
+        }
+      }
+    ]
+  }
+}]

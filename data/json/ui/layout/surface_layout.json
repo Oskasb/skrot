@@ -1,0 +1,546 @@
+[
+  {
+    "UI": {
+      "SURFACE_LAYOUT":[
+        {
+          "id": "SURFACES",
+          "data": [
+            {
+              "id":"layout_input_pointer",
+              "config": {
+                "text":   {"x":0.5, "y": 0.5, "fontsize": 5},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0},
+                "size":   {"x":0.015, "y":0.015,"z": 0}
+              }
+            },
+            {
+              "id":"layout_thumbstick",
+              "config": {
+                "text":   {"x":0.5, "y": 0.5, "fontsize": 9},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.15, "y":0.15,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_thumbstick_small",
+              "config": {
+                "text":   {"x":0.5, "y": 0.5, "fontsize": 9},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.08, "y":0.08,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_action_button",
+              "config": {
+                "text":   {"x":0.5, "y": 0.15, "fontsize": 8},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.048, "y":0.048,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_icon_hint",
+              "config": {
+                "text":   {"x":0.5, "y": 0.15, "fontsize": 8},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.015, "y":0.015,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_icon_button",
+              "config": {
+                "text":   {"x":0.5, "y": 0.15, "fontsize": 8},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.1, "y":0.1,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_main_portrait_button",
+              "config": {
+                "text":   {"x":0.17, "y": 1.21, "fontsize": 8},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.09, "y":0.09,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_actor_action_portrait_button",
+              "config": {
+                "text":   {"x":0.17, "y": 1.21, "fontsize": 8},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.12, "y":0.12,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_party_portrait_actor_button",
+              "config": {
+                "text":   {"x":0.17, "y": 1.21, "fontsize": 6},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.06, "y":0.06,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_sequencer_portrait_button",
+              "config": {
+                "text":   {"x":0.17, "y": 1.21, "fontsize": 6},
+                "anchor": {"x":0.5, "y":0.5, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.06, "y":0.06,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_world_nameplate",
+              "config": {
+                "text":   {"x":0.27, "y": 0.41, "fontsize": 7},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.12, "y":0.02,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_icon_button_tiny",
+              "config": {
+                "text":   {"x":0.17, "y": 1.21, "fontsize": 6},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.04, "y":0.04,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_companion_portrait_button",
+              "config": {
+                "text":   {"x":0.17, "y": 1.21, "fontsize": 7},
+                "anchor": {"x":0.5, "y":0.5, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.075, "y":0.075,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_world_nameplate_frame",
+              "config": {
+                "text":   {"x":0.73, "y":0.2, "fontsize": 6},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"center":true},
+                "size":   {"x":0.122, "y":0.022,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_button_state_tiny_frame",
+              "config": {
+                "text":   {"x":0.73, "y":0.2, "fontsize": 6},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"center":true},
+                "size":   {"x":0.042, "y":0.042,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_button_state_progress_frame",
+              "config": {
+                "text":   {"x":0.73, "y":0.2, "fontsize": 6},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"center":true},
+                "size":   {"x":0.062, "y":0.062,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_actor_action_portrait_frame",
+              "config": {
+                "text":   {"x":0.73, "y":0.2, "fontsize": 6},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"center":true},
+                "size":   {"x":0.12, "y":0.12, "z":  0.0}
+              }
+            },
+            {
+              "id":"layout_progress_action_button",
+              "config": {
+                "text":   {"x":0.73, "y":0.2, "fontsize": 6},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"center":true},
+                "size":   {"x":0.050, "y":0.050,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_button_sharp",
+              "config": {
+                "text":   {"x":1.0, "y": 0.5, "fontsize": 9},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.11, "y":0.027,"z":  0.0}
+              }
+            },
+
+
+            {
+              "id":"layout_piece_info_name_key",
+              "config": {
+                "text":   {"x":0.0, "y":0.0, "fontsize": 7},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.001,"y":0.016,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_piece_info_name_value",
+              "config": {
+                "text":   {"x":0.0, "y":0.5, "fontsize": 7},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.12,"y":0.016,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_piece_info_elem_key",
+              "config": {
+                "text":   {"x":0.0, "y":0.5, "fontsize": 5},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":-0.55, "y":0.0, "z":  0.0},
+                "size":   {"x":0.05,"y":0.014,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_piece_info_elem_value",
+              "config": {
+                "text":   {"x":0.0, "y":0.5, "fontsize": 5},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":-0.55, "y":0.0, "z":  0.0},
+                "size":   {"x":0.04,"y":0.014,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_stat_elem_key",
+              "config": {
+                "text":   {"x":0.0, "y":0.5, "fontsize": 7},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.055,"y":0.016,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_stat_elem_value",
+              "config": {
+                "text":   {"x":1.0, "y":0.5, "fontsize": 7},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.02,"y":0.016,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_stats_key_box",
+              "config": {
+                "text":   {"x":0.0, "y":0.5, "fontsize": 7},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.06,"y":0.016,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_stats_value_box",
+              "config": {
+                "text":   {"x":1.0, "y":0.5, "fontsize": 7},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.06,"y":0.016,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_stats_key_box_tiny",
+              "config": {
+                "text":   {"x":0.0, "y":0.5, "fontsize": 5},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.03,"y":0.01,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_stats_value_box_tiny",
+              "config": {
+                "text":   {"x":1.0, "y":0.5, "fontsize": 5},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.03,"y":0.01,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_major_button",
+              "config": {
+                "text":   {"x":0.5, "y": 0.5, "fontsize": 9},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.09, "y":0.03,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_big_icon_button",
+              "config": {
+                "text":   {"x":0.5, "y": 0.1, "fontsize": 8},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.2, "y":0.06,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_progress_button_fat",
+              "config": {
+                "text":   {"x":0.5, "y":0.07, "fontsize": 4},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.08, "y":0.05,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_page_header_text_box",
+              "config": {
+                "text":   {"x":0.5, "y":0.5, "fontsize": 12},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.3, "y":0.025, "z":  0.0}
+              }
+            },
+            {
+              "id":"layout_main_text_box",
+              "config": {
+                "text":   {"x":0.04, "y":0.5, "fontsize": 6.0},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.3, "y":0.014, "z":  0.0}
+              }
+            },
+            {
+              "id":"layout_debug_text_box",
+              "config": {
+                "text":   {"x":0.0, "y":0.0, "fontsize": 6},
+                "anchor": {"x":0.0, "y":0.5, "z":  0.0},
+                "offset": {"x":0.52, "y":0.55, "z":  0.0},
+                "size":   {"x":0.34, "y":0.08,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_top_bar_expanding_container",
+              "config": {
+                "anchor": {"x":0, "y":0, "z":  0.0},
+                "offset": {"x": 4, "y":-1.8, "z":  0.0},
+                "size":   {"x":"auto", "y":"auto", "z":  0.0, "cols": 4, "pad": 0.002, "gridx": 1, "gridy":-1}
+              }
+            },
+            {
+              "id":"layout_info_elem_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 7},
+                "anchor": {"x":0.5, "y":0.0, "z":  0.0},
+                "offset": {"x":-0.0, "y":2, "z":  0.0},
+                "size":   {"x":"auto", "y":"auto", "z":  0.0, "cols": 2, "pad": 0.0, "gridx": 1, "gridy":-1}
+              }
+            },
+            {
+              "id":"layout_stat_elem_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 7},
+                "anchor": {"x":0.5, "y":0.0, "z":  0.0},
+                "offset": {"x":-0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":"auto", "y":"auto", "z":  0.0, "cols": 2, "pad": 0.0, "gridx": 1, "gridy":-1}
+              }
+            },
+            {
+              "id":"layout_stats_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":-0.2, "y":-0.6, "z":  0.0},
+                "size":   {"x":"auto", "y":"auto", "z":  0.0, "cols": 2, "pad": 0.0, "gridx": 1, "gridy":-1}
+              }
+            },
+            {
+              "id":"layout_stats_container_tiny",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 5},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":-0.2, "y":-0.8, "z":  0.0},
+                "size":   {"x":"auto", "y":"auto", "z":  0.0, "cols": 2, "pad": 0.0, "gridx": 1, "gridy":-1}
+              }
+            },
+            {
+              "id":"layout_expanding_container",
+              "config": {
+                "text":   {"x": 1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":-0.0, "y":0.0, "z":  0.0},
+                "offset": {"x": 0.0, "y":-0.25, "z":  0.0},
+                "size":   {"x":"auto", "y":"auto", "z":  0.0, "cols": 1, "pad": 0.002, "gridx": -1, "gridy":-1}
+              }
+            },
+            {
+              "id":"layout_vertical_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":0.5, "y":0.0, "z":  0.0},
+                "offset": {"x":5.5, "y":0.0, "z":  0.0},
+                "size":   {"x":"auto", "y":"auto", "z":  0.0, "cols": 2, "pad": 0.005, "gridx": 1, "gridy":-1}
+              }
+            },
+            {
+              "id":"layout_encounter_sequencer_expanding_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x": 0.0001, "y": 0.0001, "z":  0.0},
+                "offset": {"x": -6.0001, "y": 0.0001, "z":  0.0},
+                "size":   {"x":"auto", "y":"auto", "z":  0.0, "cols": 6, "pad": 0.005, "gridx": 1, "gridy":-1}
+              }
+            },
+            {
+              "id":"layout_party_portrait_expanding_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":0.001, "y":0.001, "z":  0.0},
+                "offset": {"x":2.5, "y":-11.0, "z":  0.0},
+                "size":   {"x":"auto", "y":"auto", "z":  0.0, "cols": 1, "pad": 0.022, "gridx": 1, "gridy":1}
+              }
+            },
+            {
+              "id":"layout_camera_status_expanding_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":0.001, "y":0.001, "z":  0.0},
+                "offset": {"x":-6.1, "y":18.0, "z":  0.0},
+                "size":   {"x":"auto", "y":"auto", "z":  0.0, "cols": 1, "pad": 0.006, "gridx": 1, "gridy":-1}
+              }
+            },
+            {
+              "id":"layout_progress_action_points",
+              "config": {
+                "text":   {"x":0.5, "y":0.15, "fontsize": 4},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0, "z":  0.0},
+                "size":   {"x":0.08, "y":0.05,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_indicator_action_portrait_hp",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":0.0, "y": 0.0, "z":  0.0},
+                "offset": {"x":0.0, "y": 0.0, "z":  0.0},
+                "size":   {"x":0.07, "y":0.0001,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_portrait_hp_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":0.0, "y": 0.0, "z":  0.0},
+                "offset": {"x":0.0, "y": 0.0, "z":  0.0},
+                "size":   {"x":0.1, "y":0.0001,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_hp_bar_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0,"z":  0.0},
+                "size":   {"x":0.03, "y":0.003,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_turn_progress_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0,"z":  0.0},
+                "size":   {"x":0.1, "y":0.005,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_xp_bar_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":0.0, "y":-0.65, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0,"z":  0.0},
+                "size":   {"x":0.1, "y":0.006,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_action_button_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x": 0.0, "y": 0, "z": 0.0},
+                "offset": {"x":  -8.3, "y":6.2,"z":  0.0},
+                "size":   {"x":"auto", "y":"auto", "z":  0.0, "cols": 4, "pad": 0.005, "gridx": 1, "gridy":1}
+              }
+            },
+            {
+              "id":"layout_companion_action_button_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":0.0, "y":0.0, "z": 0.0},
+                "offset": {"x":8.4, "y":5.5,"z":  0.0},
+                "size":   {"x":"auto", "y":"auto", "z":  0.0, "cols": 2, "pad": 0.005, "gridx": -1, "gridy":1}
+              }
+            },
+            {
+              "id":"layout_attack_point_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0,"z":  0.0},
+                "size":   {"x":"auto", "y":"auto", "z":  0.0, "cols": 10, "pad": 0.0002, "gridx": 0.6, "gridy":-1}
+              }
+            },
+            {
+              "id":"layout_actor_hint",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":-0.5, "y":0.5, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0,"z":  0.0},
+                "size":   {"x":0.03, "y":0.03,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_attack_point",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":-0.25, "y":0.75, "z":  0.0},
+                "offset": {"x":0.0, "y":0.0,"z":  0.0},
+                "size":   {"x":0.007, "y":0.007,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_action_point_container",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":0.0, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":1.05,"z":  0.0},
+                "size":   {"x":0.3, "y":0.02,"z":  0.0}
+              }
+            },
+            {
+              "id":"layout_action_point",
+              "config": {
+                "text":   {"x":1.0, "y":0.0, "fontsize": 8},
+                "anchor": {"x":0.5, "y":0.0, "z":  0.0},
+                "offset": {"x":0.0, "y":1.15,"z":  0.0},
+                "size":   {"x":0.02, "y":0.02,"z":  0.0}
+              }
+            },
+
+            {
+              "id":"layout_gui_anchor_point",
+              "config": {
+                "text":   {"x":1.0, "y":0.0,  "fontsize": 8},
+                "anchor": {"x":0.0, "y":0.0,  "z":  0.0, "limitAspect": 1.6},
+                "offset": {"x":0.0, "y":0.0,  "z":  0.0},
+                "size":   {"x":0.02, "y":0.02,"z":  0.0}
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,48 @@
+[{
+  "UI":{
+    "UI_SYSTEMS":[
+      {
+        "id":"UI_ELEMENTS_BACK",
+        "data": [
+          {
+            "id":"gui_buffer",
+            "config": {
+              "sprite_atlas": "GUI_16x16",
+              "mesh_asset":  "asset_nine_back",
+              "pool_size": 3000,
+              "render_order": 19
+            }
+          }
+        ]
+      },
+      {
+        "id":"UI_ELEMENTS_MAIN",
+        "data": [
+          {
+            "id":"gui_buffer",
+            "config": {
+              "sprite_atlas": "GUI_16x16",
+              "mesh_asset":  "asset_nineQuad",
+              "pool_size": 3000,
+              "render_order": 22
+            }
+          }
+        ]
+      },
+      {
+        "id":"UI_TEXT_MAIN",
+        "data": [
+          {
+            "id":"gui_buffer",
+            "config": {
+              "sprite_atlas": "FONT_16x16",
+              "mesh_asset":  "asset_letterQuad",
+              "pool_size": 5000,
+              "render_order": 21
+            }
+          }
+        ]
+      }
+    ]
+  }
+}]

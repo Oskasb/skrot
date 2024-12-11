@@ -1,0 +1,222 @@
+[
+  {
+    "UI": {
+      "PAGES":[
+        {
+          "id": "page_player_main",
+          "data": [
+            {
+              "containers":[
+                {
+                  "widget_id":"page_player_main_bottom_center",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "anchor":"bottom_center"
+                  }
+                },
+                {
+                  "widget_id":"page_player_main_top_center",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "anchor":"top_center"
+                  }
+                },
+                {
+                  "widget_id": "container_bottom_center",
+                  "widget_class": "GuiExpandingContainer",
+                  "widget_config_id": "widget_hidden_container",
+                  "options": {
+                    "container_id": "page_player_main_bottom_center",
+                    "offset_x":   0.0,
+                    "offset_y":   0.0
+                  }
+                },
+                {
+                  "widget_id": "feedback_container_status_values",
+                  "widget_class": "GuiExpandingContainer",
+                  "widget_config_id": "widget_hidden_container",
+                  "options": {
+                    "container_id": "page_player_main_top_center",
+                    "offset_x":  -0.13,
+                    "offset_y":  -0.005
+                  }
+                },
+                {
+                  "widget_id": "resource_container_gems",
+                  "widget_class": "GuiExpandingContainer",
+                  "widget_config_id": "widget_hidden_container",
+                  "options": {
+                    "container_id": "page_player_main_top_center",
+                    "offset_x":  0.07,
+                    "offset_y": -0.005
+                  }
+                },
+                {
+                  "widget_id": "resource_container_gold",
+                  "widget_class": "GuiExpandingContainer",
+                  "widget_config_id": "widget_hidden_container",
+                  "options": {
+                    "container_id": "page_player_main_top_center",
+                    "offset_x":  0.14,
+                    "offset_y": -0.005
+                  }
+                },
+
+                {
+                  "widget_id": "bar_player_turn_progress",
+                  "widget_class": "GuiProgressBar",
+                  "widget_config_id":"progress_indicator_turn_progress",
+                  "options": {
+                    "container_id": "page_player_main_top_center",
+                    "offset_x":  0.13,
+                    "offset_y":  -0.050,
+                    "digits": 1,
+                    "track_config": {"category": "CHARACTERS","key": "MAIN_CHAR_STATUS",
+                      "sampler":
+                        {
+                          "value_key": "turnProgress"
+                        }
+                    }
+                  }
+                },
+                {
+                  "widget_id": "bar_player_pause_progress",
+                  "widget_class": "GuiProgressBar",
+                  "widget_config_id":"progress_indicator_turn_progress",
+                  "options": {
+                    "container_id": "page_player_main_top_center",
+                    "offset_x":  0.13,
+                    "offset_y":  -0.09,
+                    "digits": 1,
+                    "track_config": {"category": "CHARACTERS","key": "MAIN_CHAR_STATUS",
+                      "sampler":
+                      {
+                        "value_key": "pauseProgress"
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id": "panel_player_main_status",
+                  "widget_class": "GuiStatsPanel",
+                  "widget_config_id":"widget_stat_elem_container",
+                  "options": {
+                    "container_id": "feedback_container_status_values",
+                    "key_box": "widget_stat_elem_key",
+                    "value_box": "widget_stat_elem_value",
+                    "track_config": {"category": "CHARACTERS","key": "MAIN_CHAR_STATUS",
+                      "samplers": [
+                        {
+                          "key": "level",
+                          "digits": 1
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "widget_id": "bar_player_xp",
+                  "widget_class": "GuiProgressBar",
+                  "widget_config_id":"progress_indicator_player_xp",
+                  "options": {
+                    "container_id": "panel_player_main_status",
+                    "offset_x":  0.0,
+                    "offset_y":  0,
+                    "digits": 1,
+                    "progress_event": {
+                      "event": "MAIN_CHAR_STATUS_EVENT",
+                      "target_key": "xp_progress"
+                    }
+                  }
+                },
+                {
+                  "widget_id": "bar_player_hp",
+                  "widget_class": "GuiProgressBar",
+                  "widget_config_id":"progress_status_player_hp",
+                  "options": {
+                    "container_id": "page_player_main_top_center",
+                    "offset_x":  -0.13,
+                    "offset_y":  -0.021,
+                    "digits": 1,
+                    "track_config": {"category": "CHARACTERS","key": "MAIN_CHAR_STATUS",
+                      "sampler":
+                      {
+                        "value_key": "hp",
+                        "max_key": "maxHP"
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id": "panel_gold",
+                  "widget_class": "GuiStatsPanel",
+                  "widget_config_id":"widget_stat_elem_container",
+                  "options": {
+                    "container_id": "resource_container_gold",
+                    "key_box": "widget_stat_elem_key",
+                    "value_box": "widget_stat_elem_value",
+                    "track_config": {"category": "CHARACTERS","key": "MAIN_CHAR_STATUS",
+                      "samplers": [
+                        {
+                          "key": "gold",
+                          "digits": 1
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "widget_id": "panel_gems",
+                  "widget_class": "GuiStatsPanel",
+                  "widget_config_id":"widget_stat_elem_container",
+                  "options": {
+                    "container_id": "resource_container_gems",
+                    "key_box": "widget_stat_elem_key",
+                    "value_box": "widget_stat_elem_value",
+                    "track_config": {"category": "CHARACTERS","key": "MAIN_CHAR_STATUS",
+                      "samplers": [
+                        {
+                          "key": "gems",
+                          "digits": 1
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "buttons":[
+                {
+                  "widget_id":"button_turn_pause",
+                  "widget_class":"GuiSimpleButton",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"AUTO P",
+                    "container_id":"page_player_main_top_center",
+                    "offset_x":0.13,
+                    "offset_y":-0.07,
+                    "dispatch":{
+                      "event":"TOGGLE_AUTO_TURN_PAUSE",
+                      "value":{
+                        "pause_duration":5
+                      }
+                    },
+                    "test_active": {
+                      "track_config": {
+                        "category": "CHARACTERS",
+                        "key": "MAIN_CHAR_STATUS",
+                        "value": "autoPause"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+
+          ]
+        }
+      ]
+    }
+  }
+]

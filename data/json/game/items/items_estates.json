@@ -1,0 +1,294 @@
+[{
+  "GAME":{
+    "ITEMS":[
+      {
+        "id": "ITEM_ESTATE_START",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"19:1",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "19",
+            "POS": [-725, 3, 835],
+            "SIZE_XYZ": [24, 15, 34],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_19:1",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"19:1",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "19",
+            "POS": [-725, 3, 835],
+            "SIZE_XYZ": [24, 15, 34],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_19:2",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"19:2",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "19",
+            "POS": [-700, 3, 835],
+            "SIZE_XYZ": [24, 15, 34],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_19:3",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"19:3",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "19",
+            "POS": [-675, 3, 835],
+            "SIZE_XYZ": [24, 15, 34],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_19:4",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"19:4",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "RARE",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "19",
+            "POS": [-790, 3, 790],
+            "SIZE_XYZ": [84, 15, 74],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_19:5",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"19:5",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "RARE",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "19",
+            "POS": [-700, 3, 780],
+            "SIZE_XYZ": [74, 15, 64],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_19:6",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"19:6",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "EPIC",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "19",
+            "POS": [-740, 3, 670],
+            "SIZE_XYZ": [164, 15, 136],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_20:020",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"20:020",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "20",
+            "POS": [-495, 3.5, 680],
+            "SIZE_XYZ": [22, 55, 22],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_20:021",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"20:021",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "20",
+            "POS": [-495, 3.5, 715],
+            "SIZE_XYZ": [22, 55, 22],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_20:022",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"20:022",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "20",
+            "POS": [-460, 3.5, 680],
+            "SIZE_XYZ": [22, 55, 22],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_20:023",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"20:023",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "20",
+            "POS": [-460, 3.5, 715],
+            "SIZE_XYZ": [22, 55, 22],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_20:010",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"20:010",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "20",
+            "POS": [675, 16.5, -320],
+            "SIZE_XYZ": [60, 55, 60],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_20:011",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"20:011",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "20",
+            "POS": [690, 16.5, -266],
+            "SIZE_XYZ": [30, 55, 30],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_20:012",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"20:012",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "20",
+            "POS": [622, 16.5, -280],
+            "SIZE_XYZ": [30, 55, 30],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_20:013",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"20:013",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "20",
+            "POS": [622, 16.5, -322],
+            "SIZE_XYZ": [30, 55, 30],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      },
+      {
+        "id": "ITEM_ESTATE_CITY_20:020",
+        "data": {
+          "visual_id":"VISUAL_ICON_ESTATE",
+          "status": {
+            "NAME":"City - 1:1",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "ESTATE",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "POOR",
+            "TEXT": "Inventory link to the Estate.",
+            "WORLD_LEVEL": "20",
+            "POS": [810, 3.5, -232],
+            "SIZE_XYZ": [60, 55, 60],
+            "QUAT": [0, 0, 0, 1]
+          }
+        }
+      }
+    ]
+  }
+}]

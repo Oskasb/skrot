@@ -1,0 +1,134 @@
+[{
+  "GAME_ACTORS":{
+    "ACTIONS":[
+      {
+        "id":"ACTION_MELEE_BASH",
+        "data":{
+          "visual_action": "VISUAL_MELEE_BASH",
+          "statistical_actions": ["STATISTICAL_MELEE_BASH"],
+          "sequencing": {
+            "SELECTED": {"time": 0.35},
+            "PRECAST":  {"time": 0.15},
+            "ACTIVE":   {"time": 8},
+            "APPLY_HIT":{"time": 0.65},
+            "POST_HIT": {"time": 0.85}
+          }
+        }
+      },
+      {
+        "id":"ACTION_CHARGE",
+        "data":{
+          "visual_action": "VISUAL_CHARGE",
+          "statistical_actions": ["STATISTICAL_CHARGE"],
+          "sequencing": {
+            "SELECTED": {"time": 0.45},
+            "PRECAST":  {"time": 0.45},
+            "ACTIVE":   {"time": 8},
+            "APPLY_HIT":{"time": 1.45},
+            "POST_HIT": {"time": 2.65}
+          }
+        }
+      },
+      {
+        "id":"ACTION_THROW",
+        "data":{
+          "visual_action": "VISUAL_THROW",
+          "statistical_actions": ["STATISTICAL_THROW"],
+          "sequencing": {
+            "SELECTED": {"time": 0.55},
+            "PRECAST":  {"time": 0.55},
+            "ACTIVE":   {"time": 8},
+            "APPLY_HIT":{"time": 0.55},
+            "POST_HIT": {"time": 0.45}
+          }
+        }
+      },
+      {
+        "id":"ACTION_SWORD_SLASH",
+        "data":{
+          "visual_action": "VISUAL_SWORD_SLASH",
+          "statistical_actions": ["STATISTICAL_SWORD_SLASH"],
+          "sequencing": {
+            "SELECTED": {"time": 0.45},
+            "PRECAST":  {"time": 0.45},
+            "ACTIVE":   {"time": 8},
+            "APPLY_HIT":{"time": 0.45},
+            "POST_HIT": {"time": 0.45}
+          }
+        }
+      },
+      {
+        "id":"ACTION_SWORD_STAB",
+        "data":{
+          "visual_action": "VISUAL_SWORD_STAB",
+          "statistical_actions": ["STATISTICAL_SWORD_STAB"],
+          "sequencing": {
+            "SELECTED": {"time": 0.725},
+            "PRECAST":  {"time": 0.225},
+            "ACTIVE":   {"time": 8},
+            "APPLY_HIT":{"time": 0.75},
+            "POST_HIT": {"time": 0.25}
+          }
+
+        }
+      },
+      {
+        "id":"ACTION_FIREBALL",
+        "data":{
+          "visual_action": "VISUAL_FIREBALL",
+          "statistical_actions": ["STATISTICAL_FIREBALL"],
+          "sequencing": {
+            "SELECTED": {"time": 0.5},
+            "PRECAST":  {"time": 0.45},
+            "ACTIVE":   {"time": 8},
+            "APPLY_HIT":{"time": 0.25},
+            "POST_HIT": {"time": 0.75}
+          }
+
+        }
+      },
+      {
+        "id":"ACTION_MAGIC_MISSILE",
+        "data":{
+          "visual_action": "VISUAL_MAGIC_MISSILE",
+          "statistical_actions": ["STATISTICAL_MAGIC_MISSILE"],
+          "sequencing": {
+            "SELECTED":  {"time": 0.5},
+            "PRECAST":   {"time": 0.75},
+            "ACTIVE":    {"time": 8},
+            "APPLY_HIT": {"time": 0.25},
+            "POST_HIT":  {"time": 0.75}
+          }
+        }
+      },
+      {
+        "id":"ACTION_FREEZE_BOLT",
+        "data":{
+          "visual_action": "VISUAL_FREEZE_BOLT",
+          "statistical_actions": ["STATISTICAL_FREEZE_BOLT"],
+          "sequencing": {
+            "SELECTED":  {"time": 0.25},
+            "PRECAST":   {"time": 0.65},
+            "ACTIVE":    {"time": 8},
+            "APPLY_HIT": {"time": 0.04},
+            "POST_HIT":  {"time": 0.75}
+          }
+        }
+      },
+      {
+        "id":"ACTION_HEAL_BOLT",
+        "data":{
+          "visual_action": "VISUAL_HEAL_BOLT",
+          "statistical_actions": ["STATISTICAL_HEAL_BOLT"],
+          "sequencing": {
+            "SELECTED":  {"time": 0.35},
+            "PRECAST":   {"time": 0.85},
+            "ACTIVE":    {"time": 8},
+            "APPLY_HIT": {"time": 0.35},
+            "POST_HIT":  {"time": 0.75}
+          }
+        }
+      }
+    ]
+  }
+}]

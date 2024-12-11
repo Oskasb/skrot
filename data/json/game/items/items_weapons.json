@@ -1,0 +1,147 @@
+[{
+  "GAME":{
+    "ITEMS":[
+      {
+        "id": "ITEM_HATCHET",
+        "data": {
+          "visual_id":"VISUAL_HATCHET",
+          "equip_slot": "SLOT_HAND_R",
+          "status_add_modifiers": [
+            {"status": "ACTIONS", "value":"ACTION_THROW"}
+          ],
+          "status": {
+            "NAME":"Hatchet",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "HATCHET",
+            "RARITY": "PLAIN"
+          }
+        }
+      },
+      {
+        "id": "ITEM_KATANA",
+        "data": {
+          "visual_id":"VISUAL_KATANA",
+          "equip_slot": "SLOT_HAND_R",
+          "status_add_modifiers": [
+            {"status": "ACTIONS", "value":"ACTION_SWORD_SLASH"}
+          ],
+          "status": {
+            "NAME":"Katana",
+            "ITEM_LEVEL": 2,
+            "ITEM_TYPE" : "KATANA",
+            "RARITY": "UNCOMMON"
+          }
+        }
+      },
+      {
+        "id": "ITEM_PITCHFORK",
+        "data": {
+          "visual_id":"VISUAL_PITCHFORK",
+          "equip_slot": "SLOT_HAND_R",
+          "status_add_modifiers": [
+            {"status": "ACTIONS", "value":"ACTION_MELEE_BASH"}
+          ],
+          "status": {
+            "NAME":"Pitchfork",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "POLE_ARM",
+            "RARITY": "COMMON"
+          }
+        }
+      },
+      {
+        "id": "ITEM_STAFF_BASIC",
+        "data": {
+          "visual_id":"VISUAL_STAFF_BASIC",
+          "equip_slot": "SLOT_HAND_R",
+          "status_add_modifiers": [
+            {"status": "ACTIONS", "value":"ACTION_SWORD_SLASH"}
+          ],
+          "status": {
+            "NAME":"Simple Staff",
+            "ITEM_LEVEL": 1,
+            "ITEM_TYPE" : "STAVE",
+            "RARITY": "PLAIN"
+          }
+        }
+      },
+      {
+        "id": "ITEM_AXE_SLICER_GOLDRED",
+        "data": {
+          "visual_id":"VISUAL_AXE_SLICER_GOLDRED",
+          "equip_slot": "SLOT_HAND_R",
+          "status_add_modifiers": [
+            {"status": "ACTIONS", "value":"ACTION_SWORD_SLASH"}
+          ],
+          "status": {
+            "NAME":"Fiery Slicer",
+            "ITEM_LEVEL": 53,
+            "ITEM_TYPE" : "GREAT_AXE",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "EXCEPTIONAL"
+          }
+        }
+      },
+      {
+        "id": "ITEM_AXE_SLICER_BLACK",
+        "data": {
+          "visual_id":"VISUAL_AXE_SLICER_BLACK",
+          "equip_slot": "SLOT_HAND_R",
+          "status_add_modifiers": [
+            {"status": "ACTIONS", "value":"ACTION_SWORD_SLASH"}
+          ],
+          "status": {
+            "NAME":"Darkness",
+            "ITEM_LEVEL": 30,
+            "ITEM_TYPE" : "GREAT_AXE"
+          }
+        }
+      },
+      {
+        "id": "ITEM_AXE_SLICER_BLUE",
+        "data": {
+          "visual_id":"VISUAL_AXE_SLICER_BLUE",
+          "equip_slot": "SLOT_HAND_R",
+          "status_add_modifiers": [
+            {"status": "ACTIONS", "value":"ACTION_SWORD_SLASH"}
+          ],
+          "status": {
+            "NAME":"The Sky",
+            "ITEM_LEVEL": 30,
+            "ITEM_TYPE" : "GREAT_AXE"
+          }
+        }
+      },
+      {
+        "id": "ITEM_AXE_SLICER_WHITE",
+        "data": {
+          "visual_id":"VISUAL_AXE_SLICER_WHITE",
+          "equip_slot": "SLOT_HAND_R",
+          "status_add_modifiers": [
+            {"status": "ACTIONS", "value":"ACTION_SWORD_SLASH"}
+          ],
+          "status": {
+            "NAME":"Silver Bite",
+            "ITEM_LEVEL": 30,
+            "ITEM_TYPE" : "GREAT_AXE"
+          }
+        }
+      },
+      {
+        "id": "ITEM_SWORD_FANCY",
+        "data": {
+          "visual_id":"VISUAL_SWORD_FANCY",
+          "equip_slot": "SLOT_HAND_R",
+          "status_add_modifiers": [
+            {"status": "ACTIONS", "value":"ACTION_SWORD_SLASH"}
+          ],
+          "status": {
+            "NAME":"Noble Sword",
+            "ITEM_LEVEL": 10,
+            "ITEM_TYPE" : "LONG_SWORD"
+          }
+        }
+      }
+    ]
+  }
+}]

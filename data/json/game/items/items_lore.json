@@ -1,0 +1,20 @@
+[{
+  "GAME":{
+    "ITEMS":[
+      {
+        "id": "ITEM_LORE_NOTE_SCRIBBLED_POOR",
+        "data": {
+          "visual_id":"VISUAL_LORE_NOTE_SCRIBBLED",
+          "status": {
+            "NAME":"Letter from a friend",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "LORE",
+            "RARITY": "PLAIN",
+            "QUALITY": "POOR",
+            "TEXT": "I won't be coming back.<br><br>The estate is yours now.<br><br>  /Your Friend"
+          }
+        }
+      }
+    ]
+  }
+}]

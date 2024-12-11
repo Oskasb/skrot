@@ -1,0 +1,19 @@
+[{
+  "GAME_ACTORS":{
+    "ACTIONS":[
+      {
+        "id":"ACTION_MOVEMENT_LEAP",
+        "data":{
+          "visual_action": "VISUAL_FIREBALL",
+          "sequencing": {
+            "selected":{"time": 0.5},
+            "precast":{"time": 0.25},
+            "active":{"time": 0.1},
+            "apply":{"time": 0.1},
+            "post_hit":{"time": 0.35}
+          }
+        }
+      }
+    ]
+  }
+}]

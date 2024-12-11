@@ -1,0 +1,39 @@
+[{
+  "DYNAMIC_SCENARIOS":{
+
+    "GAME_SCENARIOS":[
+      {
+        "id": "manor_village_dynamic",
+        "data": [
+          {
+            "data_key":"dynamic_view_init",
+            "config": {
+              "gui_page":"page_scene_village",
+              "player": {
+                "pos":  [-40, 0, 135],
+                "rot": [0, -0.92, 0]
+              },
+              "camera": {
+                "mode": "follow_cam_main_char",
+                "offset_pos": [-6, 11, 3],
+                "offset_lookAt": [0, 1, 1]
+              },
+              "grid": {
+                "dataId":"grid_world_manor_village",
+                "entrance_tile": [2, 5],
+                "start_tile": [8, 5],
+                "rot": [0,  1.57079, 0],
+                "pos":  [-50, 0, 125]
+              },
+              "environment": "evening",
+
+              "spawn":[
+
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}]

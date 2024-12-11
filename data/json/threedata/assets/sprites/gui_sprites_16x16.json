@@ -1,0 +1,562 @@
+
+[
+  {
+    "ASSETS": {
+      "SPRITES":[
+        {
+        "id": "GUI_16x16",
+        "data": [
+          {
+            "id":"cursor",
+            "tiles":[[0, 0]]
+          },
+          {
+            "id":"debug_nine",
+            "tiles":[[15, 15]]
+          },
+          {
+            "id":"cross",
+            "tiles":[[0, 1]]
+          },
+          {
+            "id":"icon_fight",
+            "tiles":[[2, 4]]
+          },
+          {
+            "id":"icon_star",
+            "tiles":[[7, 5]]
+          },
+          {
+            "id":"icon_dagger",
+            "tiles":[[1, 6]]
+          },
+          {
+            "id":"icon_sword_slash",
+            "tiles":[[3, 6]]
+          },
+          {
+            "id":"icon_sword_stab",
+            "tiles":[[4, 6]]
+          },
+          {
+            "id":"icon_axe_chop",
+            "tiles":[[5, 6]]
+          },
+          {
+            "id":"icon_axe_cut",
+            "tiles":[[6, 6]]
+          },
+          {
+            "id":"icon_axe_big",
+            "tiles":[[7, 6]]
+          },
+          {
+            "id":"icon_fist_bash",
+            "tiles":[[8, 6]]
+          },
+          {
+            "id":"icon_throw",
+            "tiles":[[9, 6]]
+          },
+          {
+            "id":"icon_charge",
+            "tiles":[[10, 6]]
+          },
+          {
+            "id":"icon_talk",
+            "tiles":[[11, 6]]
+          },
+          {
+            "id":"text_background",
+            "tiles":[[1, 1]]
+          },
+          {
+            "id":"frame",
+            "tiles":[[6, 1]]
+          },
+          {
+            "id":"plate_framed",
+            "tiles":[[7, 1]]
+          },
+          {
+            "id":"text_box_framed",
+            "tiles":[[6, 2]]
+          },
+          {
+            "id":"text_plate_label_underline",
+            "tiles":[[6, 3]]
+          },
+          {
+            "id":"inverted_corners",
+            "tiles":[[7, 0]]
+          },
+          {
+            "id":"container_box_framed",
+            "tiles":[[7, 3]]
+          },
+          {
+            "id":"pinpoint_crosshair",
+            "tiles":[[8, 0]]
+          },
+          {
+            "id":"button_sub_frame",
+            "tiles":[[8, 1]]
+          },
+          {
+            "id":"button_sub_frame_pressed",
+            "tiles":[[8, 2]]
+          },
+          {
+            "id":"button_full",
+            "tiles":[[9, 1]]
+          },
+          {
+            "id":"arrow_ahead",
+            "tiles":[[8, 1]]
+          },
+          {
+            "id":"button_full_pressed",
+            "tiles":[[9, 2]]
+          },
+
+          {
+            "id":"pad_rounded",
+            "tiles":[[9, 0]]
+          },
+          {
+            "id":"pad_rounded_pressed",
+            "tiles":[[10, 0]]
+          },
+          {
+            "id":"directional_arrows",
+            "tiles":[[11, 0]]
+          },
+          {
+            "id":"thumbstick_circle",
+            "tiles":[[11, 3]]
+          },
+          {
+            "id":"thumbstick_arrows",
+            "tiles":[[11, 4]]
+          },
+          {
+            "id":"thumbstick_dot",
+            "tiles":[[11, 5]]
+          },
+          {
+            "id":"horizontal_arrows",
+            "tiles":[[12, 0]]
+          },
+          {
+            "id":"vertical_arrows",
+            "tiles":[[13, 0]]
+          },
+          {
+            "id":"roll_indicator",
+            "tiles":[[14, 0]]
+          },
+          {
+            "id":"altitude_indicator",
+            "tiles":[[14, 1]]
+          },
+          {
+            "id":"climb_rate_indicator",
+            "tiles":[[14, 5]]
+          },
+          {
+            "id":"speed_indicator",
+            "tiles":[[14, 3]]
+          },
+          {
+            "id":"control_roll_indicator",
+            "tiles":[[14, 2]]
+          },
+          {
+            "id":"control_yaw_indicator",
+            "tiles":[[15, 2]]
+          },
+          {
+            "id":"control_throttle_indicator",
+            "tiles":[[14, 4]]
+          },
+          {
+            "id":"zero_line_indicator",
+            "tiles":[[15, 3]]
+          },
+          {
+            "id":"horizon_indicator",
+            "tiles":[[15, 0]]
+          },
+          {
+            "id":"climb_line",
+            "tiles":[[15, 1]]
+          },
+          {
+            "id":"button_rounded",
+            "tiles":[[11, 1]]
+          },
+          {
+            "id":"button_rounded_pressed",
+            "tiles":[[11, 2]]
+          },
+
+          {
+            "id":"button_fat_progress",
+            "tiles":[[12, 1]]
+          },
+          {
+            "id":"button_fat_progress_pressed",
+            "tiles":[[13, 1]]
+          },
+          {
+            "id":"button_sharp",
+            "tiles":[[12, 2]]
+          },
+          {
+            "id":"button_sharp_pressed",
+            "tiles":[[13, 2]]
+          },
+          {
+            "id":"button_action",
+            "tiles":[[12, 3]]
+          },
+          {
+            "id":"button_action_pressed",
+            "tiles":[[13, 3]]
+          },
+          {
+            "id":"icon_button",
+            "tiles":[[12, 4]]
+          },
+          {
+            "id":"icon_button_pressed",
+            "tiles":[[13, 4]]
+          },
+          {
+            "id":"horizontal",
+            "tiles":[[0, 2]]
+          },
+          {
+            "id":"heal_icon",
+            "tiles":[[0, 3]]
+          },
+          {
+            "id":"alert",
+            "tiles":[[0, 4]]
+          },
+
+          {
+            "id":"rot_ccw",
+            "tiles":[[0, 6]]
+          },
+          {
+            "id":"rot_cw",
+            "tiles":[[0, 7]]
+          },
+          {
+            "id":"rot_lth",
+            "tiles":[[0, 8]]
+          },
+          {
+            "id":"rot_htl",
+            "tiles":[[0, 9]]
+          },
+
+          {
+            "id":"fuel",
+            "tiles":[[0, 5]]
+          },
+          {
+            "id":"fire_ball",
+            "tiles":[[1, 3]]
+          },
+          {
+            "id":"warning",
+            "tiles":[[1, 4]]
+          },
+          {
+            "id":"oil",
+            "tiles":[[1, 5]]
+          },
+          {
+            "id":"magic_missile",
+            "tiles":[[2, 3]]
+          },
+          {
+            "id":"crosshair",
+            "tiles":[[8, 0]]
+          },
+          {
+            "id":"fire",
+            "tiles":[[2, 5]]
+          },
+          {
+            "id":"frostball",
+            "tiles":[[3, 3]]
+          },
+          {
+            "id":"icon_sleep",
+            "tiles":[[3, 4]]
+          },
+          {
+            "id":"energy",
+            "tiles":[[3, 5]]
+          },
+
+          {
+            "id":"broken",
+            "tiles":[[4, 4]]
+          },
+          {
+            "id":"shield",
+            "tiles":[[4, 5]]
+          },
+          {
+            "id":"dead",
+            "tiles":[[5, 4]]
+          },
+          {
+            "id":"droplet",
+            "tiles":[[5, 5]]
+          },
+
+          {
+            "id":"indicate_pitch_upper",
+            "tiles":[[1, 2]]
+          },
+
+          {
+            "id":"plate",
+            "tiles":[[3, 2]]
+          },
+          {
+            "id":"progress_vertical",
+            "tiles":[[2, 2]]
+          },
+          {
+            "id":"progress_horizontal",
+            "tiles":[[1, 2]]
+          },
+          {
+            "id":"center_lit_square",
+            "tiles":[[0, 2]]
+          },
+          {
+            "id":"split_block",
+            "tiles":[[3, 3]]
+          },
+          {
+            "id":"arrow_top_left",
+            "tiles":[[3, 1]]
+          },
+
+          {
+            "id":"corner_top_left",
+            "tiles":[[4, 1]]
+          },
+          {
+            "id":"corner_center",
+            "tiles":[[5, 1]]
+          },
+          {
+            "id":"edge",
+            "tiles":[[5, 3]]
+          },
+          {
+            "id":"corner_highlight",
+            "tiles":[[5, 2]]
+          },
+          {
+            "id":"indicate_pitch_low",
+            "tiles":[[2, 2]]
+          },
+          {
+            "id":"indicate_yaw_left",
+            "tiles":[[1, 3]]
+          },
+          {
+            "id":"indicate_yaw_right",
+            "tiles":[[2, 3]]
+          },
+          {
+            "id":"corner",
+            "tiles":[[1, 0]]
+          },
+          {
+            "id":"combat_bar",
+            "tiles":[[2, 1]]
+          },
+          {
+            "id":"ap_plate",
+            "tiles":[[2, 0]]
+          },
+          {
+            "id":"ap_light",
+            "tiles":[[3, 0]]
+          },
+          {
+            "id":"armor_plate",
+            "tiles":[[4, 0]]
+          },
+          {
+            "id":"armor_light",
+            "tiles":[[5, 0]]
+          },
+          {
+            "id":"atk_on",
+            "tiles":[[1, 6]]
+          },
+          {
+            "id":"atk_off",
+            "tiles":[[2, 6]]
+          },
+          {
+            "id":"icon_walk",
+            "tiles":[[1, 8]]
+          },
+          {
+            "id":"icon_run",
+            "tiles":[[2, 8]]
+          },
+          {
+            "id":"icon_leap",
+            "tiles":[[3, 8]]
+          },
+          {
+            "id":"CAM_ORBIT",
+            "tiles":[[1, 9]]
+          },
+          {
+            "id":"CAM_EDIT",
+            "tiles":[[1, 9]]
+          },
+          {
+            "id":"CAM_TARGET",
+            "tiles":[[2, 9]]
+          },
+          {
+            "id":"CAM_MOVE",
+            "tiles":[[3, 9]]
+          },
+          {
+            "id":"CAM_AHEAD",
+            "tiles":[[4, 9]]
+          },
+          {
+            "id":"CAM_SHOULDER",
+            "tiles":[[5, 9]]
+          },
+          {
+            "id":"CAM_SELECT",
+            "tiles":[[6, 9]]
+          },
+          {
+            "id":"CAM_AUTO",
+            "tiles":[[7, 9]]
+          },
+          {
+            "id":"CAM_PARTY",
+            "tiles":[[8, 9]]
+          },
+          {
+            "id":"CAM_SEQUENCER",
+            "tiles":[[9, 9]]
+          },
+          {
+            "id":"CAM_ENCOUNTER",
+            "tiles":[[10, 9]]
+          },
+          {
+            "id":"CAM_TRANSLATE",
+            "tiles":[[11, 9]]
+          },
+          {
+            "id":"CAM_GRID",
+            "tiles":[[12, 9]]
+          },
+          {
+            "id":"CAM_HIGH",
+            "tiles":[[13, 9]]
+          },
+          {
+            "id":"CAM_LEVEL",
+            "tiles":[[14, 9]]
+          },
+          {
+            "id":"CAM_POINT",
+            "tiles":[[15, 9]]
+          },
+          {
+            "id":"face_1",
+            "tiles":[[0, 10]]
+          },
+          {
+            "id":"face_2",
+            "tiles":[[0, 11]]
+          },
+          {
+            "id":"face_3",
+            "tiles":[[1, 10]]
+          },
+          {
+            "id":"face_4",
+            "tiles":[[1, 11]]
+          },
+          {
+            "id":"face_5",
+            "tiles":[[2, 10]]
+          },
+          {
+            "id":"face_6",
+            "tiles":[[2, 11]]
+          },
+          {
+            "id":"face_7",
+            "tiles":[[3, 10]]
+          },
+          {
+            "id":"face_8",
+            "tiles":[[3, 11]]
+          },
+          {
+            "id":"face_9",
+            "tiles":[[0, 12]]
+          },
+          {
+            "id":"face_10",
+            "tiles":[[1, 12]]
+          },
+          {
+            "id":"face_11",
+            "tiles":[[2, 12]]
+          },
+          {
+            "id":"face_12",
+            "tiles":[[3, 12]]
+          },
+          {
+            "id":"face_13",
+            "tiles":[[0, 13]]
+          },
+          {
+            "id":"face_14",
+            "tiles":[[1, 13]]
+          },
+          {
+            "id":"entrance_1",
+            "tiles":[[0, 14]]
+          },
+          {
+            "id":"icon_jetpack",
+            "tiles":[[4, 10]]
+          },
+          {
+            "id":"icon_draken",
+            "tiles":[[5, 10]]
+          }
+        ]
+      }
+      ]
+    }
+  }
+]

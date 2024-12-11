@@ -1,0 +1,23 @@
+[{
+  "GAME":{
+    "ITEMS":[
+      {
+        "id": "ITEM_DEED_ESTATE_START",
+        "data": {
+          "visual_id":"VISUAL_DEED_ESTATE",
+          "estate_template": "ITEM_ESTATE_19:1",
+          "status": {
+            "NAME":"Outer Isles - 19:1",
+            "POS": [-725, 3, 835],
+            "WORLD_LEVEL": "19",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "DEED",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "POOR",
+            "TEXT": "A deed to a plot of land."
+          }
+        }
+      }
+    ]
+  }
+}]

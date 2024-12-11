@@ -1,0 +1,57 @@
+[
+  {
+    "UI": {
+      "PAGES":[
+        {
+          "id": "page_debug_view_buffers",
+          "data": [
+            {
+              "containers":[
+                {
+                  "widget_id":"page_buffers_container",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "offset_x": 0.32,
+                    "offset_y": -0.13
+                  }
+                },
+                {
+                  "widget_id": "container_buffer_stats",
+                  "widget_class": "GuiStatsPanel",
+                  "widget_config_id":"widget_stats_container",
+                  "options": {
+                    "container_id": "page_buffers_container",
+                    "offset_x": 0.0,
+                    "offset_y": -0.0,
+                    "track_config": {"category": "DEBUG","key": "BUFFERS",
+                      "samplers": [
+                        {
+                          "key": "sysKeys",
+                          "digits": 0
+                        },
+                        {
+                          "key": "sysBuffs",
+                          "digits": 0
+                        },{
+                          "key": "mats",
+                          "digits": 0
+                        },{
+                          "key": "iCount",
+                          "digits": 0
+                        }
+                      ]
+                    }
+                  }
+                }
+              ],
+              "buttons":[
+
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

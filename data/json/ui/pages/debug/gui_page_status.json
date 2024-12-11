@@ -1,0 +1,38 @@
+[
+  {
+    "UI": {
+      "PAGES":[
+        {
+          "id": "page_status",
+          "data": [
+            {
+              "containers":[
+                {
+                  "widget_id":"page_system_container",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "offset_x": -0.17,
+                    "offset_y": -0.374
+                  }
+                },
+                {
+                  "widget_id":"page_system_container_cpu",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container",
+                  "options": {
+                    "offset_x": 0.15,
+                    "offset_y": -0.374
+                  }
+                }
+              ],
+              "buttons":[
+
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

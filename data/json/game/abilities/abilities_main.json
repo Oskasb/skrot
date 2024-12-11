@@ -1,0 +1,111 @@
+[{
+  "GAME":{
+    "GAME_ABILITIES":[
+      {
+        "id":"fire_ball",
+        "data":[
+          {
+            "data_key": "ability_config",
+            "config": {
+              "name": "Fire Ball",
+              "icon_key": "fire_ball",
+              "target": "tile",
+              "precast_effect": "combat_effect_hands_fire",
+              "missile_effect": "combat_effect_fire_missile",
+              "on_hit_effect": "combat_effect_fireball",
+              "post_hit_effect": "damage_effect_catch_on_fire",
+              "cast_time": 0.2,
+              "cooldown_time": 2,
+              "apply_time": 0.4,
+              "ap_cost": 3,
+              "range": 10,
+              "radius": 4,
+              "modify_target_status": {
+                "status": "status_burning",
+                "duration": [2, 2, 3, 3, 4, 4, 5, 6 , 8 , 10]
+              },
+              "missiles": [2, 3, 4, 5, 6, 7, 8, 9, 10, 12],
+              "damage": [1, 2, 3, 5, 8, 12, 18, 26 , 38 , 50]
+            }
+          }
+        ]
+      },
+      {
+        "id":"heal_minor",
+        "data":[
+          {
+            "data_key": "ability_config",
+            "config": {
+              "name": "Minor Heal",
+              "icon_key": "heal_icon",
+              "target": "friendly",
+              "precast_effect": "combat_effect_hands_heal_power",
+              "missile_effect": "combat_effect_heal_missile",
+              "on_hit_effect": "combat_effect_heal_apply",
+              "post_hit_effect": "damage_effect_heal_residual",
+              "cast_time": 0.1,
+              "cooldown_time": 2,
+              "apply_time": 0.6,
+              "ap_cost": 2,
+              "range": 4,
+              "missiles": [2, 3, 4, 5, 6, 7, 8, 9, 10, 12],
+              "heal": [3, 5, 8, 10, 14, 20, 28, 40 , 60 , 90]
+            }
+          }
+        ]
+      },
+      {
+        "id":"freeze_minor",
+        "data":[
+          {
+            "data_key": "ability_config",
+            "config": {
+              "name": "Minor Freeze",
+              "icon_key": "frostball",
+              "target": "hostile",
+              "precast_effect": "combat_effect_hands_frost",
+              "missile_effect": "combat_effect_frost_missile",
+              "on_hit_effect": "combat_effect_target_freeze",
+              "post_hit_effect": "damage_effect_stay_frozen",
+              "cast_time": 0.4,
+              "cooldown_time": 3,
+              "apply_time": 0.4,
+              "ap_cost": 4,
+              "range": 4,
+              "radius": 2,
+              "modify_target_status": {
+                "status": "status_frozen",
+                "duration": [2, 2, 3, 3, 4, 4, 5, 5 , 5 , 5]
+              },
+              "damage":     [1, 2, 2, 3, 3, 4, 4, 5 , 6 , 7]
+            }
+          }
+        ]
+      },
+      {
+        "id":"magic_missiles",
+        "data":[
+          {
+            "data_key": "ability_config",
+            "config": {
+              "name": "Magic Missiles",
+              "icon_key": "magic_missile",
+              "target": "hostile",
+              "precast_effect": "combat_effect_hands_magic_power",
+              "missile_effect": "combat_effect_magic_missile",
+              "on_hit_effect": "combat_effect_magic_hit",
+              "post_hit_effect": "damage_effect_magic_residual",
+              "cast_time": 0.2,
+              "cooldown_time": 1,
+              "apply_time": 0.4,
+              "ap_cost": 4,
+              "range": 8,
+              "missiles": [2, 3, 4, 5, 6, 7, 8, 9, 10, 12],
+              "damage": [2, 3, 4, 5, 6, 7, 8, 9 , 10 , 12]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}]

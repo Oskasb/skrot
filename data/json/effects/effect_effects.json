@@ -1,0 +1,183 @@
+[
+    {
+        "EFFECT": {
+            "EFFECTS":[
+                {
+                    "id":"effects_default",
+                    "data": {
+                        "effect_footstep":{
+                            "effect_class": "DurableStamp",
+                            "max_active": 100,
+                            "spread_pos":[0.001, 0.0001, 0.001],
+                            "particles": [
+                                {"id":"stamp_footprint",   "count": [1,1]}
+                            ]
+                        },
+                        "effect_target_selection":{
+                            "effect_class": "GameEffect",
+                            "max_active": 25,
+                            "spread_pos":[0.001, 0.001, 0.00001],
+                            "particles": [
+                                {
+                                    "id":"particle_wisp_additive",
+                                    "count": [3, 5]
+                                }
+                            ]
+                        },
+                        "effect_damage_taken":{
+                            "effect_class": "GameEffect",
+                            "max_active": 250,
+                            "spread_pos":[0.00001, 0.00001, 0.00001],
+                            "particles": [
+                                {
+                                    "id":"stamp_footprint",
+                                    "count": [1, 1]
+                                }
+                            ]
+                        },
+                        "fire_missile_particle_additive_pool":{
+                            "effect_class": "GameEffect",
+                            "max_active": 50,
+                            "spread_pos":[0.00001, 0.00001, 0.00001],
+                            "particles": [
+                                {
+                                    "id":"multi_particle_fire_missile",
+                                    "count": [5, 5]
+                                }
+                            ]
+                        },
+                        "residual_magic_damage_effect":{
+                            "effect_class": "GameEffect",
+                            "max_active": 150,
+                            "spread_pos":[0.01, 0.01, 0.01],
+                            "particles": [
+                                {
+                                    "id":"particle_blue_bullet",
+                                    "count": [1, 1]
+                                },
+                                {
+                                    "id":"particle_blue_sparkle",
+                                    "count": [2, 3]
+                                }
+                            ]
+                        },
+                        "magic_missile_projectile_effect":{
+                            "effect_class": "GameEffect",
+                            "max_active": 150,
+                            "spread_pos":[0.01, 0.01, 0.01],
+                            "particles": [
+                                {
+                                    "id":"particle_blue_bullet",
+                                    "count": [2, 3]
+                                },
+                                {
+                                    "id":"particle_blue_sparkle",
+                                    "count": [3, 4]
+                                }
+                            ]
+                        },
+                        "five_particle_additive_pool":{
+                            "effect_class": "GameEffect",
+                            "max_active": 250,
+                            "spread_pos":[0.00001, 0.00001, 0.00001],
+                            "particles": [
+                                {
+                                    "id":"multi_particle_additive_pool",
+                                    "count": [5, 5]
+                                }
+                            ]
+                        },
+                        "particle_additive_pool":{
+                            "effect_class": "GameEffect",
+                            "max_active": 1500,
+                            "spread_pos":[0.00001, 0.00001, 0.00001],
+                            "particles": [
+                                {
+                                    "id":"particle_additive_pool",
+                                    "count": [1, 1]
+                                }
+                            ]
+                        },
+                        "particle_normal_pool":{
+                            "effect_class": "GameEffect",
+                            "max_active": 400,
+                            "spread_pos":[0.00001, 0.00001, 0.00001],
+                            "particles": [
+                                {
+                                    "id":"particle_normal_pool",
+                                    "count": [1, 1]
+                                }
+                            ]
+                        },
+                        "stamp_normal_pool":{
+                            "effect_class": "GameEffect",
+                            "max_active": 600,
+                            "spread_pos":[0.00001, 0.00001, 0.00001],
+                            "particles": [
+                                {
+                                    "id":"stamp_normal_pool",
+                                    "count": [1, 1]
+                                }
+                            ]
+                        },
+                        "stamp_additive_pool":{
+                            "effect_class": "GameEffect",
+                            "max_active": 2500,
+                            "spread_pos":[0.00001, 0.00001, 0.00001],
+                            "particles": [
+                                {
+                                    "id":"stamp_additive_pool",
+                                    "count": [1, 1]
+                                }
+                            ]
+                        },
+                        "stamp_overlay_pool":{
+                            "effect_class": "GameEffect",
+                            "max_active": 600,
+                            "spread_pos":[0.00001, 0.00001, 0.00001],
+                            "particles": [
+                                {
+                                    "id":"stamp_overlay_pool",
+                                    "count": [1, 1]
+                                }
+                            ]
+                        },
+                        "effect_health_recovered":{
+                            "effect_class": "GameEffect",
+                            "max_active": 200,
+                            "spread_pos":[0.00001, 0.00001, 0.00001],
+                            "particles": [
+                                {
+                                    "id":"health_recovered_particle",
+                                    "count": [1, 1]
+                                }
+                            ]
+                        },
+                        "effect_character_indicator":{
+                            "effect_class": "GameEffect",
+                            "max_active": 50,
+                            "spread_pos":[0.00001, 0.00001, 0.00001],
+                            "particles": [
+                                {
+                                    "id":"indicator_particle",
+                                    "count": [1, 1]
+                                }
+                            ]
+                        },
+                        "effect_action_point_wisp":{
+                            "effect_class": "GameEffect",
+                            "max_active": 200,
+                            "spread_pos":[0.00001, 0.00001, 0.00001],
+                            "particles": [
+                                {
+                                    "id":"particle_wisp_additive",
+                                    "count": [1, 1]
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    }
+]

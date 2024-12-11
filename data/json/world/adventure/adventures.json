@@ -1,0 +1,28 @@
+[{
+  "WORLD_ADVENTURE":{
+    "ADVENTURES":[
+      {
+        "id": "node_list",
+        "data": [
+          {
+            "data_key":"adventure_data",
+            "config": {
+              "nodes": []
+            }
+          }
+        ]
+      },
+      {
+        "id": "other_type",
+        "data": [
+          {
+            "data_key":"adventure_data",
+            "config": {
+              "nodes": []
+            }
+          }
+        ]
+      }
+    ]
+  }
+}]

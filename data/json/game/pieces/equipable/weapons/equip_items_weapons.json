@@ -1,0 +1,92 @@
+[{
+  "GAME":{
+    "PIECES":[
+      {
+        "id":"KATANA_GREEN",
+        "data":{
+          "model_asset":"asset_katana_green",
+
+          "slot": "SLOT_HAND_R",
+          "status": {
+            "name": "Sword",
+            "item_type": "Weapon",
+            "level_table": "level_table_sword_default",
+            "level": 5
+          }
+        }
+      },
+      {
+        "id":"NINJASWORD",
+        "data":{
+          "model_asset":"asset_ninjablade",
+
+          "slot": "SLOT_HAND_R",
+          "status": {
+            "name": "Sword",
+            "item_type": "Weapon",
+            "level_table": "level_table_sword_default",
+            "level": 1
+          }
+        }
+      },
+      {
+        "id":"AXE_SLICER",
+        "data":{
+
+          "model_asset":"asset_slicer_axe_2h",
+          "slot": "SLOT_HAND_R",
+          "status": {
+            "name": "Slicer Axe",
+            "item_type": "Weapon",
+            "level_table": "level_table_axe_default",
+            "level": 15
+          }
+        }
+      },
+      {
+        "id":"SWORD_FANCY",
+        "data":{
+
+          "model_asset":"asset_sword_fancy",
+          "slot": "SLOT_HAND_R",
+          "status": {
+            "name": "Fancy Sword",
+            "item_type": "Weapon",
+            "level_table": "level_table_sword_default",
+            "level": 12
+          }
+        }
+      },
+      {
+        "id":"EMERALD_BLADE",
+        "data":{
+
+          "model_asset":"asset_emerald_blade",
+          "slot": "SLOT_HAND_R",
+
+          "status": {
+            "name": "Emerald Blade",
+            "item_type": "Weapon",
+            "level_table": "level_table_sword_default",
+            "level": 20
+          }
+        }
+      },
+      {
+        "id":"HATCHET_NICE",
+        "data":{
+
+          "model_asset":"asset_hatchet_nice",
+          "slot": "SLOT_HAND_R",
+
+          "status": {
+            "name": "Nice Hatchet",
+            "item_type": "Weapon",
+            "level_table": "level_table_axe_default",
+            "level": 1
+          }
+        }
+      }
+    ]
+  }
+}]

@@ -1,0 +1,95 @@
+[{
+  "GAME_VISUALS":{
+    "ACTIONS":[
+      {
+        "id":"VISUAL_TRAVEL_GRID",
+        "data":{
+          "name": "Grid",
+          "icon_key": "CAM_GRID",
+
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_fire",
+            "fx_active":"combat_effect_fire_missile",
+            "fx_apply":"combat_effect_fireball",
+            "fx_post_hit":"damage_effect_catch_on_fire"
+          }
+        }
+      },
+      {
+        "id":"VISUAL_TRAVEL_WALK",
+        "data":{
+          "name": "Walk",
+          "icon_key": "icon_walk",
+
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_fire",
+            "fx_active":"combat_effect_fire_missile",
+            "fx_apply":"combat_effect_fireball",
+            "fx_post_hit":"damage_effect_catch_on_fire"
+          }
+        }
+      },
+      {
+        "id":"VISUAL_TRAVEL_RUN",
+        "data":{
+          "name": "Run",
+          "icon_key": "icon_run",
+
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_fire",
+            "fx_active":"combat_effect_fire_missile",
+            "fx_apply":"combat_effect_fireball",
+            "fx_post_hit":"damage_effect_catch_on_fire"
+          }
+        }
+      },
+      {
+        "id":"VISUAL_TRAVEL_LEAP",
+        "data":{
+          "name": "Leap",
+          "icon_key": "icon_leap",
+
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_fire",
+            "fx_active":"combat_effect_fire_missile",
+            "fx_apply":"combat_effect_fireball",
+            "fx_post_hit":"damage_effect_catch_on_fire"
+          }
+        }
+      },
+      {
+        "id":"VISUAL_TRAVEL_FLY",
+        "data":{
+          "name": "Dragon",
+          "icon_key": "icon_draken",
+
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_magic_power",
+            "fx_active":"combat_effect_magic_missile",
+            "fx_apply":"combat_effect_magic_hit",
+            "fx_post_hit":"damage_effect_magic_residual"
+          }
+        }
+      },
+      {
+        "id":"VISUAL_TRAVEL_JETPACK",
+        "data":{
+          "name": "Jetpack",
+          "icon_key": "icon_jetpack",
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_magic_power",
+            "fx_active":"combat_effect_magic_missile",
+            "fx_apply":"combat_effect_magic_hit",
+            "fx_post_hit":"damage_effect_magic_residual"
+          }
+        }
+      }
+    ]
+  }
+}]

@@ -1,0 +1,1947 @@
+[
+  {
+    "SHADER_PROGRAMS": {
+      "LOAD_PROGRAM_INDEX":[
+        "INSTANCING_PROGRAMS",
+        "TERRAIN_SHADER"
+      ],
+
+      "INSTANCING_PROGRAMS":{
+
+        "vxShaderMaterial":[
+          "gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );"
+        ],
+
+        "fxShaderMaterial":[
+          "gl_FragColor = vColor * txColor * 1.0 + txColor * lightColor*1.0;"
+        ],
+
+        "vPositionMain":[
+          "vec3 vertexPosition = position;"
+        ],
+
+        "vertexPositionMain":[
+          "vec3 vPosition = vertexPosition;"
+        ],
+
+
+
+        "vertexNormalMain":[
+
+          "vec3 normal = vertexNormal;"
+        ],
+        "fxTerrainTextureLayers":[
+          "txColor = vColor;"
+        ],
+
+        "fxStoreLight":[
+          "vec4 lightColor = vec4(sunDir, 1.0);"
+        ],
+
+        "vxOceanUvLayersMain":[
+          "vUv0 = uv * tx0repeat;",
+          "vUv1 = uv * tx1repeat;",
+          "vUv2 = uv * tx2repeat;",
+
+          "height = position.z;"
+        ],
+
+        "fragmentOceanTxLayersMain":[
+
+          "float waveSpeed = systemTime * 0.11;",
+
+          "vec2 waveTranslate = vec2(waveSpeed*0.02 + 0.1*cos(waveSpeed*2.5), waveSpeed + 0.02 * sin(waveSpeed*3.62));",
+
+          "float slope = 1.0 - (0.45*sin(vUv0.y*(1.0+sin(vUv0.x*0.2+systemTime*0.2)*0.002)) + sin(vUv0.y*(1.0+cos(vUv0.x*0.3+systemTime*0.2)*0.009)) * 0.2 + sin(systemTime*0.5)*0.0025+cos(systemTime*2.0)*0.0025)*0.5;",
+
+          "vec4 txColor0 = smoothstep(0.0, 0.95, slope)                                   * texture2D( tx0, vUv0 + (waveTranslate));",
+
+          "waveTranslate = waveTranslate + cos(systemTime*2.4)*0.03 - waveSpeed*0.01 + cos(systemTime*1.5)*0.01;",
+
+          "vec4 txColor1 = (smoothstep(-0.95, 0.0, slope) -  smoothstep(0.0, 0.95, slope)) * texture2D( tx1, vUv1 + (waveTranslate));",
+
+          "waveTranslate = waveTranslate + cos(waveSpeed*1.04)*0.052 - sin(waveSpeed*0.861)*0.01;",
+
+          "vec4 txColor2 = (1.0 - smoothstep(-0.95, 0.0, slope))                          * texture2D( tx2, vUv2 + (waveTranslate));",
+
+          "vec4 txColor3 = (1.0 - smoothstep(-0.75, 0.0, slope*2.0))                          * texture2D( tx2, vUv2*0.13 + (waveTranslate*0.1));",
+          "vec4 txColor4 = texture2D( tx0, vUv1*0.04 + (waveTranslate*0.02));",
+
+          "vec2 vUv3 = vec2(vUv1.x*0.3 , vUv1.y*0.3);",
+
+          "vec4 txColor5 = texture2D( tx0, vUv3*0.03 + (waveTranslate*0.03));",
+
+          "vec4 txColor = (txColor0*2.0 + txColor1*2.0 + txColor2*2.0) * ((txColor3+0.2) ) + (0.04 + txColor4*0.1*slope) + (0.04 + txColor5*0.1*slope) + txColor5*0.3;"
+        ],
+
+
+        "vxTerrainUvLayersMain":[
+          "vUv0 = uv * tx0repeat;",
+          "vUv1 = uv * tx1repeat;",
+          "vUv2 = uv * tx2repeat;",
+          "vUv3 = uv * tx3repeat;",
+          "vUv4 = uv * tx4repeat;",
+          "vUv5 = uv * tx5repeat;",
+          "vUv6 = uv * tx6repeat;",
+          "slope = 1.0 - 1.0*dot(normal, vec3(0.0, 0.0, 1.0));",
+          "height = position.z;"
+        ],
+
+        "fragmentTerrainTxLayersMain":[
+
+          "vec4 txColor0 = (smoothstep(0.07, 0.22, slope))                                  * texture2D( tx0, vUv0 );",
+
+          "vec4 txColor1 = (smoothstep(0.04, 0.12, slope) - smoothstep(0.12, 0.21, slope)) * texture2D( tx1, vUv1  );",
+
+          "vec4 txColor2 = (smoothstep(0.005, 0.04, slope) - smoothstep(0.03, 0.26, slope)) * texture2D( tx2, vUv2 );",
+
+          "vec4 txColor3 = (smoothstep( -0.015, 0.03, slope) - smoothstep(0.02, 0.06, slope)) * texture2D( tx3, vUv3 );",
+
+          "vec4 txColor4 = (smoothstep(-1.0, 0.03, slope) - smoothstep(0.01, 0.04, slope)) * texture2D( tx4, vUv4 );",
+
+          "vec4 txColor = vec4(0.0, 0.0, 0.0, 1.0) + txColor0 + txColor1 + txColor2 + txColor3+ txColor4;",
+
+          "vec4 txColor7 = (smoothstep(-111.0-slope*10.0, -101.65-slope*5.0, height) - smoothstep(0.50-slope*5.0, 2.2-slope*5.0, height)) * texture2D( tx1, vUv6 );",
+
+          "vec4 txColor5 = texture2D( tx5, vUv5 )*1.1;",
+
+          "vec4 txColor6 = 0.4 + texture2D( tx6, vUv6 * 4.2 )*0.6;",
+
+          "txColor = mix(txColor, txColor7, txColor7.a);",
+
+          "txColor *= txColor5;",
+          "txColor *= txColor6;",
+
+          "vec4 bottomColor = smoothstep(1.4 * slope, -0.12, height) * texture2D( tx2, vUv2 );",
+          "vec4 shoreLineColor = mix(smoothstep(4.0 * slope, -3.0, height) * texture2D( tx1, vUv2 ) , bottomColor,  bottomColor.a);",
+          "txColor = mix(txColor, shoreLineColor, shoreLineColor.a);"
+        ],
+
+
+        "fragmentAddTxColorTovColor":[
+          "vColor += txColor;"
+        ],
+
+
+        "vertexSizeMain":[
+          "vPosition = vPosition * size;"
+        ],
+
+        "vertexApplyScaleAttribToPosition":[
+
+          "vPosition.x = vPosition.x * (1.0 * scale3d.x);",
+          "vPosition.y = vPosition.y * (1.0 * scale3d.y);",
+          "vPosition.z = vPosition.z * (1.0 * scale3d.z);"
+        ],
+
+        "vertexSampledSizeMain":[
+          "vPosition = vPosition * sampledSizeFactor;"
+        ],
+
+        "vertexAspectFromTexRowSelectZ":[
+          "vPosition.y = vPosition.y * rowSize;"
+        ],
+
+        "vertexSkewFromVelocity":[
+          "vPosition.x = vPosition.x + vPosition.y * velocity.x;"
+        ],
+
+        "vertexGeometryTextureData":[
+
+          "effectAge = systemTime - startTime;",
+
+          "progress = min(effectAge*1.0, 0.8);",
+
+          "float zHideFactor = 1.0;",
+
+          "offset = offsetSize.xyz;",
+          "size =   offsetSize.w;",
+
+          "rowColor =     texelRowSelect.x;",
+          "rowAlpha =     texelRowSelect.w;",
+          "rowDiffusion = texelRowSelect.y;",
+          "rowSize  =     texelRowSelect.z;",
+
+          "float sillySeed = sin((offset.x*929.1 + offset.y*78.1 + offset.z*99.1)*99.9+cos(startTime*2999.9));",
+          "float sillySeed2 = cos((offset.x*199.1 + offset.y*738.1 + offset.z*199.1)*99.9+cos(startTime*3929.9));",
+          "float sillySeed3 = sin((offset.x*929.1 + offset.y*178.1 + offset.z*919.1)*99.9+cos(startTime*5299.9));",
+
+          "float sillyRandom1 = sin(sillySeed*3.4     + progress*1.2 + effectAge * duration * 0.18);",
+          "float sillyRandom2 = sin(sillySeed2*3.1 + progress*1.5 + effectAge * duration * 0.23);",
+          "float sillyRandom3 = sin(sillySeed3*2.4 + progress*1.7 + effectAge * duration * 0.21);",
+          "float sillyRandom4 = sin(sillySeed*9.9 + progress*3.5 + effectAge * duration * 0.23);",
+
+          "vec4 colorDiffusion        = vec4(0.5 + sillySeed*0.5 * diffusors.w + 1.0-diffusors.w, 0.5 + sillySeed2*0.5*diffusors.w + 1.0-diffusors.w, 0.5 + sillySeed3*0.5*diffusors.w + 1.0-diffusors.w, 0.5 + sillySeed*0.5*diffusors.w + 1.0-diffusors.w);",
+
+          "pixelSelector.x = progress + (0.5/data_rows);",
+          "pixelSelector.y = 1.0 - ((rowDiffusion / data_rows) - (0.5 / data_rows));",
+
+          "sampledDataTexel = texture2D(data_texture, pixelSelector);",
+
+          "pixelSelector.y = 1.0 - ((rowAlpha / data_rows) - (0.5 / data_rows));",
+          "sampledDataTexel = texture2D(data_texture, pixelSelector);",
+          "sampledAlpha = sampledDataTexel.a;",
+
+          "pixelSelector.y = 1.0 - ((rowColor / data_rows) - (0.5 / data_rows));",
+          "sampledDataTexel = texture2D(data_texture, pixelSelector);",
+
+          "vec4 vertexColor = vec4(sampledDataTexel.r, sampledDataTexel.g, sampledDataTexel.b, sampledDataTexel.a * sampledAlpha) * colorDiffusion;",
+
+          "sampledSizeFactor = size;"
+
+        ],
+
+        "vertexSampleTextureData":[
+
+          "effectAge = systemTime - startTime;",
+
+          "float totProg = effectAge / duration;",
+
+          "progress = (totProg - floor(totProg));",
+
+          "float cycleAge = (progress * duration)*1.0;",
+          "float zHideFactor = 1.0 - floor(progress);",
+
+          "offset = offsetSize.xyz;",
+          "size =   offsetSize.w;",
+
+          "rowColor =     texelRowSelect.x;",
+          "rowAlpha =     texelRowSelect.w;",
+          "rowDiffusion = texelRowSelect.y;",
+          "rowSize  =     texelRowSelect.z;",
+
+
+          "float sillySeed  = sin((duration*4919.1  ) *99.9+cos(startTime*2999.9));",
+          "float sillySeed2 = cos((duration*3199.1 ) *99.9+cos(startTime*3929.9));",
+          "float sillySeed3 = sin((duration*2929.1  ) *99.9+cos(startTime*5299.9));",
+
+          "float sillyRandom1 = sin(sillySeed*3.4  + 1.2*cos(effectAge*1.251*sillySeed) + 0.18);",
+          "float sillyRandom2 = sin(sillySeed2*3.1 + 1.5*cos(effectAge*1.151*sillySeed2) + 0.23);",
+          "float sillyRandom3 = sin(sillySeed3*2.4 + 1.7*cos(effectAge*1.551*sillySeed3) + 0.21);",
+          "float sillyRandom4 = sin(sillySeed*9.9  + 3.5*cos(effectAge*1.251*sillySeed2) + 0.23);",
+
+          "vec3 motionBend = vec3(sillyRandom3* acceleration.z, sillyRandom4* acceleration.z, sillyRandom2* acceleration.z);",
+
+          "vec4 velocityDiffusion = vec4(sillySeed, sillySeed2, sillySeed3, sillyRandom4);",
+          "velocityDiffusion = normalize(velocityDiffusion);",
+          "velocityDiffusion = velocityDiffusion * diffusors.x;",
+
+
+          "vec4 accelerationDiffusion = vec4(sillySeed3, sillySeed, sillySeed2, sillySeed);",
+          "accelerationDiffusion = normalize(accelerationDiffusion);",
+          "accelerationDiffusion = accelerationDiffusion * acceleration.z;",
+          "accelerationDiffusion = vec4(1.0 - accelerationDiffusion.x, 1.0 - accelerationDiffusion.y, 1.0 - accelerationDiffusion.z, 1.0);",
+          "accelerationDiffusion = accelerationDiffusion * diffusors.z;",
+
+          "vec4 colorDiffusion   = vec4(0.5 + sillyRandom3*0.5 * diffusors.w + 1.0-diffusors.w, 0.5 + sillyRandom1*0.5*diffusors.w + 1.0-diffusors.w, 0.5 + sillyRandom4*0.5*diffusors.w + 1.0-diffusors.w, 0.5 + sillyRandom2*0.5*diffusors.w + 1.0-diffusors.w);",
+
+          "velocityFactor = diffusors.z;",
+
+          "vec3 diffusedVelocity = velocity.xyz * (1.0 - diffusors.x) + velocityDiffusion.xyz;",
+
+          "velocityDiffusion = velocityDiffusion * acceleration.z;",
+
+          "diffusedVelocity = diffusedVelocity * velocityFactor;",
+
+          "pixelSelector.x = progress + (0.5/data_rows);",
+          "pixelSelector.y = 1.0 - ((rowDiffusion / data_rows) - (0.5 / data_rows));",
+
+          "sampledDataTexel = texture2D(data_texture, pixelSelector);",
+
+
+          "pixelSelector.y = 1.0 - ((rowAlpha / data_rows) - (0.5 / data_rows));",
+          "sampledDataTexel = texture2D(data_texture, pixelSelector);",
+          "sampledAlpha = sampledDataTexel.r;",
+
+
+          "pixelSelector.y = 1.0 - ((rowColor / data_rows) - (0.5 / data_rows));",
+          "sampledDataTexel = texture2D(data_texture, pixelSelector);",
+
+          "vec4 vertexColor = vec4(sampledDataTexel.r, sampledDataTexel.g, sampledDataTexel.b, sampledDataTexel.a * sampledAlpha) * colorDiffusion;",
+
+          "pixelSelector.y = 1.0 - ((rowSize / data_rows) - (0.5 / data_rows));",
+          "sampledDataTexel = texture2D(data_texture, pixelSelector);",
+          "sampledSizeFactor = size * sampledDataTexel.r * sqrt(duration);"
+
+        ],
+
+        "vertexPredictPositionMain":[
+
+          "float gravityDiffusion = 1.0 - (sillySeed * diffusors.y);",
+
+          "float dragFactor = 1.0 / (1.0 + (0.5 * acceleration.x * gravityDiffusion * cycleAge * cycleAge));",
+          "float gravityFactor = 0.5 * acceleration.y * cycleAge * cycleAge;",
+
+          "float verticalComponent =  (diffusedVelocity.y * cycleAge + gravityFactor)  * dragFactor * accelerationDiffusion.y;",
+          "float xComponent =         diffusedVelocity.x * cycleAge * dragFactor * accelerationDiffusion.x;",
+          "float zComponent =         diffusedVelocity.z * cycleAge * dragFactor * accelerationDiffusion.z;",
+
+          "vec3 velInfluence = vec3(xComponent, verticalComponent, zComponent);",
+
+          "velocityOffset = offset + velInfluence + motionBend * cycleAge;"
+        ],
+
+        "vertexVelocityRotationMain":[
+
+
+
+          "float baseRotation = 0.0;",
+
+          "float lastAge = max(cycleAge - 0.06, 0.0);",
+
+          "float lastDragFactor = 1.0 / (1.0 + (0.5 * acceleration.x * gravityDiffusion * lastAge * lastAge));",
+          "float lastGravityFactor = 0.5 * acceleration.y * lastAge * lastAge;",
+
+          "float lastVerticalComponent =  (diffusedVelocity.y * lastAge + lastGravityFactor)  * lastDragFactor * accelerationDiffusion.y;",
+          "float lastXComponent =         diffusedVelocity.x * lastAge * lastDragFactor * accelerationDiffusion.x;",
+          "float lastZComponent =         diffusedVelocity.z * lastAge * lastDragFactor * accelerationDiffusion.z;",
+
+          "vec3 lastVelInfluence = vec3(lastXComponent, lastVerticalComponent, lastZComponent);",
+
+          "vec3 lastVelocityOffset = offset + lastVelInfluence + motionBend * lastAge;",
+
+          "vec3 frameVel = velocityOffset - lastVelocityOffset;",
+
+
+
+          "float speed = length(frameVel);",
+
+          "float stretch = (vPosition.y - 0.5);",
+
+          "velocityOffset = velocityOffset.xyz + vec3(frameVel.x, frameVel.y, frameVel.z);",
+          "velocityOffset = velocityOffset.xyz + vec3(frameVel.x * stretch, frameVel.y * stretch, frameVel.z * stretch);"
+        ],
+
+        "junk":[
+          "velocityOffset = velocityOffset.xyz + vec3(frameVel.x * stretch, frameVel.y * stretch, frameVel.z * stretch);",
+          "billboardFacing = projectionMatrix * modelPosition;",
+          "vPosition=vPosition + 2.0*cross(cross(vPosition, quat.xyz ) + quat.w*vPosition, quat.xyz);",
+          "vec3 vcV = cross(quat.xyz, vPosition);",
+
+          "vPosition = vcV * (2.0 * quat.w) + (cross(quat.xyz, vcV) * 2.0 + vPosition);"
+
+          ],
+
+        "vertexStretchedSpatialMain":[
+
+          "vec3 zAxis = vec3(0.0, 0.0, 1.0);",
+          "vec3 direction = zAxis + 2.0 * cross( cross( zAxis, orientation.xyz ) + orientation.w * zAxis, orientation.xyz );",
+
+
+          "normalize(frameVel);",
+
+          "vec3 angleVec = cross(frameVel, direction);",
+
+          "vec4 quat = vec4(angleVec.xyz, 0.0);",
+
+          "quat.w=sqrt(2.0 +  dot(frameVel, zAxis));",
+
+
+          "vec4 modelPosition =  vec4(vPosition.xyz + velocityOffset, 1.0);",
+
+          "vec4 finalVpos = projectionMatrix * modelViewMatrix * vec4( velocityOffset + vPosition, 1.0 );"
+
+        ],
+
+
+        "vertexStretchedSpatialFinal":[
+          "finalVpos.z = finalVpos.z * zHideFactor;",
+          "gl_Position = finalVpos;"
+        ],
+
+        "vertexSpatialMain":[
+          "vec3 vcV = cross(orientation.xyz, vPosition);",
+          "vPosition = vcV * (2.0 * orientation.w) + (cross(orientation.xyz, vcV) * 2.0 + vPosition);"
+        ],
+
+
+        "vertexBillboardFaceMain":[
+
+          "vec4 particlePosition = modelViewMatrix * vec4(velocityOffset, 1.0);",
+          "vec4 modelPosition = particlePosition + vec4(vPosition.xy, 0, 0);",
+          "billboardFacing = projectionMatrix * modelPosition;"
+
+        ],
+
+        "vertexBillboardFinal":[
+          "billboardFacing.z = billboardFacing.z * zHideFactor;",
+          "gl_Position = billboardFacing;"
+        ],
+
+
+
+        "vertexSpatialFinal":[
+          "gl_Position = projectionMatrix * modelViewMatrix * vec4( offset + vPosition, 1.0 );"
+        ],
+
+
+
+        "vertexPredictRotationMain":[
+
+          "float baseRotation = 100.0 * sillySeed * (1.0 * acceleration.w);",
+
+          "float rotation = velocity.w * cycleAge  +  0.5 * acceleration.w * cycleAge * cycleAge;",
+
+          "float spinDragFactor = 1.0 / (1.0 + (0.5 * acceleration.w * cycleAge * cycleAge));",
+
+          "float c = cos(baseRotation + rotation * spinDragFactor);",
+          "float s = sin(baseRotation + rotation * spinDragFactor);",
+
+          "vec2 rotated = vec2(c* vPosition.x - s * vPosition.y, s*vPosition.x + c*vPosition.y);",
+
+          "vPosition.xy = rotated.xy;"
+
+        ],
+
+        "vertexFlatDirAmbLight":[
+
+          "vColor.r *= ambientLightColor.r * 0.35 + sunLightColor.r * 0.85;",
+          "vColor.g *= ambientLightColor.g * 0.35 + sunLightColor.g * 0.85;",
+          "vColor.b *= ambientLightColor.b * 0.35 + sunLightColor.b * 0.85;"
+
+        ],
+
+
+       "vertexShadeLowerVerts":[
+
+          "float lowness = 0.95 + vPosition.y * 0.2;",
+
+          "vColor.r *= lowness*1.0;",
+          "vColor.g *= lowness*1.0;",
+          "vColor.b *= lowness*1.0;"
+
+        ],
+
+        "vertexSimpleVertexLight":[
+
+          "vColor.r *= ambientLightColor.r*(1.0-lowness*0.9)*0.5 + sunLightColor.r*lowness*0.5;",
+          "vColor.g *= ambientLightColor.g*(1.0-lowness*0.9)*0.5 + sunLightColor.g*lowness*0.5;",
+          "vColor.b *= ambientLightColor.b*(1.0-lowness*0.9)*0.5 + sunLightColor.b*lowness*0.5;"
+
+        ],
+
+
+
+        "vertexDirectionalVertexLight":[
+
+          "vec3 vNormal = normal.xzy;",
+
+          "float intensity = max( 0.4 + dot(vNormal, sunLightDirection ) * 0.5, 0.0);",
+
+          "sunDir = sunLightColor * intensity * (0.5+intensity*intensity*0.3);",
+
+          "vec3 fromAbove = vec3(0.0, 1.0, 0.0);",
+
+          "float ambInt = 0.8 + dot(normal, fromAbove ) * 0.4;",
+
+          "vColor.r = ambientLightColor.r*ambInt;",
+          "vColor.g = ambientLightColor.g*ambInt;",
+          "vColor.b = ambientLightColor.b*ambInt;"
+        ],
+
+        "vertexGeometryDirectionalLight":[
+
+          "vec3 faceNormal = normal + 2.0 * cross( orientation.xyz, cross( orientation.xyz, normal ) + orientation.w * normal );",
+
+          "float intensity = max( 0.4 + dot(faceNormal, sunLightDirection ) * 0.5, 0.0);",
+          "sunDir = sunLightColor * intensity * (0.3+intensity*intensity*0.3);",
+
+          "vec3 fromAbove = vec3(0.0, 1.0, 0.0);",
+
+          "float ambInt = 0.3 + dot(faceNormal, fromAbove ) * 0.2;",
+
+          "vColor.r = sunDir.r + ambientLightColor.r * ambInt;",
+          "vColor.g = sunDir.g + ambientLightColor.g * ambInt;",
+          "vColor.b = sunDir.b + ambientLightColor.b * ambInt;"
+        ],
+
+        "x":[
+
+
+          "normal = vecV * (2.0 * orientation.w) + (cross(orientation.xyz, vecV) * 2.0 + normal);",
+
+          "sunTurned.x = 0.0;",
+          "sunTurned.y = 1.0;",
+          "sunTurned.z = 0.0;",
+
+          "vec3 faceNormal = normal + 2.0 * cross( orientation.xyz, cross( orientation.xyz, normal ) + orientation.w * normal );"
+
+        ],
+
+        "vertexGeometryDirectionalLight_":[
+
+          "vec3 sunTurned = sunLightDirection;",
+          "sunTurned.x = sunLightDirection.x;",
+          "sunTurned.z = sunLightDirection.z;",
+          "vec3 lightNormal = sunTurned + 2.0 * cross( cross( sunTurned, orientation.xyz ) + orientation.w * sunTurned, orientation.xyz );",
+          "float intensity = max( 0.5 + dot(faceNormal, sunLightDirection ) * 0.5, 0.0);",
+          "sunDir = sunLightColor * intensity * (1.0+intensity*intensity*0.1);",
+
+          "float ambInt = 0.5 + dot(faceNormal, fromAbove ) * 0.2;",
+          "vColor.r = sunDir.r + ambientLightColor.r * ambInt;",
+          "vColor.g = sunDir.g + ambientLightColor.g * ambInt;",
+          "vColor.b = sunDir.b + ambientLightColor.b * ambInt;"
+        ],
+
+        "vertexFogExp2Verts":[
+          "fogDepth = -gl_Position.z*1.0;"
+        ],
+
+        "fragmentFogExp2Verts":[
+
+          "float fogFactor = 1.0 - exp( - fogDensity * fogDensity * fogDepth * fogDepth );",
+          "gl_FragColor.rgb = mix( gl_FragColor.rgb, fogColor, fogFactor );"
+
+        ],
+
+
+        "vertexUvMain":[
+          "vUv = uv;"
+        ],
+
+        "fragmentTxColorMain":[
+
+
+          "gl_FragColor = texture2D(map, vUv);"
+        ],
+
+        "fragmentUvMain":[
+          "gl_FragColor = texture2D(map, vUv);"
+        ],
+
+        "vertexUvTilesMain":[
+          "vec2 tileScale = 1.0/tiles;",
+
+          "vec2 tileOffset = vec2(tileindex.x * tileScale.x, (tiles.y-1.0 - tileindex.y) * tileScale.y);",
+          "vec2 scaledUv = uv*tileScale;",
+
+          "vUv = scaledUv + tileOffset;"
+        ],
+
+
+
+        "vertexColorFromAttribColor3Alpha1":[
+          "vColor = vec4(vertexColor.x, vertexColor.y, vertexColor.z, vertexAlpha);"
+        ],
+
+        "vertexColorFromAttribColor4":[
+          "vColor = vec4(vertexColor.x , vertexColor.y, vertexColor.z,  vertexColor.w);"
+        ],
+
+        "vertexColorMultiplyFromAttribColor4":[
+          "vColor = vec4(vertexColor.x * vColor.x, vertexColor.y*vColor.y, vertexColor.z*vColor.z,  vertexColor.w);"
+        ],
+
+
+        "fragmentUvTilesMain":[
+          "gl_FragColor = texture2D( map, vUv);"
+        ],
+
+        "fragmentColoredTextureMain":[
+          "vec4 txColor = texture2D( map, vUv);"
+        ],
+
+
+
+        "fragmentBlendTxColorVertexColor":[
+          "vec4 finalColor = txColor * vColor;"
+        ],
+
+
+
+        "fragmentAlphaTest":[
+          "if (finalColor.a <= alphaTest) discard;"
+        ],
+
+
+        "fragmentVColorFinal":[
+          "gl_FragColor = finalColor;"
+        ],
+
+        "particleVertexMain":[
+          "vec4 mvPosition = modelViewMatrix * vec4( translate, 1.0 );",
+          "vec3 trTime = vec3(translate.x + time, translate.y + time, translate.z + time);",
+          "float scale = 1.0 + 0.1 * (sin( trTime.x * 2.1 ) + sin( trTime.y * 3.2 ) + sin( trTime.z * 4.3 ));",
+          "vScale = scale;",
+          "scale = scale * 2.0 + 2.0;",
+          "mvPosition.xyz += position * scale * sizeFactor;",
+          "vUv = uv;",
+          "gl_Position = projectionMatrix * mvPosition;",
+          ""
+        ],
+        "particleFragmentMain":[
+          "vec4 diffuseColor = texture2D( map, vUv );",
+          "gl_FragColor = vec4( diffuseColor.xyz * HSLtoRGB(vec3(vScale/5.0, 1.0, 0.5)), diffuseColor.w );",
+          "if ( diffuseColor.w < 0.5 ) discard;",
+          ""
+        ],
+
+
+
+        "vertexColor":[
+          "vColor = customColor;"
+        ],
+
+
+        "fragmentColor":[
+          "gl_FragColor = vec4( color * vColor, 1.0 );",
+          "gl_FragColor = gl_FragColor * texture2D( texture, gl_PointCoord );"
+        ],
+
+
+        "fogVxInit":[
+          "vColor = customColor;"
+        ],
+
+        "fogFxInit":[
+          "vColor = customColor;"
+        ],
+
+        "vertexSimpleFog":[
+          "fogDepth = gl_Position.z;"
+        ],
+        "fragmentSimpleFog":[
+          "float fogFactor = min(fogDensity * fogDepth, 1.0);",
+          "gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor,  fogFactor );"
+        ],
+
+        "vertexGeometryInstancing": [
+
+          "precision highp float;",
+          "uniform mat4 modelViewMatrix;",
+          "uniform mat4 projectionMatrix;",
+          "uniform vec3 cameraPosition;",
+          "attribute vec3 position;",
+          "attribute vec3 normal;",
+          "attribute vec3 offset;",
+          "attribute vec3 scale3d;",
+          "attribute vec2 uv;",
+          "attribute vec4 texelRowSelect;",
+          "attribute vec4 sprite;",
+          "attribute vec4 vertexColor;",
+          "varying vec4 vColor;",
+          "varying vec3 fragPos;",
+          "varying vec2 vUv;",
+          "attribute vec4 orientation;",
+
+          "uniform vec3 ambientLightColor;",
+          "uniform vec3 sunLightColor;",
+          "uniform vec3 clearViewPos1;",
+          "uniform vec3 sunLightDirection;",
+          "varying vec3 faceNormal;",
+          "uniform vec3 fogColor;",
+          "uniform float fogDensity;",
+          "varying float fogDepth;",
+          "varying float vFragDepth;",
+          "varying vec4 clearView1;",
+          "varying vec4 texelRowAttribute;",
+          "varying vec4 spriteAttribute;",
+          "void main(){",
+          "texelRowAttribute = texelRowSelect;",
+          "spriteAttribute = sprite;",
+            "vec3 vPosition = position;",
+
+            "vec4 quat = orientation.xyzw;",
+
+            "vec3 vcV = cross(quat.xyz, vPosition);",
+            "vPosition = vcV * (2.0 * quat.w) + (cross(quat.xyz, vcV) * 2.0 + vPosition);",
+
+            "vUv = uv;",
+
+            "vPosition.x = vPosition.x * (1.0 * scale3d.x);",
+            "vPosition.y = vPosition.y * (1.0 * scale3d.y);",
+            "vPosition.z = vPosition.z * (1.0 * scale3d.z);"  ,
+
+            "vec3 vNormal = normal.xyz;",
+            "faceNormal = vNormal + 2.0 * cross( orientation.xyz, cross( orientation.xyz, vNormal ) + orientation.w * vNormal );",
+
+
+
+            "vec3 fromAbove = vec3(0.0, 1.0, 0.0);",
+
+            "float ambInt = 0.25 + dot(faceNormal, fromAbove ) * 0.1;",
+
+            "vColor.r = ambientLightColor.r * ambInt;",
+            "vColor.g = ambientLightColor.g * ambInt;",
+            "vColor.b = ambientLightColor.b * ambInt;",
+            "vColor.a = 1.0;",
+
+            "vColor = vec4(vertexColor.r * vColor.r, vertexColor.g*vColor.g, vertexColor.b*vColor.b,  vColor.a*vertexColor.a);",
+            "fragPos = offset + vPosition;",
+
+            "clearView1 = projectionMatrix * modelViewMatrix * vec4( clearViewPos1, 1.0 );",
+            "gl_Position = projectionMatrix * modelViewMatrix * vec4( offset + vPosition, 1.0 );",
+            "fogDepth = gl_Position.z*1.0;",
+          "}",
+          ""
+        ],
+
+        "fragmentGeometryInstancing":[
+          "precision highp float;",
+          "uniform vec3 cameraPosition;",
+          "uniform float alphaTest;",
+          "uniform vec3 fogColor;",
+          "uniform float fogDensity;",
+          "uniform vec3 sunLightDirection;",
+          "uniform vec3 sunLightColor;",
+          "uniform vec3 ambientLightColor;",
+          "uniform vec3 clearViewPos1;",
+          "uniform sampler2D map;",
+          "uniform sampler2D materialEps;",
+          "uniform sampler2D normalMap;",
+          "uniform sampler2D envMap;",
+          "uniform sampler2D data_texture;",
+          "uniform float data_rows;",
+          "varying vec4 texelRowAttribute;",
+          "varying vec4 spriteAttribute;",
+          "varying vec4 clearView1;",
+          "varying vec3 faceNormal;",
+          "varying vec3 fragPos;",
+          "varying vec2 vUv;",
+          "varying float fogDepth;",
+          "varying float vFragDepth;",
+          "varying vec4 vColor;",
+
+          "void main(){",
+          "vec4 txColor = texture2D( map, vUv);",
+
+
+          "vec4 matERM = texture2D( materialEps, vUv);",
+          "float surfaceFactor = matERM.b;",
+
+          "float metal = surfaceFactor*2.2 - floor(surfaceFactor * 1.8) * surfaceFactor*2.2;",
+          "float rough = floor(surfaceFactor * 1.8) * surfaceFactor*2.3;",
+          "float smooth = max(1.2-(rough * 1.2), 0.0);",
+          "metal = metal;",
+          "metal = metal*metal*metal*1.0;",
+
+          "float paletteSelect = matERM.g;",
+          "float emitSum = matERM.r;",
+          "vec4 emitColor = txColor * emitSum;",
+
+          "float alpha = txColor.a;",
+          "vec3 clearOffsetPos = vec3(clearViewPos1.xyz);",
+          "clearOffsetPos.y += 1.0;",
+          "vec3 cameraToClear = (clearOffsetPos-cameraPosition);",
+          "vec3 cameraToFrag = (fragPos-cameraPosition);",
+          "vec3 clearToFrag =   (fragPos-clearOffsetPos);",
+
+          "clearOffsetPos.xz = cameraToFrag.xz;",
+          "clearOffsetPos.y = cameraToClear.y;",
+
+          "float colorIntensity = max(max(txColor.r, txColor.g), txColor.b);",
+
+          "float solidity = (1.0 - (paletteSelect * (1.0 - spriteAttribute.x)) ) * (0.5 + 0.5 * spriteAttribute.x);",
+          "float cameraPenetrability = max(( 1.0 + min(colorIntensity*colorIntensity, 0.95) * 0.95), 1.0)*(1.0-solidity) ;",
+
+          "float targetDistance = length(cameraToClear);",
+          "float fragDistance = length(clearOffsetPos);",
+          "float clearToFragDistance = length(clearToFrag);",
+
+          "float consideredNearDistance = 45.0;",
+
+          "float farness = min(consideredNearDistance / fragDistance, 1.0);",
+
+          "float nearness = min(max(consideredNearDistance*2.0 - fragDistance, 0.0), 1.0);",
+
+          "float proximityFraction = min(max((targetDistance+1.5) / (fragDistance*1.1), 0.0), 1.0);",
+
+
+          "float distanceCompensation = 1.0/(targetDistance - 0.0);",
+
+          "float groundLimit = min(max(-clearToFragDistance*(0.25/nearness) + clearToFrag.y +1.5 , 0.0), 1.0) ;",
+
+          "float distanceFactor = max(min((1.0 * pow(proximityFraction, 8.0) + 0.0), 1.0) , 0.0);",
+
+          "distanceFactor = distanceFactor * (0.75 + nearness * 0.45) ;",
+          "float viewAngleFactor = pow(-0.04*nearness*colorIntensity + dot(normalize(cameraToClear), normalize(cameraToFrag)), 20.0 + sqrt(farness)*13.0 ) ;",
+          "float cameraToClearAngle = min(viewAngleFactor, 1.0);",
+
+
+
+          "cameraToClearAngle =  cameraToClearAngle * (0.75*(0.7+colorIntensity*0.5) - colorIntensity*0.21);",
+
+          "cameraToClearAngle = cameraToClearAngle+(cameraToClearAngle)*2.0 * (2.0 - (sqrt(fragDistance*1.2) * 0.03));",
+
+          "cameraToClearAngle = min(cameraToClearAngle, max(clearToFrag.y*7.2*colorIntensity/(1.0+clearToFragDistance*0.1), 0.0));",
+          "cameraToClearAngle = min(cameraToClearAngle, distanceFactor);",
+
+          "float maxCamPen = cameraToClearAngle;",
+
+          "alpha -= alpha * (maxCamPen*cameraPenetrability) ;",
+
+          "if (alpha <= alphaTest) discard;",
+
+          "float paletteSteps = 4.0;",
+
+
+          "float rowSelector = 0.0 + 1.0 * paletteSelect * paletteSteps;",
+          "float rowDelta1 = texelRowAttribute.y - texelRowAttribute.x;",
+          "float rowDelta2 = texelRowAttribute.z - texelRowAttribute.y;",
+          "float rowDelta3 = texelRowAttribute.w - texelRowAttribute.z;",
+
+          "float selectedStep = floor(rowSelector);",
+
+          "float selection = texelRowAttribute.x;",
+
+          "float stepFactor = min(floor(selectedStep / 1.0), 1.0);",
+          "selection = selection * (1.0 - stepFactor) +  texelRowAttribute.y*stepFactor;",
+          "stepFactor = min(floor(selectedStep / 2.0), 1.0);",
+          "selection = selection * (1.0 - stepFactor) +  texelRowAttribute.z*stepFactor;",
+          "stepFactor = min(floor(selectedStep / 3.0), 1.0);",
+          "selection = selection * (1.0 - stepFactor) +  texelRowAttribute.w*stepFactor;",
+          "float brightness = spriteAttribute.y;",
+          "float skew = spriteAttribute.w;",
+          "float gradientFraction = colorIntensity;",
+
+          "selection = selection + gradientFraction * skew;",
+
+          "vec2 pixelSelector = vec2(brightness*gradientFraction * 1.5 -0.5, (selection / data_rows) - (0.5 / data_rows));",
+          "vec4 paletteRgba = texture2D( data_texture, pixelSelector);",
+
+
+          "float blend = spriteAttribute.z;",
+
+
+          "txColor.rgb = mix(txColor.rgb, paletteRgba.rgb, blend-sqrt(emitSum));",
+
+          "vec4 normal = texture2D( normalMap, vUv);",
+
+          "vec3 fragNormal = normalize(faceNormal * normal.rgb);",
+          "vec3 transposedFragPos = fragPos + fragNormal.xyz*1.0;",
+          "cameraToFrag = normalize(transposedFragPos-cameraPosition);",
+          "vec3 surfaceAngle = normalize(fragNormal * cameraToFrag);",
+          "vec3 cameraAngle = cross(surfaceAngle, cameraToFrag);",
+          "vec3 surfaceToCameraVec3 = cross(surfaceAngle, cameraAngle);",
+          "float sunToCameraAngle = 0.5 +0.46*dot(cameraToFrag, sunLightDirection);",
+          "float angle = min(max(-0.1 +2.5*dot(cameraToFrag, fragNormal), 0.0), 1.0);",
+          "float metalDirect = max(min(pow(2.0 - angle*2.0, 1.0 + smooth*5.0), 4.0/(1.0 +angle * 1.0)), 0.0);",
+          "float fresnelIntensity = max(angle*(1.1 + smooth*0.9) - max(((angle-0.5)*(smooth*4.0 + rough*1.0) -0.0), 0.0), 0.0);",
+          "float fresnelFactor =  min(pow(fresnelIntensity*(0.6 + smooth*0.6), rough + 30.0*smooth), 1.0);",
+          "float directFactor =   min(pow ( (1.0-angle*0.95) *(0.25 + smooth*0.85), rough*2.2 + 15.0*smooth), 1.0);",
+          "float angleFactor = abs(fresnelFactor + directFactor);",
+          "vec2 envUv = vec2(surfaceToCameraVec3.x * 0.5 +0.5, -sqrt(surfaceToCameraVec3.y * 0.49 + 0.5));",
+
+          "vec4 reflectionColor = texture2D( envMap, envUv);",
+          "vec3 metalDirectReflection = vec3(reflectionColor.rgb *sunLightColor) * txColor.rgb * metal*0.75 * (metalDirect*0.5 + directFactor*0.5);",
+          "vec3 metalSurfaceReflection = vec3(reflectionColor.rgb * sunLightColor) * txColor.rgb * metal*0.25 + metal* (0.25 + directFactor) * (normalize(txColor.rgb) * reflectionColor.rgb);",
+          "vec3 metalReflection = metalDirectReflection + metalSurfaceReflection/(1.4 + angle * 0.75);",
+
+          "float smoothnessFactor = smooth*smooth - metal;",
+          "vec4 fresnelReflection = reflectionColor * smoothnessFactor * (fresnelIntensity*(rough+smooth*0.1) + fresnelFactor*smooth*0.5);",
+          "vec4 directReflection  = txColor * reflectionColor  * directFactor * (directFactor * (1.0 -(angle*(rough*0.9)))) *( directFactor) * 0.5 *(1.0 - angle*1.0);",
+          "vec4 surfaceReflection = reflectionColor * smoothnessFactor * ((0.5 *smooth*metal) * (1.0-angle) + (1.0 * (smooth*(1.0/(1.0+metal*5.0))) * angle))*0.5;",
+          "vec4 finalReflection = vec4(metalReflection, 1.0) + (1.0 - (metal * (0.25))) * (directReflection + surfaceReflection) + fresnelReflection*(smooth+metal)*0.5;",
+
+          "float intensity = min(max( 0.5*(rough*rough*0.55 + smooth*smooth*0.75) + dot(fragNormal, sunLightDirection )*(0.5 + smooth*0.5), -0.0), 1.0);",
+          "intensity = dot(fragNormal, sunLightDirection )*1.0 + 0.3;",
+
+          "vec3 sunDir = sunLightColor * intensity * ((intensity*0.5+rough*0.1)+intensity*smooth);",
+          "vec3 sunToSurfaceAngle = cross(fragNormal, sunLightDirection);",
+          "float specularIntensity = max( -0.25 + dot(surfaceAngle, sunToSurfaceAngle  )*1.5, -0.0);",
+
+          "vec3 diffuseColor = vec3(txColor.rgb);",
+          "vec3 lightColor = sunDir;",
+          "vec3 litDiffuse = lightColor * diffuseColor *1.0;",
+          "vec3 ambientColor = diffuseColor*vColor.rgb;",
+          "vec3 ambientDiffuse = ambientColor * (1.0-intensity*0.5) * 1.0;",
+          "vec3 combinedEnvLight = litDiffuse+ambientDiffuse;",
+          "vec3 rimLight = ( combinedEnvLight *(0.2+smooth*1.0 + (metal*rough*0.2))) * ((fresnelFactor * (1.0+rough*4.2)))*sunToCameraAngle *7.0;",
+          "vec3 specularSunLight = sunDir * specularIntensity * (smooth*0.5 + 0.2*rough);",
+          "vec3 specularDiffuseLight = litDiffuse * specularIntensity * 0.5*(smooth*0.25 + 0.75*rough)*diffuseColor;",
+          "vec3 specularLights = specularDiffuseLight+specularSunLight+rimLight;",
+          "lightColor = specularLights+combinedEnvLight;",
+          "gl_FragColor = vec4(lightColor * diffuseColor * (1.0-(metal*0.5)) + lightColor*(1.0-(metal*0.9)), 1.0);",
+          "gl_FragColor += emitColor;",
+          "gl_FragColor += finalReflection;",
+
+          "float fogFactor = min(fogDensity * fogDepth, 1.0) * (1.0-emitSum*0.2);",
+          "gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor,  fogFactor );",
+          "gl_FragColor.rgb = gl_FragColor.rgb;",
+          "}",
+          ""
+
+        ],
+
+        "fragmentGeometryInstancingSimple":[
+          "precision highp float;",
+          "uniform vec3 cameraPosition;",
+          "uniform float alphaTest;",
+          "uniform vec3 fogColor;",
+          "uniform float fogDensity;",
+          "uniform vec3 sunLightDirection;",
+          "uniform vec3 sunLightColor;",
+          "uniform vec3 ambientLightColor;",
+          "uniform vec3 clearViewPos1;",
+          "uniform sampler2D map;",
+          "uniform sampler2D materialEps;",
+          "uniform sampler2D normalMap;",
+          "uniform sampler2D envMap;",
+          "uniform sampler2D data_texture;",
+          "uniform float data_rows;",
+          "varying vec4 texelRowAttribute;",
+          "varying vec4 spriteAttribute;",
+          "varying vec4 clearView1;",
+          "varying vec3 faceNormal;",
+          "varying vec3 fragPos;",
+          "varying vec2 vUv;",
+          "varying float fogDepth;",
+          "varying float vFragDepth;",
+          "varying vec4 vColor;",
+
+          "void main(){",
+          "vec4 txColor = texture2D( map, vUv);",
+
+          "float cameraPenetrability = 0.75;",
+
+          "vec4 matERM = texture2D( materialEps, vUv);",
+          "float surfaceFactor = matERM.b;",
+
+          "float metal = surfaceFactor*2.2 - floor(surfaceFactor * 1.8) * surfaceFactor*2.2;",
+          "float rough = floor(surfaceFactor * 1.8) * surfaceFactor*2.3;",
+          "float smooth = max(1.2-(rough * 1.2), 0.0);",
+          "metal = metal;",
+          "metal = metal*metal*metal*1.0;",
+
+          "float paletteSelect = matERM.g;",
+          "float emitSum = matERM.r;",
+          "vec4 emitColor = txColor * emitSum;",
+
+          "float alpha = txColor.a;",
+          "vec3 clearOffsetPos = vec3(clearViewPos1.xyz);",
+          "clearOffsetPos.y += 1.0;",
+          "vec3 cameraToClear = (clearOffsetPos-cameraPosition);",
+          "vec3 cameraToFrag = (fragPos-cameraPosition);",
+          "vec3 clearToFrag =   (fragPos-clearOffsetPos);",
+
+          "clearOffsetPos.xz = cameraToFrag.xz;",
+          "clearOffsetPos.y = cameraToClear.y;",
+
+          "float colorIntensity = max(max(txColor.r, txColor.g), txColor.b);",
+
+          "float solidity = (1.0 - (paletteSelect * (1.0 - spriteAttribute.x)) ) * (0.5 + 0.5 * spriteAttribute.x);",
+          "cameraPenetrability *= max(( 1.0 + min(colorIntensity*colorIntensity, 0.95) * 0.95), 1.0)*(1.0-solidity) ;",
+
+          "float targetDistance = length(cameraToClear);",
+          "float fragDistance = length(clearOffsetPos);",
+          "float clearToFragDistance = length(clearToFrag);",
+
+          "float consideredNearDistance = 45.0;",
+
+          "float farness = min(consideredNearDistance / fragDistance, 1.0);",
+
+          "float nearness = min(max(consideredNearDistance*2.0 - fragDistance, 0.0), 1.0);",
+
+          "float proximityFraction = min(max((targetDistance+1.5) / (fragDistance*1.1), 0.0), 1.0);",
+
+
+          "float distanceCompensation = 1.0/(targetDistance - 0.0);",
+
+          "float groundLimit = min(max(-clearToFragDistance*(0.25/nearness) + clearToFrag.y +1.5 , 0.0), 1.0) ;",
+
+          "float distanceFactor = max(min((1.0 * pow(proximityFraction, 8.0) + 0.0), 1.0) , 0.0);",
+
+          "distanceFactor = distanceFactor * (0.75 + nearness * 0.45) ;",
+          "float viewAngleFactor = pow(-0.04*nearness*colorIntensity + dot(normalize(cameraToClear), normalize(cameraToFrag)), 20.0 + sqrt(farness)*13.0 ) ;",
+          "float cameraToClearAngle = min(viewAngleFactor, 1.0);",
+
+
+
+          "cameraToClearAngle =  cameraToClearAngle * (0.75*(0.7+colorIntensity*0.5) - colorIntensity*0.21);",
+
+          "cameraToClearAngle = cameraToClearAngle+(cameraToClearAngle)*2.0 * (2.0 - (sqrt(fragDistance*1.2) * 0.03));",
+
+          "cameraToClearAngle = min(cameraToClearAngle, max(clearToFrag.y*7.2*colorIntensity/(1.0+clearToFragDistance*0.1), 0.0));",
+          "cameraToClearAngle = min(cameraToClearAngle, distanceFactor);",
+
+          "float maxCamPen = cameraToClearAngle;",
+
+          "alpha -= alpha * (maxCamPen*cameraPenetrability) ;",
+
+          "if (alpha <= alphaTest) discard;",
+
+          "float paletteSteps = 4.0;",
+
+
+
+          "float rowSelector = 0.0 + 1.0 * paletteSelect * paletteSteps;",
+          "float rowDelta1 = texelRowAttribute.y - texelRowAttribute.x;",
+          "float rowDelta2 = texelRowAttribute.z - texelRowAttribute.y;",
+          "float rowDelta3 = texelRowAttribute.w - texelRowAttribute.z;",
+
+          "float selectedStep = floor(rowSelector);",
+
+          "float selection = texelRowAttribute.x;",
+
+          "float stepFactor = min(floor(selectedStep / 1.0), 1.0);",
+          "selection = selection * (1.0 - stepFactor) +  texelRowAttribute.y*stepFactor;",
+          "stepFactor = min(floor(selectedStep / 2.0), 1.0);",
+          "selection = selection * (1.0 - stepFactor) +  texelRowAttribute.z*stepFactor;",
+          "stepFactor = min(floor(selectedStep / 3.0), 1.0);",
+          "selection = selection * (1.0 - stepFactor) +  texelRowAttribute.w*stepFactor;",
+          "float brightness = spriteAttribute.y;",
+          "float skew = spriteAttribute.w;",
+          "float gradientFraction = colorIntensity;",
+
+          "selection = selection + gradientFraction * skew;",
+
+          "vec2 pixelSelector = vec2(brightness*gradientFraction * 1.5 -0.5, (selection / data_rows) - (0.5 / data_rows));",
+          "vec4 paletteRgba = texture2D( data_texture, pixelSelector);",
+
+
+          "float blend = spriteAttribute.z;",
+
+
+          "txColor.rgb = mix(txColor.rgb, paletteRgba.rgb, blend-sqrt(emitSum));",
+
+          "vec4 normal = texture2D( normalMap, vUv);",
+
+          "vec3 fragNormal = normalize(faceNormal * normal.rgb);",
+          "vec3 transposedFragPos = fragPos + fragNormal.xyz*1.0;",
+          "cameraToFrag = normalize(transposedFragPos-cameraPosition);",
+          "vec3 surfaceAngle = normalize(fragNormal * cameraToFrag);",
+          "vec3 cameraAngle = cross(surfaceAngle, cameraToFrag);",
+          "vec3 surfaceToCameraVec3 = cross(surfaceAngle, cameraAngle);",
+          "float sunToCameraAngle = 0.5 +0.46*dot(cameraToFrag, sunLightDirection);",
+          "float angle = min(max(-0.1 +2.5*dot(cameraToFrag, fragNormal), 0.0), 1.0);",
+
+          "float intensity = min(max( 0.5*(rough*rough*0.55 + smooth*smooth*0.75) + dot(fragNormal, sunLightDirection )*(0.5 + smooth*0.5), -0.0), 1.0);",
+          "intensity = dot(fragNormal, sunLightDirection )*1.0 + 0.3;",
+
+          "vec3 sunDir = sunLightColor * intensity * ((intensity*0.5+rough*0.1)+intensity*smooth);",
+          "vec3 sunToSurfaceAngle = cross(fragNormal, sunLightDirection);",
+          "float specularIntensity = max( -0.25 + dot(surfaceAngle, sunToSurfaceAngle  )*1.5, -0.0);",
+
+          "vec3 diffuseColor = vec3(txColor.rgb);",
+          "vec3 lightColor = sunDir;",
+          "vec3 litDiffuse = lightColor * diffuseColor *1.0;",
+          "vec3 ambientColor = diffuseColor*vColor.rgb;",
+          "vec3 ambientDiffuse = ambientColor * (1.0-intensity*0.5) * 1.0;",
+          "vec3 combinedEnvLight = litDiffuse+ambientDiffuse;",
+          "vec3 specularSunLight = sunDir * specularIntensity * (smooth*0.5 + 0.2*rough);",
+          "vec3 specularDiffuseLight = litDiffuse * specularIntensity * 0.5*(smooth*0.25 + 0.75*rough)*diffuseColor;",
+          "vec3 specularLights = specularDiffuseLight+specularSunLight;",
+          "lightColor = specularLights+combinedEnvLight;",
+          "gl_FragColor = vec4(lightColor * diffuseColor * (1.0-(metal*0.5)) + lightColor*(1.0-(metal*0.9)), 1.0);",
+          "gl_FragColor += emitColor;",
+
+
+          "float fogFactor = min(fogDensity * fogDepth, 1.0) * (1.0-emitSum*0.2);",
+          "gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor,  fogFactor );",
+          "gl_FragColor.rgb = gl_FragColor.rgb;",
+          "}",
+          ""
+
+        ],
+
+        "vertexGuiInstancing": [
+          "precision highp float;",
+          "uniform mat4 modelViewMatrix;",
+          "uniform mat4 projectionMatrix;",
+
+          "attribute vec3 position;",
+          "attribute vec3 normal;",
+          "attribute vec3 offset;",
+          "attribute vec3 scale3d;",
+          "attribute vec2 uv;",
+          "attribute vec4 sprite;",
+          "attribute vec4 lifecycle;",
+
+          "uniform float systemTime;",
+          "uniform vec2 tiles;",
+          "varying vec2 tileOffset;",
+
+          "attribute vec4 vertexColor;",
+          "varying vec4 vColor;",
+
+          "varying vec2 vUv;",
+          "attribute vec4 orientation;",
+
+
+          "uniform sampler2D data_texture;",
+          "uniform float data_rows;",
+          "attribute vec4 texelRowSelect;",
+
+          "varying vec4 texelRowAttribute;",
+
+          "void main(){",
+
+          "texelRowAttribute = texelRowSelect;",
+
+          "float startTime = lifecycle.x;",
+          "float endTime = lifecycle.z;",
+
+          "float effectAge = systemTime - startTime;",
+
+          "float isPreEnd = max(sign(endTime - startTime), 0.0);",
+
+          "float decayTime = min(systemTime - endTime, isPreEnd * lifecycle.w);",
+
+          "float attackProg = 1.0 - max(lifecycle.y - (effectAge / lifecycle.y), 0.0);",
+
+          "float decayProg  = max(decayTime, 0.0) / lifecycle.w;",
+
+          "float zHideFactor = floor(decayProg);",
+
+          "vec3 vPosition = position.xzy;",
+          "vPosition.y = vPosition.y - sign(uv.y - 0.5) * sprite.z * (attackProg - decayProg);",
+          "vPosition.x = vPosition.x + sign(uv.x - 0.5) * sprite.w * (attackProg - decayProg);",
+
+          "vec3 vcV = cross(orientation.xyz, vPosition);",
+          "vPosition = vcV * (2.0 * orientation.w) + (cross(orientation.xyz, vcV) * 2.0 + vPosition);",
+
+
+          "vec2 tileScale = 1.0/tiles;",
+
+          "vec2 tileOffset = vec2(sprite.x * tileScale.x, sprite.y * tileScale.y);",
+
+          "vec2 scaledUv = uv*tileScale;",
+
+          "vUv = scaledUv + tileOffset;",
+
+          "vPosition.x = vPosition.x * (1.0 * scale3d.x) ;",
+          "vPosition.y = vPosition.y * (1.0 * scale3d.y) ;",
+          "vPosition.z = vPosition.z * (1.0 * scale3d.z) + zHideFactor * 2.2;",
+
+          "vColor = vertexColor;",
+
+          "gl_Position = projectionMatrix * modelViewMatrix * vec4( offset + vPosition, 1.0 );",
+
+          "}",
+          ""
+        ],
+
+        "fragmentGuiInstancing":[
+          "precision highp float;",
+
+          "uniform float alphaTest;",
+
+          "uniform sampler2D map;",
+
+          "uniform sampler2D data_texture;",
+          "uniform float data_rows;",
+
+          "varying vec4 texelRowAttribute;",
+          "uniform vec2 pixelSelector;",
+
+          "varying vec2 vUv;",
+
+          "varying vec4 vColor;",
+
+          "void main(){",
+
+          "vec4 txColor = texture2D( map, vUv);",
+          "float rowLutColor = texelRowAttribute.x;",
+
+          "float sampleDirection = -sign(vColor.r);",
+
+          "vec4 useColor = vColor;",
+
+          "useColor.r = -vColor.r * sampleDirection;",
+
+          "float direction = max(sampleDirection, 0.0);",
+
+
+          "float intensityPixel = (txColor.r - direction) * -sampleDirection;",
+
+
+
+          "float dblIntens = intensityPixel + intensityPixel;",
+          "float quadIntens = (1.0-dblIntens) * (1.0-dblIntens) * 1.0;",
+
+
+          "float cR1 = min(dblIntens * (intensityPixel*2.0), 1.0);",
+
+          "float cR2 = min((quadIntens*1.0) * intensityPixel*1.0, 1.0);",
+
+          "float cR3 = sin(intensityPixel * 3.14 * 0.5) * quadIntens*1.0;",
+
+
+          "float colorRr = cR1 * useColor.r;",
+          "float colorGr = cR2 * useColor.r;",
+          "float colorBr = cR3 * useColor.r;",
+
+
+          "float colorRg = (cR3+cR2) * useColor.g;",
+          "float colorGg = cR1 * useColor.g;",
+          "float colorBg = (cR3+cR2) * useColor.g;",
+
+
+          "float colorRb = cR2 * useColor.b;",
+          "float colorGb = cR3 * useColor.b;",
+          "float colorBb = cR1 * useColor.b;",
+
+
+
+          "vec4 curveColor = vec4( colorRr + colorRg + colorRb, colorGr + colorGg + colorGb , colorBr + colorBg + colorBb , txColor.a * useColor.a);",
+
+
+          "float zeroOut = min(sign(curveColor.a - alphaTest), 1.0);",
+
+          "vec4 finalColor = curveColor* zeroOut;",
+
+          "gl_FragColor = finalColor;",
+
+          "}",
+          ""
+
+        ],
+
+        "_vertexVegetationInstancing": [
+          "precision highp float;",
+          "uniform mat4 modelViewMatrix;",
+          "uniform mat4 projectionMatrix;",
+
+          "attribute vec3 position;",
+          "attribute vec3 normal;",
+          "attribute vec3 offset;",
+          "attribute vec3 scale3d;",
+          "attribute vec2 uv;",
+          "attribute vec4 sprite;",
+          "attribute vec4 lifecycle;",
+
+          "uniform float systemTime;",
+          "uniform vec2 tiles;",
+          "varying vec2 tileOffset;",
+
+          "attribute vec4 vertexColor;",
+          "varying vec4 vColor;",
+
+          "varying vec2 vUv;",
+          "attribute vec4 orientation;",
+
+          "uniform vec3 ambientLightColor;",
+          "uniform vec3 sunLightColor;",
+
+          "uniform vec3 sunLightDirection;",
+          "varying vec3 sunDir;",
+
+          "uniform vec3 character0;",
+          "uniform vec3 character1;",
+          "uniform vec3 character2;",
+          "uniform vec3 character3;",
+          "uniform vec3 character4;",
+          "uniform vec3 character5;",
+          "uniform vec3 fogColor;",
+          "uniform float fogDensity;",
+          "varying float fogDepth;",
+          "varying float vFragDepth;",
+          "uniform float alphaTest;",
+
+
+          "vec3 pushedVertex(vec3 charPos, vec3 vertexPos, vec3 vPosition, float influenceRange, vec2 uv) {",
+
+              "vec3 push = vertexPos-charPos;",
+              "charPos.y = vertexPos.y;",
+              "float dist = min(distance(vertexPos, charPos), influenceRange);",
+              "float pushX = min( push.x - influenceRange, influenceRange);",
+              "float pushZ = min( push.z - influenceRange, influenceRange);",
+              "float height = (1.0 - uv.y);",
+              "push.y = (0.5 + dist*(1.0/influenceRange)*0.5);",
+              "push.x = vPosition.y*(influenceRange - dist*sign(dist)) * push.x / dist;",
+              "push.z = vPosition.y*(influenceRange - dist*sign(dist)) * push.z / dist;",
+              "return push;",
+
+          "}",
+
+
+          "void main(){",
+
+
+          "float startTime = lifecycle.x;",
+          "float endTime = lifecycle.z;",
+
+          "float effectAge = systemTime - startTime;",
+
+          "float isPreEnd = max(sign(endTime - startTime), 0.0);",
+
+          "float decayTime = min(systemTime - endTime, isPreEnd * lifecycle.w);",
+
+          "float attackProg = 1.0 - max(lifecycle.y - (effectAge / lifecycle.y), 0.0);",
+
+          "float decayProg  = max(decayTime, 0.0) / lifecycle.w;",
+
+          "float progressState = attackProg - decayProg;",
+
+          "float alphaFactor = progressState*alphaTest + (1.0-alphaTest);",
+
+          "float alphaState =  alphaFactor;",
+
+          "float zHideFactor = floor(decayProg);",
+
+
+
+
+          "vec3 originalVpos = position;",
+
+          "originalVpos.y /= sprite.z;",
+
+          "vec3 vPosition = originalVpos.xzy;",
+
+          "vec3 vcV = cross(orientation.xyz, vPosition);",
+          "vPosition = vcV * (2.0 * orientation.w) + (cross(orientation.xyz, vcV) * 2.0 + vPosition);",
+
+          "vec2 tileScale = 1.0/tiles;",
+
+
+          "vec2 tileOffset = vec2(sprite.x * tileScale.x, (sprite.y-sprite.w) * tileScale.y / sprite.z);",
+
+          "tileScale.y /= sprite.z;",
+
+          "vec2 scaledUv = uv*tileScale;",
+
+          "scaledUv.y /= sprite.z;",
+
+          "vUv = (scaledUv + tileOffset);",
+
+          "vUv.y += ((tileScale.y / sprite.z)*sprite.z + (tileScale.y / sprite.z)*sprite.w);",
+          "vUv.y -= tileScale.y*(2.0 - sprite.z);",
+          "vUv.y *= sprite.z;",
+
+
+          "float lowness = sprite.z - (uv.y*sprite.z);",
+
+          "vPosition.x = vPosition.x * (1.0 * scale3d.x) ;",
+          "vPosition.y = vPosition.y * (1.0 * scale3d.y);",
+          "vPosition.z = vPosition.z * (1.0 * scale3d.z) ;",
+
+
+          "float lightAboveness = 0.25 + (sunLightDirection.y * 0.75 ) * sign(sunLightDirection.y);",
+
+          "vColor = vertexColor;",
+          "vColor.r *= vertexColor.r * ambientLightColor.r * (1.0-(lowness*0.25)) + sunLightColor.r * (lowness*1.0 - 0.0) * lightAboveness;",
+          "vColor.g *= vertexColor.g * ambientLightColor.g * (1.0-(lowness*0.25)) + sunLightColor.g * (lowness*1.0 - 0.0) * lightAboveness;",
+          "vColor.b *= vertexColor.b * ambientLightColor.b * (1.0-(lowness*0.25)) + sunLightColor.b * (lowness*1.0 - 0.0) * lightAboveness;",
+          "vColor.a *= alphaState*lowness+(1.0-lowness);",
+
+          "vec3 vertexPos = vec3( offset + vPosition);",
+
+          "float influenceRange = 0.5;",
+
+          "vec3 pushPos = pushedVertex(character0, vertexPos, vPosition, influenceRange, uv);",
+          "vPosition.y *= pushPos.y;",
+          "vPosition.x += pushPos.x;",
+          "vPosition.z += pushPos.z;",
+
+          "pushPos = pushedVertex(character1, vertexPos, vPosition, influenceRange, uv);",
+          "vPosition.y *= pushPos.y;",
+          "vPosition.x += pushPos.x;",
+          "vPosition.z += pushPos.z;",
+
+          "pushPos = pushedVertex(character2, vertexPos, vPosition, influenceRange, uv);",
+          "vPosition.y *= pushPos.y;",
+          "vPosition.x += pushPos.x;",
+          "vPosition.z += pushPos.z;",
+
+          "pushPos = pushedVertex(character3, vertexPos, vPosition, influenceRange, uv);",
+          "vPosition.y *= pushPos.y;",
+          "vPosition.x += pushPos.x;",
+          "vPosition.z += pushPos.z;",
+
+          "pushPos = pushedVertex(character4, vertexPos, vPosition, influenceRange, uv);",
+          "vPosition.y *= pushPos.y;",
+          "vPosition.x += pushPos.x;",
+          "vPosition.z += pushPos.z;",
+
+          "pushPos = pushedVertex(character5, vertexPos, vPosition, influenceRange, uv);",
+          "vPosition.y *= pushPos.y;",
+          "vPosition.x += pushPos.x;",
+          "vPosition.z += pushPos.z;",
+
+
+          "gl_Position = projectionMatrix * modelViewMatrix * vec4(offset + vPosition, 1.0);",
+          "fogDepth = gl_Position.z;",
+          "}",
+          ""
+        ],
+
+        "_fragmentVegetationInstancing":[
+          "precision highp float;",
+
+          "uniform float alphaTest;",
+
+          "uniform vec3 fogColor;",
+          "uniform float fogDensity;",
+          "varying float fogDepth;",
+          "uniform sampler2D map;",
+
+          "varying vec2 vUv;",
+          "varying vec3 sunDir;",
+
+          "varying float vFragDepth;",
+          "varying vec4 vColor;",
+
+          "void main(){",
+
+          "vec4 txColor = texture2D( map, vUv);",
+          "if (txColor.a * vColor.a <= alphaTest) discard;",
+          "vec4 lightColor = vec4(sunDir, 1.0);",
+
+
+          "gl_FragColor = vColor * txColor * 1.0 + txColor * lightColor*1.0;",
+          "float fogFactor = min(fogDensity * fogDepth, 1.0);",
+          "gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor,  fogFactor );",
+          "}",
+          ""
+
+        ],
+
+
+        "vertexVegetationInstancing": [
+          "precision highp float;",
+          "uniform mat4 modelViewMatrix;",
+          "uniform mat4 projectionMatrix;",
+
+          "attribute vec4 orientation;",
+          "attribute vec3 position;",
+          "attribute vec3 normal;",
+          "attribute vec3 offset;",
+          "attribute vec3 scale3d;",
+          "attribute vec2 uv;",
+          "attribute vec4 sprite;",
+          "attribute vec4 vertexColor;",
+          "attribute vec4 lifecycle;",
+
+          "uniform vec2 tiles;",
+
+          "uniform vec3 ambientLightColor;",
+          "uniform vec3 sunLightColor;",
+          "uniform vec3 sunLightDirection;",
+          "uniform vec3 fogColor;",
+          "uniform float fogDensity;",
+          "uniform float systemTime;",
+          "uniform float alphaTest;",
+
+
+          "varying vec2 vUv;",
+          "varying vec3 sunDir;",
+          "varying float fogDepth;",
+          "varying float vFragDepth;",
+          "varying vec4 vColor;",
+          "varying float reveal;",
+
+          "void main(){",
+
+          "float startTime = lifecycle.x;",
+          "float endTime = lifecycle.z;",
+
+          "float effectAge = systemTime - startTime;",
+
+          "float isPreEnd = max(sign(endTime - startTime), 0.0);",
+
+          "float decayTime = min(systemTime - endTime, isPreEnd * lifecycle.w);",
+
+          "float attackProg = 1.0 - max(lifecycle.y - (effectAge / lifecycle.y), 0.0);",
+
+          "float decayProg  = max(decayTime, 0.0) / lifecycle.w;",
+
+          "float progressState = (attackProg - decayProg)*min(effectAge / lifecycle.y, 1.0);",
+
+          "float alphaFactor = progressState*alphaTest + (1.0-alphaTest);",
+
+          "float alphaState =  alphaFactor*(1.0-decayProg);",
+
+          "float zHideFactor = floor(decayProg);",
+
+
+          "vec3 vPosition = position;",
+
+          "vec4 quat = orientation.xyzw;",
+
+
+          "vec3 vcV = cross(quat.xyz, vPosition);",
+
+          "vPosition = vcV * (2.0 * quat.w) + (cross(quat.xyz, vcV) * 2.0 + vPosition);",
+
+          "vec2 tileScale = 1.0/tiles;",
+
+          "vec2 tileOffset = vec2(sprite.x * tileScale.x, (sprite.y-sprite.w) * tileScale.y / sprite.z);",
+          "tileScale.y /= sprite.z;",
+          "vec2 scaledUv = uv*tileScale;",
+          "scaledUv.y /= sprite.z;",
+          "vUv = (scaledUv + tileOffset);",
+          "vUv.y += ((tileScale.y / sprite.z)*sprite.z + (tileScale.y / sprite.z)*sprite.w);",
+          "vUv.y -= tileScale.y*(2.0 - sprite.z);",
+          "vUv.y *= sprite.z;",
+
+
+          "float motionTime = systemTime+offset.x*100.0+offset.z*100.0;",
+
+
+
+          "vPosition.y = (vPosition.y * (1.0 * scale3d.y) + (0.05*sin(motionTime*0.9)+0.05) * (1.0-uv.y))/sprite.z;",
+          "vPosition.x = vPosition.x * (2.0 * scale3d.x) + 0.15 * sin(motionTime * 0.5) * (1.0-uv.y) * (1.0-uv.y)/sprite.z;",
+          "vPosition.z = vPosition.z * (2.0 * scale3d.z) + 0.15 * cos(motionTime * 0.2) * (1.0-uv.y) * (1.0-uv.y)/sprite.z;",
+
+          "vec3 faceNormal = vec3(0.0, 1.0, 0.0);",
+          "vec3 fromAbove = vec3(0.0, 1.0-uv.y, 0.0);",
+          "float intensity = max( 0.25 + dot(faceNormal, sunLightDirection ) * ((2.0-uv.y)*0.5), 0.0) * 1.0 - vertexColor.g*0.1;",
+          "sunDir = sunLightColor * intensity * (0.3+intensity*intensity*0.3);",
+
+          "float ambInt = 0.6 + dot(faceNormal, fromAbove ) * 0.2 * (1.0-uv.y);",
+
+          "reveal = (2.0*uv.y) * progressState - decayProg;",
+
+          "vColor.r = vertexColor.r * sunDir.r + ambientLightColor.r * ambInt;",
+          "vColor.g = vertexColor.g * sunDir.g + ambientLightColor.g * ambInt;",
+          "vColor.b = vertexColor.b * sunDir.b + ambientLightColor.b * ambInt;",
+          "vColor.a = vertexColor.a * reveal;",
+
+
+
+          "gl_Position = projectionMatrix * modelViewMatrix * vec4( offset + vPosition, 1.0 );",
+          "fogDepth = gl_Position.z*1.0;",
+          "}",
+          ""
+        ],
+
+        "fragmentVegetationInstancing":[
+          "precision highp float;",
+
+          "uniform float alphaTest;",
+          "uniform vec3 fogColor;",
+          "uniform float fogDensity;",
+
+          "uniform sampler2D map;",
+
+          "varying vec2 vUv;",
+          "varying vec3 sunDir;",
+          "varying float fogDepth;",
+          "varying float vFragDepth;",
+          "varying vec4 vColor;",
+          "varying float  reveal;",
+          "void main(){",
+
+          "vec4 txColor = texture2D( map, vUv);",
+          "txColor *= 1.0;",
+
+          "if (txColor.a * reveal <= alphaTest) discard;",
+
+          "vec4 lightColor = vec4(sunDir, 1.0);",
+
+
+          "gl_FragColor = vColor * txColor * 1.0 + vColor * txColor * lightColor*1.0;",
+
+          "float fogFactor = min(fogDensity * fogDepth, 1.0);",
+          "gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor,  fogFactor );",
+
+          "}",
+          ""
+
+        ],
+
+
+        "vertexStampInstancing": [
+          "precision highp float;",
+          "uniform mat4 modelViewMatrix;",
+          "uniform mat4 projectionMatrix;",
+
+          "attribute vec3 position;",
+          "attribute vec3 normal;",
+          "attribute vec3 offset;",
+          "attribute vec3 scale3d;",
+          "attribute vec2 uv;",
+          "attribute vec4 sprite;",
+          "attribute vec4 lifecycle;",
+
+          "uniform float systemTime;",
+          "uniform vec2 tiles;",
+          "varying vec2 tileOffset;",
+
+          "attribute vec4 vertexColor;",
+          "varying vec4 vColor;",
+
+          "varying vec2 vUv;",
+          "attribute vec4 orientation;",
+
+          "uniform vec3 ambientLightColor;",
+          "uniform vec3 sunLightColor;",
+
+          "uniform vec3 sunLightDirection;",
+          "varying vec3 sunDir;",
+
+          "uniform vec3 fogColor;",
+          "uniform float fogDensity;",
+          "varying float fogDepth;",
+          "varying float vFragDepth;",
+          "uniform float alphaTest;",
+
+          "void main(){",
+
+          "float startTime = lifecycle.x;",
+          "float endTime = lifecycle.z;",
+
+          "float effectAge = systemTime - startTime;",
+
+          "float isPreEnd = max(sign(endTime - startTime), 0.0);",
+
+          "float decayTime = min(systemTime - endTime, isPreEnd * lifecycle.w);",
+
+          "float attackProg = 1.0 - max(lifecycle.y - (effectAge / lifecycle.y), 0.0);",
+
+          "float decayProg  = max(decayTime, 0.0) / lifecycle.w;",
+
+          "float progressState = (attackProg - decayProg)*min(effectAge / lifecycle.y, 1.0);",
+
+          "float alphaFactor = progressState*alphaTest + (1.0-alphaTest);",
+
+          "float alphaState =  alphaFactor*(1.0-decayProg);",
+
+          "float zHideFactor = floor(decayProg);",
+
+          "vec3 originalVpos = position;",
+
+          "originalVpos.y /= sprite.z;",
+
+          "vec3 vPosition = originalVpos.xyz;",
+
+          "vec3 vcV = cross(orientation.xyz, vPosition);",
+          "vPosition = vcV * (2.0 * orientation.w) + (cross(orientation.xyz, vcV) * 2.0 + vPosition);",
+
+          "vec2 tileScale = 1.0/tiles;",
+
+          "vec2 tileOffset = vec2(sprite.x * tileScale.x, (sprite.y-sprite.w) * tileScale.y / sprite.z);",
+
+          "tileScale.y /= sprite.z;",
+
+          "vec2 scaledUv = uv*tileScale;",
+
+          "scaledUv.y /= sprite.z;",
+
+          "vUv = (scaledUv + tileOffset);",
+
+          "vUv.y += ((tileScale.y / sprite.z)*sprite.z + (tileScale.y / sprite.z)*sprite.w);",
+          "vUv.y -= tileScale.y*(2.0 - sprite.z);",
+          "vUv.y *= sprite.z;",
+
+          "float lowness = sprite.z - (uv.y*sprite.z);",
+
+          "vPosition.x = vPosition.x * (1.0 * scale3d.x)  ;",
+          "vPosition.y = vPosition.y * (1.0 * scale3d.y)  ;",
+          "vPosition.z = vPosition.z * (1.0 * scale3d.z)  ;",
+
+          "vec3 vNormal = normal.xyz;",
+          "vec3 faceNormal = vNormal + 2.0 * cross( orientation.xyz, cross( orientation.xyz, vNormal ) + orientation.w * vNormal );",
+
+          "float intensity = max( 0.8 + dot(faceNormal, sunLightDirection ) * 0.5, 0.0);",
+          "sunDir = sunLightColor * intensity * (0.3+intensity*intensity*0.3);",
+
+          "vec3 fromAbove = vec3(0.0, 1.0, 0.0);",
+
+          "float ambInt = 0.8 + dot(faceNormal, fromAbove ) * 0.4;",
+
+          "vColor.r = vertexColor.r * sunDir.r + vertexColor.r * (ambientLightColor.r*0.6) * ambInt + vertexColor.r * (0.4);",
+          "vColor.g = vertexColor.g * sunDir.g + vertexColor.g * (ambientLightColor.g*0.6) * ambInt + vertexColor.g * (0.4);",
+          "vColor.b = vertexColor.b * sunDir.b + vertexColor.b * (ambientLightColor.b*0.6) * ambInt + vertexColor.b * (0.4);",
+
+          "vColor.a = vertexColor.a * alphaState;",
+
+          "vec3 vertexPos = vec3( offset + vPosition);",
+
+          "gl_Position = projectionMatrix * modelViewMatrix * vec4(vertexPos, 1.0);",
+          "fogDepth = gl_Position.z;",
+          "}",
+          ""
+        ],
+
+        "fragmentStampInstancing":[
+          "precision highp float;",
+
+          "uniform float alphaTest;",
+
+          "uniform vec3 fogColor;",
+          "uniform float fogDensity;",
+          "varying float fogDepth;",
+          "uniform sampler2D map;",
+
+          "varying vec2 vUv;",
+          "varying vec3 sunDir;",
+
+          "varying float vFragDepth;",
+          "varying vec4 vColor;",
+
+          "void main(){",
+
+          "vec4 txColor = texture2D( map, vUv);",
+          "txColor *= 1.0;",
+          "if (txColor.a * vColor.a <= alphaTest) discard;",
+
+          "vec4 lightColor = vec4(sunDir, 1.0) * 0.5;",
+          "lightColor += 0.5;",
+          "gl_FragColor = vColor * txColor + txColor * lightColor*vColor;",
+
+          "float fogFactor = min(fogDensity * fogDepth * 0.3, 1.0);",
+
+          "gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor,  fogFactor );",
+          "}",
+          ""
+
+        ],
+
+        "vertexParticleInstancing": [
+          "precision highp float;",
+          "uniform mat4 modelViewMatrix;",
+          "uniform mat4 projectionMatrix;",
+
+          "attribute vec3 position;",
+          "attribute vec3 normal;",
+          "attribute vec3 offset;",
+          "attribute vec3 scale3d;",
+          "attribute vec2 uv;",
+          "attribute vec4 sprite;",
+          "attribute vec4 lifecycle;",
+          "attribute vec4 vertexColor;",
+          "attribute vec4 orientation;",
+
+          "uniform float systemTime;",
+          "uniform vec2 tiles;",
+          "varying vec2 tileOffset;",
+
+
+          "varying vec4 vColor;",
+
+          "varying vec2 vUv;",
+
+
+          "uniform vec3 ambientLightColor;",
+          "uniform vec3 sunLightColor;",
+
+          "uniform vec3 sunLightDirection;",
+          "varying vec3 sunDir;",
+
+          "uniform vec3 fogColor;",
+          "uniform float fogDensity;",
+          "varying float fogDepth;",
+          "varying float vFragDepth;",
+          "uniform float alphaTest;",
+
+          "void main(){",
+
+          "float startTime = lifecycle.x;",
+          "float endTime = lifecycle.z;",
+
+          "float effectAge = systemTime - startTime;",
+
+          "float isPreEnd = max(sign(endTime - startTime), 0.0);",
+
+          "float decayTime = min(systemTime - endTime, isPreEnd * lifecycle.w);",
+
+          "float attackProg = (1.0 - max(lifecycle.y - (effectAge / lifecycle.y), 0.0))* min(effectAge*1.0 / lifecycle.y, 1.0);",
+
+          "float decayProg  = max(decayTime, 0.0) / lifecycle.w;",
+
+          "float progressState = (attackProg - decayProg) * min(effectAge*1.0 / lifecycle.y, 1.0);",
+
+          "float alphaFactor = progressState*alphaTest + (1.0-alphaTest);",
+
+          "float alphaState =  alphaFactor*max(effectAge / lifecycle.y, 1.0);",
+
+          "float zHideFactor = floor(decayProg);",
+
+          "vec3 originalVpos = position;",
+
+          "originalVpos.y /= sprite.z;",
+
+          "vec3 vPosition = originalVpos.xyz;",
+
+          "vec3 vcV = cross(orientation.xyz, vPosition);",
+          "vPosition = vcV * (2.0 * orientation.w) + (cross(orientation.xyz, vcV) * 2.0 + vPosition);",
+
+          "vec3 velocityOffset = vec3(0.0, 0.0, 0.0);",
+
+
+          "vec2 tileScale = 1.0/tiles;",
+          "vec2 tileOffset = vec2(sprite.x * tileScale.x, (sprite.y-sprite.w) * tileScale.y / sprite.z);",
+          "tileScale.y /= sprite.z;",
+          "vec2 scaledUv = uv*tileScale;",
+          "scaledUv.y /= sprite.z;",
+          "vUv = (scaledUv + tileOffset);",
+
+          "vUv.y += ((tileScale.y / sprite.z)*sprite.z + (tileScale.y / sprite.z)*sprite.w);",
+          "vUv.y -= tileScale.y*(2.0 - sprite.z);",
+          "vUv.y *= sprite.z;",
+
+
+          "float lowness = sprite.z - (uv.y*sprite.z);",
+
+
+
+
+          "vPosition.x = vPosition.x * (1.0 * scale3d.x) * progressState;",
+          "vPosition.y = vPosition.y * (1.0 * scale3d.y) * progressState;",
+          "vPosition.z = vPosition.z * (1.0 * scale3d.z) * progressState;",
+
+
+
+
+
+          "vec3 vNormal = normal.xyz;",
+          "vec3 faceNormal = vNormal + 2.0 * cross( orientation.xyz, cross( orientation.xyz, vNormal ) + orientation.w * vNormal );",
+
+          "float intensity = max( 0.4 + dot(faceNormal, sunLightDirection ) * 0.5, 0.0);",
+          "sunDir = sunLightColor * intensity * (0.3+intensity*intensity*0.3);",
+
+          "vec3 fromAbove = vec3(0.0, 1.0, 0.0);",
+
+          "float ambInt = 0.5 + dot(faceNormal, fromAbove ) * 0.4;",
+
+          "vColor.r = vertexColor.r * sunDir.r + vertexColor.r * (ambientLightColor.r+0.2) * ambInt;",
+          "vColor.g = vertexColor.g * sunDir.g + vertexColor.g * (ambientLightColor.g+0.2) * ambInt;",
+          "vColor.b = vertexColor.b * sunDir.b + vertexColor.b * (ambientLightColor.b+0.2) * ambInt;",
+
+          "vColor.a =  vertexColor.a * alphaFactor * progressState;",
+
+          "vec4 particlePosition = modelViewMatrix * vec4(offset, 1.0);",
+          "vec4 modelPosition = particlePosition + vec4(vPosition.xy, 0, 0);",
+          "vec4 billboardFacing = projectionMatrix * modelPosition;",
+          "billboardFacing.x += zHideFactor * 2.0;",
+          "gl_Position = billboardFacing;",
+          "}",
+          ""
+        ],
+
+        "fragmentParticleInstancing":[
+          "precision highp float;",
+
+          "uniform float alphaTest;",
+
+          "uniform vec3 fogColor;",
+          "uniform float fogDensity;",
+          "varying float fogDepth;",
+          "uniform sampler2D map;",
+
+          "varying vec2 vUv;",
+          "varying vec3 sunDir;",
+
+          "varying float vFragDepth;",
+          "varying vec4 vColor;",
+
+          "void main(){",
+
+          "vec4 txColor = texture2D( map, vUv);",
+          "if (txColor.a * vColor.a <= alphaTest) discard;",
+          "vec4 lightColor = vec4(sunDir, 1.0) * 0.5;",
+          "lightColor += 0.5;",
+          "gl_FragColor = vColor * txColor + txColor * lightColor*vColor;",
+          "}",
+          ""
+
+        ],
+
+
+        "vertexBoxInstancing": [
+          "precision highp float;",
+          "uniform mat4 modelViewMatrix;",
+          "uniform mat4 projectionMatrix;",
+
+          "attribute vec3 position;",
+          "attribute vec3 normal;",
+          "attribute vec3 offset;",
+          "attribute vec3 scale3d;",
+          "attribute vec2 uv;",
+          "attribute vec4 sprite;",
+          "uniform vec2 tiles;",
+
+          "attribute vec4 vertexColor;",
+          "varying vec4 vColor;",
+
+          "varying vec2 vUv;",
+          "attribute vec4 orientation;",
+
+          "uniform vec3 ambientLightColor;",
+          "uniform vec3 sunLightColor;",
+
+          "uniform vec3 sunLightDirection;",
+          "varying vec3 sunDir;",
+
+          "uniform vec3 fogColor;",
+          "uniform float fogDensity;",
+          "varying float fogDepth;",
+          "varying float vFragDepth;",
+
+
+
+          "void main(){",
+          "vec3 vPosition = position*scale3d;",
+
+          "vec4 quat = orientation.xyzw;",
+
+          "vec3 vcV = cross(quat.xyz, vPosition);",
+
+
+          "vPosition = vcV * (2.0 * quat.w) + (cross(quat.xyz, vcV) * 2.0 + vPosition);",
+
+          "vec2 tileScale = 1.0/tiles;",
+
+          "vec2 tileOffset = vec2(sprite.x * tileScale.x, (sprite.y-sprite.w) * tileScale.y / sprite.z);",
+
+          "tileScale.y /= sprite.z;",
+
+          "vec2 scaledUv = uv*tileScale;",
+
+          "scaledUv.y /= sprite.z;",
+
+          "vUv = (scaledUv + tileOffset);",
+
+
+
+          "vec3 vNormal = normal.xyz;",
+          "vec3 faceNormal = vNormal + 2.0 * cross( orientation.xyz, cross( orientation.xyz, vNormal ) + orientation.w * vNormal );",
+
+          "float intensity = max( 0.4 + dot(faceNormal, sunLightDirection ) * 0.5, 0.0);",
+          "sunDir = sunLightColor * intensity * (0.3+intensity*intensity*0.3);",
+
+          "vec3 fromAbove = vec3(0.0, 1.0, 0.0);",
+
+          "float ambInt = 0.3 + dot(faceNormal, fromAbove ) * 0.2;",
+
+          "vColor.r = sunDir.r + ambientLightColor.r * ambInt;",
+          "vColor.g = sunDir.g + ambientLightColor.g * ambInt;",
+          "vColor.b = sunDir.b + ambientLightColor.b * ambInt;",
+          "vColor.a = 1.0;",
+
+          "vColor = vec4(vertexColor.r * vColor.r, vertexColor.g*vColor.g, vertexColor.b*vColor.b,  vColor.a*vertexColor.a);",
+
+          "gl_Position = projectionMatrix * modelViewMatrix * vec4( offset + vPosition, 1.0 );",
+          "fogDepth = gl_Position.z*1.0;",
+          "}",
+          ""
+        ],
+
+        "fragmentBoxInstancing": [
+          "precision highp float;",
+
+          "uniform float alphaTest;",
+          "uniform vec3 fogColor;",
+          "uniform float fogDensity;",
+
+          "uniform sampler2D map;",
+
+          "varying vec2 vUv;",
+          "varying vec3 sunDir;",
+          "varying float fogDepth;",
+          "varying float vFragDepth;",
+          "varying vec4 vColor;",
+
+          "void main(){",
+
+          "vec4 txColor = texture2D( map, vUv);",
+          "txColor *= 1.1;",
+
+          "if (txColor.a <= alphaTest) discard;",
+
+          "vec4 lightColor = vec4(sunDir, 1.0);",
+
+
+          "gl_FragColor = vColor * txColor * 2.0 + txColor * lightColor*2.0;",
+
+          "float fogFactor = min(fogDensity * fogDepth, 1.0);",
+          "gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor,  fogFactor );",
+
+          "}",
+          ""
+        ]
+      }
+    }
+  }
+]

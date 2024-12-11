@@ -1,0 +1,186 @@
+
+[
+  {
+    "UI": {
+      "ICON_ELEMENTS":[
+        {
+          "id": "GUI_16x16",
+          "data": [
+
+            {
+              "id":"action_icon_config",
+              "config": {
+                "innersize": { "x":0.88,  "y":0.88, "z": 0},
+                "offset":    { "x":0.5,  "y":0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": false
+              }
+            },
+            {
+              "id":"button_actor_action_portrait_button",
+              "config": {
+                "innersize": { "x":0.9,  "y":0.9, "z": 0},
+                "offset":    { "x":0.5,  "y":0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": true
+              }
+            },
+            {
+              "id":"button_sequencer_icon_config",
+              "config": {
+                "innersize": { "x":0.9,  "y":0.9, "z": 0},
+                "offset":    { "x":0.5,  "y":0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": true
+              }
+            },
+            {
+              "id":"button_icon_config",
+              "config": {
+                "innersize": { "x":0.85,  "y":0.85, "z": 0},
+                "offset":    { "x":0.5,  "y":0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": false
+              }
+            },
+            {
+              "id":"icon_full_size",
+              "config": {
+                "innersize": { "x":1.0,  "y":1.0, "z": 0},
+                "offset":    { "x":0.5, "y":0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": false
+              }
+            },
+            {
+              "id":"attack_point_icon",
+              "config": {
+                "innersize": { "x":1.0,  "y":1.0, "z": 0},
+                "offset":    { "x":0.5, "y":0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": false
+              }
+            },
+            {
+              "id":"gui_icon",
+              "config": {
+                "innersize": { "x":0.7,  "y":0.7, "z": 0},
+                "offset":    { "x":0.05, "y":0.6, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": false
+              }
+            },
+            {
+              "id":"stick_center_icon",
+              "config": {
+                "innersize": { "x":0.94,  "y":0.94, "z": 0},
+                "offset":    { "x":0.5,  "y":0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": true
+              }
+            },
+            {
+              "id":"feedback_axis_icon",
+              "config": {
+                "innersize": { "x":1.0,  "y":1.0, "z": 0},
+                "offset":    { "x":0.5,  "y":0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": true
+              }
+            },
+            {
+              "id":"progress_horizontal_slim",
+              "config": {
+                "innersize": { "x":0.915,  "y":0.1, "z": 0},
+                "offset":    { "x":0.5, "y":0.183, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": true,
+                "progress": {"axis": "left", "alts": ["up", "down", "left", "right"]}
+              }
+            },
+            {
+              "id":"progress_horizontal_hp_bar",
+              "config": {
+                "innersize": { "x":0.91, "y":0.4, "z": 0},
+                "offset":    { "x":0.5,  "y":0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": true,
+                "progress": {"axis": "left", "alts": ["up", "down", "left", "right"]}
+              }
+            },
+            {
+              "id":"progress_vertical_action_portrait_hp",
+              "config": {
+                "innersize": { "x":1.01, "y":1.02, "z": 0},
+                "offset":    { "x":0.5, "y": 0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": true,
+                "progress": {"axis": "up", "alts": ["up", "down", "left", "right"]}
+              }
+            },
+            {
+              "id":"progress_vertical_hp_bar",
+              "config": {
+                "innersize": { "x":1.28, "y":1.35, "z": 0},
+                "offset":    { "x":0.5, "y": 0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": true,
+                "progress": {"axis": "up", "alts": ["up", "down", "left", "right"]}
+              }
+            },
+            {
+              "id":"progress_horizontal_xp_bar",
+              "config": {
+                "innersize": { "x":0.986, "y":0.4, "z": 0},
+                "offset":    { "x":0.5,  "y":0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": true,
+                "progress": {"axis": "left", "alts": ["up", "down", "left", "right"]}
+              }
+            },
+            {
+              "id":"progress_horizontal_action_point_status",
+              "config": {
+                "innersize": { "x":0.95, "y":0.4, "z": 0},
+                "offset":    { "x":0.5,  "y":0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": true,
+                "progress": {"axis": "left", "alts": ["up", "down", "left", "right"]}
+              }
+            },
+            {
+              "id":"progress_vertical_action_point",
+              "config": {
+                "innersize": { "x":0.45,  "y":0.45, "z": 0},
+                "offset":    { "x":0.5,   "y":0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": true,
+                "progress": {"axis": "up", "alts": ["up", "down", "left", "right"]}
+              }
+            },
+            {
+              "id":"progress_vertical_actionbutton",
+              "config": {
+                "innersize": { "x":0.7, "y":0.7, "z": 0},
+                "offset":    { "x":0.5, "y":0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": true,
+                "progress": {"axis": "up", "alts": ["up", "down", "left", "right"]}
+              }
+            },
+            {
+              "id":"progress_vertical_selected_actor",
+              "config": {
+                "innersize": { "x":0.4, "y":0.4, "z": 0},
+                "offset":    { "x":0.5, "y":0.5, "z": 0},
+                "atlas_key": "GUI_16x16",
+                "stretch": false,
+                "progress": {"axis": "up", "alts": ["up", "down", "left", "right"]}
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

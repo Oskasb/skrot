@@ -1,0 +1,451 @@
+[{
+  "GAME":{
+    "CHARACTERS":[
+      {
+        "id":"PLAYER_MAIN",
+        "data":{
+          "status": {
+            "name": "Boi",
+            "faction": "GOOD",
+            "icon_key": "face_4",
+            "level": 1,
+            "level_table": "level_table_human_default",
+            "companion": 1,
+            "following": null,
+            "aggro_range": 39,
+            "move_speed": 10,
+            "height": 1.85,
+            "size": 1,
+            "hp": 10,
+            "maxHP": 10,
+            "dmg": 1,
+            "FAST": 1,
+            "xp_value": 20,
+            "ability_slots": 4,
+            "ability_slots_max": 4
+          },
+          "abilities": {
+            "fire_ball": {
+              "level": 7
+            },
+            "magic_missiles":{
+              "level": 6
+            },
+            "freeze_minor":{
+              "level": 4
+            },
+            "heal_minor":{
+              "level": 7
+            }
+          },
+
+          "actor":"ACTOR_FIGHTER",
+          "equipment":["NINJASWORD", "HELMET_BRONZE", "BELT_BRONZE", "LEGS_BRONZE"],
+          "inventory": [
+
+          ]
+        }
+      },
+      {
+        "id":"COMPANION_ONE",
+        "data":{
+          "status": {
+            "name": "Victor",
+            "faction": "GOOD",
+            "icon_key": "face_2",
+            "level_table": "level_table_human_default",
+            "level": 6,
+            "companion": 1,
+            "following": null,
+            "aggro_range": 39,
+            "height": 1.85,
+            "size": 1.0,
+            "hp": 20,
+            "maxHP": 20,
+            "dmg": 1,
+            "FAST": 1,
+            "xp_value": 20,
+            "ability_slots": 2
+          },
+          "abilities": {
+            "magic_missiles": {
+              "level": 5
+            },
+            "heal_minor":{
+              "level": 8
+            }
+          },
+
+          "actor":"ACTOR_FIGHTER",
+          "equipment":["AXE_SLICER", "HELMET_VIKING_GREEN", "BELT_PLATE_GREEN", "SHIRT_CHAIN", "LEGS_CHAIN","BOOTS_SCALE_GREEN", "GLOVES_SCALE_GREEN", "BREASTPLATE_GREEN"],
+          "inventory": [
+
+          ]
+        }
+      },
+      {
+        "id":"COMPANION_TWO",
+        "data":{
+          "status": {
+            "name": "Hugo",
+            "faction": "GOOD",
+            "icon_key": "face_3",
+            "level_table": "level_table_human_default",
+            "level": 6,
+            "companion": 1,
+            "following": null,
+            "aggro_range": 39,
+            "height": 1.85,
+            "size": 1.0,
+            "hp": 10,
+            "maxHP": 10,
+            "dmg": 1,
+            "FAST": 1,
+            "xp_value": 20,
+            "ability_slots": 2
+          },
+          "abilities": {
+            "freeze_minor":{
+              "level": 8
+            },
+            "heal_minor":{
+              "level": 4
+            }
+          },
+
+          "actor":"ACTOR_FIGHTER",
+          "equipment":["EMERALD_BLADE", "HELMET_VIKING_RED", "BELT_PLATE_RED", "SHIRT_CHAIN", "LEGS_CHAIN", "BOOTS_SCALE_RED", "GLOVES_SCALE_RED", "BREASTPLATE_RED"],
+          "inventory": [
+
+          ]
+        }
+      },
+      {
+        "id":"COMPANION_THREE",
+        "data":{
+          "status": {
+            "name": "Pontus",
+            "faction": "GOOD",
+            "icon_key": "face_1",
+            "level_table": "level_table_human_default",
+            "level": 9,
+            "companion": 1,
+            "following": null,
+            "aggro_range": 39,
+            "height": 1.85,
+            "size": 1.0,
+            "hp": 10,
+            "maxHP": 10,
+            "dmg": 1,
+            "FAST": 1,
+            "xp_value": 20,
+            "ability_slots": 2
+          },
+          "abilities": {
+            "fire_ball": {
+              "level": 9
+            },
+            "heal_minor":{
+              "level": 3
+            }
+          },
+
+          "actor":"ACTOR_FIGHTER",
+          "equipment":["SWORD_FANCY", "HELMET_VIKING_PURPLE", "BELT_PLATE_PURPLE", "SHIRT_CHAIN", "LEGS_CHAIN", "BOOTS_SCALE_PURPLE", "GLOVES_SCALE_PURPLE", "BREASTPLATE_PURPLE"],
+          "inventory": [
+
+          ]
+        }
+      },
+
+      {
+        "id":"BANDIT_BASIC",
+        "data":{
+          "status": {
+            "name": "Bandit",
+            "faction": "EVIL",
+            "icon_key": "face_3",
+            "level_table": "level_table_human_default",
+            "aggro_range": 5,
+            "height": 1.65,
+            "level": 1,
+            "size": 0.89,
+            "maxHP": 3,
+            "hp": 3,
+            "dmg": 1,
+            "FAST": 1,
+            "xp_value": 12
+          },
+
+          "actor":"ACTOR_FIGHTER",
+          "equipment":["HATCHET_NICE"],
+          "inventory": [
+
+          ]
+        }
+      },
+      {
+        "id":"BANDIT_HAT_LEATHER",
+        "data":{
+          "status": {
+            "name": "Bandit Leather Hat",
+            "faction": "EVIL",
+            "icon_key": "face_3",
+            "level_table": "level_table_human_default",
+            "aggro_range": 5,
+            "height": 1.65,
+            "level": 1,
+            "size": 0.89,
+            "maxHP": 5,
+            "hp": 5,
+            "dmg": 1,
+            "FAST": 1,
+            "xp_value": 18
+          },
+
+          "actor":"ACTOR_FIGHTER",
+          "equipment":["HAT_LEATHER_BROWN","HATCHET_NICE"],
+          "inventory": [
+
+          ]
+        }
+      },
+      {
+        "id":"BANDIT_HAT_RED",
+        "data":{
+          "status": {
+            "name": "Bandit Redhat",
+            "faction": "EVIL",
+            "icon_key": "face_3",
+            "level_table": "level_table_human_default",
+            "aggro_range": 5,
+            "height": 1.62,
+            "level": 2,
+            "size": 0.85,
+            "maxHP": 8,
+            "hp": 8,
+            "dmg": 1,
+            "FAST": 1,
+            "xp_value": 22
+          },
+
+          "actor":"ACTOR_FIGHTER",
+          "equipment":["HAT_CLOTH_RED","HATCHET_NICE"],
+          "inventory": [
+
+          ]
+        }
+      },
+      {
+        "id":"BANDIT_TOUGH",
+        "data":{
+          "status": {
+            "name": "Bandit Tough",
+            "faction": "EVIL",
+            "icon_key": "face_3",
+            "level_table": "level_table_human_default",
+            "level": 4,
+            "aggro_range": 6,
+            "height": 1.85,
+            "size": 1.04,
+            "maxHP": 24,
+            "hp": 24,
+            "dmg": 1,
+            "FAST": 1,
+            "xp_value": 75
+          },
+
+          "actor":"ACTOR_FIGHTER",
+          "equipment":[
+            "SWORD_FANCY", "BELT_PLATE", "BOOTS_SCALE", "LEGS_CHAIN", "SHIRT_CHAIN"
+          ],
+          "inventory": [
+
+          ]
+        }
+      },
+      {
+        "id":"BANDIT_GUARD",
+        "data":{
+          "status": {
+            "name": "Bandit Guard",
+            "faction": "EVIL",
+            "icon_key": "face_3",
+            "level_table": "level_table_human_default",
+            "level": 3,
+            "aggro_range": 6,
+            "height": 1.85,
+            "size": 1.08,
+            "maxHP": 14,
+            "hp": 14,
+            "dmg": 1,
+            "FAST": 1,
+            "xp_value": 55
+          },
+
+          "actor":"ACTOR_FIGHTER",
+          "equipment":[
+            "SWORD_FANCY", "BELT_BRONZE", "HELMET_BRONZE" ,"BOOTS_SCALE", "BREASTPLATE_BRONZE", "LEGS_CHAIN", "SHIRT_CHAIN"
+          ],
+          "inventory": [
+
+          ]
+        }
+      },
+      {
+        "id":"BANDIT_LEADER",
+        "data":{
+          "status": {
+            "name": "Bandit Leader",
+            "faction": "EVIL",
+            "icon_key": "face_3",
+            "level_table": "level_table_human_default",
+            "level": 7,
+            "aggro_range": 7,
+            "height": 1.98,
+            "size": 1.17,
+            "maxHP": 16,
+            "hp": 16,
+            "dmg": 2,
+            "FAST": 1.5,
+            "xp_value": 250
+          },
+
+          "actor":"ACTOR_FIGHTER",
+          "equipment":[
+            "AXE_SLICER", "HELMET_VIKING" ,"BELT_PLATE", "BOOTS_SCALE",
+            "LEGS_SCALE", "SHIRT_CHAIN","GLOVES_SCALE", "SHIRT_SCALE"
+          ],
+          "inventory": [
+
+          ]
+        }
+      },
+      {
+        "id":"BANDIT_CHAMPION",
+        "data":{
+          "status": {
+            "name": "Bandit Champion",
+            "faction": "EVIL",
+            "icon_key": "face_3",
+            "level_table": "level_table_human_boss",
+            "level": 13,
+            "aggro_range": 4,
+            "height": 1.98,
+            "size": 1.22,
+            "maxHP": 17,
+            "hp": 17,
+            "dmg": 2,
+            "FAST": 1,
+            "xp_value": 350
+          },
+
+          "actor":"ACTOR_FIGHTER",
+          "equipment":[
+            "SWORD_FANCY", "HAT_LEATHER_BROWN" ,"BELT_PLATE", "BOOTS_SCALE",
+            "LEGS_CHAIN", "SHIRT_CHAIN","GLOVES_SCALE", "BREASTPLATE_BRONZE"
+          ],
+          "inventory": [
+
+          ]
+        }
+      },
+      {
+        "id":"BANDIT_BOSS",
+        "data":{
+          "status": {
+            "name": "Bandit Boss",
+            "faction": "EVIL",
+            "icon_key": "face_3",
+            "level_table": "level_table_human_boss",
+            "level": 18,
+            "aggro_range": 3,
+            "height": 2.18,
+            "size": 1.42,
+            "maxHP": 22,
+            "hp": 22,
+            "dmg": 2,
+            "FAST": 1,
+            "xp_value": 550
+          },
+
+          "actor":"ACTOR_FIGHTER",
+          "equipment":[
+            "EMERALD_BLADE", "HAT_POINTY_WHITE" ,"BELT_PLATE_PURPLE", "BOOTS_SCALE_PURPLE",
+            "LEGS_SCALE_PURPLE", "SHIRT_CHAIN_PURPLE", "GLOVES_SCALE_PURPLE", "SHIRT_SCALE_PURPLE"
+          ],
+          "inventory": [
+
+          ]
+        }
+      },
+      {
+        "id":"COMBAT_TUTOR",
+        "data":{
+          "status": {
+            "name": "Ingvar",
+            "faction": "NEUTRAL",
+            "icon_key": "face_5",
+            "level_table": "level_table_human_boss",
+            "level": 6,
+            "height": 1.85,
+            "size": 1,
+            "hp": 12,
+            "maxHP": 12,
+            "dmg": 1,
+            "FAST": 1,
+            "xp_value": 25
+          },
+
+          "actor":"ACTOR_FIGHTER",
+          "equipment":["SWORD_FANCY", "GLOVES_SCALE", "BELT_PLATE_RED", "BOOTS_SCALE", "LEGS_SCALE_RED", "SHIRT_SCALE_RED"],
+          "inventory": [
+
+          ]
+        }
+      },
+      {
+        "id":"BARB_TRAINER",
+        "data":{
+          "status": {
+            "name": "Joe",
+            "faction": "GOOD",
+            "icon_key": "face_6",
+            "level_table": "level_table_human_default",
+            "level": 9,
+            "height": 2.3,
+            "size": 1.3,
+            "maxHP": 56,
+            "hp": 16,
+            "dmg": 1,
+            "FAST": 1,
+            "xp_value": 50
+          },
+          "actor":"ACTOR_BARB",
+          "equipment":["AXE_SLICER", "HELMET_VIKING", "BARB_BREASTPLATE", "BARB_GREAVES", "BELT_PLATE"]
+        }
+      },
+      {
+        "id":"HOME_DUDE",
+        "data":{
+          "status": {
+            "name": "Eddie",
+            "faction": "GOOD",
+            "icon_key": "face_7",
+            "level_table": "level_table_human_default",
+            "level": 12,
+            "height": 1.88,
+            "size": 1,
+            "maxHP": 19,
+            "hp": 19,
+            "dmg": 1,
+            "FAST": 1,
+            "xp_value": 450
+          },
+          "actor":"ACTOR_DUDE",
+          "equipment":["EMERALD_BLADE", "HAT_CLOTH_WHITE", "BELT_BRONZE"]
+        }
+      }
+    ]
+  }
+}]

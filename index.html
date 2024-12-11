@@ -4,6 +4,7 @@
     <title>SKROT</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <script src="client/js/data_pipeline/worker/WorkerMain.js"></script>
 </head>
 <body>
 
@@ -21,8 +22,23 @@
 <script type="module">
 
     import {Client} from './client/js/Client.js'
+    import {initPipelineAPI} from "./client/js/application/utils/DataUtils.js";
     let client = new Client();
-    client.initClient();
+
+    function indexLoaded(index) {
+
+        console.log("Index Loaded:", index)
+        client.initClient();
+    }
+
+    function pipeReady(e) {
+        console.log("Pipeline Ready", e)
+        client.loadDataIndex(indexLoaded);
+    }
+
+    initPipelineAPI(pipeReady)
+
+
 
 </script>
 

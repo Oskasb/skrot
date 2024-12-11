@@ -1,0 +1,14 @@
+[{
+  "GAME":{
+    "ACTION_POINTS":[
+      {
+        "id":"ACTION_POINTS_FIGHTER",
+        "data":{
+          "maxActionPoints":16,
+          "refillRate":8,
+          "timePerPoint":0.35
+        }
+      }
+    ]
+  }
+}]

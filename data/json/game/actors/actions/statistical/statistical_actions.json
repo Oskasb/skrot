@@ -1,0 +1,168 @@
+[{
+  "GAME_ACTIONS":{
+    "STATISTICAL_ACTIONS":[
+      {
+        "id":"STATISTICAL_FREEHACK_MELEE",
+        "data":{
+          "status": {
+            "RANGE_MIN": 0,
+            "RANGE_MAX": 1,
+            "REQUIRES_TARGET":false,
+            "ACTION_TRIGGER": "ON_DISENGAGE"
+          },
+          "on_hit_apply": {
+            "to_target": [
+              {"modifier": "APPLY_DAMAGE", "value": 2}
+            ]
+          }
+        }
+      },
+      {
+        "id":"STATISTICAL_MELEE_BASH",
+        "data":{
+          "status": {
+            "RANGE_MIN": 0,
+            "RANGE_MAX": 1,
+            "REQUIRES_TARGET":true
+          },
+          "on_hit_apply": {
+            "to_target": [
+              {"modifier": "APPLY_DAMAGE", "value": 2}
+            ]
+          }
+        }
+      },
+      {
+        "id":"STATISTICAL_CHARGE",
+        "data":{
+          "status": {
+            "RANGE_MIN": 2,
+            "RANGE_MAX": 9,
+            "REQUIRES_TARGET":true
+          },
+          "on_selected": {
+            "to_actor": [
+              {"modifier": "SELECT_LEAP", "value": "MELEE_POS"}
+            ]
+          },
+          "on_activation": {
+            "to_actor": [
+              {"modifier": "APPLY_LEAP", "value": "MELEE_POS"}
+            ]
+          },
+          "on_hit_apply": {
+            "to_target": [
+              {"modifier": "APPLY_DAMAGE", "value": 3},
+              {"modifier": "APPLY_KNOCKBACK", "value": 1}
+            ]
+          }
+        }
+      },
+      {
+        "id":"STATISTICAL_THROW",
+        "data":{
+          "status": {
+            "RANGE_MIN": 2,
+            "RANGE_MAX": 15,
+            "REQUIRES_TARGET":true
+          },
+          "on_hit_apply": {
+            "to_target": [
+              {"modifier": "APPLY_DAMAGE", "value": 2}
+            ]
+          }
+        }
+      },
+      {
+        "id":"STATISTICAL_SWORD_SLASH",
+        "data":{
+          "status": {
+            "RANGE_MIN": 0,
+            "RANGE_MAX": 1,
+            "REQUIRES_TARGET":true
+          },
+          "on_hit_apply": {
+            "to_target": [
+              {"modifier": "APPLY_DAMAGE", "value": 4}
+            ]
+          }
+        }
+      },
+      {
+        "id":"STATISTICAL_SWORD_STAB",
+        "data":{
+          "status": {
+            "RANGE_MIN": 0,
+            "RANGE_MAX": 1,
+            "REQUIRES_TARGET":true
+          },
+          "on_hit_apply": {
+            "to_target": [
+              {"modifier": "APPLY_DAMAGE", "value": 4}
+            ]
+          }
+        }
+      },
+      {
+        "id":"STATISTICAL_FIREBALL",
+        "data":{
+          "status": {
+            "RANGE_MIN": 1,
+            "RANGE_MAX": 15,
+            "REQUIRES_TARGET":true
+          },
+          "on_hit_apply": {
+            "to_target": [
+              {"modifier": "APPLY_DAMAGE", "value": 3}
+            ]
+          }
+        }
+      },
+      {
+        "id":"STATISTICAL_MAGIC_MISSILE",
+        "data":{
+          "status": {
+            "RANGE_MIN": 1,
+            "RANGE_MAX": 15,
+            "REQUIRES_TARGET":true
+          },
+          "on_hit_apply": {
+            "to_target": [
+              {"modifier": "APPLY_DAMAGE", "value": 3}
+            ]
+          }
+        }
+      },
+      {
+        "id":"STATISTICAL_FREEZE_BOLT",
+        "data":{
+          "status": {
+            "RANGE_MIN": 1,
+            "RANGE_MAX": 15,
+            "REQUIRES_TARGET":true
+          },
+          "on_hit_apply": {
+            "to_target": [
+              {"modifier": "APPLY_DAMAGE", "value": 3}
+            ]
+          }
+        }
+      },
+      {
+        "id":"STATISTICAL_HEAL_BOLT",
+        "data":{
+          "status": {
+            "RANGE_MIN": 1,
+            "RANGE_MAX": 15,
+            "REQUIRES_TARGET":true
+          },
+          "on_hit_apply": {
+            "to_target": [
+              {"modifier": "APPLY_HEAL", "value": 5}
+            ]
+          }
+        }
+      }
+    ]
+  }
+}]

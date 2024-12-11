@@ -1,0 +1,75 @@
+[
+  {
+    "UI": {
+      "PAGES":[
+        {
+          "id": "page_debug_view_models",
+          "data": [
+            {
+              "containers":[
+                {
+                  "widget_id":"page_models_container",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"widget_hidden_container"
+                }
+              ],
+              "buttons":[
+                {
+                  "widget_id":"button_view_models",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"NODES",
+                    "container_id":"page_models_container",
+                    "offset_x": 0.07,
+                    "offset_y": -0.18,
+                    "dispatch":{
+                      "event":"DEBUG_VIEW_MODELS",
+                      "value":{
+                        "inspect":"nodes"
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_view_models",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"POINTS",
+                    "container_id":"page_models_container",
+                    "offset_x": 0.07,
+                    "offset_y": -0.22,
+                    "dispatch":{
+                      "event":"DEBUG_VIEW_MODELS",
+                      "value":{
+                        "inspect":"points"
+                      }
+                    }
+                  }
+                },
+                {
+                  "widget_id":"button_view_pools",
+                  "widget_class":"GuiExpandingContainer",
+                  "widget_config_id":"button_big_blue",
+                  "options":{
+                    "text":"BOUNDS",
+                    "container_id":"page_models_container",
+                    "offset_x": 0.07,
+                    "offset_y": -0.26,
+                    "dispatch":{
+                      "event":"DEBUG_VIEW_MODELS",
+                      "value":{
+                        "inspect":"bounds"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

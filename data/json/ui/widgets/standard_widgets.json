@@ -1,0 +1,808 @@
+
+[
+  {
+    "UI": {
+      "WIDGET":[
+        {
+          "id": "STANDARD_WIDGETS",
+          "data": [
+            {
+              "id":"progress_indicator_char_swing",
+              "layout":"layout_hp_bar_container",
+              "icon": {
+                "icon_config": "progress_horizontal_hp_bar",
+                "feedback": "feedback_icon_swing_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_hp_bar_container",
+                "feedback": "feedback_surface_swing_container"
+              }
+            },
+            {
+              "id":"progress_indicator_char_hp",
+              "layout":"layout_hp_bar_container",
+              "icon": {
+                "icon_config": "progress_horizontal_hp_bar",
+                "feedback": "feedback_icon_hp_bar_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_hp_bar_container",
+                "feedback": "feedback_surface_hp_bar_container"
+              }
+            },
+
+            {
+              "id":"progress_indicator_action_portrait_hp",
+              "layout":"layout_indicator_action_portrait_hp",
+              "icon": {
+                "icon_config": "progress_vertical_action_portrait_hp",
+                "feedback": "feedback_icon_portrait_hp_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_portrait_hp_container",
+                "feedback": "feedback_surface_anchor"
+              }
+            },
+            {
+              "id":"progress_indicator_portrait_hp",
+              "layout":"layout_portrait_hp_container",
+              "icon": {
+                "icon_config": "progress_vertical_hp_bar",
+                "feedback": "feedback_icon_portrait_hp_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_portrait_hp_container",
+                "feedback": "feedback_surface_anchor"
+              }
+            },
+            {
+              "id":"progress_indicator_portrait_swing",
+              "layout":"layout_portrait_hp_container",
+              "icon": {
+                "icon_config": "progress_vertical_hp_bar",
+                "feedback": "feedback_icon_portrait_swing_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_portrait_hp_container",
+                "feedback": "feedback_surface_anchor"
+              }
+            },
+            {
+              "id":"progress_indicator_turn_progress",
+              "layout":"layout_turn_progress_container",
+              "icon": {
+                "icon_config": "progress_horizontal_xp_bar",
+                "feedback": "feedback_icon_xp_bar_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_xp_bar_container",
+                "feedback": "feedback_surface_xp_bar_container"
+              }
+            },
+            {
+              "id":"progress_status_player_hp",
+              "layout":"layout_xp_bar_container",
+              "icon": {
+                "icon_config": "progress_horizontal_xp_bar",
+                "feedback": "feedback_icon_hp_bar_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_xp_bar_container",
+                "feedback": "feedback_surface_hp_bar_container"
+              }
+            },
+            {
+              "id":"progress_indicator_player_xp",
+              "layout":"layout_xp_bar_container",
+              "icon": {
+                "icon_config": "progress_horizontal_xp_bar",
+                "feedback": "feedback_icon_xp_bar_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_xp_bar_container",
+                "feedback": "feedback_surface_xp_bar_container"
+              }
+            },
+            {
+              "id":"widget_attack_point_container",
+              "layout":"layout_attack_point_container",
+              "surface": {
+                "nineslice": "nineslice_surface_attack_points_container",
+                "feedback": "feedback_surface_anchor"
+              }
+            },
+
+            {
+              "id":"icon_action_point",
+              "layout":"layout_attack_point",
+              "icon": {
+                "icon_config": "attack_point_icon",
+                "feedback": "feedback_attack_icon"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_attack_point_icon",
+                "feedback": "feedback_surface_action_point_icon"
+              }
+            },
+            {
+              "id":"icon_attack_point",
+              "layout":"layout_attack_point",
+              "icon": {
+                "icon_config": "attack_point_icon",
+                "feedback": "feedback_attack_icon"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_attack_point_icon",
+                "feedback": "feedback_surface_attack_icon"
+              }
+            },
+            {
+              "id":"widget_action_point_container",
+              "layout":"layout_action_point_container",
+              "icon": {
+                "icon_config": "progress_horizontal_action_point_status",
+                "feedback": "feedback_icon_action_status_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_action_status_container",
+                "feedback": "feedback_button_action"
+              }
+            },
+            {
+              "id":"widget_action_point",
+              "layout":"layout_action_point",
+              "icon": {
+                "icon_config": "progress_vertical_action_point",
+                "feedback": "feedback_icon_action_point_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_action_status_container",
+                "feedback": "feedback_button_action"
+              }
+            },
+            {
+              "id":"widget_action_button_container",
+              "layout":"layout_action_button_container",
+              "surface": {
+                "nineslice": "nineslice_surface_attack_points_container",
+                "feedback": "feedback_surface_anchor"
+              }
+            },
+            {
+              "id":"widget_companion_action_button_container",
+              "layout":"layout_companion_action_button_container",
+              "surface": {
+                "nineslice": "nineslice_surface_attack_points_container",
+                "feedback": "feedback_surface_anchor"
+              }
+            },
+            {
+              "id":"widget_action_button",
+              "layout":"layout_action_button",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_action_button"
+              },
+              "icon": {
+                "icon_config": "action_icon_config",
+                "feedback": "feedback_icon_action"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_action_button",
+                "feedback": "feedback_button_action"
+              }
+            },
+            {
+              "id":"icon_actor_hint",
+              "layout":"layout_icon_hint",
+              "icon": {
+                "icon_config": "icon_full_size",
+                "feedback": "feedback_button_icon_grey"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_hint",
+                "feedback": "feedback_surface_hint"
+              }
+            },
+            {
+              "id":"icon_actor_status_hint",
+              "layout":"layout_icon_hint",
+              "icon": {
+                "icon_config": "icon_full_size",
+                "feedback": "feedback_button_icon_grey"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_debug",
+                "feedback": "feedback_surface_debug"
+              }
+            },
+            {
+              "id":"widget_icon_button",
+              "layout":"layout_icon_button",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_action_button"
+              },
+              "icon": {
+                "icon_config": "button_icon_config",
+                "feedback": "feedback_button_icon"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_portrait_button",
+                "feedback": "feedback_icon_button"
+              }
+            },
+            {
+              "id":"widget_main_portrait_button",
+              "layout":"layout_main_portrait_button",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_action_button"
+              },
+              "icon": {
+                "icon_config": "button_icon_config",
+                "feedback": "feedback_button_icon"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_portrait_button",
+                "feedback": "feedback_icon_button"
+              }
+            },
+            {
+              "id":"widget_icon_button_tiny",
+              "layout":"layout_icon_button_tiny",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_action_button"
+              },
+              "icon": {
+                "icon_config": "button_sequencer_icon_config",
+                "feedback": "feedback_button_icon_grey"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_sequencer_button",
+                "feedback": "feedback_icon_button"
+              }
+            },
+
+            {
+              "id":"widget_world_nameplate",
+              "layout":"layout_world_nameplate",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_nameplate"
+              },
+              "icon": {
+                "icon_config": "button_sequencer_icon_config",
+                "feedback": "feedback_button_icon_grey"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_world_nameplate",
+                "feedback": "feedback_icon_button"
+              }
+            },
+
+            {
+              "id":"widget_party_portrait_actor_button",
+              "layout":"layout_party_portrait_actor_button",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_action_button"
+              },
+              "icon": {
+                "icon_config": "button_sequencer_icon_config",
+                "feedback": "feedback_button_icon"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_sequencer_button",
+                "feedback": "feedback_icon_button"
+              }
+            },
+            {
+              "id":"widget_actor_action_portrait_button",
+              "layout":"layout_actor_action_portrait_button",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_action_button"
+              },
+              "icon": {
+                "icon_config": "button_actor_action_portrait_button",
+                "feedback": "feedback_button_icon"
+              },
+              "surface": {
+                "nineslice": "nineslice_actor_action_portrait_button",
+                "feedback": "feedback_icon_button"
+              }
+            },
+            {
+              "id":"widget_companion_sequencer_button",
+              "layout":"layout_sequencer_portrait_button",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_action_button"
+              },
+              "icon": {
+                "icon_config": "button_sequencer_icon_config",
+                "feedback": "feedback_button_icon"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_sequencer_button",
+                "feedback": "feedback_icon_button"
+              }
+            },
+            {
+              "id":"widget_hostile_sequencer_button",
+              "layout":"layout_sequencer_portrait_button",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_action_button"
+              },
+              "icon": {
+                "icon_config": "button_sequencer_icon_config",
+                "feedback": "feedback_button_icon"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_sequencer_button",
+                "feedback": "feedback_opponent_icon_button"
+              }
+            },
+            {
+              "id":"widget_companion_portrait_button",
+              "layout":"layout_companion_portrait_button",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_action_button"
+              },
+              "icon": {
+                "icon_config": "button_icon_config",
+                "feedback": "feedback_button_icon"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_portrait_button",
+                "feedback": "feedback_icon_button"
+              }
+            },
+            {
+              "id":"widget_hostile_portrait_button",
+              "layout":"layout_companion_portrait_button",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_action_button"
+              },
+              "icon": {
+                "icon_config": "button_icon_config",
+                "feedback": "feedback_button_icon"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_portrait_button",
+                "feedback": "feedback_opponent_icon_button"
+              }
+            },
+            {
+              "id":"widget_world_nameplate_frame",
+              "layout":"layout_world_nameplate_frame",
+              "icon": {
+                "icon_config": "progress_vertical_actionbutton",
+                "feedback": "feedback_icon_action_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_world_nameplate_frame",
+                "feedback": "feedback_surface_container"
+              }
+            },
+            {
+              "id":"widget_button_state_tiny_frame",
+              "layout":"layout_button_state_tiny_frame",
+              "icon": {
+                "icon_config": "progress_vertical_actionbutton",
+                "feedback": "feedback_icon_action_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_action_button",
+                "feedback": "feedback_surface_container"
+              }
+            },
+            {
+              "id":"widget_button_state_progress_frame",
+              "layout":"layout_button_state_progress_frame",
+              "icon": {
+                "icon_config": "progress_vertical_actionbutton",
+                "feedback": "feedback_icon_action_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_action_button",
+                "feedback": "feedback_surface_container"
+              }
+            },
+            {
+              "id":"widget_actor_action_portrait_frame",
+              "layout":"layout_actor_action_portrait_frame",
+              "icon": {
+                "icon_config": "progress_vertical_selected_actor",
+                "feedback": "feedback_icon_action_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_actor_action_portrait_frame",
+                "feedback": "feedback_surface_container"
+              }
+            },
+            {
+              "id":"widget_action_button_progress",
+              "layout":"layout_progress_action_button",
+              "icon": {
+                "icon_config": "progress_vertical_actionbutton",
+                "feedback": "feedback_icon_action_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_action_button",
+                "feedback": "feedback_surface_container"
+              }
+            },
+            {
+              "id":"button_big_red",
+              "layout":"layout_major_button",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_red"
+              },
+              "icon": {
+                "icon_config": "gui_icon",
+                "feedback": "feedback_icon_button"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_button_big",
+                "feedback": "feedback_button_rounded_red"
+              }
+            },
+            {
+              "id":"progress_indicator_big_red",
+              "layout":"layout_progress_button_fat",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_red"
+              },
+              "icon": {
+                "icon_config": "progress_horizontal_slim",
+                "feedback": "feedback_icon_progress"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_progress_button_big",
+                "feedback": "feedback_progress_button_red"
+              }
+            },
+            {
+              "id":"button_big_blue",
+              "layout":"layout_major_button",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_blue"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_button_big",
+                "feedback": "feedback_surface_blue"
+              }
+            },
+            {
+              "id":"button_sharp_blue",
+              "layout":"layout_button_sharp",
+              "text": {
+                "sprite_font": "sprite_font_button_big",
+                "feedback": "feedback_text_sharp_blue"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_button_sharp",
+                "feedback": "feedback_button_sharp_blue"
+              }
+            },
+            {
+              "id":"widget_input_pointer",
+              "layout":"layout_input_pointer",
+              "surface": {
+                "nineslice": "nineslice_surface_thumbstick",
+                "feedback": "feedback_surface_thumbstick"
+              }
+            },
+            {
+              "id":"widget_thumbstick",
+              "layout":"layout_thumbstick",
+              "icon": {
+                "icon_config": "stick_center_icon",
+                "feedback": "feedback_stick_icon"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_thumbstick",
+                "feedback": "feedback_surface_thumbstick"
+              }
+            },
+            {
+              "id":"widget_thumbstick_small",
+              "layout":"layout_thumbstick_small",
+              "icon": {
+                "icon_config": "stick_center_icon",
+                "feedback": "feedback_stick_icon"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_thumbstick",
+                "feedback": "feedback_surface_thumbstick"
+              }
+            },
+            {
+              "id":"widget_axis_feedback",
+              "layout":"layout_thumbstick",
+              "icon": {
+                "icon_config": "feedback_axis_icon",
+                "feedback": "feedback_axis_icon"
+              },
+              "text": {
+                "sprite_font": "sprite_font_main_text",
+                "feedback": "feedback_hud_text"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_axis_feedback",
+                "feedback": "feedback_surface_axis"
+              }
+            },
+            {
+              "id":"scene_page_header_text_box",
+              "layout":"layout_page_header_text_box",
+              "text": {
+                "sprite_font": "sprite_font_main_text",
+                "feedback": "feedback_text_page_header"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_header_text_box",
+                "feedback":  "feedback_surface_header_text_box"
+              }
+            },
+            {
+              "id":"main_text_box",
+              "layout":"layout_main_text_box",
+              "text": {
+                "sprite_font": "sprite_font_main_text",
+                "feedback": "feedback_text_page_text_box"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_header_text_box",
+                "feedback":  "feedback_surface_page_text_box"
+              }
+            },
+            {
+              "id":"page_top_bar_expanding_container",
+              "layout":"layout_top_bar_expanding_container",
+              "surface": {
+                "nineslice": "nineslice_surface_debug",
+                "feedback": "feedback_surface_header_text_box"
+              }
+            },
+            {
+              "id":"widget_info_elem_container",
+              "layout":"layout_info_elem_container",
+              "surface": {
+                "nineslice": "nineslice_surface_stat_elem",
+                "feedback": "feedback_surface_stat_elem"
+              }
+            },
+            {
+              "id":"widget_stat_elem_container",
+              "layout":"layout_stat_elem_container",
+              "surface": {
+                "nineslice": "nineslice_surface_stat_elem",
+                "feedback": "feedback_surface_stat_elem"
+              }
+            },
+            {
+              "id":"widget_stats_container_tiny",
+              "layout":"layout_stats_container_tiny",
+              "surface": {
+                "nineslice": "nineslice_surface_debug_tiny",
+                "feedback": "feedback_surface_container_tiny"
+              }
+            },
+            {
+              "id":"widget_stats_container",
+              "layout":"layout_stats_container",
+              "surface": {
+                "nineslice": "nineslice_surface_debug",
+                "feedback": "feedback_surface_container"
+              }
+            },
+            {
+              "id":"widget_hidden_container",
+              "layout":"layout_gui_anchor_point",
+              "surface": {
+                "nineslice": "nineslice_surface_debug",
+                "feedback": "feedback_surface_anchor"
+              }
+            },
+            {
+              "id":"widget_expanding_container",
+              "layout":"layout_expanding_container",
+              "surface": {
+                "nineslice": "nineslice_surface_debug",
+                "feedback": "feedback_surface_container"
+              }
+            },
+            {
+              "id":"widget_encounter_sequencer_expanding_container",
+              "layout":"layout_encounter_sequencer_expanding_container",
+              "surface": {
+                "nineslice": "nineslice_surface_debug",
+                "feedback": "feedback_surface_anchor"
+              }
+            },
+            {
+              "id":"widget_party_portrait_expanding_container",
+              "layout":"layout_party_portrait_expanding_container",
+              "surface": {
+                "nineslice": "nineslice_surface_debug",
+                "feedback": "feedback_surface_anchor"
+              }
+            },
+            {
+              "id":"widget_camera_status_expanding_container",
+              "layout":"layout_camera_status_expanding_container",
+              "surface": {
+                "nineslice": "nineslice_surface_debug",
+                "feedback": "feedback_surface_anchor"
+              }
+            },
+            {
+              "id":"widget_piece_info_name_key",
+              "layout":"layout_piece_info_name_key",
+              "text": {
+                "sprite_font": "sprite_font_debug",
+                "feedback": "feedback_info_text"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_small_text",
+                "feedback": "feedback_surface_hidden"
+              }
+            },
+            {
+              "id":"widget_piece_info_name_value",
+              "layout":"layout_piece_info_name_value",
+              "text": {
+                "sprite_font": "sprite_font_debug",
+                "feedback": "feedback_info_text"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_small_text",
+                "feedback": "feedback_surface_hidden"
+              }
+            },
+            {
+              "id":"widget_piece_info_elem_key",
+              "layout":"layout_piece_info_elem_key",
+              "text": {
+                "sprite_font": "sprite_font_debug",
+                "feedback": "feedback_info_text"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_small_text",
+                "feedback": "feedback_surface_hidden"
+              }
+            },
+            {
+              "id":"widget_piece_info_elem_value",
+              "layout":"layout_piece_info_elem_value",
+              "text": {
+                "sprite_font": "sprite_font_debug",
+                "feedback": "feedback_info_text"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_small_text",
+                "feedback": "feedback_surface_hidden"
+              }
+            },
+            {
+              "id":"widget_stat_elem_value",
+              "layout":"layout_stat_elem_value",
+              "text": {
+                "sprite_font": "sprite_font_debug",
+                "feedback": "feedback_info_text"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_small_text",
+                "feedback": "feedback_surface_hidden"
+              }
+            },
+
+            {
+              "id":"widget_stat_elem_key",
+              "layout":"layout_stat_elem_key",
+              "text": {
+                "sprite_font": "sprite_font_debug",
+                "feedback": "feedback_info_text"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_small_text",
+                "feedback": "feedback_surface_hidden"
+              }
+            },
+
+            {
+              "id":"widget_stats_key_box",
+              "layout":"layout_stats_key_box",
+              "text": {
+                "sprite_font": "sprite_font_debug",
+                "feedback": "feedback_info_text"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_small_text",
+                "feedback": "feedback_surface_stat_label"
+              }
+            },
+
+
+            {
+              "id":"widget_stats_value_box",
+              "layout":"layout_stats_value_box",
+              "text": {
+                "sprite_font": "sprite_font_debug",
+                "feedback": "feedback_info_text"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_small_text",
+                "feedback": "feedback_surface_stat_label"
+              }
+            },
+            {
+              "id":"widget_stats_key_box_tiny",
+              "layout":"layout_stats_key_box_tiny",
+              "text": {
+                "sprite_font": "sprite_font_debug",
+                "feedback": "feedback_info_text"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_small_text",
+                "feedback": "feedback_surface_stat_label"
+              }
+            },
+
+
+            {
+              "id":"widget_stats_value_box_tiny",
+              "layout":"layout_stats_value_box_tiny",
+              "text": {
+                "sprite_font": "sprite_font_debug",
+                "feedback": "feedback_info_text"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_small_text",
+                "feedback": "feedback_surface_stat_label"
+              }
+            },
+            {
+              "id":"debug_text_box",
+              "layout":"layout_debug_text_box",
+              "text": {
+                "sprite_font": "sprite_font_debug",
+                "feedback": "feedback_debug_text"
+              },
+              "surface": {
+                "nineslice": "nineslice_surface_debug",
+                "feedback": "feedback_surface_debug"
+              }
+            },
+            {
+              "id":"widget_vertical_container",
+              "layout":"layout_vertical_container",
+              "surface": {
+                "nineslice": "nineslice_surface_debug",
+                "feedback": "feedback_surface_container"
+              }
+            },
+            {
+              "id":"widget_gui_anchor",
+              "layout":"layout_gui_anchor_point",
+              "surface": {
+                "nineslice": "nineslice_surface_anchor",
+                "feedback":"feedback_surface_anchor"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

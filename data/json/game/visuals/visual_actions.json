@@ -1,0 +1,199 @@
+[{
+  "GAME_VISUALS":{
+    "ACTIONS":[
+      {
+        "id":"VISUAL_FREEHACK_MELEE",
+        "data":{
+          "name": "Freehack",
+          "icon_key": "icon_fist_bash",
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_magic_power",
+            "fx_active":"combat_effect_freehack_missile",
+            "fx_apply":"combat_effect_magic_hit",
+            "fx_post_hit":"damage_effect_magic_residual",
+            "anim_selected": "GUARD_HANG",
+            "anim_precast": "SW_BK_R",
+            "anim_active": "GUARD_HANG",
+            "anim_apply": "GUARD_INSIDE",
+            "anim_post_hit": "GUARD_SHORT"
+          }
+        }
+      },
+      {
+        "id":"VISUAL_MELEE_BASH",
+        "data":{
+          "name": "Bash",
+          "icon_key": "icon_fist_bash",
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_magic_power",
+            "fx_active":"combat_effect_melee_missile",
+            "fx_apply":"combat_effect_magic_hit",
+            "fx_post_hit":"damage_effect_magic_residual",
+            "anim_selected": "GUARD_BACK",
+            "anim_precast": "GUARD_BACK",
+            "anim_active": "SW_BK_R",
+            "anim_apply": "GUARD_SIDE",
+            "anim_post_hit": "GUARD_SHORT"
+          }
+        }
+      },
+      {
+        "id":"VISUAL_CHARGE",
+        "data":{
+          "name": "Charge",
+          "icon_key": "icon_charge",
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_magic_power",
+            "fx_active":"combat_effect_melee_missile",
+            "fx_apply":"combat_effect_magic_hit",
+            "fx_post_hit":"damage_effect_magic_residual",
+            "anim_selected": "GUARD_HANG",
+            "anim_precast": "GUARD_HANG",
+            "anim_active": "CUT",
+            "anim_apply": "GUARD_BACK",
+            "anim_post_hit": "GUARD_SHORT"
+          }
+        }
+      },
+      {
+        "id":"VISUAL_THROW",
+        "data":{
+          "name": "Throw",
+          "icon_key": "icon_throw",
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_magic_power",
+            "fx_active":"combat_effect_magic_missile",
+            "fx_apply":"combat_effect_magic_hit",
+            "fx_post_hit":"damage_effect_magic_residual",
+            "anim_selected": "GUARD_HIGH",
+            "anim_precast": "CUT",
+            "anim_active": "SW_BK_R",
+            "anim_apply": "GUARD_BACK",
+            "anim_post_hit": "GUARD_SHORT"
+          }
+        }
+      },
+      {
+        "id":"VISUAL_SWORD_SLASH",
+        "data":{
+          "name": "Slash",
+          "icon_key": "icon_sword_slash",
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_magic_power",
+            "fx_active":"combat_effect_melee_missile",
+            "fx_apply":"combat_effect_magic_hit",
+            "fx_post_hit":"damage_effect_magic_residual",
+            "anim_selected": "GUARD_SHORT",
+            "anim_precast": "GUARD_HANG",
+            "anim_active": "CUT",
+            "anim_apply": "GUARD_BACK",
+            "anim_post_hit": "GUARD_INSIDE"
+          }
+        }
+      },
+      {
+        "id":"VISUAL_SWORD_STAB",
+        "data":{
+          "name": "Stab",
+          "icon_key": "icon_sword_stab",
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_magic_power",
+            "fx_active":"combat_effect_melee_missile",
+            "fx_apply":"combat_effect_magic_hit",
+            "fx_post_hit":"damage_effect_magic_residual",
+            "anim_selected": "GUARD_INSIDE",
+            "anim_precast": "GUARD_LONG",
+            "anim_active": "GUARD_LONG",
+            "anim_apply": "GUARD_INSIDE",
+            "anim_post_hit": "GUARD_HANG"
+          }
+        }
+      },
+      {
+        "id":"VISUAL_FIREBALL",
+        "data":{
+          "name": "Burn",
+          "icon_key": "fire_ball",
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_fire",
+            "fx_active":"combat_effect_fire_missile",
+            "fx_apply":"combat_effect_fireball",
+            "fx_post_hit":"damage_effect_catch_on_fire",
+            "anim_selected": "GUARD_LOW",
+            "anim_precast": "GUARD_HIGH",
+            "anim_active": "SW_L_T_R",
+            "anim_apply": "GUARD_BACK",
+            "anim_post_hit": "GUARD_SHORT"
+          }
+
+        }
+      },
+      {
+        "id":"VISUAL_MAGIC_MISSILE",
+        "data":{
+          "name": "Blast",
+          "icon_key": "magic_missile",
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_magic_power",
+            "fx_active":"combat_effect_magic_missile",
+            "fx_apply":"combat_effect_magic_hit",
+            "fx_post_hit":"damage_effect_magic_residual",
+            "anim_selected": "GUARD_LOW",
+            "anim_precast": "GUARD_HIGH",
+            "anim_active": "SW_L_T_R",
+            "anim_apply": "GUARD_BACK",
+            "anim_post_hit": "GUARD_SHORT"
+          }
+
+        }
+      },
+      {
+        "id":"VISUAL_FREEZE_BOLT",
+        "data":{
+          "name": "Freeze",
+          "icon_key": "frostball",
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_frost",
+            "fx_active":"combat_effect_frost_missile",
+            "fx_apply":"combat_effect_target_freeze",
+            "fx_post_hit":"damage_effect_stay_frozen",
+            "anim_selected": "GUARD_LOW",
+            "anim_precast": "GUARD_HIGH",
+            "anim_active": "SW_L_T_R",
+            "anim_apply": "GUARD_BACK",
+            "anim_post_hit": "GUARD_SHORT"
+          }
+        }
+
+      },
+      {
+        "id":"VISUAL_HEAL_BOLT",
+        "data":{
+          "name": "Heal",
+          "icon_key": "heal_icon",
+          "effects": {
+            "fx_selected":"combat_effect_hands_magic_power",
+            "fx_precast":"combat_effect_hands_heal_power",
+            "fx_active":"combat_effect_heal_missile",
+            "fx_apply":"combat_effect_heal_apply",
+            "fx_post_hit":"damage_effect_heal_residual",
+            "anim_selected": "SW_L_T_R",
+            "anim_precast": "GUARD_HIGH",
+            "anim_active": "SW_L_T_R",
+            "anim_apply": "GUARD_BACK",
+            "anim_post_hit": "GUARD_SHORT"
+          }
+        }
+      }
+    ]
+  }
+}]

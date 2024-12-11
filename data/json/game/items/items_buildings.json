@@ -1,0 +1,36 @@
+[{
+  "GAME":{
+    "ITEMS":[
+      {
+        "id": "ITEM_KIT_HOVEL",
+        "data": {
+          "visual_id":"VISUAL_ICON_KIT_HOVEL",
+          "building_template": "HOUSE_WOOD_6x12",
+          "status": {
+            "NAME":"Kit: Hovel",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "KIT",
+            "RARITY": "COMMON",
+            "QUALITY": "POOR",
+            "TEXT": "Construction kit for building a Hovel on a private estate."
+          }
+        }
+      },
+      {
+        "id": "ITEM_KIT_KEEP",
+        "data": {
+          "visual_id":"VISUAL_ICON_KIT_HOVEL",
+          "building_template": "KEEP MAIN",
+          "status": {
+            "NAME":"Kit: Main Keep",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "KIT",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "POOR",
+            "TEXT": "Construction kit for building a Main Keep on a private estate."
+          }
+        }
+      }
+    ]
+  }
+}]

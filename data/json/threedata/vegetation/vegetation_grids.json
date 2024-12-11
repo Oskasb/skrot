@@ -1,0 +1,73 @@
+[
+  {
+    "VEGETATION": {
+      "GRID":[
+        {
+          "id":"vegetation_grid",
+          "data": {
+            "lod_levels": [
+              {
+                "debug": false,
+                "hide_tiles": true,
+                "elevation" : 0.1,
+                "tile_size" : 0.8,
+                "tile_range" : 5,
+                "tile_spacing" : 22,
+                "max_plants":25,
+                "plants":[
+                  "snow_small",
+                  "pine_small",
+                  "cactus_3",
+                  "cactus_5",
+                  "leafy_small",
+                  "grass_low_1_dead",
+                  "grass_low_1_dry",
+                  "grass_low_1_flowery",
+                  "grass_low_3_flowery",
+                  "grass_low_2",
+                  "grass_low_4_green",
+                  "grass_low_5_dry",
+                  "grass_low_6_bright",
+                  "reeds_1_small",
+                  "reeds_2_small",
+                  "grass_tall_sparse_1",
+                  "grass_tall_sparse_2",
+                  "bushes_2_small",
+                  "bushes_1_flowery_small",
+                  "ferns_1",
+                  "reeds_3_small"
+                ]
+              },
+              {
+                "hide_tiles": true,
+                "elevation" : 0.1,
+                "tile_size" : 0.8,
+                "tile_range" : 4,
+                "tile_spacing" : 80,
+                "max_plants":14,
+                "plants":[
+                  "snow_small",
+                  "pine_big",
+                  "cactus_1",
+                  "cactus_3",
+                  "cactus_4",
+                  "bushes_low_2",
+                  "grass_tall_1",
+                  "grass_tall_2",
+                  "ferns_1",
+                  "reeds_1",
+                  "reeds_3",
+                  "grass_tall_sparse_2",
+                  "reeds_2",
+                  "leafy_big",
+                  "bushes_1",
+                  "bushes_1_flowery"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

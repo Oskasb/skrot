@@ -1,0 +1,1068 @@
+[{
+  "GAME":{
+    "ITEMS":[
+      {
+        "id": "ITEM_MATERIAL_INGOT_COPPER",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_INGOT_COPPER",
+          "status": {
+            "NAME":"Copper Ingot",
+            "ITEM_LEVEL": 8,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_INGOT_SILVER",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_INGOT_SILVER",
+          "status": {
+            "NAME":"Silver Ingot",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_INGOT_GOLD",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_INGOT_GOLD",
+          "status": {
+            "NAME":"Gold Ingot",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_INGOT_PLATINUM",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_INGOT_PLATINUM",
+          "status": {
+            "NAME":"Platinum Ingot",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "EPIC",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_INGOT_MITHRIL",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_INGOT_MITHRIL",
+          "status": {
+            "NAME":"Mithril Ingot",
+            "ITEM_LEVEL": 0,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "SUPERB"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_INGOT_LEAD",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_INGOT_LEAD",
+          "status": {
+            "NAME":"Lead Ingot",
+            "ITEM_LEVEL": 4,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "PLAIN",
+            "QUALITY": "POOR"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_MATERIAL_INGOT_TIN",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_INGOT_IRON",
+          "status": {
+            "NAME":"Copper Ingot",
+            "ITEM_LEVEL": 10,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_INGOT_BRONZE",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_INGOT_BRONZE",
+          "status": {
+            "NAME":"Bronze Ingot",
+            "ITEM_LEVEL": 14,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_INGOT_IRON",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_INGOT_IRON",
+          "status": {
+            "NAME":"Iron Ingot",
+            "ITEM_LEVEL": 18,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_INGOT_STEEL",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_INGOT_STEEL",
+          "status": {
+            "NAME":"Steel Ingot",
+            "ITEM_LEVEL": 28,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_INGOT_NICKEL",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_INGOT_STEEL",
+          "status": {
+            "NAME":"Nickel Ingot",
+            "ITEM_LEVEL": 24,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_INGOT_TITANIUM",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_INGOT_TITANIUM",
+          "status": {
+            "NAME":"Titanium Ingot",
+            "ITEM_LEVEL": 38,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "EPIC",
+            "QUALITY": "SUPERB"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_INGOT_ADAMANTIUM",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_INGOT_ADAMANTIUM",
+          "status": {
+            "NAME":"Adamantium Ingot",
+            "ITEM_LEVEL": 48,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "SUPERB"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_LEATHER_FLIMSY",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_LEATHER_FLIMSY",
+          "status": {
+            "NAME":"Flimsy Leather",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "PLAIN",
+            "QUALITY": "POOR"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_LEATHER_PATCHED",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_LEATHER_PATCHED",
+          "status": {
+            "NAME":"Patched Leather",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_LEATHER_LIGHT",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_LEATHER_LIGHT",
+          "status": {
+            "NAME":"Light Leather",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_LEATHER_ROUGH",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_LEATHER_ROUGH",
+          "status": {
+            "NAME":"Rough Leather",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_LEATHER_THICK",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_LEATHER_THICK",
+          "status": {
+            "NAME":"Thick Leather",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "EPIC",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_LEATHER_STRONG",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_LEATHER_STRONG",
+          "status": {
+            "NAME":"Strong Leather",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "SUPERB"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_PADDING_FLIMSY",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_LEATHER_FLIMSY",
+          "status": {
+            "NAME":"Flimsy Leather Padding",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "PLAIN",
+            "QUALITY": "POOR"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_PADDING_PATCHED",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_LEATHER_PATCHED",
+          "status": {
+            "NAME":"Patched Leather Padding",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_MATERIAL_PADDING_LIGHT",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_LEATHER_LIGHT",
+          "status": {
+            "NAME":"Light Leather Padding",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_PADDING_ROUGH",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_LEATHER_ROUGH",
+          "status": {
+            "NAME":"Rough Leather Padding",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_PADDING_THICK",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_LEATHER_THICK",
+          "status": {
+            "NAME":"Thick Leather Padding",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "EPIC",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_PADDING_STRONG",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_LEATHER_STRONG",
+          "status": {
+            "NAME":"Strong Leather Padding",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "SUPERB"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_MATERIAL_PADDING_WEAK",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_FABRIC_WEAK",
+          "status": {
+            "NAME":"Weak Cloth Padding",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "PLAIN",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_PADDING_STITCHED",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_FABRIC_STITCHED",
+          "status": {
+            "NAME":"Patched Leather Padding",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_MATERIAL_PADDING_PLAIN",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_FABRIC_PLAIN",
+          "status": {
+            "NAME":"Plain Cloth Padding",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_PADDING_DURABLE",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_FABRIC_DURABLE",
+          "status": {
+            "NAME":"Durable Cloth Padding",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_PADDING_DYNAMIC",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_FABRIC_DYNAMIC",
+          "status": {
+            "NAME":"Dynamic Cloth Padding",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "EPIC",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_PADDING_VIBRANT",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_FABRIC_VIBRANT",
+          "status": {
+            "NAME":"Vibrant Cloth Padding",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+
+
+      {
+        "id": "ITEM_MATERIAL_BINDING_FLIMSY",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_STRIPS_FLIMSY",
+          "status": {
+            "NAME":"Flimsy Leather Strips",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "PLAIN",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_BINDING_PATCHED",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_STRIPS_PATCHED",
+          "status": {
+            "NAME":"Patched Leather Strips",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_BINDING_LIGHT",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_STRIPS_LIGHT",
+          "status": {
+            "NAME":"Light Leather Strips",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_BINDING_ROUGH",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_STRIPS_ROUGH",
+          "status": {
+            "NAME":"Rough Leather Strips",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_BINDING_THICK",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_STRIPS_THICK",
+          "status": {
+            "NAME":"Thick Leather Strips",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_BINDING_STRONG",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_STRIPS_STRONG",
+          "status": {
+            "NAME":"Strong Leather Strips",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "EPIC"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_MATERIAL_CHEMICALS_MURKY",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_CHEMICALS_MURKY",
+          "status": {
+            "NAME":"Murky Chemicals",
+            "ITEM_LEVEL": 11,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "PLAIN",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_CHEMICALS_IMPURE",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_CHEMICALS_IMPURE",
+          "status": {
+            "NAME":"Impure Chemicals",
+            "ITEM_LEVEL": 11,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_CHEMICALS_CLEAR",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_CHEMICALS_CLEAR",
+          "status": {
+            "NAME":"Clear Chemicals",
+            "ITEM_LEVEL": 11,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_CHEMICALS_PURE",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_CHEMICALS_PURE",
+          "status": {
+            "NAME":"Pure Chemicals",
+            "ITEM_LEVEL": 11,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_MATERIAL_CHEMICALS_BRIGHT",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_CHEMICALS_BRIGHT",
+          "status": {
+            "NAME":"Bright Chemicals",
+            "ITEM_LEVEL": 11,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "EPIC",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_CHEMICALS_INFUSED",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_CHEMICALS_INFUSED",
+          "status": {
+            "NAME":"Infused Chemicals",
+            "ITEM_LEVEL": 11,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "LEGENDARY"
+          }
+        }
+      },
+
+
+      {
+        "id": "ITEM_MATERIAL_COOLANT_DIRT",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_COOLANT_DIRT",
+          "status": {
+            "NAME":"Dirt Coolant",
+            "ITEM_LEVEL": 2,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "PLAIN",
+            "QUALITY": "POOR"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_COOLANT_WATER",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_COOLANT_WATER",
+          "status": {
+            "NAME":"Water Coolant",
+            "ITEM_LEVEL": 7,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_COOLANT_SAND",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_COOLANT_SAND",
+          "status": {
+            "NAME":"Sand Coolant",
+            "ITEM_LEVEL": 16,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_COOLANT_OIL",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_COOLANT_OIL",
+          "status": {
+            "NAME":"Oil Coolant",
+            "ITEM_LEVEL": 26,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_COOLANT_ADVANCED",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_COOLANT_ADVANCED",
+          "status": {
+            "NAME":"Advanced Coolant",
+            "ITEM_LEVEL": 36,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "EPIC",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_COOLANT_MYSTIC",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_COOLANT_MYSTICAL",
+          "status": {
+            "NAME":"Mystic Coolant",
+            "ITEM_LEVEL": 47,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+
+
+
+      {
+        "id": "ITEM_MATERIAL_LIQUID_POISON",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_LIQUID_POISON",
+          "status": {
+            "NAME":"Bottled Poison",
+            "ITEM_LEVEL": 11,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+
+      {
+        "id": "ITEM_MATERIAL_PLATE_COPPER",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_PLATE_COPPER",
+          "status": {
+            "NAME":"Copper Plating",
+            "ITEM_LEVEL": 6,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "PLAIN",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_PLATE_BRONZE",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_PLATE_BRONZE",
+          "status": {
+            "NAME":"Bronze Plating",
+            "ITEM_LEVEL": 14,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_PLATE_IRON",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_PLATE_IRON",
+          "status": {
+            "NAME":"Iron Plating",
+            "ITEM_LEVEL": 21,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_PLATE_STEEL",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_PLATE_STEEL",
+          "status": {
+            "NAME":"Iron Plating",
+            "ITEM_LEVEL": 28,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_PLATE_TITANIUM",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_PLATE_TITANIUM",
+          "status": {
+            "NAME":"Titanium Plating",
+            "ITEM_LEVEL": 34,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "EPIC",
+            "QUALITY": "SUPERB"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_PLATE_ADAMANTIUM",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_PLATE_ADAMANTIUM",
+          "status": {
+            "NAME":"Adamantium Plating",
+            "ITEM_LEVEL": 46,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "SUPERB"
+          }
+        }
+      },
+
+
+      {
+        "id": "ITEM_MATERIAL_SCALES_COPPER",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_SCALES_COPPER",
+          "status": {
+            "NAME":"Copper Scales",
+            "ITEM_LEVEL": 6,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "PLAIN",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_SCALES_BRONZE",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_SCALES_BRONZE",
+          "status": {
+            "NAME":"Bronze Scales",
+            "ITEM_LEVEL": 14,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_SCALES_IRON",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_SCALES_IRON",
+          "status": {
+            "NAME":"Iron Scales",
+            "ITEM_LEVEL": 21,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_SCALES_STEEL",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_SCALES_STEEL",
+          "status": {
+            "NAME":"Iron Scales",
+            "ITEM_LEVEL": 28,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_SCALES_TITANIUM",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_SCALES_TITANIUM",
+          "status": {
+            "NAME":"Titanium Scales",
+            "ITEM_LEVEL": 34,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "EPIC",
+            "QUALITY": "SUPERB"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_SCALES_ADAMANTIUM",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_SCALES_ADAMANTIUM",
+          "status": {
+            "NAME":"Adamantium Scales",
+            "ITEM_LEVEL": 46,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "SUPERB"
+          }
+        }
+      },
+
+
+      {
+        "id": "ITEM_MATERIAL_SCALES_FLIMSY",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_SCALES_FLIMSY",
+          "status": {
+            "NAME":"Flimsy Scales",
+            "ITEM_LEVEL": 6,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "PLAIN",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_SCALES_PATCHED",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_SCALES_PATCHED",
+          "status": {
+            "NAME":"Patched Scales",
+            "ITEM_LEVEL": 14,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_SCALES_LIGHT",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_SCALES_LIGHT",
+          "status": {
+            "NAME":"Light Scales",
+            "ITEM_LEVEL": 21,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_SCALES_ROUGH",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_SCALES_ROUGH",
+          "status": {
+            "NAME":"Rough Scales",
+            "ITEM_LEVEL": 28,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_SCALES_THICK",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_SCALES_THICK",
+          "status": {
+            "NAME":"Thick Scales",
+            "ITEM_LEVEL": 34,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "EPIC",
+            "QUALITY": "SUPERB"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_SCALES_STRONG",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_SCALES_STRONG",
+          "status": {
+            "NAME":"Strong Scales",
+            "ITEM_LEVEL": 46,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "SUPERB"
+          }
+        }
+      },
+
+
+      {
+        "id": "ITEM_MATERIAL_RINGS_COPPER",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_RINGS_COPPER",
+          "status": {
+            "NAME":"Copper Rings",
+            "ITEM_LEVEL": 11,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "PLAIN",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_RINGS_BRONZE",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_RINGS_BRONZE",
+          "status": {
+            "NAME":"Bronze Rings",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_RINGS_IRON",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_RINGS_IRON",
+          "status": {
+            "NAME":"Iron Rings",
+            "ITEM_LEVEL": 15,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_RINGS_STEEL",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_RINGS_STEEL",
+          "status": {
+            "NAME":"Steel Rings",
+            "ITEM_LEVEL": 19,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_RINGS_TITANIUM",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_RINGS_TITANIUM",
+          "status": {
+            "NAME":"Titanium Rings",
+            "ITEM_LEVEL": 32,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "EPIC",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_RINGS_ADAMANTIUM",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_RINGS_ADAMANTIUM",
+          "status": {
+            "NAME":"Adamantium Rings",
+            "ITEM_LEVEL": 43,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+
+
+      {
+        "id": "ITEM_MATERIAL_BLADE_COPPER",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_BLADE_COPPER",
+          "status": {
+            "NAME":"Copper Blade",
+            "ITEM_LEVEL": 11,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "PLAIN",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_BLADE_BRONZE",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_BLADE_BRONZE",
+          "status": {
+            "NAME":"Bronze Blade",
+            "ITEM_LEVEL": 5,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "COMMON",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_BLADE_IRON",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_BLADE_IRON",
+          "status": {
+            "NAME":"Iron Blade",
+            "ITEM_LEVEL": 15,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "UNCOMMON",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_BLADE_STEEL",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_BLADE_STEEL",
+          "status": {
+            "NAME":"Steel Blade",
+            "ITEM_LEVEL": 19,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "RARE",
+            "QUALITY": "GOOD"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_BLADE_TITANIUM",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_BLADE_TITANIUM",
+          "status": {
+            "NAME":"Titanium Blade",
+            "ITEM_LEVEL": 32,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "EPIC",
+            "QUALITY": "BASIC"
+          }
+        }
+      },
+      {
+        "id": "ITEM_MATERIAL_BLADE_ADAMANTIUM",
+        "data": {
+          "visual_id":"VISUAL_MATERIAL_BLADE_ADAMANTIUM",
+          "status": {
+            "NAME":"Adamantium Blade",
+            "ITEM_LEVEL": 43,
+            "ITEM_TYPE" : "MATERIAL",
+            "RARITY": "LEGENDARY",
+            "QUALITY": "GOOD"
+          }
+        }
+      }
+    ]
+  }
+}]

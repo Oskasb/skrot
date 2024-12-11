@@ -1,0 +1,31 @@
+[{
+  "STATIC_SCENARIOS":{
+    "MAIN_SCENARIOS":[
+      {
+        "id": "cave_scenario_static",
+        "data": [
+          {
+            "data_key":"scenario_data",
+            "config": {
+              "environment": "cave_dusty",
+              "update_dispatch": {"event": "SCENARIO_UPDATE", "value": {"scenario": "encounter"}},
+              "box_grid":{
+                "grid_tiles": [
+                  "rock_layers",
+                  "rock_purple",
+                  "rock_stripes",
+                  "rock_hard",
+                  "rock_rusty"
+                ],
+                "box_size":0.25,
+                "grid_width":12,
+                "grid_depth":48,
+                "wall_height": 2
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}]

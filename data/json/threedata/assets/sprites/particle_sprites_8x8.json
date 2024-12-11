@@ -1,0 +1,233 @@
+
+[
+  {
+    "ASSETS": {
+      "SPRITES": [
+        {"id": "ATLAS_8x8",
+          "data":[
+            {
+              "id":"top_left",
+              "tiles":[[0, 0]]
+            },
+            {
+              "id":"dot",
+              "tiles":[[0, 4]]
+            },
+            {
+              "id":"bigdot",
+              "tiles":[[1, 4]]
+            },
+            {
+              "id":"explosion",
+              "tiles":[[3, 4]]
+            },
+            {
+              "id":"splatter",
+              "tiles":[[2, 4]]
+            },
+            {
+              "id":"flare_blue",
+              "tiles":[[3, 3]]
+            },
+            {
+              "id":"flare_yellow",
+              "tiles":[[4, 3]]
+            },
+            {
+              "id":"splash",
+              "tiles":[[1, 0]]
+            },
+            {
+              "id":"leafy_tuft",
+              "tiles":[[4, 5]]
+            },
+            {
+              "id":"free_leafs",
+              "tiles":[[5, 4]]
+            },
+            {
+              "id":"flare_bloomy",
+              "tiles":[[2, 3]]
+            },
+            {
+              "id":"shockwave",
+              "tiles":[[0, 0]]
+            },
+            {
+              "id":"fire_shockwave",
+              "tiles":[[0, 1]]
+            },
+            {
+              "id":"double_arc",
+              "tiles":[[5, 0]]
+            },
+            {
+              "id":"energy_dot",
+              "tiles":[[4, 0]]
+            },
+
+            {
+              "id":"standing_fern",
+              "tiles":[[4, 2]]
+            },
+            {
+              "id":"white_flower",
+              "tiles":[[4, 4]]
+            },
+            {
+              "id":"red_flower",
+              "tiles":[[5, 3]]
+            },
+            {
+              "id":"crate",
+              "tiles":[[0, 4]]
+            },
+            {
+              "id":"crate_wood",
+              "tiles":[[1, 3]]
+            },
+            {
+              "id":"little_shrub",
+              "tiles":[[0, 5]]
+            },
+            {
+              "id":"fuzzy_shrub",
+              "tiles":[[0, 3]]
+            },
+            {
+              "id":"star",
+              "tiles":[[1, 5]]
+            },
+            {
+              "id":"standing_grass",
+              "tiles":[[2, 5]]
+            },
+            {
+              "id":"tree_sprite_3",
+              "tiles":[[3, 5]]
+            },
+            {
+              "id":"0_2",
+              "tiles":[[0, 2]]
+            },
+            {
+              "id":"0_3",
+              "tiles":[[0, 3]]
+            },
+            {
+              "id":"0_4",
+              "tiles":[[0, 4]]
+            },
+            {
+              "id":"0_5",
+              "tiles":[[0, 5]]
+            },
+
+            {
+              "id":"1_0",
+              "tiles":[[1, 0]]
+            },
+            {
+              "id":"1_1",
+              "tiles":[[1, 1]]
+            },
+            {
+              "id":"1_2",
+              "tiles":[[1, 2]]
+            },
+            {
+              "id":"1_3",
+              "tiles":[[1, 3]]
+            },
+            {
+              "id":"1_4",
+              "tiles":[[1, 4]]
+            },
+            {
+              "id":"1_5",
+              "tiles":[[1, 5]]
+            },
+            {
+              "id":"dot",
+              "tiles":[[2, 4]]
+            },
+            {
+              "id":"tail",
+              "tiles":[[0, 5]]
+            },
+            {
+              "id":"bluetrails",
+              "tiles":[[2, 2]]
+            },
+            {
+              "id":"sparks",
+              "tiles":[[1, 3]]
+            },
+
+            {
+              "id":"rock",
+              "tiles":[[5, 5]]
+            },
+            {
+              "id":"spinfield",
+              "tiles":[[3, 1]]
+            },
+            {
+              "id":"fielddot",
+              "tiles":[[1, 2]]
+            },
+            {
+              "id":"foam",
+              "tiles":[[5, 1]]
+            },
+            {
+              "id":"snow_2",
+              "tiles":[[5, 2]]
+            },
+            {
+              "id":"hyper_trail",
+              "tiles":[[6, 3]]
+            },
+            {
+              "id":"shine_trail",
+              "tiles":[[5, 3]]
+            },
+            {
+              "id":"spin_wave",
+              "tiles":[[7, 1]]
+            },
+
+            {
+              "id":"wavefront",
+              "tiles":[[4, 1]]
+            },
+            {
+              "id":"projectile_1",
+              "tiles":[[3, 2]]
+            },
+            {
+              "id":"projectile_2",
+              "tiles":[[4, 2]]
+            },
+            {
+              "id":"splash_thick",
+              "tiles":[[1, 0]]
+            },
+            {
+              "id":"splash_thin",
+              "tiles":[[2, 0]]
+            },
+            {
+              "id":"thick_smoke",
+              "tiles":[[2, 1]]
+            },
+            {
+              "id":"smokey",
+              "tiles":[[3, 0]]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

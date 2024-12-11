@@ -1,0 +1,50 @@
+[{
+  "GAME":{
+    "VISUALS":[
+      {
+        "id":"KATANA_GREEN",
+        "data":{
+          "model_asset":"asset_katana_green",
+          "icon_class": "ICON_NYI"
+        }
+      },
+      {
+        "id":"NINJASWORD",
+        "data":{
+          "model_asset":"asset_ninjablade",
+          "icon_class": "ICON_NYI"
+        }
+      },
+      {
+        "id":"AXE_SLICER",
+        "data":{
+
+          "model_asset":"asset_slicer_axe_2h",
+          "icon_class": "ICON_NYI"
+        }
+      },
+      {
+        "id":"SWORD_FANCY",
+        "data":{
+
+          "model_asset":"asset_sword_fancy",
+          "icon_class": "ICON_NYI"
+        }
+      },
+      {
+        "id":"EMERALD_BLADE",
+        "data": {
+          "model_asset": "asset_emerald_blade",
+          "icon_class": "ICON_NYI"
+        }
+      },
+      {
+        "id": "HATCHET_NICE",
+        "data": {
+          "model_asset": "asset_hatchet_nice",
+          "icon_class": "icon_weapon_1h_axe_hatchet"
+        }
+      }
+    ]
+  }
+}]

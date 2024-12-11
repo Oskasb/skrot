@@ -1,0 +1,246 @@
+
+[
+  {
+    "ASSETS": {
+      "SPRITES":[
+        {
+        "id": "VEG_8x8",
+        "data": [
+          {
+            "id":"cursor",
+            "tiles":[[0, 0]]
+          },
+          {
+            "id":"debug_nine",
+            "tiles":[[15, 15]]
+          },
+          {
+            "id":"cross",
+            "tiles":[[0, 1]]
+          },
+          {
+            "id":"text_background",
+            "tiles":[[1, 1]]
+          },
+          {
+            "id":"frame",
+            "tiles":[[6, 1]]
+          },
+          {
+            "id":"plate_framed",
+            "tiles":[[7, 1]]
+          },
+          {
+            "id":"text_box_framed",
+            "tiles":[[6, 2]]
+          },
+          {
+            "id":"text_plate_label_underline",
+            "tiles":[[6, 3]]
+          },
+          {
+            "id":"container_box_framed",
+            "tiles":[[7, 3]]
+          },
+          {
+            "id":"button_sub_frame",
+            "tiles":[[8, 1]]
+          },
+          {
+            "id":"button_sub_frame_pressed",
+            "tiles":[[8, 2]]
+          },
+          {
+            "id":"button_full",
+            "tiles":[[9, 1]]
+          },
+          {
+            "id":"button_full_pressed",
+            "tiles":[[9, 2]]
+          },
+
+          {
+            "id":"pad_rounded",
+            "tiles":[[9, 0]]
+          },
+          {
+            "id":"button_sharp",
+            "tiles":[[12, 2]]
+          },
+          {
+            "id":"button_sharp_pressed",
+            "tiles":[[13, 2]]
+          },
+          {
+            "id":"button_action",
+            "tiles":[[12, 3]]
+          },
+          {
+            "id":"button_action_pressed",
+            "tiles":[[13, 3]]
+          },
+          {
+            "id":"horizontal",
+            "tiles":[[0, 2]]
+          },
+          {
+            "id":"vertical",
+            "tiles":[[0, 3]]
+          },
+          {
+            "id":"alert",
+            "tiles":[[0, 4]]
+          },
+
+          {
+            "id":"rot_ccw",
+            "tiles":[[0, 6]]
+          },
+          {
+            "id":"rot_cw",
+            "tiles":[[0, 7]]
+          },
+          {
+            "id":"rot_lth",
+            "tiles":[[0, 8]]
+          },
+          {
+            "id":"rot_htl",
+            "tiles":[[0, 9]]
+          },
+
+          {
+            "id":"fuel",
+            "tiles":[[0, 5]]
+          },
+          {
+            "id":"warning",
+            "tiles":[[1, 4]]
+          },
+          {
+            "id":"oil",
+            "tiles":[[1, 5]]
+          },
+          {
+            "id":"crosshair",
+            "tiles":[[2, 4]]
+          },
+          {
+            "id":"fire",
+            "tiles":[[2, 5]]
+          },
+
+          {
+            "id":"sleep",
+            "tiles":[[3, 4]]
+          },
+          {
+            "id":"energy",
+            "tiles":[[3, 5]]
+          },
+
+          {
+            "id":"broken",
+            "tiles":[[4, 4]]
+          },
+          {
+            "id":"shield",
+            "tiles":[[4, 5]]
+          },
+          {
+            "id":"dead",
+            "tiles":[[5, 4]]
+          },
+          {
+            "id":"droplet",
+            "tiles":[[5, 5]]
+          },
+
+          {
+            "id":"indicate_pitch_upper",
+            "tiles":[[1, 2]]
+          },
+          {
+            "id":"progress_vertical",
+            "tiles":[[2, 2]]
+          },
+          {
+            "id":"plate",
+            "tiles":[[3, 2]]
+          },
+
+          {
+            "id":"progress_horizontal",
+            "tiles":[[1, 2]]
+          },
+          {
+            "id":"center_lit_square",
+            "tiles":[[0, 2]]
+          },
+          {
+            "id":"split_block",
+            "tiles":[[3, 3]]
+          },
+          {
+            "id":"arrow_top_left",
+            "tiles":[[3, 1]]
+          },
+
+          {
+            "id":"corner_top_left",
+            "tiles":[[4, 1]]
+          },
+          {
+            "id":"corner_center",
+            "tiles":[[5, 1]]
+          },
+          {
+            "id":"edge",
+            "tiles":[[5, 3]]
+          },
+          {
+            "id":"corner_highlight",
+            "tiles":[[5, 2]]
+          },
+          {
+            "id":"indicate_pitch_low",
+            "tiles":[[2, 2]]
+          },
+          {
+            "id":"indicate_yaw_left",
+            "tiles":[[1, 3]]
+          },
+          {
+            "id":"indicate_yaw_right",
+            "tiles":[[2, 3]]
+          },
+          {
+            "id":"corner",
+            "tiles":[[1, 0]]
+          },
+          {
+            "id":"combat_bar",
+            "tiles":[[2, 1]]
+          },
+          {
+            "id":"hp_plate",
+            "tiles":[[2, 0]]
+          },
+          {
+            "id":"hp_light",
+            "tiles":[[3, 0]]
+          },
+          {
+            "id":"armor_plate",
+            "tiles":[[4, 0]]
+          },
+          {
+            "id":"armor_light",
+            "tiles":[[5, 0]]
+          }
+        ]
+      }
+      ]
+    }
+  }
+]

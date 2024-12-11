@@ -1,0 +1,177 @@
+[
+    {
+        "EFFECT": {
+            "PARTICLES":[
+                {
+                    "id":"particle_default",
+                    "data": [
+                        {
+                            "particle_id": "stamp_footprint",
+                            "spawner_id": "normal_stamps_8x8",
+                            "size_min": 45,
+                            "size_max": 47,
+                            "attack_time": 0.3,
+                            "release_time": 1.5,
+                            "color_min": [0.25, 0.15, 0.05, 0.4],
+                            "color_max": [0.51, 0.25, 0.10,   1],
+                            "sprite": [0, 3, 1, 0]
+                        },
+                        {
+                            "particle_id": "particle_additive_pool",
+                            "spawner_id": "additive_particles_8x8",
+                            "size_min": 45,
+                            "size_max": 45,
+                            "attack_time": 0.05,
+                            "release_time": 0.2,
+                            "color_min": [-0.5, 1, -0.3, 0.5],
+                            "color_max": [-0.5, 1, -0.3, 0.5],
+                            "sprite": [0, 2, 1, 0]
+                        },
+                        {
+                            "particle_id": "multi_particle_fire_missile",
+                            "spawner_id": "additive_particles_8x8",
+                            "spread_pos_min": 0.01,
+                            "spread_pos_max": 0.06,
+                            "rot_z_min":0,
+                            "rot_z_max":3,
+                            "size_min": 15,
+                            "size_max": 65,
+                            "attack_time": 0.2,
+                            "release_time": 0.2,
+                            "color_min": [0.5, 0.5, 0.1, 0.59],
+                            "color_max": [0.99, 0.8, 0.29, 0.99],
+                            "sprite": [4, 3, 1, 0]
+                        },
+                        {
+                            "particle_id": "particle_blue_bullet",
+                            "spawner_id": "additive_particles_8x8",
+                            "spread_pos_min": 0.01,
+                            "spread_pos_max": 0.04,
+                            "rot_z_min":0,
+                            "rot_z_max":3,
+                            "size_min": 35,
+                            "size_max": 45,
+                            "attack_time": 0.15,
+                            "release_time": 0.15,
+                            "color_min": [-0.3,-0.4,0.95, 0.99],
+                            "color_max": [0.8, 0.8, 0.99, 0.99],
+                            "sprite": [0, 1, 1, 0]
+                        },
+                        {
+                            "particle_id": "particle_blue_sparkle",
+                            "spawner_id": "additive_particles_8x8",
+                            "spread_pos_min": 0.01,
+                            "spread_pos_max": 0.12,
+                            "rot_z_min":0,
+                            "rot_z_max":6,
+                            "size_min": 55,
+                            "size_max": 115,
+                            "attack_time": 0.4,
+                            "release_time": 0.5,
+                            "color_min": [0.1, 0.3, 0.7, 0.99],
+                            "color_max": [0.8, 0.8, 0.99, 0.99],
+                            "sprite": [3, 3, 1, 0]
+                        },
+                        {
+                            "particle_id": "multi_particle_additive_pool",
+                            "spawner_id": "additive_particles_8x8",
+                            "spread_pos_min": 0.01,
+                            "spread_pos_max": 0.12,
+                            "rot_z_min":0,
+                            "rot_z_max":3,
+                            "size_min": 5,
+                            "size_max": 45,
+                            "attack_time": 0.2,
+                            "release_time": 0.2,
+                            "color_min": [0.0, 0.0, 0.5, 0.59],
+                            "color_max": [0.8, 0.8, 0.99, 0.99],
+                            "sprite": [0, 2, 1, 0]
+                        },
+                        {
+                            "particle_id": "stamp_normal_pool",
+                            "spawner_id": "normal_stamps_8x8",
+                            "size_min": 110,
+                            "size_max": 110,
+                            "attack_time": 0.2,
+                            "release_time": 0.2,
+                            "color_min": [-0.5, 1, -0.3, 0.5],
+                            "color_max": [-0.5, 1, -0.3, 0.5],
+                            "sprite": [0, 2, 1, 0]
+                        },
+                        {
+                            "particle_id": "stamp_additive_pool",
+                            "spawner_id": "additive_stamps_8x8",
+                            "size_min": 110,
+                            "size_max": 110,
+                            "attack_time": 0.2,
+                            "release_time": 0.2,
+                            "color_min": [-0.5, 1, -0.3, 0.5],
+                            "color_max": [-0.5, 1, -0.3, 0.5],
+                            "sprite": [0, 2, 1, 0]
+                        },
+                        {
+                            "particle_id": "stamp_overlay_pool",
+                            "spawner_id": "overlay_stamps_8x8",
+                            "size_min": 110,
+                            "size_max": 110,
+                            "attack_time": 0.2,
+                            "release_time": 0.2,
+                            "color_min": [-0.5, 1, -0.3, 0.5],
+                            "color_max": [-0.5, 1, -0.3, 0.5],
+                            "sprite": [0, 2, 1, 0]
+                        },
+                        {
+                            "particle_id": "health_recovered_particle",
+                            "spawner_id": "additive_stamps_8x8",
+                            "size_min": 45,
+                            "size_max": 45,
+                            "attack_time": 0.2,
+                            "release_time": 0.2,
+                            "color_min": [-0.5, 1, -0.3, 0.5],
+                            "color_max": [-0.5, 1, -0.3, 0.5],
+                            "sprite": [0, 2, 1, 0]
+                        },
+                        {
+                            "particle_id": "normal_particle",
+                            "spawner_id": "normal_particles_8x8",
+                            "size_min": 214,
+                            "size_max": 218,
+                            "color_min": [0.25, 0.25, 0.25, 0.8],
+                            "color_max": [1, 1, 1, 1],
+                            "sprite": [1, 1, 1, 0]
+                        },
+                        {
+                            "particle_id": "target_indicator_particle",
+                            "spawner_id": "additive_stamps_8x8",
+                            "size_min": 110,
+                            "size_max": 110,
+                            "color_min": [0, 1, 0, 0.5],
+                            "color_max": [0, 1, 0, 0.5],
+                            "sprite": [0, 5, 1, 0]
+                        },
+                        {
+                            "particle_id": "indicator_particle",
+                            "spawner_id": "additive_stamps_8x8",
+                            "size_min": 120,
+                            "size_max": 120,
+                            "color_min": [0, 1, 0, 0.5],
+                            "color_max": [0, 1, 0, 0.5],
+                            "sprite": [0, 4, 1, 0]
+                        },
+                        {
+                            "particle_id": "particle_wisp_additive",
+                            "spawner_id": "additive_particles_8x8",
+                            "size_min": 65,
+                            "size_max": 92,
+                            "attack_time": 0.45,
+                            "release_time": 1.5,
+                            "color_min": [0.15, 0.25, 0.25, 0.25],
+                            "color_max": [0.4, 0.6, 1, 0.4],
+                            "sprite": [3, 3, 1, 0]
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+]

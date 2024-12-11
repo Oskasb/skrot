@@ -1,0 +1,110 @@
+
+[
+  {
+    "ASSETS": {
+      "SPRITES":[
+        {
+          "id": "box_tiles_8x8",
+          "data": [
+
+            {
+              "id":"grass",
+              "tiles":[[0, 1]]
+            },
+
+
+            {
+              "id":"mud",
+              "tiles":[[0, 2]]
+            },
+            {
+              "id":"gravel",
+              "tiles":[[0, 3]]
+            },
+            {
+              "id":"sand_pink",
+              "tiles":[[0, 4]]
+            },
+            {
+              "id":"rock",
+              "tiles":[[1, 1]]
+            },
+            {
+              "id":"marsh",
+              "tiles":[[1, 2]]
+            },
+            {
+              "id":"rock_layers",
+              "tiles":[[1, 3]]
+            },
+            {
+              "id":"rock_purple",
+              "tiles":[[1, 4]]
+            },
+            {
+              "id":"rock_stripes",
+              "tiles":[[2, 1]]
+            },
+            {
+              "id":"rock_hard",
+              "tiles":[[1, 0]]
+            },
+            {
+              "id":"rock_rusty",
+              "tiles":[[2, 3]]
+            },
+
+            {
+              "id":"sand",
+              "tiles":[[2, 4]]
+            },
+            {
+              "id":"rock_grey",
+              "tiles":[[3, 1]]
+            },
+            {
+              "id":"rock_blue",
+              "tiles":[[3, 2]]
+            },
+            {
+              "id":"sand_cracked",
+              "tiles":[[3, 3]]
+            },
+            {
+              "id":"rock_rough",
+              "tiles":[[3, 4]]
+            },
+            {
+              "id":"wood_solid",
+              "tiles":[[4, 4]]
+            },
+            {
+              "id":"wood_chunk",
+              "tiles":[[4, 3]]
+            },
+            {
+              "id":"wood_plank",
+              "tiles":[[5, 3]]
+            },
+            {
+              "id":"creative_crate",
+              "tiles":[[0, 6]]
+            },
+            {
+              "id":"planks_h",
+              "tiles":[[4, 5]]
+            },
+            {
+              "id":"planks_v",
+              "tiles":[[3, 5]]
+            },
+            {
+              "id":"add_here",
+              "tiles":[[1, 0]]
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

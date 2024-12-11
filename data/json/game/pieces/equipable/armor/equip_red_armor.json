@@ -1,0 +1,180 @@
+[{
+  "GAME":{
+    "PIECES":[
+      {
+        "id":"LEGS_RED",
+        "data":{
+
+          "model_asset":"asset_red_legs",
+          "slot": "SLOT_LEGS",
+          "status": {
+            "name": "Jade Greaves",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 13
+          }
+        }
+      },
+      {
+        "id":"BREASTPLATE_RED",
+        "data":{
+          "model_asset":"asset_red_bp",
+          "slot": "SLOT_CHEST",
+          "status": {
+            "name": "Jade Plate",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 13
+          }
+        }
+      },
+      {
+        "id":"HELMET_RED",
+        "data":{
+          "model_asset":"asset_helmet_red",
+          "slot": "SLOT_HEAD",
+
+          "status": {
+            "name": "Jade Helmet",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 13
+          }
+
+        }
+      },
+      {
+        "id":"BRACER_RED",
+        "data":{
+          "model_asset":"asset_bracer_red",
+          "slot": "SLOT_WRIST",
+          "status": {
+            "name": "Jade Bracers",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 13
+          }
+        }
+      },
+      {
+        "id":"BELT_RED",
+        "data":{
+          "model_asset":"asset_belt_red",
+          "slot": "SLOT_WAIST",
+          "status": {
+            "name": "Jade Belt",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 13
+          }
+        }
+      },
+
+
+      {
+        "id":"HELMET_VIKING_RED",
+        "data":{
+          "model_asset":"asset_helmetviking_red",
+          "slot": "SLOT_HEAD",
+          "status": {
+            "name": "Jade Barbute",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 13
+          }
+        }
+      },
+      {
+        "id":"BELT_PLATE_RED",
+        "data":{
+          "model_asset":"asset_beltplate_red",
+          "slot": "SLOT_WAIST",
+          "status": {
+            "name": "Jade Girdle",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 13
+          }
+        }
+      },
+      {
+        "id":"SHIRT_CHAIN_RED",
+        "data":{
+          "model_asset":"asset_chain_shirt_red",
+          "slot": "SLOT_BODY",
+          "status": {
+            "name": "Jade Chain Mail",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 13
+          }
+        }
+      },
+      {
+        "id":"SHIRT_SCALE_RED",
+        "data":{
+          "model_asset":"asset_scale_shirt_red",
+          "slot": "SLOT_CHEST",
+          "status": {
+            "name": "Jade Scale Plates",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 13
+          }
+        }
+      },
+      {
+        "id":"LEGS_CHAIN_RED",
+        "data":{
+          "model_asset":"asset_chain_legs_red",
+          "slot": "SLOT_LEGS",
+          "status": {
+            "name": "Jade Chain Skirt",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 13
+          }
+        }
+      },
+      {
+        "id":"LEGS_SCALE_RED",
+        "data":{
+          "model_asset":"asset_scale_red_legs",
+          "slot": "SLOT_LEGS",
+          "status": {
+            "name": "Jade Scale Skirt",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 13
+          }
+        }
+      },
+      {
+        "id":"BOOTS_SCALE_RED",
+        "data":{
+          "model_asset":"asset_scale_red_boots",
+          "slot": "SLOT_FEET",
+          "status": {
+            "name": "Jade Scale Boots",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 13
+          }
+        }
+      },
+      {
+        "id":"GLOVES_SCALE_RED",
+        "data":{
+          "model_asset":"asset_scale_red_gloves",
+          "slot": "SLOT_HANDS",
+          "status": {
+            "name": "Jade Scale Gloves",
+            "item_type": "Armor",
+            "level_table": "level_table_armor_default",
+            "level": 13
+          }
+        }
+      }
+    ]
+  }
+}]

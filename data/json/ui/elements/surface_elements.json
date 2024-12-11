@@ -1,0 +1,301 @@
+
+[
+  {
+    "UI": {
+      "SURFACE_NINESLICE":[
+        {
+          "id": "GUI_16x16",
+          "data": [
+            {
+              "id":"nineslice_surface_anchor",
+              "config": {
+                "padding": { "x":0.0, "y":0.0},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.01, "y": 0.01}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_world_nameplate_frame",
+              "config": {
+                "padding": { "x":0.0, "y":0.0},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.18, "y": 0.18}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_action_button",
+              "config": {
+                "padding": { "x":0.0, "y":0.0},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.25, "y": 0.25}
+                }
+              }
+            },
+            {
+              "id":"nineslice_actor_action_portrait_frame",
+              "config": {
+                "padding": { "x":0.0, "y":0.0},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.35, "y": 0.35}
+                }
+              }
+            },
+            {
+              "id":"nineslice_actor_action_portrait_button",
+              "config": {
+                "padding": { "x":-0.0, "y":-0.0},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.45, "y": 0.45}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_world_nameplate",
+              "config": {
+                "padding": { "x":0.0, "y":0.0},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.15, "y": 0.15}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_sequencer_button",
+              "config": {
+                "padding": { "x":0.0, "y":0.0},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.25, "y": 0.25}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_portrait_button",
+              "config": {
+                "padding": { "x":0.0, "y":0.0},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.5, "y": 0.5}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_portrait_hp_container",
+              "config": {
+                "padding": { "x":0.00, "y":0.00},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.0, "y": 0.0}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_hp_bar_container",
+              "config": {
+                "padding": { "x":0.00, "y":0.00},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.02, "y": 0.02}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_xp_bar_container",
+              "config": {
+                "padding": { "x":0.00, "y":0.00},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.06, "y": 0.06}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_attack_point_icon",
+              "config": {
+                "padding": { "x":0.0, "y":0.0},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.001, "y": 0.001}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_attack_points_container",
+              "config": {
+                "padding": { "x":0.0, "y":0.0},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.002, "y": 0.002}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_action_status_container",
+              "config": {
+                "padding": { "x":0.0, "y":0.0},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.2, "y": 0.2}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_small_text",
+              "config": {
+                "padding": { "x":0.0015, "y":0.0005},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.45, "y": 0.08}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_stat_elem",
+              "config": {
+                "padding": { "x":0.0012, "y":0.0012},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.35, "y": 0.35}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_header_text_box",
+              "config": {
+                "padding": { "x":0.0, "y":0.0},
+                "image": {
+                  "layer": "UI_ELEMENTS_MAIN",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.23, "y": 0.23}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_debug",
+              "config": {
+                "padding": { "x":0.004, "y":0.004},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.3, "y": 0.3}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_debug_tiny",
+              "config": {
+                "padding": { "x":0.002, "y":0.002},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.11, "y": 0.11}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_hint",
+              "config": {
+                "padding": { "x":0.00000001, "y":0.00000001},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.1, "y": 0.1}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_main_text",
+              "config": {
+                "padding": { "x":0.02, "y":0.015},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.85, "y": 0.85}
+                }
+              }
+            },
+
+            {
+              "id":"nineslice_surface_thumbstick",
+              "config": {
+                "padding": { "x":0.0001, "y":0.0001},
+                "image": {
+                  "layer": "UI_ELEMENTS_MAIN",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 1.5, "y": 1.5}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_axis_feedback",
+              "config": {
+                "padding": { "x":0.00001, "y":0.00001},
+                "image": {
+                  "layer": "UI_ELEMENTS_MAIN",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.00001, "y": 0.00001}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_button_sharp",
+              "config": {
+                "padding": { "x":0.0001, "y":0.0001},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.11, "y": 0.11}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_button_big",
+              "config": {
+                "padding": { "x":0.012, "y":0.0023},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.55, "y": 0.55}
+                }
+              }
+            },
+            {
+              "id":"nineslice_surface_progress_button_big",
+              "config": {
+                "padding": { "x":0.02, "y":0.003},
+                "image": {
+                  "layer": "UI_ELEMENTS_BACK",
+                  "atlas_key": "GUI_16x16",
+                  "border_thickness": {"x": 0.75, "y": 0.75}
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

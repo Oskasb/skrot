@@ -1,0 +1,51 @@
+[{
+  "GAME":{
+    "VISUALS":[
+      {
+        "id":"VISUAL_HORSE",
+        "data":{
+          "model_asset":"asset_horse",
+          "status": {
+
+          }
+        }
+      },
+      {
+        "id":"VISUAL_FIGHTER",
+        "data":{
+          "model_asset":"animated_fighter_male",
+          "skeleton_rig":"FIGHTER_RIG",
+          "status": {
+
+          }
+        }
+      },
+      {
+        "id":"VISUAL_ALIEN",
+        "data":{
+          "model_asset":"animated_alien_male",
+          "skeleton_rig":"FIGHTER_RIG",
+          "status": {
+
+          }
+        }
+      },
+      {
+        "id":"VISUAL_BARBARIAN",
+        "data":{
+          "model_asset":"animated_barbarian",
+          "skeleton_rig":"BARBARIAN_RIG",
+          "scale": [0.01, 0.01, 0.01]
+        }
+      },
+      {
+        "id":"VISUAL_DUDE",
+        "data":{
+          "model_asset":"animated_pilot",
+          "skeleton_rig":"PILOT_RIG",
+          "scale": [0.01, 0.01, 0.01]
+        }
+      }
+    ]
+  }
+}]

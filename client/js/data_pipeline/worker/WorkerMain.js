@@ -1,74 +1,76 @@
 var baseUrl = './../../../../';
-
 var MainWorker;
 
-importScripts(baseUrl+'client/libs/require.js');
+if( typeof importScripts  === 'function') {
 
-require.config({
-	baseUrl: baseUrl,
-	paths: {
-		data_pipeline:'client/js/data_pipeline'
-	}
-});
+	importScripts(baseUrl+'client/js/data_pipeline/worker/lib/require.js');
+
+	require.config({
+		baseUrl: baseUrl,
+		paths: {
+			data_pipeline:'client/js/data_pipeline'
+		}
+	});
 
 
-require(
-	['data_pipeline/worker/WorkerDataLoader'],
-	function(WorkerDataLoader) {
+	require(
+		['data_pipeline/worker/WorkerDataLoader'],
+		function(WorkerDataLoader) {
 
-		var WorkerMain = function() {
-			this.workerDataLoader = new WorkerDataLoader();
-		};
+			var WorkerMain = function() {
+				this.workerDataLoader = new WorkerDataLoader();
+			};
 
-		WorkerMain.prototype.storeJsonData = function(url, json) {
-			this.workerDataLoader.storeJson(url, json)
-		};
-		
-		WorkerMain.prototype.setupJsonRequest = function(url) {
-			this.workerDataLoader.fetchJsonData(url)
-		};
+			WorkerMain.prototype.storeJsonData = function(url, json) {
+				this.workerDataLoader.storeJson(url, json)
+			};
 
-		WorkerMain.prototype.setupSvgRequest = function(url) {
-			this.workerDataLoader.fetchSvgData(url);
-		};
+			WorkerMain.prototype.setupJsonRequest = function(url) {
+				this.workerDataLoader.fetchJsonData(url)
+			};
 
-		WorkerMain.prototype.setupBinaryRequest = function(url) {
-			this.workerDataLoader.fetchBinaryData(url);
-		};
+			WorkerMain.prototype.setupSvgRequest = function(url) {
+				this.workerDataLoader.fetchSvgData(url);
+			};
 
-		MainWorker = new WorkerMain();
-		postMessage(['ready']);
-	//	console.log("Worker Require Loaded OK!")
-	}
-);
+			WorkerMain.prototype.setupBinaryRequest = function(url) {
+				this.workerDataLoader.fetchBinaryData(url);
+			};
 
-let handleMessage = function(oEvent) {
+			MainWorker = new WorkerMain();
+			postMessage(['ready']);
+			//	console.log("Worker Require Loaded OK!")
+		}
+	);
 
-	if (!MainWorker) {
-		console.log("MainWorker not yet ready: ", oEvent);
-		setTimeout(function() {
-			handleMessage(oEvent);
-		}, 250);
-		return;
-	}
+	let handleMessage = function(oEvent) {
 
-	if (oEvent.data[0] == 'storeJson') {
-		MainWorker.storeJsonData(oEvent.data[1], oEvent.data[2]);
-	}
-	
-	if (oEvent.data[0] == 'json') {
-		MainWorker.setupJsonRequest(oEvent.data[1]);
-	}
+		if (!MainWorker) {
+			console.log("MainWorker not yet ready: ", oEvent);
+			setTimeout(function() {
+				handleMessage(oEvent);
+			}, 250);
+			return;
+		}
 
-	if (oEvent.data[0] == 'svg') {
-		MainWorker.setupSvgRequest(oEvent.data[1]);
-	}
+		if (oEvent.data[0] == 'storeJson') {
+			MainWorker.storeJsonData(oEvent.data[1], oEvent.data[2]);
+		}
 
-	if (oEvent.data[0] == 'bin') {
-		MainWorker.setupBinaryRequest(oEvent.data[1]);
-	}
-};
+		if (oEvent.data[0] == 'json') {
+			MainWorker.setupJsonRequest(oEvent.data[1]);
+		}
 
-onmessage = function (oEvent) {
-	handleMessage(oEvent);
-};
+		if (oEvent.data[0] == 'svg') {
+			MainWorker.setupSvgRequest(oEvent.data[1]);
+		}
+
+		if (oEvent.data[0] == 'bin') {
+			MainWorker.setupBinaryRequest(oEvent.data[1]);
+		}
+	};
+
+	onmessage = function (oEvent) {
+		handleMessage(oEvent);
+	};
+}

@@ -1,0 +1,713 @@
+[{
+  "GAME_ACTORS":{
+    "TRAVEL_MODES":[
+      {
+        "id":"TRAVEL_MODE_INACTIVE",
+        "data":{
+          "status": {
+
+          },
+          "inputs": [
+
+          ],
+          "feedback": [
+
+          ]
+        }
+      },
+      {
+        "id":"TRAVEL_MODE_PASSIVE",
+        "data":{
+          "status": {
+
+          },
+          "inputs": [
+
+          ],
+          "feedback": [
+
+          ]
+        }
+      },
+      {
+        "id":"TRAVEL_MODE_BATTLE",
+        "data":{
+          "status": {
+            "MOVEMENT_SPEED": 4,
+            "ACTOR_SPEED": 0,
+            "ACTOR_YAW_RATE": 4,
+            "STATUS_FORWARD": 0
+          },
+          "inputs": [
+            {"class_name": "GuiAxisSlider",
+              "widget_config": "widget_thumbstick",
+              "controls":["CONTROL_TILE_X","CONTROL_TILE_Z"],
+              "on_active": ["CONTROL_MOVE_ACTION"],
+              "options":{
+                "anchor": "stick_bottom_right",
+                "icon": "directional_arrows",
+                "axis": [-1, 1],
+                "settings": {
+                  "axis": ["OFFSET_CONTROL_STICK_X", "OFFSET_CONTROL_STICK_Y"]
+                },
+                "axis_keys": [["a", "d"],["w", "s"]],
+                "release": [1, 1],
+                "range": [0.1, 0.1],
+                "offsets": [-0.05, 0.05]
+              }
+            }
+          ],
+          "feedback": [
+
+          ]
+        }
+      },
+      {
+        "id":"TRAVEL_MODE_LEAP",
+        "data":{
+          "status": {
+            "MOVEMENT_SPEED": 12,
+            "ACTOR_SPEED": 0,
+            "ACTOR_YAW_RATE": 2,
+            "STATUS_FORWARD": 0
+          },
+          "inputs": [
+            {"class_name": "GuiAxisSlider",
+              "widget_config": "widget_thumbstick",
+              "controls":["CONTROL_TILE_X","CONTROL_TILE_Z"],
+              "on_active": ["CONTROL_LEAP_ACTION"],
+              "options":{
+                "anchor": "stick_bottom_right",
+                "icon": "directional_arrows",
+                "settings": {
+                  "axis": ["OFFSET_CONTROL_STICK_X", "OFFSET_CONTROL_STICK_Y"]
+                },
+                "axis": [-1, 1],
+                "release": [1, 1],
+                "range": [0.1, 0.1],
+                "offsets": [-0.05, 0.05]
+              }
+            }
+          ],
+          "feedback": [
+
+          ]
+        }
+      },
+      {
+        "id":"TRAVEL_MODE_GRID",
+        "data":{
+          "status": {
+            "MOVEMENT_SPEED": 4,
+            "ACTOR_SPEED": 0,
+            "ACTOR_YAW_RATE": 4,
+            "STATUS_FORWARD": 0
+          },
+          "inputs": [
+            {"class_name": "GuiAxisSlider",
+              "widget_config": "widget_thumbstick",
+              "controls":["CONTROL_TILE_X","CONTROL_TILE_Z"],
+              "on_active": ["CONTROL_MOVE_ACTION"],
+              "options":{
+                "anchor": "stick_bottom_right",
+                "icon": "directional_arrows",
+                "axis": [-1, 1],
+                "settings": {
+                  "axis": ["OFFSET_CONTROL_STICK_X", "OFFSET_CONTROL_STICK_Y"]
+                },
+                "release": [1, 1],
+                "range": [0.1, 0.1],
+                "offsets": [-0.05, 0.05]
+              }
+            }
+          ],
+          "feedback": [
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_WEST", null],
+              "options":{
+                "anchor": "bottom_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.07, 0.1],
+                "offsets": [0, 0.01],
+                "text": "W",
+                "curve_colors": [[0.2, 1, 0.2, 1], [0, 0, 0, 0]],
+                "color_rgba": {"r":0.49, "g":0.99, "b":0.49, "a":0.5},
+                "color_curves": ["radialFade", null]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_SOUTH", null],
+              "options":{
+                "anchor": "bottom_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.07, 0.1],
+                "offsets": [0, 0.01],
+                "text": "S",
+                "curve_colors": [[0.2, 1, 0.2, 1], [0, 0, 0, 0]],
+                "color_rgba": {"r":0.49, "g":0.99, "b":0.49, "a":0.5},
+                "color_curves": ["radialFade", null]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_EAST", null],
+              "options":{
+                "anchor": "bottom_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.07, 0.1],
+                "offsets": [0, 0.01],
+                "text": "E",
+                "curve_colors": [[0.2, 1, 0.2, 1], [0, 0, 0, 0]],
+                "color_rgba": {"r":0.49, "g":0.99, "b":0.49, "a":0.5},
+                "color_curves": ["radialFade", null]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_NORTH", null],
+              "options":{
+                "anchor": "bottom_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.07, 0.1],
+                "offsets": [0, 0.01],
+                "text": "N",
+                "curve_colors": [[0.2, 1, 0.2, 1], [0, 0, 0, 0]],
+                "color_rgba": {"r":0.49, "g":0.99, "b":0.49, "a":0.5},
+                "color_curves": ["radialFade", null]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id":"TRAVEL_MODE_WALK",
+        "data":{
+          "status": {
+            "MOVEMENT_SPEED": 3,
+            "ACTOR_SPEED": 0,
+            "ACTOR_YAW_RATE": 6,
+            "STATUS_FORWARD": 0
+          },
+          "inputs": [
+            {"class_name": "GuiAxisSlider",
+              "widget_config": "widget_thumbstick",
+              "controls":["CONTROL_RUN_X","CONTROL_RUN_Z"],
+              "on_active": ["CONTROL_RUN_ACTION"],
+              "options":{
+                "anchor": "stick_bottom_right",
+                "icon": "directional_arrows",
+                "settings": {
+                  "axis": ["OFFSET_CONTROL_STICK_X", "OFFSET_CONTROL_STICK_Y"]
+                },
+                "axis": [-1, 1],
+                "axis_keys": [["a", "d"],["w", "s"]],
+                "release": [1, 1],
+                "range": [0.08, 0.03],
+                "offsets": [-0.05, 0.05]
+              }
+            },
+            {"class_name": "GuiAxisSlider",
+              "widget_config": "widget_thumbstick_small",
+              "controls":[null,"CONTROL_CAM_FORWARD"],
+              "options":{
+                "anchor": "stick_more_bottom_right",
+                "icon": "vertical_arrows",
+                "axis": [0, 1],
+                "axis_keys": [[],["r", "f"]],
+                "release": [1, 1],
+                "range": [0.05, 0.05]
+              }
+            }
+          ],
+          "feedback": [
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_WEST", null],
+              "options":{
+                "anchor": "bottom_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.07, 0.1],
+                "offsets": [0, 0.01],
+                "text": "W",
+                "curve_colors": [[0.2, 1, 0.2, 1], [0, 0, 0, 0]],
+                "color_rgba": {"r":0.49, "g":0.99, "b":0.49, "a":0.5},
+                "color_curves": ["radialFade", null]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_SOUTH", null],
+              "options":{
+                "anchor": "bottom_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.07, 0.1],
+                "offsets": [0, 0.01],
+                "text": "S",
+                "curve_colors": [[0.2, 1, 0.2, 1], [0, 0, 0, 0]],
+                "color_rgba": {"r":0.49, "g":0.99, "b":0.49, "a":0.5},
+                "color_curves": ["radialFade", null]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_EAST", null],
+              "options":{
+                "anchor": "bottom_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.07, 0.1],
+                "offsets": [0, 0.01],
+                "text": "E",
+                "curve_colors": [[0.2, 1, 0.2, 1], [0, 0, 0, 0]],
+                "color_rgba": {"r":0.49, "g":0.99, "b":0.49, "a":0.5},
+                "color_curves": ["radialFade", null]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_NORTH", null],
+              "options":{
+                "anchor": "bottom_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.07, 0.1],
+                "offsets": [0, 0.01],
+                "text": "N",
+                "curve_colors": [[0.2, 1, 0.2, 1], [0, 0, 0, 0]],
+                "color_rgba": {"r":0.49, "g":0.99, "b":0.49, "a":0.5},
+                "color_curves": ["radialFade", null]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id":"TRAVEL_MODE_RUN",
+        "data":{
+          "status": {
+            "MOVEMENT_SPEED": 6,
+            "ACTOR_SPEED": 0,
+            "ACTOR_YAW_RATE": 3,
+            "STATUS_FORWARD": 0
+          },
+          "inputs": [
+            {"class_name": "GuiAxisSlider",
+              "widget_config": "widget_thumbstick",
+              "controls":["CONTROL_RUN_X","CONTROL_RUN_Z"],
+              "on_active": ["CONTROL_RUN_ACTION"],
+              "options":{
+                "anchor": "stick_bottom_right",
+                "icon": "directional_arrows",
+                "axis": [-1, 1],
+                "settings": {
+                  "axis": ["OFFSET_CONTROL_STICK_X", "OFFSET_CONTROL_STICK_Y"]
+                },
+                "axis_keys": [["a", "d"],["w", "s"]],
+                "release": [1, 1],
+                "range": [0.05, 0.05],
+                "offsets": [-0.05, 0.05]
+              }
+            }
+          ],
+          "feedback": [
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_WEST", null],
+              "options":{
+                "anchor": "bottom_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.07, 0.1],
+                "offsets": [0, 0.01],
+                "text": "W",
+                "curve_colors": [[0.2, 1, 0.2, 1], [0, 0, 0, 0]],
+                "color_rgba": {"r":0.49, "g":0.99, "b":0.49, "a":0.5},
+                "color_curves": ["radialFade", null]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_SOUTH", null],
+              "options":{
+                "anchor": "bottom_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.07, 0.1],
+                "offsets": [0, 0.01],
+                "text": "S",
+                "curve_colors": [[0.2, 1, 0.2, 1], [0, 0, 0, 0]],
+                "color_rgba": {"r":0.49, "g":0.99, "b":0.49, "a":0.5},
+                "color_curves": ["radialFade", null]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_EAST", null],
+              "options":{
+                "anchor": "bottom_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.07, 0.1],
+                "offsets": [0, 0.01],
+                "text": "E",
+                "curve_colors": [[0.2, 1, 0.2, 1], [0, 0, 0, 0]],
+                "color_rgba": {"r":0.49, "g":0.99, "b":0.49, "a":0.5},
+                "color_curves": ["radialFade", null]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_NORTH", null],
+              "options":{
+                "anchor": "bottom_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.07, 0.1],
+                "offsets": [0, 0.01],
+                "text": "N",
+                "curve_colors": [[0.2, 1, 0.2, 1], [0, 0, 0, 0]],
+                "color_rgba": {"r":0.49, "g":0.99, "b":0.49, "a":0.5},
+                "color_curves": ["radialFade", null]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id":"TRAVEL_MODE_JETPACK",
+        "data":{
+          "status": {
+            "MOVEMENT_SPEED": 24,
+            "ACTOR_SPEED": 0,
+            "ACTOR_YAW_RATE": 2,
+            "STATUS_FORWARD": 0
+          },
+          "inputs": [
+            {"class_name": "GuiAxisSlider",
+              "widget_config": "widget_thumbstick",
+              "controls":["CONTROL_TILE_X","CONTROL_TILE_Z"],
+              "on_active": ["CONTROL_LEAP_ACTION"],
+              "options":{
+                "anchor": "stick_bottom_right",
+                "icon": "directional_arrows",
+                "axis": [-1, 1],
+                "settings": {
+                  "axis": ["OFFSET_CONTROL_STICK_X", "OFFSET_CONTROL_STICK_Y"]
+                },
+                "release": [1, 1],
+                "range": [0.1, 0.1],
+                "offsets": [-0.05, 0.05]
+              }
+            }
+          ],
+          "feedback": [
+
+          ]
+        }
+      },
+      {
+        "id":"TRAVEL_MODE_FLY",
+        "data":{
+          "camera_mode": "game_vehicle",
+          "status": {
+            "MOVEMENT_SPEED": 0,
+            "ACTOR_SPEED": 40,
+            "ACTOR_YAW_RATE": 4,
+            "STATUS_FORWARD": 0
+          },
+          "inputs": [
+            {"class_name": "GuiAxisSlider",
+              "widget_config": "widget_thumbstick",
+              "controls":["CONTROL_ROLL","CONTROL_PITCH"],
+              "options":{
+                "anchor": "stick_bottom_right",
+                "icon": "directional_arrows",
+                "axis": [1, 1],
+                "settings": {
+                  "axis": ["OFFSET_CONTROL_STICK_X", "OFFSET_CONTROL_STICK_Y"]
+                },
+                "axis_keys": [["a", "d"],["w", "s"]],
+                "release": [1, 1],
+                "range": [0.08, 0.08]
+              }
+            },
+            {"class_name": "GuiAxisSlider",
+              "widget_config": "widget_thumbstick",
+              "controls":[null,"CONTROL_SPEED"],
+              "options":{
+                "anchor": "stick_bottom_left",
+                "icon": "vertical_arrows",
+                "axis": [0, 1],
+                "axis_keys": [[],["r", "f"]],
+                "release": [1, 1],
+                "range": [0.08, 0.08]
+              }
+            },
+            {"class_name": "GuiAxisSlider",
+              "widget_config": "widget_thumbstick",
+              "controls":["CONTROL_YAW",null],
+              "options":{
+                "anchor": "bottom_center",
+                "icon": "horizontal_arrows",
+                "axis": [-1, 0],
+                "axis_keys": [["q", "e"],[]],
+                "release": [1, 1],
+                "range": [0.08, 0.08],
+                "offsets": [0, 0.03]
+              }
+            }
+          ],
+          "feedback": [
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":[null, "STATUS_FORWARD"],
+              "options":{
+                "anchor": "top_center",
+                "icon": "control_throttle_indicator",
+                "axis": [0, 1],
+                "range": [0.0, 0.04],
+                "offsets": [-0.08, -0.22],
+                "value_text": [null, null],
+                "color_rgba": {"r":1.0, "g":1.0, "b":0, "a":0.7},
+                "curve_colors": [[0.5, -0.5, 0, 0], [0.5, -0.5, 0, 0]],
+                "color_curves": [null, "unitFlip"]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":[null,"STATUS_SPEED"],
+              "options":{
+                "anchor": "top_center",
+                "icon": "speed_indicator",
+                "axis": [0, 1],
+                "range": [0.0, 0.0],
+                "offsets": [0.08, -0.07],
+                "value_text": [null, 0],
+                "color_rgba": {"r":1.0, "g":1.0, "b":-0.99, "a":0.7},
+                "curve_colors": [[1, 1, 1, 1], [0.75, -0.75, 0, 0]],
+                "color_curves": [null, "unitFlip"]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":[null,"STATUS_SPEED"],
+              "options":{
+                "anchor": "top_center",
+                "icon": "zero_line_indicator",
+                "axis": [0, 1],
+                "range": [0.0, 0.0],
+                "offsets": [0.0, -0.12]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":[null,"STATUS_ANGLE_ROLL"],
+              "options":{
+                "anchor": "top_center",
+                "icon": "zero_line_indicator",
+                "axis": [0, 1],
+                "range": [0.0, 0.0],
+                "offsets": [0.0, -0.22]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_YAW", "STATUS_PITCH"],
+              "options":{
+                "anchor": "top_center",
+                "icon": "control_yaw_indicator",
+                "axis": [-1, 1],
+                "range": [0.04, 0.04],
+                "offsets": [0.0, -0.22]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ROLL", "STATUS_PITCH"],
+              "options":{
+                "anchor": "top_center",
+                "icon": "control_roll_indicator",
+                "axis": [1, 1],
+                "rotation": [-1, 0],
+                "range": [0.00, 0.04],
+                "offsets": [0.0, -0.22]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_ROLL", "STATUS_ANGLE_PITCH"],
+              "options":{
+                "anchor": "top_center",
+                "icon": "roll_indicator",
+                "axis": [1, -1],
+                "rotation": [-1, 0],
+                "range": [0.0, 0.03],
+                "offsets": [0.0, -0.12]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_WEST", null],
+              "options":{
+                "anchor": "top_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.12, 0.1],
+                "offsets": [0, -0.12],
+                "text": "W",
+                "color_curves": ["radialFade", null]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_SOUTH", null],
+              "options":{
+                "anchor": "top_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.12, 0.1],
+                "offsets": [0, -0.12],
+                "text": "S",
+                "color_curves": ["radialFade", null]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_EAST", null],
+              "options":{
+                "anchor": "top_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.12, 0.1],
+                "offsets": [0, -0.12],
+                "text": "E",
+                "color_curves": ["radialFade", null]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ANGLE_NORTH", null],
+              "options":{
+                "anchor": "top_center",
+                "icon": "horizon_indicator",
+                "axis": [1, 0],
+                "range": [0.12, 0.1],
+                "offsets": [0, -0.12],
+                "text": "N",
+                "color_curves": ["radialFade", null]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":[null,"STATUS_CLIMB_0"],
+              "options":{
+                "anchor": "top_center",
+                "icon": "climb_line",
+                "axis": [0, 1],
+                "range": [0, 0.2],
+                "offsets": [0, -0.12],
+                "color_rgba": {"r":0.2, "g":0.65, "b": 0.0, "a":0.95},
+                "curve_colors": [[1, 1, 1, 1], [1, 1, 1, 1]],
+                "color_curves": [null, "halfUnitFade"]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":[null,"STATUS_CLIMB_1"],
+              "options":{
+                "anchor": "top_center",
+                "icon": "climb_line",
+                "axis": [0, 1],
+                "range": [0, 0.2],
+                "offsets": [0, -0.12],
+                "color_rgba": {"r":0.2, "g":0.65, "b": 0.0, "a":0.95},
+                "curve_colors": [[1, 1, 1, 1], [1, 1, 1, 1]],
+                "color_curves": [null, "halfUnitFade"]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":[null,"STATUS_CLIMB_2"],
+              "options":{
+                "anchor": "top_center",
+                "icon": "climb_line",
+                "axis": [0, 1],
+                "range": [0, 0.2],
+                "offsets": [0, -0.12],
+                "color_rgba": {"r":0.2, "g":0.65, "b": 0.0, "a":0.95},
+                "curve_colors": [[1, 1, 1, 1], [1, 1, 1, 1]],
+                "color_curves": [null, "halfUnitFade"]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":[null,"STATUS_CLIMB_3"],
+              "options":{
+                "anchor": "top_center",
+                "icon": "climb_line",
+                "axis": [0, 1],
+                "range": [0, 0.2],
+                "offsets": [0, -0.12],
+                "color_rgba": {"r":0.2, "g":0.65, "b": 0.0, "a":0.95},
+                "curve_colors": [[1, 1, 1, 1], [1, 1, 1, 1]],
+                "color_curves": [null, "halfUnitFade"]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":[null,"STATUS_CLIMB_4"],
+              "options":{
+                "anchor": "top_center",
+                "icon": "climb_line",
+                "axis": [0, 1],
+                "range": [0, 0.2],
+                "offsets": [0, -0.12],
+                "color_rgba": {"r":0.2, "g":0.65, "b": 0.0, "a":0.95},
+                "curve_colors": [[1, 1, 1, 1], [1, 1, 1, 1]],
+                "color_curves": [null, "halfUnitFade"]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":["STATUS_ELEVATION","STATUS_CLIMB_RATE"],
+              "options":{
+                "anchor": "top_center",
+                "icon": "altitude_indicator",
+                "axis": [1, 1],
+                "range": [0, 0],
+                "offsets": [-0.08, -0.07],
+                "value_text": [0, null],
+                "color_rgba": {"r":0.75, "g":0.75, "b":0.0, "a":0.7},
+                "curve_colors": [[1, 1, 1, 1], [0.75, -0.75, 0, 0]],
+                "color_curves": [null, "unitFlip"]
+              }
+            },
+            {"class_name": "GuiAxisFeedback",
+              "widget_config": "widget_axis_feedback",
+              "status":[null, "STATUS_CLIMB_RATE"],
+              "options":{
+                "anchor": "top_center",
+                "icon": "climb_rate_indicator",
+                "axis": [0, 1],
+                "range": [0, 0.15],
+                "offsets": [-0.15, -0.07],
+                "value_text": [null, null],
+                "color_rgba": {"r":1.0, "g":1.0, "b":-0.99, "a":0.7},
+                "curve_colors": [[1, 1, 1, 1], [0.75, -0.75, 0, 0]],
+                "color_curves": [null, "unitFlip"]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}]

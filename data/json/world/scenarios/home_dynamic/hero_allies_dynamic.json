@@ -1,0 +1,72 @@
+[{
+  "DYNAMIC_SCENARIOS":{
+    "GAME_SCENARIOS":[
+      {
+        "id": "hero_allies_dynamic",
+        "data": [
+          {
+            "data_key":"dynamic_view_init",
+            "config": {
+              "gui_page":"page_scene_hero_practice",
+              "camera": {
+                "mode": "follow_cam_main_char",
+                "offset_pos": [11, 13, -5],
+                "offset_lookAt": [0, 1.5, 0]
+              },
+              "environment": "high_noon",
+              "player": {
+                "pos": [-4.8, 0, -2.8],
+                "rot": [0, 1.111, 0]
+              },
+              "grid": {
+                "dataId":"grid_home_practice",
+                "entrance_tile": [3, 7],
+                "start_tile": [5, 7],
+                "rot": [0, -1.0, 0],
+                "pos": [-1.8, 0, -2.8]
+              },
+              "spawn_patterns": [
+                { "dataId": "spawn_pattern_single",
+                  "params": {
+                    "tile_x": 10,
+                    "tile_y": 12,
+                    "rotations": [-1.1],
+                    "states": ["IDLE_HANDS"],
+                    "characters":[
+                      "COMBAT_TUTOR"
+                    ]
+                  }
+                },
+                { "dataId": "spawn_pattern_single",
+                  "params": {
+                    "tile_x": 7,
+                    "tile_y": 14,
+                    "rotations": [-1.1],
+                    "states": ["IDLE_HANDS"],
+                    "characters":[
+                      "BARB_TRAINER"
+                    ]
+                  }
+                },
+                { "dataId": "spawn_pattern_single",
+                  "params": {
+                    "tile_x": 5,
+                    "tile_y": 9,
+                    "rotations": [-1.1],
+                    "states": ["IDLE_HANDS"],
+                    "characters":[
+                      "HOME_DUDE"
+                    ]
+                  }
+                }
+              ],
+              "characters": [],
+              "spawn":[
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}]

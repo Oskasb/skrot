@@ -1,0 +1,645 @@
+[
+  {
+    "ASSETS": {
+      "MATERIALS":[
+        {
+          "id":"material_standard",
+          "config":{
+            "settings": "mat_settings_standard_opaque",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_diff"   } ,
+              {"key":"metalnessMap"  , "id":"atlas_2k_metalness"   } ,
+              {"key":"envMap"        , "id":"ref_sphere_2"      } ,
+              {"key":"roughnessMap"  , "id":"atlas_2k_roughness"   } ,
+              {"key":"normalMap"     , "id":"atlas_2k_norm"   }
+            ]
+          }
+        },
+        {
+          "id":"material_standard_opaque_plane",
+          "config":{
+            "settings": "mat_settings_standard_opaque",
+            "textures":[
+              {"key":"map"           , "id":"tx_plane_atlas"   } ,
+              {"key":"metalnessMap"  , "id":"tx_plane_atlas_metalness"   } ,
+              {"key":"envMap"        , "id":"ref_sphere_2"      } ,
+              {"key":"roughnessMap"  , "id":"tx_plane_atlas_roughness"   } ,
+              {"key":"normalMap"     , "id":"tx_plane_atlas_normal"   }
+            ]
+          }
+        },
+        {
+          "id":"material_phong_plane",
+          "config":{
+            "settings": "mat_settings_phong_opaque",
+            "textures":[
+              {"key":"map"           , "id":"tx_plane_atlas"   },
+              {"key":"envMap"        , "id":"ref_sphere_2"      } ,
+              {"key":"specularMap"   , "id":"tx_plane_atlas_metalness"   },
+              {"key":"normalMap"     , "id":"tx_plane_atlas_normal"   }
+            ]
+          }
+        },
+        {
+          "id":"material_standard_decals_f14",
+          "config":{
+            "settings": "mat_settings_standard_decals",
+            "textures":[
+              {"key":"map"           , "id":"tx_tomcat_decals"   } ,
+              {"key":"envMap"        , "id":"ref_sphere_2"      } ,
+              {"key":"normalMap"     , "id":"tx_canopy_normals"   }
+            ]
+          }
+        },
+        {
+          "id":"material_standard_lights_f14",
+          "config":{
+            "settings": "mat_settings_standard_opaque",
+            "textures":[
+              {"key":"map"           , "id":"tx_tomcat_lights_diffuse"   } ,
+              {"key":"metalnessMap"  , "id":"tx_glass_surface"   } ,
+              {"key":"emissiveMap"   , "id":"tx_tomcat_lights_emit"   } ,
+              {"key":"envMap"        , "id":"ref_sphere_2"      } ,
+              {"key":"roughnessMap"  , "id":"tx_glass_surface"   } ,
+              {"key":"normalMap"     , "id":"tx_canopy_normals"   }
+            ]
+          }
+        },
+        {
+          "id":"material_opaque",
+          "config":{
+            "settings": "mat_settings_phong_opaque",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_diff"   },
+              {"key":"envMap"        , "id":"ref_sphere"      } ,
+              {"key":"specularMap"   , "id":"atlas_2k_spec"   },
+              {"key":"normalMap"     , "id":"atlas_2k_norm"   }
+            ]
+          }
+        },
+        {
+          "id":"material_opaque_green",
+          "config":{
+            "settings": "mat_settings_phong_opaque",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_green"   },
+              {"key":"envMap"        , "id":"ref_sphere"      } ,
+              {"key":"specularMap"   , "id":"atlas_2k_spec"   },
+              {"key":"normalMap"     , "id":"atlas_2k_norm"   }
+            ]
+          }
+        },
+        {
+          "id":"mat_instancing_opaque",
+          "config":{
+            "settings": "mat_settings_phong_instancing",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_diff"   },
+              {"key":"emissiveMap"   , "id":"atlas_2k_emit"   } ,
+              {"key":"envMap"        , "id":"ref_sphere"      } ,
+              {"key":"specularMap"   , "id":"atlas_2k_spec"   },
+              {"key":"normalMap"     , "id":"atlas_2k_norm"   }
+            ]
+          }
+        },
+        {
+          "id":"mat_instancing_standard",
+          "config":{
+            "settings": "mat_settings_standard_instancing",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_diff"       } ,
+              {"key":"emissiveMap"   , "id":"atlas_2k_emit"       } ,
+              {"key":"envMap"        , "id":"ref_sphere"          } ,
+              {"key":"metalnessMap"  , "id":"atlas_2k_metalness"  } ,
+              {"key":"roughnessMap"  , "id":"atlas_2k_roughness"  } ,
+              {"key":"normalMap"     , "id":"atlas_2k_norm"       }
+            ]
+          }
+        },
+        {
+          "id":"material_green",
+          "config":{
+            "settings": "mat_settings_standard_opaque",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_green"   } ,
+              {"key":"emissiveMap"   , "id":"atlas_2k_emit"       } ,
+              {"key":"envMap"        , "id":"ref_sphere"      } ,
+              {"key":"metalnessMap"  , "id":"atlas_2k_metalness"   } ,
+              {"key":"roughnessMap"  , "id":"atlas_2k_roughness"   } ,
+              {"key":"normalMap"     , "id":"atlas_2k_norm"   }
+            ]
+          }
+        },
+        {
+          "id":"mat_instancing_green",
+          "config":{
+            "settings": "mat_settings_standard_instancing",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_green"       } ,
+              {"key":"emissiveMap"   , "id":"atlas_2k_emit"       } ,
+              {"key":"envMap"        , "id":"ref_sphere"          } ,
+              {"key":"metalnessMap"  , "id":"atlas_2k_metalness"  } ,
+              {"key":"roughnessMap"  , "id":"atlas_2k_roughness"  } ,
+              {"key":"normalMap"     , "id":"atlas_2k_norm"       }
+            ]
+          }
+        },
+        {
+          "id":"material_red",
+          "config":{
+            "settings": "mat_settings_standard_opaque",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_red"   } ,
+              {"key":"emissiveMap"   , "id":"atlas_2k_emit"       } ,
+              {"key":"envMap"        , "id":"ref_sphere"      } ,
+              {"key":"metalnessMap"  , "id":"atlas_2k_metalness"   } ,
+              {"key":"roughnessMap"  , "id":"atlas_2k_roughness"   } ,
+              {"key":"normalMap"     , "id":"atlas_2k_norm"   }
+            ]
+          }
+        },
+        {
+          "id":"mat_instancing_red",
+          "config":{
+            "settings": "mat_settings_standard_instancing",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_red"       } ,
+              {"key":"emissiveMap"   , "id":"atlas_2k_emit"       } ,
+              {"key":"envMap"        , "id":"ref_sphere"          } ,
+              {"key":"metalnessMap"  , "id":"atlas_2k_metalness"  } ,
+              {"key":"roughnessMap"  , "id":"atlas_2k_roughness"  } ,
+              {"key":"normalMap"     , "id":"atlas_2k_norm"       }
+            ]
+          }
+        },
+        {
+          "id":"material_purple",
+          "config":{
+            "settings": "mat_settings_standard_opaque",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_purple"       } ,
+              {"key":"emissiveMap"   , "id":"atlas_2k_emit"       } ,
+              {"key":"envMap"        , "id":"ref_sphere"            } ,
+              {"key":"metalnessMap"  , "id":"atlas_2k_metalness"   } ,
+              {"key":"roughnessMap"  , "id":"atlas_2k_roughness"   } ,
+              {"key":"normalMap"     , "id":"atlas_2k_norm"   }
+            ]
+          }
+        },
+        {
+          "id":"mat_instancing_purple",
+          "config":{
+            "settings": "mat_settings_standard_instancing",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_purple"     } ,
+              {"key":"emissiveMap"   , "id":"atlas_2k_emit"       } ,
+              {"key":"envMap"        , "id":"ref_sphere"          } ,
+              {"key":"metalnessMap"  , "id":"atlas_2k_metalness"  } ,
+              {"key":"roughnessMap"  , "id":"atlas_2k_roughness"  } ,
+              {"key":"normalMap"     , "id":"atlas_2k_norm"       }
+            ]
+          }
+        },
+        {
+          "id":"material_instanced_ocean",
+          "config":{
+            "settings": "mat_settings_ocean",
+            "textures":[
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01"  },
+              {"key":"envMap"         , "id":"ref_sphere"              } ,
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_ocean",
+          "config":{
+            "settings": "mat_settings_ocean_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"              } ,
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain_home",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_home"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_home"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain_13",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01_13"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01_13"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain_12",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01_12"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01_12"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain_11",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01_11"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01_11"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain_10",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01_10"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01_10"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain_09",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01_09"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01_09"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain_08",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01_08"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01_08"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain_07",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01_07"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01_07"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain_06",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01_06"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01_06"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain_05",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01_05"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01_05"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain_04",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01_04"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01_04"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain_03",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01_03"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01_03"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain_02",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01_02"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01_02"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_big_terrain_01",
+          "config":{
+            "settings": "mat_settings_terrain_big",
+            "textures":[
+              {"key":"envMap"         , "id":"ref_sphere"                },
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01_01"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01_01"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+        {
+          "id":"material_instanced_terrain",
+          "config":{
+            "settings": "mat_settings_terrain_instanced",
+            "textures":[
+              {"key":"terrainmap"     , "id":"tx_terrainmap_world_01"  },
+              {"key":"heightmap"      , "id":"tx_heightmap_world_01"   },
+              {"key":"tx0"            , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"          , "id":"tx_ground_tiles16x16nm"    }
+            ]
+          }
+        },
+
+        {
+          "id":"material_terrain",
+          "config":{
+            "settings": "mat_settings_terrain_basic",
+            "textures":[
+              {"key":"tx0", "id":"terrain_striperock"  },
+              {"key":"tx1", "id":"terrain_darkrock"    },
+              {"key":"tx2", "id":"terrain_mud"         },
+              {"key":"tx3", "id":"terrain_dark_grass"  },
+              {"key":"tx4", "id":"terrain_grass"       },
+              {"key":"tx5", "id":"terrain_detail"      },
+              {"key":"tx6", "id":"terrain_fract"       }
+            ]
+          }
+        },
+
+
+        {
+          "id":"material_nature",
+          "config":{
+            "settings": "mat_settings_phong_nature",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_diff"   }
+            ]
+          }
+        },
+
+        {
+          "id":"mat_instancing_basic",
+          "config":{
+            "settings": "mat_settings_instancing_basic",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_diff"   },
+              {"key":"envMap"         , "id":"ref_sphere"     } ,
+              {"key":"materialEps"   , "id":"atlas_2k_mat_eps"    },
+              {"key":"normalMap"     , "id":"atlas_2k_norm"       },
+              {"key":"data_texture"  , "id":"data_texture"   }
+            ]
+          }
+        },
+        {
+          "id":"mat_instancing_simple",
+          "config":{
+            "settings": "mat_settings_instancing_simple",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_diff"   },
+              {"key":"envMap"         , "id":"ref_sphere"     } ,
+              {"key":"materialEps"   , "id":"atlas_2k_mat_eps"    },
+              {"key":"normalMap"     , "id":"atlas_2k_norm"       },
+              {"key":"data_texture"  , "id":"data_texture"   }
+            ]
+          }
+        },
+        {
+          "id":"mat_instancing_nature",
+          "config":{
+            "settings": "mat_settings_instancing_basic",
+            "textures":[
+              {"key":"map"           , "id":"atlas_2k_diff"   },
+              {"key":"emissiveMap"   , "id":"atlas_2k_emit"   },
+              {"key":"normalMap"     , "id":"atlas_2k_norm"   },
+              {"key":"data_texture"  , "id":"data_texture"   }
+            ]
+          }
+        },
+        {
+          "id":"material_instancing_ui",
+          "config":{
+            "settings": "mat_settings_ui",
+            "textures":[
+              {"key":"map"           , "id":"gui_atlas_16x16"  },
+              {"key":"data_texture"  , "id":"data_texture"   }
+            ]
+          }
+        },
+        {
+          "id":"mat_instancing_vegetation",
+          "config":{
+            "settings": "mat_settings_vegetation",
+            "textures":[
+              {"key":"map"           , "id":"tx_veg_2k"      }
+            ]
+          }
+        },
+        {
+          "id":"mat_stamp_normal_8x8",
+          "config":{
+            "settings": "mat_settings_particle_stamp",
+            "textures":[
+              {"key":"map"           , "id":"particle_atlas_8x8"  },
+              {"key":"data_texture"  , "id":"data_texture"        }
+            ]
+          }
+        },
+        {
+          "id":"mat_stamp_additive_8x8",
+          "config":{
+            "settings": "mat_settings_particle_stamp_additive",
+            "textures":[
+              {"key":"map"           , "id":"particle_atlas_8x8"  },
+              {"key":"data_texture"  , "id":"data_texture"        }
+            ]
+          }
+        },
+        {
+          "id":"mat_stamp_overlay_8x8",
+          "config":{
+            "settings": "mat_settings_particle_stamp_overlay",
+            "textures":[
+              {"key":"map"           , "id":"particle_atlas_8x8"  },
+              {"key":"data_texture"  , "id":"data_texture"        }
+            ]
+          }
+        },
+        {
+          "id":"mat_particles_normal_8x8",
+          "config":{
+            "settings": "mat_settings_instancing_normal",
+            "textures":[
+              {"key":"map"           , "id":"particle_atlas_8x8"  },
+              {"key":"data_texture"  , "id":"data_texture"        }
+            ]
+          }
+        },
+        {
+          "id":"mat_particles_additive_8x8",
+          "config":{
+            "settings": "mat_settings_particle_additive",
+            "textures":[
+              {"key":"map"           , "id":"particle_atlas_8x8"  },
+              {"key":"data_texture"  , "id":"data_texture"        }
+            ]
+          }
+        },
+        {
+          "id":"material_instancing_ui_add",
+          "config":{
+            "settings": "mat_settings_ui_add",
+            "textures":[
+              {"key":"map"           , "id":"gui_atlas_16x16"  },
+              {"key":"data_texture"  , "id":"data_texture"     }
+            ]
+          }
+        },
+        {
+          "id":"material_instancing_ui_back",
+          "config":{
+            "settings": "mat_settings_ui_back",
+            "textures":[
+              {"key":"map"           , "id":"gui_atlas_16x16"  },
+              {"key":"data_texture"  , "id":"data_texture"     }
+            ]
+          }
+        },
+        {
+          "id":"material_instancing_tileset",
+          "config":{
+            "settings": "mat_settings_instancing_tileset",
+            "textures":[
+              {"key":"map"           , "id":"tx_box_tiles8x8"      },
+              {"key":"data_texture"  , "id":"data_texture"         }
+            ]
+          }
+        },
+        {
+          "id":"material_instancing_groundtileset",
+          "config":{
+            "settings": "mat_settings_instancing_groundtileset",
+            "textures":[
+              {"key":"map"           , "id":"tx_ground_tiles16x16"      },
+              {"key":"tx0nm"         , "id":"tx_ground_tiles16x16nm"    },
+              {"key":"data_texture"  , "id":"data_texture"         }
+            ]
+          }
+        },
+        {
+          "id":"material_instancing_vegetation",
+          "config":{
+            "settings": "mat_settings_instancing_vegetation",
+            "textures":[
+              {"key":"map"           , "id":"tx_veg_2k"      },
+              {"key":"data_texture"  , "id":"data_texture"         }
+            ]
+          }
+        },
+        {
+          "id":"material_instancing_font",
+          "config":{
+            "settings": "mat_settings_font",
+            "textures":[
+              {"key":"map"           , "id":"fontatlas"      },
+              {"key":"data_texture"  , "id":"data_texture"   }
+            ]
+          }
+        },
+        {
+          "id":"material_glass",
+          "config":{
+            "settings": "mat_settings_glass",
+            "textures":[
+              {"key":"map"           , "id":"tx_glass_surface"   } ,
+              {"key":"envMap"        , "id":"ref_sphere_2"      } ,
+              {"key":"normalMap"     , "id":"tx_canopy_normals"  }
+            ]
+          }
+        }
+      ]
+    }
+  }
+]

@@ -1,5 +1,6 @@
 "use strict";
 import { DataWorker } from '../DataWorker.js';
+import { ENUMS } from "../../application/ENUMS.js";
 
 class ImagePipe {
 

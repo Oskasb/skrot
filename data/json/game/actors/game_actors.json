@@ -1,0 +1,198 @@
+[{
+  "GAME":{
+    "ACTORS":[
+      {
+        "id":"ACTOR_HORSE",
+        "data":{
+          "visual_id": "VISUAL_HORSE",
+          "stats_id": "STATS_ACTOR_HORSE",
+          "equip_slots": "SLOTS_NONE"
+        }
+      },
+      {
+        "id":"ACTOR_CAVERN_ENTRANCE",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_CAVERN_ENTRANCE",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_OUTLAW",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_OUTLAW",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_GOD_1",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_GOD_1",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_GOD_2",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_GOD_2",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_FIGHTER",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_FIGHTER",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_QUESTGIVER",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_QUESTGIVER",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_BOATMAN",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_BOATMAN",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_VENDOR_HOUSING",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_VENDOR_HOUSING",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_PRINCESS",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_PRINCESS",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_FARMER",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_FARMER",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_ALIEN",
+        "data":{
+          "visual_id": "VISUAL_ALIEN",
+          "stats_id": "STATS_ALIEN",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_PIRATE",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_PIRATE",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_BARB",
+        "data":{
+          "visual_id": "VISUAL_BARBARIAN",
+          "stats_id": "STATS_BARBARIAN",
+          "equip_slots": "SLOTS_BARB"
+        }
+      },
+      {
+        "id":"ACTOR_DUDE",
+        "data":{
+          "visual_id": "VISUAL_DUDE",
+          "stats_id": "STATS_DUDE",
+          "equip_slots": "SLOTS_DUDE"
+        }
+      },
+      {
+        "id":"ACTOR_BANDIT_0",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_BANDIT_0",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_BANDIT_1",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_BANDIT_1",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_BANDIT_2",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_BANDIT_2",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_BANDIT_3",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_BANDIT_3",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_BANDIT_4",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_BANDIT_4",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_BANDIT_5",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_BANDIT_5",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_BANDIT_6",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_BANDIT_6",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_BANDIT_7",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_BANDIT_7",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      },
+      {
+        "id":"ACTOR_BANDIT_8",
+        "data":{
+          "visual_id": "VISUAL_FIGHTER",
+          "stats_id": "STATS_BANDIT_8",
+          "equip_slots": "SLOTS_FIGHTER"
+        }
+      }
+    ]
+  }
+}]

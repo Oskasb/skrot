@@ -1,5 +1,6 @@
 "use strict";
 import { GameDataPipeline } from '../GameDataPipeline.js';
+import {urlFromIndexEntry} from "../../application/utils/DataUtils.js";
 
 let reverseMap = {};
 
@@ -67,25 +68,46 @@ class ConfigCache {
     applyDataPipelineOptions = function(jsonIndexUrl, opts, pipelineReadyCb, pipelineErrorCb) {
 
         let _this = this;
-
+        let files = {};
+        this.configs.files = files;
         let loadFail = function(url, error) {
             console.log("JSON Pipe Fail! ", url, error);
         };
 
         let indexLoaded = function(url, json) {
-            //			console.log("JSON Pipe: ", url, json);
+        //	console.log("JSON Pipe: ", _this.configs, url, json);
 
             _this.gameDataPipeline.applyPipelineOptions(opts, pipelineErrorCb, _this);
 
-            let indexFiledAdded = function(iurl, jsn) {
+            let jsonFiledAdded = function(iurl, jsn) {
             //    console.log("JSON File Indexed: ", iurl, jsn);
             };
 
 
-            for (let i = 0; i < json[0].config_url_index.files.length;i++) {
-                _this.cacheFromUrl(opts.jsonConfigUrl+json[0].config_url_index.files[i], indexFiledAdded, loadFail);
+            let jsonFiles = [];
+
+            for (let key in json) {
+            //    if (key !== 'index' || key !== 'synch_list') {
+                    let entry = json[key];
+                    let format = entry.format;
+                    let url = urlFromIndexEntry(key, entry)
+
+                    if (!files[format]) {
+                        files[format] = {};
+                    }
+                    files[format][key] = {url:url, id:key};
+
+                    if (format === 'json') {
+                        jsonFiles.push(url);
+                    }
+             //   }
             }
-            pipelineReadyCb(_this);
+
+            for (let i = 0; i < jsonFiles.length;i++) {
+                _this.cacheFromUrl(opts.jsonConfigUrl+jsonFiles[i], jsonFiledAdded, loadFail);
+            }
+
+            pipelineReadyCb(_this.configs);
 
         };
 

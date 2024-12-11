@@ -1,0 +1,27 @@
+[{
+  "GAME":{
+    "PIECES":[
+      {
+        "id":"PIECE_FIGHTER",
+        "data":{
+          "model_asset":"animated_fighter_male",
+          "skeleton_rig":"FIGHTER_RIG"
+        }
+      },
+      {
+        "id":"PIECE_BARBARIAN",
+        "data":{
+          "model_asset":"animated_barbarian",
+          "skeleton_rig":"BARBARIAN_RIG"
+        }
+      },
+      {
+        "id":"PIECE_DUDE",
+        "data":{
+          "model_asset":"animated_pilot",
+          "skeleton_rig":"PILOT_RIG"
+        }
+      }
+    ]
+  }
+}]

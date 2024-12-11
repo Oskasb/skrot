@@ -1,0 +1,87 @@
+[{
+  "GEOMETRY": {
+    "DYNAMIC_RENDERABLE":[
+      {
+        "id": "dynamic_pilot",
+        "data": {
+          "model_id":"model_pilot",
+          "dynamic_feedback":"crate_feedback",
+          "visual_size":2,
+          "select_anchor":{"offset":[-0,   1.2, -0], "size":1.2},
+          "camera_home":{"offset":[0,   3.9, -6], "lookat":[0,   1.4,  0.5]},
+          "rigid_body": "WOODEN_CRATE"
+        }
+      },
+
+      {
+        "id": "dynamic_enterprize",
+        "data": {
+          "model_id":"model_enterprise",
+          "dynamic_feedback":"crate_feedback",
+          "visual_size":160,
+          "select_anchor":{"offset":[-22,   42, -32], "size":32},
+          "camera_home":{"offset":[60,   70, -230], "lookat":[0,   30, -12]},
+          "rigid_body": "ENTERPRISE_COMPOUND"
+        }
+      },
+
+      {
+        "id": "dynamic_f14",
+        "data": {
+          "model_id":"model_f14",
+          "dynamic_feedback":"crate_feedback",
+          "visual_size":12,
+          "select_anchor":{"offset":[0,   1.2, 6], "size":5},
+          "camera_home":  {"offset":[0,   10, -40], "lookat":[0,   1.6, 6.6]},
+          "rigid_body": "TOMCAT_COMPOUND"
+        }
+      },
+
+      {
+        "id": "wooden_crate",
+        "data": {
+          "instance_id":"crate_wood_geometry_effect",
+          "dynamic_feedback":"crate_feedback",
+          "visual_size":3,
+          "rigid_body": "WOODEN_CRATE"
+        }
+      },
+      {
+        "id": "creative_crate",
+        "data": {
+          "instance_id":"creative_crate_geometry_effect",
+          "visual_size":3,
+          "dynamic_feedback":"crate_feedback",
+          "rigid_body":"CREATIVE_CRATE"
+        }
+      },
+      {
+        "id": "tree_leafy_1",
+        "data": {
+          "instance_id":"model_geometry_tree_3_combined_effect",
+          "dynamic_feedback":"crate_feedback",
+          "visual_size":3,
+          "rigid_body": "WOODEN_CRATE"
+        }
+      },
+      {
+        "id": "tree_leafy_2",
+        "data": {
+          "instance_id":"model_geometry_tree_2_trunk_effect",
+          "dynamic_feedback":"crate_feedback",
+          "visual_size":25,
+          "rigid_body":"TREE_LEAFY_2"
+        }
+      },
+      {
+        "id": "wall_rock_1",
+        "data": {
+          "instance_id":"model_geometry_wall_rock_50_effect",
+          "dynamic_feedback":"crate_feedback",
+          "visual_size":50,
+          "rigid_body":"WALL_ROCK_1"
+        }
+      }
+    ]
+  }
+}]
