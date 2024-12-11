@@ -10,6 +10,11 @@ function updateEditWriteIndex(message, deleted) {
 
 let folder;
 let root;
+
+function registerEntryUpdate(entry) {
+
+}
+
 function getAllEditFiles(dir, done) {
     let results = [];
     server.readdir(dir, function(err, list) {
@@ -42,6 +47,14 @@ function getAllEditFiles(dir, done) {
                     entry.push(iPath);
                     entry.push(splits[splits.length-2]);
                     entry.push(splits[splits.length-1]);
+
+                    function notifyFileChanged(curr, prev) {
+                        console.log("File Changed", file, entry);
+                        registerEntryUpdate(entry);
+                    }
+
+                    server.watchFile(file, notifyFileChanged)
+
                     results.push(entry);
                 //    console.log("File: ", file, entry)
                     if (!--pending) done(null, results);
