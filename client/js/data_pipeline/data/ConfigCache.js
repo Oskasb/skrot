@@ -1,6 +1,7 @@
 "use strict";
 import { GameDataPipeline } from '../GameDataPipeline.js';
 import {urlFromIndexEntry} from "../../application/utils/DataUtils.js";
+import { MATH } from "../../application/MATH.js";
 
 let reverseMap = {};
 
@@ -21,6 +22,7 @@ class ConfigCache {
         };
 
         this.readyCallbacks = [];
+        this.fileReadCallbacks = [];
         this.categories = {};
         this.dataConfigs = {};
         this.images = {};
@@ -65,7 +67,10 @@ class ConfigCache {
     };
 
 
-    applyDataPipelineOptions = function(jsonIndexUrl, opts, pipelineReadyCb, pipelineErrorCb) {
+    applyDataPipelineOptions = function(jsonIndexUrl, opts, pipelineReadyCb, pipelineErrorCb, loadInitCB) {
+        if (this.fileReadCallbacks.indexOf(loadInitCB) === -1) {
+            this.fileReadCallbacks.push(loadInitCB)
+        }
 
         let _this = this;
         let files = {};
@@ -412,6 +417,7 @@ class ConfigCache {
             }
             success(remoteUrl, data)
         };
+        MATH.callAll(this.fileReadCallbacks, "Request init:",url)
         this.gameDataPipeline.loadConfigFromUrl(url, onLoaded, fail);
     };
 

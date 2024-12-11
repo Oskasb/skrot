@@ -12,6 +12,7 @@ import {
 } from "../../libs/three/Three.Core.js";
 import {WebGPURenderer} from "../../libs/three/Three.WebGPU.js";
 import {loadEditIndex} from "./application/utils/DataUtils.js";
+import {initPools} from "./application/utils/PoolUtils.js";
 
 function init3d() {
 
@@ -95,6 +96,7 @@ function init3d() {
 
 class Client{
     constructor() {
+        initPools()
     }
 
 

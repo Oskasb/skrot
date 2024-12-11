@@ -1,8 +1,10 @@
+import {Vector3} from "../../../../../../libs/three/math/Vector3.js";
+
 class GuiIcon {
     constructor() {
-            this.pos = new THREE.Vector3();
-            this.innersize = new THREE.Vector3();
-            this.offset = new THREE.Vector3();
+            this.pos = new Vector3();
+            this.innersize = new Vector3();
+            this.offset = new Vector3();
 
 
 

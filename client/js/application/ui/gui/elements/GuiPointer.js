@@ -1,5 +1,6 @@
 import { GuiPointerWidget} from "../widgets/GuiPointerWidget.js";
-import { Object3D } from "../../../../../libs/three/core/Object3D.js";
+import { Object3D } from "../../../../../../libs/three/core/Object3D.js";
+
 let tempObj = new Object3D();
 class GuiPointer {
     constructor(inputState) {

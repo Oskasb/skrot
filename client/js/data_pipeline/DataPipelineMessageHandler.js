@@ -39,13 +39,13 @@ class DataPipelineMessageHandler {
     };
 
 
-    delayedSend = function(channel, msg, delay) {
-        this.onMessageCB("Worker message: ", channel, msg)
+    delayedSend = function(channel, msg, x, delay) {
+        this.onMessageCB("Worker message: ", channel, msg, x)
     };
 
     handleDataUpdated = function(url) {
         this.okCount += 1;
-        this.delayedSend('data_update_channel', url+' '+this.okCount, 50);
+        this.delayedSend('data_update_channel', url, this.okCount, 50);
         //	delayedSend('data_update_channel', url+' '+okCount, 500);
         //	delayedSend('data_update_channel', url+' '+okCount, 2500);
     };

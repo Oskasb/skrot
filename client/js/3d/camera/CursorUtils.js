@@ -1,5 +1,5 @@
-import {Vector3} from "../../../libs/three/math/Vector3.js";
-import {Object3D} from "../../../libs/three/core/Object3D.js";
+import {Vector3} from "../../../../libs/three/math/Vector3.js";
+import {Object3D} from "../../../../libs/three/core/Object3D.js";
 
 let calcVec = new Vector3()
 let tempVec1 = new Vector3()

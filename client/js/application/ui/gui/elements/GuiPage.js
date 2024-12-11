@@ -1,6 +1,5 @@
 import {ConfigData} from "../../../utils/ConfigData.js";
-import {Vector3} from "../../../../../libs/three/math/Vector3.js";
-let tempVec3 = new Vector3()
+
 class GuiPage {
     constructor(pageId) {
         this.isActive = false;

@@ -109,11 +109,11 @@ class PipelineAPI {
         return this.configCache.dataCombineToKey(category, 'local', store);
     };
 
-    dataPipelineSetup = function(jsonIndexUrl, options, pipelineReady, pipelineError) {
+    dataPipelineSetup = function(jsonIndexUrl, options, pipelineReady, pipelineError, loadInitCB) {
         for (let key in options) {
             this.pipeOptions[key] = options[key];
         }
-        this.configCache.applyDataPipelineOptions(jsonIndexUrl, options, pipelineReady, pipelineError);
+        this.configCache.applyDataPipelineOptions(jsonIndexUrl, options, pipelineReady, pipelineError, loadInitCB);
     };
 
     prunePollUrlsExceptFor = function(urlList) {

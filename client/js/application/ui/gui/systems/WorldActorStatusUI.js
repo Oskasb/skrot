@@ -1,7 +1,5 @@
 import {GuiWidget} from "../elements/GuiWidget.js";
 import {poolReturn} from "../../../utils/PoolUtils.js";
-import {elementColorMap} from "../../../../game/visuals/Colors.js";
-import {statusIcons} from "../../../../game/visuals/Icons.js";
 import {ENUMS} from "../../../ENUMS.js";
 
 let trackMap = [

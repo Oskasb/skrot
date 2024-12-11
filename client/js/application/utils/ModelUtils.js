@@ -1,10 +1,7 @@
 import {ConfigData} from "./ConfigData.js";
-import {PieceAnimator} from "../../game/gamepieces/PieceAnimator.js";
-import {PieceActionSystem} from "../../game/gamepieces/PieceActionSystem.js";
-import {PieceAttacher} from "../../game/gamepieces/PieceAttacher.js";
-import {Vector3} from "../../../libs/three/math/Vector3.js";
-import {Object3D} from "../../../libs/three/core/Object3D.js";
-import {Box3} from "../../../libs/three/math/Box3.js";
+import {Vector3} from "../../../../libs/three/math/Vector3.js";
+import {Object3D} from "../../../../libs/three/core/Object3D.js";
+import {Box3} from "../../../../libs/three/math/Box3.js";
 
 
 let tempBox = new Box3();

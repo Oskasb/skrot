@@ -1,5 +1,4 @@
 import {ENUMS} from "../ENUMS.js";
-import {ItemRecipe} from "../../game/gamepieces/ItemRecipe.js";
 import {getItemConfigs} from "./ActorUtils.js";
 
 let resourceHierarchyConfig;

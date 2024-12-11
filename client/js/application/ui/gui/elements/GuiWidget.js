@@ -2,8 +2,8 @@ import { ElementStateProcessor } from "../states/ElementStateProcessor.js";
 import { GuiSurface } from "./GuiSurface.js";
 import { GuiIcon } from "./GuiIcon.js";
 
-import {Vector3} from "../../../../../libs/three/math/Vector3.js";
-import {Quaternion} from "../../../../../libs/three/math/Quaternion.js";
+import {Vector3} from "../../../../../../libs/three/math/Vector3.js";
+import {Quaternion} from "../../../../../../libs/three/math/Quaternion.js";
 
 let tempVec = new Vector3();
 

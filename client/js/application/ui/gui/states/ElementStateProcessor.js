@@ -1,4 +1,4 @@
-import {Vector3} from "../../../../../libs/three/math/Vector3.js";
+import {Vector3} from "../../../../../../libs/three/math/Vector3.js";
 
 class ElementStateProcessor {
 

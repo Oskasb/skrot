@@ -1,10 +1,10 @@
 import {poolFetch, poolReturn} from "./PoolUtils.js";
-import {Vector3} from "../../../libs/three/math/Vector3.js";
-import {Object3D} from "../../../libs/three/core/Object3D.js";
-import {Ray} from "../../../libs/three/math/Ray.js";
+import {Vector3} from "../../../../libs/three/math/Vector3.js";
+import {Object3D} from "../../../../libs/three/core/Object3D.js";
+
 import {ENUMS} from "../ENUMS.js";
 import {getSetting} from "./StatusUtils.js";
-import {visualPhysicsImpulse} from "../../game/visuals/effects/VisualPhysisEffects.js";
+
 
 let tempObj = new Object3D();
 let tempVec = new Vector3();

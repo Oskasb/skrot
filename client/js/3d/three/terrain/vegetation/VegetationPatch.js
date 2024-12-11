@@ -1,5 +1,5 @@
-import {Vector3} from "../../../../../libs/three/math/Vector3.js";
-import {borrowBox, cubeTestVisibility} from "../../../../application/utils/ModelUtils.js";
+import {Vector3} from "../../../../../../libs/three/math/Vector3.js";
+import {borrowBox} from "../../../../application/utils/ModelUtils.js";
 import {poolFetch, poolReturn} from "../../../../application/utils/PoolUtils.js";
 
 let index = 0;

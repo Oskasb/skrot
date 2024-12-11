@@ -1,7 +1,9 @@
+import {getCachedConfigs} from "./DataUtils.js";
+
 let cache = {};
 let poolList = [];
 let poolKeys = [];
-let track = null;
+let track = {added:0};
 let biggestPool = 0;
 let pools = []
 let mostAdded = 0;
@@ -37,8 +39,9 @@ class ExpandingPool {
 
         pools.push(this);
 
+        /*
         if (!cache['DEBUG']) {
-            cache = PipelineAPI.getCachedConfigs();
+            cache = getCachedConfigs();
             if (!cache['DEBUG']) {
                 cache.DEBUG = {};
             }
@@ -62,9 +65,11 @@ class ExpandingPool {
 
         }
 
-        this.dataKey = dataKey;
-        track = cache.DEBUG.POOLS
+                track = cache.DEBUG.POOLS
         track.pools++
+*/
+        this.dataKey = dataKey;
+
         poolKeys.push(dataKey)
         this.pool = [];
         poolList.push(this.pool)
