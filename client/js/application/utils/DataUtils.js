@@ -13,6 +13,11 @@ let frame = {
     elapsedTime:0.01,
     frame:0
 };
+
+let configs = null;
+
+let loadDoneCBs = [];
+
 function pipeMsgCB(msg, e, url) {
 //    console.log("Pipeline Msg ", msg, e, url);
 
@@ -22,6 +27,12 @@ function pipeMsgCB(msg, e, url) {
         if (loadCalls[i].key === url) {
             entry = loadCalls[i];
             entry.closeQueueEntry()
+        }
+    }
+
+    if (loadCalls.length === 0) {
+        while (loadDoneCBs.length) {
+            loadDoneCBs.pop()(msg);
         }
     }
 
@@ -42,11 +53,14 @@ function pipeMsgLoadInitCB(msg, url) {
 }
 
 function initPipelineAPI(pipeReadyCB) {
+
     pipelineAPI.initConfigCache(pipeReadyCB, pipeMsgCB)
 }
 
 function loadEditIndex(url, callback) {
   //  console.log("loadEditIndex", pipelineAPI, url, callback)
+    loadDoneCBs.push(callback);
+
 
     const dataPipelineOptions = {
         "jsonRegUrl":url,
@@ -63,7 +77,12 @@ function loadEditIndex(url, callback) {
         console.log("Pipelinje setup error ", err, x, y, z)
     }
 
-    pipelineAPI.dataPipelineSetup(url, dataPipelineOptions, callback, onError, pipeMsgLoadInitCB)
+    let loadInitOk = function(msg) {
+        configs = msg;
+        console.log("Load init Ok", configs);
+    }
+
+    pipelineAPI.dataPipelineSetup(url, dataPipelineOptions, loadInitOk, onError, pipeMsgLoadInitCB)
 }
 
 function urlFromIndexEntry(id, entry) {
@@ -82,6 +101,14 @@ function getGameTime() {
     return frame.gameTime;
 }
 
+function loadModelAsset(assetId, callback) {
+    window.ThreeAPI.dynamicMain.requestAssetInstance(assetId, callback);
+}
+
+function getConfigs() {
+    return configs;
+}
+
 export {
     urlFromIndexEntry,
     initPipelineAPI,
@@ -89,5 +116,7 @@ export {
     getCachedConfigs,
     pipelineAPI,
     getFrame,
-    getGameTime
+    getGameTime,
+    loadModelAsset,
+    getConfigs
 }

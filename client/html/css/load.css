@@ -1,0 +1,36 @@
+div.load_bar {
+    display: inline-flex;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+div.entry {
+    width: 2px;
+    margin: 0;
+    height: 50%;
+    margin-left: 1px;
+    border: 1px solid;
+    border-color: #410000;
+    background-color: #ff1c1c;
+}
+
+div.json {
+    border-color:red;
+    transition: border-color 0s;
+    box-shadow: 0.3em 0.3em 0 red;
+}
+
+div.png {
+    border-color: #009f21;
+    transition: border-color 0s;
+}
+
+div.glb {
+    border-color: #7c5000;
+    transition: border-color 0s;
+}

@@ -22,13 +22,16 @@
     <script type="module">
 
         import {Client} from './client/js/Client.js'
-        import {initPipelineAPI} from "./client/js/application/utils/DataUtils.js";
+        import {getConfigs, initPipelineAPI} from "./client/js/application/utils/DataUtils.js";
         import {ThreeAPI} from "./client/js/3d/three/ThreeAPI.js";
         import {GameScreen} from "./client/js/application/ui/GameScreen.js";
+        import {setRefDiv} from "./client/js/application/ui/dom/DomUtils.js";
 
         let client = new Client();
 
-        function indexLoaded(index) {
+        function indexLoaded(msg) {
+            console.log("Configs", msg, getConfigs());
+            window.ThreeAPI.assetLoader.buildAssetMapConfig(getConfigs());
             client.initClient();
         }
 
@@ -38,6 +41,8 @@
 
         window.GameScreen = new GameScreen();
         window.ThreeAPI = new ThreeAPI();
+
+        setRefDiv(document.body);
 
         initPipelineAPI(pipeReady)
 

@@ -1,27 +1,60 @@
 import {poolFetch, poolReturn} from "../../utils/PoolUtils.js";
+import {createDivElement, removeDivElement} from "./DomUtils.js";
+import {MATH} from "../../MATH.js";
 
 class DomQueueNotice {
     constructor() {
 
-
         let element = null;
+        let barContainer = null;
         let statusMap = null;
-
         let closed = false;
+        let indocatorDivs = [];
 
-        function update() {
+        function updateIndicatorDivs(entries) {
+            for (let i = 0; i < entries.length; i++) {
+                let entry = entries[i];
+                let key = entry.key;
+                let div = entry.div;
+                if (!div) {
+                    let div = createDivElement(barContainer, key, "", "entry")
+                    entry.div = div;
+                    div.entry = entry;
+                    indocatorDivs.push(div)
+                }
+            }
+
+            for (let i = 0; i < indocatorDivs.length; i++) {
+                let div = indocatorDivs[i];
+                if (entries.indexOf(div.entry) === -1) {
+                    MATH.splice(indocatorDivs, div);
+                    removeDivElement(div);
+                }
+            }
 
         }
 
-        function elemReady() {
+        function update() {
+            let entries = statusMap.activeEntries;
+            updateIndicatorDivs(entries);
 
+            if (closed === true) {
+                return;
+            }
+
+            window.requestAnimationFrame(update);
+        }
+
+        function elemReady() {
+            barContainer = element.call.getChildElement('load_bar')
+            update();
         }
 
         function activate(sMap) {
             closed = false;
             statusMap = sMap;
             element = poolFetch('HtmlElement');
-            element.initHtmlElement('queue_notice', close, statusMap, 'asynch_queue_feedback', elemReady);
+            element.initHtmlElement('queue_notice', null, statusMap, 'asynch_queue_feedback', elemReady);
         }
 
         function hide() {
@@ -30,7 +63,6 @@ class DomQueueNotice {
         }
 
         let close = function () {
-        //    ThreeAPI.unregisterPrerenderCallback(update);
 
             if (closed === true) {
                 return;

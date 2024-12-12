@@ -64,6 +64,10 @@ body.overlay_page {
     background-color: rgba(0, 0, 0, 0);
 }
 
+div.transparent {
+    background: none;
+}
+
 body.darken {
     background-color: rgba(0, 0, 0, 0.5);
 }
@@ -130,9 +134,7 @@ div.background_create_panel {
     background-size: 100% 100%;
 }
 
-div.transparent {
-    background: none;
-}
+
 
 div.darken {
     background: rgba(0, 0, 0, 0.5);

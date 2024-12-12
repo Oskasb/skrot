@@ -7,7 +7,7 @@ class ThreeModelSettings {
 
         let assetLoaded = function(src, asset) {
             //        console.log(src, asset);
-            this.settings = asset.config;
+            this.settings = asset;
             callback(this);
         }.bind(this);
 

@@ -1,5 +1,7 @@
-import {Vector3} from "../../libs/three/math/Vector3.js";
+
 import {ENUMS} from "../application/ENUMS.js";
+import {Vector3} from "../../../libs/three/Three.Core.js";
+import {evt} from "../application/event/evt.js";
 
 let tempVec = new Vector3();
 
@@ -171,7 +173,9 @@ class DynamicMain {
     tickDynamicMain = function() {
         this.updateDynamicMatrices();
      //   this.updateDynamicInstances();
-        InstanceAPI.updateInstances();
+
+
+     //   InstanceAPI.updateInstances();
 
     };
 

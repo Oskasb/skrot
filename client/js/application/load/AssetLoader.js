@@ -31,6 +31,27 @@ class AssetLoader {
 
         };
 
+        buildAssetMapConfig(configs) {
+            let assets = configs['ASSETS'];
+            assets.CONFIGS = {};
+            for (let key in this.assetMap) {
+                let str = ""+key;
+                str = str.slice(0, -1);
+                let map = assets[str];
+
+                for (let i = 0; i < map.length; i++) {
+                    let entry = map[i];
+                    let cfgId = str+"_"+entry.id;
+                    assets.CONFIGS[cfgId] = entry.config;
+                }
+
+            //    for (let cfg in map) {
+
+             //   }
+            }
+
+        }
+
         initAssetConfigs = function() {
 
             let loadList = function(src, data) {
@@ -72,14 +93,10 @@ class AssetLoader {
 
             let initLoadAsset = function(assetType, assetId, lcallback) {
                 let assetKey = assetType+assetId;
-                let cachedAsset = PipelineAPI.readCachedConfigKey('ASSET', assetKey);
+                let cachedAsset = pipelineAPI.readCachedConfigKey('ASSET', assetKey);
                 if (cachedAsset === assetKey) {
-                //    PipelineAPI.cacheCategoryKey('ASSET', assetKey, lcallback);
-            //        console.log("Request LoadSequencer", assetKey);
                     loadSequencer.sequenceAssetLoad(assets, assetMap, assetType, assetId, lcallback);
                 } else {
-                    //    PipelineAPI.removeCategoryKeySubscriber('ASSET', assetKey, lcallback)
-            //        console.log('asset cached', assetKey);
                     lcallback(cachedAsset);
                 }
             };

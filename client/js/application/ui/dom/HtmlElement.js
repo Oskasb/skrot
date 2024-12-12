@@ -152,6 +152,11 @@ class HtmlElement {
                 }
             }
 
+            if (closed === true) {
+                return;
+            }
+            window.requestAnimationFrame(update);
+
         }.bind(this);
 
         let setIframe = function(iDoc) {
@@ -348,8 +353,8 @@ class HtmlElement {
                 console.log("This should not happen, check", activeRootElements, this.container);
             }
 
-
-            ThreeAPI.addPrerenderCallback(this.call.update);
+            this.call.update();
+        //    ThreeAPI.addPrerenderCallback(this.call.update);
 
         }.bind(this)
 
@@ -450,7 +455,6 @@ class HtmlElement {
         this.container = null;
         this.statusMap = null;
         this.editStatus = null;
-        ThreeAPI.unregisterPrerenderCallback(this.call.update);
     }
 
 }

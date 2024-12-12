@@ -1,6 +1,7 @@
 import {InstanceBuffer} from './InstanceBuffer.js';
 import {GeometryInstance} from './GeometryInstance.js';
 import {getSetting} from "../../../application/utils/StatusUtils.js";
+import {Vector3} from "../../../../../libs/three/Three.Core.js";
 
 let releasedIndices = [];
 
@@ -10,7 +11,7 @@ class InstanceAPI {
 
         this.bufferCount = 0;
         this.modelCount = 0;
-        this.tempVec = new THREE.Vector3();
+        this.tempVec = new Vector3();
         this.instanceBuffers = {};
 
         this.instances = {};

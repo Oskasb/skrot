@@ -12,15 +12,22 @@ import {MeshBasicMaterial, Object3D, Vector3, Vector4} from "../../../../libs/th
 import {pipelineAPI} from "../../application/utils/DataUtils.js";
 import {MATH} from "../../application/MATH.js";
 import {ENUMS} from "../../application/ENUMS.js";
+import {DynamicMain} from "../DynamicMain.js";
+import {AssetLoader} from "../../application/load/AssetLoader.js";
+import {InstanceAPI} from "./instancer/InstanceAPI.js";
+
 
 let cameraSpatialCursor;
 let terrainSystem = new TerrainSystem();
 let tempVec = null;
 let groundHeightData = [0, 0, 0, 0];
+
+window.InstanceAPI = new InstanceAPI()
 class ThreeAPI {
 
     constructor() {
 
+        this.dynamicMain = new DynamicMain();
         this.threeEnvironment = new ThreeEnvironment();
         this.threeSetup = new ThreeSetup();
         this.threeTextureMaker = new ThreeTextureMaker();
@@ -34,7 +41,7 @@ class ThreeAPI {
         this.spatialFunctions;
         this.effectCallbacks;
         this.renderFilter;
-        this.assetLoader;
+        this.assetLoader = new AssetLoader();
         this.globalUniforms = {};
         this.animationMixers = [];
         this.frameRegs = 0;
@@ -53,17 +60,17 @@ class ThreeAPI {
         this.assetLoader = assetLoader;
     };
 
-    initEnvironment = function(store) {
+    initEnvironment(store) {
 
 
         let _this = this;
         let envReady = function() {
             _this.threeEnvironment.enableEnvironment(_this.threeEnvironment);
-            _this.getSetup().addPostrenderCallback(_this.threeEnvironment.tickEnvironment);
+            _this.addPostrenderCallback(_this.threeEnvironment.tickEnvironment);
 
         };
 
-        var onLoaded = function() {
+        let onLoaded = function() {
             _this.threeEnvironment.initEnvironment(store, envReady);
         };
 
@@ -71,7 +78,7 @@ class ThreeAPI {
 
     };
 
-    initThreeScene = function(containerElement, pxRatio, antialias) {
+    initThreeScene(containerElement, pxRatio, antialias) {
         //
         let store = {};
         store = this.threeSetup.initThreeRenderer(pxRatio, antialias, containerElement, store);
@@ -82,7 +89,7 @@ class ThreeAPI {
         pipelineAPI.setCategoryKeyValue('SYSTEM', 'CAMERA', store.camera);
     //    store.camera.matrixWorldAutoUpdate = false;
 
-        this.initEnvironment(store);
+
         console.log("WebGPU Setup: ", store)
 
         this.glContext = store.renderer.getContext();
@@ -97,7 +104,7 @@ class ThreeAPI {
         return store;
     };
 
-    initThreeTerrain = function() {
+    initThreeTerrain() {
         let terrainSysCB = function() {
         //    console.log("Terrain System Ready")
             terrainSystem.getTerrain().call.populateTerrainGeometries();
@@ -108,34 +115,34 @@ class ThreeAPI {
         terrainSystem.initTerrainSystem(terrainSysCB);
     };
 
-    getTerrainSystem = function() {
+    getTerrainSystem() {
         return terrainSystem;
     }
 
-    getCameraCursor = function() {
+    getCameraCursor() {
         return cameraSpatialCursor;
     }
 
-    updateSceneMatrixWorld = function() {
+    updateSceneMatrixWorld() {
         this.scene.updateMatrixWorld();
     };
 
-    addPrerenderCallback = function(callback) {
+    addPrerenderCallback(callback) {
         this.threeSetup.addPrerenderCallback(callback);
     };
 
-    addPostrenderCallback = function(callback) {
+    addPostrenderCallback(callback) {
         this.threeSetup.addPostrenderCallback(callback);
     };
 
-    unregisterPostrenderCallback = function(callback) {
+    unregisterPostrenderCallback(callback) {
         this.threeSetup.removePostrenderCallback(callback);
     };
-    loadThreeModels = function(TAPI) {
+    loadThreeModels(TAPI) {
         this.threeModelLoader.loadData();
     };
 
-    loadThreeData = function(TAPI) {
+    loadThreeData(TAPI) {
     //    this.threeModelLoader.loadData();
     //    this.threeModelLoader.loadTerrainData(TAPI);
     //    this.threeTextureMaker.loadTextures();
@@ -143,24 +150,24 @@ class ThreeAPI {
     };
 
 
-    buildAsset = function(assetId, callback) {
+    buildAsset(assetId, callback) {
     //    console.log('Three API build asset:', assetId);
         new ThreeAsset(assetId, callback);
     };
 
-    loadThreeAsset = function(assetType, assetId, callback) {
+    loadThreeAsset(assetType, assetId, callback) {
         this.assetLoader.loadAsset(assetType, assetId, callback);
     };
 
-    getTimeElapsed = function() {
+    getTimeElapsed() {
         return this.threeSetup.getTotalRenderTime();
     };
 
-    getSetup = function() {
+    getSetup() {
         return this.threeSetup;
     };
 
-    getContext = function() {
+    getContext() {
         return glContext;
     };
 
@@ -591,6 +598,10 @@ class ThreeAPI {
         this.threeSetup.callPrerender(frame);
 
     };
+
+    applyPostrenderUpdates() {
+        this.dynamicMain.tickDynamicMain();
+    }
 
 }
 

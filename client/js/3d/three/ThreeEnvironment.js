@@ -2,16 +2,17 @@ import { PipelineObject } from "../../application/load/PipelineObject.js";
 import {
     AmbientLight,
     BackSide,
-    Color, DirectionalLight, FogExp2,
+    Color, DirectionalLight, EquirectangularReflectionMapping, FogExp2, ImageBitmapLoader,
     Mesh,
     MeshBasicMaterial,
     NoBlending,
-    SphereGeometry,
+    SphereGeometry, TextureLoader,
     Vector3
 } from "../../../../libs/three/Three.Core.js";
 import {evt} from "../../application/event/evt.js";
 import {ENUMS} from "../../application/ENUMS.js";
 import {MATH} from "../../application/MATH.js";
+import {getFrame} from "../../application/utils/DataUtils.js";
 
 let statusMap = {
     transitionProgress:0,
@@ -44,7 +45,7 @@ class ThreeEnvironment {
         this.maxElevation = 10000;
         this.currentElevation = 0;
         this.elevationFactor = 0;
-        this.transitionTime = 23;
+        this.transitionTime = 0.5;
         this.currentEnvConfig;
         this.currentSkyConfig;
         this.worldCenter = new Vector3(0, 0, 0);
@@ -59,7 +60,7 @@ class ThreeEnvironment {
         this.ctxHeight = 64;
         this.ctxWidth= 1;
 
-        this.scene;
+        this.scene = null;
         this.camera;
         this.renderer;
         this.sunSphere;
@@ -96,42 +97,64 @@ class ThreeEnvironment {
     };
 
 
-    setCanvasColor = function(ctx, tx) {
+    blendCanvasCtxToTexture(ctx, texture) {
+
+        // let addImage = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+        let originalBitmap = texture.originalBitmap;
+
+        texture.ctx.globalCompositeOperation = 'copy';
+        texture.ctx.drawImage(ctx.canvas, 0, 0, originalBitmap.width , originalBitmap.height)
+        texture.ctx.globalCompositeOperation = 'darken';
+        texture.ctx.drawImage(originalBitmap, 0, 0, originalBitmap.width, originalBitmap.height)
+
+        texture.needsUpdate = true;
+    }
+
+    setCanvasColor(ctx, tx) {
         let _this = this;
         let config = this.currentEnvConfig;
-/*
-        let fogColor = config.fog.color;
-        let ambColor = config.ambient.color;
-        let sunColor = config.sun.color;
-        statusMap['fogColor'] = fogColor;
-        statusMap['ambColor'] = ambColor;
-        statusMap['sunColor'] = sunColor;
-  *
 
- */
         let fogColor = statusMap['fogColor'];
-        let  ambColor = statusMap['ambColor'];
-        let   sunColor = statusMap['sunColor'];
-     //   statusMap['fogColor'] = fogColor;
-     //   statusMap['ambColor'] = ambColor;
-     //   statusMap['sunColor'] = sunColor;
+        let ambColor = statusMap['ambColor'];
+        let sunColor = statusMap['sunColor'];
 
-    //    console.log("setCanvasColor", statusMap)
         let evFact = Math.min(this.camera.position.y*0.00005, 0.099);
 
         let grd = ctx.createLinearGradient(0,0,0, _this.ctxHeight);
+        grd.addColorStop(0.99  , ThreeAPI.toGradRgb( ambColor[0]*0.3, ambColor[1]*0.3,  ambColor[2]*0.3));
+        grd.addColorStop(0.8, ThreeAPI.toGradRgb( ambColor[0]*0.5+fogColor[0]*0.5, ambColor[1]*0.5+fogColor[1]*0.5,  ambColor[2]*0.5+fogColor[2]*0.5));
+        grd.addColorStop(0.5, ThreeAPI.toGradRgb( ambColor[0]*0.3+fogColor[0]*0.98, ambColor[1]*0.3+fogColor[1]*0.98,  ambColor[2]*0.3+fogColor[2]*0.98));
+        grd.addColorStop(0.35, ThreeAPI.toGradRgb( ambColor[0]*0.1+fogColor[0]*0.7+sunColor[0]*0.1, ambColor[1]*0.1+fogColor[1]*0.7+sunColor[1]*0.1,  ambColor[2]*0.1+fogColor[2]*0.7+sunColor[2]*0.1));
+        grd.addColorStop(0.16, ThreeAPI.toGradRgb( fogColor[0]*0.8+sunColor[0]*0.1, fogColor[1]*0.8+sunColor[1]*0.1,  fogColor[2]*0.8+sunColor[2]*0.1));
+        grd.addColorStop(0.01, ThreeAPI.toGradRgb( fogColor[0]*0.9+sunColor[0]*0.1, fogColor[1]*0.9+sunColor[1]*0.1,  fogColor[2]*0.9+sunColor[2]*0.1));
 
-     //   GuiAPI.printDebugText("Fog: "+fogColor[0]+" "+fogColor[1]+" "+fogColor[2])
-    //    grd.addColorStop(0, ThreeAPI.toRgb(fogColor[0], fogColor[1], fogColor[2]));
-    //    grd.addColorStop(0, ThreeAPI.toGradRgb(0,0, 0));
-    //    grd.addColorStop(0.45, ThreeAPI.toGradRgb(0,0, 0));
-        grd.addColorStop(0, ThreeAPI.toGradRgb( ambColor[0]*0.2, ambColor[1]*0.3,  ambColor[2]*0.5));
+        ctx.fillStyle=grd;
+        ctx.fillRect(0, 0, _this.ctxWidth, _this.ctxHeight);
 
+        let envTx = this.sky.envtx;
 
-        grd.addColorStop(0.24, ThreeAPI.toGradRgb((fogColor[0]*0.01 + ambColor[0]*0.6 +sunColor[0]*0.01) *0.3 ,(fogColor[1]*0.1 + ambColor[1]*0.5 +sunColor[1]*0.01) * 0.7  , (fogColor[2]*0.01 + ambColor[2]*0.8 +sunColor[2]*0.3)*0.99));
-        grd.addColorStop(0.40, ThreeAPI.toGradRgb((fogColor[0]*0.01 + ambColor[0]*0.7 +sunColor[0]*0.01) *0.6  ,(fogColor[1]*0.2 + ambColor[1]*0.4 +sunColor[1]*0.1) * 0.8  , (fogColor[2]*0.01 + ambColor[2]*0.4 +sunColor[2]*0.6)*0.96));
-        grd.addColorStop(0.44, ThreeAPI.toGradRgb((fogColor[0]*0.1 + ambColor[0]*0.7 +sunColor[0]*0.01) *0.8 ,(fogColor[1]*0.3 + ambColor[1]*0.3 +sunColor[1]*0.2) * 0.9  , (fogColor[2]*0.1 + ambColor[2]*0.5 +sunColor[2]*0.7)*0.9 ));
-        grd.addColorStop(0.49, ThreeAPI.toGradRgb((fogColor[0]*0.4   + ambColor[0]*0.9 +sunColor[0]*0.3) *1.0  ,(fogColor[1]*0.5 + ambColor[1]*0.2 +sunColor[1]*0.4) * 1.0  , (fogColor[2]*0.2 + ambColor[2]*0.6 +sunColor[2]*0.9)*1.0 ));
+        if (MATH.isOddNumber(getFrame().frame)) {
+            envTx = this.sky.envtx2;
+        }
+
+        this.blendCanvasCtxToTexture(ctx, envTx)
+        this.scene.environment = envTx;
+    /*
+        if (Math.random() < 0.1) {
+            this.scene.environment = null;
+        } else {
+            this.scene.environment = this.sky.envtx;
+        }
+        */
+        // this.scene.environment.needsUpdate = true;
+        grd = ctx.createLinearGradient(0,0,0, _this.ctxHeight);
+
+        grd.addColorStop(0, ThreeAPI.toGradRgb( ambColor[0]*0.4, ambColor[1]*0.45,  ambColor[2]*0.5));
+
+        grd.addColorStop(0.25, ThreeAPI.toGradRgb((fogColor[0]*0.01 + ambColor[0]*0.6 +sunColor[0]*0.01) *0.3 ,(fogColor[1]*0.1 + ambColor[1]*0.5 +sunColor[1]*0.01) * 0.7  , (fogColor[2]*0.01 + ambColor[2]*0.8 +sunColor[2]*0.3)*0.99));
+        grd.addColorStop(0.40, ThreeAPI.toGradRgb((fogColor[0]*0.04 + ambColor[0]*0.7 +sunColor[0]*0.01) *0.7  ,(fogColor[1]*0.2 + ambColor[1]*0.4 +sunColor[1]*0.15) * 0.85  , (fogColor[2]*0.05 + ambColor[2]*0.4 +sunColor[2]*0.7)*0.96));
+        grd.addColorStop(0.46, ThreeAPI.toGradRgb((fogColor[0]*0.2  + ambColor[0]*0.8 +sunColor[0]*0.1) *0.9  ,(fogColor[1]*0.3 + ambColor[1]*0.2 +sunColor[1]*0.3) * 0.9  , (fogColor[2]*0.1 + ambColor[2]*0.5 +sunColor[2]*0.7)*0.9 ));
+        grd.addColorStop(0.49, ThreeAPI.toGradRgb((fogColor[0]*0.4  + ambColor[0]*0.9 +sunColor[0]*0.3) *1.0  ,(fogColor[1]*0.5 + ambColor[1]*0.2 +sunColor[1]*0.4) * 1.0  , (fogColor[2]*0.2 + ambColor[2]*0.6 +sunColor[2]*0.9)*1.0 ));
         if (evFact > 999999 || isNaN(evFact) || !isFinite(evFact)) {
             console.log("Camera went flying off... investigate")
             return;
@@ -147,7 +170,12 @@ class ThreeEnvironment {
     //    ctx.globalCompositeOperation = "source-over"
         ctx.fillStyle=grd;
         ctx.fillRect(0, 0, _this.ctxWidth, _this.ctxHeight);
-        evt.dispatch(ENUMS.Event.SKY_GRADIENT_UPDATE, ctx);
+
+
+    //    evt.dispatch(ENUMS.Event.SKY_GRADIENT_UPDATE, ctx);
+
+
+
         tx.needsUpdate = true;
     };
 
@@ -397,12 +425,16 @@ class ThreeEnvironment {
         return MATH.calcFraction(0, this.transitionTime, statusMap.transitionProgress);
     };
 
-    tick = function(tpf) {
+    tick(tpf) {
 
         let camPos = ThreeAPI.getCamera().position
 
         if (!this.sky) return;
-        //    console.log("Tick Env")
+        //    console.log("Tick Env", tpf)
+
+        if (this.scene.background !== this.sky.tx) {
+            this.scene.background = this.sky.tx;
+        }
 
         // waterFx.tickWaterEffect(tpf);
     //    this.sky.mesh.position.copy(camPos);
@@ -532,7 +564,7 @@ class ThreeEnvironment {
 
 
 
-    initEnvironment = function(store, ready) {
+    initEnvironment(store, ready) {
 
         let _this = this;
 
@@ -565,16 +597,9 @@ class ThreeEnvironment {
             return canvas.getContext('2d');
         };
 
-        let tx = ThreeAPI.newCanvasTexture(canvas);
-        let mat = ThreeAPI.buildCanvasMaterial(tx);
-        mat.fog = false;
-        mat.side = BackSide;
-        mat.blending = NoBlending;
+        let bktx = ThreeAPI.newCanvasTexture(canvas);
+        bktx.mapping = EquirectangularReflectionMapping;
 
-        //    mat.depthWrite = false;
-
-    //    let skyGeo = new SphereGeometry(900, 36, 9 );
-    //    let skyMesh = new Mesh( skyGeo, mat);
 
         let uniforms = {
             luminance: { value: 1 },
@@ -588,7 +613,7 @@ class ThreeEnvironment {
         let sky = {
         //    mesh:skyMesh,
             ctx:setupCanvas(canvas),
-            tx:tx
+            tx:bktx
         //    uniforms:uniforms
         }
 
@@ -634,11 +659,56 @@ class ThreeEnvironment {
                     //    ThreeAPI.getReflectionScene().add(world[key]);
                 }
             }
-            ready()
+
+            let loader = new ImageBitmapLoader().setPath('./data/assets/images/textures/')
+            loader.load('ref_sphere.png', function(txenv) {
+
+            //    console.log("Ref Sphere loaded: ", txenv);
+            //    txenv.mapping = EquirectangularReflectionMapping;
+
+                let txSrc = txenv;
+
+                let width = txenv.width;
+                let height = txenv.height;
+
+
+
+
+            //    setTimeout(function() {
+                //    scene.background = sky.tx;
+            //    },100)
+
+
+
+                let canvas2 = document.createElement("canvas");
+                let envtx = ThreeAPI.newCanvasTexture(canvas2);
+                let envtx2 = ThreeAPI.newCanvasTexture(canvas2);
+                envtx.originalBitmap = txSrc;
+                envtx.mapping = EquirectangularReflectionMapping;
+                envtx2.originalBitmap = txSrc;
+                envtx2.mapping = EquirectangularReflectionMapping;
+            //    scene.environment = bktx;
+
+                canvas2.id = 'env_canvas';
+                canvas2.width  = width;
+                canvas2.height = height;
+                canvas2.dataReady = true;
+                let envctx = canvas2.getContext('2d');
+                sky.envtx = envtx;
+                sky.envctx = envctx;
+                sky.envtx2 = envtx2;
+                envtx.ctx = envctx;
+                envtx2.ctx = envctx;
+                scene.environment = sky.envtx;
+
+                ready()
+            })
+
         };
 
 
         let environmentListLoaded = function(scr, data) {
+
 
 
             for (let i = 0; i < data.length; i++){

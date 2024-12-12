@@ -34,8 +34,8 @@ class AsynchQueueFeedback {
             } else {
                 console.log(activeEntries)
                 if (queueFeedback !== null) {
-                    queueFeedback.call.close()
-                    queueFeedback = null;
+                //    queueFeedback.call.close()
+                //    queueFeedback = null;
                 }
             }
 

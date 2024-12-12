@@ -288,6 +288,7 @@ class CameraSpatialCursor {
     }
 
     updateSpatialCursor = function() {
+        return;
         let tpf = getFrame().avgTpf
 
         tempVec3.set(0, 1, 0);

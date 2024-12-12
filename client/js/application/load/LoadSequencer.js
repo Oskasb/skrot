@@ -47,14 +47,21 @@ class LoadSequencer {
                 } else {
                     loadQueue[assetKey] = [callback];
                 //    console.log('load assetMap:', loadQueue)
-                    new assetMap[assetType](assetId, data.config, onLoaded);
+
+                    let cfg = data;
+
+                    if (typeof (data.config) === 'object') {
+                        cfg = data.config;
+                    }
+
+                    new assetMap[assetType](assetId, cfg, onLoaded);
                 }
 
             }
 
         };
 
-        let cachedConfig = PipelineAPI.readCachedConfigKey('CONFIGS', assetKey);
+        let cachedConfig = pipelineAPI.readCachedConfigKey('CONFIGS', assetKey);
         if (cachedConfig === assetKey) {
             //      console.log("Cache not ready: ", cachedConfig);
             new PipelineObject('CONFIGS', assetKey, configLoaded)

@@ -4,7 +4,7 @@ class ThreeMaterialSettings {
     constructor(id, config, callback) {
 
         var assetLoaded = function(src, asset) {
-            this.config = asset.config;
+            this.config = asset;
             callback(this)
         }.bind(this);
 

@@ -344,6 +344,7 @@ class ConfigCache {
             //    console.log("reject string", data)
             this.cacheReads++;
             callback(key, data);
+
          //   this.unsubscribeCategoryKey(category, key, callback)
         }
         this.registerCategoryKeySubscriber(category, key, callback);
