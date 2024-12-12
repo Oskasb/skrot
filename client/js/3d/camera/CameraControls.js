@@ -51,9 +51,18 @@ class CameraControls {
         camModeParams.camPosVec = camPosVec;
         camModeParams.statusControls = statusControls;
         updateCamParams(camModeParams);
+
+        let camMode = false;
+
         if (statusControls[ENUMS.CameraStatus.CAMERA_MODE]['isActive']) {
+            camMode = true;
             CAM_MODES[statusControls[ENUMS.CameraStatus.CAMERA_MODE]['controlKey']]();
         }
+
+        if (!camMode) {
+            CAM_MODES['CAM_AUTO']()
+        }
+
     }
 
 }

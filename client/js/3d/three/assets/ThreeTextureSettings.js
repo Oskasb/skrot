@@ -1,3 +1,5 @@
+import {pipelineAPI} from "../../../application/utils/DataUtils.js";
+
 class ThreeTextureSettings {
     constructor(id, config, callback) {
 
@@ -12,7 +14,7 @@ class ThreeTextureSettings {
             callback(this)
         }.bind(this);
 
-        PipelineAPI.cacheCategoryKey('CONFIGS', 'TEXTURE_SETTINGS_'+id, assetLoaded);
+        pipelineAPI.cacheCategoryKey('CONFIGS', 'TEXTURE_SETTINGS_'+id, assetLoaded);
 
     };
 

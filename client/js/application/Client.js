@@ -1,8 +1,5 @@
-import { PipelineAPI } from '../data_pipeline/PipelineAPI.js';
-import { MATH } from "./MATH.js";
 
-window.PipelineAPI = new PipelineAPI();
-window.MATH = MATH;
+import { MATH } from "./MATH.js";
 
 
 import { evt } from './event/evt.js';
@@ -17,6 +14,7 @@ import {updateKeyboardFrame, updateKeyState} from "./ui/input/KeyboardState.js";
 import {mapItemConfigs} from "./utils/ActorUtils.js";
 import {Status} from "../../../Server/game/status/Status.js";
 import {SimpleStatus} from "./setup/SimpleStatus.js";
+import {pipelineAPI} from "./utils/DataUtils.js";
 
 
 let frame = {
@@ -134,15 +132,13 @@ class Client {
         client.setup.initUiSetup(callback);
 
         this.evt.on(ENUMS.Event.SET_CAMERA_MODE, ThreeAPI.getCameraCursor().call.setCamMode);
-        this.evt.on(ENUMS.Event.SET_CAMERA_TARGET, GameAPI.getGameCamera().call.setCameraTargetPosInTime)
         this.evt.on(ENUMS.Event.TRAVEL_TO,         GameAPI.call.travelToPos)
         this.evt.on(ENUMS.Event.GAME_MODE_BATTLE,    GameAPI.call.activateBattleMode)
         this.evt.on(ENUMS.Event.EDIT_GROUND,        GameAPI.call.editGround)
         this.evt.on(ENUMS.Event.EDIT_PARAMETERS,    GameAPI.call.editParameters)
         this.evt.on(ENUMS.Event.SELECT_ADVENTURER,    GameAPI.call.selectAdventurer)
+
         const clock = new THREE.Clock(true);
-
-
 
         let pingIndex = 0;
         let pingDelay = 2;
@@ -188,7 +184,7 @@ class Client {
             ThreeAPI.updateSceneMatrixWorld();
             client.dynamicMain.tickDynamicMain();
             EffectAPI.updateEffectAPI();
-            window.PipelineAPI.tickPipelineAPI(frame.tpf)
+            pipelineAPI.tickPipelineAPI(frame.tpf)
 
         }
 

@@ -1,9 +1,9 @@
-import {Box3} from "../../../../libs/three/math/Box3.js";
-import {MathUtils} from "../../../../libs/three/math/MathUtils.js";
-import {Matrix4} from "../../../../libs/three/math/Matrix4.js";
-import {Matrix3} from "../../../../libs/three/math/Matrix3.js";
-import {Ray} from "../../../../libs/three/math/Ray.js";
-import {Vector3} from "../../../../libs/three/math/Vector3.js";
+import {Box3} from "../../../../../libs/three/math/Box3.js";
+import {MathUtils} from "../../../../../libs/three/math/MathUtils.js";
+import {Matrix4} from "../../../../../libs/three/math/Matrix4.js";
+import {Matrix3} from "../../../../../libs/three/math/Matrix3.js";
+import {Ray} from "../../../../../libs/three/math/Ray.js";
+import {Vector3} from "../../../../../libs/three/math/Vector3.js";
 
 const a = {
     c: null, // center

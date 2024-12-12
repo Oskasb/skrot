@@ -1,5 +1,7 @@
 "use strict";
 
+import {pipelineAPI} from "../../utils/DataUtils.js";
+
 define([
         'evt',
         'application/PipelineObject',
@@ -56,8 +58,8 @@ define([
         //            console.log("Enable event", _this.conf);
                     var data = {};
                     data[_this.conf.enableOnEvent.key] = false;
-                    PipelineAPI.setCategoryData(_this.conf.enableOnEvent.category, data);
-                    PipelineAPI.cacheCategoryKey(_this.conf.enableOnEvent.category, _this.conf.enableOnEvent.key, toggleTriggered);
+                    pipelineAPI.setCategoryData(_this.conf.enableOnEvent.category, data);
+                    pipelineAPI.cacheCategoryKey(_this.conf.enableOnEvent.category, _this.conf.enableOnEvent.key, toggleTriggered);
 
                 } else {
                     toggleTriggered(true);

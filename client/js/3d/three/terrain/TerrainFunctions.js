@@ -1,5 +1,5 @@
-import {Vector3} from "../../../../libs/three/math/Vector3.js";
-import {Triangle} from "../../../../libs/three/math/Triangle.js";
+import {Triangle, Vector3} from "../../../../../libs/three/Three.Core.js";
+
 
 let  p1  = new Vector3();
 let  p2  = new Vector3();

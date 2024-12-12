@@ -3,36 +3,42 @@ import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import {setRefDiv} from "./application/ui/dom/DomUtils.js";
+import {evt} from "./application/event/evt.js";
 
 import {
-    ACESFilmicToneMapping,
+    ACESFilmicToneMapping, Clock,
     EquirectangularReflectionMapping,
     PerspectiveCamera,
     Scene
 } from "../../libs/three/Three.Core.js";
 import {WebGPURenderer} from "../../libs/three/Three.WebGPU.js";
-import {loadEditIndex} from "./application/utils/DataUtils.js";
+import {getFrame, loadEditIndex, pipelineAPI} from "./application/utils/DataUtils.js";
 import {initPools} from "./application/utils/PoolUtils.js";
+import {ENUMS} from "./application/ENUMS.js";
+import {updateKeyboardFrame} from "./application/ui/input/KeyboardState.js";
+import {MATH} from "./application/MATH.js";
+
+
 
 function init3d() {
 
+    let store = window.ThreeAPI.initThreeScene(document.body, 1, false)
+
     let camera, scene, renderer;
+
+    camera = store.camera;
+    scene = store.scene;
+    renderer = store.renderer;
 
     init();
     render();
 
     function init() {
 
+    //    camera = new PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.25, 20 );
+        camera.position.set( - 4, 2, 2.7 );
 
-
-
-        const container = document.createElement( 'div' );
-        document.body.appendChild( container );
-
-        camera = new PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.25, 20 );
-        camera.position.set( - 1.8, 0.6, 2.7 );
-
-        scene = new Scene();
+    //    ThreeAPI.setCamera(camera);
 
         new RGBELoader()
             .setPath( './data/assets/test/' )
@@ -60,14 +66,8 @@ function init3d() {
 
             } );
 
+        setRefDiv(document.body)
 
-        renderer = new WebGPURenderer( { antialias: true } );
-        renderer.setPixelRatio( window.devicePixelRatio );
-        renderer.setSize( window.innerWidth, window.innerHeight );
-        renderer.toneMapping = ACESFilmicToneMapping;
-        container.appendChild( renderer.domElement );
-
-        setRefDiv(renderer.domElement)
 
         const controls = new OrbitControls( camera, renderer.domElement );
         controls.addEventListener( 'change', render ); // use if there is no animation loop
@@ -90,17 +90,57 @@ function init3d() {
     //
 
     function render() {
+        console.log("Render Async")
         renderer.renderAsync( scene, camera );
     }
+
+    const clock = new Clock(true);
+    let frame = getFrame();
+
+    function triggerFrame() {
+        frame.frame ++;
+        updateKeyboardFrame(frame.frame);
+        frame.tpf = MATH.clamp(clock.getDelta(), 0, 0.5);
+        frame.avgTpf = ThreeAPI.getSetup().avgTpf;
+        frame.elapsedTime = clock.elapsedTime;
+
+    //    pingTime+=frame.tpf;
+
+        ThreeAPI.updateCamera();
+
+    //    GuiAPI.updateGui(frame.tpf, frame.elapsedTime);
+
+        ThreeAPI.requestFrameRender(frame)
+
+        evt.dispatch(ENUMS.Event.FRAME_READY, frame);
+        requestAnimationFrame( triggerFrame );
+
+    //    GameAPI.getGameCamera().call.applyFrame(frame)
+        frame.gameTime = frame.systemTime // GameAPI.getGameTime();
+        frame.systemTime += frame.tpf;
+
+        ThreeAPI.applyDynamicGlobalUniforms();
+
+        ThreeAPI.updateAnimationMixers(frame.tpf);
+        ThreeAPI.updateSceneMatrixWorld();
+    //    client.dynamicMain.tickDynamicMain();
+    //    EffectAPI.updateEffectAPI();
+    //    pipelineAPI.tickPipelineAPI(frame.tpf)
+
+     //   console.log("Trigger Frame ", frame)
+    }
+
+    triggerFrame();
+
 
 }
 
 
 class Client{
     constructor() {
+        evt.setEventKeys(ENUMS.Event)
         initPools()
     }
-
 
     loadDataIndex(loadCB) {
         loadEditIndex("data/json/setup/index.json" ,loadCB)

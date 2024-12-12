@@ -1,5 +1,5 @@
 import {ConfigData} from "../../../application/utils/ConfigData.js";
-import {Object3D} from "../../../../libs/three/core/Object3D.js";
+import {Object3D} from "../../../../../libs/three/core/Object3D.js";
 import {poolReturn, poolFetch} from "../../../application/utils/PoolUtils.js";
 
 let tempObj = new Object3D();

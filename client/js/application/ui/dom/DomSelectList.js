@@ -1,5 +1,7 @@
 "use strict";
 
+import {pipelineAPI} from "../../utils/DataUtils.js";
+
 define([
         'evt',
         'PipelineAPI',
@@ -77,13 +79,13 @@ define([
 
             var apply = buttonFunc;
 
-            PipelineAPI.cacheCategoryKey(category, key, buttonFunc);
+            pipelineAPI.cacheCategoryKey(category, key, buttonFunc);
         };
 
         DomSelectList.prototype.removeSelectList = function() {
 
             for (var key in this.funcList) {
-                PipelineAPI.removeCategoryKeySubscriber(this.category, key, this.funcList[key]);
+                pipelineAPI.removeCategoryKeySubscriber(this.category, key, this.funcList[key]);
             }
 
             this.panel.removeGuiPanel();

@@ -1,3 +1,5 @@
+import {pipelineAPI} from "../utils/DataUtils.js";
+
 class PipelineObject {
 
         constructor(category, key, onDataCallback) {
@@ -24,7 +26,7 @@ class PipelineObject {
 
             this.dataCallback = dataCallback;
 
-            PipelineAPI.cacheCategoryKey(this.category, this.key, dataCallback);
+            pipelineAPI.cacheCategoryKey(this.category, this.key, dataCallback);
 
         };
 
@@ -32,7 +34,7 @@ class PipelineObject {
 
             if (!dataName) dataName = 'data';
 
-            this.data = PipelineAPI.readCachedConfigKey(this.category, this.key);
+            this.data = pipelineAPI.readCachedConfigKey(this.category, this.key);
             this.configs = {};
 
             if (this.data.length) {
@@ -47,11 +49,11 @@ class PipelineObject {
         };
 
         setData = function(data) {
-            PipelineAPI.setCategoryKeyValue(this.category, this.key, data);
+            pipelineAPI.setCategoryKeyValue(this.category, this.key, data);
         };
 
         getElementId = function(id) {
-            this.data = PipelineAPI.readCachedConfigKey(this.category, this.key);
+            this.data = pipelineAPI.readCachedConfigKey(this.category, this.key);
             this.configs = {};
 
             if (this.data.length) {
@@ -68,11 +70,11 @@ class PipelineObject {
         };
 
         readData = function() {
-            return PipelineAPI.readCachedConfigKey(this.category, this.key);
+            return pipelineAPI.readCachedConfigKey(this.category, this.key);
         };
 
         removePipelineObject = function() {
-            return PipelineAPI.removeCategoryKeySubscriber(this.category, this.key, this.dataCallback);
+            return pipelineAPI.removeCategoryKeySubscriber(this.category, this.key, this.dataCallback);
         };
 
     }

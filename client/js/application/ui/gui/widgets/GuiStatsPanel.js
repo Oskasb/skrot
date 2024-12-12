@@ -1,4 +1,5 @@
 import { GuiWidget} from "../elements/GuiWidget.js";
+import {pipelineAPI} from "../../../utils/DataUtils.js";
 
 class GuiStatsPanel {
     constructor(options) {
@@ -23,7 +24,7 @@ class GuiStatsPanel {
         let catKey = options['track_config']['category'];
         let confKey = options['track_config']['key'];
         let label = options['track_config']['label'];
-        let trackValues = PipelineAPI.getCachedConfigs()[catKey][confKey];
+        let trackValues = pipelineAPI.getCachedConfigs()[catKey][confKey];
 
         let updateTrackedStats = function() {
             for (let i = 0; i < this.samplers.length; i++) {

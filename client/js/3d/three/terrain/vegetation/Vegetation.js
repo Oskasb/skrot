@@ -5,6 +5,7 @@ import {ConfigData} from "../../../../application/utils/ConfigData.js";
 import {VegetationLodGrid } from "./VegetationLodGrid.js";
 import {poolStats} from "../../../../application/utils/PoolUtils.js";
 import {getSetting} from "../../../../application/utils/StatusUtils.js";
+import {pipelineAPI} from "../../../../application/utils/DataUtils.js";
 
 let count = 0;
 let cache = {};
@@ -52,7 +53,7 @@ let setupDebug = function(vegetation) {
 
         debugStats.plntDlta = plantActive - debugStats.plants;
         if (!cache['DEBUG']) {
-            cache = PipelineAPI.getCachedConfigs();
+            cache = pipelineAPI.getCachedConfigs();
             if (!cache['DEBUG']) {
                 cache.DEBUG = {};
             }

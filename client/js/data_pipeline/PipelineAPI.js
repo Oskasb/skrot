@@ -1,5 +1,6 @@
 import { ConfigCache } from './data/ConfigCache.js';
 import { ExpandingPool} from "../application/utils/ExpandingPool.js";
+import {pipelineAPI} from "../application/utils/DataUtils.js";
 
 class PipelineAPI {
     constructor() {
@@ -85,7 +86,7 @@ class PipelineAPI {
 
     storeDataKey = function(data, dataKey) {
         for (let key in data[dataKey]) {
-            PipelineAPI.setCategoryData(key, data[dataKey][key]);
+            pipelineAPI.setCategoryData(key, data[dataKey][key]);
         }
     };
 

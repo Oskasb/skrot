@@ -8,6 +8,7 @@ import {ThreeMaterialSettings} from '../../3d/three/assets/ThreeMaterialSettings
 import {ThreeTextureSettings} from '../../3d/three/assets/ThreeTextureSettings.js';
 import {ThreeImage} from '../../3d/three/assets/ThreeImage.js';
 import {LoadSequencer} from "./LoadSequencer.js";
+import {pipelineAPI} from "../utils/DataUtils.js";
 
 
 class AssetLoader {
@@ -36,7 +37,7 @@ class AssetLoader {
                 this.loadAssetConfigs(data);
             }.bind(this);
 
-            PipelineAPI.cacheCategoryKey('ASSETS', 'LOAD', loadList);
+            pipelineAPI.cacheCategoryKey('ASSETS', 'LOAD', loadList);
         };
 
         loadAssetConfigs = function(assets) {
@@ -50,13 +51,13 @@ class AssetLoader {
             }.bind(this);
 
             for (let i = 0; i < assets.length; i++) {
-                PipelineAPI.cacheCategoryKey('ASSETS', assets[i], assetData);
+                pipelineAPI.cacheCategoryKey('ASSETS', assets[i], assetData);
             }
 
         };
 
         setAssetConfig = function(assetType, assetId, data) {
-            PipelineAPI.setCategoryKeyValue('CONFIGS', assetType+'_'+assetId, data);
+            pipelineAPI.setCategoryKeyValue('CONFIGS', assetType+'_'+assetId, data);
         };
 
         getAsset(assetKey) {

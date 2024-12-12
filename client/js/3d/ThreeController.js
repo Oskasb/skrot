@@ -1,4 +1,5 @@
 import {getSetting} from "../application/utils/StatusUtils.js";
+import {pipelineAPI} from "../application/utils/DataUtils.js";
 
 class ThreeController {
     constructor() {
@@ -11,13 +12,13 @@ class ThreeController {
 
         this.pxRatio = window.devicePixelRatio;
 
-        let antialias = PipelineAPI.readCachedConfigKey('SETUP', 'ANTIALIAS');
+        let antialias = pipelineAPI.readCachedConfigKey('SETUP', 'ANTIALIAS');
     //    antialias = false;
      //   this.pxRatio =  PipelineAPI.readCachedConfigKey('SETUP', 'PX_SCALE');
 
         ThreeAPI.initThreeScene(GameScreen.getElement(), this.pxRatio, antialias);
 
-        PipelineAPI.setCategoryKeyValue('GAME_DATA', 'CAMERA', ThreeAPI.getCamera());
+        pipelineAPI.setCategoryKeyValue('GAME_DATA', 'CAMERA', ThreeAPI.getCamera());
 
         let notRez = this.notifyResize;
         window.addEventListener('resize', notRez);
@@ -71,7 +72,7 @@ class ThreeController {
             width = document.getElementById(divId).offsetWidth;
             height = document.getElementById(divId).offsetHeight;
 
-            PipelineAPI.setCategoryData('SETUP', {SCREEN:[width, height], LANDSCAPE:landscape});
+            pipelineAPI.setCategoryData('SETUP', {SCREEN:[width, height], LANDSCAPE:landscape});
             GameScreen.notifyResize();
             GameScreen.setLandscape(landscape);
             setTimeout(function() {

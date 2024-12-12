@@ -1,6 +1,8 @@
 "use strict";
 
 
+import {pipelineAPI} from "../../utils/DataUtils.js";
+
 define([
         'evt',
         'PipelineAPI',
@@ -51,7 +53,7 @@ define([
             };
 
 
-            PipelineAPI.cacheCategoryKey('ui_panels', panelId, callback);
+            pipelineAPI.cacheCategoryKey('ui_panels', panelId, callback);
 
             if (adaptiveLayout) {
                 var orientationStyle = function(key, data) {
@@ -59,22 +61,22 @@ define([
                     _this.setLandscape();
                 };
 
-                PipelineAPI.cacheCategoryKey('styles', 'panel_portrait', orientationStyle);
-                PipelineAPI.cacheCategoryKey('styles', 'panel_landscape', orientationStyle);
+                pipelineAPI.cacheCategoryKey('styles', 'panel_portrait', orientationStyle);
+                pipelineAPI.cacheCategoryKey('styles', 'panel_landscape', orientationStyle);
 
 
                 var landscapeCallback = function(src, data) {
                     _this.updateLayout();
                 };
 
-                PipelineAPI.cacheCategoryKey('SETUP', 'LANDSCAPE', landscapeCallback);
+                pipelineAPI.cacheCategoryKey('SETUP', 'LANDSCAPE', landscapeCallback);
             }
 
             var updateLayout = function(src, data) {
                 _this.updateLayout(data);
             };
 
-            PipelineAPI.cacheCategoryKey('SETUP', 'SCREEN', updateLayout);
+            pipelineAPI.cacheCategoryKey('SETUP', 'SCREEN', updateLayout);
 
         };
 

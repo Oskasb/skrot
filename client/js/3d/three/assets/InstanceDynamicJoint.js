@@ -1,10 +1,12 @@
+import {Object3D, Vector3} from "../../../../../libs/three/Three.Core.js";
+
 class InstanceDynamicJoint {
     constructor(bone, instancedModel) {
-        this.tempVec1 = new THREE.Vector3();
+        this.tempVec1 = new Vector3();
         this.bone = bone;
         this.instancedModel = instancedModel;
-        this.obj3d = new THREE.Object3D();
-        this.offsetObj3d = new THREE.Object3D();
+        this.obj3d = new Object3D();
+        this.offsetObj3d = new Object3D();
     }
 
 

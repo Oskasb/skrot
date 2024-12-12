@@ -2,6 +2,7 @@ import { DomLoadScreen } from '../ui/dom/DomLoadScreen.js';
 import { AssetLoader } from './AssetLoader.js';
 import {loadVariationConfigs} from "../utils/ConfigUtils.js";
 import {initLocalDB} from "../setup/Database.js";
+import {pipelineAPI} from "../utils/DataUtils.js";
 
 let notifyProgress;
 
@@ -91,7 +92,7 @@ class DataLoader {
                     notifyProgress(loaded / started, 'Pipeline done');
                     return;
                 }
-                PipelineAPI.setCategoryKeyValue("STATUS", "FILE_CACHE", loaded);
+                pipelineAPI.setCategoryKeyValue("STATUS", "FILE_CACHE", loaded);
 
                 notifyProgress(loaded / started);
 
@@ -160,11 +161,11 @@ class DataLoader {
                             ThreeAPI.loadThreeAsset('FILES_GLB_', data[i], loadCB)
                         }
 
-                        PipelineAPI.cacheCategoryKey("ASSETS", "LOAD_MODELS", subCallback);
+                        pipelineAPI.cacheCategoryKey("ASSETS", "LOAD_MODELS", subCallback);
 
                     };
 
-                    PipelineAPI.cacheCategoryKey("ASSETS", "PRELOAD_FILES", filesCallback);
+                    pipelineAPI.cacheCategoryKey("ASSETS", "PRELOAD_FILES", filesCallback);
 
 
 
@@ -189,7 +190,7 @@ class DataLoader {
                 }
             }
 
-            PipelineAPI.addProgressCallback(pipelineCallback);
+            pipelineAPI.addProgressCallback(pipelineCallback);
 
             let onPipelineInitCallback = function(configCache) {
                 window.CONFIGS = configCache.configs;
@@ -199,7 +200,7 @@ class DataLoader {
                 notifyProgress(null, 'Init Loading');
             };
 
-            PipelineAPI.dataPipelineSetup(dataPipelineSetup.jsonRegUrl, dataPipelineSetup, onPipelineInitCallback, onErrorCallback);
+            pipelineAPI.dataPipelineSetup(dataPipelineSetup.jsonRegUrl, dataPipelineSetup, onPipelineInitCallback, onErrorCallback);
 
             _this.setupPipelineCallback(loadStateChange);
 
@@ -207,8 +208,8 @@ class DataLoader {
 
         notifyCompleted = function() {
 
-            let pollUrls = PipelineAPI.getCachedConfigs()['ASSETS']['POLL_INDEX'];
-            PipelineAPI.prunePollUrlsExceptFor(pollUrls)
+            let pollUrls = pipelineAPI.getCachedConfigs()['ASSETS']['POLL_INDEX'];
+            pipelineAPI.prunePollUrlsExceptFor(pollUrls)
 
             let apiReadyCB = function(msg) {
                 notifyProgress(null, 'GUI: '+msg);

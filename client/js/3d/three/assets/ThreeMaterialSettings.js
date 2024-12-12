@@ -1,3 +1,5 @@
+import {pipelineAPI} from "../../../application/utils/DataUtils.js";
+
 class ThreeMaterialSettings {
     constructor(id, config, callback) {
 
@@ -6,7 +8,7 @@ class ThreeMaterialSettings {
             callback(this)
         }.bind(this);
 
-        PipelineAPI.cacheCategoryKey('CONFIGS', 'MATERIAL_SETTINGS_'+id, assetLoaded);
+        pipelineAPI.cacheCategoryKey('CONFIGS', 'MATERIAL_SETTINGS_'+id, assetLoaded);
     };
 
 }

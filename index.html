@@ -7,10 +7,8 @@
     <link rel="stylesheet" type="text/css" href="client/html/css/base.css" />
     <script src="./libs/ammo/ammo.wasm.js"></script>
     <script src="client/js/data_pipeline/worker/WorkerMain.js"></script>
-</head>
-<body>
 
-<script type="importmap">
+    <script type="importmap">
 			{
 				"imports": {
 					"three": "./libs/three/Three.WebGPU.js",
@@ -21,24 +19,32 @@
 			}
 		</script>
 
-<script type="module">
+    <script type="module">
 
-    import {Client} from './client/js/Client.js'
-    import {initPipelineAPI} from "./client/js/application/utils/DataUtils.js";
-    let client = new Client();
+        import {Client} from './client/js/Client.js'
+        import {initPipelineAPI} from "./client/js/application/utils/DataUtils.js";
+        import {ThreeAPI} from "./client/js/3d/three/ThreeAPI.js";
+        import {GameScreen} from "./client/js/application/ui/GameScreen.js";
 
-    function indexLoaded(index) {
-        client.initClient();
-    }
+        let client = new Client();
 
-    function pipeReady(e) {
-        client.loadDataIndex(indexLoaded);
-    }
+        function indexLoaded(index) {
+            client.initClient();
+        }
 
-    initPipelineAPI(pipeReady)
+        function pipeReady(e) {
+            client.loadDataIndex(indexLoaded);
+        }
+
+        window.GameScreen = new GameScreen();
+        window.ThreeAPI = new ThreeAPI();
+
+        initPipelineAPI(pipeReady)
 
 
-</script>
+    </script>
 
-</body>
+</head>
+
+<body id="canvas_window"></body>
 </html>

@@ -1,5 +1,17 @@
 import { PipelineObject } from "../../application/load/PipelineObject.js";
-import {GuiDebug} from "../../application/ui/gui/systems/GuiDebug.js";
+import {
+    AmbientLight,
+    BackSide,
+    Color, DirectionalLight, FogExp2,
+    Mesh,
+    MeshBasicMaterial,
+    NoBlending,
+    SphereGeometry,
+    Vector3
+} from "../../../../libs/three/Three.Core.js";
+import {evt} from "../../application/event/evt.js";
+import {ENUMS} from "../../application/ENUMS.js";
+import {MATH} from "../../application/MATH.js";
 
 let statusMap = {
     transitionProgress:0,
@@ -35,9 +47,9 @@ class ThreeEnvironment {
         this.transitionTime = 23;
         this.currentEnvConfig;
         this.currentSkyConfig;
-        this.worldCenter = new THREE.Vector3(0, 0, 0);
-        this.calcVec = new THREE.Vector3();
-        this.calcVec2 = new THREE.Vector3();
+        this.worldCenter = new Vector3(0, 0, 0);
+        this.calcVec = new Vector3();
+        this.calcVec2 = new Vector3();
         this.theta;
         this.phi;
 
@@ -51,10 +63,10 @@ class ThreeEnvironment {
         this.camera;
         this.renderer;
         this.sunSphere;
-        this.fogColor = new THREE.Color(1, 1, 1);
-        this.dynamicFogColor = new THREE.Color(1, 1, 1);
-        this.ambientColor = new THREE.Color(1, 1, 1);
-        this.dynamicAmbientColor = new THREE.Color(1, 1, 1);
+        this.fogColor = new Color(1, 1, 1);
+        this.dynamicFogColor = new Color(1, 1, 1);
+        this.ambientColor = new Color(1, 1, 1);
+        this.dynamicAmbientColor = new Color(1, 1, 1);
 
     }
 
@@ -109,7 +121,7 @@ class ThreeEnvironment {
 
         let grd = ctx.createLinearGradient(0,0,0, _this.ctxHeight);
 
-        GuiAPI.printDebugText("Fog: "+fogColor[0]+" "+fogColor[1]+" "+fogColor[2])
+     //   GuiAPI.printDebugText("Fog: "+fogColor[0]+" "+fogColor[1]+" "+fogColor[2])
     //    grd.addColorStop(0, ThreeAPI.toRgb(fogColor[0], fogColor[1], fogColor[2]));
     //    grd.addColorStop(0, ThreeAPI.toGradRgb(0,0, 0));
     //    grd.addColorStop(0.45, ThreeAPI.toGradRgb(0,0, 0));
@@ -127,7 +139,7 @@ class ThreeEnvironment {
 
         // horizon and down;
         let rgb = ThreeAPI.toGradRgb(fogColor[0], fogColor[1], fogColor[2])
-        GuiAPI.printDebugText("rgb: "+rgb)
+    //    GuiAPI.printDebugText("rgb: "+rgb)
         grd.addColorStop(0.5, rgb);
         grd.addColorStop(1, rgb);
     //    grd.addColorStop(-1, rgb);
@@ -146,7 +158,7 @@ class ThreeEnvironment {
                 Obj3d.color.g=color[1];
                 Obj3d.color.b=color[2];
             } else {
-                Obj3d.color = new THREE.Color(color[0],color[1], color[2]);
+                Obj3d.color = new Color(color[0],color[1], color[2]);
             }
         }
 
@@ -393,7 +405,7 @@ class ThreeEnvironment {
         //    console.log("Tick Env")
 
         // waterFx.tickWaterEffect(tpf);
-        this.sky.mesh.position.copy(camPos);
+    //    this.sky.mesh.position.copy(camPos);
         let fraction = this.calcTransitionProgress(tpf * 1.0);
 
         //    t+=evt.args(e).tpf
@@ -438,7 +450,7 @@ class ThreeEnvironment {
         this.phi = 2 * Math.PI * ( useSky.azimuth - 0.5 );
 
         this.worldCenter.copy(this.camera.position);
-        this.sky.mesh.position.copy(this.worldCenter);
+    //    this.sky.mesh.position.copy(this.worldCenter);
         this.worldCenter.y = 0;
 
         this.sunSphere.position.x = 0.00001 * useSky.distance * Math.cos( this.phi );
@@ -498,7 +510,7 @@ class ThreeEnvironment {
     enableEnvironment = function(threeEnv) {
         if (threeEnv.enabled) return;
         threeEnv.enabled = true;
-        threeEnv.scene.add( threeEnv.sky.mesh );
+    //    threeEnv.scene.add( threeEnv.sky.mesh );
     //    ThreeAPI.getReflectionScene().add(threeEnv.sky.meshClone);
     };
 
@@ -513,7 +525,7 @@ class ThreeEnvironment {
     disableEnvironment = function() {
         if (!this.enabled) return;
         this.enabled = false;
-        this.scene.remove( sky.mesh );
+    //    this.scene.remove( sky.mesh );
         // ThreeAPI.getReflectionScene().remove(sky.meshClone);
     //    ThreeAPI.getSetup().removePostrenderCallback(tickEnvironment);
     };
@@ -556,13 +568,13 @@ class ThreeEnvironment {
         let tx = ThreeAPI.newCanvasTexture(canvas);
         let mat = ThreeAPI.buildCanvasMaterial(tx);
         mat.fog = false;
-        mat.side = THREE.BackSide;
-        mat.blending = THREE.NoBlending;
+        mat.side = BackSide;
+        mat.blending = NoBlending;
 
         //    mat.depthWrite = false;
 
-        let skyGeo = new THREE.SphereGeometry(900, 36, 9 );
-        let skyMesh = new THREE.Mesh( skyGeo, mat);
+    //    let skyGeo = new SphereGeometry(900, 36, 9 );
+    //    let skyMesh = new Mesh( skyGeo, mat);
 
         let uniforms = {
             luminance: { value: 1 },
@@ -570,11 +582,11 @@ class ThreeEnvironment {
             rayleigh: { value: 1 },
             mieCoefficient: { value: 0.005 },
             mieDirectionalG: { value: 0.8 },
-            sunPosition: { value: new THREE.Vector3() }
+            sunPosition: { value: new Vector3() }
         };
 
         let sky = {
-            mesh:skyMesh,
+        //    mesh:skyMesh,
             ctx:setupCanvas(canvas),
             tx:tx
         //    uniforms:uniforms
@@ -585,12 +597,12 @@ class ThreeEnvironment {
         _this.ctx.globalCompositeOperation = "source-over"
     //    this.setCanvasColor(sky.ctx, sky.tx);
 
-        this.sky.meshClone = this.sky.mesh.clone();
+    //    this.sky.meshClone = this.sky.mesh.clone();
         // Add Sun Helper
 
-        this.sunSphere = new THREE.Mesh(
-            new THREE.SphereGeometry( 20, 16, 8 ),
-            new THREE.MeshBasicMaterial( { color: 0xffffff } )
+        this.sunSphere = new Mesh(
+            new SphereGeometry( 20, 16, 8 ),
+            new MeshBasicMaterial( { color: 0xffffff } )
         );
 
         this.sunSphere.position.y = 0;
@@ -605,19 +617,19 @@ class ThreeEnvironment {
 
                 if (key === "ambient") {
 
-                    _this.world[key] = new THREE.AmbientLight(0x000000);
+                    _this.world[key] = new AmbientLight(0x000000);
                     scene.add(_this.world[key]);
 
                 } else if (key === "fog") {
                     //    scene.fog = {density:0, near:1, far: 100000}; // new THREE.Fog( 100, 10000000);
                 //    scene.fog = new THREE.Fog( 100, 10000000);
                 //        world[key] = scene.fog;
-                    let fog = new THREE.FogExp2(0x000000, 0.1);
+                    let fog = new FogExp2(0x000000, 0.1);
                     scene.fog = fog;
                     _this.world[key] = {density:0, near:1, far: 100000, fog:fog}
                     //    ThreeAPI.getReflectionScene().add(world[key]);
                 } else {
-                    _this.world[key] = new THREE.DirectionalLight(0x000000);
+                    _this.world[key] = new DirectionalLight(0x000000);
                     scene.add(_this.world[key]);
                     //    ThreeAPI.getReflectionScene().add(world[key]);
                 }

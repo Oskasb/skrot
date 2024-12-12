@@ -5,6 +5,9 @@ import {getTerrainBodyPointer, updateViewObstruction} from "../../application/ut
 import {isDev} from "../../application/utils/DebugUtils.js";
 import {getPlayerStatus, getSetting} from "../../application/utils/StatusUtils.js";
 import {ENUMS} from "../../application/ENUMS.js";
+import {evt} from "../../application/event/evt.js";
+import {MATH} from "../../application/MATH.js";
+import {getGameTime} from "../../application/utils/DataUtils.js";
 
 let CAM_MODES = {
     CAM_AUTO:CAM_AUTO,
@@ -78,7 +81,7 @@ let camDragFactor = 30;
 
 function updateCamParams(camParams) {
     tpf = camParams.tpf;
-    selectedActor = GameAPI.getGamePieceSystem().getSelectedGameActor();
+    selectedActor = null // GameAPI.getGamePieceSystem().getSelectedGameActor();
     tileSelector = null;
     isTileSelecting = false;
     lookAroundPoint = camParams.cameraCursor.getLookAroundPoint();
@@ -498,7 +501,7 @@ function CAM_AUTO() {
     cursorObj3d.position.copy(lookAroundPoint);
     cursorObj3d.position.y = ThreeAPI.terrainAt(lookAroundPoint);
     offsetPos.x = Math.sin(cameraTime*0.15)*offsetFactor
-    offsetPos.y = offsetFactor*0.4 + zoomDistance*0.8 + Math.sin(GameAPI.getGameTime()*0.4)*zoomDistance*0.25
+    offsetPos.y = offsetFactor*0.4 + zoomDistance*0.8 + Math.sin(getGameTime()*0.4)*zoomDistance*0.25
     offsetPos.z = Math.cos(cameraTime*0.18)*offsetFactor
 
     tempVec3.addVectors(lookAroundPoint, offsetPos)

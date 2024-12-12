@@ -1,5 +1,5 @@
 import {PipelineObject} from '../../../application/load/PipelineObject.js';
-import {AddOperation, MixOperation, MultiplyOperation} from "../../../../libs/three/constants.js";
+import {AddOperation, MixOperation, MultiplyOperation} from "../../../../../libs/three/constants.js";
 
 let blendCanvasCtxToTexture = function(ctx, texture) {
 

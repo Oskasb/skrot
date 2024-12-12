@@ -1,10 +1,10 @@
 
-import { Vector3 } from "../../../libs/three/math/Vector3.js";
-import { Object3D } from "../../../libs/three/core/Object3D.js";
-import * as CursorUtils from "./CursorUtils.js";
-import {notifyCameraStatus, viewEncounterSelection} from "./CameraFunctions.js";
+import {notifyCameraStatus} from "./CameraFunctions.js";
 import { CameraControls} from "./CameraControls.js";
 import {ENUMS} from "../../application/ENUMS.js";
+import {Object3D, Vector3} from "../../../../libs/three/Three.Core.js";
+import {evt} from "../../application/event/evt.js";
+import {getFrame} from "../../application/utils/DataUtils.js";
 
 let cameraControls = new CameraControls()
 let cameraStatus = {}
@@ -29,7 +29,7 @@ let actorQuat = null;
 let navLookAt = new Vector3();
 let navLookFrom = new Vector3();
 
-let lookAroundPoint = new Vector3(677, 0, 1139)
+let lookAroundPoint = new Vector3(0, 0, 0)
 
 let posMod = new Vector3();
 let lookAtMod = new Vector3();
@@ -77,7 +77,7 @@ let updateCursorFrame = function() {
     camParams.lookAt[0] = camLookAtVec.x // + lookAtMod.x;
     camParams.lookAt[1] = camLookAtVec.y //+ lookAtMod.y;
     camParams.lookAt[2] = camLookAtVec.z //+ lookAtMod.z;
-    GameAPI.getGameCamera().updatePlayerCamera(camParams)
+//    GameAPI.getGameCamera().updatePlayerCamera(camParams)
 }
 
 
@@ -288,7 +288,7 @@ class CameraSpatialCursor {
     }
 
     updateSpatialCursor = function() {
-        let tpf = GameAPI.getFrame().avgTpf
+        let tpf = getFrame().avgTpf
 
         tempVec3.set(0, 1, 0);
         ThreeAPI.getCamera().up.lerp(tempVec3, tpf);
@@ -336,8 +336,8 @@ class CameraSpatialCursor {
             }
 
 
-        updateCursorFrame();
-
+        ThreeAPI.setCameraPos(camPosVec.x, camPosVec.y, camPosVec.z)
+        ThreeAPI.cameraLookAt(camLookAtVec.x, camLookAtVec.y, camLookAtVec.z)
     //    debugDrawCursor();
     }
 

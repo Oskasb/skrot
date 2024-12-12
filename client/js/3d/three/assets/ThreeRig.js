@@ -1,3 +1,5 @@
+import {pipelineAPI} from "../../../application/utils/DataUtils.js";
+
 class ThreeRig {
     constructor(id, config, callback) {
 
@@ -10,7 +12,7 @@ class ThreeRig {
             callback(asset.config);
         };
 
-        PipelineAPI.cacheCategoryKey('CONFIGS', 'RIGS_'+id, assetLoaded);
+        pipelineAPI.cacheCategoryKey('CONFIGS', 'RIGS_'+id, assetLoaded);
     };
 }
 

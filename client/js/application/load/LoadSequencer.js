@@ -1,5 +1,6 @@
 
 import {PipelineObject} from "./PipelineObject.js";
+import {pipelineAPI} from "../utils/DataUtils.js";
 class LoadSequencer {
     constructor() {
         this.loadQueue = {}
@@ -19,7 +20,7 @@ class LoadSequencer {
 
             let acallback = function(asset) {
        //             console.log('asset loaded:', asset, assetKey, assetStore)
-                PipelineAPI.setCategoryKeyValue('ASSET', assetKey, asset);
+                pipelineAPI.setCategoryKeyValue('ASSET', assetKey, asset);
                 if ( assetStore[assetKey]) {
                     //       console.log("Asset Already stored...", assetKey)
                 } else {

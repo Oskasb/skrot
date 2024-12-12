@@ -1,19 +1,14 @@
 import {ConfigData} from "../../../application/utils/ConfigData.js";
 import {TerrainMaterial} from "./TerrainMaterial.js";
-import {Vector3} from "../../../../libs/three/math/Vector3.js";
-import {Object3D} from "../../../../libs/three/core/Object3D.js";
-import {TerrainGeometry} from "./TerrainGeometry.js";
+
 import { TerrainBigGeometry} from "./TerrainBigGeometry.js";
-import {DynamicLodGrid} from "../../../application/utils/DynamicLodGrid.js";
+import {DynamicLodGrid} from "../../../application/grids/DynamicLodGrid.js";
 import * as TerrainFunctions from "./TerrainFunctions.js";
-import * as CursorUtils from "../../camera/CursorUtils.js";
-import {poolReturn} from "../../../application/utils/PoolUtils.js";
-import { ImageLoader } from "../../../../libs/three/loaders/ImageLoader.js";
-import {applyGroundCanvasEdit, fitHeightToAABB} from "./TerrainFunctions.js";
-import {getTerrainBodyPointer, rayTest, testProbeFitsAtPos} from "../../../application/utils/PhysicsUtils.js";
+import { ImageLoader } from "../../../../../libs/three/loaders/ImageLoader.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {detachConfig} from "../../../application/utils/ConfigUtils.js";
 import {getSetting} from "../../../application/utils/StatusUtils.js";
+import {Vector3} from "../../../../../libs/three/Three.Core.js";
 
 let scrubIndex = 0;
 
@@ -254,53 +249,6 @@ function imprintGroundInAABB(aabb, imprintCallback) {
     }
     resolveImprintQueue();
 }
-
-let constructGeometries = function(heightMapData, transform, groundConfig, sectionInfoCfg) {
-
-    let params = ThreeAPI.getTerrainSystem().getTerrain().call.getTerrainParameters();
-//    worldSize = params.tx_width * params.unitScale;
-
-    let dims = heightMapData['dimensions'];
-    let txWidth = dims['tx_width'];
-    let groundTxWidth = dims['ground_tx_width'];
-    let mesh_segments = dims['mesh_segments'];
-//let lodTiles = dims['lod_tiles'];
-    let tiles = (txWidth / (mesh_segments+1));
-    let groundTotalWidth = txWidth*params.unitScale
- //   console.log("Constructs HM Geos", gridMeshAssetId, txWidth, mesh_segments, tiles);
-
-    MATH.vec3FromArray(terrainOrigin, transform['pos']);
-    terrainOrigin.y = params.yMin;
-    MATH.vec3FromArray(terrainScale, transform['scale']);
-
-    terrainScale.y = params.yMax - params.yMin;
-
-    let segmentScale = new Vector3();
-    segmentScale.copy(terrainScale);
-    segmentScale.multiplyScalar(params.unitScale/tiles);
-    segmentScale.y = params.yMax - params.yMin;
-    let geometrySize = segmentScale.x
-    let vertsPerSegAxis = txWidth/tiles;
-    let segsPerPlaneInstanceAxis = vertsPerSegAxis-1;
-
-    let x0 = 0 // -terrainScale.x * 0.5;
-    let z0 = 0 // -terrainScale.z * 0.5;
-
-    for (let i = 0; i < tiles; i++) {
-        terrainGeometries[i] = [];
-        for (let j = 0; j < tiles; j++) {
-            let obj3d = new Object3D();
-            obj3d.position.x = x0 + segmentScale.x * i + segmentScale.x*0.5 + terrainScale.x*0.5 / txWidth;
-            obj3d.position.z = z0 + segmentScale.z * j + segmentScale.z*0.5 + terrainScale.z*0.5 / txWidth;
-            obj3d.position.add(terrainOrigin);
-            obj3d.scale.copy(segmentScale);
-            obj3d.scale.multiplyScalar(0.005);
-            let geo = new TerrainGeometry(obj3d, geometrySize, i , j, vertsPerSegAxis, tiles, txWidth, groundTxWidth, groundConfig, sectionInfoCfg);
-            terrainGeometries[i][j] = geo;
-        }
-    }
-
-};
 
 let getTerrainGeoAtPos = function(posVec3) {
 

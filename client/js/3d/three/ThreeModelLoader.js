@@ -1,15 +1,17 @@
 import {PipelineObject} from '../../application/load/PipelineObject.js';
-import { GLTFLoader } from "../../../libs/three/GLTFLoader.js";
+import { GLTFLoader } from "../../../../libs/jsm/loaders/GLTFLoader.js";
+import {MeshBasicMaterial} from "../../../../libs/three/materials/Materials.js";
+import {pipelineAPI} from "../../application/utils/DataUtils.js";
 
 class ThreeModelLoader {
     constructor() {
 
-        this.material1 = new THREE.MeshBasicMaterial( { color: 0xff00ff, wireframe: true, fog:false } );
-        this.material2 = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true, fog:false } );
+        this.material1 = new MeshBasicMaterial( { color: 0xff00ff, wireframe: true, fog:false } );
+        this.material2 = new MeshBasicMaterial( { color: 0xff0000, wireframe: true, fog:false } );
         this.materials = {
-            yellow : new THREE.MeshBasicMaterial( { color: 0xffff88, wireframe: true, fog:false } ),
-            red    : new THREE.MeshBasicMaterial( { color: 0xff5555, wireframe: true, fog:false } ),
-            blue    : new THREE.MeshBasicMaterial({ color: 0x5555ff, wireframe: true, fog:false } )
+            yellow : new MeshBasicMaterial( { color: 0xffff88, wireframe: true, fog:false } ),
+            red    : new MeshBasicMaterial( { color: 0xff5555, wireframe: true, fog:false } ),
+            blue    : new MeshBasicMaterial({ color: 0x5555ff, wireframe: true, fog:false } )
         };
 
         this.defaultTrf = {
@@ -60,7 +62,7 @@ class ThreeModelLoader {
 
         let saveJsonUrl = function (json, url) {
             let shiftUrl = url.slice(1);
-            PipelineAPI.saveJsonFileOnServer(json, shiftUrl)
+            pipelineAPI.saveJsonFileOnServer(json, shiftUrl)
         };
 
 
@@ -182,8 +184,8 @@ class ThreeModelLoader {
                 clone.frustumCulled = false;
                 modelPool[id].push(clone);
 
-                if (PipelineAPI.readCachedConfigKey("MESH_LIST", id) !== mesh) {
-                    PipelineAPI.setCategoryKeyValue("MESH_LIST", id, mesh);
+                if (pipelineAPI.readCachedConfigKey("MESH_LIST", id) !== mesh) {
+                    pipelineAPI.setCategoryKeyValue("MESH_LIST", id, mesh);
                 }
 
                 MATH.quickSplice(isLoading, id);
@@ -195,7 +197,7 @@ class ThreeModelLoader {
 
         let cacheMesh = function (id, mesh, pool) {
 
-            PipelineAPI.setCategoryKeyValue('THREE_MODEL', id, mesh);
+            pipelineAPI.setCategoryKeyValue('THREE_MODEL', id, mesh);
             poolMesh(id, mesh, pool)
         };
 
@@ -408,7 +410,7 @@ class ThreeModelLoader {
             };
 
             let uv2Found = function (uv2mesh, mid) {
-                let meshObj = PipelineAPI.readCachedConfigKey('THREE_MODEL', mid);
+                let meshObj = pipelineAPI.readCachedConfigKey('THREE_MODEL', mid);
 
                 //        console.log(meshObj, uv2mesh, uv2mesh.geometry.attributes.uv);
                 meshObj.geometry.setAttribute('uv2', uv2mesh.geometry.attributes.uv);
@@ -418,7 +420,7 @@ class ThreeModelLoader {
             };
 
             let modelFound = function (child, mid) {
-                PipelineAPI.setCategoryKeyValue('THREE_MODEL', mid, child);
+                pipelineAPI.setCategoryKeyValue('THREE_MODEL', mid, child);
 
                 if (modelList[modelId].urluv2) {
                     loadUrl(modelList[modelId].urluv2 + '.obj', modelId, uv2Found)

@@ -7,9 +7,11 @@ import {ThreeTextureMaker} from './ThreeTextureMaker.js';
 import {ThreeSpatialFunctions} from './ThreeSpatialFunctions.js';
 import {CameraSpatialCursor } from "../camera/CameraSpatialCursor.js";
 import {TerrainSystem} from "./terrain/TerrainSystem.js";
-import {physicalIntersection} from "../../application/utils/PhysicsUtils.js";
 import {getSetting} from "../../application/utils/StatusUtils.js";
-
+import {MeshBasicMaterial, Object3D, Vector3, Vector4} from "../../../../libs/three/Three.Core.js";
+import {pipelineAPI} from "../../application/utils/DataUtils.js";
+import {MATH} from "../../application/MATH.js";
+import {ENUMS} from "../../application/ENUMS.js";
 
 let cameraSpatialCursor;
 let terrainSystem = new TerrainSystem();
@@ -38,12 +40,12 @@ class ThreeAPI {
         this.frameRegs = 0;
 
         this.dynamicGlobalUnifs = {};
-        this.tempVec3 = new THREE.Vector3();
-        this.tempVec3b = new THREE.Vector3();
-        this.tempVec3c = new THREE.Vector3();
-        this.tempVec4 = new THREE.Vector4();
-        this.tempObj = new THREE.Object3D();
-        tempVec = new THREE.Vector3();
+        this.tempVec3 = new Vector3();
+        this.tempVec3b = new Vector3();
+        this.tempVec3c = new Vector3();
+        this.tempVec4 = new Vector4();
+        this.tempObj = new Object3D();
+        tempVec = new Vector3();
     }
 
     initThreeLoaders = function(assetLoader) {
@@ -76,24 +78,23 @@ class ThreeAPI {
         this.scene = store.scene;
         this.renderer = store.renderer;
         this.reflectionScene = store.reflectionScene;
-
-        const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.7, 20000 );
-        this.setCamera(camera);
-        PipelineAPI.setCategoryKeyValue('SYSTEM', 'CAMERA', camera);
-        store.camera = camera;
-        camera.matrixWorldAutoUpdate = false;
+        this.setCamera(store.camera);
+        pipelineAPI.setCategoryKeyValue('SYSTEM', 'CAMERA', store.camera);
+    //    store.camera.matrixWorldAutoUpdate = false;
 
         this.initEnvironment(store);
+        console.log("WebGPU Setup: ", store)
+
         this.glContext = store.renderer.getContext();
 
         this.threeSetup.addPrerenderCallback(this.threeModelLoader.updateActiveMixers);
 
         this.threeSetup.addToScene(this.threeSetup.getCamera());
 
-        this.shaderBuilder.loadShaderData(this.glContext);
+    //    this.shaderBuilder.loadShaderData(this.glContext);
         cameraSpatialCursor = new CameraSpatialCursor();
     //    this.threeSetup.activateScreenspaceReflections(this.renderer, this.scene, this.threeSetup.getCamera())
-
+        return store;
     };
 
     initThreeTerrain = function() {
@@ -366,7 +367,7 @@ class ThreeAPI {
 
 
     buildCanvasMaterial = function(texture) {
-        return  new THREE.MeshBasicMaterial({ map: texture, depthWrite:false});
+        return  new MeshBasicMaterial({ map: texture, depthWrite:false});
     };
 
     attachObjectToCamera = function(object) {

@@ -1,4 +1,4 @@
-import {poolFetch, poolReturn} from "./PoolUtils.js";
+import {poolFetch} from "./PoolUtils.js";
 import {Vector3} from "../../../../libs/three/math/Vector3.js";
 import {Object3D} from "../../../../libs/three/core/Object3D.js";
 
@@ -18,7 +18,6 @@ let normalStore = new Vector3();
 let tempNormal = new Vector3()
 let tempFrom = new Vector3();
 let tempTo = new Vector3();
-let tempRay = new Ray();
 let tempVel = new Vector3();
 let tempAngVel = new Vector3();
 

@@ -1,4 +1,6 @@
 import {PipelineObject} from '../../application/load/PipelineObject.js';
+import {pipelineAPI} from "../../application/utils/DataUtils.js";
+import {Texture} from "../../../../libs/three/Three.Core.js";
 
 
 class ThreeTextureMaker {
@@ -43,7 +45,7 @@ class ThreeTextureMaker {
 
             let saveJsonUrl = function(json, url) {
                 let shiftUrl = url.slice(1);
-                PipelineAPI.saveJsonFileOnServer(json, shiftUrl)
+                pipelineAPI.saveJsonFileOnServer(json, shiftUrl)
             };
 
 
@@ -86,13 +88,13 @@ class ThreeTextureMaker {
 
                         //    PipelineAPI.setCategoryKeyValue('THREE_TEXTURE', txType+'_'+url, tx);
 
-                        PipelineAPI.setCategoryKeyValue('THREE_TEXTURE', getIdByUrl(url), tx);
+                        pipelineAPI.setCategoryKeyValue('THREE_TEXTURE', getIdByUrl(url), tx);
                     }
 
                 };
 
                 let jsonImageLoaded = function(src, data) {
-                    PipelineAPI.cancelFileUrlPoll(src);
+                    pipelineAPI.cancelFileUrlPoll(src);
                     new THREE.TextureLoader().load(data.url, registerTexture);
                 };
 
@@ -100,7 +102,7 @@ class ThreeTextureMaker {
 
                     //    console.log("Buffer Data Updated:  ", url, txType, src, [data]);
                     let onLoad = function(tx) {
-                        if (PipelineAPI.getPipelineOptions('imagePipe').polling.enabled_) {
+                        if (pipelineAPI.getPipelineOptions('imagePipe').polling.enabled_) {
                             let imgId = tx.toJSON(meta).image;
                             delete meta.images[imgId].uuid;
                             let json = JSON.stringify(meta.images[imgId]);
@@ -108,7 +110,7 @@ class ThreeTextureMaker {
                             console.log("JSON Image:", imgId, [json]);
                             saveJsonUrl(json, url);
                             new PipelineObject('JSON_IMAGE', url, jsonImageLoaded)
-                            PipelineAPI.pollFileUrl(src);
+                            pipelineAPI.pollFileUrl(src);
                         } else {
 
                         }
@@ -123,7 +125,7 @@ class ThreeTextureMaker {
                 // new PipelineObject('BUFFER_IMAGE', url, originalImageUpdated);
                 return;
 
-                if (PipelineAPI.getPipelineOptions('imagePipe').polling.enabled) {
+                if (pipelineAPI.getPipelineOptions('imagePipe').polling.enabled) {
                     new PipelineObject('BUFFER_IMAGE', url, originalImageUpdated)
                 } else {
                     new PipelineObject('JSON_IMAGE', url, jsonImageLoaded)
@@ -162,14 +164,14 @@ class ThreeTextureMaker {
             let loadImage = function(textureStore) {
 
                 let jsonImage = function(src, json) {
-                    PipelineAPI.setCategoryKeyValue('JSON_IMAGE', textureStore.url, json);
+                    pipelineAPI.setCategoryKeyValue('JSON_IMAGE', textureStore.url, json);
                 };
 
                 let ok = function(src, data) {
                     images[textureStore.url] = data;
                     //        console.log("TextureCached", src, textureStore);
                     textureStore.bufferData = data;
-                    PipelineAPI.setCategoryKeyValue('BUFFER_IMAGE', textureStore.url, data);
+                    pipelineAPI.setCategoryKeyValue('BUFFER_IMAGE', textureStore.url, data);
                     //    PipelineAPI.subscribeToConfigUrl(contentUrl(textureStore.url), jsonImage, fail);
                 };
 
@@ -180,7 +182,7 @@ class ThreeTextureMaker {
                 if (!images[textureStore.url]) {
                     images[textureStore.url] = {};
 
-                    PipelineAPI.cacheImageFromUrl(textureStore.url, ok, fail)
+                    pipelineAPI.cacheImageFromUrl(textureStore.url, ok, fail)
 
                     /*
                     if (PipelineAPI.getPipelineOptions('imagePipe').polling.enabled) {
@@ -245,11 +247,11 @@ class ThreeTextureMaker {
 
 
         createImageTexture = function(srcUrl) {
-            return new THREE.Texture(srcUrl);
+            return new Texture(srcUrl);
         };
 
         createCanvasTexture = function(canvas) {
-            return new THREE.Texture(canvas);
+            return new Texture(canvas);
         };
 
     }

@@ -1,6 +1,8 @@
 "use strict";
 
 
+import {pipelineAPI} from "../../utils/DataUtils.js";
+
 define([
         'ui/dom/DomElement',
         'ui/GameScreen',
@@ -33,8 +35,8 @@ define([
             };
 
             this.elements = {};
-            
-            PipelineAPI.cacheCategoryKey('popups', 'select_name', callback);
+
+            pipelineAPI.cacheCategoryKey('popups', 'select_name', callback);
 
             if (SYSTEM_SETUP.DEBUG.autoName) {
                 autoSubmit = setTimeout(function() {

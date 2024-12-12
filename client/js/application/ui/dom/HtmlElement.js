@@ -1,13 +1,12 @@
 import {updateKeyState} from "../input/KeyboardState.js";
 import {getSetting} from "../../utils/StatusUtils.js";
 import {MATH} from "../../MATH.js";
-import {ENUMS} from "../../ENUMS.js";
 import {
     addClickFunction,
     buildCssTransform,
     createDivElement, createIframeElement,
     getElementById, getRefDiv, removeElement,
-    removeElementChildren
+    removeElementChildren, rootFontSize
 } from "./DomUtils.js";
 
 let index = 0;
@@ -75,7 +74,7 @@ class HtmlElement {
                 width = innerWidth;
                 height = innerHeight;
                 windowResized(iframeDocument, width, height)
-                this.container.style.fontSize = DomUtils.rootFontSize();
+                this.container.style.fontSize = rootFontSize();
             }
 
             let statusMap = this.statusMap;
@@ -108,6 +107,7 @@ class HtmlElement {
                         if (list) {
                             updateValueElem(key, elem.value, iframeDocument, lastStatus)
                             statusMap[key] = elem.value;
+                            return;
                             return;
                         }
                         let name = elem.getAttribute('name')
@@ -272,7 +272,7 @@ class HtmlElement {
         }
         index++;
         this.id = url+"_"+index;
-        let file = "html/"+url+".html";
+        let file = "client/html/"+url+".html";
 
         this.iframe = null;
 

@@ -1,6 +1,8 @@
 "use strict";
 
 
+import {pipelineAPI} from "../../utils/DataUtils.js";
+
 define([
         'evt',
         'PipelineAPI',
@@ -69,7 +71,7 @@ define([
             };
 
             dataTypeStyles = new PipelineObject('data_types', 'style_map').readData();
-            PipelineAPI.cacheCategoryKey(this.category, dataKey, callback);
+            pipelineAPI.cacheCategoryKey(this.category, dataKey, callback);
             
         };
 

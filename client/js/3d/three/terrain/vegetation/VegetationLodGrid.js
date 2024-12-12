@@ -1,7 +1,7 @@
-import {DynamicLodGrid} from "../../../../application/utils/DynamicLodGrid.js";
+import {DynamicLodGrid} from "../../../../application/grids/DynamicLodGrid.js";
 import {VegetationPatch} from "./VegetationPatch.js";
-import {poolFetch, poolReturn, registerPool} from "../../../../application/utils/PoolUtils.js";
-import {Vector3} from "../../../../../libs/three/math/Vector3.js";
+import {poolFetch} from "../../../../application/utils/PoolUtils.js";
+import {Vector3} from "../../../../../../libs/three/math/Vector3.js";
 import {getSetting} from "../../../../application/utils/StatusUtils.js";
 
 let updateFrame = 0;

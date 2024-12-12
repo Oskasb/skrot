@@ -1,6 +1,7 @@
 import {Object3D} from "../../../../libs/three/core/Object3D.js";
 import {Vector3} from "../../../../libs/three/math/Vector3.js";
 import {ENUMS} from "../ENUMS.js";
+import {pipelineAPI} from "./DataUtils.js";
 
 let cache = {};
 let callbacks = {};
@@ -32,7 +33,7 @@ if (typeof (window) !== 'undefined') {
 
 function trackDebugConfig(folder, key, value) {
     if (!cache['DEBUG']) {
-        cache = PipelineAPI.getCachedConfigs();
+        cache = pipelineAPI.getCachedConfigs();
         if (!cache['DEBUG']) {
             cache.DEBUG = {};
         }

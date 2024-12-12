@@ -1,7 +1,20 @@
-// import { SsrFx } from "./fx/SsrFx.js";
-
 
 import {getSetting} from "../../application/utils/StatusUtils.js";
+import {
+    ACESFilmicToneMapping,
+    Frustum,
+    Matrix4,
+    Object3D,
+    PerspectiveCamera,
+    Scene,
+    Sphere,
+    Vector3
+} from "../../../../libs/three/Three.Core.js";
+import {MATH} from "../../application/MATH.js";
+import {WebGLRenderer} from "../../../../libs/three/Three.js";
+import {WebGPURenderer} from "../../../../libs/three/Three.WebGPU.js";
+import {ENUMS} from "../../application/ENUMS.js";
+import {pipelineAPI} from "../../application/utils/DataUtils.js";
 
 class ThreeSetup {
 
@@ -24,25 +37,25 @@ class ThreeSetup {
         this.idle = 0;
         this.renderStart = 0;
         this.renderEnd = 0;
-        this.lookAt = new THREE.Vector3();
-        this.vector = new THREE.Vector3();
-        this.tempObj = new THREE.Object3D();
+        this.lookAt = new Vector3();
+        this.vector = new Vector3();
+        this.tempObj = new Object3D();
 
         this.avgTpf = 0.1;
 
-        this.sphere = new THREE.Sphere();
-        this.frustum = new THREE.Frustum();
-        this.frustumMatrix = new THREE.Matrix4();
+        this.sphere = new Sphere();
+        this.frustum = new Frustum();
+        this.frustumMatrix = new Matrix4();
 
     }
 
-    callClear = function() {
+    callClear() {
         for (let i = 0; i < this.onClearCallbacks.length; i++) {
             this.onClearCallbacks[i](this.tpf);
         }
     }
 
-    callPrerender = function(frame) {
+    callPrerender(frame) {
         //    requestAnimationFrame( ThreeSetup.callPrerender );
 
         let time = frame.systemTime;
@@ -71,17 +84,17 @@ class ThreeSetup {
     };
 
 
-    callRender = function(scn, cam) {
+    callRender(scn, cam) {
 
         this.renderStart = performance.now();
-        this.renderer.render(scn, cam);
+        this.renderer.renderAsync(scn, cam);
         this.renderEnd = performance.now();
         this.callClear();
         this.callPostrender();
         this.postRenderTime = performance.now() - this.renderEnd;
     };
 
-    callPostrender = function() {
+    callPostrender() {
 
 
     //    PipelineAPI.setCategoryKeyValue('STATUS', 'TIME_ANIM_RENDER', this.renderEnd - this.renderStart);
@@ -92,47 +105,34 @@ class ThreeSetup {
     };
 
 
-    getTotalRenderTime = function() {
+    getTotalRenderTime() {
         return this.renderEnd;
     };
 
-    initThreeRenderer = function(pxRatio, antialias, containerElement, store) {
+    initThreeRenderer(pxRatio, antialias, containerElement, store) {
 
-            let scene = new THREE.Scene();
-        //    let reflectionScene = new THREE.Scene();
-        //    let camera = new THREE.PerspectiveCamera( 75, containerElement.innerWidth / containerElement.innerHeight, 0.1, 1000 );
-        //    camera.matrixWorldAutoUpdate = false;
+            let scene = new Scene();
             scene.matrixWorldAutoUpdate = false;
             //     console.log("Three Camera:", camera);
         // Hack the context attributes to prevent canvas alpha
         let pxScale = getSetting(ENUMS.Settings.RENDER_SCALE);
 
-           let renderer = new THREE.WebGLRenderer( { antialias:antialias, alpha:false, devicePixelRatio: pxRatio, logarithmicDepthBuffer: false, reverseDepthBuffer: true, sortObjects: false });
-        //    let renderer = new THREE.WebGLRenderer();
-            let gl = renderer.getContext();
-            gl.getContextAttributes().alpha = false;
-        //    console.log(gl.getContextAttributes());
-            // gl.setContextAttribute()
-        //    renderer.setPixelRatio( pxRatio );
+        const camera = new PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.25, 2000 );
+
+           let renderer = new WebGPURenderer( { antialias:antialias, alpha:false, devicePixelRatio: pxRatio, reverseDepthBuffer: true, sortObjects: true, trackTimestamp: true });
             renderer.setSize( window.innerWidth / pxScale, window.innerHeight / pxScale);
-        //    renderer.toneMapping = THREE.LinearToneMapping;
+            renderer.toneMapping = ACESFilmicToneMapping;
             store.scene = scene;
-        //    store.reflectionScene = reflectionScene;
-        //    store.camera = camera;
+            store.camera = camera;
             store.renderer = renderer;
 
+            this.camera = camera;
             this.scene = scene;
-        //    this.camera = camera;
             this.renderer = renderer;
 
-        // document.body.appendChild( renderer.domElement );
-        PipelineAPI.setCategoryKeyValue('SYSTEM', 'SCENE', scene);
-        PipelineAPI.setCategoryKeyValue('SYSTEM', 'RENDERER', renderer);
-            containerElement.appendChild(renderer.domElement);
-       //         console.log("initThreeRenderer", store);
-
-     //
-
+        pipelineAPI.setCategoryKeyValue('SYSTEM', 'SCENE', scene);
+        pipelineAPI.setCategoryKeyValue('SYSTEM', 'RENDERER', renderer);
+        containerElement.appendChild(renderer.domElement);
         return store;
     };
 
@@ -140,32 +140,32 @@ class ThreeSetup {
         new SsrFx(renderer, scene, camera)
     }
 
-    addPrerenderCallback = function(callback) {
+    addPrerenderCallback(callback) {
         if (this.prerenderCallbacks.indexOf(callback) === -1) {
             this.prerenderCallbacks.push(callback);
         }
     };
 
-    removePrerenderCallback = function(callback) {
+    removePrerenderCallback(callback) {
         if (this.prerenderCallbacks.indexOf(callback) !== -1) {
             this.prerenderCallbacks.splice(this.prerenderCallbacks.indexOf(callback, 1));
         }
 
     };
 
-    addPostrenderCallback = function(callback) {
+    addPostrenderCallback(callback) {
         if (this.postrenderCallbacks.indexOf(callback) === -1) {
             this.postrenderCallbacks.push(callback);
         }
     };
 
-    removePostrenderCallback = function(callback) {
+    removePostrenderCallback(callback) {
         if (this.postrenderCallbacks.indexOf(callback) !== -1) {
             this.postrenderCallbacks.splice(this.postrenderCallbacks.indexOf(callback, 1));
         }
     };
 
-    addOnClearCallback = function(callback) {
+    addOnClearCallback(callback) {
 
         if (this.onClearCallbacks.indexOf(callback) === -1) {
             this.onClearCallbacks.push(callback);
@@ -173,25 +173,25 @@ class ThreeSetup {
 
     }
 
-    removeOnClearCallback = function(callback) {
+    removeOnClearCallback(callback) {
         if (this.onClearCallbacks.indexOf(callback) !== -1) {
             this.onClearCallbacks.splice(this.onClearCallbacks.indexOf(callback, 1));
         }
     };
 
-    pointIsVisible = function(vec3) {
+    pointIsVisible(vec3) {
         return this.frustum.containsPoint(vec3)
     }
 
-    sphereIsVisible = function(sphere) {
+    sphereIsVisible(sphere) {
         return this.frustum.intersectsSphere(sphere)
     }
 
-    boxIsVisible = function(box) {
+    boxIsVisible(box) {
         return this.frustum.intersectsBox(box)
     }
 
-    toScreenPosition = function(vec3, store) {
+    toScreenPosition(vec3, store) {
 
         ThreeAPI.tempVec3.set(0, 0, 1);
         ThreeAPI.tempVec3.applyQuaternion(this.camera.quaternion);
@@ -237,46 +237,47 @@ class ThreeSetup {
 
 
 
-    cameraTestXYZRadius = function(vec3, radius) {
+    cameraTestXYZRadius(vec3, radius) {
         this.sphere.center.copy(vec3);
         this.sphere.radius = radius;
         return this.frustum.intersectsSphere(this.sphere);
     };
 
-    calcDistanceToCamera = function(vec3) {
+    calcDistanceToCamera(vec3) {
         this.vector.copy(vec3);
         return this.vector.distanceTo(this.camera.position);
     };
 
 
-    sampleCameraFrustum = function(store) {
+    sampleCameraFrustum(store) {
 
     };
 
-    setCamera = function(camera) {
+    setCamera(camera) {
+        console.log("Set Camera", camera);
         this.camera = camera;
     };
 
-    setCameraPosition = function(px, py, pz) {
+    setCameraPosition(px, py, pz) {
         this.camera.position.x = px;
         this.camera.position.y = py;
         this.camera.position.z = pz;
     };
 
-    setCameraUp = function(vec3) {
+    setCameraUp(vec3) {
         this.camera.up.copy(vec3);
     }
 
-    setCameraLookAt = function(x, y, z) {
+    setCameraLookAt(x, y, z) {
         this.lookAt.set(x, y, z);
         this.camera.lookAt(this.lookAt)
     };
 
-    getCameraLookAt = function() {
+    getCameraLookAt() {
         return this.lookAt;
     };
 
-    updateCameraMatrix = function() {
+    updateCameraMatrix() {
 
         //    camera.updateProjectionMatrix();
 
@@ -291,23 +292,23 @@ class ThreeSetup {
     };
 
 
-    addChildToParent = function(child, parent) {
+    addChildToParent(child, parent) {
         if (child.parent) {
             child.parent.remove(child);
         }
         parent.add(child);
     };
 
-    addToScene = function(object3d) {
+    addToScene(object3d) {
         this.scene.add(object3d);
         return object3d;
     };
 
-    getCamera = function() {
+    getCamera() {
         return this.camera;
     };
 
-    removeModelFromScene = function(model) {
+    removeModelFromScene(model) {
         if (model.parent) {
             model.parent.remove(model);
         }
@@ -315,32 +316,32 @@ class ThreeSetup {
         this.scene.remove(model);
     };
 
-    setRenderParams = function(width, height, aspect, pxRatio) {
+    setRenderParams(width, height, aspect, pxRatio) {
         this.renderer.setSize( width, height);
         this.renderer.setPixelRatio( pxRatio );
         this.camera.aspect = aspect;
         this.camera.updateProjectionMatrix();
     };
 
-    attachPrerenderCallback = function(callback) {
+    attachPrerenderCallback(callback) {
         if (this.prerenderCallbacks.indexOf(callback) !== -1) {
             console.log("Callback already installed");
             return;
         }
         this.prerenderCallbacks.push(callback);
     };
-    removePrerenderCallback = function(callback) {
+    removePrerenderCallback(callback) {
         MATH.quickSplice(this.prerenderCallbacks, callback);
     };
 
 
-    getSceneChildrenCount = function() {
+    getSceneChildrenCount() {
         return this.scene.children.length;
     };
 
 
 
-    getInfoFromRenderer = function(source, key) {
+    getInfoFromRenderer(source, key) {
         if (!key) return this.renderer.info[source];
         return this.renderer.info[source][key];
     };

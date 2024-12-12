@@ -4,6 +4,7 @@ import {poolFetch, poolReturn} from "../utils/PoolUtils.js";
 import {createDebugButton, debugDrawActorSkeleton, getAllSceneNodes} from "../utils/DebugUtils.js";
 import {DebugLines} from "./lines/DebugLines.js";
 import {getSetting} from "../utils/StatusUtils.js";
+import {pipelineAPI} from "../utils/DataUtils.js";
 
 let cache = {};
 let mem = null;
@@ -136,7 +137,7 @@ class DebugView {
     constructor() {
 
         if (!cache['DEBUG']) {
-            cache = PipelineAPI.getCachedConfigs();
+            cache = pipelineAPI.getCachedConfigs();
             if (!cache['DEBUG']) {
                 cache.DEBUG = {};
             }

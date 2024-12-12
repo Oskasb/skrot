@@ -1,6 +1,8 @@
 "use strict";
 
 
+import {pipelineAPI} from "../../utils/DataUtils.js";
+
 define([
         'evt',
         'PipelineAPI'
@@ -20,7 +22,7 @@ define([
             
             var state = {
                 pressed:false,
-                active:PipelineAPI.readCachedConfigKey(buttonData.event.category, buttonData.event.key),
+                active:pipelineAPI.readCachedConfigKey(buttonData.event.category, buttonData.event.key),
                 value:true
             };
 
@@ -37,7 +39,7 @@ define([
 
             var onPress = function(key, value) {
                 if (buttonData.event.type === 'float') {
-                    var value = PipelineAPI.readCachedConfigKey('POINTER_STATE', 'dx');
+                    var value = pipelineAPI.readCachedConfigKey('POINTER_STATE', 'dx');
                     if (value != state.value) {
                         data[buttonData.event.key] = state.value;
 
@@ -94,11 +96,11 @@ define([
 
 
             if (buttonData.event.type === 'toggle') {
-                PipelineAPI.cacheCategoryKey(buttonData.event.category, buttonData.event.key, onActive);
+                pipelineAPI.cacheCategoryKey(buttonData.event.category, buttonData.event.key, onActive);
             }
 
             if (buttonData.event.type === 'float') {
-                PipelineAPI.cacheCategoryKey(buttonData.event.category, buttonData.event.key, onPress);
+                pipelineAPI.cacheCategoryKey(buttonData.event.category, buttonData.event.key, onPress);
             }
 
             var callback = function(key, data) {
@@ -118,7 +120,7 @@ define([
 
             };
 
-            PipelineAPI.cacheCategoryKey('ui_buttons', buttonData.id, callback);
+            pipelineAPI.cacheCategoryKey('ui_buttons', buttonData.id, callback);
             this.active = true;
         };
          

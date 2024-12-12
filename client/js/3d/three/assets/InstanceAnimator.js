@@ -1,4 +1,4 @@
-import {AnimationMixer} from "../../../../libs/three/animation/AnimationMixer.js";
+import {AnimationMixer} from "../../../../../libs/three/animation/AnimationMixer.js";
 
 class InstanceAnimator {
     constructor(instancedModel) {

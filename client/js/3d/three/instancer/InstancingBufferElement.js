@@ -1,4 +1,4 @@
-import { Object3D } from "../../../../libs/three/core/Object3D.js";
+import {Object3D} from "../../../../../libs/three/Three.Core.js";
 
 let tempObj = new Object3D()
 

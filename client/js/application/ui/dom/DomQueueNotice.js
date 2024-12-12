@@ -7,6 +7,8 @@ class DomQueueNotice {
         let element = null;
         let statusMap = null;
 
+        let closed = false;
+
         function update() {
 
         }
@@ -16,9 +18,10 @@ class DomQueueNotice {
         }
 
         function activate(sMap) {
+            closed = false;
             statusMap = sMap;
             element = poolFetch('HtmlElement');
-            element.initHtmlElement('queue_notice', close, statusMap, 'bar_right', elemReady);
+            element.initHtmlElement('queue_notice', close, statusMap, 'asynch_queue_feedback', elemReady);
         }
 
         function hide() {
@@ -28,6 +31,11 @@ class DomQueueNotice {
 
         let close = function () {
         //    ThreeAPI.unregisterPrerenderCallback(update);
+
+            if (closed === true) {
+                return;
+            }
+            closed = true;
             hide();
             setTimeout(function() {
                 element.closeHtmlElement()

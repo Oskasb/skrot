@@ -1,3 +1,4 @@
+import {pipelineAPI} from "./DataUtils.js";
 
 
 let dataIdMap = {};
@@ -51,7 +52,7 @@ class ConfigData {
             onDataCb(data);
         }.bind(this);
 
-        PipelineAPI.cacheCategoryKey(this.root, this.folder, onConfig)
+        pipelineAPI.cacheCategoryKey(this.root, this.folder, onConfig)
     };
 
     addUpdateCallback = function(callback) {
@@ -80,7 +81,7 @@ class ConfigData {
             onDataCb(data);
         }.bind(this);
 
-        PipelineAPI.cacheCategoryKey(this.root, this.folder, onConfig)
+        pipelineAPI.cacheCategoryKey(this.root, this.folder, onConfig)
 
     }
 
@@ -91,7 +92,7 @@ class ConfigData {
             }
         }.bind(this);
 
-        PipelineAPI.fetchConfigData(this.root, this.folder, dataId, dataUpdate);
+        pipelineAPI.fetchConfigData(this.root, this.folder, dataId, dataUpdate);
     };
 
     readDataKey = function(dataKey) {

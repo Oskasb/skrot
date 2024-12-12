@@ -1,9 +1,9 @@
 import {ExpandingPool} from '../../../application/utils/ExpandingPool.js';
 import {InstanceSpatial} from './InstanceSpatial.js';
-import { GLTFLoader } from "../../../../libs/three/GLTFLoader.js";
-import * as SkeletonUtils from "../../../../libs/three/SkeletonUtils.js";
+import { GLTFLoader } from "../../../../../libs/jsm/loaders/GLTFLoader.js";
+import * as SkeletonUtils from "../../../../../libs/jsm/utils/SkeletonUtils.js";
 
-        class ThreeModelFile {
+class ThreeModelFile {
             constructor(id, config, callback) {
 
         //    console.log("ThreeModelFile", id, config);

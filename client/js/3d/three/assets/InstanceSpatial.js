@@ -1,4 +1,4 @@
-import {Vector3} from "../../../../libs/three/math/Vector3.js";
+import {Vector3} from "../../../../../libs/three/math/Vector3.js";
 
 let testVec3ForNaN = function(vec3) {
     if (isNaN(vec3.x) || isNaN(vec3.y) || isNaN(vec3.z)) {

@@ -511,6 +511,19 @@ iframe.loot_notice {
     background: none;
 }
 
+iframe.asynch_queue_feedback {
+    z-index: 99999999;
+    opacity: 1;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    height: 2%;
+    width: 100%;
+    border: 0;
+    position: fixed;
+    background: qhite;
+}
+
 iframe.adventure_note {
     top: 150em;
     right: 30em;

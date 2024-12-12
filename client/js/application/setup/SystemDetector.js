@@ -1,6 +1,8 @@
 "use strict";
 
 
+import {pipelineAPI} from "../utils/DataUtils.js";
+
 define([
         '../../evt',
         'PipelineAPI'
@@ -28,7 +30,7 @@ define([
         })();
 
         var detectBrowser = function() {
-            PipelineAPI.setCategoryData('SETUP', {BROWSER:browserName});
+            pipelineAPI.setCategoryData('SETUP', {BROWSER:browserName});
         };
 
 
@@ -74,9 +76,9 @@ define([
 
 
 
-            PipelineAPI.setCategoryData('SETUP', {ANTIALIAS:antialias});
-            PipelineAPI.setCategoryData('SETUP', {PX_SCALE:renderScale});
-            PipelineAPI.setCategoryData('SETUP', {OS:os});
+            pipelineAPI.setCategoryData('SETUP', {ANTIALIAS:antialias});
+            pipelineAPI.setCategoryData('SETUP', {PX_SCALE:renderScale});
+            pipelineAPI.setCategoryData('SETUP', {OS:os});
             
         };
         

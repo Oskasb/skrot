@@ -1,6 +1,5 @@
 import {PipelineObject } from "../../../application/load/PipelineObject.js";
-import {ThreeTexture} from "../assets/ThreeTexture.js";
-import {Vector3} from "../../../../libs/three/math/Vector3.js";
+import {Vector3} from "../../../../../libs/three/Three.Core.js";
 
 let ThreeAPI;
 

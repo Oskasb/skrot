@@ -7,6 +7,7 @@ import { DomUtils } from '../ui/dom/DomUtils.js';
 import { DataLoader } from '../load/DataLoader.js';
 import { GameAPI } from "../../game/GameAPI.js";
 import { ClientConnection} from "../../Transport/io/ClientConnection.js";
+import {pipelineAPI} from "../utils/DataUtils.js";
 
 
 class Setup {
@@ -58,7 +59,7 @@ class Setup {
         //    dataLoader.getLoadScreen().logMessage(msg, '#af8', channel);
         };
 
-        PipelineAPI.initConfigCache(pipeReady, pipeMsgCB);
+        pipelineAPI.initConfigCache(pipeReady, pipeMsgCB);
 
     };
 

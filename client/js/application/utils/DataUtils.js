@@ -6,7 +6,13 @@ import {poolFetch} from "./PoolUtils.js";
 let pipelineAPI = new PipelineAPI();
 
 let loadCalls = [];
-
+let frame = {
+    tpf:0.01,
+    gameTime:0.01,
+    systemTime:0.01,
+    elapsedTime:0.01,
+    frame:0
+};
 function pipeMsgCB(msg, e, url) {
 //    console.log("Pipeline Msg ", msg, e, url);
 
@@ -68,9 +74,20 @@ function getCachedConfigs() {
     return pipelineAPI.getCachedConfigs();
 }
 
+function getFrame() {
+    return frame;
+}
+
+function getGameTime() {
+    return frame.gameTime;
+}
+
 export {
     urlFromIndexEntry,
     initPipelineAPI,
     loadEditIndex,
-    getCachedConfigs
+    getCachedConfigs,
+    pipelineAPI,
+    getFrame,
+    getGameTime
 }

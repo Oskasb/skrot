@@ -1,4 +1,5 @@
 import { GuiWidget} from "../elements/GuiWidget.js";
+import {pipelineAPI} from "../../../utils/DataUtils.js";
 
 class GuiProgressBar {
     constructor(options) {
@@ -34,7 +35,7 @@ class GuiProgressBar {
             let catKey = options['track_config']['category'];
             let confKey = options['track_config']['key'];
 
-            let trackValues = PipelineAPI.getCachedConfigs()[catKey][confKey];
+            let trackValues = pipelineAPI.getCachedConfigs()[catKey][confKey];
 
             let sampler = this.options['track_config']['sampler']
 

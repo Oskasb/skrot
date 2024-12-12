@@ -1,8 +1,9 @@
-import {InstancedBufferGeometry} from "../../../../libs/three/core/InstancedBufferGeometry.js";
-import {BufferAttribute} from "../../../../libs/three/core/BufferAttribute.js";
-import {Mesh} from "../../../../libs/three/objects/Mesh.js";
-import {InstancedBufferAttribute} from "../../../../libs/three/Three.js";
-import {Box3, Sphere} from "../../../../libs/three/Three.js";
+import {InstancedBufferGeometry} from "../../../../../libs/three/core/InstancedBufferGeometry.js";
+import {BufferAttribute} from "../../../../../libs/three/core/BufferAttribute.js";
+import {Mesh} from "../../../../../libs/three/objects/Mesh.js";
+import {InstancedBufferAttribute} from "../../../../../libs/three/core/InstancedBufferAttribute.js";
+import {Sphere} from "../../../../../libs/three/math/Sphere.js";
+import {Box3} from "../../../../../libs/three/math/Box3.js";
 
 let activeGeometries = 0;
 let countTotal = 0;

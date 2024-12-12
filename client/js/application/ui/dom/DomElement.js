@@ -1,6 +1,8 @@
 "use strict";
 
 
+import {pipelineAPI} from "../../utils/DataUtils.js";
+
 define([
         'evt',
         'ui/GameScreen',
@@ -40,7 +42,7 @@ define([
                     inputModel.up = 'touchend';
                 }
 
-                PipelineAPI.setCategoryData('SETUP', {INPUT:evt.args(e).inputModel});
+                pipelineAPI.setCategoryData('SETUP', {INPUT:evt.args(e).inputModel});
 
             //    evt.removeListener(evt.list().SCREEN_CONFIG, configureScreen);
 
@@ -83,10 +85,10 @@ define([
 
             if (typeof(styleId) == 'string') {
             //    console.log("String style", styleId);
-                PipelineAPI.cacheCategoryKey('styles', styleId, styleCallback)
+                pipelineAPI.cacheCategoryKey('styles', styleId, styleCallback)
             } else {
                 for (var i = 0; i < styleId.length; i++) {
-                    PipelineAPI.cacheCategoryKey('styles', styleId[i], styleCallback)
+                    pipelineAPI.cacheCategoryKey('styles', styleId[i], styleCallback)
                 }
             }
         };

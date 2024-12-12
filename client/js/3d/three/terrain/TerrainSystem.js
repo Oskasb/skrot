@@ -1,5 +1,5 @@
 import {ThreeTerrain} from "./ThreeTerrain.js";
-import {Vector3} from "../../../../libs/three/math/Vector3.js";
+import {Vector3} from "../../../../../libs/three/math/Vector3.js";
 import {Ocean} from "../water/Ocean.js";
 import {VegetationSystem} from "./vegetation/VegetationSystem.js";
 import {isDev} from "../../../application/utils/DebugUtils.js";

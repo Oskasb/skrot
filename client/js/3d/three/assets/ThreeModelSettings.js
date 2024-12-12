@@ -1,3 +1,5 @@
+import {pipelineAPI} from "../../../application/utils/DataUtils.js";
+
 class ThreeModelSettings {
     constructor(id, config, callback) {
 
@@ -9,7 +11,7 @@ class ThreeModelSettings {
             callback(this);
         }.bind(this);
 
-        PipelineAPI.cacheCategoryKey('CONFIGS', 'MODEL_SETTINGS_'+id, assetLoaded);
+        pipelineAPI.cacheCategoryKey('CONFIGS', 'MODEL_SETTINGS_'+id, assetLoaded);
 
     };
 }

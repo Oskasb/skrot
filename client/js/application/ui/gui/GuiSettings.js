@@ -1,3 +1,5 @@
+import {pipelineAPI} from "../../utils/DataUtils.js";
+
 class GuiSettings {
 
     constructor() {
@@ -31,7 +33,7 @@ class GuiSettings {
                     cb(src, settings[key][src]);
                 };
 
-                PipelineAPI.fetchConfigData(conf, key, dataId, settingUpdate);
+            pipelineAPI.fetchConfigData(conf, key, dataId, settingUpdate);
 
 
         };
@@ -60,7 +62,7 @@ class GuiSettings {
         //        console.log("GUI SPRITES:", sprites[src]);
         };
 
-        PipelineAPI.fetchConfigData("ASSETS", key, dataId, dataSprites);
+        pipelineAPI.fetchConfigData("ASSETS", key, dataId, dataSprites);
 
     };
 
