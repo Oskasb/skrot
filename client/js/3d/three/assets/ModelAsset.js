@@ -8,6 +8,8 @@ class ModelAsset {
 
         let ready = false;
 
+        let loadCalls = [];
+
         let root = null;
         let children = [];
 
@@ -24,8 +26,13 @@ class ModelAsset {
             let json = getJsonByFileName(modelFileName);
             console.log("modelJson", json);
 
-            let root = json.root;
-            let children = json.children;
+            let assets = json.assets;
+
+            for (let i = 0; i < assets.length; i++) {
+
+            }
+
+            // let children = json.children;
         }
 
         function subscribe(cb) {
