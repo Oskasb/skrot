@@ -10,6 +10,7 @@ import {lstatSync} from 'node:fs';
 import {readdir} from 'node:fs';
 import {lstat} from 'node:fs';
 import {watchFile} from 'node:fs';
+import {watch} from 'node:fs';
 import {extname} from 'node:path';
 import {resolve} from 'node:path';
 const ws = WebSocketServer.Server;
@@ -117,6 +118,7 @@ let server = createServer(
 ).listen(port);
 
 server.writeFile = writeFile;
+server.watch = watch;
 server.readFile = readFile;
 server.existsSync = existsSync;
 server.mkdirSync = mkdirSync;

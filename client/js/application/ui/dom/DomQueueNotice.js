@@ -2,6 +2,8 @@ import {poolFetch, poolReturn} from "../../utils/PoolUtils.js";
 import {createDivElement, removeDivElement} from "./DomUtils.js";
 import {MATH} from "../../MATH.js";
 
+let index = 0;
+
 class DomQueueNotice {
     constructor() {
 
@@ -17,7 +19,7 @@ class DomQueueNotice {
                 let key = entry.key;
                 let div = entry.div;
                 if (!div) {
-                    let div = createDivElement(barContainer, key, "", "entry")
+                    let div = createDivElement(barContainer, key+'_'+index, "", "entry")
                     entry.div = div;
                     div.entry = entry;
                     indocatorDivs.push(div)
@@ -27,6 +29,8 @@ class DomQueueNotice {
             for (let i = 0; i < indocatorDivs.length; i++) {
                 let div = indocatorDivs[i];
                 if (entries.indexOf(div.entry) === -1) {
+                    div.entry.div = null;
+                    div.entry = null;
                     MATH.splice(indocatorDivs, div);
                     removeDivElement(div);
                 }
@@ -51,8 +55,10 @@ class DomQueueNotice {
         }
 
         function activate(sMap) {
-            closed = false;
             statusMap = sMap;
+            index++;
+            statusMap.index = index;
+            closed = false;
             element = poolFetch('HtmlElement');
             element.initHtmlElement('queue_notice', null, statusMap, 'asynch_queue_feedback', elemReady);
         }
@@ -69,10 +75,12 @@ class DomQueueNotice {
             }
             closed = true;
             hide();
+            let _this = this;
             setTimeout(function() {
                 element.closeHtmlElement()
                 poolReturn(element);
                 element = null;
+                poolReturn(_this);
             }, 500)
 
         }.bind(this);

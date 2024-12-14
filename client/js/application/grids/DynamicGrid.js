@@ -1,5 +1,4 @@
 import { Vector3 } from "../../../../libs/three/math/Vector3.js";
-import * as ScenarioUtils from "./ScenarioUtils.js";
 import {registerPool, poolFetch, poolReturn} from "../utils/PoolUtils.js";
 
 let moveCenterTileTo = function(dynamicGrid, centerTileIndexX, centerTileIndexY) {

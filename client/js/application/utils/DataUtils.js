@@ -43,8 +43,8 @@ function pipeMsgLoadInitCB(msg, url) {
 
     for (let i = 0; i < loadCalls.length; i++) {
         if (loadCalls[i].key === url) {
-            console.log("Request sent twice before return", url);
-            return;
+        //    console.log("Request already sent before return", url);
+        //    return;
         }
     }
 
@@ -87,7 +87,7 @@ function loadEditIndex(url, callback) {
 }
 
 function urlFromIndexEntry(id, entry) {
-    return entry.path + '/' + entry.root + '/' + entry.folder+ '/' + id + '.' + entry.format;
+    return entry.path + entry.root + '/' + entry.folder+ '/' + id + '.' + entry.format;
 }
 
 function getCachedConfigs() {
@@ -110,6 +110,14 @@ function getConfigs() {
     return configs;
 }
 
+function getJsonByFileName(fileName) {
+    let file = configs.files['json'][fileName];
+
+    let url = 'data/'+file.url;
+    return configs['urls'][url];
+
+}
+
 export {
     pipeMsgCB,
     pipeMsgLoadInitCB,
@@ -121,5 +129,6 @@ export {
     getFrame,
     getGameTime,
     loadModelAsset,
-    getConfigs
+    getConfigs,
+    getJsonByFileName
 }

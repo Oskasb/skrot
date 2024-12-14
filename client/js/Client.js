@@ -18,6 +18,7 @@ import {ENUMS} from "./application/ENUMS.js";
 import {updateKeyboardFrame} from "./application/ui/input/KeyboardState.js";
 import {MATH} from "./application/MATH.js";
 import {ThreeAPI} from "./3d/three/ThreeAPI.js";
+import {loadAssetModel} from "./application/utils/AssetUtils.js";
 
 
 
@@ -40,18 +41,20 @@ function init3d() {
         camera.position.set( - 4, 2, 2.7 );
 
         function loaded(model) {
-            console.log("Model Loaded:", model);
+        //    console.log("Model Loaded:", model);
             scene.add( model.scene );
+            model.scene.position.y += Math.random()*4
         }
 
         setTimeout(function() {
-            loadModelAsset('f14_all', loaded)
+            loadAssetModel('model_f14', loaded)
         }, 2000)
 
 
         setTimeout(function() {
                 const loader = new GLTFLoader().setPath( './data/assets/test/glTF/' );
                 loader.load( 'DamagedHelmet.gltf', function ( gltf ) {
+                    console.log(gltf.scene)
                     scene.add( gltf.scene );
                 } );
         }, 100)

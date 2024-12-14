@@ -9,6 +9,9 @@ import {ScalarTransition} from "./ScalarTransition.js";
 import {AsynchQueueFeedback} from "./AsynchQueueFeedback.js";
 import {Vector3} from "../../../../libs/three/math/Vector3.js";
 import {DomQueueNotice} from "../ui/dom/DomQueueNotice.js";
+import {ModelAsset} from "../../3d/three/assets/ModelAsset.js";
+import {ModelMaterial} from "../../3d/three/assets/ModelMaterial.js";
+import {ModelGeometry} from "../../3d/three/assets/ModelGeometry.js";
 
 let pools = {}
 let stats = {};
@@ -27,6 +30,9 @@ function initPools() {
     registerPool(ScalarTransition);
     registerPool(AsynchQueueFeedback);
     registerPool(DomQueueNotice);
+    registerPool(ModelAsset);
+    registerPool(ModelMaterial);
+    registerPool(ModelGeometry);
 }
 
 function registerPool(DataObj) {

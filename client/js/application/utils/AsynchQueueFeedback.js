@@ -19,12 +19,12 @@ class AsynchQueueFeedback {
             this.statusMap.activeEntries = activeEntries;
             queueFeedback.call.activate(this.statusMap)
         }
-        // console.log(activeEntries.length)
+    //     console.log(activeEntries.length)
         return activeEntries;
     }
 
     closeQueueEntry() {
-        MATH.splice(activeEntries, this);
+        MATH.splice(activeEntries, this)
     //    console.log(activeEntries.length)
         poolReturn(this);
     //    this.domNotice.call.close()

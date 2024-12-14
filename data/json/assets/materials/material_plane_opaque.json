@@ -1,0 +1,9 @@
+{
+  "material": "MeshStandardMaterial",
+  "textures": {
+    "diffuse": "plane_atlas",
+    "normals": "plane_atlas_normal",
+    "metalness": "plane_atlas_metalness",
+    "roughness": "plane_atlas_roughness"
+  }
+}

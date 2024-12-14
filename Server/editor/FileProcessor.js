@@ -16,6 +16,8 @@ function registerEntryUpdate(file, entry) {
     console.log("File Change; ", file, entry);
 }
 
+let watchList = [];
+
 function getAllEditFiles(dir, done) {
     let results = [];
     server.readdir(dir, function(err, list) {
@@ -53,7 +55,9 @@ function getAllEditFiles(dir, done) {
                         registerEntryUpdate(file, entry);
                     }
 
-                    server.watchFile(file, notifyFileChanged)
+                    if (watchList.indexOf(file) === -1) {
+                        server.watchFile(file, notifyFileChanged)
+                    }
 
                     results.push(entry);
                 //    console.log("File: ", file, entry)
@@ -78,10 +82,28 @@ function traverseAndIndexEdits(dir, indexCb) {
     getAllEditFiles(dir, traverseCB);
 }
 
+let reIndexTO = null;
+
+function indexReloadedCb(e) {
+    console.log("indexReloadedCb", Object.keys(e).length);
+}
+
+function handleDirChange(e) {
+    console.log("Notify Change", e);
+    if (e === 'change') {
+        return;
+    }
+    clearTimeout(reIndexTO);
+    reIndexTO = setTimeout(function() {
+        loadEditIndex(indexReloadedCb);
+    }, 1000)
+}
+
 function loadEditIndex(cb) {
     rootPath = server.resolvePath('./')
     console.log("Root Path ", rootPath+"/"+editsFolder)
 
+    let watching = false;
 
     let indexCb = function(data) {
     //    console.log("indexCb:", data);
@@ -91,6 +113,12 @@ function loadEditIndex(cb) {
             } else {
                 setEditIndex(edit_index);
                 cb(edit_index);
+
+                if (watching === false) {
+                    watching = true;
+                    server.watch(rootPath+"/"+editsFolder, { recursive: true }, handleDirChange)
+                }
+
             }
         }
 

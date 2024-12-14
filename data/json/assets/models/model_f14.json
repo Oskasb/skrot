@@ -1,0 +1,9 @@
+        {
+          "root": {"file":"f14_fuselage_rig","material": "plane_opaque"},
+          "children": [
+            {"file":"f14_surfaces","material": "plane_opaque"},
+            {"file":"f14_decals",  "material": "plane_opaque"}
+          ]
+        }
+
+
