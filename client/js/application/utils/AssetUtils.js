@@ -1,4 +1,5 @@
 import {getConfigs, pipeMsgLoadInitCB} from "./DataUtils.js";
+import {getLoader} from "./LoaderUtils.js";
 
 
 function loadAsset(fileName, fileType, callback) {
@@ -10,6 +11,11 @@ function loadAsset(fileName, fileType, callback) {
     let assetCfg = assetCfgs[fileName];
     let url = assetCfg.url;
     console.log("load url:", url);
+
+    let loader = getLoader(fileType);
+
+    loader.load(url, callback);
+
 
 }
 

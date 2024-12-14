@@ -517,11 +517,11 @@ iframe.asynch_queue_feedback {
     bottom: 0;
     top: auto;
     left: 0;
-    height: 0.5%;
+    height: 2.5%;
     width: 100%;
     border: 0;
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 iframe.adventure_note {

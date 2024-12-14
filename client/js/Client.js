@@ -41,10 +41,11 @@ function init3d() {
 
         function loaded(model) {
             console.log("Model Loaded:", model);
+            scene.add( model.scene );
         }
 
         setTimeout(function() {
-            loadModelAsset('f14_fuselage_rig', loaded)
+            loadModelAsset('f14_all', loaded)
         }, 2000)
 
 
