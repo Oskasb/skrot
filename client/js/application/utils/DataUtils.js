@@ -2,6 +2,7 @@ import { PipelineAPI } from "../../data_pipeline/PipelineAPI.js";
 import {isDev} from "./DebugUtils.js";
 import { MATH } from "../MATH.js";
 import {poolFetch} from "./PoolUtils.js";
+import {loadAsset} from "./AssetUtils.js";
 
 let pipelineAPI = new PipelineAPI();
 
@@ -102,7 +103,7 @@ function getGameTime() {
 }
 
 function loadModelAsset(assetId, callback) {
-    window.ThreeAPI.dynamicMain.requestAssetInstance(assetId, callback);
+    loadAsset(assetId, 'glb', callback)
 }
 
 function getConfigs() {
@@ -110,6 +111,8 @@ function getConfigs() {
 }
 
 export {
+    pipeMsgCB,
+    pipeMsgLoadInitCB,
     urlFromIndexEntry,
     initPipelineAPI,
     loadEditIndex,
