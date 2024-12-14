@@ -42,8 +42,8 @@ function init3d() {
 
         function loaded(model) {
         //    console.log("Model Loaded:", model);
-            scene.add( model.scene );
-            model.scene.position.y += Math.random()*4
+            scene.add( model );
+            model.position.y += Math.random()*4
         }
 
         setTimeout(function() {

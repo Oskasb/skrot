@@ -3,13 +3,15 @@ import {MATH} from "../../../application/MATH.js";
 
 class ModelGeometry{
     constructor() {
-        let settings = {};
+        let settings = {
+            modelGeometry:this
+        };
         let subscribers = [];
 
         let geometry = null;
 
         function sendToSubscribers() {
-            MATH.callAll(subscribers, geometry)
+            MATH.callAll(subscribers, settings.modelGeometry)
         }
 
         function initGeometry(fileGlb) {
@@ -28,13 +30,23 @@ class ModelGeometry{
         function subscribe(cb) {
             subscribers.push(cb);
             if (geometry !== null) {
-                cb(geometry);
+                cb(settings.modelGeometry);
             }
+        }
+
+        function getFileName() {
+            return settings['fileGlb'];
+        }
+
+        function cloneGeometry() {
+            return geometry;
         }
 
         this.call = {
             initGeometry: initGeometry,
-            subscribe:subscribe
+            subscribe:subscribe,
+            getFileName:getFileName,
+            cloneGeometry:cloneGeometry
         }
 
     }

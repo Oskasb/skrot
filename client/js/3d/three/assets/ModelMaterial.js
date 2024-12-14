@@ -2,7 +2,7 @@ import {MeshStandardMaterial} from "../../../../../libs/three/materials/Material
 import {getJsonByFileName} from "../../../application/utils/DataUtils.js";
 
 let materials = {};
-material['MeshStandardMaterial'] = MeshStandardMaterial;
+materials['MeshStandardMaterial'] = MeshStandardMaterial;
 class ModelMaterial {
     constructor() {
         this.settings = {};

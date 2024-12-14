@@ -1,5 +1,7 @@
 import {getJsonByFileName} from "../../../application/utils/DataUtils.js";
 import {MATH} from "../../../application/MATH.js";
+import {loadModelGeometry} from "../../../application/utils/AssetUtils.js";
+import {Object3D} from "../../../../../libs/three/Three.Core.js";
 
 class ModelAsset {
     constructor() {
@@ -10,11 +12,20 @@ class ModelAsset {
 
         let loadCalls = [];
 
-        let root = null;
-        let children = [];
+        let geometries = [];
 
         function instantiate() {
+            console.log("Asset geometries:", geometries)
 
+            let obj3d = new Object3D();
+
+            for (let i = 0; i < geometries.length; i++) {
+                let geo = geometries[i].call.cloneGeometry()
+                console.log("Geometry:", geo.scene)
+                obj3d.children.push(geo.scene.children[0].clone());
+            }
+
+            return obj3d;
         }
 
         function sendToSubscribers() {
@@ -28,8 +39,22 @@ class ModelAsset {
 
             let assets = json.assets;
 
-            for (let i = 0; i < assets.length; i++) {
+            function geoLoaded(geo) {
+                let fileName = geo.call.getFileName()
+                console.log("geoLoaded", fileName, geo);
+                geometries.push(geo);
+                MATH.splice(loadCalls, fileName);
+                if (loadCalls.length === 0) {
+                    sendToSubscribers()
+                }
+            }
 
+            for (let i = 0; i < assets.length; i++) {
+                loadCalls.push(assets[i].file);
+            }
+
+            for (let i = 0; i < loadCalls.length; i++) {
+                loadModelGeometry(loadCalls[i], geoLoaded);
             }
 
             // let children = json.children;
