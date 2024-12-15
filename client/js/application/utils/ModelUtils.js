@@ -2,6 +2,8 @@ import {ConfigData} from "./ConfigData.js";
 import {Vector3} from "../../../../libs/three/math/Vector3.js";
 import {Object3D} from "../../../../libs/three/core/Object3D.js";
 import {Box3} from "../../../../libs/three/math/Box3.js";
+import * as SkeletonUtils from "../../../../libs/jsm/utils/SkeletonUtils.js";
+import {InstanceSpatial} from "../../3d/three/assets/InstanceSpatial.js";
 
 
 let tempBox = new Box3();
@@ -213,7 +215,35 @@ function  getObj3dScaleKey(obj3d, scaleConf) {
     return '_scale_'+obj3d.scale.x*scaleConf[0]+'_'+obj3d.scale.y*scaleConf[1]+'_'+obj3d.scale.z*scaleConf[2];
 }
 
+
+function getGroupMesh(children) {
+
+    for (let j = 0; j < children.length; j++) {
+        console.log("Types:", children[j].type);
+
+        if (children[j].type === 'Group') {
+            return getGroupMesh(children[j]);
+        }
+
+        if (children[j].type === 'SkinnedMesh') {
+            console.log("Use the SkinnedMesh", children[j]);
+            return children[j];
+        }
+
+        if (children[j].type === 'Mesh') {
+            console.log("Use the SkinnedMesh", children[j]);
+            return children[j];
+        }
+
+        if (children[j].children.length) {
+            return getGroupMesh(children[j].children);
+        }
+    }
+}
+
+
 export {
+    getGroupMesh,
     getObj3dScaleKey,
     borrowBox,
     cubeTestVisibility,

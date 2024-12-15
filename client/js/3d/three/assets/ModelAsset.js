@@ -5,14 +5,16 @@ import {Object3D} from "../../../../../libs/three/Three.Core.js";
 
 class ModelAsset {
     constructor() {
-        let settings = {}
+        let settings = {
+            skeletonGeometry:null
+        }
         let subscribers = [];
 
         let ready = false;
 
         let loadCalls = [];
-
         let geometries = [];
+        let skeleton = null
 
         function instantiate() {
             console.log("Asset geometries:", geometries)
@@ -20,11 +22,9 @@ class ModelAsset {
             let obj3d = new Object3D();
 
             for (let i = 0; i < geometries.length; i++) {
-                let geo = geometries[i].call.cloneGeometry()
-                console.log("Geometry:", geo.scene)
-                obj3d.children.push(geo.scene.children[0].clone());
+                geometries[i].call.cloneToParent(obj3d, settings.skeletonGeometry)
             }
-
+            console.log("Asset obj3d:", obj3d)
             return obj3d;
         }
 
@@ -44,6 +44,10 @@ class ModelAsset {
                 console.log("geoLoaded", fileName, geo);
                 geometries.push(geo);
                 MATH.splice(loadCalls, fileName);
+                if (json['skeleton_file'] === fileName) {
+                    geo.call.setHasSkeleton(true);
+                    settings.skeletonGeometry = geo;
+                }
                 if (loadCalls.length === 0) {
                     sendToSubscribers()
                 }
