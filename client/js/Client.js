@@ -41,7 +41,7 @@ function init3d() {
         camera.position.set( - 4, 2, 2.7 );
 
         function loaded(model) {
-        //    console.log("Model Loaded:", model);
+            console.log("Model Loaded:", model);
             scene.add( model );
             model.position.y += Math.random()*4
         }

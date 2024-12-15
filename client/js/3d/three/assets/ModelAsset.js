@@ -6,7 +6,9 @@ import {Object3D} from "../../../../../libs/three/Three.Core.js";
 class ModelAsset {
     constructor() {
         let settings = {
-            skeletonGeometry:null
+            skeletonGeometry:null,
+            rotation:[0, 0, 0],
+            scale:[1, 1, 1]
         }
         let subscribers = [];
 
@@ -21,9 +23,27 @@ class ModelAsset {
 
             let obj3d = new Object3D();
 
+            obj3d.frustumCulled = false;
+            let skeleton = null;
+
             for (let i = 0; i < geometries.length; i++) {
-                geometries[i].call.cloneToParent(obj3d, settings.skeletonGeometry)
+                let clone = geometries[i].call.cloneToParent(obj3d)
+                MATH.vec3FromArray(clone.scale, settings.scale);
+                MATH.rotateObj(clone, settings.rotation);
+                if (settings.skeletonGeometry === geometries[i]) {
+                    skeleton = clone.skeleton;
+                }
             }
+
+            for (let i = 0; i < obj3d.children.length; i++) {
+                let child =obj3d.children[i];
+                if (child.isSkinnedMesh === true) {
+                    child.bind(skeleton, child.matrixWorld)
+                }
+            }
+
+
+
             console.log("Asset obj3d:", obj3d)
             return obj3d;
         }
@@ -36,6 +56,9 @@ class ModelAsset {
             settings.modelFileName = modelFileName;
             let json = getJsonByFileName(modelFileName);
             console.log("modelJson", json);
+
+            settings.rotation = json.rotation || settings.rotation;
+            settings.scale = json.scale || settings.scale;
 
             let assets = json.assets;
 

@@ -2,55 +2,32 @@ import {loadModelAsset} from "../../../application/utils/DataUtils.js";
 import {MATH} from "../../../application/MATH.js";
 import {getGroupMesh} from "../../../application/utils/ModelUtils.js";
 import * as SkeletonUtils from "../../../../../libs/jsm/utils/SkeletonUtils.js";
-import {Skeleton} from "../../../../../libs/three/Three.Core.js";
+import {Object3D, Skeleton} from "../../../../../libs/three/Three.Core.js";
 
 
 
-function cloneSkeletonFromSource(scene, clone) {
+function cloneSkeletonFromSource(scene, parentObj3d) {
+    let clone = SkeletonUtils.clone(scene);
+    let root;
+    let children = [];
 
-        clone.animations = scene.animations;
-        clone.frustumCulled = false;
-        let skinnedMeshes = {};
-
-        scene.traverse(function (node) {
+    clone.traverse(function (node) {
             if (node.isSkinnedMesh) {
-                skinnedMeshes[node.name] = node;
+                console.log("CloneAnimated SkinMesh..", node.parent, scene);
+                root = node.parent;
+                parentObj3d.skeleton = node.skeleton;
+                for (let i = 0; i < root.children.length; i++) {
+                    children.push(root.children[i]);
+                }
             }
         });
 
-        let cloneBones = {};
-        let cloneSkinnedMeshes = {};
+    while (children.length) {
+        parentObj3d.add(children.pop());
+    }
 
-        clone.traverse(function (node) {
-            clone.frustumCulled = false;
-            if (node.isBone) {
-                cloneBones[node.name] = node;
-            }
-
-            if (node.isSkinnedMesh) {
-                cloneSkinnedMeshes[node.name] = node;
-            }
-
-        });
-
-        for (let name in skinnedMeshes) {
-            let skinnedMesh = skinnedMeshes[name];
-            let skeleton = skinnedMesh.skeleton;
-            let cloneSkinnedMesh = cloneSkinnedMeshes[name];
-
-            let orderedCloneBones = [];
-
-            for (let i = 0; i < skeleton.bones.length; ++i) {
-                let cloneBone = cloneBones[skeleton.bones[i].name];
-                orderedCloneBones.push(cloneBone);
-            }
-
-            cloneSkinnedMesh.bind(new Skeleton(  orderedCloneBones,  skeleton.boneInverses), cloneSkinnedMesh.matrixWorld);
-        }
-
-        console.log("CloneAnimated SkinMesh..", clone, scene);
-
-};
+    return parentObj3d;
+}
 
 class ModelGeometry{
     constructor() {
@@ -91,25 +68,22 @@ class ModelGeometry{
             return settings['fileGlb'];
         }
 
-        function cloneGeometry() {
+        function cloneGeometry(obj3d) {
+            let clone;
             if (hasSkeleton === true) {
-                let clone = SkeletonUtils.clone(geometry);
-                cloneSkeletonFromSource(scene, clone);
-                return clone;
+                clone = cloneSkeletonFromSource(scene, obj3d);
             } else {
-                return geometry.clone();
+                clone = geometry.clone()
+                obj3d.add(clone);
             }
+
+            return clone;
 
         }
 
-        function cloneToParent(obj3d, skeletonGeometry) {
-            console.log("clone to parent", settings.modelGeometry);
-
-            if (skeletonGeometry === settings.modelGeometry) {
-                console.log("is skeleton rig host", skeletonGeometry);
-            }
-
-            obj3d.add(cloneGeometry());
+        function cloneToParent(obj3d) {
+            let clone = cloneGeometry(obj3d)
+            return clone;
         }
 
         function setHasSkeleton(bool) {

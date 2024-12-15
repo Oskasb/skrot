@@ -1,10 +1,16 @@
         {
           "assets": [
-            {"file":"f14_fuselage_rig", "material": "plane_opaque"},
-            {"file":"f14_surfaces",     "material": "plane_opaque"},
-            {"file":"f14_decals",       "material": "plane_opaque"}
+            {"file":"f14_fuselage_rig",     "material": "plane_opaque"},
+            {"file":"f14_surfaces",         "material": "plane_opaque"},
+            {"file":"f14_decals",           "material": "plane_opaque"},
+            {"file":"f14_cockpit",          "material": "plane_opaque"},
+            {"file":"f14_glass",            "material": "plane_opaque"},
+            {"file":"f14_lights",           "material": "plane_opaque"},
+            {"file":"f14_instrument_glass", "material": "plane_opaque"}
           ],
-          "skeleton_file": "f14_fuselage_rig"
+          "skeleton_file": "f14_fuselage_rig",
+          "rotation": [0, 0, 0],
+          "scale": [1, 1, 1]
         }
 
 
