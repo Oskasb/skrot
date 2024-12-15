@@ -6,19 +6,14 @@ import {setRefDiv} from "./application/ui/dom/DomUtils.js";
 import {evt} from "./application/event/evt.js";
 
 import {
-    ACESFilmicToneMapping, Clock,
-    EquirectangularReflectionMapping, Object3D,
-    PerspectiveCamera,
-    Scene
+    Clock
 } from "../../libs/three/Three.Core.js";
-import {WebGPURenderer} from "../../libs/three/Three.WebGPU.js";
 import {getFrame, loadEditIndex, loadModelAsset, pipelineAPI} from "./application/utils/DataUtils.js";
 import {initPools} from "./application/utils/PoolUtils.js";
 import {ENUMS} from "./application/ENUMS.js";
 import {updateKeyboardFrame} from "./application/ui/input/KeyboardState.js";
 import {MATH} from "./application/MATH.js";
-import {ThreeAPI} from "./3d/three/ThreeAPI.js";
-import {loadAssetModel} from "./application/utils/AssetUtils.js";
+import {loadAssetInstance} from "./application/utils/AssetUtils.js";
 
 
 
@@ -40,18 +35,18 @@ function init3d() {
 
         camera.position.set( - 4, 2, 2.7 );
 
-        function loaded(model) {
-            console.log("Model Loaded:", model);
-            scene.add( model );
-            model.position.y += Math.random()*4
+        function loaded(assetInstance) {
+            console.log("assetInstance Loaded:", assetInstance);
+            scene.add( assetInstance.call.getObj3d() );
+            assetInstance.call.getObj3d().position.y += Math.random()*4
         }
 
         setTimeout(function() {
-         //   for (let i = 0; i<20; i++) {
-                loadAssetModel('model_f14', loaded)
+        //    for (let i = 0; i<3; i++) {
+                loadAssetInstance('vehicle_f14', loaded)
          //   }
 
-        }, 2000)
+        }, 1000)
 
 
         setTimeout(function() {
@@ -68,7 +63,7 @@ function init3d() {
         const controls = new OrbitControls( camera, renderer.domElement );
     //    controls.addEventListener( 'change', render ); // use if there is no animation loop
         controls.minDistance = 2;
-        controls.maxDistance = 10;
+        controls.maxDistance = 100;
         controls.target.set( 0, 0, - 0.2 );
         controls.update();
 

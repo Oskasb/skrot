@@ -1,0 +1,11 @@
+{
+  "material": "MeshStandardMaterial",
+  "textures": [
+    { "slot":"map",           "tx": "texture_f14_lights_diffuse"},
+    { "slot":"emissiveMap",     "tx": "texture_f14_lights_emit"}
+  ],
+  "settings": {
+    "emissive": {"r": 1, "g": 1,"b": 1},
+    "emissiveIntensity": 2
+  }
+}

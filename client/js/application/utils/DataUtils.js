@@ -106,12 +106,20 @@ function loadModelAsset(assetId, callback) {
     loadAsset(assetId, 'glb', callback)
 }
 
+function loadImageAsset(assetId, callback) {
+    loadAsset(assetId, 'png', callback)
+}
+
 function getConfigs() {
     return configs;
 }
 
 function getJsonByFileName(fileName) {
     let file = configs.files['json'][fileName];
+
+    if (!file) {
+        console.log("No file!", fileName);
+    }
 
     let url = 'data/'+file.url;
     return configs['urls'][url];
@@ -128,6 +136,7 @@ export {
     pipelineAPI,
     getFrame,
     getGameTime,
+    loadImageAsset,
     loadModelAsset,
     getConfigs,
     getJsonByFileName

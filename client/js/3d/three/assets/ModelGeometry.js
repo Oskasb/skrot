@@ -3,11 +3,11 @@ import {MATH} from "../../../application/MATH.js";
 import {getGroupMesh} from "../../../application/utils/ModelUtils.js";
 import * as SkeletonUtils from "../../../../../libs/jsm/utils/SkeletonUtils.js";
 import {Object3D, Skeleton} from "../../../../../libs/three/Three.Core.js";
-import {loadAssetMaterial} from "../../../application/utils/AssetUtils.js";
+import {applyMaterial, loadAssetMaterial} from "../../../application/utils/AssetUtils.js";
 
 
 
-function cloneSkeletonFromSource(scene, parentObj3d) {
+function cloneSkeletonFromSource(scene, parentObj3d, materialName) {
     let clone = SkeletonUtils.clone(scene);
     let root;
     let children = [];
@@ -15,6 +15,7 @@ function cloneSkeletonFromSource(scene, parentObj3d) {
     clone.traverse(function (node) {
             if (node.isSkinnedMesh) {
             //    console.log("CloneAnimated SkinMesh..", node.parent, scene);
+                applyMaterial(node, materialName);
                 root = node.parent;
                 parentObj3d.skeleton = node.skeleton;
                 for (let i = 0; i < root.children.length; i++) {
@@ -69,36 +70,20 @@ class ModelGeometry{
             return settings['fileGlb'];
         }
 
-
-        let call = 0;
-        function applyMaterial(mesh, materialName) {
-
-            call++
-            console.log("applyMaterial mat, matCB", call, mesh);
-            function matCB(matSetting) {
-                mesh.material = matSetting.material;
-                console.log("Apply mat, matCB", call, mesh);
-            }
-
-            loadAssetMaterial(materialName, matCB)
-        }
-
-
         function cloneGeometry(obj3d, materialName) {
             let clone;
             if (hasSkeleton === true) {
-                clone = cloneSkeletonFromSource(scene, obj3d);
+                clone = cloneSkeletonFromSource(scene, obj3d, materialName);
             } else {
                 clone = geometry.clone()
+                if (typeof (materialName) === "string") {
+                    clone.traverse(function (child) {
+                        if (child.isSkinnedMesh || child.isMesh) {
+                            applyMaterial(child, materialName);
+                        }
+                    })
+                }
                 obj3d.add(clone);
-            }
-
-            if (typeof (materialName) === "string") {
-                clone.traverse(function (child) {
-                    if (child.isSkinnedMesh || child.isMesh) {
-                        applyMaterial(child, materialName);
-                    }
-                })
             }
 
             return clone;

@@ -1,10 +1,11 @@
 import {GLTFLoader} from "../../../../libs/jsm/loaders/GLTFLoader.js";
-import {Loader as BitmapLoader} from "../../../../libs/three/loaders/Loader.js";
+import {ImageLoader} from "../../../../libs/three/Three.Core.js";
+
 
 
 let loaders = {}
 loaders['glb'] = new GLTFLoader().setPath('/data/');
-loaders['png'] = new BitmapLoader().setPath('/data/');
+loaders['png'] = new ImageLoader().setPath('/data/');
 
 function getLoader(fileType) {
 

@@ -1,0 +1,11 @@
+{
+  "material": "MeshStandardMaterial",
+  "textures": [
+    { "slot":"map",           "tx": "texture_glass_surface"},
+    { "slot":"normalMap",     "tx": "texture_canopy_normals"},
+    { "slot":"metalnessMap",           "tx": "texture_glass_surface"}
+  ],
+  "settings": {
+    "transparent": true
+  }
+}

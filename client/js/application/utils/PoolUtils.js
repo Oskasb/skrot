@@ -12,6 +12,8 @@ import {DomQueueNotice} from "../ui/dom/DomQueueNotice.js";
 import {ModelAsset} from "../../3d/three/assets/ModelAsset.js";
 import {ModelMaterial} from "../../3d/three/assets/ModelMaterial.js";
 import {ModelGeometry} from "../../3d/three/assets/ModelGeometry.js";
+import {AssetInstance} from "../../3d/three/assets/AssetInstance.js";
+import {AssetTexture} from "../../3d/three/assets/AssetTexture.js";
 
 let pools = {}
 let stats = {};
@@ -33,6 +35,9 @@ function initPools() {
     registerPool(ModelAsset);
     registerPool(ModelMaterial);
     registerPool(ModelGeometry);
+    registerPool(AssetInstance);
+    registerPool(AssetTexture);
+
 }
 
 function registerPool(DataObj) {

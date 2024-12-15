@@ -32,19 +32,16 @@ function loadAsset(fileName, fileType, callback) {
     }
 
     let loader = getLoader(fileType);
-
     loader.load(url, callback);
-
-
 }
 
 
-function loadAssetModel(modelFileName, callback) {
+function loadAssetModel(modelFileName, callback, obj3d) {
     if (!loadedModels[modelFileName]) {
         loadedModels[modelFileName] = poolFetch('ModelAsset');
         loadedModels[modelFileName].initModelAsset(modelFileName);
     }
-    loadedModels[modelFileName].subscribeToModel(callback);
+    loadedModels[modelFileName].subscribeToModel(callback, obj3d);
 }
 
 function loadAssetMaterial(materialFileName, callback) {
@@ -65,10 +62,25 @@ function loadModelGeometry(geometryFileName, callback) {
 
 function loadAssetTexture(textureFileName, callback) {
     if (!loadedTextures[textureFileName]) {
-        loadedTextures[textureFileName] = poolFetch('ModelGeometry');
+        loadedTextures[textureFileName] = poolFetch('AssetTexture');
         loadedTextures[textureFileName].initAssetTexture(textureFileName);
     }
     loadedTextures[textureFileName].subscribeToTexture(callback);
+}
+
+function loadAssetInstance(assetName, callback) {
+    let instance = poolFetch('AssetInstance')
+    instance.call.instantiate(assetName, callback);
+}
+
+function applyMaterial(mesh, materialName) {
+    // console.log("applyMaterial", materialName, mesh);
+    //    console.log("applyMaterial", call, materialName, mesh);
+    function matCB(matSetting) {
+        mesh.material = matSetting.material;
+    }
+
+    loadAssetMaterial(materialName, matCB)
 }
 
 export {
@@ -76,5 +88,7 @@ export {
     loadAssetModel,
     loadAssetMaterial,
     loadModelGeometry,
-    loadAssetTexture
+    loadAssetTexture,
+    loadAssetInstance,
+    applyMaterial
 }

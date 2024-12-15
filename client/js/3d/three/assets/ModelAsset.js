@@ -37,10 +37,7 @@ class ModelAsset {
 
 
 
-        function instantiate() {
-        //    console.log("Asset geometries:", geometries)
-
-            let obj3d = new Object3D();
+        function instantiate(obj3d) {
 
             obj3d.frustumCulled = false;
             let skeleton = null;
@@ -66,7 +63,10 @@ class ModelAsset {
         }
 
         function sendToSubscribers() {
-            MATH.callAll(subscribers, instantiate())
+            for (let i = 0; i < subscribers.length; i++) {
+                let obj3d = subscribers[i];
+                obj3d.userData.modelCallback(instantiate(obj3d))
+            }
         }
 
         function initAsset(modelFileName) {
@@ -123,10 +123,14 @@ class ModelAsset {
 
         }
 
-        function subscribe(cb) {
-            subscribers.push(cb);
+        function subscribe(cb, obj3d) {
+            if (!obj3d) {
+                obj3d = new Object3D()
+            }
+            obj3d.userData.modelCallback = cb;
+            subscribers.push(obj3d);
             if (ready === true) {
-                cb(instantiate());
+                obj3d.userData.modelCallback(instantiate(obj3d))
             }
         }
 
@@ -142,8 +146,8 @@ class ModelAsset {
 
     }
 
-    subscribeToModel(callback) {
-        this.call.subscribe(callback);
+    subscribeToModel(callback, obj3d) {
+        this.call.subscribe(callback, obj3d);
     }
 
 }
