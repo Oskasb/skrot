@@ -8,6 +8,7 @@ let loadedAssets = {};
 let loadedModels = {};
 let loadedMaterials = {};
 let loadedGeometries = {};
+let loadedTextures = {};
 
 function loadAsset(fileName, fileType, callback) {
     pipeMsgLoadInitCB('load '+fileType, fileName+'.'+fileType);
@@ -62,9 +63,18 @@ function loadModelGeometry(geometryFileName, callback) {
     loadedGeometries[geometryFileName].subscribeToGeometry(callback);
 }
 
+function loadAssetTexture(textureFileName, callback) {
+    if (!loadedTextures[textureFileName]) {
+        loadedTextures[textureFileName] = poolFetch('ModelGeometry');
+        loadedTextures[textureFileName].initAssetTexture(textureFileName);
+    }
+    loadedTextures[textureFileName].subscribeToTexture(callback);
+}
+
 export {
     loadAsset,
     loadAssetModel,
     loadAssetMaterial,
-    loadModelGeometry
+    loadModelGeometry,
+    loadAssetTexture
 }
