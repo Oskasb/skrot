@@ -1,6 +1,6 @@
 import {getJsonByFileName} from "../../../application/utils/DataUtils.js";
 import {MATH} from "../../../application/MATH.js";
-import {loadModelGeometry} from "../../../application/utils/AssetUtils.js";
+import {loadAssetMaterial, loadModelGeometry} from "../../../application/utils/AssetUtils.js";
 import {Object3D} from "../../../../../libs/three/Three.Core.js";
 
 class ModelAsset {
@@ -18,8 +18,27 @@ class ModelAsset {
         let geometries = [];
         let skeleton = null
 
+        function getGeometryByName(name) {
+            for (let i = 0; i< geometries.length; ++i) {
+                if (geometries[i].call.getFileName() === name) {
+                    return geometries[i];
+                }
+            }
+        }
+
+        function getAssetMaterialName(fileName) {
+            let assets = settings.assets;
+            for (let i = 0; i < assets.length; i++) {
+                if (fileName === assets[i].file) {
+                    return assets[i].material;
+                }
+            }
+        }
+
+
+
         function instantiate() {
-            console.log("Asset geometries:", geometries)
+        //    console.log("Asset geometries:", geometries)
 
             let obj3d = new Object3D();
 
@@ -27,7 +46,7 @@ class ModelAsset {
             let skeleton = null;
 
             for (let i = 0; i < geometries.length; i++) {
-                let clone = geometries[i].call.cloneToParent(obj3d)
+                let clone = geometries[i].call.cloneToParent(obj3d, getAssetMaterialName(geometries[i].call.getFileName()))
                 MATH.vec3FromArray(clone.scale, settings.scale);
                 MATH.rotateObj(clone, settings.rotation);
                 if (settings.skeletonGeometry === geometries[i]) {
@@ -36,13 +55,11 @@ class ModelAsset {
             }
 
             for (let i = 0; i < obj3d.children.length; i++) {
-                let child =obj3d.children[i];
+                let child = obj3d.children[i];
                 if (child.isSkinnedMesh === true) {
                     child.bind(skeleton, child.matrixWorld)
                 }
             }
-
-
 
             console.log("Asset obj3d:", obj3d)
             return obj3d;
@@ -55,16 +72,17 @@ class ModelAsset {
         function initAsset(modelFileName) {
             settings.modelFileName = modelFileName;
             let json = getJsonByFileName(modelFileName);
-            console.log("modelJson", json);
+        //    console.log("modelJson", json);
 
             settings.rotation = json.rotation || settings.rotation;
             settings.scale = json.scale || settings.scale;
 
             let assets = json.assets;
+            settings.assets = assets;
 
             function geoLoaded(geo) {
                 let fileName = geo.call.getFileName()
-                console.log("geoLoaded", fileName, geo);
+            //    console.log("geoLoaded", fileName, geo);
                 geometries.push(geo);
                 MATH.splice(loadCalls, fileName);
                 if (json['skeleton_file'] === fileName) {
@@ -76,15 +94,33 @@ class ModelAsset {
                 }
             }
 
+            let materialList = []
+
             for (let i = 0; i < assets.length; i++) {
+                if (materialList.indexOf(assets[i].material) === -1) {
+                    materialList.push(assets[i].material);
+                }
                 loadCalls.push(assets[i].file);
             }
 
-            for (let i = 0; i < loadCalls.length; i++) {
-                loadModelGeometry(loadCalls[i], geoLoaded);
+            function loadGeometries() {
+                for (let i = 0; i < loadCalls.length; i++) {
+                    loadModelGeometry(loadCalls[i], geoLoaded);
+                }
             }
 
-            // let children = json.children;
+            function matLoaded(matSettings) {
+             //   console.log("matLoaded", matSettings);
+                MATH.splice(materialList, matSettings.fileName);
+                if (materialList.length === 0) {
+                    loadGeometries();
+                }
+            }
+
+            for (let i = 0; i< materialList.length; i++) {
+                loadAssetMaterial(materialList[i], matLoaded);
+            }
+
         }
 
         function subscribe(cb) {

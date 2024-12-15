@@ -219,19 +219,18 @@ function  getObj3dScaleKey(obj3d, scaleConf) {
 function getGroupMesh(children) {
 
     for (let j = 0; j < children.length; j++) {
-        console.log("Types:", children[j].type);
 
         if (children[j].type === 'Group') {
             return getGroupMesh(children[j]);
         }
 
         if (children[j].type === 'SkinnedMesh') {
-            console.log("Use the SkinnedMesh", children[j]);
+        //    console.log("Use the SkinnedMesh", children[j]);
             return children[j];
         }
 
         if (children[j].type === 'Mesh') {
-            console.log("Use the SkinnedMesh", children[j]);
+        //    console.log("Use the SkinnedMesh", children[j]);
             return children[j];
         }
 
