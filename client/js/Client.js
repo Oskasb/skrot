@@ -7,7 +7,7 @@ import {evt} from "./application/event/evt.js";
 
 import {
     ACESFilmicToneMapping, Clock,
-    EquirectangularReflectionMapping,
+    EquirectangularReflectionMapping, Object3D,
     PerspectiveCamera,
     Scene
 } from "../../libs/three/Three.Core.js";
@@ -47,7 +47,10 @@ function init3d() {
         }
 
         setTimeout(function() {
-            loadAssetModel('model_f14', loaded)
+         //   for (let i = 0; i<20; i++) {
+                loadAssetModel('model_f14', loaded)
+         //   }
+
         }, 2000)
 
 
