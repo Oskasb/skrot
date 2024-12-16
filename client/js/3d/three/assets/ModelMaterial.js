@@ -62,11 +62,10 @@ class ModelMaterial {
                     let values = matSettings[key];
                     if (typeof mat[key] === 'object') {
                         for (let element in values) {
-                            if (!mat[key][element]) {
+                            if (typeof (mat[key][element]) === 'undefined') {
                                 console.log("No element for", mat[key], key, element)
                             } else {
                                 mat[key][element] = values[element];
-
                             }
                                                    }
                     } else {
