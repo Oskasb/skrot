@@ -11,8 +11,6 @@
     "roughness": 0.1,
     "metalness": 2,
     "normalScale": {"x": 0.4, "y":0.4},
-    "color": {"r": 2, "g": 2, "b": 3},
-    "blendEquation": 300,
-    "blendSrc": 204
+    "color": {"r": 2, "g": 2, "b": 3}
   }
 }

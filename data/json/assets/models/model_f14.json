@@ -2,6 +2,7 @@
           "assets": [
             {"file":"f14_fuselage_rig",     "material": "material_f14_main"},
             {"file":"f14_surfaces",         "material": "material_f14_main"},
+            {"file":"f14_pylons",           "material": "material_f14_main"},
             {"file":"f14_decals",           "material": "material_f14_decals"},
             {"file":"f14_cockpit",          "material": "material_f14_cockpit"},
             {"file":"f14_glass",            "material": "material_f14_glass"},

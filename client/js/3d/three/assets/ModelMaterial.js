@@ -55,19 +55,22 @@ class ModelMaterial {
             settings.material = new materials[json.material]();
 
             if (json.settings) {
-                for (let key in json.settings) {
-                    let values = json.settings[key];
-                    if (typeof values === 'object') {
+
+                let mat = settings.material;
+                let matSettings = json.settings
+                for (let key in matSettings) {
+                    let values = matSettings[key];
+                    if (typeof mat[key] === 'object') {
                         for (let element in values) {
-                            if (!settings.material[key] || !settings.material[key][element]) {
-                                console.log("No element for", key, element)
+                            if (!mat[key][element]) {
+                                console.log("No element for", mat[key], key, element)
                             } else {
-                                settings.material[key][element] = values[element];
+                                mat[key][element] = values[element];
 
                             }
                                                    }
                     } else {
-                        settings.material[key] = values;
+                        mat[key] = values;
                     }
                 }
             }
