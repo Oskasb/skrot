@@ -464,6 +464,9 @@ class ConfigCache {
         this.gameDataPipeline.imagePipe.pollIndex = [];
     };
 
+    requestJsonFile(file, onOk, onFail) {
+        this.gameDataPipeline.jsonPipe.loadJsonFromUrl(file, onOk, onFail)
+    }
 }
 
 export { ConfigCache }

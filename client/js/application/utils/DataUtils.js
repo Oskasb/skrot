@@ -1,6 +1,5 @@
 import { PipelineAPI } from "../../data_pipeline/PipelineAPI.js";
 import {isDev} from "./DebugUtils.js";
-import { MATH } from "../MATH.js";
 import {poolFetch} from "./PoolUtils.js";
 import {loadAsset} from "./AssetUtils.js";
 
@@ -54,7 +53,6 @@ function pipeMsgLoadInitCB(msg, url) {
 }
 
 function initPipelineAPI(pipeReadyCB) {
-
     pipelineAPI.initConfigCache(pipeReadyCB, pipeMsgCB)
 }
 
@@ -90,6 +88,10 @@ function urlFromIndexEntry(id, entry) {
     return entry.path + entry.root + '/' + entry.folder+ '/' + id + '.' + entry.format;
 }
 
+function urlFromMessageEntry(entry) {
+    return './data/' + entry[2]+ '/'+entry[3]+ '/'+entry[4]+ '/' + entry[0] + '.' + entry[1];
+}
+
 function getCachedConfigs() {
     return pipelineAPI.getCachedConfigs();
 }
@@ -100,6 +102,14 @@ function getFrame() {
 
 function getGameTime() {
     return frame.gameTime;
+}
+
+function jsonLoadFail(e) {
+    console.log("Json load fail", e)
+}
+
+function loadJsonFile(url, callback) {
+    pipelineAPI.configCache.requestJsonFile(url, callback, jsonLoadFail)
 }
 
 function loadModelAsset(assetId, callback) {
@@ -126,9 +136,20 @@ function getJsonByFileName(fileName) {
 
 }
 
+function getJsonUrlByFileName(fileName) {
+    let file = configs.files['json'][fileName];
+
+    if (!file) {
+        console.log("No file!", fileName);
+    }
+
+    return './data/'+file.url;
+}
+
 export {
     pipeMsgCB,
     pipeMsgLoadInitCB,
+    urlFromMessageEntry,
     urlFromIndexEntry,
     initPipelineAPI,
     loadEditIndex,
@@ -136,8 +157,10 @@ export {
     pipelineAPI,
     getFrame,
     getGameTime,
+    loadJsonFile,
     loadImageAsset,
     loadModelAsset,
     getConfigs,
-    getJsonByFileName
+    getJsonByFileName,
+    getJsonUrlByFileName
 }

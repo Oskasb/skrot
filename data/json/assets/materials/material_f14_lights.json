@@ -6,6 +6,15 @@
   ],
   "settings": {
     "emissive": {"r": 1, "g": 1,"b": 1},
-    "emissiveIntensity": 1.3
+    "transparent": true,
+    "depthWrite": false,
+    "depthTest": true,
+    "opacity": 0,
+    "color": {"r": 0, "g": 0, "b": 0},
+    "emissiveIntensity": 1.0,
+    "blendEquation": "AddEquation",
+    "blending": "CustomBlending",
+    "blendSrc": "SrcColorFactor",
+    "blendDst": "OneFactor"
   }
 }

@@ -1,8 +1,15 @@
+import {notifyAssetUpdated} from "./AssetUtils.js";
+
 let socket;
 
 
 function handleMessage(msg) {
-    console.log("Socket Message: ", msg);
+    if (typeof (msg.url) === 'string' && typeof (msg.entry) === 'object') {
+        notifyAssetUpdated(msg.url, msg.entry);
+    } else {
+        console.log("Unhandled Socket message: ", msg);
+    }
+
 }
 
 function setupSocket() {

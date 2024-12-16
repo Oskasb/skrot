@@ -15,8 +15,15 @@ let synchList = {};
 
 
 function registerEntryUpdate(file, entry) {
+    if (entry[2] === 'tmp') {
+        return;
+    }
     console.log("File Change; ", file, entry);
-    sendToClient(JSON.stringify(file));
+    clearTimeout(synchList[file]);
+    synchList[file] = setTimeout(function() {
+        sendToClient(JSON.stringify({url:file, entry:entry}));
+    }, 200)
+
 }
 
 let watchList = [];

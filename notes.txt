@@ -1,5 +1,22 @@
-alphaHash
-:
+			params.blending = CustomBlending;
+			params.blendSrc = SrcAlphaFactor;
+			params.blendDst = OneMinusSrcAlphaFactor;
+			params.blendSrcAlpha = SrcAlphaFactor;
+			params.blendDstAlpha = DstAlphaFactor;
+
+
+			                "blendEquation": "AddEquation",
+                            "blendSrc": "SrcColorFactor",
+                            "blendDst": "OneFactor"
+
+                                          "blendEquation": "AddEquation",
+                                          "blendSrc": "SrcAlphaFactor",
+                                          "blendDst": "OneMinusSrcAlphaFactor"
+
+                "blendEquation": "AddEquation",
+                "blendSrc": "SrcColorFactor",
+                "blendDst": "OneFactor"
+
 false
 alphaMap
 :

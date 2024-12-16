@@ -2,6 +2,7 @@ import {getJsonByFileName} from "../../../application/utils/DataUtils.js";
 import {MATH} from "../../../application/MATH.js";
 import {loadAssetMaterial, loadModelGeometry} from "../../../application/utils/AssetUtils.js";
 import {Object3D} from "../../../../../libs/three/Three.Core.js";
+import {JsonAsset} from "../../../application/load/JsonAsset.js";
 
 class ModelAsset {
     constructor() {
@@ -71,55 +72,64 @@ class ModelAsset {
 
         function initAsset(modelFileName) {
             settings.modelFileName = modelFileName;
-            let json = getJsonByFileName(modelFileName);
-        //    console.log("modelJson", json);
 
-            settings.rotation = json.rotation || settings.rotation;
-            settings.scale = json.scale || settings.scale;
+            let jsonAsset = new JsonAsset(modelFileName);
 
-            let assets = json.assets;
-            settings.assets = assets;
+            function onJson(data) {
 
-            function geoLoaded(geo) {
-                let fileName = geo.call.getFileName()
-            //    console.log("geoLoaded", fileName, geo);
-                geometries.push(geo);
-                MATH.splice(loadCalls, fileName);
-                if (json['skeleton_file'] === fileName) {
-                    geo.call.setHasSkeleton(true);
-                    settings.skeletonGeometry = geo;
+                let json = data;
+                    console.log("modelJson", json);
+
+                settings.rotation = json.rotation || settings.rotation;
+                settings.scale = json.scale || settings.scale;
+
+                let assets = json.assets;
+                settings.assets = assets;
+
+                function geoLoaded(geo) {
+                    let fileName = geo.call.getFileName()
+                    //    console.log("geoLoaded", fileName, geo);
+                    geometries.push(geo);
+                    MATH.splice(loadCalls, fileName);
+                    if (json['skeleton_file'] === fileName) {
+                        geo.call.setHasSkeleton(true);
+                        settings.skeletonGeometry = geo;
+                    }
+                    if (loadCalls.length === 0) {
+                        sendToSubscribers()
+                    }
                 }
-                if (loadCalls.length === 0) {
-                    sendToSubscribers()
+
+                let materialList = []
+
+                for (let i = 0; i < assets.length; i++) {
+                    if (materialList.indexOf(assets[i].material) === -1) {
+                        materialList.push(assets[i].material);
+                    }
+                    loadCalls.push(assets[i].file);
                 }
+
+                function loadGeometries() {
+                    for (let i = 0; i < loadCalls.length; i++) {
+                        loadModelGeometry(loadCalls[i], geoLoaded);
+                    }
+                }
+
+                function matLoaded(matSettings) {
+                    //   console.log("matLoaded", matSettings);
+                    MATH.splice(materialList, matSettings.fileName);
+                    if (materialList.length === 0) {
+                        loadGeometries();
+                    }
+                }
+
+                for (let i = 0; i< materialList.length; i++) {
+                    loadAssetMaterial(materialList[i], matLoaded);
+                }
+
             }
 
-            let materialList = []
-
-            for (let i = 0; i < assets.length; i++) {
-                if (materialList.indexOf(assets[i].material) === -1) {
-                    materialList.push(assets[i].material);
-                }
-                loadCalls.push(assets[i].file);
-            }
-
-            function loadGeometries() {
-                for (let i = 0; i < loadCalls.length; i++) {
-                    loadModelGeometry(loadCalls[i], geoLoaded);
-                }
-            }
-
-            function matLoaded(matSettings) {
-             //   console.log("matLoaded", matSettings);
-                MATH.splice(materialList, matSettings.fileName);
-                if (materialList.length === 0) {
-                    loadGeometries();
-                }
-            }
-
-            for (let i = 0; i< materialList.length; i++) {
-                loadAssetMaterial(materialList[i], matLoaded);
-            }
+            jsonAsset.subscribe(onJson);
 
         }
 

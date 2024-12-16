@@ -1,11 +1,14 @@
 import {MeshStandardMaterial} from "../../../../../libs/three/materials/Materials.js";
-import {getJsonByFileName} from "../../../application/utils/DataUtils.js";
+import {getJsonByFileName, getJsonUrlByFileName} from "../../../application/utils/DataUtils.js";
 import {MATH} from "../../../application/MATH.js";
 import {loadAsset, loadAssetTexture} from "../../../application/utils/AssetUtils.js";
+import {JsonAsset} from "../../../application/load/JsonAsset.js";
+import * as constants from "../../../../../libs/three/constants.js";
 
 let mats = 0;
 let materials = {};
 materials['MeshStandardMaterial'] = MeshStandardMaterial;
+
 class ModelMaterial {
     constructor() {
         let settings = {
@@ -19,7 +22,8 @@ class ModelMaterial {
         let txLoads = [];
 
         function materialLoaded() {
-         //   console.log("materialLoaded", settings.fileName);
+            console.log("materialLoaded", settings.fileName);
+            settings.material.needsUpdate = true;
             MATH.callAll(subscribers, settings);
             ready = true;
         }
@@ -40,7 +44,7 @@ class ModelMaterial {
 
                 settings.material[slot] = assetTx.texture;
                 if (txLoads.length === 0) {
-                    settings.material.needsUpdate = true;
+
                     materialLoaded()
                 }
             }
@@ -49,41 +53,55 @@ class ModelMaterial {
         }
 
         function initMaterial(name) {
-            let json = getJsonByFileName(name);
-        //    console.log("material JSON", mats, json);
-            settings.fileName = name;
-            settings.material = new materials[json.material]();
 
-            if (json.settings) {
+            let jsonAsset = new JsonAsset(name);
 
-                let mat = settings.material;
-                let matSettings = json.settings
-                for (let key in matSettings) {
-                    let values = matSettings[key];
-                    if (typeof mat[key] === 'object') {
-                        for (let element in values) {
-                            if (typeof (mat[key][element]) === 'undefined') {
-                                console.log("No element for", mat[key], key, element)
+            function onJsonLoaded(data) {
+                console.log("material JSON", name, data);
+                settings.fileName = name;
+
+                if (data.settings) {
+                    settings.material = new materials[data.material]();
+                    let mat = settings.material;
+                    let matSettings = data.settings
+                    for (let key in matSettings) {
+                        let values = matSettings[key];
+
+                        if (typeof (values) === "string") {
+                            mat[key] = constants[values];
+                        } else {
+                            if (typeof mat[key] === 'object') {
+                                for (let element in values) {
+                                    if (mat[key] === null) {
+
+                                    }
+                                    if (typeof (mat[key][element]) === 'undefined') {
+                                        console.log("No element for", mat[key], key, element)
+                                    } else {
+                                        mat[key][element] = values[element];
+                                    }
+                                }
                             } else {
-                                mat[key][element] = values[element];
+                                mat[key] = values;
                             }
-                                                   }
-                    } else {
-                        mat[key] = values;
+                        }
+
+
                     }
                 }
-            }
 
-            if (json.textures) {
-                for (let i= 0; i < json.textures.length; i++ ) {
-                    let slot = json.textures[i].slot;
-                    let tx = json.textures[i].tx;
-                    addSlotTexture(slot, tx)
+                if (data.textures) {
+                    for (let i= 0; i < data.textures.length; i++ ) {
+                        let slot = data.textures[i].slot;
+                        let tx = data.textures[i].tx;
+                        addSlotTexture(slot, tx)
+                    }
+                } else {
+                    materialLoaded()
                 }
-            } else {
-                materialLoaded()
             }
 
+            jsonAsset.subscribe(onJsonLoaded)
 
         }
 

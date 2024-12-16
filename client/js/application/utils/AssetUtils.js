@@ -1,4 +1,11 @@
-import {getConfigs, pipeMsgLoadInitCB} from "./DataUtils.js";
+import {
+    getConfigs,
+    loadImageAsset,
+    loadJsonFile,
+    loadModelAsset,
+    pipeMsgLoadInitCB,
+    urlFromIndexEntry, urlFromMessageEntry
+} from "./DataUtils.js";
 import {getLoader} from "./LoaderUtils.js";
 import {poolFetch} from "./PoolUtils.js";
 
@@ -10,6 +17,39 @@ let loadedMaterials = {};
 let loadedGeometries = {};
 let loadedTextures = {};
 
+let jsonAssets = {};
+
+function registerJsonAsset(jsonAsset) {
+    jsonAssets[jsonAsset.name] = jsonAsset;
+}
+
+function assetReloaded(e) {
+    console.log("Asset Reloaded", e);
+}
+
+function notifyAssetUpdated(url, entry) {
+    console.log("Asset Updated: ", url, entry)
+    let locUrl = urlFromMessageEntry(entry)
+    let fileType = entry[1];
+
+    if (fileType === 'json') {
+
+        if (!jsonAssets[entry[0]]) {
+            console.log("No JsonAsset")
+            loadJsonFile(locUrl, assetReloaded);
+        } else {
+            jsonAssets[entry[0]].loadJsonAsset();
+        }
+
+    } else if (fileType === 'png') {
+        loadImageAsset(entry[0], assetReloaded)
+    } else if (fileType === 'glb') {
+        loadModelAsset(entry[0], assetReloaded)
+    } else {
+        console.log("Unhandled file type updated", entry, url);
+    }
+}
+
 function loadAsset(fileName, fileType, callback) {
     pipeMsgLoadInitCB('load '+fileType, fileName+'.'+fileType);
 
@@ -19,7 +59,6 @@ function loadAsset(fileName, fileType, callback) {
     let assetCfg = assetCfgs[fileName];
     let url = assetCfg.url;
  //   console.log("load url:", url);
-
 
     if (loadedAssets[url]) {
 
@@ -84,6 +123,8 @@ function applyMaterial(mesh, materialName) {
 }
 
 export {
+    registerJsonAsset,
+    notifyAssetUpdated,
     loadAsset,
     loadAssetModel,
     loadAssetMaterial,

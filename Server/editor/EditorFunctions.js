@@ -75,8 +75,10 @@ function readFileFromSocketMessage(message, callback) {
 }
 
 function sendToClient(msg) {
-
+if (ws) {
     ws.send(msg);
+}
+
 }
 
 function onMessage(message) {

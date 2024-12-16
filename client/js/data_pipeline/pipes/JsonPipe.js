@@ -82,8 +82,8 @@ class JsonPipe {
 
             let onWorkerOk = function(resUrl, res) {
 				onLoaded(res, resUrl);
-
 			};
+
             let onWorkerFail = function(res) {
 				fail("Worker fail: "+ res)
 			};

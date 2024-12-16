@@ -2,15 +2,23 @@
   "material": "MeshStandardMaterial",
   "textures": [
     { "slot":"map",           "tx": "texture_glass_surface"},
-    { "slot":"normalMap",     "tx": "texture_canopy_normals"},
-    { "slot":"metalnessMap",  "tx": "texture_glass_surface"}
+    { "slot":"normalMap",     "tx": "texture_canopy_normals"}
   ],
   "settings": {
     "transparent": true,
-    "opacity": 0.5,
-    "roughness": 0.3,
-    "metalness": 5,
-    "normalScale": {"x": 0.4, "y":0.4},
-    "color": {"r": 3, "g": 4, "b": 5}
+    "opacity": 1.55,
+    "roughness": 0.14,
+    "metalness": 1.2,
+    "normalScale": {"x": 0.2, "y":0.2},
+    "color": {"r": 2.4, "g": 2.6, "b": 2.8},
+    "blendColor": {"r": 0.2, "g": 0.8, "b": 0.4},
+    "blendAlpha": 0.5,
+    "alphaToCoverage": true,
+    "blendEquation": "SubtractEquation",
+    "blending": "CustomBlending",
+    "blendDstAlpha": "SrcAlphaFactor",
+    "blendSrc": "SrcAlphaFactor",
+    "blendDst": "OneMinusSrcAlphaFactor",
+    "envMapIntensity": 2
   }
 }
