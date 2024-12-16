@@ -1,3 +1,5 @@
+import {MATH} from "../../MATH.js";
+
 let rect = {
     centerX:0,
     centerY:0,

@@ -2,6 +2,7 @@ import {poolFetch, poolReturn} from "../../utils/PoolUtils.js";
 import {getPlayerStatus, getSetting, setSetting} from "../../utils/StatusUtils.js";
 import {getPlayerActor} from "../../utils/ActorUtils.js";
 import {storePlayerStatus} from "../../setup/Database.js";
+import {ENUMS} from "../../ENUMS.js";
 
 let htmlElement = null;
 let statusMap = {};

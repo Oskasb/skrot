@@ -15,6 +15,7 @@ import {updateKeyboardFrame} from "./application/ui/input/KeyboardState.js";
 import {MATH} from "./application/MATH.js";
 import {loadAssetInstance} from "./application/utils/AssetUtils.js";
 import {setupSocket} from "./application/utils/SocketUtils.js";
+import {DomWorldHud} from "./application/ui/dom/DomWorldHud.js";
 
 
 
@@ -145,6 +146,7 @@ class Client{
         if (window.islocal) {
             setupSocket()
         }
+        let worldHud = new DomWorldHud();
         init3d()
     }
 

@@ -1,29 +1,14 @@
 import {poolFetch} from "../../utils/PoolUtils.js";
 import {ENUMS} from "../../ENUMS.js";
-import {getPlayerStatus} from "../../utils/StatusUtils.js";
+import {addClickFunction} from "./DomUtils.js";
 import {getPlayerActor} from "../../utils/ActorUtils.js";
-import {populateInvStatusMap} from "../../utils/PlayerUtils.js";
-import {getStashItemCountByTemplateId} from "../../utils/StashUtils.js";
-import {DomBattleHud} from "./DomBattleHud.js";
+import {DomSettings} from "./DomSettings.js";
 
 class DomWorldHud {
     constructor() {
 
         let rightBarElement = null;
-        let walletBarElement = null;
-        let walletContainer = null;
         let statusMap = {};
-
-        let invDiv;
-        let stashDiv;
-        let inv = null;
-        let stash = null;
-        let actor = null;
-
-        let walletElements = [];
-
-        let domBattleHud = null;
-
 
         function update() {
 
@@ -33,31 +18,6 @@ class DomWorldHud {
                 ENUMS.Settings.SCALE_RBAR
             )
 
-            let inCombat = GameAPI.checkInCombat();
-
-            if (statusMap[ENUMS.ActorStatus.IN_COMBAT] !== inCombat) {
-                statusMap[ENUMS.ActorStatus.IN_COMBAT] = inCombat;
-
-                if (inCombat === true) {
-                    domBattleHud = new DomBattleHud();
-                    hide();
-                } else {
-                    if (domBattleHud) {
-                        domBattleHud.call.close();
-                    }
-
-                    domBattleHud = null;
-                    show();
-                }
-
-            }
-
-            populateInvStatusMap(statusMap);
-            let countGold = getStashItemCountByTemplateId('ITEM_CURRENCY_GOLD');
-            let countDiamonds = getStashItemCountByTemplateId('ITEM_CURRENCY_DIAMOND');
-        //    statusMap['char_name'] = getPlayerActor().getStatus(ENUMS.ActorStatus.NAME);
-            statusMap['ITEM_CURRENCY_GOLD'] = countGold;
-            statusMap['ITEM_CURRENCY_DIAMOND'] = countDiamonds;
         }
 
 
@@ -65,80 +25,31 @@ class DomWorldHud {
         //    ThreeAPI.unregisterPrerenderCallback(update);
         }
 
-        let closeInv = function() {
-            if (inv !== null) {
-                inv.call.release()
-                inv = null;
-            }
-        }
 
-        let closeStash = function() {
-            if (stash !== null) {
-                stash.call.release()
-                stash = null;
-            }
-        }
+        let openSettings = function() {
+            let settings = new DomSettings()
 
+            function settingsClosed() {
 
+            }
 
-        let openInventory = function() {
-            if (stash !== null) {
-                closeStash();
-            }
-            if (inv !== null) {
-                closeInv();
-            } else {
-                actor = getPlayerActor();
-                inv = poolFetch('DomInventory');
-                inv.call.activate(actor, invDiv, closeInv);
-            }
-        }
-
-        let openStash = function() {
-            if (inv !== null) {
-                closeInv();
-            }
-            if (stash !== null) {
-                closeStash();
-            } else {
-                actor = getPlayerActor();
-                stash = poolFetch('DomStash');
-                stash.call.activate(actor, stashDiv, closeStash);
-            }
-        }
-
-        function openCharacter() {
-            getPlayerActor().setStatusKey(ENUMS.ActorStatus.NAVIGATION_STATE, ENUMS.NavigationState.CHARACTER);
+            settings.initDomSettings(settingsClosed)
         }
 
         function rightBarReady() {
-            actor = getPlayerActor();
-
-            invDiv = rightBarElement.call.getChildElement('button_inventory');
-            stashDiv = rightBarElement.call.getChildElement('button_stash');
-            let charDiv = rightBarElement.call.getChildElement('button_character');
-            DomUtils.addClickFunction(invDiv, openInventory)
-            DomUtils.addClickFunction(stashDiv, openStash)
-            DomUtils.addClickFunction(charDiv, openCharacter)
+            let settingsDiv = rightBarElement.call.getChildElement('button_settings');
+            addClickFunction(settingsDiv, openSettings)
             ThreeAPI.registerPrerenderCallback(update);
         }
 
-        function walletBarReady() {
-            walletContainer = walletBarElement.call.getChildElement('wallet_bar');
-        }
 
         function activate() {
             rightBarElement = poolFetch('HtmlElement');
-            rightBarElement.initHtmlElement('bar_right', close, statusMap, 'bar_right', rightBarReady);
-
-            walletBarElement = poolFetch('HtmlElement');
-            walletBarElement.initHtmlElement('bar_wallet', close, statusMap, 'bar_wallet', walletBarReady);
-
+            rightBarElement.initHtmlElement('bar_right', null, statusMap, 'bar_right', rightBarReady);
         }
 
         function hide() {
             rightBarElement.hideHtmlElement(0.3)
-        //    walletBarElement.hideHtmlElement(0.3)
         }
 
         function show() {
