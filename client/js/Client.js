@@ -50,11 +50,18 @@ function init3d() {
 
 
         setTimeout(function() {
-                const loader = new GLTFLoader().setPath( './data/assets/test/glTF/' );
-                loader.load( 'DamagedHelmet.gltf', function ( gltf ) {
+                const loader = new GLTFLoader().setPath( './data/assets/' );
+                loader.load( 'test/glTF/DamagedHelmet.gltf', function ( gltf ) {
                     console.log(gltf.scene)
                     scene.add( gltf.scene );
                 } );
+                /*
+            loader.load( 'models/vehicles/f14_all.glb', function ( gltf ) {
+                console.log(gltf.scene)
+                scene.add( gltf.scene );
+            } );
+            /*
+                 */
         }, 100)
 
         setRefDiv(document.body)

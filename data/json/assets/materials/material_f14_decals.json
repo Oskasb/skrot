@@ -5,6 +5,8 @@
     { "slot":"normalMap",     "tx": "texture_canopy_normals"}
   ],
   "settings": {
-
+    "_alphaTest": 0.15,
+    "metalness": 0.2,
+    "roughness": 0.3
   }
 }

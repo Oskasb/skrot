@@ -6,6 +6,13 @@
     { "slot":"metalnessMap",  "tx": "texture_glass_surface"}
   ],
   "settings": {
-    "transparent": true
+    "transparent": true,
+    "opacity": 0.5,
+    "roughness": 0.1,
+    "metalness": 2,
+    "normalScale": {"x": 0.4, "y":0.4},
+    "color": {"r": 2, "g": 2, "b": 3},
+    "blendEquation": 300,
+    "blendSrc": 204
   }
 }

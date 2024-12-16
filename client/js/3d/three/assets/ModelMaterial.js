@@ -59,8 +59,13 @@ class ModelMaterial {
                     let values = json.settings[key];
                     if (typeof values === 'object') {
                         for (let element in values) {
-                            settings.material[key][element] = values[element];
-                        }
+                            if (!settings.material[key] || !settings.material[key][element]) {
+                                console.log("No element for", key, element)
+                            } else {
+                                settings.material[key][element] = values[element];
+
+                            }
+                                                   }
                     } else {
                         settings.material[key] = values;
                     }
