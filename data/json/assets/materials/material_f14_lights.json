@@ -6,6 +6,6 @@
   ],
   "settings": {
     "emissive": {"r": 1, "g": 1,"b": 1},
-    "emissiveIntensity": 2
+    "emissiveIntensity": 1.3
   }
 }
