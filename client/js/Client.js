@@ -14,6 +14,7 @@ import {ENUMS} from "./application/ENUMS.js";
 import {updateKeyboardFrame} from "./application/ui/input/KeyboardState.js";
 import {MATH} from "./application/MATH.js";
 import {loadAssetInstance} from "./application/utils/AssetUtils.js";
+import {setupSocket} from "./application/utils/SocketUtils.js";
 
 
 
@@ -141,6 +142,9 @@ class Client{
     }
 
     initClient() {
+        if (window.islocal) {
+            setupSocket()
+        }
         init3d()
     }
 

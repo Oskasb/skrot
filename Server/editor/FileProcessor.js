@@ -1,4 +1,4 @@
-import {addIndexEntry, getEditIndex, setEditIndex} from "./EditorFunctions.js";
+import {addIndexEntry, getEditIndex, sendToClient, setEditIndex} from "./EditorFunctions.js";
 
 let rootPath;
 let server = null;
@@ -12,8 +12,11 @@ let folder;
 let root;
 let synchList = {};
 
+
+
 function registerEntryUpdate(file, entry) {
     console.log("File Change; ", file, entry);
+    sendToClient(JSON.stringify(file));
 }
 
 let watchList = [];
@@ -89,7 +92,7 @@ function indexReloadedCb(e) {
 }
 
 function handleDirChange(e) {
-    console.log("Notify Change", e);
+//    console.log("Notify Change", e);
     if (e === 'change') {
         return;
     }

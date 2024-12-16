@@ -74,11 +74,29 @@ function readFileFromSocketMessage(message, callback) {
 
 }
 
+function sendToClient(msg) {
+
+    ws.send(msg);
+}
+
+function onMessage(message) {
+    console.log(message + "\n\n");
+}
+
+let ws;
+
+function setEditorSocket(webSocket) {
+    ws = webSocket;
+}
+
 export {
     setEditIndex,
     getEditIndex,
     addIndexEntry,
     setEditorServerConnection,
     saveFileFromSocketMessage,
-    readFileFromSocketMessage
+    readFileFromSocketMessage,
+    sendToClient,
+    onMessage,
+    setEditorSocket
 }

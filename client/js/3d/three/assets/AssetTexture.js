@@ -22,7 +22,7 @@ class AssetTexture {
             settings.txName = txName;
             let assetLoaded = function(image) {
                 settings.bitmap = image;
-                console.log("bitmap assetLoaded", image);
+            //    console.log("bitmap assetLoaded", image);
                 settings.texture = new Texture(image);
                 settings.texture.wrapS = RepeatWrapping;
                 settings.texture.wrapT = RepeatWrapping;

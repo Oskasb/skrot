@@ -8,9 +8,9 @@
   "settings": {
     "transparent": true,
     "opacity": 0.5,
-    "roughness": 0.1,
-    "metalness": 2,
+    "roughness": 0.3,
+    "metalness": 5,
     "normalScale": {"x": 0.4, "y":0.4},
-    "color": {"r": 2, "g": 2, "b": 3}
+    "color": {"r": 3, "g": 4, "b": 5}
   }
 }

@@ -19,7 +19,7 @@ class ModelMaterial {
         let txLoads = [];
 
         function materialLoaded() {
-            console.log("materialLoaded", settings.fileName);
+         //   console.log("materialLoaded", settings.fileName);
             MATH.callAll(subscribers, settings);
             ready = true;
         }
@@ -50,7 +50,7 @@ class ModelMaterial {
 
         function initMaterial(name) {
             let json = getJsonByFileName(name);
-            console.log("material JSON", mats, json);
+        //    console.log("material JSON", mats, json);
             settings.fileName = name;
             settings.material = new materials[json.material]();
 
