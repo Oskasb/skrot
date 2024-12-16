@@ -8,6 +8,8 @@
     { "slot": "aoMap",        "tx": "texture_f14_cockpit_ao"}
   ],
   "settings": {
-
+    "metalness": 1.7,
+    "roughness": 0.9,
+    "aoMapIntensity": 1.3
   }
 }

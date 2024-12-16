@@ -6,8 +6,9 @@
   ],
   "settings": {
     "transparent": true,
-    "opacity": 1.55,
-    "roughness": 0.14,
+    "depthWrite": false,
+    "opacity": 1.4,
+    "roughness": 0.13,
     "metalness": 1.2,
     "normalScale": {"x": 0.2, "y":0.2},
     "color": {"r": 2.4, "g": 2.6, "b": 2.8},

@@ -7,7 +7,7 @@
             {"file":"f14_cockpit",          "material": "material_f14_cockpit"},
             {"file":"f14_glass",            "material": "material_f14_glass"},
             {"file":"f14_lights",           "material": "material_f14_lights"},
-            {"file":"f14_instrument_glass", "material": "material_f14_glass"}
+            {"file":"f14_instrument_glass", "material": "material_f14_instrument_glass"}
           ],
           "skeleton_file": "f14_fuselage_rig",
           "rotation": [0, 0, 0],

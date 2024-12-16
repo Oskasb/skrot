@@ -1,4 +1,4 @@
-import {getJsonUrlByFileName, loadJsonFile} from "../utils/DataUtils.js";
+import {getJsonUrlByFileName, loadJsonFile, pipeMsgCB, pipeMsgLoadInitCB} from "../utils/DataUtils.js";
 import {MATH} from "../MATH.js";
 import {registerJsonAsset} from "../utils/AssetUtils.js";
 
@@ -12,6 +12,7 @@ class JsonAsset {
 
         let onDataUpdated = function(url,data) {
             this.json = data;
+            pipeMsgCB('load OK', 'json', this.name+'.json')
             MATH.callAll(this.subscribers, this.json)
         }.bind(this);
 
@@ -24,6 +25,7 @@ class JsonAsset {
     }
 
     loadJsonAsset() {
+        pipeMsgLoadInitCB('load json', this.name+'.json');
         loadJsonFile(this.url, this.call.onDataUpdated)
     }
 

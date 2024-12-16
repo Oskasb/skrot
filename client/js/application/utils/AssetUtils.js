@@ -2,7 +2,7 @@ import {
     getConfigs,
     loadImageAsset,
     loadJsonFile,
-    loadModelAsset,
+    loadModelAsset, pipeMsgCB,
     pipeMsgLoadInitCB,
     urlFromIndexEntry, urlFromMessageEntry
 } from "./DataUtils.js";
@@ -70,8 +70,13 @@ function loadAsset(fileName, fileType, callback) {
         loadCalls[url] = []
     }
 
+    function onLoad(asset) {
+        pipeMsgCB('load Ok', fileType,fileName+'.'+fileType);
+        callback(asset)
+    }
+
     let loader = getLoader(fileType);
-    loader.load(url, callback);
+    loader.load(url, onLoad);
 }
 
 

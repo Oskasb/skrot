@@ -8,7 +8,8 @@
     { "slot": "aoMap",        "tx": "texture_f14_main_ao"}
   ],
   "settings": {
-    "metalness": 2,
-    "roughness": 1
+    "metalness": 1.7,
+    "roughness": 0.9,
+    "aoMapIntensity": 1.3
   }
 }
