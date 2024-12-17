@@ -42,10 +42,10 @@ body.minimap_container {
 }
 
 div.zoom_in {
-    background-image: url("/client/assets/images/textures/gui/button/plus.png");
+    background-image: url("/data/assets/images/textures/gui/button/plus.png");
 }
 div.zoom_out {
-    background-image: url("/client/assets/images/textures/gui/button/minus.png");
+    background-image: url("/data/assets/images/textures/gui/button/minus.png");
 }
 
 h3 {
@@ -61,50 +61,50 @@ h3 {
 }
 
 div.level_20 {
-    background-image: url("/client/assets/images/textures/worldmap_w01_20.png");
+    background-image: url("/data/assets/images/textures/worldmap_w01_20.png");
     background-color: rgb(66, 71, 98);
 }
 div.level_19 {
-    background-image: url("/client/assets/images/textures/worldmap_w01_19.png");
+    background-image: url("/data/assets/images/textures/worldmap_w01_19.png");
 }
 div.level_13 {
-    background-image: url("/client/assets/images/textures/worldmap_w01_13.png");
+    background-image: url("/data/assets/images/textures/worldmap_w01_13.png");
 }
 div.level_12 {
-background-image: url("/client/assets/images/textures/worldmap_w01_12.png");
+background-image: url("/data/assets/images/textures/worldmap_w01_12.png");
 }
 div.level_11 {
-background-image: url("/client/assets/images/textures/worldmap_w01_11.png");
+background-image: url("/data/assets/images/textures/worldmap_w01_11.png");
 }
 div.level_10 {
-background-image: url("/client/assets/images/textures/worldmap_w01_10.png");
+background-image: url("/data/assets/images/textures/worldmap_w01_10.png");
 }
 div.level_09 {
-background-image: url("/client/assets/images/textures/worldmap_w01_09.png");
+background-image: url("/data/assets/images/textures/worldmap_w01_09.png");
 }
 div.level_08 {
-background-image: url("/client/assets/images/textures/worldmap_w01_08.png");
+background-image: url("/data/assets/images/textures/worldmap_w01_08.png");
 }
 div.level_07 {
-background-image: url("/client/assets/images/textures/worldmap_w01_07.png");
+background-image: url("/data/assets/images/textures/worldmap_w01_07.png");
 }
 div.level_06 {
-background-image: url("/client/assets/images/textures/worldmap_w01_06.png");
+background-image: url("/data/assets/images/textures/worldmap_w01_06.png");
 }
 div.level_05 {
-background-image: url("/client/assets/images/textures/worldmap_w01_05.png");
+background-image: url("/data/assets/images/textures/worldmap_w01_05.png");
 }
 div.level_04 {
-background-image: url("/client/assets/images/textures/worldmap_w01_04.png");
+background-image: url("/data/assets/images/textures/worldmap_w01_04.png");
 }
 div.level_03 {
-background-image: url("/client/assets/images/textures/worldmap_w01_03.png");
+background-image: url("/data/assets/images/textures/worldmap_w01_03.png");
 }
 div.level_02 {
-background-image: url("/client/assets/images/textures/worldmap_w01_02.png");
+background-image: url("/data/assets/images/textures/worldmap_w01_02.png");
 }
 div.level_01 {
-background-image: url("/client/assets/images/textures/worldmap_w01_01.png");
+background-image: url("/data/assets/images/textures/worldmap_w01_01.png");
 }
 
 div.indicator_path {

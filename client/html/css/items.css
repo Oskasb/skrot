@@ -84,7 +84,7 @@ div.container_item_type {
 }
 
 div.item_type_RECIPE {
-    background-image: url("/client/assets/images/textures/gui/icons_lore/note_recipe.png");
+    background-image: url("/data/assets/images/textures/gui/icons_lore/note_recipe.png");
 }
 
 div.potency_itemcard {
@@ -168,7 +168,7 @@ div.currency_icon {
     border-radius: 9%;
     background-size: 100%;
     margin: 0;
-    background-image: url("/client/assets/images/textures/gui/items/icon_nyi.png");
+    background-image: url("/data/assets/images/textures/gui/items/icon_nyi.png");
     transform: translate3d(-50%, -50%, 0);
 }
 

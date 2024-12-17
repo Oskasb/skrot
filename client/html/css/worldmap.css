@@ -25,7 +25,7 @@ div.button_close {
     margin:0;
     padding: 3em;
     text-align: center;
-    background-image: url("/client/assets/images/textures/gui/button/cross.png");
+    background-image: url("/data/assets/images/textures/gui/button/cross.png");
     background-size: 100%;
     background-color: #de0009;
     color: #410b00;
@@ -49,7 +49,7 @@ body.map_anchor {
 }
 
 div.button_zoom_out {
-    background-image: url("/client/assets/images/textures/gui/button/minus.png");
+    background-image: url("/data/assets/images/textures/gui/button/minus.png");
     top: 88%;
     right: -6%;
     width: 0em;
@@ -72,7 +72,7 @@ div.button_zoom_out {
 }
 
 div.button_zoom_in {
-    background-image: url("/client/assets/images/textures/gui/button/plus.png");
+    background-image: url("/data/assets/images/textures/gui/button/plus.png");
     top: 76%;
     right: -6%;
     width: 0em;
@@ -95,7 +95,7 @@ div.button_zoom_in {
 }
 
 div.button_reload {
-    background-image: url("/client/assets/images/textures/gui/systempanel/left_arrow.png");
+    background-image: url("/data/assets/images/textures/gui/systempanel/left_arrow.png");
     top: 9%;
     right: -5%;
     width: 0em;
@@ -118,7 +118,7 @@ div.button_reload {
 }
 
 div.button_generate {
-    background-image: url("/client/assets/images/textures/gui/systempanel/left_arrow.png");
+    background-image: url("/data/assets/images/textures/gui/systempanel/left_arrow.png");
     top: 19%;
     right: -5%;
     width: 0em;
@@ -141,7 +141,7 @@ div.button_generate {
 }
 
 div.button_teleport {
-    background: url("/client/assets/images/textures/gui/icons/icon_enter.png"), radial-gradient(circle, rgba(255,253,202,1) 0%, rgba(255,217,45,1) 49%, rgba(156,86,0,1) 83%);
+    background: url("/data/assets/images/textures/gui/icons/icon_enter.png"), radial-gradient(circle, rgba(255,253,202,1) 0%, rgba(255,217,45,1) 49%, rgba(156,86,0,1) 83%);
     top: 18%;
     right: -6%;
     width: 0em;

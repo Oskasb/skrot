@@ -130,7 +130,7 @@ div.button_complete p {
 }
 
 div.background_create_panel {
-    background-image: url("/client/assets/images/textures/gui/character_creation/create_panel_background.png");
+    background-image: url("/data/assets/images/textures/gui/character_creation/create_panel_background.png");
     background-size: 100% 100%;
 }
 
@@ -632,7 +632,7 @@ div.button_close {
     margin:0;
     padding: 0;
     text-align: center;
-    background-image: url("/client/assets/images/textures/gui/button/cross.png");
+    background-image: url("/data/assets/images/textures/gui/button/cross.png");
     background-size: 100%;
     background-color: #e1000a;
     color: #410b00;
@@ -642,7 +642,7 @@ div.button_close {
 }
 
 div.button_reload {
-    background-image: url("/client/assets/images/textures/gui/systempanel/left_arrow.png");
+    background-image: url("/data/assets/images/textures/gui/systempanel/left_arrow.png");
     top: 9%;
     right: -5%;
     width: 0em;
@@ -756,38 +756,38 @@ div.party_button {
 }
 
 div.icon_camera {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_camera.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_camera.png");
 }
 
 div.icon_camera_flight {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_camera_flight.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_camera_flight.png");
 }
 
 div.icon_settings {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_settings.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_settings.png");
 }
 div.icon_joystick {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_joystick.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_joystick.png");
 }
 
 div.icon_paper_note {
-    background-image: url("/client/assets/images/textures/gui/icons/scribbled_note.png");
+    background-image: url("/data/assets/images/textures/gui/icons/scribbled_note.png");
 }
 
 div.icon_inventory {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_inv.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_inv.png");
 }
 
 div.icon_stash {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_stash.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_stash.png");
 }
 
 div.icon_character {
-    background-image: url("/client/assets/images/textures/gui/icons/IconPaperdollButton.png");
+    background-image: url("/data/assets/images/textures/gui/icons/IconPaperdollButton.png");
 }
 
 div.icon_enter_world {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_enter_world.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_enter_world.png");
 }
 
 div.palette_panel {
@@ -2214,74 +2214,74 @@ div.ITEM {
 
 div.USE {
     color: #c5ff50;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_use.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_use.png");
 }
 
 div.ENTER {
     color: #f8bc47;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_enter.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_enter.png");
 }
 
 div.FIGHT {
     color: #ff5f30;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_fight.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_fight.png");
 }
 
 div.PARTY {
     color: #efbfff;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_party.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_party.png");
 }
 
 div.LEAVE {
     color: #d9c9c9;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_leave.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_leave.png");
 }
 
 div.TALK {
     color: #e1f6e4;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_talk.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_talk.png");
 }
 
 div.TAME {
     color: #4fff6e;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_tame.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_tame.png");
 }
 
 div.QUEST_ACCEPT {
     color: #ffff00;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_quest_accept.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_quest_accept.png");
     background-color: rgba(0, 155, 255, 0.3);
 }
 
 div.QUEST_COMPLETE {
     color: #ffff00;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_quest_complete.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_quest_complete.png");
     background-color: rgba(0, 255, 0, 0.3);
 }
 
 div.SNEAK {
     color: #fff65b;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_sneak.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_sneak.png");
 }
 
 div.TRADE {
     color: #41ffc8;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_trade.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_trade.png");
 }
 
 div.CRAFT {
     color: #66ff19;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_craft.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_craft.png");
 }
 
 div.STEAL {
     color: #c50000;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_steal.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_steal.png");
 }
 
 div.PICKUP {
     color: #abff19;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_take.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_take.png");
 }
 
 div.PLAIN {
@@ -2759,7 +2759,7 @@ div.edit_cursor_position_arrows {
     border: 0.1em solid #004843;
     background-color: rgba(171, 243, 255, 1.99);
     box-shadow: 0 0 0.4em rgb(0, 72, 79);
-    mask-image: url("/client/assets/images/textures/gui/cursors/cursor_translate.png");
+    mask-image: url("/data/assets/images/textures/gui/cursors/cursor_translate.png");
     mask-size: 100%;
     mask-position: 50%;
     background-size: 100%;
@@ -2781,7 +2781,7 @@ div.edit_cursor_position {
     border: 0.1em solid #00d7cc;
     background-color: rgba(0, 143, 143, 0.4);
     box-shadow: 0 0 0.8em rgb(0, 72, 79);
-    background-image: url("/client/assets/images/textures/gui/cursors/cursor_translate.png");
+    background-image: url("/data/assets/images/textures/gui/cursors/cursor_translate.png");
     mask-image: radial-gradient(rgba(255, 255, 255, 0) 32%, rgba(255, 255, 255, 0.5) 58%, rgba(255, 255, 255, 0.9) 70%);
     background-size: 130%;
     background-position: 50%;
@@ -2994,392 +2994,8 @@ div.class_wizard {
 
 
 
-
-div.icon_class_barbarian {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_class_barbarian.png");
-}
-
-div.icon_class_bard {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_class_bard.png");
-}
-
-div.icon_class_cleric {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_class_cleric.png");
-}
-
-div.icon_class_druid {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_class_druid.png");
-}
-
-div.icon_class_fighter {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_class_fighter.png");
-}
-
-div.icon_class_monk {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_class_monk.png");
-}
-
-div.icon_class_paladin {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_class_paladin.png");
-}
-
-div.icon_class_ranger {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_class_ranger.png");
-}
-
-div.icon_class_rogue {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_class_rogue.png");
-}
-
-div.icon_class_sorcerer {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_class_sorcerer.png");
-}
-
-div.icon_class_warlock {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_class_warlock.png");
-}
-
-div.icon_class_wizard {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_class_wizard.png");
-}
-
-div.icon_subclass_abjuration {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_abjuration.png");
-}
-
-div.icon_subclass_ancestral_guardian {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_ancestral_guardian.png");
-}
-
-div.icon_subclass_arcana {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_arcana.png");
-}
-
-div.icon_subclass_arcane_archer {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_arcane_archer.png");
-}
-div.icon_subclass_arcane_trixter {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_arcane_trixter.png");
-}
-
-div.icon_subclass_archfey {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_archfey.png");
-}
-
-div.icon_subclass_assassin {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_assassin.png");
-}
-
-div.icon_subclass_battle_master {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_battle_master.png");
-}
-
-div.icon_subclass_battlerager {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_battlerager.png");
-}
-
-div.icon_subclass_beast_master {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_beast_master.png");
-}
-
-div.icon_subclass_berzerker {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_berzerker.png");
-}
-
-div.icon_subclass_bladesinging {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_bladesinging.png");
-}
-
-div.icon_subclass_cavalier {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_cavalier.png");
-}
-
-div.icon_subclass_celestial {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_celestial.png");
-}
-
-div.icon_subclass_champion {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_champion.png");
-}
-
-div.icon_subclass_chronurgy {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_chronurgy.png");
-}
-
-div.icon_subclass_conjuration {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_conjuration.png");
-}
-
-div.icon_subclass_conquest {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_conquest.png");
-}
-
-div.icon_subclass_death {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_death.png");
-}
-
-div.icon_subclass_devotion {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_devotion.png");
-}
-
-div.icon_subclass_divination {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_divination.png");
-}
-
-div.icon_subclass_divine_soul {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_divine_soul.png");
-}
-
-div.icon_subclass_draconic_bloodline {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_draconic_bloodline.png");
-}
-
-div.icon_subclass_dragon_knight {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_dragon_knight.png");
-}
-
-div.icon_subclass_dreams {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_dreams.png");
-}
-
-div.icon_subclass_drunken_master {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_drunken_master.png");
-}
-
-div.icon_subclass_echo_knight {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_echo_knight.png");
-}
-
-div.icon_subclass_eldritch_knight {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_eldritch_knight.png");
-}
-
-div.icon_subclass_enchantment {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_enchantment.png");
-}
-
-div.icon_subclass_evocation {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_evocation.png");
-}
-
-div.icon_subclass_fiend {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_fiend.png");
-}
-
-div.icon_subclass_forge {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_forge.png");
-}
-
-div.icon_subclass_four_elements {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_four_elements.png");
-}
-
-div.icon_subclass_glamour {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_glamour.png");
-}
-
-div.icon_subclass_gloom_stalker {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_gloom_stalker.png");
-}
-
-div.icon_subclass_grave {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_grave.png");
-}
-
-div.icon_subclass_graviturgy {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_graviturgy.png");
-}
-
-div.icon_subclass_great_old_one {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_great_old_one.png");
-}
-
-div.icon_subclass_guardian {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_guardian.png");
-}
-
-div.icon_subclass_hexblade {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_hexblade.png");
-}
-
-div.icon_subclass_horizon_walker {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_horizon_walker.png");
-}
-
-div.icon_subclass_hunter {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_hunter.png");
-}
-
-div.icon_subclass_illusion {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_illusion.png");
-}
-
-div.icon_subclass_inquisitor {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_inquisitor.png");
-}
-
-div.icon_subclass_kensei {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_kensei.png");
-}
-
-div.icon_subclass_knowledge {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_knowledge.png");
-}
-
-div.icon_subclass_life {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_life.png");
-}
-
-div.icon_subclass_light {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_light.png");
-}
-
-div.icon_subclass_long_death {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_long_death.png");
-}
-
-div.icon_subclass_lore {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_lore.png");
-}
-
-div.icon_subclass_mastermind {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_mastermind.png");
-}
-
-div.icon_subclass_monster_slayer {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_monster_slayer.png");
-}
-
-div.icon_subclass_nature {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_nature.png");
-}
-
-div.icon_subclass_necromancy {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_necromancy.png");
-}
-
-div.icon_subclass_oathbreaker {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_oathbreaker.png");
-}
-
-div.icon_subclass_open_hand {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_open_hand.png");
-}
-
-div.icon_subclass_order {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_order.png");
-}
-
-div.icon_subclass_redemption {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_redemption.png");
-}
-
-div.icon_subclass_samurai {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_samurai.png");
-}
-div.icon_subclass_scout {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_scout.png");
-}
-
-div.icon_subclass_shadow {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_shadow.png");
-}
-
-div.icon_subclass_shadow_magic {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_shadow_magic.png");
-}
-
-div.icon_subclass_spores {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_spores.png");
-}
-
-div.icon_subclass_storm_herald {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_storm_herald.png");
-}
-div.icon_subclass_storm_sorcery {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_storm_sorcery.png");
-}
-
-div.icon_subclass_sun_soul {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_sun_soul.png");
-}
-
-div.icon_subclass_swashbuckler {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_swashbuckler.png");
-}
-
-div.icon_subclass_swords {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_swords.png");
-}
-
-div.icon_subclass_tempest {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_tempest.png");
-}
-div.icon_subclass_the_ancients {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_the_ancients.png");
-}
-
-div.icon_subclass_the_crown {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_the_crown.png");
-}
-
-div.icon_subclass_the_land {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_the_land.png");
-}
-
-div.icon_subclass_the_moon {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_the_moon.png");
-}
-
-div.icon_subclass_the_shepherd {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_the_shepherd.png");
-}
-
-div.icon_subclass_thief {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_thief.png");
-}
-
-div.icon_subclass_totem_warrior {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_totem_warrior.png");
-}
-div.icon_subclass_transmutation {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_transmutation.png");
-}
-
-div.icon_subclass_trickery {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_trickery.png");
-}
-
-div.icon_subclass_undying {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_undying.png");
-}
-
-div.icon_subclass_valor {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_valor.png");
-}
-
-div.icon_subclass_vengeance {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_vengeance.png");
-}
-div.icon_subclass_war {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_war.png");
-}
-
-div.icon_subclass_war_magic {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_war_magic.png");
-}
-div.icon_subclass_whisper {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_whisper.png");
-}
-
-div.icon_subclass_wild_soul {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_wild_soul.png");
-}
-div.icon_subclass_zealot {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_subclass_zealot.png");
-}
 div.image_portraits {
-    background-image: url("/client/assets/images/textures/gui/portraits.png");
+    background-image: url("/data/assets/images/textures/gui/portraits.png");
 }
 
 div.item_potency_slot {
@@ -3390,51 +3006,51 @@ div.item_potency_slot {
     height: 1.7em;
     scale: 1.2;
     background-size: 100% 100%;
-    background-image: url("/client/assets/images/textures/gui/icons/icon_potency_unset_0.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_unset_0.png");
 }
 
 div.icon_potency_unset_0 {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_potency_unset_0.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_unset_0.png");
 }
 
 div.icon_potency_set_0 {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_potency_set_0.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_set_0.png");
 }
 
 div.icon_potency_unset_1 {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_potency_unset_1.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_unset_1.png");
 }
 
 div.icon_potency_set_1 {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_potency_set_1.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_set_1.png");
 }
 div.icon_potency_unset_2 {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_potency_unset_2.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_unset_2.png");
 }
 
 div.icon_potency_set_2 {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_potency_set_2.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_set_2.png");
 }
 div.icon_potency_unset_3 {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_potency_unset_3.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_unset_3.png");
 }
 
 div.icon_potency_set_3 {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_potency_set_3.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_set_3.png");
 }
 div.icon_potency_unset_4 {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_potency_unset_4.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_unset_4.png");
 }
 
 div.icon_potency_set_4 {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_potency_set_4.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_set_4.png");
 }
 div.icon_potency_unset_5 {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_potency_unset_5.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_unset_5.png");
 }
 
 div.icon_potency_set_5 {
-    background-image: url("/client/assets/images/textures/gui/icons/icon_potency_set_5.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_set_5.png");
 }
 
 div.container_item_rank {

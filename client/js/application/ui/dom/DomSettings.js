@@ -3,6 +3,7 @@ import {getPlayerStatus, getSetting, setSetting} from "../../utils/StatusUtils.j
 import {getPlayerActor} from "../../utils/ActorUtils.js";
 import {storePlayerStatus} from "../../setup/Database.js";
 import {ENUMS} from "../../ENUMS.js";
+import {addClickFunction, addElementClass, clearDivArray, createDivElement, removeElementClass} from "./DomUtils.js";
 
 let htmlElement = null;
 let statusMap = {};
@@ -152,7 +153,7 @@ let activePage = null;
 function attachSettingControl(parent, setting, htmlElem) {
     let key = setting.key;
 
-    let box = DomUtils.createDivElement(parent, 'box_'+key, '', 'control_container height_024');
+    let box = createDivElement(parent, 'box_'+key, '', 'control_container height_024');
 
     if (statusMap[key] === null) {
         statusMap[key] = setting.default;
@@ -171,7 +172,7 @@ function attachSettingControl(parent, setting, htmlElem) {
         }, 100)
     }
 
-    DomUtils.createDivElement(box, 'container_' + key, iHtml, 'slider_container');
+    createDivElement(box, 'container_' + key, iHtml, 'slider_container');
     settingContainers.push(box);
 
 
@@ -180,14 +181,14 @@ function attachSettingControl(parent, setting, htmlElem) {
 
 function activatePage(page) {
     if (activePage!== null) {
-        DomUtils.removeElementClass(activePage.buttonDiv, 'bar_button_active')
+        removeElementClass(activePage.buttonDiv, 'bar_button_active')
     }
     console.log('activatePage', page);
     let pageName = htmlElement.call.getChildElement('page_name');
     pageName.innerHTML = page.label;
     activePage = page;
-    DomUtils.addElementClass(page.buttonDiv, 'bar_button_active');
-    DomUtils.clearDivArray(settingContainers);
+    addElementClass(page.buttonDiv, 'bar_button_active');
+    clearDivArray(settingContainers);
     let dynamicContainer = htmlElement.call.getChildElement('dynamic_container');
     for (let i = 0; i < page.settings.length; i++) {
         attachSettingControl(dynamicContainer, page.settings[i], htmlElement)
@@ -197,14 +198,14 @@ function activatePage(page) {
 }
 
 function attachPageSelectionButton(page, parent, pageIndex) {
-    let buttonDiv = DomUtils.createDivElement(parent, 'select_page_'+pageIndex, '<p>'+page.label+'</p>>', 'bar_button');
-    DomUtils.addElementClass(buttonDiv, page.icon_class);
+    let buttonDiv = createDivElement(parent, 'select_page_'+pageIndex, '<p>'+page.label+'</p>>', 'bar_button');
+    addElementClass(buttonDiv, page.icon_class);
     page.buttonDiv = buttonDiv;
     function selectPage() {
         activatePage(page);
     }
 
-    DomUtils.addClickFunction(buttonDiv, selectPage);
+    addClickFunction(buttonDiv, selectPage);
 
 }
 

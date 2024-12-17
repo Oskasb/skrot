@@ -49,7 +49,7 @@ div.point {
 }
 
 .general_map {
-    background-image: url("/client/assets/images/textures/generalmap_w01.png"), linear-gradient(rgba(187, 162, 97, 1) 0, rgba(140, 83, 45, 1) 40%, rgba(42, 34, 10, 1) 99%);
+    background-image: url("/data/assets/images/textures/generalmap_w01.png"), linear-gradient(rgba(187, 162, 97, 1) 0, rgba(140, 83, 45, 1) 40%, rgba(42, 34, 10, 1) 99%);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 90%;
