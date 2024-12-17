@@ -16,6 +16,7 @@ import {MATH} from "./application/MATH.js";
 import {loadAssetInstance} from "./application/utils/AssetUtils.js";
 import {setupSocket} from "./application/utils/SocketUtils.js";
 import {DomWorldHud} from "./application/ui/dom/DomWorldHud.js";
+import {ThreeBloom} from "./3d/three/fx/ThreeBloom.js";
 
 
 
@@ -31,6 +32,7 @@ function init3d() {
     scene = store.scene;
     renderer = store.renderer;
 
+    new ThreeBloom().call.initBloom(scene, camera, renderer)
     init();
 
     function init() {
@@ -148,6 +150,10 @@ class Client{
             setupSocket()
         }
         let worldHud = new DomWorldHud();
+
+
+
+
         init3d()
     }
 

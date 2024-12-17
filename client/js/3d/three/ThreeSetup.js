@@ -29,6 +29,7 @@ class ThreeSetup {
 
         this.initTime = 0;
 
+        this.postProcesses = [];
         this.prerenderCallbacks = [];
         this.postrenderCallbacks = [];
         this.onClearCallbacks = [];
@@ -47,6 +48,10 @@ class ThreeSetup {
         this.frustum = new Frustum();
         this.frustumMatrix = new Matrix4();
 
+    }
+
+    addPostProcess(postProcess) {
+        this.postProcesses.push(postProcess);
     }
 
     callClear() {
@@ -87,7 +92,17 @@ class ThreeSetup {
     callRender(scn, cam) {
 
         this.renderStart = performance.now();
-        this.renderer.renderAsync(scn, cam);
+
+        if (this.postProcesses.length === 0) {
+        //    this.renderer.render(scn, cam);
+        } else {
+            for (let i = 0;i<this.postProcesses.length; i++) {
+                this.postProcesses[i].renderAsync();
+            }
+        }
+
+
+
         this.renderEnd = performance.now();
         this.callClear();
         this.callPostrender();

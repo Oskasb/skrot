@@ -135,6 +135,9 @@ class ThreeAPI {
         this.threeSetup.addPostrenderCallback(callback);
     };
 
+    addPostProcess(postProcess) {
+        this.threeSetup.addPostProcess(postProcess);
+    }
     unregisterPostrenderCallback(callback) {
         this.threeSetup.removePostrenderCallback(callback);
     };

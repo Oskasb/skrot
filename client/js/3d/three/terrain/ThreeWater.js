@@ -28,7 +28,7 @@ class ThreeWater {
 
         water.rotation.x = - Math.PI / 2;
 
-        ThreeAPI.addToScene(water);
+    //    ThreeAPI.addToScene(water);
 
 
         function update() {

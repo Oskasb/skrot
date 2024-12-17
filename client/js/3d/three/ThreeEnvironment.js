@@ -146,11 +146,13 @@ class ThreeEnvironment {
 
         grd = ctx.createLinearGradient(0,0,0, _this.ctxHeight);
 
-        grd.addColorStop(0,    ThreeAPI.toGradRgb( ambColor[0]*0.4, ambColor[1]*0.45,  ambColor[2]*0.5));
-        grd.addColorStop(0.2, ThreeAPI.toGradRgb((fogColor[0]*0.01 + ambColor[0]*0.6 +sunColor[0]*0.01) *0.3 ,(fogColor[1]*0.1 + ambColor[1]*0.5 +sunColor[1]*0.01) * 0.7  , (fogColor[2]*0.01 + ambColor[2]*0.8 +sunColor[2]*0.3)*0.99));
-        grd.addColorStop(0.36, ThreeAPI.toGradRgb((fogColor[0]*0.04 + ambColor[0]*0.6 +sunColor[0]*0.01) *0.7  ,(fogColor[1]*0.2 + ambColor[1]*0.4 +sunColor[1]*0.15) * 0.85  , (fogColor[2]*0.05 + ambColor[2]*0.3 +sunColor[2]*0.5)*0.96));
-        grd.addColorStop(0.44, ThreeAPI.toGradRgb((fogColor[0]*0.4  + ambColor[0]*0.6 +sunColor[0]*0.1) *0.9  ,(fogColor[1]*0.4 + ambColor[1]*0.4 +sunColor[1]*0.3) * 0.9  , (fogColor[2]*0.3 + ambColor[2]*0.4 +sunColor[2]*0.6)*0.9 ));
-        grd.addColorStop(0.48, ThreeAPI.toGradRgb((fogColor[0]*0.5  + ambColor[0]*0.8 +sunColor[0]*0.2) *1.0  ,(fogColor[1]*0.5 + ambColor[1]*0.5 +sunColor[1]*0.4) * 1.0  , (fogColor[2]*0.4 + ambColor[2]*0.5 +sunColor[2]*0.7)*1.0 ));
+      //  grd.addColorStop(0,    ThreeAPI.toGradRgb( ambColor[0]*0.4, ambColor[1]*0.45,  ambColor[2]*0.5));
+        grd.addColorStop(0.01,  ThreeAPI.toGradRgb((fogColor[0]*0.1 + ambColor[0]*0.6 +sunColor[0]*0.1) *0.4 ,(fogColor[1]*0.1 + ambColor[1]*0.5 +sunColor[1]*0.1) * 0.6  , (fogColor[2]*0.1 + ambColor[2]*0.8 +sunColor[2]*0.3)*0.7));
+     //   grd.addColorStop(0.3,  ThreeAPI.toGradRgb((fogColor[0]*0.04 + ambColor[0]*0.6 +sunColor[0]*0.01) *0.7  ,(fogColor[1]*0.2 + ambColor[1]*0.4 +sunColor[1]*0.15) * 0.85  , (fogColor[2]*0.05 + ambColor[2]*0.3 +sunColor[2]*0.5)*0.96));
+       // grd.addColorStop(0.45, ThreeAPI.toGradRgb((fogColor[0]*0.4  + ambColor[0]*0.5 +sunColor[0]*0.1) *0.8  ,(fogColor[1]*0.4 + ambColor[1]*0.4 +sunColor[1]*0.3) * 0.8  , (fogColor[2]*0.3 + ambColor[2]*0.4 +sunColor[2]*0.6)*0.8 ));
+        grd.addColorStop(0.3,   ThreeAPI.toGradRgb((fogColor[0]*0.3  + ambColor[0]*0.5 +sunColor[0]*0.5) *0.3  ,(fogColor[1]*0.4 + ambColor[1]*0.4 +sunColor[1]*0.5) * 0.4  , (fogColor[2]*0.5 + ambColor[2]*0.6 +sunColor[2]*0.7)*0.6 ));
+
+        grd.addColorStop(0.498, ThreeAPI.toGradRgb((fogColor[0]*0.4  + ambColor[0]*0.6 +sunColor[0]*0.5) *0.5  ,(fogColor[1]*0.5 + ambColor[1]*0.5 +sunColor[1]*0.5) * 0.6  , (fogColor[2]*0.5 + ambColor[2]*0.6 +sunColor[2]*0.7)*0.7 ));
         if (evFact > 999999 || isNaN(evFact) || !isFinite(evFact)) {
             console.log("Camera went flying off... investigate")
             return;

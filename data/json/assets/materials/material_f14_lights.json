@@ -13,8 +13,8 @@
     "color": {"r": 0, "g": 0, "b": 0},
     "emissiveIntensity": 1.0,
     "blendEquation": "AddEquation",
-    "blending": "AdditiveBlending",
+    "blending": "CustomBlending",
     "blendSrc": "SrcColorFactor",
-    "blendDst": "OneMinusSrcAlphaFactor"
+    "blendDst": "SrcAlphaFactor"
   }
 }
