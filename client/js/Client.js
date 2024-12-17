@@ -17,6 +17,7 @@ import {loadAssetInstance} from "./application/utils/AssetUtils.js";
 import {setupSocket} from "./application/utils/SocketUtils.js";
 import {DomWorldHud} from "./application/ui/dom/DomWorldHud.js";
 import {ThreeBloom} from "./3d/three/fx/ThreeBloom.js";
+import {DebugLines} from "./application/debug/lines/DebugLines.js";
 
 
 
@@ -33,6 +34,8 @@ function init3d() {
     renderer = store.renderer;
 
     new ThreeBloom().call.initBloom(scene, camera, renderer)
+    let debugLines = new DebugLines()
+ //   ThreeAPI.addPrerenderCallback(debugLines.updateDebugLines);
     init();
 
     function init() {

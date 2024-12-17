@@ -1,16 +1,17 @@
 import { LineRenderSystem } from "./LineRenderSystem.js";
 import {poolFetch, poolReturn} from "../../utils/PoolUtils.js";
+import {Vector3} from "../../../../../libs/three/Three.Core.js";
+import {evt} from "../../event/evt.js";
+import {ENUMS} from "../../ENUMS.js";
 
 class DebugLines {
     constructor() {
 
         let lineDenderSystem  = new LineRenderSystem();
         this.lineDenderSystem = lineDenderSystem;
-        let tempVec1 = new THREE.Vector3();
-        let tempVec2 = new THREE.Vector3();
+        let tempVec1 = new Vector3();
+        let tempVec2 = new Vector3();
         let color;
-
-
 
         let updateFrame = function() {
         //    this.updateDebugLines()
@@ -61,7 +62,6 @@ class DebugLines {
                         poolReturn(colorVec3);
                         ThreeAPI.unregisterPrerenderCallback(durableDraw);
                     }
-
                 }
 
                 ThreeAPI.addPrerenderCallback(durableDraw)
@@ -70,8 +70,6 @@ class DebugLines {
             lineDenderSystem.drawLine(event.from, event.to, color)
             renderCall()
         };
-
-
 
 
         let drawCross = function(event) {
@@ -101,11 +99,11 @@ class DebugLines {
 
     };
 
-    updateDebugLines = function() {
+    updateDebugLines() {
         this.lineDenderSystem.render();
     };
 
-    clearDebugLines = function() {
+    clearDebugLines() {
         this.lineDenderSystem.render();
         this.lineDenderSystem.render();
     }

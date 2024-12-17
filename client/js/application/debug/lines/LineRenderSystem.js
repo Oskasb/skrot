@@ -1,5 +1,6 @@
 import {LineRenderer} from "./LineRenderer.js";
-import {Vector3} from "../../../../libs/three/math/Vector3.js";
+import {Vector3} from "../../../../../libs/three/Three.Core.js";
+
 
 let tempVec = new Vector3();
 let tempVec2 = new Vector3();
@@ -32,7 +33,7 @@ class LineRenderSystem {
 
 		this._lineRenderers = [];
 
-		this._lineRenderers.push(new LineRenderer(this.world));
+		this._lineRenderers.push(new LineRenderer());
 
 		this.start = new Vector3();
 		this.end = new Vector3();

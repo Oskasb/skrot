@@ -458,6 +458,10 @@ class ThreeEnvironment {
 
         let camPos = ThreeAPI.getCamera().position
 
+        this.calcVec.set(0, 0, 0);
+        MATH.randomVector(this.calcVec)
+        evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:this.calcVec, to:this.world.sun.position, color:'YELLOW'})
+
         if (!this.sky) return;
         //    console.log("Tick Env", tpf)
         let fraction = this.calcTransitionProgress(tpf * 1.0);

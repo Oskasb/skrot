@@ -1,19 +1,28 @@
+import {
+    BufferAttribute,
+    BufferGeometry,
+    DoubleSide, LineBasicMaterial,
+    LineSegments,
+    NoBlending
+} from "../../../../../libs/three/Three.Core.js";
+import {LineBasicNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
+
 class LineRenderer {
     constructor() {
         this.isActive = false;
         this._numRenderingLines = 0;
         this.MAX_NUM_LINES = 50000;
 
-        this.geometry = new THREE.BufferGeometry();
+        this.geometry = new BufferGeometry();
 
         let positions = new Float32Array( this.MAX_NUM_LINES * 6 ); // 3 vertices per point
-        this.geometry.setAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+        this.geometry.setAttribute( 'position', new BufferAttribute( positions, 3 ) );
 
         this.positions = this.geometry.attributes.position.array;
 
 
-        var colors = new Float32Array( this.MAX_NUM_LINES * 6 ); // 3 vertices per point
-        this.geometry.setAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
+        let colors = new Float32Array( this.MAX_NUM_LINES * 6 ); // 3 vertices per point
+        this.geometry.setAttribute( 'color', new BufferAttribute( colors, 3 ) );
 
 
         this.positions = this.geometry.attributes.position.array;
@@ -21,17 +30,19 @@ class LineRenderer {
 
         this.geometry.setDrawRange( 0, 0);
 
-        this.material = new THREE.LineBasicMaterial( {
+        this.material = new LineBasicNodeMaterial( {
             color: 0xffffff,
-            blending:THREE.NoBlending,
+            blending:NoBlending,
             fog:false,
             depthTest:false,
             depthWrite:true,
             vertexColors: true,
-            side:THREE.DoubleSide
+            side:DoubleSide
         } );
 
-        this.line = new THREE.LineSegments( this.geometry,  this.material);
+        console.log("LineBasicNodeMaterial", this.geometry, this.material)
+
+        this.line = new LineSegments( this.geometry,  this.material);
         this.line.frustumCulled = false;
         this.line.renderOrder = 1;
 
