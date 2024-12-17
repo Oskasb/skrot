@@ -14,6 +14,7 @@ import {ENUMS} from "../../application/ENUMS.js";
 import {MATH} from "../../application/MATH.js";
 import {getFrame} from "../../application/utils/DataUtils.js";
 import {getSetting} from "../../application/utils/StatusUtils.js";
+import {ThreeWater} from "./terrain/ThreeWater.js";
 
 let statusMap = {
     transitionProgress:0,
@@ -58,7 +59,7 @@ class ThreeEnvironment {
         this.sky = null;
 
         this.ctx = null;
-        this.ctxHeight = 64;
+        this.ctxHeight = 256;
         this.ctxWidth= 1;
 
         this.scene = null;
@@ -146,10 +147,10 @@ class ThreeEnvironment {
         grd = ctx.createLinearGradient(0,0,0, _this.ctxHeight);
 
         grd.addColorStop(0,    ThreeAPI.toGradRgb( ambColor[0]*0.4, ambColor[1]*0.45,  ambColor[2]*0.5));
-        grd.addColorStop(0.25, ThreeAPI.toGradRgb((fogColor[0]*0.01 + ambColor[0]*0.6 +sunColor[0]*0.01) *0.3 ,(fogColor[1]*0.1 + ambColor[1]*0.5 +sunColor[1]*0.01) * 0.7  , (fogColor[2]*0.01 + ambColor[2]*0.8 +sunColor[2]*0.3)*0.99));
-        grd.addColorStop(0.40, ThreeAPI.toGradRgb((fogColor[0]*0.04 + ambColor[0]*0.7 +sunColor[0]*0.01) *0.7  ,(fogColor[1]*0.2 + ambColor[1]*0.4 +sunColor[1]*0.15) * 0.85  , (fogColor[2]*0.05 + ambColor[2]*0.4 +sunColor[2]*0.7)*0.96));
-        grd.addColorStop(0.46, ThreeAPI.toGradRgb((fogColor[0]*0.2  + ambColor[0]*0.8 +sunColor[0]*0.1) *0.9  ,(fogColor[1]*0.3 + ambColor[1]*0.2 +sunColor[1]*0.3) * 0.9  , (fogColor[2]*0.1 + ambColor[2]*0.5 +sunColor[2]*0.7)*0.9 ));
-        grd.addColorStop(0.49, ThreeAPI.toGradRgb((fogColor[0]*0.4  + ambColor[0]*0.9 +sunColor[0]*0.3) *1.0  ,(fogColor[1]*0.5 + ambColor[1]*0.2 +sunColor[1]*0.4) * 1.0  , (fogColor[2]*0.2 + ambColor[2]*0.6 +sunColor[2]*0.9)*1.0 ));
+        grd.addColorStop(0.2, ThreeAPI.toGradRgb((fogColor[0]*0.01 + ambColor[0]*0.6 +sunColor[0]*0.01) *0.3 ,(fogColor[1]*0.1 + ambColor[1]*0.5 +sunColor[1]*0.01) * 0.7  , (fogColor[2]*0.01 + ambColor[2]*0.8 +sunColor[2]*0.3)*0.99));
+        grd.addColorStop(0.36, ThreeAPI.toGradRgb((fogColor[0]*0.04 + ambColor[0]*0.6 +sunColor[0]*0.01) *0.7  ,(fogColor[1]*0.2 + ambColor[1]*0.4 +sunColor[1]*0.15) * 0.85  , (fogColor[2]*0.05 + ambColor[2]*0.3 +sunColor[2]*0.5)*0.96));
+        grd.addColorStop(0.44, ThreeAPI.toGradRgb((fogColor[0]*0.4  + ambColor[0]*0.6 +sunColor[0]*0.1) *0.9  ,(fogColor[1]*0.4 + ambColor[1]*0.4 +sunColor[1]*0.3) * 0.9  , (fogColor[2]*0.3 + ambColor[2]*0.4 +sunColor[2]*0.6)*0.9 ));
+        grd.addColorStop(0.48, ThreeAPI.toGradRgb((fogColor[0]*0.5  + ambColor[0]*0.8 +sunColor[0]*0.2) *1.0  ,(fogColor[1]*0.5 + ambColor[1]*0.5 +sunColor[1]*0.4) * 1.0  , (fogColor[2]*0.4 + ambColor[2]*0.5 +sunColor[2]*0.7)*1.0 ));
         if (evFact > 999999 || isNaN(evFact) || !isFinite(evFact)) {
             console.log("Camera went flying off... investigate")
             return;
@@ -158,7 +159,7 @@ class ThreeEnvironment {
         // horizon and down;
         let rgb = ThreeAPI.toGradRgb(fogColor[0], fogColor[1], fogColor[2])
     //    GuiAPI.printDebugText("rgb: "+rgb)
-        grd.addColorStop(0.5, rgb);
+        grd.addColorStop(0.4999, rgb);
         grd.addColorStop(1, rgb);
     //    grd.addColorStop(-1, rgb);
         //       grd.addColorStop(1, ThreeAPI.toRgb(0, 0, 0));
@@ -748,6 +749,8 @@ class ThreeEnvironment {
 
             _this.applySkyConfig();
             _this.applyEnvironment();
+            let water = new ThreeWater();
+            water.call.initWater(_this);
 
         };
 
