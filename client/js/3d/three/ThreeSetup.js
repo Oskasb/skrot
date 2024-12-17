@@ -94,14 +94,12 @@ class ThreeSetup {
         this.renderStart = performance.now();
 
         if (this.postProcesses.length === 0) {
-        //    this.renderer.render(scn, cam);
+            this.renderer.renderAsync(scn, cam);
         } else {
             for (let i = 0;i<this.postProcesses.length; i++) {
                 this.postProcesses[i].renderAsync();
             }
         }
-
-
 
         this.renderEnd = performance.now();
         this.callClear();
