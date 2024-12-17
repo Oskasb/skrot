@@ -1,4 +1,4 @@
-import {MeshStandardMaterial} from "../../../../../libs/three/materials/Materials.js";
+import {MeshPhysicalMaterial, MeshStandardMaterial} from "../../../../../libs/three/materials/Materials.js";
 import {getJsonByFileName, getJsonUrlByFileName} from "../../../application/utils/DataUtils.js";
 import {MATH} from "../../../application/MATH.js";
 import {loadAsset, loadAssetTexture} from "../../../application/utils/AssetUtils.js";
@@ -8,7 +8,7 @@ import * as constants from "../../../../../libs/three/constants.js";
 let mats = 0;
 let materials = {};
 materials['MeshStandardMaterial'] = MeshStandardMaterial;
-
+materials['MeshPhysicalMaterial'] = MeshPhysicalMaterial;
 class ModelMaterial {
     constructor() {
         let settings = {

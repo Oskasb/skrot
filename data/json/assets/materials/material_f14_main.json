@@ -1,5 +1,5 @@
 {
-  "material": "MeshStandardMaterial",
+  "material": "MeshPhysicalMaterial",
   "textures": [
     { "slot":"map",           "tx": "texture_plane_atlas"},
     { "slot":"normalMap",     "tx": "texture_plane_atlas_normal"},
@@ -10,6 +10,6 @@
   "settings": {
     "metalness": 1.7,
     "roughness": 0.9,
-    "aoMapIntensity": 1.3
+    "aoMapIntensity": 1.0
   }
 }

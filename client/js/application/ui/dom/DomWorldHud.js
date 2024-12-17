@@ -1,14 +1,16 @@
 import {poolFetch} from "../../utils/PoolUtils.js";
 import {ENUMS} from "../../ENUMS.js";
-import {addClickFunction} from "./DomUtils.js";
+import {addClickFunction, addElementClass, removeElementClass} from "./DomUtils.js";
 import {getPlayerActor} from "../../utils/ActorUtils.js";
 import {DomSettings} from "./DomSettings.js";
+import {remove} from "../../../../../libs/jsm/libs/tween.module.js";
 
 class DomWorldHud {
     constructor() {
 
         let rightBarElement = null;
         let statusMap = {};
+        let buttonDivs = {};
 
         function update() {
 
@@ -26,19 +28,27 @@ class DomWorldHud {
         }
 
 
-        let openSettings = function() {
-            let settings = new DomSettings()
+        let toggleSettings = function() {
 
-            function settingsClosed() {
+            if (statusMap.settings) {
+                statusMap.settings.closeDomSettings();
+                statusMap.settings = null;
+            } else {
 
+                function settingsClosed() {
+                    removeElementClass(buttonDivs.settingsDiv, 'bar_button_active')
+                }
+
+                statusMap.settings = new DomSettings()
+                statusMap.settings.initDomSettings(settingsClosed)
+                addElementClass(buttonDivs.settingsDiv, 'bar_button_active')
             }
 
-            settings.initDomSettings(settingsClosed)
         }
 
         function rightBarReady() {
-            let settingsDiv = rightBarElement.call.getChildElement('button_settings');
-            addClickFunction(settingsDiv, openSettings)
+            buttonDivs.settingsDiv = rightBarElement.call.getChildElement('button_settings');
+            addClickFunction(buttonDivs.settingsDiv, toggleSettings)
             ThreeAPI.registerPrerenderCallback(update);
         }
 

@@ -13,6 +13,7 @@ import {evt} from "../../application/event/evt.js";
 import {ENUMS} from "../../application/ENUMS.js";
 import {MATH} from "../../application/MATH.js";
 import {getFrame} from "../../application/utils/DataUtils.js";
+import {getSetting} from "../../application/utils/StatusUtils.js";
 
 let statusMap = {
     transitionProgress:0,
@@ -93,7 +94,6 @@ class ThreeEnvironment {
 
         new PipelineObject("ASSETS", "WORLD", worldListLoaded);
 
-
     };
 
 
@@ -110,7 +110,7 @@ class ThreeEnvironment {
         texture.needsUpdate = true;
     }
 
-    setCanvasColor(ctx, tx) {
+    setCanvasColor() {
         let _this = this;
         let config = this.currentEnvConfig;
 
@@ -120,37 +120,32 @@ class ThreeEnvironment {
 
         let evFact = Math.min(this.camera.position.y*0.00005, 0.099);
 
+        let envTx = this.sky.envtx;
+        let bkTx = this.sky.tx;
+        let ctx = bkTx.ctx;
+/*
+        if (MATH.isOddNumber(getFrame().frame)) {
+            envTx = this.sky.envtx2;
+            bkTx = this.sky.tx2;
+        }
+*/
         let grd = ctx.createLinearGradient(0,0,0, _this.ctxHeight);
-        grd.addColorStop(0.99  , ThreeAPI.toGradRgb( ambColor[0]*0.3, ambColor[1]*0.3,  ambColor[2]*0.3));
+        grd.addColorStop(0.99  , ThreeAPI.toGradRgb( ambColor[0]*0.7, ambColor[1]*0.7,  ambColor[2]*0.7));
         grd.addColorStop(0.8, ThreeAPI.toGradRgb( ambColor[0]*0.5+fogColor[0]*0.5, ambColor[1]*0.5+fogColor[1]*0.5,  ambColor[2]*0.5+fogColor[2]*0.5));
-        grd.addColorStop(0.5, ThreeAPI.toGradRgb( ambColor[0]*0.3+fogColor[0]*0.98, ambColor[1]*0.3+fogColor[1]*0.98,  ambColor[2]*0.3+fogColor[2]*0.98));
-        grd.addColorStop(0.35, ThreeAPI.toGradRgb( ambColor[0]*0.1+fogColor[0]*0.7+sunColor[0]*0.1, ambColor[1]*0.1+fogColor[1]*0.7+sunColor[1]*0.1,  ambColor[2]*0.1+fogColor[2]*0.7+sunColor[2]*0.1));
-        grd.addColorStop(0.16, ThreeAPI.toGradRgb( fogColor[0]*0.8+sunColor[0]*0.1, fogColor[1]*0.8+sunColor[1]*0.1,  fogColor[2]*0.8+sunColor[2]*0.1));
-        grd.addColorStop(0.01, ThreeAPI.toGradRgb( fogColor[0]*0.9+sunColor[0]*0.1, fogColor[1]*0.9+sunColor[1]*0.1,  fogColor[2]*0.9+sunColor[2]*0.1));
+        grd.addColorStop(0.5, ThreeAPI.toGradRgb( ambColor[0]*0.6+fogColor[0]*0.98+sunColor[0]*0.3, ambColor[1]*0.6+fogColor[1]*0.98+sunColor[1]*0.3,  ambColor[2]*0.6+fogColor[2]*0.98+sunColor[2]*0.3));
+        grd.addColorStop(0.35, ThreeAPI.toGradRgb( ambColor[0]*0.1+fogColor[0]*0.7+sunColor[0]*0.4, ambColor[1]*0.1+fogColor[1]*0.7+sunColor[1]*0.4,  ambColor[2]*0.1+fogColor[2]*0.7+sunColor[2]*0.4));
+        grd.addColorStop(0.16, ThreeAPI.toGradRgb( fogColor[0]*0.8+sunColor[0]*0.4, fogColor[1]*0.8+sunColor[1]*0.4,  fogColor[2]*0.8+sunColor[2]*0.4));
+        grd.addColorStop(0.01, ThreeAPI.toGradRgb( fogColor[0]*0.9+sunColor[0]*0.6, fogColor[1]*0.9+sunColor[1]*0.6,  fogColor[2]*0.9+sunColor[2]*0.6));
 
         ctx.fillStyle=grd;
         ctx.fillRect(0, 0, _this.ctxWidth, _this.ctxHeight);
 
-        let envTx = this.sky.envtx;
+        this.blendCanvasCtxToTexture(ctx, this.sky.envtx2)
+    //    this.blendCanvasCtxToTexture(ctx, this.sky.envtx2)
 
-        if (MATH.isOddNumber(getFrame().frame)) {
-            envTx = this.sky.envtx2;
-        }
-
-        this.blendCanvasCtxToTexture(ctx, envTx)
-        this.scene.environment = envTx;
-    /*
-        if (Math.random() < 0.1) {
-            this.scene.environment = null;
-        } else {
-            this.scene.environment = this.sky.envtx;
-        }
-        */
-        // this.scene.environment.needsUpdate = true;
         grd = ctx.createLinearGradient(0,0,0, _this.ctxHeight);
 
-        grd.addColorStop(0, ThreeAPI.toGradRgb( ambColor[0]*0.4, ambColor[1]*0.45,  ambColor[2]*0.5));
-
+        grd.addColorStop(0,    ThreeAPI.toGradRgb( ambColor[0]*0.4, ambColor[1]*0.45,  ambColor[2]*0.5));
         grd.addColorStop(0.25, ThreeAPI.toGradRgb((fogColor[0]*0.01 + ambColor[0]*0.6 +sunColor[0]*0.01) *0.3 ,(fogColor[1]*0.1 + ambColor[1]*0.5 +sunColor[1]*0.01) * 0.7  , (fogColor[2]*0.01 + ambColor[2]*0.8 +sunColor[2]*0.3)*0.99));
         grd.addColorStop(0.40, ThreeAPI.toGradRgb((fogColor[0]*0.04 + ambColor[0]*0.7 +sunColor[0]*0.01) *0.7  ,(fogColor[1]*0.2 + ambColor[1]*0.4 +sunColor[1]*0.15) * 0.85  , (fogColor[2]*0.05 + ambColor[2]*0.4 +sunColor[2]*0.7)*0.96));
         grd.addColorStop(0.46, ThreeAPI.toGradRgb((fogColor[0]*0.2  + ambColor[0]*0.8 +sunColor[0]*0.1) *0.9  ,(fogColor[1]*0.3 + ambColor[1]*0.2 +sunColor[1]*0.3) * 0.9  , (fogColor[2]*0.1 + ambColor[2]*0.5 +sunColor[2]*0.7)*0.9 ));
@@ -171,12 +166,33 @@ class ThreeEnvironment {
         ctx.fillStyle=grd;
         ctx.fillRect(0, 0, _this.ctxWidth, _this.ctxHeight);
 
-
     //    evt.dispatch(ENUMS.Event.SKY_GRADIENT_UPDATE, ctx);
 
+        this.sky.envtx.needsUpdate = true;
+        this.sky.envtx2.needsUpdate = true;
+        this.sky.tx.needsUpdate = true;
+        this.sky.tx2.needsUpdate = true;
 
+        envTx.needsUpdate = true;
+        bkTx.needsUpdate = true;
 
-        tx.needsUpdate = true;
+    //    if (Math.random() < 0.5) {
+
+            this.scene.environment = ThreeAPI.newCanvasTexture(this.sky.envtx.canvas) // this.sky.tx;
+            this.scene.environment.mapping = EquirectangularReflectionMapping;
+            this.scene.environment.needsUpdate = true;
+            this.scene.background = ThreeAPI.newCanvasTexture(this.sky.tx.canvas) // this.sky.tx;
+            this.scene.background.mapping = EquirectangularReflectionMapping;
+            this.scene.background.needsUpdate = true;
+    /*
+        } else {
+            this.scene.environment = this.sky.envtx2;
+            this.scene.background = this.sky.tx2;
+        }
+
+     */
+    //    this.scene.needsUpdate = true;
+
     };
 
     applyColor = function(Obj3d, color) {
@@ -189,17 +205,13 @@ class ThreeEnvironment {
                 Obj3d.color = new Color(color[0],color[1], color[2]);
             }
         }
-
+        Obj3d.needsUpdate = true;
     };
 
     applyFog = function(Obj3d, density) {
         Obj3d.density = density * 0.3;
         Obj3d.near = 1;
         Obj3d.far = 1/density;
-    };
-
-    applyFromBuffer = function(buffer) {
-
     };
 
     applyEnvironment = function() {
@@ -409,15 +421,15 @@ class ThreeEnvironment {
                     if (MATH.stupidChecksumArray(lastStatus['sunColor']) === statusMap['sunColor']) {
 
                      } else {
-                        statusMap.transitionProgress = 0.99;
+                     //   statusMap.transitionProgress = 0.99;
                         statusMap.write = true;
                     }
                 } else {
-                    statusMap.transitionProgress = 0.99;
+                 //   statusMap.transitionProgress = 0.99;
                     statusMap.write = true;
                 }
             } else {
-                statusMap.transitionProgress = 0.99;
+            //    statusMap.transitionProgress = 0.99;
                 statusMap.write = true;
             }
         }
@@ -425,20 +437,42 @@ class ThreeEnvironment {
         return MATH.calcFraction(0, this.transitionTime, statusMap.transitionProgress);
     };
 
+    setEnvConfigId(envConfId, time) {
+        console.log("Set Env ", envConfId)
+        this.transitionTime = time || 0;
+        statusMap.transitionProgress = 0;
+        this.currentEnvId = envConfId;
+        statusMap.write = false;
+        this.currentEnvConfig = this.envList[envConfId]
+        this.applyEnvironment();
+        this.setCanvasColor();
+        statusMap.write = false;
+        this.interpolateEnv(this.currentEnvConfig, this.envList[this.currentEnvId], 0.99);
+
+    }
+
     tick(tpf) {
 
         let camPos = ThreeAPI.getCamera().position
 
         if (!this.sky) return;
         //    console.log("Tick Env", tpf)
+        let fraction = this.calcTransitionProgress(tpf * 1.0);
 
-        if (this.scene.background !== this.sky.tx) {
-            this.scene.background = this.sky.tx;
+        let listIndex = getSetting(ENUMS.Settings.ENVIRONMENT_INDEX);
+
+        let force = false;
+
+        if (statusMap.envIndex !== listIndex) {
+            statusMap.envIndex = listIndex;
+            this.setEnvConfigId(statusMap.configIds[listIndex], 0.01);
+            fraction = 0.5;
+            force = true;
         }
 
         // waterFx.tickWaterEffect(tpf);
     //    this.sky.mesh.position.copy(camPos);
-        let fraction = this.calcTransitionProgress(tpf * 1.0);
+
 
         //    t+=evt.args(e).tpf
         //    fraction = fraction;
@@ -467,16 +501,16 @@ class ThreeEnvironment {
 */
 
         let useSky = this.currentSkyConfig;
-        if (fraction > 1.01) {
 
-        } else {
+        if (fraction < 1) {
             useSky = this.interpolateSky(this.currentSkyConfig, this.skyList[this.currentEnvId], fraction);
-            this.interpolateEnv(this.currentEnvConfig, this.envList[this.currentEnvId], fraction);
-            this.applySkyConfig();
-            if (this.sky.ctx) {
-                this.setCanvasColor(this.sky.ctx, this.sky.tx);
+            if (force === false) {
+                this.interpolateEnv(this.currentEnvConfig, this.envList[this.currentEnvId], fraction);
+                if (this.sky.ctx) {
+                    this.setCanvasColor();
+                }
             }
-            //   }
+
         }
         this.theta = Math.PI * ( useSky.inclination - 0.5 );
         this.phi = 2 * Math.PI * ( useSky.azimuth - 0.5 );
@@ -518,49 +552,24 @@ class ThreeEnvironment {
         //   calcVec.normalize();
         //   calcVec2.normalize();
 
-        let sunInTheBack = this.calcVec.dot(this.calcVec2);
+    //    let sunInTheBack = this.calcVec.dot(this.calcVec2);
 
-        this.updateDynamigFog(sunInTheBack);
-        this.updateDynamigAmbient(sunInTheBack);
-
+    //    this.updateDynamigFog(sunInTheBack);
+    //    this.updateDynamigAmbient(sunInTheBack);
 
         this.applyEnvironment();
-        //   if (fraction <= 1) {
 
-
-        //   applyFromBuffer(envBuffer);
     };
 
     readDynamicValue = function(worldProperty, key) {
         return this.world[worldProperty][key];
     };
 
-    getEnvironmentDynamicWorld = function() {
-        return this.world;
-    };
-
     enableEnvironment = function(threeEnv) {
         if (threeEnv.enabled) return;
         threeEnv.enabled = true;
-    //    threeEnv.scene.add( threeEnv.sky.mesh );
-    //    ThreeAPI.getReflectionScene().add(threeEnv.sky.meshClone);
     };
 
-    getEnvConfigs = function() {
-        return this.envList;
-    };
-
-    getCurrentEnvId = function() {
-        return this.currentEnvId;
-    };
-
-    disableEnvironment = function() {
-        if (!this.enabled) return;
-        this.enabled = false;
-    //    this.scene.remove( sky.mesh );
-        // ThreeAPI.getReflectionScene().remove(sky.meshClone);
-    //    ThreeAPI.getSetup().removePostrenderCallback(tickEnvironment);
-    };
 
 
 
@@ -569,14 +578,14 @@ class ThreeEnvironment {
         let _this = this;
 
         let setEnvConfigId = function(envConfId, time) {
-            this.transitionTime = time || 225;
+            this.transitionTime = time || 1;
             statusMap.transitionProgress = 0;
             this.currentEnvId = envConfId;
+            statusMap.write = false;
         }.bind(this);
 
         let advanceEnv = function(envArgs) {
-            statusMap.write = false;
-                setEnvConfigId(envArgs.envId, envArgs.time);
+            setEnvConfigId(envArgs.envId, envArgs.time);
         //    console.log("Advance ENV ", envArgs, _this.currentEnvId, _this.envList);
         };
 
@@ -588,6 +597,9 @@ class ThreeEnvironment {
         evt.on(ENUMS.Event.ADVANCE_ENVIRONMENT, advanceEnv);
 
         let canvas = document.createElement("canvas");
+    //    let cnv2 = document.createElement("canvas");
+
+
 
         let setupCanvas = function(canvas) {
             canvas.id = 'sky_canvas';
@@ -598,8 +610,10 @@ class ThreeEnvironment {
         };
 
         let bktx = ThreeAPI.newCanvasTexture(canvas);
+        bktx.canvas = canvas;
+        let bkTx2 = ThreeAPI.newCanvasTexture(canvas);
         bktx.mapping = EquirectangularReflectionMapping;
-
+        bkTx2.mapping = EquirectangularReflectionMapping;
 
         let uniforms = {
             luminance: { value: 1 },
@@ -610,20 +624,22 @@ class ThreeEnvironment {
             sunPosition: { value: new Vector3() }
         };
 
+    //    bkTx2.ctx = setupCanvas(cnv2);
+        bktx.ctx = setupCanvas(canvas);
+        bktx.canvas = canvas;
+        bkTx2.ctx = bktx.ctx
         let sky = {
         //    mesh:skyMesh,
-            ctx:setupCanvas(canvas),
-            tx:bktx
+            ctx:bktx.ctx,
+            tx:bktx,
+            tx2:bkTx2
         //    uniforms:uniforms
         }
 
         _this.sky = sky;
         _this.ctx = sky.ctx;
         _this.ctx.globalCompositeOperation = "source-over"
-    //    this.setCanvasColor(sky.ctx, sky.tx);
 
-    //    this.sky.meshClone = this.sky.mesh.clone();
-        // Add Sun Helper
 
         this.sunSphere = new Mesh(
             new SphereGeometry( 20, 16, 8 ),
@@ -674,14 +690,9 @@ class ThreeEnvironment {
 
 
 
-            //    setTimeout(function() {
-                //    scene.background = sky.tx;
-            //    },100)
-
-
-
                 let canvas2 = document.createElement("canvas");
                 let envtx = ThreeAPI.newCanvasTexture(canvas2);
+                envtx.canvas = canvas2;
                 let envtx2 = ThreeAPI.newCanvasTexture(canvas2);
                 envtx.originalBitmap = txSrc;
                 envtx.mapping = EquirectangularReflectionMapping;
@@ -707,12 +718,17 @@ class ThreeEnvironment {
         };
 
 
+
+
         let environmentListLoaded = function(scr, data) {
 
 
+            statusMap.configIds = [];
 
             for (let i = 0; i < data.length; i++){
 
+                console.log("Env data", data[i])
+                statusMap.configIds.push(data[i].id)
                 _this.envList[data[i].id] = {};
                 _this.skyList[data[i].id] = {};
                 let configs = data[i].configs;

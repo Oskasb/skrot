@@ -39,7 +39,7 @@ function pipeMsgCB(msg, e, url) {
 }
 
 function pipeMsgLoadInitCB(msg, url) {
-    console.log("pipeMsgLoadInitCB", url);
+//    console.log("pipeMsgLoadInitCB", url);
     for (let i = 0; i < loadCalls.length; i++) {
         if (loadCalls[i].key === url) {
         //    console.log("Request already sent before return", url);

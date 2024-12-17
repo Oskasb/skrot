@@ -13,10 +13,8 @@ let page0 = {
     label:'GENERAL',
     icon_class:'icon_settings',
     settings:[
-    //    {name:'Battle Cam',    key:ENUMS.Settings.BATTLE_CAMERA_MODE, type:'select', list:["CAM_MOVE", "CAM_ENCOUNTER"]},
-        {name:'3D Tile Boxes', key:ENUMS.Settings.DRAW_TILE_BOXES, type:'range', min:0, max:1, default:1},
+        {name:'Environment', key:ENUMS.Settings.ENVIRONMENT_INDEX, type:'range', min:0, max:9, default:0},
         {name:'3D Pixel Size', key:ENUMS.Settings.RENDER_SCALE, type:'range', min:1, max:8, default:1},
-        {name:'Network Random Delay', key:ENUMS.Settings.NETWORK_RANDOM_DELAY, type:'range', min:0, max:1000, default:0},
         {name:'Axis Cam Vertical', key:ENUMS.Settings.CAMERA_VERTICAL, type:'range', min:-100, max:100, default:30},
         {name:'Axis Cam Horizontal', key:ENUMS.Settings.CAMERA_HORIZONTAL, type:'range', min:-100, max:100, default:30},
         {name:'Zoom Strength', key:ENUMS.Settings.ZOOM_STRENGTH, type:'range', min:-100, max:100, default:50},
@@ -24,8 +22,7 @@ let page0 = {
         {name:'Instance Multiplier', key:ENUMS.Settings.INSTANCE_MULTIPLIER, type:'range', min:1, max:5, default:1},
         {name:'View Distance', key:ENUMS.Settings.VIEW_DISTANCE, type:'range', min:0, max:10, default:1},
         {name:'Vegetation Density', key:ENUMS.Settings.VEGETATION_DENSITY, type:'range', min:1, max:20, default:4},
-        {name:'Vegetation Range', key:ENUMS.Settings.VEGETATION_RANGE, type:'range', min:0, max:5, default:2},
-        {name:'Adv Auto Select Dist', key:ENUMS.Settings.ADVENTURE_AUTO_SELECT_DISTANCE, type:'range', min:0, max:80, default:2}
+        {name:'Vegetation Range', key:ENUMS.Settings.VEGETATION_RANGE, type:'range', min:0, max:5, default:2}
     ]
 }
 

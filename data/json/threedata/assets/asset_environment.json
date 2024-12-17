@@ -10,7 +10,7 @@
           },
           "configs":[
             {"id":"sun",     "color":[1.0,  0.85,  0.15]},
-            {"id":"ambient", "color":[0.30, 0.45,  0.85]},
+            {"id":"ambient", "color":[0.20, 0.35,  0.85]},
             {"id":"fog",     "color":[0.46, 0.79,  0.99], "density":0.015}
           ]
         },
@@ -22,7 +22,7 @@
             "distance":          1000000000
           },
           "configs":[
-            {"id":"sun",     "color":[0.95,   0.55,  0.710]},
+            {"id":"sun",     "color":[0.95,   0.55,  0.2]},
             {"id":"ambient", "color":[0.45,   0.01,  0.31]},
             {"id":"fog",     "color":[0.44,   0.01,  0.215], "density":0.014}
           ]
@@ -35,8 +35,8 @@
             "distance":          1000000000
           },
           "configs":[
-            {"id":"sun",     "color":[1.25,  0.75,  0.15]},
-            {"id":"ambient", "color":[0.01,  0.31,  0.75]},
+            {"id":"sun",     "color":[0.95,  0.75,  0.05]},
+            {"id":"ambient", "color":[0.01,  0.11,  0.65]},
             {"id":"fog",     "color":[0.55,  0.25,  0.01],  "density":0.014}
           ]
         },
@@ -48,8 +48,8 @@
             "distance":        1000000000
           },
           "configs":[
-            {"id":"sun",     "color":[1.0, 0.92,  0.4]},
-            {"id":"ambient", "color":[0.20,  0.6,  0.8]},
+            {"id":"sun",     "color":[1.0, 0.82,  0.1]},
+            {"id":"ambient", "color":[0.0,  0.2,  0.4]},
             {"id":"fog",     "color":[0.35, 0.73,  0.85], "density":0.013}
           ]
         },
@@ -61,8 +61,8 @@
             "distance":        1000000000
           },
           "configs":[
-            {"id":"sun",     "color":[1.0,   0.95,  0.65]},
-            {"id":"ambient", "color":[0.20,  0.25,  0.35]},
+            {"id":"sun",     "color":[1.0,   0.95,  0.35]},
+            {"id":"ambient", "color":[0.03,  0.08,  0.35]},
             {"id":"fog",     "color":[0.96,  0.89,  0.69], "density":0.009}
           ]
         },
@@ -127,7 +127,7 @@
           },
           "configs":[
             {"id":"sun",     "color":[0.0,  0.88,  0.16]},
-            {"id":"ambient", "color":[0.0,  0.00,  0.60]},
+            {"id":"ambient", "color":[0.0,  0.00,  0.80]},
             {"id":"fog",     "color":[0.0,  0.01,  0.05], "density":0.045}
           ]
         }
