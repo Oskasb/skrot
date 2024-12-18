@@ -277,7 +277,7 @@ class HtmlElement {
         }
         index++;
         this.id = url+"_"+index;
-        let file = "client/html/"+url+".html";
+        let file = "./client/html/"+url+".html";
 
         this.iframe = null;
 
