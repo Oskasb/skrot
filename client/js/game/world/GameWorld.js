@@ -7,6 +7,7 @@ class GameWorld {
 
         function loadGamePiece(name, callback) {
             let controllable = poolFetch('ControllablePiece');
+            controllable.initControllable(name, callback);
         }
 
         function update() {

@@ -1,18 +1,25 @@
 import {JsonAsset} from "../../application/load/JsonAsset.js";
 import {poolFetch} from "../../application/utils/PoolUtils.js";
 import {loadAssetInstance} from "../../application/utils/AssetUtils.js";
+import {SimpleStatus} from "../../application/setup/SimpleStatus.js";
 
 class ControllablePiece {
     constructor() {
-        let statusMap = {
-            controllablePiece:this
-        }
-        this.statusMap = statusMap;
+        let status = new SimpleStatus()
+        this.status = status;
 
         this.call = {
 
         }
 
+    }
+
+    getStatus(key) {
+        return this.status.getStatus(key);
+    }
+
+    setStatusKey(key, status) {
+        this.status.setStatusKey(key, status);
     }
 
     getAssetInstance() {
@@ -33,7 +40,7 @@ class ControllablePiece {
         }
 
         function onData(json) {
-            statusMap.json = json;
+            _this.json = json;
             loadAssetInstance(json['controllable'], controllableLoaded)
         }
 

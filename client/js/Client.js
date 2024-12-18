@@ -157,7 +157,8 @@ class Client{
         }
         let worldHud = new DomWorldHud();
         init3d();
-        startGameWorld()
+        setTimeout(startGameWorld, 1000)
+        //startGameWorld()
     }
 
 }

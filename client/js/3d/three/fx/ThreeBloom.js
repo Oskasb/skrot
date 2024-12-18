@@ -17,7 +17,7 @@ class ThreeBloom{
             const outputPass = scenePass.getTextureNode();
             const emissivePass = scenePass.getTextureNode( 'emissive' );
 
-            const bloomPass = bloom( emissivePass, 2.0, 0.5, 0 );
+            const bloomPass = bloom( emissivePass, 1.4, 1.05, 0 );
             let postProcessing = new PostProcessing( renderer );
             postProcessing.outputNode = outputPass.add( bloomPass );
 
