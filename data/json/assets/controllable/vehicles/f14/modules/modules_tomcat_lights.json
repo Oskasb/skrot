@@ -1,0 +1,208 @@
+[{
+  "MODULES":{
+
+    "EXTERNAL_LIGHTS_F14":[
+      {
+        "id":"light_col_tip_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.5, "factor":1},
+
+          "source":"wing_l",
+          "sampleSource":"sampleLight",
+
+          "target":"light_col_tip_l",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_col_tip_l", "threshold":0.01, "factor":0.98, "scale":6, "effects":["flare_dot_light_effect"], "color":"red_2"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+      {
+        "id":"light_col_tip_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.5, "factor":1},
+
+          "source":"wing_r",
+          "sampleSource":"sampleLight",
+
+          "target":"light_col_tip_r",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_col_tip_r", "threshold":0.01, "factor":0.98, "scale":6,  "effects":["flare_dot_light_effect"], "color":"green_2"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+
+      {
+        "id":"light_col_glove_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.5, "factor":1},
+
+          "source":"glove_l",
+          "sampleSource":"sampleLight",
+
+          "target":"light_col_glove_l",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_col_glove_l", "threshold":0.01, "factor":0.98, "scale":4, "effects":["flare_dot_light_effect"], "color":"red_2"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+      {
+        "id":"light_col_glove_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.5, "factor":1},
+
+          "source":"glove_r",
+          "sampleSource":"sampleLight",
+
+          "target":"light_col_glove_r",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_col_glove_r", "threshold":0.01, "factor":0.98, "scale":4,  "effects":["flare_dot_light_effect"], "color":"green_2"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+
+      {
+        "id":"light_col_glove_ld",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.5, "factor":1},
+
+          "source":"glove_l",
+          "sampleSource":"sampleLight",
+
+          "target":"light_col_glove_ld",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_col_glove_ld", "threshold":0.01, "factor":0.98, "scale":4, "effects":["flare_dot_light_effect"], "color":"red_2"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+      {
+        "id":"light_col_glove_rd",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.5, "factor":1},
+
+          "source":"glove_r",
+          "sampleSource":"sampleLight",
+
+          "target":"light_col_glove_rd",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_col_glove_rd","threshold":0.01, "factor":0.98, "scale":4,  "effects":["flare_dot_light_effect"], "color":"green_2"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+
+      {
+        "id":"light_col_rear_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.5, "factor":1},
+
+          "source":"rear_r",
+          "sampleSource":"sampleLight",
+
+          "target":"light_col_rear_r",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_col_rear_r", "threshold":0.02, "factor":1, "scale":5,  "effects":["flare_dot_light_effect"], "color":"red_2"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+      {
+        "id":"light_pos_chinpod",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
+
+          "source":"pos_chinpod",
+          "sampleSource":"sampleLight",
+
+          "target":"light_pos_chinpod",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_pos_chinpod", "threshold":0.4, "factor":1, "scale":4,  "effects":["flare_dot_light_effect"], "color":"red_2"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+      {
+        "id":"light_land_rear_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
+
+          "source":"rear_l",
+          "sampleSource":"sampleLight",
+
+          "target":"light_land_rear_l",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_land_rear_l", "threshold":0.04, "factor":1, "scale":7,  "effects":["flare_dot_light_effect"], "color":"yellow_5"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+      {
+        "id":"light_land_nose",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
+
+          "source":"nose",
+          "sampleSource":"sampleLight",
+
+          "target":"light_land_nose",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_land_nose", "threshold":0.4, "factor":1, "scale":7,  "effects":["flare_dot_light_effect"], "color":"yellow_5"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+
+      {
+        "id":"light_nav_rear",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
+
+          "source":"collision_l",
+          "sampleSource":"sampleLight",
+
+          "target":"light_nav_rear",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_nav_rear", "threshold":0.4, "factor":1, "scale":4,  "effects":["flare_dot_light_effect"], "color":"orange_2"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+
+      {
+        "id":"light_nav_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
+
+          "source":"coll_low_l",
+          "sampleSource":"sampleLight",
+
+          "target":"light_nav_l",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_nav_l", "threshold":0.4, "factor":1, "scale":3,  "effects":["flare_dot_light_effect"], "color":"red_3"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      },
+
+      {
+        "id":"light_nav_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":1, "factor":1},
+
+          "source":"coll_low_r",
+          "sampleSource":"sampleLight",
+
+          "target":"light_nav_r",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"light_nav_r", "threshold":0.4, "factor":1, "scale":3,  "effects":["flare_dot_light_effect"], "color":"green_3"},
+          "effectFunction":"moduleAttachedLightEffect"
+        }
+      }
+    ]
+  }
+}]

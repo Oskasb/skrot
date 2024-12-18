@@ -1,0 +1,151 @@
+[{
+  "MODULES":{
+
+    "EXTERNAL_F14":[
+      {
+        "id":"offset_one",
+        "data":{
+          "state":{"value":1, "min":1, "max":1, "speed":1, "factor":1},
+          "sampleSource":"effectEmitter",
+          "source":"offset_one",
+          "target":"offset_one",
+          "applyState":"effectEmitter",
+
+          "effectFunction":"applyFeedbackOffsets",
+          "feedback":{}
+
+        }
+      },
+      {
+        "id":"canopy",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.6},
+          "source":"canopy",
+          "target":"canopy",
+          "feedback":"canopy",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+
+        }
+      },
+
+      {
+        "id":"cam_ext",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.6},
+          "source":"cam_ext",
+          "target":{"id":"cam_ext", "zero_ctrl":["cam_pilot"], "slerp":0.93},
+          "feedback":{},
+          "sampleSource":"sampleControl",
+          "applyState":"cameraMode",
+          "effectFunction":"zeroEffect"
+
+        }
+      },
+
+      {
+        "id":"cam_plt",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.6},
+          "source":"cam_pilot",
+
+          "feedback":{},
+          "sampleSource":"sampleControl",
+          "target":{"id":"cam_plt", "zero_ctrl":["cam_ext"], "slerp":0.91},
+          "applyState":"cameraMode",
+          "effectFunction":"zeroEffect"
+
+        }
+      },
+
+      {
+        "id":"hook",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.05, "factor":0.65},
+          "source":"hook",
+          "target":"hook",
+          "feedback":"hook",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+
+      {
+        "id":"nozzle_l",
+        "data":{
+          "state":{"value":0.01, "min":0.01, "max":1, "speed":0.01, "factor":-0.41, "offset":-0.995},
+          "source":{"id":"jet_1", "min":0.55, "max":1.01, "factor":1.1, "offset":0.01},
+          "target":"nozzle_l",
+          "feedback":"nozzle_l",
+          "sampleSource":"slaveModule",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneScaleUniform"
+        }
+      },
+
+      {
+        "id":"nozzle_r",
+        "data":{
+          "state":{"value":0.01, "min":0.01, "max":1, "speed":0.01, "factor":-0.41, "offset":-0.995},
+          "source":{"id":"jet_2", "min":0.55, "max":1.01, "factor":1.1, "offset":0.01},
+          "target":"nozzle_r",
+          "feedback":"nozzle_r",
+          "sampleSource":"slaveModule",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneScaleUniform"
+        }
+      },
+
+      {
+        "id":"force_1",
+        "data":{
+          "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
+          "source":{"id":"elev_1", "key":"ACTING_FORCE_Y", "factor":0.00000015},
+          "target":"stab_flex_l",
+          "feedback":"stab_flex_l",
+          "sampleSource":"sampleShape",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationY"
+        }
+      },
+      {
+        "id":"force_2",
+        "data":{
+          "state":{"value":0, "min":-10000, "max":10000, "speed":0.5, "factor":1.0},
+          "source":{"id":"elev_2", "key":"ACTING_FORCE_Y", "factor":0.00000015},
+          "target":"stab_flex_r",
+          "feedback":"stab_flex_r",
+          "sampleSource":"sampleShape",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationY"
+        }
+      },
+      {
+        "id":"force_3",
+        "data":{
+          "state":{"value":0, "min":-0.97, "max":0.5, "speed":0.15, "factor":1.0},
+          "source":{"id":"pivot_l", "key":"ACTING_FORCE_Y", "factor":-0.00000045},
+          "target":{"id":"pivot_l", "rot":"rotateZ", "factor":-0.13},
+          "feedback":"wing_flex_l",
+          "sampleSource":"sampleShape",
+          "applyState":"rotateShape",
+          "effectFunction":"setBoneRotationY"
+        }
+      },
+      {
+        "id":"force_4",
+        "data":{
+          "state":{"value":0, "min":-0.97, "max":0.5, "speed":0.15, "factor":1.0},
+          "source":{"id":"pivot_r", "key":"ACTING_FORCE_Y", "factor":-0.00000045},
+          "target":{"id":"pivot_r", "rot":"rotateZ", "factor":0.13},
+          "feedback":"wing_flex_r",
+          "sampleSource":"sampleShape",
+          "applyState":"rotateShape",
+          "effectFunction":"setBoneRotationY"
+        }
+      }
+    ]
+  }
+}]

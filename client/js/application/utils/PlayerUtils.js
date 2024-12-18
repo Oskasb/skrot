@@ -328,6 +328,16 @@ function getActivePlayerActors() {
 
 }
 
+let gamePlayer;
+
+function setGamePlayer(player) {
+    gamePlayer = player;
+}
+
+function getGamePlayer() {
+    return gamePlayer;
+}
+
 export {
     loadStoredPlayer,
     initLoadedPlayerState,
@@ -336,5 +346,7 @@ export {
     playerCanAffordItem,
     testSeekPartyEncounterActive,
     activateSeekPartyEncounter,
-    getActivePlayerActors
+    getActivePlayerActors,
+    setGamePlayer,
+    getGamePlayer
 }

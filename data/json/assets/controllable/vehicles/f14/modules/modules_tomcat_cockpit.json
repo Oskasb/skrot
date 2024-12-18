@@ -1,0 +1,240 @@
+[{
+  "MODULES":{
+
+    "COCKPIT_F14":[
+      {
+        "id":"mst_light",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+          "source":"master_light",
+          "target":"master_light",
+          "sampleSource":"sampleControl",
+          "applyState":"flightComputerMasterSystem",
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"zz_99", "gain":1}}
+        }
+      },
+      {
+        "id":"form_lights",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.25, "factor":1.0},
+          "source":"formation_lights",
+
+          "sampleSource":"sampleControl",
+          "applyState":"lightMasterSystem",
+
+          "target":{
+            "lights":[
+              {"id":"formation" ,   "gain":1, "offset":0}
+            ],
+            "curve":"constantOne",
+            "cycle_time":1.2
+          },
+
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"yy_99", "gain":1}}
+
+        }
+      },
+      {
+        "id":"collision_lights",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+
+          "source":"collision_lights",
+          "sampleSource":"sampleControl",
+
+          "applyState":"lightMasterSystem",
+          "target":{
+            "lights":[
+              {"id":"collision_l" ,   "gain":1, "offset":0.01},
+              {"id":"coll_low_l"  ,   "gain":1, "offset":0.33},
+              {"id":"coll_low_r"  ,   "gain":1, "offset":0.66}
+            ],
+            "curve":"centerBlipp",
+            "cycle_time":1.0
+          },
+
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"xx_99", "gain":1}}
+
+        }
+      },
+      {
+        "id":"landing_lights",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.15, "factor":1.0},
+
+          "source":"landing_lights",
+          "sampleSource":"sampleControl",
+
+          "applyState":"lightMasterSystem",
+          "target":{
+            "lights":[
+              {"id":"nose"   ,  "gain":1, "offset":0.0},
+              {"id":"rear_l" ,  "gain":1, "offset":0.25}
+            ],
+            "curve":"centerBlipp",
+            "cycle_time":2.0
+          },
+
+
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"yx_88", "gain":1}}
+        }
+      },
+      {
+        "id":"navigation_lights",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":1.0, "factor":1.0},
+
+          "source":"navigation_lights",
+          "sampleSource":"sampleControl",
+
+          "applyState":"lightMasterSystem",
+          "target":{
+            "lights":[
+
+              {"id":"wing_r"  ,   "gain":1, "offset":0.0},
+              {"id":"glove_l" ,   "gain":1, "offset":0.2},
+              {"id":"wing_l"  ,   "gain":1, "offset":0.4},
+              {"id":"glove_r" ,   "gain":1, "offset":0.6},
+              {"id":"rear_r"  ,   "gain":1, "offset":0.8},
+              {"id":"pos_chinpod",   "gain":1, "offset":0.9}
+
+            ],
+            "curve":"constantOne",
+            "cycle_time":0.08
+          },
+
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"zz_88", "gain":1}}
+        }
+      },
+      {
+        "id":"stick_pitch",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.02, "factor":-0.3},
+          "source":"elevator",
+          "target":"stick_pitch",
+
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"stick_pitch", "rot":"rotateX", "factor":1}
+        }
+      },
+      {
+        "id":"stick_roll",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.02, "factor":0.3},
+          "source":"aeilron",
+          "target":"stick_roll",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+
+
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"stick_roll", "rot":"rotateX", "factor":1}
+        }
+      },
+
+      {
+        "id":"trim_pitch",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":-1},
+          "source":"trim_elevator",
+
+          "sampleSource":"sampleControl",
+
+          "applyState":"trimControl",
+          "target":{"id":"elevator", "factor":0.5},
+
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"x_2", "gain":4}}
+        }
+      },
+
+      {
+        "id":"trim_roll",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":1},
+          "source":"trim_aeilron",
+          "sampleSource":"sampleControl",
+
+          "applyState":"trimControl",
+          "target":{"id":"aeilron", "factor":0.5},
+
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"y_2", "gain":4}}
+        }
+      },
+      {
+        "id":"trim_yaw",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":1},
+          "source":"trim_rudder",
+          "sampleSource":"sampleControl",
+
+          "applyState":"trimControl",
+          "target":{"id":"rudder", "factor":0.5},
+
+          "effectFunction":"applyLightState",
+          "feedback":{"light":{"id":"z_2", "gain":4}}
+        }
+      },
+      {
+        "id":"throttle_l",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.004, "factor":1, "offset":0},
+          "source":"throttle_l",
+
+          "sampleSource":"sampleControl",
+          "applyState":"applyModuleTargetState",
+          "target":{"id":"turbine_l", "min":0.25, "max":1},
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"throttle_l", "rot":"rotateX", "factor":-2, "offset":1}
+        }
+      },
+      {
+        "id":"throttle_r",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.004, "factor":1, "offset":0},
+          "source":"throttle_r",
+
+          "sampleSource":"sampleControl",
+          "applyState":"applyModuleTargetState",
+          "target":{"id":"turbine_r", "min":0.25, "max":1},
+
+          "effectFunction":"applyBoneRotation",
+          "feedback":{"id":"throttle_r", "rot":"rotateX", "factor":-2, "offset":1}
+        }
+      },
+      {
+        "id":"pedal_l",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.35},
+          "source":"rudder",
+          "target":"pedal_l",
+          "feedback":"pedal_l",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      },
+      {
+        "id":"pedal_r",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.05, "factor":0.35},
+          "source":"rudder",
+          "target":"pedal_r",
+          "feedback":"pedal_r",
+          "sampleSource":"sampleControl",
+          "applyState":"effectEmitter",
+          "effectFunction":"setBoneRotationX"
+        }
+      }
+    ]
+  }
+}]

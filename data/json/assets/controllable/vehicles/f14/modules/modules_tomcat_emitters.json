@@ -1,0 +1,57 @@
+[{
+  "MODULES":{
+
+    "WAKE_EMITTERS_F14":[
+      {
+        "id":"wingtip_1",
+        "data":{
+          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":1},
+          "source":"force_3",
+          "target":"wing_1",
+
+          "sampleSource":"sampleModule",
+          "applyState":"effectEmitter",
+
+          "feedback":{"id":"wingtip_1", "threshold":0.0002, "vel":1, "scale":0.8,"effect":"condensation"},
+          "effectFunction":"moduleFittedEffect"
+        }
+      },
+      {
+        "id":"wingtip_2",
+        "data":{
+          "state":{"value":0, "min":-0.5, "max":1, "speed":0.05, "factor":1},
+          "source":"force_3",
+          "target":"wing_2",
+          "feedback":{"id":"wingtip_2", "threshold":0.0002, "vel":1, "scale":0.8, "effect":"condensation"},
+          "sampleSource":"sampleModule",
+          "applyState":"effectEmitter",
+          "effectFunction":"moduleFittedEffect"
+        }
+      },
+      {
+        "id":"body_core_cond_0",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
+          "source":"force_3",
+          "target":"nacell_1",
+          "feedback":{"id":"body_core_0", "threshold":0.1, "vel":1, "effect":"condensation_near"},
+          "sampleSource":"sampleModule",
+          "applyState":"effectEmitter",
+          "effectFunction":"shapeFittedEffect"
+        }
+      },
+      {
+        "id":"body_core_cond_1",
+        "data":{
+          "state":{"value":0, "min":-1, "max":1, "speed":0.01, "factor":1},
+          "source":"force_3",
+          "target":"nacell_1",
+          "feedback":{"id":"body_core_1", "threshold":0.1, "vel":1, "effect":"condensation_near"},
+          "sampleSource":"sampleModule",
+          "applyState":"effectEmitter",
+          "effectFunction":"shapeFittedEffect"
+        }
+      }
+    ]
+  }
+}]

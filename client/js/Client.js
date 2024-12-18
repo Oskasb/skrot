@@ -18,24 +18,34 @@ import {setupSocket} from "./application/utils/SocketUtils.js";
 import {DomWorldHud} from "./application/ui/dom/DomWorldHud.js";
 import {ThreeBloom} from "./3d/three/fx/ThreeBloom.js";
 import {DebugLines} from "./application/debug/lines/DebugLines.js";
+import {GameWorld} from "./game/world/GameWorld.js";
+import {setGameWorld} from "./application/utils/GameUtils.js";
+import {GamePlayer} from "./game/player/GamePlayer.js";
+
+let gameWorld = new GameWorld();
 
 
+function startGameWorld() {
+    setGameWorld(gameWorld);
+    gameWorld.initGameWorld();
+    let player = new GamePlayer();
+    player.enterWorld('controllable_f14')
+
+}
 
 function init3d() {
 
     let store = window.ThreeAPI.initThreeScene(document.body, 1, false)
-
     window.ThreeAPI.initEnvironment(store);
 
     let camera, scene, renderer;
-
     camera = store.camera;
     scene = store.scene;
     renderer = store.renderer;
 
     new ThreeBloom().call.initBloom(scene, camera, renderer)
-    let debugLines = new DebugLines()
- //   ThreeAPI.addPrerenderCallback(debugLines.updateDebugLines);
+    new DebugLines()
+
     init();
 
     function init() {
@@ -47,13 +57,6 @@ function init3d() {
             scene.add( assetInstance.call.getObj3d() );
             assetInstance.call.getObj3d().position.y += Math.random()*4
         }
-
-        setTimeout(function() {
-        //    for (let i = 0; i<3; i++) {
-                loadAssetInstance('vehicle_f14', loaded)
-         //   }
-
-        }, 1000)
 
 
         setTimeout(function() {
@@ -153,11 +156,8 @@ class Client{
             setupSocket()
         }
         let worldHud = new DomWorldHud();
-
-
-
-
-        init3d()
+        init3d();
+        startGameWorld()
     }
 
 }

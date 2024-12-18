@@ -47,12 +47,22 @@ class AssetInstance {
 
         }
 
+        function addToScene() {
+            ThreeAPI.addToScene(obj3d);
+        }
+
+        function removeFromScene() {
+            ThreeAPI.removeFromScene(obj3d);
+        }
+
         this.call = {
             instantiate:instantiate,
             setPos:setPos,
             setQuat:setQuat,
             getObj3d:getObj3d,
-            closeAsset:closeAsset
+            addToScene:addToScene,
+            closeAsset:closeAsset,
+            removeFromScene:removeFromScene
         }
 
     }

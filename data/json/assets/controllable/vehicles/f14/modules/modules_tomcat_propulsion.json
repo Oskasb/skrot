@@ -1,0 +1,103 @@
+[{
+  "MODULES":{
+    "PROPULSION_F14":[
+      {
+        "id":"throttles_link",
+        "data":{
+          "state":{"value":0, "min":0, "max":1, "speed":0.02, "factor":1},
+          "source":"throttle_link",
+          "sampleSource":"sampleControl",
+          "applyState":"linkControlTargetStates",
+          "target":{"links":["throttle_l", "throttle_r"]},
+          "effectFunction":"zeroEffect",
+          "feedback":{}
+        }
+      },
+
+      {
+        "id":"turbine_l",
+        "data":{
+          "state":{"value":0, "min":0.0, "max":1, "speed":0.02, "factor":1},
+
+          "source":"turbine_l",
+          "sampleSource":"sampleModule",
+
+          "applyState":"applyModuleTargetState",
+          "target":{"id":"jet_1", "min":0.25, "max":1},
+
+          "effectFunction":"zeroEffect",
+          "feedback":{}
+        }
+      },
+      {
+        "id":"turbine_r",
+        "data":{
+          "state":{"value":0, "min":0.0, "max":1, "speed":0.02, "factor":1},
+
+          "source":"turbine_r",
+          "sampleSource":"sampleModule",
+
+          "applyState":"applyModuleTargetState",
+          "target":{"id":"jet_2", "min":0.25, "max":1},
+
+          "effectFunction":"zeroEffect",
+          "feedback":{}
+        }
+      },
+      {
+        "id":"reheat_1",
+        "data":{
+          "state":{"value":0, "min":-0.2, "max":1, "speed":0.1, "factor":4000},
+          "source":{"id":"turbine_l", "min":0.55, "max":1.01, "factor":0.8, "offset":0.2},
+          "target":"nozzle_1",
+          "sampleSource":"slaveModule",
+          "applyState":"applyForce",
+
+          "effectFunction":"jetExhaustEffect",
+          "feedback":{"id":"nozzle_1", "min":0.2, "effects":["thruster_flame_effect"], "scale":6, "factor":0.5,  "light":{"id":"engine_l", "gain":1}}
+        }
+      },
+      {
+        "id":"reheat_2",
+        "data":{
+          "state":{"value":0, "min":-0.2, "max":1, "speed":0.1, "factor":4000},
+          "source":{"id":"turbine_r", "min":0.55, "max":1.01, "factor":0.8, "offset":0.2},
+          "target":"nozzle_2",
+
+          "sampleSource":"slaveModule",
+          "applyState":"applyForce",
+
+          "effectFunction":"jetExhaustEffect",
+          "feedback":{"id":"nozzle_2", "min":0.2, "effects":["thruster_flame_effect"], "scale":6, "factor":0.5, "light":{"id":"engine_r", "gain":1}}
+        }
+      },
+      {
+        "id":"jet_1",
+        "data":{
+          "state":{"value":0, "min":0.0, "max":1, "speed":0.003, "factor":2200},
+          "source":"jet_1",
+          "target":"nozzle_1",
+          "sampleSource":"effectEmitter",
+          "applyState":"applyForce",
+
+          "feedback":{"id":"nozzle_l", "threshold":0.15, "factor":1.3, "scale":3,  "effects":["turbine_effect"], "color":"blue_3"},
+          "effectFunction":"moduleAttachedEffect"
+        }
+      },
+      {
+        "id":"jet_2",
+        "data":{
+          "state":{"value":0, "min":0.0, "max":1, "speed":0.003, "factor":2200},
+          "source":"jet_2",
+          "target":"nozzle_2",
+
+          "sampleSource":"effectEmitter",
+          "applyState":"applyForce",
+
+          "feedback":{"id":"nozzle_r", "threshold":0.15, "factor":1.3, "scale":3,  "effects":["turbine_effect"], "color":"blue_3"},
+          "effectFunction":"moduleAttachedEffect"
+        }
+      }
+    ]
+  }
+}]

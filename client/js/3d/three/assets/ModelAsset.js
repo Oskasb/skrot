@@ -103,10 +103,12 @@ class ModelAsset {
                 let materialList = []
 
                 for (let i = 0; i < assets.length; i++) {
-                    if (materialList.indexOf(assets[i].material) === -1) {
-                        materialList.push(assets[i].material);
+                    if (typeof (assets[i].material) === 'string') {
+                        if (materialList.indexOf(assets[i].material) === -1) {
+                            materialList.push(assets[i].material);
+                        }
+                        loadCalls.push(assets[i].file);
                     }
-                    loadCalls.push(assets[i].file);
                 }
 
                 function loadGeometries() {

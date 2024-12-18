@@ -14,6 +14,7 @@ import {ModelMaterial} from "../../3d/three/assets/ModelMaterial.js";
 import {ModelGeometry} from "../../3d/three/assets/ModelGeometry.js";
 import {AssetInstance} from "../../3d/three/assets/AssetInstance.js";
 import {AssetTexture} from "../../3d/three/assets/AssetTexture.js";
+import {ControllablePiece} from "../../game/pieces/ControllablePiece.js";
 
 let pools = {}
 let stats = {};
@@ -37,6 +38,7 @@ function initPools() {
     registerPool(ModelGeometry);
     registerPool(AssetInstance);
     registerPool(AssetTexture);
+    registerPool(ControllablePiece)
 
 }
 
