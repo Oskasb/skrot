@@ -1,0 +1,12 @@
+{
+  "dynamic": "ENGINE_NOZZLE_R",
+  "state": {"min": -0.6, "max": 0.05, "value": 0, "speed": 0.04},
+  "targets": [
+    {
+      "speed": 0.01,
+      "joints": [
+        {"bone": "nozzle_r", "call": "applyBoneScale", "args": null, "factor": 1}
+      ]
+    }
+  ]
+}

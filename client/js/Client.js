@@ -68,8 +68,8 @@ function init3d() {
         const controls = new OrbitControls( camera, renderer.domElement );
     //    dynamics.addEventListener( 'change', render ); // use if there is no animation loop
         controls.minDistance = 2;
-        controls.maxDistance = 100;
-        controls.target.set( 0, 0, - 0.2 );
+        controls.maxDistance = 200;
+        controls.target.set( 0, 14, 0);
         controls.update();
 
         window.addEventListener( 'resize', onWindowResize );

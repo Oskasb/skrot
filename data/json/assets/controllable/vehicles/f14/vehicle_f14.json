@@ -1,12 +1,34 @@
 {
   "model": "model_f14",
   "control_dynamics": [
-    {"id": "DYNAMIC_SWEEP"  , "file": "dynamic_f14_sweep"},
-    {"id": "DYNAMIC_RUDDER" , "file": "dynamic_f14_rudder"},
-    {"id": "DYNAMIC_BRAKE"  , "file": "dynamic_f14_brake"},
+    {"id": "DYNAMIC_SWEEP_L"  , "file": "dynamic_f14_sweep_l"},
+    {"id": "DYNAMIC_SWEEP_R"  , "file": "dynamic_f14_sweep_r"},
+    {"id": "DYNAMIC_RUDDER_L" , "file": "dynamic_f14_rudder_l"},
+    {"id": "DYNAMIC_RUDDER_R" , "file": "dynamic_f14_rudder_r"},
+    {"id": "DYNAMIC_BRAKE_TOP"    , "file": "dynamic_f14_brake_top"},
+    {"id": "DYNAMIC_BRAKE_BOTTOM" , "file": "dynamic_f14_brake_bottom"},
     {"id": "DYNAMIC_STAB_L" , "file": "dynamic_f14_stab_l"},
     {"id": "DYNAMIC_STAB_R" , "file": "dynamic_f14_stab_r"},
     {"id": "DYNAMIC_SLAT_L" , "file": "dynamic_f14_slat_l"},
-    {"id": "DYNAMIC_SLAT_R" , "file": "dynamic_f14_slat_r"}
+    {"id": "DYNAMIC_SLAT_R" , "file": "dynamic_f14_slat_r"},
+    {"id": "DYNAMIC_FLAP_L" , "file": "dynamic_f14_flap_l"},
+    {"id": "DYNAMIC_FLAP_R" , "file": "dynamic_f14_flap_r"},
+    {"id": "DYNAMIC_SPOILER_L" , "file": "dynamic_f14_spoiler_l"},
+    {"id": "DYNAMIC_SPOILER_R" , "file": "dynamic_f14_spoiler_r"},
+    {"id": "DYNAMIC_NOZZLE_L" , "file": "dynamic_f14_nozzle_l"},
+    {"id": "DYNAMIC_NOZZLE_R" , "file": "dynamic_f14_nozzle_r"},
+    {"id": "DYNAMIC_CANARD_L" , "file": "dynamic_f14_canard_l"},
+    {"id": "DYNAMIC_CANARD_R" , "file": "dynamic_f14_canard_r"},
+    {"id": "DYNAMIC_HOOK"     , "file": "dynamic_f14_hook"},
+    {"id": "DYNAMIC_CANOPY"   , "file": "dynamic_f14_canopy"},
+    {"id": "DYNAMIC_GEAR_NOSE"   , "file": "dynamic_f14_gear_nose"},
+    {"id": "DYNAMIC_WHEEL_NOSE"   , "file": "dynamic_f14_wheel_nose"},
+    {"id": "DYNAMIC_WHEEL_L"   , "file": "dynamic_f14_wheel_l"},
+    {"id": "DYNAMIC_WHEEL_R"   , "file": "dynamic_f14_wheel_r"},
+    {"id": "DYNAMIC_DOORS_NOSE"   , "file": "dynamic_f14_doors_nose"},
+    {"id": "DYNAMIC_GEAR_L"   , "file": "dynamic_f14_gear_l"},
+    {"id": "DYNAMIC_GEAR_R"   , "file": "dynamic_f14_gear_r"},
+    {"id": "DYNAMIC_DOORS_L"   , "file": "dynamic_f14_doors_l"},
+    {"id": "DYNAMIC_DOORS_R"   , "file": "dynamic_f14_doors_r"}
   ]
 }

@@ -1,0 +1,12 @@
+{
+  "dynamic": "GEAR_NOSE",
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.04},
+  "targets": [
+    {
+      "speed": 0.01,
+      "joints": [
+        {"bone": "gear_nose", "call": "setBoneRotation", "args": ["rotateX"], "factor":  2}
+      ]
+    }
+  ]
+}

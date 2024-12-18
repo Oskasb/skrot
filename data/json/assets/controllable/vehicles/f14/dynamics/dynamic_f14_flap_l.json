@@ -1,0 +1,12 @@
+{
+  "dynamic": "SURFACE_FLAP_L",
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.04},
+  "targets": [
+    {
+      "speed": 0.01,
+      "joints": [
+        {"bone": "flap_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": -0.7}
+      ]
+    }
+  ]
+}

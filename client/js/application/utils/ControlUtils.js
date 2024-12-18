@@ -6,14 +6,20 @@ function addValueToObjRotAxis(value, obj3d, axis) {
 }
 
 function setObjAxisRotation(value, obj3d, axis) {
-    //  console.log(axis, obj3d, value)
-    // let from = obj3d.rotation[axis];
-    //  let to = from + value;
     obj3d.quaternion.copy(obj3d.userData.bindPoseObj3D.quaternion)
     obj3d[axis](value);
 }
 
-jointCalls["applyBoneRotation"] = function(args) {
+function setObjUniformScale(value, obj3d, axis) {
+    obj3d.scale.copy(obj3d.userData.bindPoseObj3D.scale)
+    obj3d.scale.multiplyScalar(1+value);
+}
+
+jointCalls["applyBoneScale"] = function(bone, args, value, factor) {
+    setObjUniformScale(value*factor, bone)
+}
+
+jointCalls["applyBoneRotation"] = function(bone, args, value, factor) {
     if (typeof (args) === "string") {
         addValueToObjRotAxis(value*factor, bone, args)
     } else {
