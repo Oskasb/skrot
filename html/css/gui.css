@@ -764,7 +764,7 @@ div.icon_camera_flight {
 }
 
 div.icon_settings {
-    background-image: url("./data/assets/images/textures/gui/icons/icon_settings.png");
+    background-image: url("/data/assets/images/textures/gui/icons/icon_settings.png");
 }
 div.icon_joystick {
     background-image: url("/data/assets/images/textures/gui/icons/icon_joystick.png");
