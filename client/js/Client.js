@@ -1,7 +1,4 @@
 
-import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import {setRefDiv} from "./application/ui/dom/DomUtils.js";
 import {evt} from "./application/event/evt.js";
 
@@ -21,6 +18,8 @@ import {DebugLines} from "./application/debug/lines/DebugLines.js";
 import {GameWorld} from "./game/world/GameWorld.js";
 import {setGameWorld} from "./application/utils/GameUtils.js";
 import {GamePlayer} from "./game/player/GamePlayer.js";
+import {OrbitControls} from "../../libs/jsm/controls/OrbitControls.js";
+import {GLTFLoader} from "../../libs/jsm/loaders/GLTFLoader.js";
 
 let gameWorld = new GameWorld();
 
@@ -50,14 +49,7 @@ function init3d() {
 
     function init() {
 
-        camera.position.set( - 4, 2, 2.7 );
-
-        function loaded(assetInstance) {
-            console.log("assetInstance Loaded:", assetInstance);
-            scene.add( assetInstance.call.getObj3d() );
-            assetInstance.call.getObj3d().position.y += Math.random()*4
-        }
-
+        camera.position.set( - 24, 14, 2.7 );
 
         setTimeout(function() {
                 const loader = new GLTFLoader().setPath( './data/assets/' );
@@ -65,20 +57,14 @@ function init3d() {
                     console.log(gltf.scene)
                     scene.add( gltf.scene );
                 } );
-                /*
-            loader.load( 'models/vehicles/f14_all.glb', function ( gltf ) {
-                console.log(gltf.scene)
-                scene.add( gltf.scene );
-            } );
-            /*
-                 */
-        }, 100)
+
+        }, 1000)
 
         setRefDiv(document.body)
 
 
         const controls = new OrbitControls( camera, renderer.domElement );
-    //    controls.addEventListener( 'change', render ); // use if there is no animation loop
+    //    dynamics.addEventListener( 'change', render ); // use if there is no animation loop
         controls.minDistance = 2;
         controls.maxDistance = 100;
         controls.target.set( 0, 0, - 0.2 );
@@ -157,7 +143,7 @@ class Client{
         }
         let worldHud = new DomWorldHud();
         init3d();
-        setTimeout(startGameWorld, 1000)
+        setTimeout(startGameWorld, 1)
         //startGameWorld()
     }
 

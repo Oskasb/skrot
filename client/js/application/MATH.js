@@ -1039,4 +1039,8 @@ MATH.clearUpdateRect = function(updateRect) {
 	updateRect.maxY = 0;
 }
 
+MATH.jsonCopy = function(obj) {
+	return JSON.parse(JSON.stringify(obj))
+}
+
 export { MATH }

@@ -84,11 +84,6 @@ class ConfigCache {
 
             _this.gameDataPipeline.applyPipelineOptions(opts, pipelineErrorCb, _this);
 
-            let jsonFiledAdded = function(iurl, jsn) {
-            //    console.log("JSON File Indexed: ", iurl, jsn);
-            };
-
-
             let jsonFiles = [];
 
             for (let key in json) {
@@ -108,16 +103,29 @@ class ConfigCache {
              //   }
             }
 
-            for (let i = 0; i < jsonFiles.length;i++) {
-                _this.cacheFromUrl(opts.jsonConfigUrl+jsonFiles[i], jsonFiledAdded, loadFail);
+            pipelineReadyCb(_this.configs);
+
+            let jsonFiledAdded = function(iurl, jsn) {
+                //    console.log("JSON File Indexed: ", iurl, jsn);
+            };
+
+            if (jsonFiles.length) {
+
             }
 
-            pipelineReadyCb(_this.configs);
+            function preCacheUrl(url) {
+                _this.cacheFromUrl(opts.jsonConfigUrl+url, jsonFiledAdded, loadFail);
+            }
+
+         //   setTimeout(function() {
+                for (let i = 0; i < jsonFiles.length;i++) {
+                    preCacheUrl(jsonFiles[i])
+                }
+          //  }, 100)
+
 
         };
 
-    //    this.addReadyCallback(pipelineReadyCb);
-    //    console.log("Request Load: ", jsonIndexUrl, opts);
         this.cacheFromUrl(jsonIndexUrl, indexLoaded, loadFail);
 
     };

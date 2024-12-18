@@ -8,7 +8,9 @@ import {
 } from "./DataUtils.js";
 import {getLoader} from "./LoaderUtils.js";
 import {poolFetch} from "./PoolUtils.js";
-
+import {ENUMS} from "../ENUMS.js";
+import {evt} from "../event/evt.js";
+import {Object3D} from "../../../../libs/three/Three.Core.js";
 
 let loadCalls = {};
 let loadedAssets = {};
@@ -18,6 +20,7 @@ let loadedGeometries = {};
 let loadedTextures = {};
 
 let jsonAssets = {};
+let tempObj = new Object3D()
 
 function registerJsonAsset(jsonAsset) {
     jsonAssets[jsonAsset.name] = jsonAsset;
@@ -127,6 +130,33 @@ function applyMaterial(mesh, materialName) {
     loadAssetMaterial(materialName, matCB)
 }
 
+function getBoneByName(bones, name) {
+    for (let i = 0; i < bones.length; i++) {
+        if (bones[i].name === name) {
+            return bones[i];
+        }
+    }
+    console.log("No bone by name:", name);
+}
+
+function getAssetBoneByName(assetInstance, name) {
+    let obj3d = assetInstance.getObj3d();
+    let skeleton = obj3d.skeleton;
+    let bone = getBoneByName(skeleton.bones, name);
+    return bone;
+}
+
+function debugDrawSkeleton(assetInstance) {
+    let obj3d = assetInstance.getObj3d();
+    let skeleton = obj3d.skeleton;
+    let bones = skeleton.bones;
+    for (let i = 0; i < bones.length; i++) {
+        bones[i].matrixWorld.decompose(tempObj.position, tempObj.quaternion, tempObj.scale);
+        evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:obj3d.position, to:tempObj.position, color:"GREEN"})
+    }
+
+}
+
 export {
     registerJsonAsset,
     notifyAssetUpdated,
@@ -136,5 +166,7 @@ export {
     loadModelGeometry,
     loadAssetTexture,
     loadAssetInstance,
-    applyMaterial
+    applyMaterial,
+    getAssetBoneByName,
+    debugDrawSkeleton
 }

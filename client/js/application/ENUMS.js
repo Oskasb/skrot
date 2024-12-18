@@ -879,6 +879,9 @@ ENUMS.InventorySlots = {
 ENUMS.StashSlots = {}
 
 
+ENUMS.Dynamic = {
+        WING_SWEEP:'WING_SWEEP'
+}
 
     ENUMS.Controls = {
         SAMPLE_STATUS:'SAMPLE_STATUS',
@@ -886,6 +889,7 @@ ENUMS.StashSlots = {}
         CONTROL_ROLL:'CONTROL_ROLL',
         CONTROL_YAW:'CONTROL_YAW',
         CONTROL_SPEED:'CONTROL_SPEED',
+        CONTROL_SWEEP:'CONTROL_SWEEP',
         CONTROL_TILE_X:'CONTROL_TILE_X',
         CONTROL_TILE_Z:'CONTROL_TILE_Z',
         CONTROL_RUN_X:'CONTROL_RUN_X',
@@ -895,6 +899,8 @@ ENUMS.StashSlots = {}
         CONTROL_LEAP_ACTION:'CONTROL_LEAP_ACTION',
         CONTROL_CAM_FORWARD:'CONTROL_CAM_FORWARD'
     }
+
+
 
     ENUMS.CameraModes = {
         worldDisplay:'world_display',

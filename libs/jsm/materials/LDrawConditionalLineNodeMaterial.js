@@ -42,7 +42,7 @@ class LDrawConditionalLineMaterial extends NodeMaterial {
 			const c0dir = c0.xy.sub( p1.xy ).toVar();
 			const c1dir = c1.xy.sub( p1.xy ).toVar();
 
-			// If the vectors to the controls points are pointed in different directions away
+			// If the vectors to the dynamics points are pointed in different directions away
 			// from the line segment then the line should not be drawn.
 			const d0 = dot( normalize( norm ), normalize( c0dir ) ).toVar();
 			const d1 = dot( normalize( norm ), normalize( c1dir ) ).toVar();

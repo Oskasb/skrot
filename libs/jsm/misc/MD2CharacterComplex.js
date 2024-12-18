@@ -486,7 +486,7 @@ class MD2CharacterComplex {
 
 		const controls = this.controls;
 
-		// speed based on controls
+		// speed based on dynamics
 
 		if ( controls.crouch ) 	this.maxSpeed = this.crouchSpeed;
 		else this.maxSpeed = this.walkSpeed;
@@ -496,7 +496,7 @@ class MD2CharacterComplex {
 		if ( controls.moveForward ) this.speed = MathUtils.clamp( this.speed + delta * this.frontAcceleration, this.maxReverseSpeed, this.maxSpeed );
 		if ( controls.moveBackward ) this.speed = MathUtils.clamp( this.speed - delta * this.backAcceleration, this.maxReverseSpeed, this.maxSpeed );
 
-		// orientation based on controls
+		// orientation based on dynamics
 		// (don't just stand while turning)
 
 		const dir = 1;

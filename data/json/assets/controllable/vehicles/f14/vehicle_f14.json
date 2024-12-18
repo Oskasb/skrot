@@ -1,6 +1,6 @@
 {
   "model": "model_f14",
-  "controls": [
-    "control_f14_sweep"
+  "control_dynamics": [
+    {"control": "CONTROL_SWEEP", "file": "dynamic_f14_sweep"}
   ]
 }

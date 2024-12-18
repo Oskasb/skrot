@@ -80,7 +80,7 @@ class OrbitControls extends Controls {
 		this.maxAzimuthAngle = Infinity; // radians
 
 		// Set to true to enable damping (inertia)
-		// If damping is enabled, you must call controls.update() in your animation loop
+		// If damping is enabled, you must call dynamics.update() in your animation loop
 		this.enableDamping = false;
 		this.dampingFactor = 0.05;
 
@@ -101,7 +101,7 @@ class OrbitControls extends Controls {
 		this.zoomToCursor = false;
 
 		// Set to true to automatically rotate around the target
-		// If auto-rotate is enabled, you must call controls.update() in your animation loop
+		// If auto-rotate is enabled, you must call dynamics.update() in your animation loop
 		this.autoRotate = false;
 		this.autoRotateSpeed = 2.0; // 30 seconds per orbit when fps is 60
 

@@ -172,7 +172,7 @@ class DragControls extends Controls {
 
 	getRaycaster() {
 
-		console.warn( 'THREE.DragControls: getRaycaster() has been deprecated. Use controls.raycaster instead.' ); // @deprecated r169
+		console.warn( 'THREE.DragControls: getRaycaster() has been deprecated. Use dynamics.raycaster instead.' ); // @deprecated r169
 
 		return this.raycaster;
 
@@ -180,7 +180,7 @@ class DragControls extends Controls {
 
 	setObjects( objects ) {
 
-		console.warn( 'THREE.DragControls: setObjects() has been deprecated. Use controls.objects instead.' ); // @deprecated r169
+		console.warn( 'THREE.DragControls: setObjects() has been deprecated. Use dynamics.objects instead.' ); // @deprecated r169
 
 		this.objects = objects;
 
@@ -188,7 +188,7 @@ class DragControls extends Controls {
 
 	getObjects() {
 
-		console.warn( 'THREE.DragControls: getObjects() has been deprecated. Use controls.objects instead.' ); // @deprecated r169
+		console.warn( 'THREE.DragControls: getObjects() has been deprecated. Use dynamics.objects instead.' ); // @deprecated r169
 
 		return this.objects;
 
@@ -353,7 +353,7 @@ function onPointerDown( event ) {
 
 			} else if ( this.state === STATE.ROTATE ) {
 
-				// the controls only support Y+ up
+				// the dynamics only support Y+ up
 				_up.set( 0, 1, 0 ).applyQuaternion( camera.quaternion ).normalize();
 				_right.set( 1, 0, 0 ).applyQuaternion( camera.quaternion ).normalize();
 

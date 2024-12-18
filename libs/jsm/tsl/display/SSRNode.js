@@ -38,9 +38,9 @@ class SSRNode extends TempNode {
 
 		// uniforms
 
-		this.maxDistance = uniform( 1 ); // controls how far a fragment can reflect
-		this.thickness = uniform( 0.1 ); // controls the cutoff between what counts as a possible reflection hit and what does not
-		this.opacity = uniform( 1 ); // controls the transparency of the reflected colors
+		this.maxDistance = uniform( 1 ); // dynamics how far a fragment can reflect
+		this.thickness = uniform( 0.1 ); // dynamics the cutoff between what counts as a possible reflection hit and what does not
+		this.opacity = uniform( 1 ); // dynamics the transparency of the reflected colors
 
 		this._cameraProjectionMatrix = uniform( camera.projectionMatrix );
 		this._cameraProjectionMatrixInverse = uniform( camera.projectionMatrixInverse );

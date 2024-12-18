@@ -1,8 +1,9 @@
 import {Object3D} from "../../../../../libs/three/Three.Core.js";
-import {getObj3dScaleKey} from "../../../application/utils/ModelUtils.js";
-import {getJsonByFileName, getJsonUrlByFileName} from "../../../application/utils/DataUtils.js";
-import {loadAssetModel} from "../../../application/utils/AssetUtils.js";
+import {debugDrawSkeleton, loadAssetModel} from "../../../application/utils/AssetUtils.js";
 import {JsonAsset} from "../../../application/load/JsonAsset.js";
+import {SimpleStatus} from "../../../application/setup/SimpleStatus.js";
+import {PieceControl} from "../../../game/controls/PieceControl.js";
+import {ControlDynamics} from "../../../game/controls/ControlDynamics.js";
 
 class AssetInstance {
     constructor () {
@@ -12,6 +13,31 @@ class AssetInstance {
             assetInstance:this
         };
 
+        let status = new SimpleStatus();
+        this.status = status;
+
+        let controlDynamics = {};
+        this.controlDynamics = controlDynamics;
+
+        function attachControlDynamic(id, fileName) {
+
+            function dynLoaded(ctrlDyn) {
+
+                function randomChange() {
+                    debugDrawSkeleton(settings.assetInstance)
+                    if (Math.random() < 0.05) {
+                        ctrlDyn.setTargetState(Math.random());
+                    }
+                }
+
+                ThreeAPI.addPostrenderCallback(randomChange);
+
+            }
+
+            new ControlDynamics(settings.assetInstance, id, fileName, dynLoaded)
+
+        }
+
         function instantiate(assetFileName, callback) {
 
             let jsonAsset = new JsonAsset(assetFileName);
@@ -20,7 +46,19 @@ class AssetInstance {
                 settings.json = data;
                 let modelName = settings.json.model;
 
+
+
                 function modelLoaded(modelObj3d) {
+
+
+                    let ctrDyns = data['control_dynamics'];
+
+                    if (ctrDyns.length) {
+                        for (let i = 0; i < ctrDyns.length; i++) {
+                            attachControlDynamic(ctrDyns[i].id, ctrDyns[i].file)
+                        }
+                    }
+
                     callback(settings.assetInstance)
                 }
 
@@ -66,6 +104,8 @@ class AssetInstance {
         }
 
     }
+
+
 
     setPos(pos) {
         this.call.setPos(pos);

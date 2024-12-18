@@ -1,3 +1,5 @@
+import {MATH} from "../MATH.js";
+
 class ScalarTransition {
     constructor() {
         this.from = 0;

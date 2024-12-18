@@ -2,11 +2,15 @@ import {JsonAsset} from "../../application/load/JsonAsset.js";
 import {poolFetch} from "../../application/utils/PoolUtils.js";
 import {loadAssetInstance} from "../../application/utils/AssetUtils.js";
 import {SimpleStatus} from "../../application/setup/SimpleStatus.js";
+import {PieceControl} from "../controls/PieceControl.js";
 
 class ControllablePiece {
     constructor() {
         let status = new SimpleStatus()
         this.status = status;
+
+        this.controls = {};
+
 
         this.call = {
 
@@ -29,9 +33,7 @@ class ControllablePiece {
     initControllable(id, callback) {
 
         let _this = this;
-
         let jsonAsset = new JsonAsset(id);
-        let statusMap = this.statusMap;
 
         function controllableLoaded(assetInstance) {
             console.log("assetInstance Loaded:", assetInstance);
@@ -39,13 +41,31 @@ class ControllablePiece {
             callback(_this)
         }
 
+        let controls = this.controls;
+        function attachControl(ctrl) {
+            controls[ctrl.id] = new PieceControl(ctrl.id, ctrl.state);
+        }
+
         function onData(json) {
             _this.json = json;
+            if (json.controls) {
+                for (let i = 0; i < json.controls.length; i++) {
+                    attachControl(json.controls[i])
+                }
+            }
             loadAssetInstance(json['controllable'], controllableLoaded)
         }
 
         jsonAsset.subscribe(onData)
 
+    }
+
+    getControlState(id) {
+        return this.controls[id].getValue();
+    }
+
+    setControlState(id, state) {
+        return this.controls[id].setValue(state);
     }
 
 }
