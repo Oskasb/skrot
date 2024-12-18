@@ -51,6 +51,8 @@ function init3d() {
 
         camera.position.set( - 24, 14, 2.7 );
 
+        /*
+
         setTimeout(function() {
                 const loader = new GLTFLoader().setPath( './data/assets/' );
                 loader.load( 'test/glTF/DamagedHelmet.gltf', function ( gltf ) {
@@ -59,7 +61,7 @@ function init3d() {
                 } );
 
         }, 1000)
-
+*/
         setRefDiv(document.body)
 
 

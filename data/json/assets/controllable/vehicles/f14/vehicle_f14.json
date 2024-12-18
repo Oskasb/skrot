@@ -1,6 +1,12 @@
 {
   "model": "model_f14",
   "control_dynamics": [
-    {"control": "CONTROL_SWEEP", "file": "dynamic_f14_sweep"}
+    {"id": "DYNAMIC_SWEEP"  , "file": "dynamic_f14_sweep"},
+    {"id": "DYNAMIC_RUDDER" , "file": "dynamic_f14_rudder"},
+    {"id": "DYNAMIC_BRAKE"  , "file": "dynamic_f14_brake"},
+    {"id": "DYNAMIC_STAB_L" , "file": "dynamic_f14_stab_l"},
+    {"id": "DYNAMIC_STAB_R" , "file": "dynamic_f14_stab_r"},
+    {"id": "DYNAMIC_SLAT_L" , "file": "dynamic_f14_slat_l"},
+    {"id": "DYNAMIC_SLAT_R" , "file": "dynamic_f14_slat_r"}
   ]
 }

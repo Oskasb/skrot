@@ -1,0 +1,13 @@
+{
+  "dynamic": "SURFACE_BRAKE",
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.04},
+  "targets": [
+    {
+      "speed": 0.01,
+      "joints": [
+        {"bone": "break_top",    "call": "setBoneRotation", "args": ["rotateX"], "factor": -1.1},
+        {"bone": "break_bottom", "call": "setBoneRotation", "args": ["rotateX"], "factor":  1.05}
+      ]
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import {JsonAsset} from "../../../application/load/JsonAsset.js";
 import {SimpleStatus} from "../../../application/setup/SimpleStatus.js";
 import {PieceControl} from "../../../game/controls/PieceControl.js";
 import {ControlDynamics} from "../../../game/controls/ControlDynamics.js";
+import {MATH} from "../../../application/MATH.js";
 
 class AssetInstance {
     constructor () {
@@ -24,9 +25,9 @@ class AssetInstance {
             function dynLoaded(ctrlDyn) {
 
                 function randomChange() {
-                    debugDrawSkeleton(settings.assetInstance)
+                //    debugDrawSkeleton(settings.assetInstance)
                     if (Math.random() < 0.05) {
-                        ctrlDyn.setTargetState(Math.random());
+                        ctrlDyn.setTargetState(MATH.randomBetween(ctrlDyn.state.min, ctrlDyn.state.max));
                     }
                 }
 
