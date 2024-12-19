@@ -42,10 +42,10 @@ body.minimap_container {
 }
 
 div.zoom_in {
-    background-image: url("/html/images/button/plus.png");
+    background-image: url("/skrot/images/button/plus.png");
 }
 div.zoom_out {
-    background-image: url("/html/images/button/minus.png");
+    background-image: url("/skrot/images/button/minus.png");
 }
 
 h3 {

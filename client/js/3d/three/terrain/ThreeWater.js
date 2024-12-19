@@ -12,7 +12,7 @@ class ThreeWater {
 
         const waterGeometry = new PlaneGeometry(50000, 50000)
 
-        const waterNormals = new TextureLoader().load( '../data/assets/images/textures/tiles/waternormals3.png' );
+        const waterNormals = new TextureLoader().load( '../../data/assets/images/textures/tiles/waternormals3.png' );
         waterNormals.wrapS = waterNormals.wrapT = RepeatWrapping;
 
         let water = new WaterMesh(
