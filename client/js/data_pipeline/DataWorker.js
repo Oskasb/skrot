@@ -12,7 +12,7 @@ class DataWorker {
         const messageHandler = this.dataPipelineMessageHandler;
 
         if (typeof(Worker) !== 'undefined') {
-            this.worker = new Worker('./../client/js/data_pipeline/worker/WorkerMain.js');
+            this.worker = new Worker('../client/js/data_pipeline/worker/WorkerMain.js');
 
             let _this = this;
 
