@@ -683,7 +683,7 @@ class ThreeEnvironment {
                 }
             }
 
-            let loader = new ImageBitmapLoader().setPath('./data/assets/images/textures/')
+            let loader = new ImageBitmapLoader().setPath('../data/assets/images/textures/')
             loader.load('ref_sphere.png', function(txenv) {
 
             //    console.log("Ref Sphere loaded: ", txenv);
