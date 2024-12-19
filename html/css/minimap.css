@@ -77,7 +77,7 @@ div.button_close {
     margin:0;
     padding: 0;
     text-align: center;
-    background-image: url("/data/assets/images/textures/gui/button/cross.png");
+    background-image: url("/html/images/button/cross.png");
     background-size: 100%;
     background-color: #e1000a;
     color: #410b00;

@@ -130,7 +130,7 @@ div.button_complete p {
 }
 
 div.background_create_panel {
-    background-image: url("/data/assets/images/textures/gui/character_creation/create_panel_background.png");
+    background-image: url("/html/images/character_creation/create_panel_background.png");
     background-size: 100% 100%;
 }
 
@@ -632,7 +632,7 @@ div.button_close {
     margin:0;
     padding: 0;
     text-align: center;
-    background-image: url("/data/assets/images/textures/gui/button/cross.png");
+    background-image: url("/html/images/button/cross.png");
     background-size: 100%;
     background-color: #e1000a;
     color: #410b00;
@@ -642,7 +642,7 @@ div.button_close {
 }
 
 div.button_reload {
-    background-image: url("/data/assets/images/textures/gui/systempanel/left_arrow.png");
+    background-image: url("/html/images/systempanel/left_arrow.png");
     top: 9%;
     right: -5%;
     width: 0em;
@@ -756,38 +756,38 @@ div.party_button {
 }
 
 div.icon_camera {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_camera.png");
+    background-image: url("/html/images/icons/icon_camera.png");
 }
 
 div.icon_camera_flight {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_camera_flight.png");
+    background-image: url("/html/images/icons/icon_camera_flight.png");
 }
 
 div.icon_settings {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_settings.png");
+    background-image: url("/html/images/icons/icon_settings.png");
 }
 div.icon_joystick {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_joystick.png");
+    background-image: url("/html/images/icons/icon_joystick.png");
 }
 
 div.icon_paper_note {
-    background-image: url("/data/assets/images/textures/gui/icons/scribbled_note.png");
+    background-image: url("/html/images/icons/scribbled_note.png");
 }
 
 div.icon_inventory {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_inv.png");
+    background-image: url("/html/images/icons/icon_inv.png");
 }
 
 div.icon_stash {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_stash.png");
+    background-image: url("/html/images/icons/icon_stash.png");
 }
 
 div.icon_character {
-    background-image: url("/data/assets/images/textures/gui/icons/IconPaperdollButton.png");
+    background-image: url("/html/images/icons/IconPaperdollButton.png");
 }
 
 div.icon_enter_world {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_enter_world.png");
+    background-image: url("/html/images/icons/icon_enter_world.png");
 }
 
 div.palette_panel {
@@ -2214,74 +2214,74 @@ div.ITEM {
 
 div.USE {
     color: #c5ff50;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_use.png");
+    background-image: url("/html/images/icons/icon_use.png");
 }
 
 div.ENTER {
     color: #f8bc47;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_enter.png");
+    background-image: url("/html/images/icons/icon_enter.png");
 }
 
 div.FIGHT {
     color: #ff5f30;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_fight.png");
+    background-image: url("/html/images/icons/icon_fight.png");
 }
 
 div.PARTY {
     color: #efbfff;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_party.png");
+    background-image: url("/html/images/icons/icon_party.png");
 }
 
 div.LEAVE {
     color: #d9c9c9;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_leave.png");
+    background-image: url("/html/images/icons/icon_leave.png");
 }
 
 div.TALK {
     color: #e1f6e4;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_talk.png");
+    background-image: url("/html/images/icons/icon_talk.png");
 }
 
 div.TAME {
     color: #4fff6e;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_tame.png");
+    background-image: url("/html/images/icons/icon_tame.png");
 }
 
 div.QUEST_ACCEPT {
     color: #ffff00;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_quest_accept.png");
+    background-image: url("/html/images/icons/icon_quest_accept.png");
     background-color: rgba(0, 155, 255, 0.3);
 }
 
 div.QUEST_COMPLETE {
     color: #ffff00;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_quest_complete.png");
+    background-image: url("/html/images/icons/icon_quest_complete.png");
     background-color: rgba(0, 255, 0, 0.3);
 }
 
 div.SNEAK {
     color: #fff65b;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_sneak.png");
+    background-image: url("/html/images/icons/icon_sneak.png");
 }
 
 div.TRADE {
     color: #41ffc8;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_trade.png");
+    background-image: url("/html/images/icons/icon_trade.png");
 }
 
 div.CRAFT {
     color: #66ff19;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_craft.png");
+    background-image: url("/html/images/icons/icon_craft.png");
 }
 
 div.STEAL {
     color: #c50000;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_steal.png");
+    background-image: url("/html/images/icons/icon_steal.png");
 }
 
 div.PICKUP {
     color: #abff19;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_take.png");
+    background-image: url("/html/images/icons/icon_take.png");
 }
 
 div.PLAIN {
@@ -2759,7 +2759,7 @@ div.edit_cursor_position_arrows {
     border: 0.1em solid #004843;
     background-color: rgba(171, 243, 255, 1.99);
     box-shadow: 0 0 0.4em rgb(0, 72, 79);
-    mask-image: url("/data/assets/images/textures/gui/cursors/cursor_translate.png");
+    mask-image: url("/html/images/cursors/cursor_translate.png");
     mask-size: 100%;
     mask-position: 50%;
     background-size: 100%;
@@ -2781,7 +2781,7 @@ div.edit_cursor_position {
     border: 0.1em solid #00d7cc;
     background-color: rgba(0, 143, 143, 0.4);
     box-shadow: 0 0 0.8em rgb(0, 72, 79);
-    background-image: url("/data/assets/images/textures/gui/cursors/cursor_translate.png");
+    background-image: url("/html/images/cursors/cursor_translate.png");
     mask-image: radial-gradient(rgba(255, 255, 255, 0) 32%, rgba(255, 255, 255, 0.5) 58%, rgba(255, 255, 255, 0.9) 70%);
     background-size: 130%;
     background-position: 50%;
@@ -2995,7 +2995,7 @@ div.class_wizard {
 
 
 div.image_portraits {
-    background-image: url("/data/assets/images/textures/gui/portraits.png");
+    background-image: url("/html/images/portraits.png");
 }
 
 div.item_potency_slot {
@@ -3006,51 +3006,51 @@ div.item_potency_slot {
     height: 1.7em;
     scale: 1.2;
     background-size: 100% 100%;
-    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_unset_0.png");
+    background-image: url("/html/images/icons/icon_potency_unset_0.png");
 }
 
 div.icon_potency_unset_0 {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_unset_0.png");
+    background-image: url("/html/images/icons/icon_potency_unset_0.png");
 }
 
 div.icon_potency_set_0 {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_set_0.png");
+    background-image: url("/html/images/icons/icon_potency_set_0.png");
 }
 
 div.icon_potency_unset_1 {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_unset_1.png");
+    background-image: url("/html/images/icons/icon_potency_unset_1.png");
 }
 
 div.icon_potency_set_1 {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_set_1.png");
+    background-image: url("/html/images/icons/icon_potency_set_1.png");
 }
 div.icon_potency_unset_2 {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_unset_2.png");
+    background-image: url("/html/images/icons/icon_potency_unset_2.png");
 }
 
 div.icon_potency_set_2 {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_set_2.png");
+    background-image: url("/html/images/icons/icon_potency_set_2.png");
 }
 div.icon_potency_unset_3 {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_unset_3.png");
+    background-image: url("/html/images/icons/icon_potency_unset_3.png");
 }
 
 div.icon_potency_set_3 {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_set_3.png");
+    background-image: url("/html/images/icons/icon_potency_set_3.png");
 }
 div.icon_potency_unset_4 {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_unset_4.png");
+    background-image: url("/html/images/icons/icon_potency_unset_4.png");
 }
 
 div.icon_potency_set_4 {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_set_4.png");
+    background-image: url("/html/images/icons/icon_potency_set_4.png");
 }
 div.icon_potency_unset_5 {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_unset_5.png");
+    background-image: url("/html/images/icons/icon_potency_unset_5.png");
 }
 
 div.icon_potency_set_5 {
-    background-image: url("/data/assets/images/textures/gui/icons/icon_potency_set_5.png");
+    background-image: url("/html/images/icons/icon_potency_set_5.png");
 }
 
 div.container_item_rank {
