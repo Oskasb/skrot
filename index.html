@@ -3,7 +3,14 @@
 <head>
     <title>REDIRECT</title>
     <script>
-        window.location.href = "/skrot/html/app.html"
+        let href =  window.location.href;
+        let loc = href.split(':');
+        if (loc[0] === 'https') {
+            window.location.href = "/skrot/skrot/html/app.html"
+        } else {
+            window.location.href = "/skrot/html/app.html"
+        }
+
     </script>
 </head>
 
