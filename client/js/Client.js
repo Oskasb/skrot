@@ -44,7 +44,7 @@ function init3d() {
     renderer = store.renderer;
 
     new ThreeBloom().call.initBloom(scene, camera, renderer)
-    new DebugLines()
+    let debugLines = new DebugLines()
 
     init();
 
@@ -92,6 +92,7 @@ function init3d() {
 
     function triggerFrame() {
         frame.frame ++;
+
         updateKeyboardFrame(frame.frame);
         frame.tpf = MATH.clamp(clock.getDelta(), 0, 0.5);
         frame.avgTpf = window.ThreeAPI.getSetup().avgTpf;

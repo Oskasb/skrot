@@ -2,6 +2,7 @@ import {Object3D} from "../../../../libs/three/core/Object3D.js";
 import {Vector3} from "../../../../libs/three/math/Vector3.js";
 import {ENUMS} from "../ENUMS.js";
 import {pipelineAPI} from "./DataUtils.js";
+import {evt} from "../event/evt.js";
 
 let cache = {};
 let callbacks = {};
@@ -196,6 +197,27 @@ function debugDrawActorSkeleton(actor) {
     }
 }
 
+let lineEvt = {color:"RED"};
+let xEvt = {color:"RED", size:0.2};
+
+function debugDrawDynamicPoints(dynamicPoints) {
+
+    for (let i = 0; i < dynamicPoints.length; i++) {
+        dynamicPoints[i].updateDynamicPoint();
+        let obj3d = dynamicPoints[i].getObj3d();
+        ThreeAPI.tempVec3.set(0, 0, 1);
+        ThreeAPI.tempVec3.applyQuaternion(obj3d.quaternion);
+        ThreeAPI.tempVec3.add(obj3d.position);
+        lineEvt.from = obj3d.position;
+        lineEvt.to = ThreeAPI.tempVec3;
+        xEvt.pos = obj3d.position;
+
+        evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt)
+        evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS,xEvt)
+    }
+
+}
+
 export {
     createDebugButton,
     getAllSceneNodes,
@@ -205,5 +227,6 @@ export {
     debugTrackStatusMap,
     indicateActiveInstances,
     getUrlParam,
-    debugDrawActorSkeleton
+    debugDrawActorSkeleton,
+    debugDrawDynamicPoints
 }

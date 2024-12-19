@@ -151,11 +151,17 @@ function debugDrawSkeleton(assetInstance) {
     let skeleton = obj3d.skeleton;
     let bones = skeleton.bones;
     for (let i = 0; i < bones.length; i++) {
-        bones[i].matrixWorld.decompose(tempObj.position, tempObj.quaternion, tempObj.scale);
+        getBoneWorldTransform(bones[i], tempObj)
+
         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:obj3d.position, to:tempObj.position, color:"GREEN"})
     }
 
 }
+
+function getBoneWorldTransform(bone, obj3d) {
+    bone.matrixWorld.decompose(obj3d.position, obj3d.quaternion, obj3d.scale);
+}
+
 
 export {
     registerJsonAsset,
@@ -168,5 +174,6 @@ export {
     loadAssetInstance,
     applyMaterial,
     getAssetBoneByName,
-    debugDrawSkeleton
+    debugDrawSkeleton,
+    getBoneWorldTransform
 }

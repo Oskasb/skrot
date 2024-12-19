@@ -9,15 +9,15 @@ class DebugLines {
 
         let lineDenderSystem  = new LineRenderSystem();
         this.lineDenderSystem = lineDenderSystem;
-        let tempVec1 = new Vector3();
-        let tempVec2 = new Vector3();
+
         let color;
 
+        let frameRender = false;
+
         let updateFrame = function() {
-        //    this.updateDebugLines()
             this.lineDenderSystem.render()
-            //  ThreeAPI.threeSetup.removePrerenderCallback(postRenderCall);
-           ThreeAPI.threeSetup.removeOnClearCallback(postRenderCall);
+            ThreeAPI.threeSetup.removeOnClearCallback(postRenderCall);
+            frameRender = false
         }.bind(this);
 
         let postRenderCall = function() {
@@ -25,12 +25,12 @@ class DebugLines {
         }
 
         let renderCall = function() {
-            this.lineDenderSystem.activate();
-            //      ThreeAPI.threeSetup.addPrerenderCallback(postRenderCall);
-         ThreeAPI.threeSetup.addOnClearCallback(postRenderCall);
-        //    ThreeAPI.threeSetup.addOnClearCallback(this.lineDenderSystem.render)
+            if (frameRender === false) {
+                this.lineDenderSystem.activate();
+                ThreeAPI.threeSetup.addOnClearCallback(postRenderCall);
+                frameRender = true;
+            }
         }.bind(this)
-
 
 
         let drawLine = function(event) {
@@ -39,7 +39,6 @@ class DebugLines {
             } else {
                 color = event.color;
             }
-
 
             if (event.drawFrames) {
                 let frames = event.drawFrames;
@@ -70,7 +69,6 @@ class DebugLines {
             lineDenderSystem.drawLine(event.from, event.to, color)
             renderCall()
         };
-
 
         let drawCross = function(event) {
             if (typeof (event.color) === 'string') {

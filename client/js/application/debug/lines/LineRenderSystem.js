@@ -44,18 +44,17 @@ class LineRenderSystem {
 		this.axis = ['x', 'y', 'z'];
 
 	}
-	color = function(color) {
+	color(color) {
 		return this.colors[color];
 	};
 
-	drawLine = function (start, end, color) {
+	drawLine(start, end, color) {
 		let lineRenderer = this._lineRenderers[0];
-
 		lineRenderer._addLine(start, end, color);
 	};
 
 
-	_drawAxisLine = function (start, startEndDelta, startDataIndex, endDataIndex, startPolarity, endPolarity, color, quat) {
+	_drawAxisLine(start, startEndDelta, startDataIndex, endDataIndex, startPolarity, endPolarity, color, quat) {
 		let startAxis = this.axis[startDataIndex];
 		let endAxis = this.axis[endDataIndex];
 
@@ -100,7 +99,7 @@ class LineRenderSystem {
 	 * @param {Vector3} color A vector with its components between 0-1.
 	 * @param {Matrix4} [transformMatrix]
 	 */
-	drawAABox = function (min, max, color, quat) {
+	drawAABox(min, max, color, quat) {
 		let diff = this.tmpVec1.copy(max).sub(min);
 
 		for (let a = 0; a < 3; a++) {
@@ -121,7 +120,7 @@ class LineRenderSystem {
 	 * @param {Vector3} color A vector with its components between 0-1.
 	 * @param {number} [size=0.05]
 	 */
-	drawCross = function (position, color, size) {
+	drawCross(position, color, size) {
 		size = size || 0.05;
 
 		this.start.x = position.x - size;
@@ -152,7 +151,7 @@ class LineRenderSystem {
 		this.drawLine(this.start, this.end, color);
 	};
 
-	activate = function() {
+	activate() {
 		if (!this.isActive) {
 		for (let i = 0; i < this._lineRenderers.length; i++) {
 			let lineRenderer = this._lineRenderers[i];
@@ -161,7 +160,7 @@ class LineRenderSystem {
 		this.isActive = true;
 	}}
 
-	render = function () {
+	render() {
 		for (let i = 0; i < this._lineRenderers.length; i++) {
 			let lineRenderer = this._lineRenderers[i];
 			if (!lineRenderer._numRenderingLines) {
@@ -173,7 +172,7 @@ class LineRenderSystem {
 		}
 	};
 
-	_pause = function () {
+	_pause() {
 		for (let i = 0; i < this._lineRenderers.length; i++) {
 			let lineRenderer = this._lineRenderers[i];
 			lineRenderer._pause();
@@ -181,7 +180,7 @@ class LineRenderSystem {
 	};
 
 
-	clear = function () {
+	clear() {
 		for (let i = 0; i < this._lineRenderers.length; i++) {
 			let lineRenderer = this._lineRenderers[i];
 			lineRenderer._remove();

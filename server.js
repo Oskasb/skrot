@@ -18,7 +18,7 @@ let localPort = 5006;
 const port = process.env.PORT || localPort;
 import {ServerMain} from "./Server/ServerMain.js";
 let serverMain = new ServerMain();
-let publishedServer = true;
+let publishedServer = false;
 let server = createServer(
 
     function (request, response) {

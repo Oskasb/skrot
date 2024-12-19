@@ -31,6 +31,8 @@ class AssetTexture {
                 settings.texture.flipY = false;
                 settings.texture.updateMatrix()
                 settings.texture.needsUpdate = true;
+            //    settings.texture.preload()
+                settings.texture.generateMipmaps = false;
                 sendToSubscribers();
             }
 

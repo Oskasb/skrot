@@ -2,6 +2,7 @@ import {Object3D} from "../../../../libs/three/Three.Core.js";
 import {getGameWorld} from "../../application/utils/GameUtils.js";
 import {ENUMS} from "../../application/ENUMS.js";
 import {SimpleStatus} from "../../application/setup/SimpleStatus.js";
+import {debugDrawDynamicPoints} from "../../application/utils/DebugUtils.js";
 
 class GamePlayer {
     constructor() {
@@ -19,6 +20,14 @@ class GamePlayer {
             ctrlPiece.getAssetInstance().call.addToScene();
             ctrlPiece.getAssetInstance().call.getObj3d().position.y += 10
             status.setStatusKey(ENUMS.PlayerStatus.CONTROLLABLE_ID, ctrlPiece.getStatus(ENUMS.ControllableStatus.CONTROLLABLE_ID));
+
+
+            function debugDrawControllable() {
+            //    debugDrawDynamicPoints(ctrlPiece.getAssetInstance().dynamicPoints)
+            }
+
+            ThreeAPI.registerPrerenderCallback(debugDrawControllable)
+
         }
 
         function activateControllable(controllableId) {

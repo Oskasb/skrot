@@ -12,6 +12,7 @@ class JsonAsset {
 
         let onDataUpdated = function(url,data) {
             this.json = data;
+        //    console.log("Json Data Updated", url, data)
             pipeMsgCB('load OK', 'json', this.name+'.json')
             MATH.callAll(this.subscribers, this.json)
         }.bind(this);
