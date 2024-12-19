@@ -343,8 +343,8 @@ let refDiv;
         element.style.cursor = "pointer";
         element.addEventListener('mouseup', cb);
         element.addEventListener('touchend', cb);
-    //    element.addEventListener('mouseout', cb);
-    //    element.addEventListener('touchcancel', cb);
+        element.addEventListener('mouseout', cb);
+        element.addEventListener('touchcancel', cb);
     }
 
     function translateElement3DPercent(element, x, y, z) {
@@ -377,6 +377,17 @@ let refDiv;
         }
     }
 
+    function pointerEvenToPercentX(e) {
+        let x = e.clientX;
+        let width = e.target.offsetWidth;
+        return width / (x-width*0.5)
+    }
+
+function pointerEvenToPercentY(e) {
+    let y = e.clientY;
+    let height = e.target.offsetHeight;
+    return height / (y-height*0.5)
+}
 
 export {
     setRefDiv,
@@ -421,5 +432,7 @@ export {
     addPressEndFunction,
     translateElement3DPercent,
     transformElement3DPercent,
-    buildCssTransform
+    buildCssTransform,
+    pointerEvenToPercentX,
+    pointerEvenToPercentY
 };

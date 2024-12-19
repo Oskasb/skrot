@@ -256,6 +256,19 @@ iframe.tool_selector {
     height: 170em;
 }
 
+iframe.ui_flight_stick {
+    z-index: 100000;
+    top: auto;
+    bottom: 120em;
+    right: 80em;
+    left: auto;
+    width: 300em;
+    height: 300em;
+    position: absolute;
+    border: none;
+    color: #ecffdc;
+}
+
 iframe.bar_right {
     z-index: 100000;
     top: auto;

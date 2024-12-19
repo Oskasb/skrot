@@ -540,7 +540,7 @@ class MD2CharacterComplex {
 		this.root.position.x += Math.sin( this.bodyOrientation ) * forwardDelta;
 		this.root.position.z += Math.cos( this.bodyOrientation ) * forwardDelta;
 
-		// steering
+		// ui
 
 		this.root.rotation.y = this.bodyOrientation;
 

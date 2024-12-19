@@ -8,6 +8,7 @@ import {MATH} from "../../../application/MATH.js";
 import {DynamicPoint} from "../../../game/pieces/DynamicPoint.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {evt} from "../../../application/event/evt.js";
+import {ControlState} from "../../../game/controls/ControlState.js";
 
 class AssetInstance {
     constructor () {
@@ -20,11 +21,26 @@ class AssetInstance {
         let status = new SimpleStatus();
         this.status = status;
 
+        let controls = [];
+        this.controls = controls;
+
         let controlDynamics = {};
         this.controlDynamics = controlDynamics;
 
         let dynamicPoints = [];
         this.dynamicPoints = dynamicPoints;
+
+        function attachControls(id, fileName) {
+            function attachControlList(data) {
+                console.log("Attach Controls List", data)
+                MATH.emptyArray(controls)
+                for (let i = 0; i < data.length; i++) {
+                    controls.push(new ControlState(settings.assetInstance, data[i]))
+                }
+            }
+
+            new JsonAsset(fileName).subscribe(attachControlList)
+        }
 
         function attachPoints(id, fileName) {
             function attachPointList(data) {
@@ -68,6 +84,18 @@ class AssetInstance {
 
 
                 function modelLoaded(modelObj3d) {
+
+
+
+
+                    let controls = data['controls'];
+
+                    if (controls.length) {
+                        for (let i = 0; i < controls.length; i++) {
+                            attachControls(controls[i].id, controls[i].file)
+                        }
+                    }
+
 
                     let points = data['points'];
 

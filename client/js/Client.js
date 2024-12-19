@@ -44,7 +44,7 @@ function init3d() {
     renderer = store.renderer;
 
     new ThreeBloom().call.initBloom(scene, camera, renderer)
-    let debugLines = new DebugLines()
+    new DebugLines()
 
     init();
 

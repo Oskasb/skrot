@@ -22,8 +22,18 @@ class GamePlayer {
             status.setStatusKey(ENUMS.PlayerStatus.CONTROLLABLE_ID, ctrlPiece.getStatus(ENUMS.ControllableStatus.CONTROLLABLE_ID));
 
 
+            let ui = ctrlPiece.ui;
+
+
+
             function debugDrawControllable() {
             //    debugDrawDynamicPoints(ctrlPiece.getAssetInstance().dynamicPoints)
+
+            //    console.log("Update Ui state")
+                for (let key in ui) {
+                    ui[key].call.update();
+                }
+
             }
 
             ThreeAPI.registerPrerenderCallback(debugDrawControllable)

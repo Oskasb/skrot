@@ -15,6 +15,7 @@ import {ModelGeometry} from "../../3d/three/assets/ModelGeometry.js";
 import {AssetInstance} from "../../3d/three/assets/AssetInstance.js";
 import {AssetTexture} from "../../3d/three/assets/AssetTexture.js";
 import {ControllablePiece} from "../../game/pieces/ControllablePiece.js";
+import {DomFlightstick} from "../ui/dom/ui/DomFlightstick.js";
 
 let pools = {}
 let stats = {};
@@ -39,7 +40,7 @@ function initPools() {
     registerPool(AssetInstance);
     registerPool(AssetTexture);
     registerPool(ControllablePiece)
-
+    registerPool(DomFlightstick)
 }
 
 function registerPool(DataObj) {

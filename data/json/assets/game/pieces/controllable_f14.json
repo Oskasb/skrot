@@ -1,5 +1,8 @@
 {
   "controllable": "vehicle_f14",
+  "ui": [
+    {"id": "FLIGHT_STICK",          "file": "ui_f14_stick"}
+  ],
   "controls": [
     {"id": "CONTROL_SWEEP", "state": {"min": 0, "max": 1, "value": 0.5}}
   ]
