@@ -2,7 +2,7 @@ import {GLTFLoader} from "../../../../libs/jsm/loaders/GLTFLoader.js";
 import {ImageLoader} from "../../../../libs/three/Three.Core.js";
 
 
-let path = '../data/'
+let path = '../../data/'
 if (window.islocal === true) {
 //    path = './data/'
 }

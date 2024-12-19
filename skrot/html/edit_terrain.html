@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<link rel="stylesheet" href="../../html/css/base.css">
+<link rel="stylesheet" type="text/css" href="../../html/css/gui.css" />
+
+<body id="container" class="overlay_page transparent">
+
+<div class="edit_panel">
+    <h2>Terrain</h2>
+    <div class="control_container terrain_edit">
+        <div id="rebuild" class="operate_button">REBUILD</div>
+    </div>
+    <div id="anchor_close" class="anchor_close"></div>
+    <div class="control_container terrain_edit">
+        <div class="list_container terrain_slider">
+            <select name="tool" id="tool"></select>
+        </div>
+    </div>
+    <div class="control_container terrain_edit">
+        <div class="slider_container terrain_slider">
+            <input id="radius" type="range" min="0.5" max="50" step="0.5">
+            <h2>Radius</h2>
+            <p  id="radius_value" >xx</p>
+        </div>
+    </div>
+    <div class="control_container terrain_edit">
+        <div class="slider_container terrain_slider">
+            <input id="sharpness" type="range" min="0" max="1" step="0.1">
+            <h2>Sharpness</h2>
+            <p  id="sharpness_value" >xx</p>
+        </div>
+    </div>
+    <div class="control_container terrain_edit">
+        <div class="slider_container terrain_slider">
+            <input id="strength" type="range" min="1" max="100"  step="1">
+            <h2>Strength</h2>
+            <p  id="strength_value" >xx</p>
+        </div>
+    </div>
+    <div class="control_container terrain_edit">
+        <div class="slider_container terrain_slider">
+            <input id="noise" type="range" min="0" max="1"  step="0.01">
+            <h2>Noise</h2>
+            <p  id="noise_value" >xx</p>
+        </div>
+    </div>
+    <div class="control_container terrain_edit">
+        <div class="slider_container terrain_slider">
+            <input id="draw" type="range" min="0" max="1"  step="0.01">
+            <h2>Auto Draw</h2>
+            <p  id="draw_value" >xx</p>
+        </div>
+    </div>
+    <div class="control_container terrain_edit">
+        <div id="apply_tool" class="operate_button"></div>
+    </div>
+    <div id="color_panel" class="control_container">
+        <div class="color_container biome_edit">
+            <div id="sample_backdrop" class="sampler_container">
+                <div id="sample" class="edit_button sample_button">SAMPLE</div>
+            </div>
+            <h2>Biome</h2>
+            <input id="biome" type="color">
+            <p  id="biome_value"></p>
+        </div>
+    </div>
+</div>
+</body>
+
+
