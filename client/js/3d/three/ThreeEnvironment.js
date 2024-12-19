@@ -79,9 +79,9 @@ class ThreeEnvironment {
 
         let _this = this;
 
-        let worldListLoaded = function(src, data) {
+        let worldListLoaded = function(data) {
 
-        //    console.log("Load Env World Data:", src, data);
+            console.log("Load Env World Data:", data);
 
             for (let i = 0; i < data.params.length; i++){
                 _this.worldSetup[data.params[i].id] = data.params[i]
@@ -93,8 +93,15 @@ class ThreeEnvironment {
         };
 
     //    waterFx = new WaterFX();
-
-        new PipelineObject("ASSETS", "WORLD", worldListLoaded);
+        let data = {
+            defaultEnvId:"high_noon",
+            params:[
+                {id:"sun",      THREE:"DirectionalLight"},
+                {id:"ambient",  THREE:"AmbientLight"    },
+                {id:"fog",      THREE:"Fog"         }
+            ]
+        }
+        worldListLoaded(data)
 
     };
 
@@ -583,6 +590,8 @@ class ThreeEnvironment {
 
     initEnvironment(store, ready) {
 
+        console.log("Init Env")
+
         let _this = this;
 
         let setEnvConfigId = function(envConfId, time) {
@@ -726,8 +735,6 @@ class ThreeEnvironment {
         };
 
 
-
-
         let environmentListLoaded = function(data) {
 
             statusMap.configIds = [];
@@ -751,11 +758,10 @@ class ThreeEnvironment {
             _this.currentSkyConfig = _this.skyList['current'];
             _this.currentEnvConfig = _this.envList['current'];
 
-        //    console.log("Env Loaded", _this.currentSkyConfig, _this.currentEnvConfig)
+            console.log("Env Loaded", _this.currentSkyConfig, _this.currentEnvConfig)
 
             _this.applySkyConfig();
             _this.applyEnvironment();
-
 
         };
 
@@ -765,6 +771,8 @@ class ThreeEnvironment {
     //   water.call.initWater(_this);
 
    //     new PipelineObject("ASSETS", "ENVIRONMENT", environmentListLoaded);
+
+        console.log("Load env json")
 
         new JsonAsset('environments').subscribe(environmentListLoaded)
 
