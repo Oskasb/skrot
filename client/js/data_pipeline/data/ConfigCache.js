@@ -84,8 +84,6 @@ class ConfigCache {
 
             _this.gameDataPipeline.applyPipelineOptions(opts, pipelineErrorCb, _this);
 
-            let jsonFiles = [];
-
             for (let key in json) {
             //    if (key !== 'index' || key !== 'synch_list') {
                     let entry = json[key];
@@ -97,10 +95,6 @@ class ConfigCache {
                     }
                     files[format][key] = {url:url, id:key};
 
-                    if (format === 'json') {
-                        jsonFiles.push(url);
-                    }
-             //   }
             }
 
             pipelineReadyCb(_this.configs);
@@ -109,19 +103,9 @@ class ConfigCache {
                 //    console.log("JSON File Indexed: ", iurl, jsn);
             };
 
-            if (jsonFiles.length) {
-
-            }
-
             function preCacheUrl(url) {
                 _this.cacheFromUrl(opts.jsonConfigUrl+url, jsonFiledAdded, loadFail);
             }
-
-         //   setTimeout(function() {
-                for (let i = 0; i < jsonFiles.length;i++) {
-                    preCacheUrl(jsonFiles[i])
-                }
-          //  }, 100)
 
 
         };

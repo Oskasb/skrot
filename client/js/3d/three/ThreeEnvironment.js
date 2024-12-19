@@ -15,6 +15,7 @@ import {MATH} from "../../application/MATH.js";
 import {getFrame} from "../../application/utils/DataUtils.js";
 import {getSetting} from "../../application/utils/StatusUtils.js";
 import {ThreeWater} from "./terrain/ThreeWater.js";
+import {JsonAsset} from "../../application/load/JsonAsset.js";
 
 let statusMap = {
     transitionProgress:0,
@@ -727,8 +728,7 @@ class ThreeEnvironment {
 
 
 
-        let environmentListLoaded = function(scr, data) {
-
+        let environmentListLoaded = function(data) {
 
             statusMap.configIds = [];
 
@@ -755,14 +755,18 @@ class ThreeEnvironment {
 
             _this.applySkyConfig();
             _this.applyEnvironment();
-            let water = new ThreeWater();
-            water.call.initWater(_this);
+
 
         };
 
         createEnvWorld(this.worldSetup);
 
-        new PipelineObject("ASSETS", "ENVIRONMENT", environmentListLoaded);
+    //    let water = new ThreeWater();
+    //   water.call.initWater(_this);
+
+   //     new PipelineObject("ASSETS", "ENVIRONMENT", environmentListLoaded);
+
+        new JsonAsset('environments').subscribe(environmentListLoaded)
 
     };
 
