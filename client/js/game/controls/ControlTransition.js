@@ -9,41 +9,48 @@ class ControlTransition {
         let updateCallbacks = [];
 
         function transitionProgressUpdate(value) {
-            MATH.callAll(updateCallbacks, value);
-            if (oldTransition !== null) {
-                poolReturn(oldTransition);
-            }
+        //    if (transitionEnded === false) {
+                MATH.callAll(updateCallbacks, value);
+         //   }
         }
+
+        let transitionEnded = false;
 
         function transitionCompleted(value) {
-            MATH.callAll(updateCallbacks, value);
-            transition = null;
-            if (oldTransition !== null) {
-                poolReturn(oldTransition);
+            if (transitionEnded === false) {
+                MATH.callAll(updateCallbacks, value);
             }
+
         }
 
-        let oldTransition = null;
 
         function updateControlTransition(targetValue, state, onUpdateCB) {
+
             if (transition !== null) {
-                oldTransition = transition;
                 transition.cancelScalarTransition()
+                transitionEnded = true;
+                poolReturn(transition)
             }
 
                 if (updateCallbacks.indexOf(onUpdateCB) === -1) {
                     updateCallbacks.push(onUpdateCB)
                 }
 
-            transition = poolFetch('ScalarTransition');
-
                 let speed = state.speed || 1;
                 let range = state.max - state.min;
-                let diff = targetValue - state.value;
+                let diff = Math.abs(state.value - targetValue) ;
                 let fraction = diff / range;
+                let time = fraction / speed
 
+           if (time > 0.01) {
+               transition = poolFetch('ScalarTransition');
+               transitionEnded = false;
+               transition.initScalarTransition(state.value, targetValue,  time, transitionProgressUpdate, null, transitionCompleted)
+           } else {
+               transitionEnded = false;
+               transitionCompleted(targetValue);
+           }
 
-            transition.initScalarTransition(state.value, targetValue,  1 / speed, transitionProgressUpdate, null, transitionCompleted)
         }
 
         this.call = {

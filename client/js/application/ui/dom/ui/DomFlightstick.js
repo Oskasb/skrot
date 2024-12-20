@@ -6,6 +6,7 @@ import {
     pointerEventToPercentX,
     pointerEventToPercentY, translateElement3DPercent
 } from "../DomUtils.js";
+import {MATH} from "../../../MATH.js";
 
 
 class DomFlightstick {
@@ -19,13 +20,14 @@ class DomFlightstick {
         let stickElement;
 
         function update() {
-            translateElement3DPercent(stickElement, statusMap['INPUT_ROLL']*100, statusMap['INPUT_PITCH']*100, 0);
+            translateElement3DPercent(stickElement, statusMap['INPUT_ROLL']*50, statusMap['INPUT_PITCH']*50, 0);
         }
 
         let pressActive = false;
 
         function pressStart(e) {
             pressActive = true;
+            pointerMove(e)
         }
 
         function pressEnd(e) {
@@ -38,9 +40,9 @@ class DomFlightstick {
         function pointerMove(e) {
             if (pressActive) {
             //    console.log(e);
-                statusMap['AXIS_X'] = (-50 + pointerEventToPercentX(e))*2;
-                statusMap['AXIS_Y'] = (-50 + pointerEventToPercentY(e))*2;
-                translateElement3DPercent(inputElement, statusMap['AXIS_X'], statusMap['AXIS_Y'], 0);
+                statusMap['AXIS_X'] = MATH.clamp((-50 + pointerEventToPercentX(e))/25, -1, 1);
+                statusMap['AXIS_Y'] = MATH.clamp((-50 + pointerEventToPercentY(e))/25, -1, 1);
+                translateElement3DPercent(inputElement, statusMap['AXIS_X']*50, statusMap['AXIS_Y']*50, 0);
             }
 
         }

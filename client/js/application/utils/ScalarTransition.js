@@ -24,7 +24,12 @@ class ScalarTransition {
     }
 
     initScalarTransition(from, to, overTime, callback, curve, onFrameUpdateCB) {
-        this.curve = curve || 'curveSigmoid'
+
+        if (typeof (curve) === 'string') {
+            this.curve = MATH[curve]
+        }
+
+
         this.from = from;
         this.to = to;
         this.delta = to-from;
@@ -49,7 +54,11 @@ class ScalarTransition {
             this.elapsedTime += tpf;
             let fraction = MATH.calcFraction(this.startTime, this.targetTime+tpf, this.elapsedTime);
             if (fraction > 1) fraction = 1;
-            let curveValue = MATH[this.curve](fraction);
+            let curveValue = fraction;
+            if (typeof (this.curve) === 'function') {
+                curveValue = this.curve(fraction);
+            }
+
             this.frameValue = this.from+this.delta*curveValue;
             MATH.callAll(this.onFrameUpdateCallbacks, this.frameValue, fraction);
         } else {

@@ -1,6 +1,6 @@
 {
   "dynamic": "GEAR_R",
-  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.4},
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.2},
   "targets": [
     {
       "speed": 0.01,
