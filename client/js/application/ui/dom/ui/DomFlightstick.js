@@ -37,7 +37,7 @@ class DomFlightstick {
 
         function pointerMove(e) {
             if (pressActive) {
-                console.log(e);
+            //    console.log(e);
                 statusMap['AXIS_X'] = (-50 + pointerEventToPercentX(e))*2;
                 statusMap['AXIS_Y'] = (-50 + pointerEventToPercentY(e))*2;
                 translateElement3DPercent(inputElement, statusMap['AXIS_X'], statusMap['AXIS_Y'], 0);

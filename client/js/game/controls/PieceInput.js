@@ -5,7 +5,7 @@ class PieceInput {
 
         let isActive = false;
         let statusMap = {};
-        let domUiElement;
+        let domUiElement = null;
 
         let inputTargets = json['input_targets'];
 
@@ -24,7 +24,10 @@ class PieceInput {
 
         function update() {
             if (isActive === false) {
-                activate();
+                if (domUiElement === null) {
+                    activate();
+                }
+
                 return;
             }
 
@@ -36,16 +39,15 @@ class PieceInput {
 
         }
 
-        function elemReady(domUi) {
-            domUiElement = domUi;
+        function elemReady() {
             isActive = true;
         }
 
 
         function activate() {
             console.log("Activate Piece Input", json)
-            let elem = poolFetch(json['ui']);
-            elem.call.initElement(statusMap, 'ui/'+json['html'], json['class'], elemReady)
+            domUiElement= poolFetch(json['ui']);
+            domUiElement.call.initElement(statusMap, 'ui/'+json['html'], json['class'], elemReady)
         }
 
         this.call = {

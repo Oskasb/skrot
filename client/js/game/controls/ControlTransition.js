@@ -10,17 +10,25 @@ class ControlTransition {
 
         function transitionProgressUpdate(value) {
             MATH.callAll(updateCallbacks, value);
+            if (oldTransition !== null) {
+                poolReturn(oldTransition);
+            }
         }
 
         function transitionCompleted(value) {
             MATH.callAll(updateCallbacks, value);
             transition = null;
+            if (oldTransition !== null) {
+                poolReturn(oldTransition);
+            }
         }
+
+        let oldTransition = null;
 
         function updateControlTransition(targetValue, state, onUpdateCB) {
             if (transition !== null) {
+                oldTransition = transition;
                 transition.cancelScalarTransition()
-                poolReturn(transition);
             }
 
                 if (updateCallbacks.indexOf(onUpdateCB) === -1) {
