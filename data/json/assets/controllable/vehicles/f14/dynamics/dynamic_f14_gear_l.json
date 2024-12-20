@@ -1,6 +1,6 @@
 {
   "dynamic": "GEAR_L",
-  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.04},
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.4},
   "targets": [
     {
       "speed": 0.01,

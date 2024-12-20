@@ -1,6 +1,6 @@
 {
   "dynamic": "ENGINE_NOZZLE_L",
-  "state": {"min": -0.6, "max": 0.05, "value": 0, "speed": 0.04},
+  "state": {"min": -0.6, "max": 0.05, "value": 0, "speed": 0.5},
   "targets": [
     {
       "speed": 0.01,

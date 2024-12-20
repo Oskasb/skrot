@@ -4,9 +4,9 @@
     {"id": "FLIGHT_STICK",          "file": "ui_f14_stick"}
   ],
   "inputs": [
-    {"id": "INPUT_ROLL",    "state": {"min":-1, "max": 1, "value": 0}},
-    {"id": "INPUT_PITCH",   "state": {"min":-1, "max": 1, "value": 0}},
-    {"id": "INPUT_YAW",     "state": {"min":-1, "max": 1, "value": 0}},
-    {"id": "CONTROL_SWEEP", "state": {"min": 0, "max": 1, "value": 0.5}}
+    {"id": "INPUT_ROLL",    "state": {"min":-1, "max": 1, "value": 0, "speed": 2}},
+    {"id": "INPUT_PITCH",   "state": {"min":-1, "max": 1, "value": 0, "speed": 2}},
+    {"id": "INPUT_YAW",     "state": {"min":-1, "max": 1, "value": 0, "speed": 3}},
+    {"id": "CONTROL_SWEEP", "state": {"min": 0, "max": 1, "value": 0.5, "speed": 5}}
   ]
 }

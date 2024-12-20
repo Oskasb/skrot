@@ -4,6 +4,7 @@ import {jointCalls} from "../../application/utils/ControlUtils.js";
 import {poolFetch, poolReturn} from "../../application/utils/PoolUtils.js";
 import {getAssetBoneByName} from "../../application/utils/AssetUtils.js";
 import {Object3D} from "../../../../libs/three/Three.Core.js";
+import {ControlTransition} from "./ControlTransition.js";
 
 
 class ControlDynamics {
@@ -23,7 +24,7 @@ class ControlDynamics {
         this.dynamic = null;
 
         this.assetInstance = assetInstance;
-
+        let controlTransition = new ControlTransition();
         let applyCalls = [];
 
         let jsonAsset = new JsonAsset(fileName)
@@ -60,7 +61,6 @@ class ControlDynamics {
             for (let key in json.state) {
                 state[key] = json.state[key];
             }
-            state.targetValue = json.state.value;
 
             this.targets = MATH.jsonCopy(json.targets);
             MATH.emptyArray(applyCalls);
@@ -73,23 +73,13 @@ class ControlDynamics {
 
         jsonAsset.subscribe(onData);
 
-        let transition = null;
-
-        function transitionProgressUpdate(value) {
+        function onTransitionChange(value) {
             state.value = value;
             MATH.callAll(applyCalls);
         }
 
-        function applyTargetStateChange() {
-
-            if (transition !== null) {
-                transition.cancelScalarTransition()
-                poolReturn(transition);
-            }
-
-            transition = poolFetch('ScalarTransition');
-            transition.initScalarTransition(state.value, state.targetValue, 1, transitionProgressUpdate, null, transitionProgressUpdate)
-
+        function applyTargetStateChange(targetValue) {
+            controlTransition.call.updateControlTransition(targetValue, state, onTransitionChange);
         }
 
         this.call = {
@@ -100,8 +90,7 @@ class ControlDynamics {
 
 
     setTargetState(value) {
-        this.state.targetValue = value;
-        this.call.applyTargetStateChange();
+        this.call.applyTargetStateChange(value);
     }
 
 

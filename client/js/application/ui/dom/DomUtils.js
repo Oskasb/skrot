@@ -377,16 +377,17 @@ let refDiv;
         }
     }
 
-    function pointerEvenToPercentX(e) {
-        let x = e.clientX;
+    function pointerEventToPercentX(e) {
+        let x = e.pageX;
         let width = e.target.offsetWidth;
-        return width / (x-width*0.5)
+        return MATH.percentify(x, width)
+
     }
 
-function pointerEvenToPercentY(e) {
-    let y = e.clientY;
+function pointerEventToPercentY(e) {
+    let y = e.pageY;
     let height = e.target.offsetHeight;
-    return height / (y-height*0.5)
+    return MATH.percentify(y, height)
 }
 
 export {
@@ -433,6 +434,6 @@ export {
     translateElement3DPercent,
     transformElement3DPercent,
     buildCssTransform,
-    pointerEvenToPercentX,
-    pointerEvenToPercentY
+    pointerEventToPercentX,
+    pointerEventToPercentY
 };

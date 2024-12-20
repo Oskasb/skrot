@@ -3,8 +3,8 @@ import {
     addMouseMoveFunction,
     addPressEndFunction,
     addPressStartFunction,
-    pointerEvenToPercentX,
-    pointerEvenToPercentY
+    pointerEventToPercentX,
+    pointerEventToPercentY, translateElement3DPercent
 } from "../DomUtils.js";
 
 
@@ -15,8 +15,11 @@ class DomFlightstick {
         let _this = this;
         let statusMap;
 
-        function update() {
+        let inputElement;
+        let stickElement;
 
+        function update() {
+            translateElement3DPercent(stickElement, statusMap['INPUT_ROLL']*100, statusMap['INPUT_PITCH']*100, 0);
         }
 
         let pressActive = false;
@@ -29,19 +32,24 @@ class DomFlightstick {
             pressActive = false;
             statusMap['AXIS_X'] = 0;
             statusMap['AXIS_Y'] = 0;
+            translateElement3DPercent(inputElement, statusMap['AXIS_X'], statusMap['AXIS_Y'], 0);
         }
 
         function pointerMove(e) {
             if (pressActive) {
                 console.log(e);
-                statusMap['AXIS_X'] = pointerEvenToPercentX(e);
-                statusMap['AXIS_Y'] = pointerEvenToPercentY(e);
+                statusMap['AXIS_X'] = (-50 + pointerEventToPercentX(e))*2;
+                statusMap['AXIS_Y'] = (-50 + pointerEventToPercentY(e))*2;
+                translateElement3DPercent(inputElement, statusMap['AXIS_X'], statusMap['AXIS_Y'], 0);
             }
+
         }
 
         function setupListeners() {
-            let surface = htmlElement.call.getChildElement('stick_container')
+            let surface = htmlElement.call.getChildElement('stick_sampler')
 
+            inputElement = htmlElement.call.getChildElement('stick_input')
+            stickElement = htmlElement.call.getChildElement('stick_state')
             addPressStartFunction(surface, pressStart)
             addMouseMoveFunction(surface, pointerMove)
             addPressEndFunction(surface, pressEnd)

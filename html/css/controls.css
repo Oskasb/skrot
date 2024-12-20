@@ -1,7 +1,16 @@
-div.stick_container {
+div.stick_sampler {
+    z-index: 99999;
     width: 98%;
     height: 98%;
     border: 0.1em solid rgba(129, 255, 235, 0.2);
+}
+
+div.stick_sampler h1 {
+    pointer-events: none;
+}
+
+div.stick_sampler h2 {
+    pointer-events: none;
 }
 
 
