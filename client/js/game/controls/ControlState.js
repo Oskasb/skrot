@@ -1,5 +1,7 @@
 class ControlState {
-    constructor(assetInstance, config) {
+    constructor(controllablePiece, config) {
+
+        this.controllablePiece = controllablePiece;
 
         console.log("Attach Control State", config)
 

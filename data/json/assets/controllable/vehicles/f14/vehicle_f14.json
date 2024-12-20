@@ -1,8 +1,6 @@
 {
   "model": "model_f14",
-  "controls": [
-    {"id": "CONTROLS_FLIGHT",       "file": "controls_f14_flight"}
-  ],
+
   "points": [
     {"id": "LIGHT_POINTS",          "file": "points_f14_lights"}
   ],

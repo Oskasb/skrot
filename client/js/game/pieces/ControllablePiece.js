@@ -4,6 +4,8 @@ import {loadAssetInstance} from "../../application/utils/AssetUtils.js";
 import {SimpleStatus} from "../../application/setup/SimpleStatus.js";
 import {PieceControl} from "../controls/PieceControl.js";
 import {PieceInput} from "../controls/PieceInput.js";
+import {MATH} from "../../application/MATH.js";
+import {ControlState} from "../controls/ControlState.js";
 
 class ControllablePiece {
     constructor() {
@@ -12,6 +14,9 @@ class ControllablePiece {
 
         this.inputs = {};
         this.ui = {};
+
+
+        this.controls = {};
 
         this.call = {
 
@@ -44,6 +49,8 @@ class ControllablePiece {
 
         let inputs = this.inputs;
         let ui = this.ui;
+        let controls = this.controls;
+
         function attachInput(input) {
             inputs[input.id] = new PieceControl(input.id, input.state);
         }
@@ -53,10 +60,19 @@ class ControllablePiece {
                 for (let i = 0; i < json.length; i++) {
                     ui[json[i].id] = new PieceInput(_this, json[i].id, json[i])
                 }
-
-
             }
             new JsonAsset(file).subscribe(attach)
+        }
+
+        function attachControls(id, fileName) {
+            function attachControlList(data) {
+                console.log("Attach Controls List", data)
+                for (let i = 0; i < data.length; i++) {
+                    controls[id] = new ControlState(_this.assetInstance, data[i]);
+                }
+            }
+
+            new JsonAsset(fileName).subscribe(attachControlList)
         }
 
         function onData(json) {
@@ -74,6 +90,15 @@ class ControllablePiece {
                     attachUi(ui[i].id, ui[i].file)
                 }
             }
+
+            let controls = json['controls'];
+
+            if (controls.length) {
+                for (let i = 0; i < controls.length; i++) {
+                    attachControls(controls[i].id, controls[i].file)
+                }
+            }
+
 
             loadAssetInstance(json['controllable'], controllableLoaded)
         }

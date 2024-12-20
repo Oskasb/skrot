@@ -1,14 +1,11 @@
 import {Object3D} from "../../../../../libs/three/Three.Core.js";
-import {debugDrawSkeleton, loadAssetModel} from "../../../application/utils/AssetUtils.js";
+import {loadAssetModel} from "../../../application/utils/AssetUtils.js";
 import {JsonAsset} from "../../../application/load/JsonAsset.js";
 import {SimpleStatus} from "../../../application/setup/SimpleStatus.js";
-import {PieceControl} from "../../../game/controls/PieceControl.js";
 import {ControlDynamics} from "../../../game/controls/ControlDynamics.js";
 import {MATH} from "../../../application/MATH.js";
 import {DynamicPoint} from "../../../game/pieces/DynamicPoint.js";
-import {ENUMS} from "../../../application/ENUMS.js";
-import {evt} from "../../../application/event/evt.js";
-import {ControlState} from "../../../game/controls/ControlState.js";
+
 
 class AssetInstance {
     constructor () {
@@ -20,9 +17,7 @@ class AssetInstance {
 
         let status = new SimpleStatus();
         this.status = status;
-
-        let controls = [];
-        this.controls = controls;
+        
 
         let controlDynamics = {};
         this.controlDynamics = controlDynamics;
@@ -30,17 +25,6 @@ class AssetInstance {
         let dynamicPoints = [];
         this.dynamicPoints = dynamicPoints;
 
-        function attachControls(id, fileName) {
-            function attachControlList(data) {
-                console.log("Attach Controls List", data)
-                MATH.emptyArray(controls)
-                for (let i = 0; i < data.length; i++) {
-                    controls.push(new ControlState(settings.assetInstance, data[i]))
-                }
-            }
-
-            new JsonAsset(fileName).subscribe(attachControlList)
-        }
 
         function attachPoints(id, fileName) {
             function attachPointList(data) {
@@ -57,7 +41,8 @@ class AssetInstance {
         function attachControlDynamic(id, fileName) {
 
             function dynLoaded(ctrlDyn) {
-
+                controlDynamics[id] = ctrlDyn;
+                /*
                 function randomChange() {
                 //    debugDrawSkeleton(settings.assetInstance)
                     if (Math.random() < 0.05) {
@@ -66,7 +51,7 @@ class AssetInstance {
                 }
 
                 ThreeAPI.addPostrenderCallback(randomChange);
-
+*/
             }
 
             new ControlDynamics(settings.assetInstance, id, fileName, dynLoaded)
@@ -85,16 +70,6 @@ class AssetInstance {
 
                 function modelLoaded(modelObj3d) {
 
-
-
-
-                    let controls = data['controls'];
-
-                    if (controls.length) {
-                        for (let i = 0; i < controls.length; i++) {
-                            attachControls(controls[i].id, controls[i].file)
-                        }
-                    }
 
 
                     let points = data['points'];
@@ -160,8 +135,6 @@ class AssetInstance {
 
     }
 
-
-
     setPos(pos) {
         this.call.setPos(pos);
     }
@@ -172,6 +145,10 @@ class AssetInstance {
 
     getObj3d() {
         return this.call.getObj3d();
+    }
+
+    getControlDynamic(id) {
+        return this.controlDynamics[id];
     }
 
 }
