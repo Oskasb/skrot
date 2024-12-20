@@ -1,17 +1,18 @@
+import {getFrame} from "./DataUtils.js";
+
 let jointCalls = {};
 
 function addValueToObjRotAxis(value, obj3d, axis) {
     console.log("addValueToObjRotAxis", axis, obj3d, value)
-
 }
 
 function setObjAxisRotation(value, obj3d, axis) {
-    obj3d.quaternion.copy(obj3d.userData.bindPoseObj3D.quaternion)
+
     obj3d[axis](value);
 }
 
 function setObjUniformScale(value, obj3d, axis) {
-    obj3d.scale.copy(obj3d.userData.bindPoseObj3D.scale)
+
     obj3d.scale.multiplyScalar(1+value);
 }
 

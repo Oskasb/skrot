@@ -17,7 +17,9 @@ class AssetInstance {
 
         let status = new SimpleStatus();
         this.status = status;
-        
+
+        this.dynamicBones = {};
+
 
         let controlDynamics = {};
         this.controlDynamics = controlDynamics;

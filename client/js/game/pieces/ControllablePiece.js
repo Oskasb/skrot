@@ -16,7 +16,7 @@ class ControllablePiece {
         this.ui = {};
 
 
-        this.controls = {};
+        this.controlStates = {};
 
         this.call = {
 
@@ -49,10 +49,10 @@ class ControllablePiece {
 
         let inputs = this.inputs;
         let ui = this.ui;
-        let controls = this.controls;
+        let controlStates = this.controlStates;
 
         function attachInput(input) {
-            inputs[input.id] = new PieceControl(input.id, input.state);
+            inputs[input.id] = new PieceControl(_this, input.id, input.state);
         }
 
         function attachUi(id, file) {
@@ -68,7 +68,7 @@ class ControllablePiece {
             function attachControlList(data) {
                 console.log("Attach Controls List", data)
                 for (let i = 0; i < data.length; i++) {
-                    controls[id] = new ControlState(_this.assetInstance, data[i]);
+                    controlStates[data[i].id] = new ControlState(_this, data[i].id, data[i]);
                 }
             }
 
@@ -111,8 +111,12 @@ class ControllablePiece {
         return this.inputs[id].getValue();
     }
 
-    setInputTargetState(id, state) {
-        return this.inputs[id].setValue(state);
+    setInputTargetState(id, value) {
+        return this.inputs[id].setValue(value);
+    }
+
+    applyControlState(id, value) {
+        this.controlStates[id].call.setControlState(value)
     }
 
 }

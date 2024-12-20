@@ -1,14 +1,14 @@
 [
-  {"id": "CONTROL_YAW",   "targets": [
-    {"control": "SURFACE_RUDDER_L", "factor": 1},
-    {"control": "SURFACE_RUDDER_R", "factor": 1}
+  {"id": "INPUT_YAW",     "targets": [
+    {"dynamic": "DYNAMIC_RUDDER_L", "factor": 1},
+    {"dynamic": "DYNAMIC_RUDDER_R", "factor": 1}
   ]},
-  {"id": "CONTROL_PITCH",   "targets": [
-    {"control": "SURFACE_TAIL_R", "factor": 1},
-    {"control": "SURFACE_TAIL_L", "factor": 1}
+  {"id": "INPUT_PITCH",   "targets": [
+    {"dynamic": "DYNAMIC_STAB_L", "factor": 1},
+    {"dynamic": "DYNAMIC_STAB_R", "factor": 1}
   ]},
-  {"id": "CONTROL_ROLL",   "targets": [
-    {"control": "SURFACE_TAIL_R", "factor": 1},
-    {"control": "SURFACE_TAIL_L", "factor":-1}
+  {"id": "INPUT_ROLL",   "targets": [
+    {"dynamic": "DYNAMIC_STAB_L", "factor":-1},
+    {"dynamic": "DYNAMIC_STAB_R", "factor": 1}
   ]}
 ]

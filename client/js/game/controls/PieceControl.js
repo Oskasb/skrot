@@ -2,7 +2,7 @@ import {MATH} from "../../application/MATH.js";
 import {ControlTransition} from "./ControlTransition.js";
 
 class PieceControl {
-    constructor(id, state) {
+    constructor(controllablePiece, id, state) {
         this.id = id;
 
         this.state = {
@@ -18,6 +18,7 @@ class PieceControl {
 
         function onTransitionUpdate(value) {
             state.value = value;
+            controllablePiece.applyControlState(id, value);
         }
 
         let setTargetValue = function(value) {

@@ -5,6 +5,8 @@ import {poolFetch, poolReturn} from "../../application/utils/PoolUtils.js";
 import {getAssetBoneByName} from "../../application/utils/AssetUtils.js";
 import {Object3D} from "../../../../libs/three/Three.Core.js";
 import {ControlTransition} from "./ControlTransition.js";
+import {DynamicBone} from "../../3d/three/assets/DynamicBone.js";
+import {getFrame} from "../../application/utils/DataUtils.js";
 
 
 class ControlDynamics {
@@ -32,20 +34,25 @@ class ControlDynamics {
         function attachDynamicTargets(targets) {
             if (targets.joints) {
                 for (let i = 0; i < targets.joints.length; i++) {
-
                     let jointFb = targets.joints[i];
-                    let call = jointCalls[jointFb.call];
+
+                    if (!assetInstance.dynamicBones[jointFb.bone]) {
+                        let bone = getAssetBoneByName(assetInstance, jointFb.bone);
+                        bone.userData.bindPoseObj3D = new Object3D();
+                        bone.userData.bindPoseObj3D.position.copy(bone.position);
+                        bone.userData.bindPoseObj3D.quaternion.copy(bone.quaternion);
+                        bone.userData.bindPoseObj3D.scale.copy(bone.scale);
+                        assetInstance.dynamicBones[jointFb.bone] = new DynamicBone(assetInstance, bone);
+                    }
+                    let dynamicBone = assetInstance.dynamicBones[jointFb.bone];
+
                     let args = jointFb.args;
-                    let bone = getAssetBoneByName(assetInstance, jointFb.bone);
                     let factor = jointFb['factor'] || 1;
 
-                    bone.userData.bindPoseObj3D = new Object3D();
-                    bone.userData.bindPoseObj3D.position.copy(bone.position);
-                    bone.userData.bindPoseObj3D.quaternion.copy(bone.quaternion);
-                    bone.userData.bindPoseObj3D.scale.copy(bone.scale);
+                    dynamicBone.call.registerInfluence(jointFb.call, args, state, factor)
 
                     let applyJointCall = function () {
-                        call(bone, args, state.value, factor)
+                        dynamicBone.call.applyDynamicBoneInfluence()
                     }
 
                     applyCalls.push(applyJointCall);
@@ -78,8 +85,18 @@ class ControlDynamics {
             MATH.callAll(applyCalls);
         }
 
+        let updateFrame = 0;
+        let frameValue = 0;
+
         function applyTargetStateChange(targetValue) {
-            controlTransition.call.updateControlTransition(targetValue, state, onTransitionChange);
+            let frame = getFrame().frame
+            if (updateFrame === frame) {
+                updateFrame = frame;
+                frameValue = 0;
+            }
+            frameValue += targetValue;
+
+            controlTransition.call.updateControlTransition(frameValue, state, onTransitionChange);
         }
 
         this.call = {
