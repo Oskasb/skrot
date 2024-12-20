@@ -1,6 +1,6 @@
 import {poolFetch} from "../../application/utils/PoolUtils.js";
 
-class PieceUi {
+class PieceInput {
     constructor(controllablePiece, id, json) {
 
 
@@ -10,11 +10,27 @@ class PieceUi {
         let domUiElement;
 
 
+        let inputTargets = json['input_targets'];
+
+
+        function updateInputStatus(inputToTarget) {
+            let sample = inputToTarget.sample;
+            let target = inputToTarget.target;
+            statusMap[target] = controllablePiece.getInputState(target);
+            controllablePiece.setInputTargetState(target, statusMap[sample]);
+        }
+
+
         function update() {
             if (isActive === false) {
                 activate();
                 return;
             }
+
+            for (let i = 0; i < inputTargets.length; i++) {
+                updateInputStatus(inputTargets[i]);
+            }
+
             domUiElement.call.update();
 
         }
@@ -38,4 +54,4 @@ class PieceUi {
 
 }
 
-export {PieceUi}
+export {PieceInput}

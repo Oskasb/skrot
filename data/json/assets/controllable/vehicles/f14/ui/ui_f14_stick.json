@@ -1,3 +1,12 @@
 [
-  {"id": "UI_STICK", "ui": "DomFlightstick", "html": "ui_flight_stick", "class": "ui_flight_stick"}
+  {
+    "id": "UI_STICK",
+    "ui": "DomFlightstick",
+    "html": "ui_flight_stick",
+    "class": "ui_flight_stick",
+    "input_targets": [
+      {"sample":"AXIS_X", "target":"INPUT_ROLL"},
+      {"sample":"AXIS_Y", "target":"INPUT_PITCH"}
+    ]
+  }
 ]

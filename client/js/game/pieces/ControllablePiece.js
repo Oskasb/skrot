@@ -3,17 +3,15 @@ import {poolFetch} from "../../application/utils/PoolUtils.js";
 import {loadAssetInstance} from "../../application/utils/AssetUtils.js";
 import {SimpleStatus} from "../../application/setup/SimpleStatus.js";
 import {PieceControl} from "../controls/PieceControl.js";
-import {PieceUi} from "../controls/PieceUi.js";
+import {PieceInput} from "../controls/PieceInput.js";
 
 class ControllablePiece {
     constructor() {
         let status = new SimpleStatus()
         this.status = status;
 
-        this.controls = {};
+        this.inputs = {};
         this.ui = {};
-
-
 
         this.call = {
 
@@ -44,16 +42,16 @@ class ControllablePiece {
             callback(_this)
         }
 
-        let controls = this.controls;
+        let inputs = this.inputs;
         let ui = this.ui;
-        function attachControl(ctrl) {
-            controls[ctrl.id] = new PieceControl(ctrl.id, ctrl.state);
+        function attachInput(input) {
+            inputs[input.id] = new PieceControl(input.id, input.state);
         }
 
         function attachUi(id, file) {
             function attach(json) {
                 for (let i = 0; i < json.length; i++) {
-                    ui[json[i].id] = new PieceUi(_this, json[i].id, json[i])
+                    ui[json[i].id] = new PieceInput(_this, json[i].id, json[i])
                 }
 
 
@@ -63,9 +61,9 @@ class ControllablePiece {
 
         function onData(json) {
             _this.json = json;
-            if (json.controls) {
-                for (let i = 0; i < json.controls.length; i++) {
-                    attachControl(json.controls[i])
+            if (json.inputs) {
+                for (let i = 0; i < json.inputs.length; i++) {
+                    attachInput(json.inputs[i])
                 }
             }
 
@@ -84,12 +82,12 @@ class ControllablePiece {
 
     }
 
-    getControlState(id) {
-        return this.controls[id].getValue();
+    getInputState(id) {
+        return this.inputs[id].getValue();
     }
 
-    setControlState(id, state) {
-        return this.controls[id].setValue(state);
+    setInputTargetState(id, state) {
+        return this.inputs[id].setValue(state);
     }
 
 }

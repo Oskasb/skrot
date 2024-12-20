@@ -27,15 +27,15 @@ class DomFlightstick {
 
         function pressEnd(e) {
             pressActive = false;
-            statusMap['INPUT_X'] = 0;
-            statusMap['INPUT_Y'] = 0;
+            statusMap['AXIS_X'] = 0;
+            statusMap['AXIS_Y'] = 0;
         }
 
         function pointerMove(e) {
             if (pressActive) {
                 console.log(e);
-                statusMap['INPUT_X'] = pointerEvenToPercentX(e);
-                statusMap['INPUT_Y'] = pointerEvenToPercentY(e);
+                statusMap['AXIS_X'] = pointerEvenToPercentX(e);
+                statusMap['AXIS_Y'] = pointerEvenToPercentY(e);
             }
         }
 
@@ -46,7 +46,6 @@ class DomFlightstick {
             addMouseMoveFunction(surface, pointerMove)
             addPressEndFunction(surface, pressEnd)
         }
-
 
         function initElement(sMap, url, styleClass, onReady) {
             statusMap = sMap;
