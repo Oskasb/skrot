@@ -379,6 +379,10 @@ let refDiv;
 
     function pointerEventToPercentX(e) {
         let x = e.pageX;
+        if (e.touches) {
+          x = e.touches[0].pageX;
+        }
+
         let width = e.target.offsetWidth;
         return MATH.percentify(x, width)
 
@@ -386,6 +390,9 @@ let refDiv;
 
 function pointerEventToPercentY(e) {
     let y = e.pageY;
+    if (e.touches) {
+        y = e.touches[0].pageY;
+    }
     let height = e.target.offsetHeight;
     return MATH.percentify(y, height)
 }

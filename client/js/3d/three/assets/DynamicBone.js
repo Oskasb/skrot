@@ -15,28 +15,35 @@ class DynamicBone {
 
             bone.quaternion.copy(bone.userData.bindPoseObj3D.quaternion)
 
-            for (let i = 0; i  < influensors.length; i++) {
-                let callName = influensors[i].callName;
-                let factor = influensors[i].factor;
-                let args = influensors[i].args;
-                let value = influensors[i].state.value;
-                let obj3d = influensors[i].obj3d;
+            while (updatedInfluences.length) {
+                let influence = updatedInfluences.pop();
+                let callName = influence.callName;
+                let factor = influence.factor;
+                let args = influence.args;
+                let value = influence.state.value;
+                console.log("input vale", value)
+                let obj3d = influence.obj3d;
                 obj3d.quaternion.set(0, 0, 0, 1);
                 jointCalls[callName](obj3d, args, value, factor);
-
-                if (callName === "setBoneRotation") {
-                    bone.quaternion.multiply(obj3d.quaternion)
-                }
 
                 if (callName === "applyBoneScale") {
                     bone.scale.copy(bone.userData.bindPoseObj3D.scale)
                     bone.scale.copy(obj3d.scale)
                 }
-            //    boneCalls[callName].value += state*factor;
+            }
+
+            for (let i = 0; i  < influensors.length; i++) {
+                let obj3d = influensors[i].obj3d;
+                let callName = influensors[i].callName;
+                if (callName === "setBoneRotation") {
+                    bone.quaternion.multiply(obj3d.quaternion)
+                }
             }
 
             ThreeAPI.unregisterPrerenderCallback(updateFrame)
         }
+
+        let updatedInfluences = []
 
         function updateFrame() {
             while (callbacks.length) {
@@ -44,8 +51,8 @@ class DynamicBone {
             }
         }
 
-        function applyDynamicBoneInfluence() {
-
+        function applyDynamicBoneInfluence(influence) {
+            updatedInfluences.push(influence);
             if (callbacks.length === 0) {
                 callbacks.push(updateInfluences)
                 ThreeAPI.registerPrerenderCallback(updateFrame)

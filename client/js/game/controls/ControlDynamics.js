@@ -49,10 +49,10 @@ class ControlDynamics {
                     let args = jointFb.args;
                     let factor = jointFb['factor'] || 1;
 
-                    dynamicBone.call.registerInfluence(jointFb.call, args, state, factor)
+                    let influence = dynamicBone.call.registerInfluence(jointFb.call, args, state, factor)
 
                     let applyJointCall = function () {
-                        dynamicBone.call.applyDynamicBoneInfluence()
+                        dynamicBone.call.applyDynamicBoneInfluence(influence)
                     }
 
                     applyCalls.push(applyJointCall);
@@ -85,18 +85,9 @@ class ControlDynamics {
             MATH.callAll(applyCalls);
         }
 
-        let updateFrame = 0;
-        let frameValue = 0;
 
         function applyTargetStateChange(targetValue) {
-            let frame = getFrame().frame
-            if (updateFrame === frame) {
-                updateFrame = frame;
-                frameValue = 0;
-            }
-            frameValue += targetValue;
-
-            controlTransition.call.updateControlTransition(frameValue, state, onTransitionChange);
+            controlTransition.call.updateControlTransition(targetValue, state, onTransitionChange);
         }
 
         this.call = {
