@@ -1,4 +1,9 @@
-import {CubeTextureLoader, LinearMipmapLinearFilter, Matrix4} from "../../../../../libs/three/Three.Core.js";
+import {
+    CubeTextureLoader, EquirectangularReflectionMapping,
+    ImageBitmapLoader,
+    LinearMipmapLinearFilter,
+    Matrix4, Texture, TextureLoader
+} from "../../../../../libs/three/Three.Core.js";
 import {RGBMLoader} from "../../../../../libs/jsm/loaders/RGBMLoader.js";
 import {
     hue,
@@ -15,14 +20,15 @@ class EnvironmentMaps {
     constructor(scene) {
 
         async function init() {
-            const rgbmUrls = [ 'px.png', 'nx.png', 'py.png', 'ny.png', 'pz.png', 'nz.png' ];
-            const cube1Texture = await new RGBMLoader()
-                .setMaxRange( 16 )
-                .setPath( '../../../../../data/assets/test/pisaRGBM16/' )
-                .loadCubemapAsync( rgbmUrls );
 
-            cube1Texture.generateMipmaps = true;
-            cube1Texture.minFilter = LinearMipmapLinearFilter;
+            const cube1Texture = await new TextureLoader()
+                .setPath('../../../data/assets/images/textures/')
+                .loadAsync('ref_sphere.png');
+
+            cube1Texture.generateMipmaps = false;
+            cube1Texture.mapping = EquirectangularReflectionMapping;
+
+            //    cube1Texture.minFilter = LinearMipmapLinearFilter;
 
             const cube2Urls = [ 'posx.jpg', 'negx.jpg', 'posy.jpg', 'negy.jpg', 'posz.jpg', 'negz.jpg' ];
             const cube2Texture = await new CubeTextureLoader()
@@ -35,8 +41,8 @@ class EnvironmentMaps {
             // nodes and environment
 
             const adjustments = {
-                mix: 0,
-                procedural: 0,
+                mix: 0.2,
+                procedural: 0.2,
                 intensity: 1,
                 hue: 0,
                 saturation: 1
