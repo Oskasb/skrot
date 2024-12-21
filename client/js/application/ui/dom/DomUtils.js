@@ -348,7 +348,11 @@ let refDiv;
     }
 
     function translateElement3DPercent(element, x, y, z) {
-        let trf = "translate3d("+x+"%, "+y+"%, "+z+")";
+        let parentHeight = element.offsetParent.offsetHeight;
+        let parentWidth = element.offsetParent.offsetWidth;
+        let pxX = parentWidth * x / 100;
+        let pxY = parentHeight * y / 100;
+        let trf = "translate3d("+pxX+"px, "+pxY+"px, "+z+"px)";
         if (element.style.transform !== trf) {
             element.style.transform = trf;
         }
@@ -396,6 +400,7 @@ function pointerEventToPercentY(e) {
     let height = e.target.offsetHeight;
     return MATH.percentify(y, height)
 }
+
 
 export {
     setRefDiv,

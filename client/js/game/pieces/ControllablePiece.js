@@ -119,6 +119,14 @@ class ControllablePiece {
         this.controlStates[id].call.setControlState(value)
     }
 
+    getControlStateTargetValue(id) {
+        return this.controlStates[id].call.getControlTargetValue();
+    }
+
+    getControlStateValue(id) {
+        return this.controlStates[id].call.getControlCurrentValue();
+    }
+
 }
 
 export {ControllablePiece}

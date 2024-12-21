@@ -19,6 +19,7 @@ class PieceInput {
             let target = inputToTarget.target;
             statusMap[target] = controllablePiece.getInputState(target);
             controllablePiece.setInputTargetState(target, statusMap[sample]);
+            statusMap['output_'+target] = controllablePiece.getControlStateValue(target);
         }
 
 

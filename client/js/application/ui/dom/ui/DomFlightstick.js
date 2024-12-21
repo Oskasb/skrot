@@ -19,8 +19,15 @@ class DomFlightstick {
         let inputElement;
         let stickElement;
 
+        let controlLineX;
+        let controlLineY;
+
+
         function update() {
             translateElement3DPercent(stickElement, statusMap['INPUT_ROLL']*50, statusMap['INPUT_PITCH']*50, 0);
+            translateElement3DPercent(controlLineX, statusMap['output_INPUT_ROLL']*50+50,0,  0);
+            translateElement3DPercent(controlLineY, 0,statusMap['output_INPUT_PITCH']*50 +50,  0);
+
         }
 
         let pressActive = false;
@@ -49,7 +56,8 @@ class DomFlightstick {
 
         function setupListeners() {
             let surface = htmlElement.call.getChildElement('stick_sampler')
-
+            controlLineX = htmlElement.call.getChildElement('actuator_x')
+            controlLineY = htmlElement.call.getChildElement('actuator_y')
             inputElement = htmlElement.call.getChildElement('stick_input')
             stickElement = htmlElement.call.getChildElement('stick_state')
             addPressStartFunction(surface, pressStart)

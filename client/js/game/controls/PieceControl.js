@@ -9,7 +9,8 @@ class PieceControl {
             min:state.min || 0,
             max:state.max || 1,
             value:state.value || 0,
-            speed:state.speed || 1
+            speed:state.speed || 1,
+            targetValue:state.value || 0
         };
 
         state = this.state;
@@ -22,7 +23,9 @@ class PieceControl {
         }
 
         let setTargetValue = function(value) {
-            if (value !== state.value) {
+
+            if (value !== state.targetValue) {
+                state.targetValue = value;
                 controlTransition.call.updateControlTransition(value, state, onTransitionUpdate)
             }
         }

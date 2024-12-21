@@ -20,8 +20,7 @@ class ControlDynamics {
             value: 0.5,
             targetValue: 0.5,
             speed: 0.04,
-
-        };
+        }
         let state = this.state;
         this.dynamic = null;
 
@@ -87,7 +86,11 @@ class ControlDynamics {
 
 
         function applyTargetStateChange(targetValue) {
-            controlTransition.call.updateControlTransition(targetValue, state, onTransitionChange);
+            if (state.targetValue !== targetValue) {
+                state.targetValue = targetValue
+                controlTransition.call.updateControlTransition(targetValue, state, onTransitionChange);
+            }
+
         }
 
         this.call = {

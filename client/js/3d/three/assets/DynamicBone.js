@@ -21,7 +21,6 @@ class DynamicBone {
                 let factor = influence.factor;
                 let args = influence.args;
                 let value = influence.state.value;
-                console.log("input vale", value)
                 let obj3d = influence.obj3d;
                 obj3d.quaternion.set(0, 0, 0, 1);
                 jointCalls[callName](obj3d, args, value, factor);

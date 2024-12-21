@@ -13,7 +13,25 @@ div.stick_sampler h2 {
     pointer-events: none;
 }
 
+div.control_line {
+    pointer-events: none;
+    position: absolute;
+    height: 0;
+    width: 100%;
+    font-size: 1.4em;
+    padding:0.1em;
+    margin: 0;
+    border: none;
+    background-color: rgba(225, 255, 255, 0.45);
+    transform-origin: center;
+    color: rgba(210, 255, 243, 0.65);
+    text-shadow: 1px 1px 3px rgba(5, 55, 55, 1);
+}
 
+div.line_x {
+    height: 100%;
+    width: 0;
+}
 
 div.stick_input {
     position: absolute;

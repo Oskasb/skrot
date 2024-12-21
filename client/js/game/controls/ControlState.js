@@ -6,25 +6,43 @@ class ControlState {
 
         let targets = config.targets;
 
+        let controlDynamic = null;
+        let targetValue = 0;
+        let currentValue = 0;
 
         function applyStateToDynamicTarget(value, target) {
+            currentValue = value;
             let dynamicId = target.dynamic;
             let factor = target['factor'] || 1;
             let assetInstance = controllablePiece.assetInstance;
             let controlDynamics = assetInstance.controlDynamics;
-            let controlDynamic = controlDynamics[dynamicId];
+            controlDynamic = controlDynamics[dynamicId];
             controlDynamic.setTargetState(value * factor)
         }
 
 
         function setControlState(value) {
-            for (let i = 0; i < targets.length; i++) {
-                applyStateToDynamicTarget(value, targets[i]);
+            if (targetValue !== value) {
+                targetValue = value;
+                for (let i = 0; i < targets.length; i++) {
+                    applyStateToDynamicTarget(value, targets[i]);
+                }
             }
+
+        }
+
+        function getControlCurrentValue() {
+            return currentValue;
+        }
+
+        function getControlTargetValue() {
+            return targetValue;
         }
 
         this.call = {
-            setControlState: setControlState
+            setControlState: setControlState,
+            getControlCurrentValue: getControlCurrentValue,
+            getControlTargetValue:getControlTargetValue
         }
 
     }
