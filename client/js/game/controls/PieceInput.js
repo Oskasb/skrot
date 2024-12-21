@@ -20,6 +20,14 @@ class PieceInput {
             statusMap[target] = controllablePiece.getInputState(target);
             controllablePiece.setInputTargetState(target, statusMap[sample]);
             statusMap['output_'+target] = controllablePiece.getControlStateValue(target);
+
+            let dynamicTargets = controllablePiece.getControlStateTargets(target);
+
+            for (let i = 0; i < dynamicTargets.length; i++) {
+                let dynamicId = dynamicTargets[i].dynamic;
+                statusMap[dynamicId] = controllablePiece.assetInstance.getControlDynamic(dynamicId).state.value;
+            }
+
         }
 
 

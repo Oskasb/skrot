@@ -36,10 +36,15 @@ class DomFlightstick {
             translateElement3DPercent(controlLineX, outRoll, 0,  0);
             translateElement3DPercent(controlLineY, 0,outPitch,  0);
 
-            translateElement3DPercent(dynamicRollL, outRoll,0,  0);
-            translateElement3DPercent(dynamicRollR, outRoll,50,  0);
-            translateElement3DPercent(dynamicPitchL, 0,outPitch,  0);
-            translateElement3DPercent(dynamicPitchR, 0,outPitch,  0);
+            let dynRollR = statusMap['DYNAMIC_ROLL_L']*20
+            let dynRollL = statusMap['DYNAMIC_ROLL_R']*20
+            let dynPitchR = statusMap['DYNAMIC_PITCH_L']*20
+            let dynPitchL = statusMap['DYNAMIC_PITCH_R']*20
+
+            translateElement3DPercent(dynamicRollL, outRoll + dynRollL,0,  0);
+            translateElement3DPercent(dynamicRollR, outRoll + dynRollR,50,  0);
+            translateElement3DPercent(dynamicPitchL, 0,outPitch + dynPitchL,  0);
+            translateElement3DPercent(dynamicPitchR, 0,outPitch + dynPitchR,  0);
 
 
         }

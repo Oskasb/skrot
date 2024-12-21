@@ -24,7 +24,6 @@ class ControlState {
             controlDynamic.setTargetState(value * factor)
         }
 
-
         function setControlState(value) {
             if (targetValue !== value) {
                 targetValue = value;
@@ -32,21 +31,20 @@ class ControlState {
                     applyStateToDynamicTarget(value, targets[i]);
                 }
             }
-
         }
 
         function getControlCurrentValue() {
             return currentValue;
         }
 
-        function getControlTargetValue() {
-            return targetValue;
+        function getControlStateDynamicTargets() {
+            return targets;
         }
 
         this.call = {
+            getControlStateDynamicTargets:getControlStateDynamicTargets,
             setControlState: setControlState,
-            getControlCurrentValue: getControlCurrentValue,
-            getControlTargetValue:getControlTargetValue
+            getControlCurrentValue: getControlCurrentValue
         }
 
     }
