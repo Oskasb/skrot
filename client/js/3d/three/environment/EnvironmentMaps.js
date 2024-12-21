@@ -22,7 +22,7 @@ class EnvironmentMaps {
         async function init() {
 
 const refSpheeTx = await new TextureLoader()
-    .setPath('./../../../data/assets/images/textures/')
+    .setPath('../../../../data/assets/images/textures/')
     .loadAsync('ref_sphere_1.png');
 
             refSpheeTx.generateMipmaps = false;
@@ -30,7 +30,7 @@ const refSpheeTx = await new TextureLoader()
 
 
             const cube1Texture = await new TextureLoader()
-                .setPath('./../../../data/assets/images/textures/')
+                .setPath('../../../../data/assets/images/textures/')
                 .loadAsync('ref_sphere_1.png');
 
             cube1Texture.generateMipmaps = false;
@@ -39,7 +39,7 @@ const refSpheeTx = await new TextureLoader()
             //    cube1Texture.minFilter = LinearMipmapLinearFilter;
 
             const cube2Texture = await new TextureLoader()
-                .setPath('./../../../data/assets/images/textures/')
+                .setPath('../../../../data/assets/images/textures/')
                 .loadAsync('ref_sphere_2.png');
 
             cube2Texture.generateMipmaps = false;
