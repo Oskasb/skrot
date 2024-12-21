@@ -21,29 +21,36 @@ class EnvironmentMaps {
 
         async function init() {
 
+const refSpheeTx = await new TextureLoader()
+    .setPath('../../../data/assets/images/textures/')
+    .loadAsync('ref_sphere_1.png');
+
+            refSpheeTx.generateMipmaps = false;
+            refSpheeTx.mapping = EquirectangularReflectionMapping;
+
+
             const cube1Texture = await new TextureLoader()
                 .setPath('../../../data/assets/images/textures/')
-                .loadAsync('ref_sphere.png');
+                .loadAsync('ref_sphere_1.png');
 
             cube1Texture.generateMipmaps = false;
             cube1Texture.mapping = EquirectangularReflectionMapping;
 
             //    cube1Texture.minFilter = LinearMipmapLinearFilter;
 
-            const cube2Urls = [ 'posx.jpg', 'negx.jpg', 'posy.jpg', 'negy.jpg', 'posz.jpg', 'negz.jpg' ];
-            const cube2Texture = await new CubeTextureLoader()
-                .setPath( '../../../../../data/assets/test/Park2/' )
-                .loadAsync( cube2Urls );
+            const cube2Texture = await new TextureLoader()
+                .setPath('../../../data/assets/images/textures/')
+                .loadAsync('ref_sphere_2.png');
 
-            cube2Texture.generateMipmaps = true;
-            cube2Texture.minFilter = LinearMipmapLinearFilter;
+            cube2Texture.generateMipmaps = false;
+            cube2Texture.mapping = EquirectangularReflectionMapping;
 
             // nodes and environment
 
             const adjustments = {
-                mix: 0.2,
-                procedural: 0.2,
-                intensity: 1,
+                mix: 0.8,
+                procedural: 0.3,
+                intensity: 0.8,
                 hue: 0,
                 saturation: 1
             };
@@ -75,9 +82,7 @@ class EnvironmentMaps {
 
             scene.environmentNode = getEnvironmentNode( reflectVector, positionWorld );
 
-            scene.backgroundNode = getEnvironmentNode( positionWorldDirection, positionLocal ).context( {
-                getTextureLevel: () => blurNode
-            } );
+            scene.backgroundNode = getEnvironmentNode( positionWorldDirection, positionLocal );
         }
 
 
