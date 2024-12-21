@@ -15,6 +15,7 @@ import {ENUMS} from "../../application/ENUMS.js";
 import {DynamicMain} from "../DynamicMain.js";
 import {AssetLoader} from "../../application/load/AssetLoader.js";
 import {InstanceAPI} from "./instancer/InstanceAPI.js";
+import {EnvironmentMaps} from "./environment/EnvironmentMaps.js";
 
 
 let cameraSpatialCursor;
@@ -64,10 +65,10 @@ class ThreeAPI {
 
 
         let _this = this;
+
         let envReady = function() {
             _this.threeEnvironment.enableEnvironment(_this.threeEnvironment);
             _this.addPostrenderCallback(_this.threeEnvironment.tickEnvironment);
-
         };
 
         let onLoaded = function() {
@@ -75,6 +76,11 @@ class ThreeAPI {
         };
 
         this.threeEnvironment.loadEnvironmentData(onLoaded);
+
+        let env = new EnvironmentMaps(store.scene);
+        env.call.activateEnvMaps()
+
+
 
     };
 

@@ -456,7 +456,7 @@ class ThreeEnvironment {
         statusMap.write = false;
         this.currentEnvConfig = this.envList[envConfId]
         this.applyEnvironment();
-        this.setCanvasColor();
+    //    this.setCanvasColor();
         statusMap.write = false;
         this.interpolateEnv(this.currentEnvConfig, this.envList[this.currentEnvId], 0.99);
 
@@ -485,35 +485,16 @@ class ThreeEnvironment {
             force = true;
         }
 
-        // waterFx.tickWaterEffect(tpf);
-    //    this.sky.mesh.position.copy(camPos);
-
-
-        //    t+=evt.args(e).tpf
-        //    fraction = fraction;
         this.currentElevation = camPos.y;
 
         if (this.currentElevation > 0) {
             let params = ThreeAPI.getTerrainSystem().getTerrain().call.getTerrainParameters();
             let fogScale = 1  + 0.1*MATH.curveSqrt(params.unitScale);
-
             this.elevationFactor = MATH.curveCube( MATH.airDensityAtAlt(this.currentElevation*fogScale) );
         } else {
-        //    this.updateUnderwater();
-        //    return;
             this.elevationFactor = 20;
         }
 
-        //      elevationFactor =  MATH.airDensityAtAlt(currentElevation) ;
-
-    //    this.comEnvIdx = 4 // WorkerAPI.getCom(ENUMS.BufferChannels.ENV_INDEX);
-        /*
-        if (this.currentEnvIndex !== comEnvIdx) {
-            this.currentEnvIndex = comEnvIdx;
-            this.setEnvConfigId(this.envs[comEnvIdx], 45);
-            return;
-        }
-*/
 
         let useSky = this.currentSkyConfig;
 
@@ -521,9 +502,6 @@ class ThreeEnvironment {
             useSky = this.interpolateSky(this.currentSkyConfig, this.skyList[this.currentEnvId], fraction);
             if (force === false) {
                 this.interpolateEnv(this.currentEnvConfig, this.envList[this.currentEnvId], fraction);
-                if (this.sky.ctx) {
-                    this.setCanvasColor();
-                }
             }
 
         }
@@ -613,6 +591,8 @@ class ThreeEnvironment {
 
         evt.on(ENUMS.Event.ADVANCE_ENVIRONMENT, advanceEnv);
 
+
+
         let canvas = document.createElement("canvas");
     //    let cnv2 = document.createElement("canvas");
 
@@ -692,6 +672,9 @@ class ThreeEnvironment {
                     //    ThreeAPI.getReflectionScene().add(world[key]);
                 }
             }
+            return;
+            ready();
+
 
             let loader = new ImageBitmapLoader().setPath('../../data/assets/images/textures/')
             loader.load('ref_sphere.png', function(txenv) {
@@ -729,7 +712,7 @@ class ThreeEnvironment {
                 envtx2.ctx = envctx;
                 scene.environment = sky.envtx;
 
-                ready()
+
             })
 
         };
@@ -762,15 +745,11 @@ class ThreeEnvironment {
 
             _this.applySkyConfig();
             _this.applyEnvironment();
-
+            ready()
         };
 
         createEnvWorld(this.worldSetup);
 
-    //    let water = new ThreeWater();
-    //   water.call.initWater(_this);
-
-   //     new PipelineObject("ASSETS", "ENVIRONMENT", environmentListLoaded);
 
         console.log("Load env json")
 
