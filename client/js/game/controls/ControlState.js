@@ -17,6 +17,10 @@ class ControlState {
             let assetInstance = controllablePiece.assetInstance;
             let controlDynamics = assetInstance.controlDynamics;
             controlDynamic = controlDynamics[dynamicId];
+            if (!controlDynamic) {
+                console.log("No such dynamic", dynamicId, controlDynamics)
+                return;
+            }
             controlDynamic.setTargetState(value * factor)
         }
 

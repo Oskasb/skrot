@@ -22,11 +22,25 @@ class DomFlightstick {
         let controlLineX;
         let controlLineY;
 
+        let dynamicRollL;
+        let dynamicRollR;
+        let dynamicPitchL;
+        let dynamicPitchR;
 
         function update() {
             translateElement3DPercent(stickElement, statusMap['INPUT_ROLL']*50, statusMap['INPUT_PITCH']*50, 0);
-            translateElement3DPercent(controlLineX, statusMap['output_INPUT_ROLL']*50+50,0,  0);
-            translateElement3DPercent(controlLineY, 0,statusMap['output_INPUT_PITCH']*50 +50,  0);
+
+            let outRoll = statusMap['output_INPUT_ROLL']*50+50
+            let outPitch = statusMap['INPUT_PITCH']*50+50
+
+            translateElement3DPercent(controlLineX, outRoll, 0,  0);
+            translateElement3DPercent(controlLineY, 0,outPitch,  0);
+
+            translateElement3DPercent(dynamicRollL, outRoll,0,  0);
+            translateElement3DPercent(dynamicRollR, outRoll,50,  0);
+            translateElement3DPercent(dynamicPitchL, 0,outPitch,  0);
+            translateElement3DPercent(dynamicPitchR, 0,outPitch,  0);
+
 
         }
 
@@ -60,6 +74,12 @@ class DomFlightstick {
             controlLineY = htmlElement.call.getChildElement('actuator_y')
             inputElement = htmlElement.call.getChildElement('stick_input')
             stickElement = htmlElement.call.getChildElement('stick_state')
+
+            dynamicRollL = htmlElement.call.getChildElement('dynamic_roll_l');
+            dynamicRollR = htmlElement.call.getChildElement('dynamic_roll_r');
+            dynamicPitchL = htmlElement.call.getChildElement('dynamic_pitch_l');
+            dynamicPitchR = htmlElement.call.getChildElement('dynamic_pitch_r');
+
             addPressStartFunction(surface, pressStart)
             addMouseMoveFunction(surface, pointerMove)
             addPressEndFunction(surface, pressEnd)
