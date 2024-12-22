@@ -17,6 +17,8 @@ import {
 } from "../../../../../libs/three/Three.TSL.js";
 import {AssetTexture} from "../assets/AssetTexture.js";
 import {loadImageAsset} from "../../../application/utils/DataUtils.js";
+import {SpatialTransition} from "../../../application/utils/SpatialTransition.js";
+import {ScalarTransition} from "../../../application/utils/ScalarTransition.js";
 
 class EnvironmentMaps {
     constructor(scene) {
@@ -43,18 +45,38 @@ class EnvironmentMaps {
                 cube2Texture.needsUpdate = true;
             }
 
-            loadImageAsset('ref_sphere_1', tx1Loaded)
-            loadImageAsset('ref_sphere_2', tx2Loaded)
+            loadImageAsset('sky_clouds', tx1Loaded)
+            loadImageAsset('sky_stars', tx2Loaded)
 
             // nodes and environment
 
             const adjustments = {
-                mix: 0.5,
+                mix: 0,
                 procedural: 0.1,
                 intensity: 1.1,
                 hue: 0.2,
                 saturation: 1.2
             };
+
+
+
+            function transitEnded() {
+                setTimeout(function() {
+                    initTransition()
+                }, 100)
+
+            }
+
+            function transit(value) {
+                adjustments.mix = value;
+            }
+
+            function initTransition() {
+                sTransit.initScalarTransition(adjustments.mix, 1-adjustments.mix, 10, transitEnded, 'curveSigmoid', transit);
+            }
+
+            let sTransit = new ScalarTransition();
+            initTransition()
 
             const mixNode = reference( 'mix', 'float', adjustments );
             const proceduralNode = reference( 'procedural', 'float', adjustments );
@@ -84,7 +106,9 @@ class EnvironmentMaps {
 
         }
 
+        function initSky() {
 
+        }
 
         function activateEnvMaps() {
             init();
