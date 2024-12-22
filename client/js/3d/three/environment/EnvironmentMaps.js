@@ -50,7 +50,7 @@ class EnvironmentMaps {
 
             const adjustments = {
                 mix: 0.5,
-                procedural: 0.15,
+                procedural: 0.1,
                 intensity: 1.1,
                 hue: 0.2,
                 saturation: 1.2

@@ -53,6 +53,14 @@ class ModelGeometry{
             //    console.log("assetLoaded", model);
                 scene = model.scene;
                 geometry = getGroupMesh(model.scene.children);
+               console.log(geometry);
+              geometry.frustumCulled = false;
+            //    geometry.boundingBox.setFromObject(geometry, true)
+                if (geometry.computeBoundingBox) {
+                    //       geometry.computeBoundingBox()
+                }
+
+
                 sendToSubscribers();
             }
 
