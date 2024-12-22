@@ -2,23 +2,50 @@ import {
     CubeTextureLoader, EquirectangularReflectionMapping,
     ImageBitmapLoader,
     LinearMipmapLinearFilter,
-    Matrix4, Texture, TextureLoader
+    Matrix4, Texture, TextureLoader, Vector3
 } from "../../../../../libs/three/Three.Core.js";
 import {RGBMLoader} from "../../../../../libs/jsm/loaders/RGBMLoader.js";
 import {
+    Fn,
+    float,
+    vec3,
+    acos,
+    add,
+    mul,
+    clamp,
+    cos,
+    dot,
+    exp,
+    max,
+    modelViewProjection,
+    normalize,
+    pow,
+    smoothstep,
+    sub,
+    varying,
+    varyingProperty,
+    vec4,
+    cameraPosition,
     hue,
-    mix, normalWorld,
+    mix,
+    normalWorld,
     pmremTexture,
     positionLocal,
     positionWorld,
     positionWorldDirection,
     reference,
-    reflectVector, saturation, uniform
+    reflectVector,
+    saturation,
+    uniform,
+    asin, sin, min
 } from "../../../../../libs/three/Three.TSL.js";
 import {AssetTexture} from "../assets/AssetTexture.js";
 import {loadImageAsset} from "../../../application/utils/DataUtils.js";
 import {SpatialTransition} from "../../../application/utils/SpatialTransition.js";
 import {ScalarTransition} from "../../../application/utils/ScalarTransition.js";
+
+
+
 
 class EnvironmentMaps {
     constructor(scene) {
@@ -52,13 +79,11 @@ class EnvironmentMaps {
 
             const adjustments = {
                 mix: 0,
-                procedural: 0.1,
-                intensity: 1.1,
-                hue: 0.2,
-                saturation: 1.2
+                procedural: 0.5,
+                intensity: 1.0,
+                hue: 0.0,
+                saturation: 1.0
             };
-
-
 
             function transitEnded() {
                 setTimeout(function() {
@@ -87,13 +112,77 @@ class EnvironmentMaps {
             const rotateY1Matrix = new Matrix4();
             const rotateY2Matrix = new Matrix4();
 
+            const mieCoefficient = uniform( 0.005 );
+            const mieDirectionalG = uniform( 0.8 );
+            const sunPosition = uniform( new Vector3(0, 10000, 0) );
+
+            const upUniform = uniform( new Vector3( 0, 1, 0 ) );
+            const downUniform = uniform( new Vector3( 0, -1, 0 ) );
+            const sunColor = uniform( new Vector3( 1, 0.9, 0.6 ) );
+            const fogColor = uniform( new Vector3( 0.4, 0.7, 0.9 ) );
+            const ambColor = uniform( new Vector3( 0.0, 0.1, 0.4 ) );
+            const spaceColor = uniform( new Vector3( 0.0, 0.0, 0.1 ) );
+
+
+            const vSunDirection = varying( vec3(), 'vSunDirection' );
+            const vSunE = varying( float(), 'vSunE' );
+            const vSunfade = varying( float(), 'vSunfade' );
+            const vBetaR = varying( vec3(), 'vBetaR' );
+            const vBetaM = varying( vec3(), 'vBetaM' );
+
+            // constants for atmospheric scattering
+            const pi = float( 3.141592653 );
+
+            // optical length at zenith for molecules
+            const rayleighZenithLength = float( 8.4E3 );
+            const mieZenithLength = float( 1.25E3 );
+            // 66 arc seconds -> degrees, and the cosine of that
+            const sunAngularDiameterCos = float( 0.9999566769464);
+
+            const one = float(1.0)
+
+            // 3.0 / ( 16.0 * pi )
+            const THREE_OVER_SIXTEENPI = float( 0.05968310365 );
+            // 1.0 / ( 4.0 * pi )
+            const ONE_OVER_FOURPI = float( 0.07957747154 );
+
             const getEnvironmentNode = function( reflectNode, positionNode ) {
 
                 const custom1UV = reflectNode.xyz.mul( uniform( rotateY1Matrix ) );
                 const custom2UV = reflectNode.xyz.mul( uniform( rotateY2Matrix ) );
                 const mixCubeMaps = mix( pmremTexture( cube1Texture, custom1UV ), pmremTexture( cube2Texture, custom2UV ),  mixNode );
 
-                const proceduralEnv = mix( mixCubeMaps, normalWorld, proceduralNode );
+
+                    const direction = normalize( cameraPosition.sub( positionWorld ) );
+
+                    // optical length
+                    // cutoff angle at 90 to avoid singularity in next formula.
+                    const angleToUp = dot( upUniform, direction )
+
+                    const angleToDown = dot( downUniform, direction )
+
+                    const zenithAngle = acos( max( 0.0, angleToUp ) );
+                    const horizonAngle = cos( max( -1.0, angleToUp ) );
+
+                    const belowHorizonFactor = pow( 4, angleToDown );
+
+                    const cosTheta = dot( direction, vSunDirection );
+                    const sunFactor = pow( cosTheta, 4 );
+                    const skyColor = mix(ambColor, sunColor, sunFactor)
+                    const fogGradientColor = mix(ambColor, fogColor, 0.5)
+                    const fogGradientFactor =  pow( horizonAngle, 4 );
+                    const fogGradient =  mix(skyColor, fogGradientColor, fogGradientFactor)
+                    const fogHorizonFactor = pow( horizonAngle, 1000 );
+                    const foggedColor = mix(fogGradient, fogColor, fogHorizonFactor)
+
+                    const belowHorizonColor = mix(ambColor, spaceColor, belowHorizonFactor)
+
+                    const sealevelColor = mix(foggedColor, belowHorizonColor, belowHorizonFactor)
+
+                    const skyNode = vec4( sealevelColor, 1.0 );
+
+
+                const proceduralEnv = mix( mixCubeMaps, skyNode, proceduralNode );
 
                 const intensityFilter = proceduralEnv.mul( intensityNode );
                 const hueFilter = hue( intensityFilter, hueNode );
@@ -101,8 +190,53 @@ class EnvironmentMaps {
 
             };
 
+            const getBackgroundNode = function( reflectNode, positionNode ) {
+
+                const custom1UV = reflectNode.xyz.mul( uniform( rotateY1Matrix ) );
+                const custom2UV = reflectNode.xyz.mul( uniform( rotateY2Matrix ) );
+                const mixCubeMaps = mix( pmremTexture( cube1Texture, custom1UV ), pmremTexture( cube2Texture, custom2UV ),  mixNode );
+
+
+                const direction = normalize( positionWorld.sub( cameraPosition ) );
+
+                // optical length
+                // cutoff angle at 90 to avoid singularity in next formula.
+                const angleToUp = dot( upUniform, direction )
+
+                const angleToDown = dot( downUniform, direction )
+
+                const zenithAngle = acos( max( 0.0, angleToUp ) );
+                const horizonAngle = cos( max( -1.0, angleToUp ) );
+
+                const belowHorizonFactor = pow( 4, angleToDown );
+
+                const cosTheta = dot( direction, vSunDirection );
+                const sunFactor = pow( cosTheta, 4 );
+                const skyColor = mix(ambColor, sunColor, sunFactor)
+                const fogGradientColor = mix(ambColor, fogColor, 0.5)
+                const fogGradientFactor =  pow( horizonAngle, 4 );
+                const fogGradient =  mix(skyColor, fogGradientColor, fogGradientFactor)
+                const fogHorizonFactor = pow( horizonAngle, 1000 );
+                const foggedColor = mix(fogGradient, fogColor, fogHorizonFactor)
+
+                const belowHorizonColor = mix(ambColor, spaceColor, belowHorizonFactor)
+
+                const sealevelColor = mix(foggedColor, belowHorizonColor, belowHorizonFactor)
+
+                const skyNode = vec4( sealevelColor, 1.0 );
+
+
+                const proceduralEnv = mix( mixCubeMaps, skyNode, proceduralNode );
+
+                const intensityFilter = proceduralEnv.mul( intensityNode );
+                const hueFilter = hue( intensityFilter, hueNode );
+                return saturation( hueFilter, saturationNode );
+
+            };
+
+
             scene.environmentNode = getEnvironmentNode( reflectVector, positionWorld );
-            scene.backgroundNode = getEnvironmentNode( positionWorldDirection, positionLocal );
+            scene.backgroundNode = getBackgroundNode( positionWorldDirection, positionLocal );
 
         }
 
