@@ -22,14 +22,7 @@ class EnvironmentMaps {
     constructor(scene) {
 
         async function init() {
-
-const refSpheeTx = await new TextureLoader()
-    .setPath('./../../../../data/assets/images/textures/')
-    .loadAsync('ref_sphere_1.png');
-
-            refSpheeTx.generateMipmaps = false;
-            refSpheeTx.mapping = EquirectangularReflectionMapping;
-
+            
             const cube1Texture = new Texture()
             cube1Texture.generateMipmaps = false;
             cube1Texture.mapping = EquirectangularReflectionMapping;
@@ -52,7 +45,7 @@ const refSpheeTx = await new TextureLoader()
 
             loadImageAsset('ref_sphere_1', tx1Loaded)
             loadImageAsset('ref_sphere_2', tx2Loaded)
-            
+
             // nodes and environment
 
             const adjustments = {
