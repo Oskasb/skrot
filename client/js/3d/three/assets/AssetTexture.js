@@ -5,7 +5,7 @@ import {CanvasTexture, RepeatWrapping, Texture} from "../../../../../libs/three/
 import {JsonAsset} from "../../../application/load/JsonAsset.js";
 
 class AssetTexture {
-    constructor() {
+    constructor(textureFileName) {
 
         let ready = false;
 
@@ -62,6 +62,10 @@ class AssetTexture {
             subscribe:subscribe
         }
 
+        if (typeof (textureFileName) === "string") {
+            initTx(textureFileName);
+        }
+
     }
 
     initAssetTexture(textureFileName) {
@@ -70,6 +74,10 @@ class AssetTexture {
 
     subscribeToTexture(cb) {
         this.call.subscribe(cb);
+    }
+
+    subscribe(cb) {
+        his.call.subscribe(cb);
     }
 
 }

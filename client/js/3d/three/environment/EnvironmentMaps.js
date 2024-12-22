@@ -15,6 +15,8 @@ import {
     reference,
     reflectVector, saturation, uniform
 } from "../../../../../libs/three/Three.TSL.js";
+import {AssetTexture} from "../assets/AssetTexture.js";
+import {loadImageAsset} from "../../../application/utils/DataUtils.js";
 
 class EnvironmentMaps {
     constructor(scene) {
@@ -28,23 +30,29 @@ const refSpheeTx = await new TextureLoader()
             refSpheeTx.generateMipmaps = false;
             refSpheeTx.mapping = EquirectangularReflectionMapping;
 
-
-            const cube1Texture = await new TextureLoader()
-                .setPath('./../../../../data/assets/images/textures/')
-                .loadAsync('ref_sphere_1.png');
-
+            const cube1Texture = new Texture()
             cube1Texture.generateMipmaps = false;
             cube1Texture.mapping = EquirectangularReflectionMapping;
 
-            //    cube1Texture.minFilter = LinearMipmapLinearFilter;
-
-            const cube2Texture = await new TextureLoader()
-                .setPath('./../../../../data/assets/images/textures/')
-                .loadAsync('ref_sphere_2.png');
-
+            const cube2Texture = new Texture()
             cube2Texture.generateMipmaps = false;
             cube2Texture.mapping = EquirectangularReflectionMapping;
 
+            function tx1Loaded(image) {
+                console.log("tx loaded", image)
+                cube1Texture.source.data = image;
+                cube1Texture.needsUpdate = true;
+            }
+
+            function tx2Loaded(image) {
+                console.log("tx loaded", image)
+                cube2Texture.source.data = image;
+                cube2Texture.needsUpdate = true;
+            }
+
+            loadImageAsset('ref_sphere_1', tx1Loaded)
+            loadImageAsset('ref_sphere_2', tx2Loaded)
+            
             // nodes and environment
 
             const adjustments = {
