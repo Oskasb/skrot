@@ -21,8 +21,8 @@ import {loadImageAsset} from "../../../application/utils/DataUtils.js";
 class EnvironmentMaps {
     constructor(scene) {
 
-        async function init() {
-            
+        function init() {
+
             const cube1Texture = new Texture()
             cube1Texture.generateMipmaps = false;
             cube1Texture.mapping = EquirectangularReflectionMapping;
@@ -49,11 +49,11 @@ class EnvironmentMaps {
             // nodes and environment
 
             const adjustments = {
-                mix: 0.8,
-                procedural: 0.3,
-                intensity: 0.8,
-                hue: 0,
-                saturation: 1
+                mix: 0.5,
+                procedural: 0.15,
+                intensity: 1.1,
+                hue: 0.2,
+                saturation: 1.2
             };
 
             const mixNode = reference( 'mix', 'float', adjustments );
@@ -65,11 +65,11 @@ class EnvironmentMaps {
             const rotateY1Matrix = new Matrix4();
             const rotateY2Matrix = new Matrix4();
 
-            const getEnvironmentNode = ( reflectNode, positionNode ) => {
+            const getEnvironmentNode = function( reflectNode, positionNode ) {
 
                 const custom1UV = reflectNode.xyz.mul( uniform( rotateY1Matrix ) );
                 const custom2UV = reflectNode.xyz.mul( uniform( rotateY2Matrix ) );
-                const mixCubeMaps = mix( pmremTexture( cube1Texture, custom1UV ), pmremTexture( cube2Texture, custom2UV ), positionNode.y.add( mixNode ).clamp() );
+                const mixCubeMaps = mix( pmremTexture( cube1Texture, custom1UV ), pmremTexture( cube2Texture, custom2UV ),  mixNode );
 
                 const proceduralEnv = mix( mixCubeMaps, normalWorld, proceduralNode );
 
@@ -79,11 +79,9 @@ class EnvironmentMaps {
 
             };
 
-            const blurNode = uniform( 0 );
-
             scene.environmentNode = getEnvironmentNode( reflectVector, positionWorld );
-
             scene.backgroundNode = getEnvironmentNode( positionWorldDirection, positionLocal );
+
         }
 
 
