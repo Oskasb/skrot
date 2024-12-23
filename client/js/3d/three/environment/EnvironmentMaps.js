@@ -37,7 +37,7 @@ import {
     reflectVector,
     saturation,
     uniform,
-    asin, sin, min
+    asin, sin, min, vec2
 } from "../../../../../libs/three/Three.TSL.js";
 import {AssetTexture} from "../assets/AssetTexture.js";
 import {loadImageAsset} from "../../../application/utils/DataUtils.js";
@@ -63,23 +63,25 @@ class EnvironmentMaps {
             function tx1Loaded(image) {
                 console.log("tx loaded", image)
                 cube1Texture.source.data = image;
+                cube1Texture.flipY = false;
                 cube1Texture.needsUpdate = true;
             }
 
             function tx2Loaded(image) {
                 console.log("tx loaded", image)
                 cube2Texture.source.data = image;
+                cube2Texture.flipY = true;
                 cube2Texture.needsUpdate = true;
             }
 
-            loadImageAsset('sky_clouds', tx1Loaded)
-            loadImageAsset('sky_stars', tx2Loaded)
+            loadImageAsset('ref_sphere_5', tx1Loaded)
+            loadImageAsset('ref_sphere_3', tx2Loaded)
 
             // nodes and environment
 
             const adjustments = {
                 mix: 0,
-                procedural: 0.5,
+                procedural: 0.1,
                 intensity: 1.0,
                 hue: 0.0,
                 saturation: 1.0
@@ -97,7 +99,7 @@ class EnvironmentMaps {
             }
 
             function initTransition() {
-                sTransit.initScalarTransition(adjustments.mix, 1-adjustments.mix, 10, transitEnded, 'curveSigmoid', transit);
+                sTransit.initScalarTransition(adjustments.mix, 1-adjustments.mix, 5, transitEnded, 'curveSigmoid', transit);
             }
 
             let sTransit = new ScalarTransition();
@@ -114,10 +116,11 @@ class EnvironmentMaps {
 
             const mieCoefficient = uniform( 0.005 );
             const mieDirectionalG = uniform( 0.8 );
-            const sunPosition = uniform( new Vector3(0, 10000, 0) );
+            const sunPosition = uniform( new Vector3(4000, 10000, 0) );
 
             const upUniform = uniform( new Vector3( 0, 1, 0 ) );
             const downUniform = uniform( new Vector3( 0, -1, 0 ) );
+
             const sunColor = uniform( new Vector3( 1, 0.9, 0.6 ) );
             const fogColor = uniform( new Vector3( 0.4, 0.7, 0.9 ) );
             const ambColor = uniform( new Vector3( 0.0, 0.1, 0.4 ) );
@@ -129,6 +132,9 @@ class EnvironmentMaps {
             const vSunfade = varying( float(), 'vSunfade' );
             const vBetaR = varying( vec3(), 'vBetaR' );
             const vBetaM = varying( vec3(), 'vBetaM' );
+
+
+            const hzOffset = uniform(float(0.91));
 
             // constants for atmospheric scattering
             const pi = float( 3.141592653 );
@@ -150,10 +156,25 @@ class EnvironmentMaps {
 
                 const custom1UV = reflectNode.xyz.mul( uniform( rotateY1Matrix ) );
                 const custom2UV = reflectNode.xyz.mul( uniform( rotateY2Matrix ) );
-                const mixCubeMaps = mix( pmremTexture( cube1Texture, custom1UV ), pmremTexture( cube2Texture, custom2UV ),  mixNode );
+                const flippedUV1 = vec3(custom1UV.x, mul(custom1UV.y, -1), custom1UV.z);
+                const flippedUV2 = vec3(custom2UV.x, mul(custom2UV.y, -1), custom2UV.z);
+                const sky1tx = pmremTexture( cube1Texture, flippedUV1 )
+                const sky2tx = pmremTexture( cube2Texture, flippedUV2 )
+                const direction = normalize( cameraPosition.sub( positionWorld ) );
 
 
-                    const direction = normalize( cameraPosition.sub( positionWorld ) );
+                const skyShade = add(sunColor, fogColor);
+                const sky1Ambient = mul( sky1tx,  skyShade);
+                const sky1AmbTinted = mix( sky1Ambient, ambColor, min(0.75, pow(2, mul(flippedUV1.y, 8)) ));
+                const sky1FogTinted = mix( sky1AmbTinted, fogColor, min(0.5, pow( cos(mul(flippedUV1.y, 2)), 90) ));
+                const sky1ShadeTinted = mix( sky1FogTinted, spaceColor, min(0.75, pow( mul(flippedUV1.y, 0.99), 3) ));
+                const skySunTinted = mix( sky1ShadeTinted, sunColor, min(0.85, pow( mul(flippedUV1.y, -0.99), 23) ));
+
+
+
+                const mixCubeMaps = mix( skySunTinted, sky2tx,  mixNode );
+
+
 
                     // optical length
                     // cutoff angle at 90 to avoid singularity in next formula.
@@ -164,7 +185,7 @@ class EnvironmentMaps {
                     const zenithAngle = acos( max( 0.0, angleToUp ) );
                     const horizonAngle = cos( max( -1.0, angleToUp ) );
 
-                    const belowHorizonFactor = pow( 4, angleToDown );
+                    const belowHorizonFactor = mul(pow( 1.5, angleToDown), 0.85  );
 
                     const cosTheta = dot( direction, vSunDirection );
                     const sunFactor = pow( cosTheta, 4 );
@@ -194,7 +215,13 @@ class EnvironmentMaps {
 
                 const custom1UV = reflectNode.xyz.mul( uniform( rotateY1Matrix ) );
                 const custom2UV = reflectNode.xyz.mul( uniform( rotateY2Matrix ) );
-                const mixCubeMaps = mix( pmremTexture( cube1Texture, custom1UV ), pmremTexture( cube2Texture, custom2UV ),  mixNode );
+
+                const flippedUV1 = vec3(custom1UV.x, mul(custom1UV.y, -1), custom1UV.z);
+                const flippedUV2 = vec3(custom2UV.x, mul(custom2UV.y, -1), custom2UV.z);
+                const sky1tx = pmremTexture( cube1Texture, flippedUV1 )
+                const sky2tx = pmremTexture( cube2Texture, flippedUV2 )
+
+                const mixCubeMaps = mix( sky1tx, sky2tx,  mixNode );
 
 
                 const direction = normalize( positionWorld.sub( cameraPosition ) );
@@ -204,11 +231,10 @@ class EnvironmentMaps {
                 const angleToUp = dot( upUniform, direction )
 
                 const angleToDown = dot( downUniform, direction )
-
                 const zenithAngle = acos( max( 0.0, angleToUp ) );
                 const horizonAngle = cos( max( -1.0, angleToUp ) );
 
-                const belowHorizonFactor = pow( 4, angleToDown );
+                const belowHorizonFactor = mul(pow( 1.5, angleToDown), 0.85  );
 
                 const cosTheta = dot( direction, vSunDirection );
                 const sunFactor = pow( cosTheta, 4 );
@@ -216,19 +242,22 @@ class EnvironmentMaps {
                 const fogGradientColor = mix(ambColor, fogColor, 0.5)
                 const fogGradientFactor =  pow( horizonAngle, 4 );
                 const fogGradient =  mix(skyColor, fogGradientColor, fogGradientFactor)
-                const fogHorizonFactor = pow( horizonAngle, 1000 );
+                const fogHorizonFactor = pow( horizonAngle, 200 );
                 const foggedColor = mix(fogGradient, fogColor, fogHorizonFactor)
+
+                const sunAngle = dot(normalize(sunPosition), direction)
+                const skySunShaded = mix( foggedColor, sunColor, min(0.9, pow( mul(sunAngle, 0.95), 8) ));
 
                 const belowHorizonColor = mix(ambColor, spaceColor, belowHorizonFactor)
 
-                const sealevelColor = mix(foggedColor, belowHorizonColor, belowHorizonFactor)
+                const sealevelColor = mix(skySunShaded, belowHorizonColor, belowHorizonFactor)
 
                 const skyNode = vec4( sealevelColor, 1.0 );
 
 
                 const proceduralEnv = mix( mixCubeMaps, skyNode, proceduralNode );
 
-                const intensityFilter = proceduralEnv.mul( intensityNode );
+                const intensityFilter = skyNode.mul( intensityNode );
                 const hueFilter = hue( intensityFilter, hueNode );
                 return saturation( hueFilter, saturationNode );
 

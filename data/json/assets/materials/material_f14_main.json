@@ -1,5 +1,8 @@
 {
   "material": "MeshPhysicalMaterial",
+  "textures_": [
+    { "slot": "aoMap",        "tx": "texture_f14_main_ao"}
+  ],
   "textures": [
     { "slot":"map",           "tx": "texture_plane_atlas"},
     { "slot":"normalMap",     "tx": "texture_plane_atlas_normal"},
@@ -8,8 +11,9 @@
     { "slot": "aoMap",        "tx": "texture_f14_main_ao"}
   ],
   "settings": {
-    "metalness": 1.7,
-    "roughness": 0.9,
+    "color": [1, 1, 1],
+    "metalness": 1.0,
+    "roughness": 1.0,
     "aoMapIntensity": 1.0
   }
 }
