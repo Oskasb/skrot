@@ -1,5 +1,5 @@
 {
-  "material": "MeshPhysicalMaterial",
+  "material": "MeshStandardMaterial",
   "textures_": [
     { "slot": "aoMap",        "tx": "texture_f14_main_ao"}
   ],

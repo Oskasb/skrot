@@ -81,7 +81,7 @@ class EnvironmentMaps {
 
             const adjustments = {
                 mix: 0,
-                procedural: 0.1,
+                procedural: 0.0,
                 intensity: 1.0,
                 hue: 0.0,
                 saturation: 1.0
@@ -99,7 +99,7 @@ class EnvironmentMaps {
             }
 
             function initTransition() {
-                sTransit.initScalarTransition(adjustments.mix, 1-adjustments.mix, 5, transitEnded, 'curveSigmoid', transit);
+                sTransit.initScalarTransition(adjustments.mix, 1-adjustments.mix, 2, transitEnded, 'curveSigmoid', transit);
             }
 
             let sTransit = new ScalarTransition();
@@ -162,36 +162,34 @@ class EnvironmentMaps {
                 const sky2tx = pmremTexture( cube2Texture, flippedUV2 )
                 const direction = normalize( cameraPosition.sub( positionWorld ) );
 
+                const mixCubeMaps = mix( sky1tx, sky2tx,  mixNode );
 
                 const skyShade = add(sunColor, fogColor);
-                const sky1Ambient = mul( sky1tx,  skyShade);
-                const sky1AmbTinted = mix( sky1Ambient, ambColor, min(0.75, pow(2, mul(flippedUV1.y, 8)) ));
-                const sky1FogTinted = mix( sky1AmbTinted, fogColor, min(0.5, pow( cos(mul(flippedUV1.y, 2)), 90) ));
-                const sky1ShadeTinted = mix( sky1FogTinted, spaceColor, min(0.75, pow( mul(flippedUV1.y, 0.99), 3) ));
-                const skySunTinted = mix( sky1ShadeTinted, sunColor, min(0.85, pow( mul(flippedUV1.y, -0.99), 23) ));
 
 
-
-                const mixCubeMaps = mix( skySunTinted, sky2tx,  mixNode );
-
+                const sky1Ambient = mul( mixCubeMaps,  normalize(skyShade));
+                const sky1AmbTinted = mix( sky1Ambient, ambColor, min(0.75, pow(2, mul(flippedUV1.y, 15)) ));
+                const sky1FogTinted = mix( sky1AmbTinted, fogColor, mul(0.35, pow( cos(mul(flippedUV1.y, 2)), 30) ));
+                const sky1ShadeTinted = mix( sky1FogTinted, spaceColor, max(0.0, min(0.75, pow( mul(flippedUV1.y, 0.99), 3) )));
+                const skySunTinted = mix( sky1ShadeTinted, sunColor, max(0.0, min(0.85, pow( mul(flippedUV1.y, -0.99), 23) )));
 
 
                     // optical length
                     // cutoff angle at 90 to avoid singularity in next formula.
                     const angleToUp = dot( upUniform, direction )
 
-                    const angleToDown = dot( downUniform, direction )
+                    const angleToDown = mul( angleToUp, -1)
 
                     const zenithAngle = acos( max( 0.0, angleToUp ) );
                     const horizonAngle = cos( max( -1.0, angleToUp ) );
 
-                    const belowHorizonFactor = mul(pow( 1.5, angleToDown), 0.85  );
+                    const belowHorizonFactor = min(0.7, mul(pow( 1.1, angleToDown), 0.85  ));
 
                     const cosTheta = dot( direction, vSunDirection );
                     const sunFactor = pow( cosTheta, 4 );
                     const skyColor = mix(ambColor, sunColor, sunFactor)
                     const fogGradientColor = mix(ambColor, fogColor, 0.5)
-                    const fogGradientFactor =  pow( horizonAngle, 4 );
+                    const fogGradientFactor =  min(0.9, pow( horizonAngle, 4 ));
                     const fogGradient =  mix(skyColor, fogGradientColor, fogGradientFactor)
                     const fogHorizonFactor = pow( horizonAngle, 1000 );
                     const foggedColor = mix(fogGradient, fogColor, fogHorizonFactor)
@@ -203,7 +201,7 @@ class EnvironmentMaps {
                     const skyNode = vec4( sealevelColor, 1.0 );
 
 
-                const proceduralEnv = mix( mixCubeMaps, skyNode, proceduralNode );
+                const proceduralEnv = mix( skySunTinted, skyNode, proceduralNode );
 
                 const intensityFilter = proceduralEnv.mul( intensityNode );
                 const hueFilter = hue( intensityFilter, hueNode );
@@ -265,7 +263,7 @@ class EnvironmentMaps {
 
 
             scene.environmentNode = getEnvironmentNode( reflectVector, positionWorld );
-            scene.backgroundNode = getBackgroundNode( positionWorldDirection, positionLocal );
+            scene.backgroundNode = getEnvironmentNode( positionWorldDirection, positionLocal );
 
         }
 
