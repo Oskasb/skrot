@@ -9,12 +9,12 @@
     "transparent": true,
     "depthWrite": false,
     "depthTest": true,
-    "opacity": 1,
+    "opacity": 0.0,
     "color": {"r": 0, "g": 0, "b": 0},
     "emissiveIntensity": 1.0,
-    "blendEquation": "AddEquation",
     "blending": "CustomBlending",
+    "blendEquation": "AddEquation",
     "blendSrc": "SrcColorFactor",
-    "blendDst": "SrcAlphaFactor"
+    "blendDst": "OneMinusSrcAlphaFactor"
   }
 }
