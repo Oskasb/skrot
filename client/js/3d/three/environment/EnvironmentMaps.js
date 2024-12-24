@@ -123,9 +123,9 @@ class EnvironmentMaps {
             const upUniform = uniform( new Vector3( 0, 1, 0 ) );
             const downUniform = uniform( new Vector3( 0, -1, 0 ) );
 
-            const sunColor = uniform( envUnifs.sun_color );
-            const fogColor = uniform( envUnifs.fog_color );
-            const ambColor = uniform( envUnifs.amb_color );
+            const sunColor = uniform( envUnifs.sun );
+            const fogColor = uniform( envUnifs.fog );
+            const ambColor = uniform( envUnifs.ambient );
             const spaceColor = uniform( new Vector3( 0.0, 0.0, 0.01 ) );
 
 

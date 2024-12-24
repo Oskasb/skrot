@@ -46,9 +46,9 @@ class ThreeEnvironment {
         this.world = {
             fog:statusMap['fog'],
             uniforms: {
-                fog_color:new Vector3(),
-                sun_color:new Vector3(),
-                amb_color:new Vector3()
+                fog:new Vector3(),
+                sun:new Vector3(),
+                ambient:new Vector3()
             }
 
         };
@@ -188,17 +188,8 @@ class ThreeEnvironment {
                 this.applyFog(this.world[key], config[key].density * this.elevationFactor * 0.8);
             //    renderer.setClearColor(fogColor)
             }
-            let unifs = this.world.uniforms;
-            unifs.fog_color.x = this.world.fog.fog.color.r;
-            unifs.fog_color.y = this.world.fog.fog.color.g;
-            unifs.fog_color.z = this.world.fog.fog.color.b;
-            unifs.sun_color.x = this.world.sun.color.r;
-            unifs.sun_color.y = this.world.sun.color.g;
-            unifs.sun_color.z = this.world.sun.color.b;
-            unifs.amb_color.x = this.world.ambient.color.r;
-            unifs.amb_color.y = this.world.ambient.color.g;
-            unifs.amb_color.z = this.world.ambient.color.b;
-            
+
+
         }
     };
 
@@ -239,6 +230,9 @@ class ThreeEnvironment {
         if (statusMap.write === true) {
             return;
         }
+
+        let unifs = this.world.uniforms;
+
         for (let key in current) {
 
             if (fraction >= 1) {
@@ -246,6 +240,9 @@ class ThreeEnvironment {
                     current[key].color[0] = target[key].color[0];
                     current[key].color[1] = target[key].color[1];
                     current[key].color[2] = target[key].color[2];
+               //     unifs[key].x = current[key].color[0];
+               //     unifs[key].y = current[key].color[1];
+                //    unifs[key].z = current[key].color[2];
                 }
 
                 if (current[key].density) {
@@ -257,6 +254,11 @@ class ThreeEnvironment {
                         current[key].color[0] = MATH.interpolateFromTo(current[key].color[0], target[key].color[0],  fraction);
                         current[key].color[1] = MATH.interpolateFromTo(current[key].color[1], target[key].color[1],  fraction);
                         current[key].color[2] = MATH.interpolateFromTo(current[key].color[2], target[key].color[2],  fraction);
+
+                        unifs[key].x = current[key].color[0];
+                        unifs[key].y = current[key].color[1];
+                        unifs[key].z = current[key].color[2];
+
                     }
 
                 if (current[key].density) {
@@ -280,6 +282,7 @@ class ThreeEnvironment {
             }
 
         }
+
 
         return current;
     };
@@ -364,9 +367,7 @@ class ThreeEnvironment {
 
         if (statusMap.envIndex !== listIndex) {
             statusMap.envIndex = listIndex;
-            this.setEnvConfigId(statusMap.configIds[listIndex], 0.01);
-            fraction = 0.5;
-            force = true;
+            this.setEnvConfigId(statusMap.configIds[listIndex], 5);
         }
 
         this.currentElevation = camPos.y;
@@ -425,6 +426,8 @@ class ThreeEnvironment {
 
         this.calcVec.applyQuaternion(this.sunSphere.quaternion);
         this.calcVec2.applyQuaternion(this.camera.quaternion);
+
+
 
         //   calcVec.normalize();
         //   calcVec2.normalize();
