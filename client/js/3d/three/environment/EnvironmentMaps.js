@@ -220,7 +220,7 @@ class EnvironmentMaps {
                 const zenithAngle = acos( max( 0.0, angleToUp ) );
                 const horizonAngle = cos( max( -1.0, angleToUp ) );
 
-                const belowHorizonFactor = max(0.0, min(1.0, mul(pow( 5, angleToDown), 0.95  )));
+                const belowHorizonFactor = max(0.0, min(1.0, mul(pow( 9999, mul(angleToDown, 10.11)), 0.001  )));
                 const sunAngle = dot(normalize(sunPosition), direction)
                 const sunFactor = mul(0.25, max(0.0, pow( sunAngle, 0.8 )));
                 const skyShade = add( ambColor, fogColor);
@@ -237,9 +237,9 @@ class EnvironmentMaps {
 
                 const sunDisc = mix( skySunBrightened, add(sunColor, fogColor), mul(1.0, max(0.0, min( 1.0, pow( mul(sunAngle, 1.0003), 21000.0) ))));
 
-                const belowHorizonColor = mix(ambColor, spaceColor, max(0.0, min(0.7, belowHorizonFactor)))
+                const belowHorizonColor = mix(ambColor, spaceColor, max(0.0, min(0.5, belowHorizonFactor)))
 
-                const sealevelColor = mix(sunDisc, belowHorizonColor,  belowHorizonFactor)
+                const sealevelColor = mix(sunDisc, belowHorizonColor,  max(0.0, min(1, belowHorizonFactor)))
 
                 return vec4( sealevelColor, 1.0 );
 
@@ -248,7 +248,7 @@ class EnvironmentMaps {
 
             scene.environmentNode = getEnvironmentNode( reflectVector, positionWorld );
             scene.backgroundNode = getBackgroundNode( positionWorldDirection, positionLocal );
-        //    scene.emissiveNode = getBackgroundNode( positionWorldDirection, positionLocal );
+        //  scene.emissiveNode = getBackgroundNode( positionWorldDirection, positionLocal );
         }
 
         function initSky() {
