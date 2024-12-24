@@ -197,11 +197,8 @@ class EnvironmentMaps {
                     const foggedColor = mix(fogGradient, fogColor, fogHorizonFactor)
 
                     const belowHorizonColor = mix(ambColor, spaceColor, belowHorizonFactor)
-
                     const sealevelColor = mix(foggedColor, belowHorizonColor, belowHorizonFactor)
-
                     const skyNode = vec4( sealevelColor, 1.0 );
-
 
                 const proceduralEnv = mix( skySunTinted, skyNode, proceduralNode );
 
@@ -229,14 +226,14 @@ class EnvironmentMaps {
                 const skyShade = add( ambColor, fogColor);
                 const skyColor = mix(ambColor, skyShade, sunFactor);
                 const skySpace = mix(skyColor, spaceColor, mul(pow(angleToUp, 0.25), 0.8));
-                const fogGradientColor = mix(ambColor, fogColor, 0.5)
-                const fogGradientFactor =  pow( horizonAngle, 12 );
-                const fogGradient =  mix(skySpace, fogGradientColor, fogGradientFactor)
-                const fogHorizonFactor = pow( horizonAngle, 2000 );
+                const fogGradientColor = add(fogColor, sunColor)
+                const fogGradientFactor =  pow( horizonAngle, 6 );
+                const fogGradient =  mix(skySpace, fogGradientColor, mul(0.35, pow(fogGradientFactor, 8)))
+                const fogHorizonFactor = pow( horizonAngle, 1000 );
                 const foggedColor = mix(fogGradient, fogColor, fogHorizonFactor)
 
-                const skySunShaded = mix( foggedColor, sunColor, max(0.0, mul(0.1, pow( mul(sunAngle, 0.99), 1) )));
-                const skySunBrightened = mix( skySunShaded, add(sunColor, fogColor),  mul(0.19, max(0.0,pow( mul(sunAngle, 0.99), 52) )));
+                const skySunShaded = mix( foggedColor, sunColor, max(0.0, mul(0.06, pow( mul(sunAngle, 0.99), 1) )));
+                const skySunBrightened = mix( skySunShaded, add(sunColor, fogColor),  mul(0.12, max(0.0,pow( mul(sunAngle, 0.99), 32) )));
 
                 const sunDisc = mix( skySunBrightened, add(sunColor, fogColor), mul(1.0, max(0.0, min( 1.0, pow( mul(sunAngle, 1.0003), 21000.0) ))));
 
@@ -246,13 +243,12 @@ class EnvironmentMaps {
 
                 return vec4( sealevelColor, 1.0 );
 
-
             };
 
 
             scene.environmentNode = getEnvironmentNode( reflectVector, positionWorld );
             scene.backgroundNode = getBackgroundNode( positionWorldDirection, positionLocal );
-
+        //    scene.emissiveNode = getBackgroundNode( positionWorldDirection, positionLocal );
         }
 
         function initSky() {
