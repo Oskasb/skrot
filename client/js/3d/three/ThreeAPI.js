@@ -73,13 +73,11 @@ class ThreeAPI {
 
         let onLoaded = function() {
             _this.threeEnvironment.initEnvironment(store, envReady);
+            let env = new EnvironmentMaps(store);
+            env.call.activateEnvMaps()
         };
 
         this.threeEnvironment.loadEnvironmentData(onLoaded);
-
-        let env = new EnvironmentMaps(store.scene);
-        env.call.activateEnvMaps()
-
 
 
     };

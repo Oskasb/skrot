@@ -48,8 +48,10 @@ import {ScalarTransition} from "../../../application/utils/ScalarTransition.js";
 
 
 class EnvironmentMaps {
-    constructor(scene) {
-
+    constructor(store) {
+        console.log('EnvironmentMaps', store);
+        let scene = store.scene;
+        let envUnifs = store.env.uniforms;
         function init() {
 
             const cube1Texture = new Texture()
@@ -116,15 +118,15 @@ class EnvironmentMaps {
 
             const mieCoefficient = uniform( 0.005 );
             const mieDirectionalG = uniform( 0.8 );
-            const sunPosition = uniform( new Vector3(4000, 10000, 0) );
+            const sunPosition = uniform(store.env.sun.position);
 
             const upUniform = uniform( new Vector3( 0, 1, 0 ) );
             const downUniform = uniform( new Vector3( 0, -1, 0 ) );
 
-            const sunColor = uniform( new Vector3( 1, 0.9, 0.6 ) );
-            const fogColor = uniform( new Vector3( 0.4, 0.7, 0.9 ) );
-            const ambColor = uniform( new Vector3( 0.0, 0.1, 0.4 ) );
-            const spaceColor = uniform( new Vector3( 0.0, 0.0, 0.1 ) );
+            const sunColor = uniform( envUnifs.sun_color );
+            const fogColor = uniform( envUnifs.fog_color );
+            const ambColor = uniform( envUnifs.amb_color );
+            const spaceColor = uniform( new Vector3( 0.0, 0.0, 0.01 ) );
 
 
             const vSunDirection = varying( vec3(), 'vSunDirection' );
