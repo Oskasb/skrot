@@ -56,7 +56,7 @@ class ThreeEnvironment {
         this.maxElevation = 10000;
         this.currentElevation = 0;
         this.elevationFactor = 0;
-        this.transitionTime = 0.5;
+        this.transitionTime = 25;
         this.currentEnvConfig;
         this.currentSkyConfig;
         this.worldCenter = new Vector3(0, 0, 0);
@@ -227,9 +227,6 @@ class ThreeEnvironment {
     };
 
     interpolateEnv = function(current, target, fraction) {
-        if (statusMap.write === true) {
-            return;
-        }
 
         let unifs = this.world.uniforms;
 
@@ -240,9 +237,9 @@ class ThreeEnvironment {
                     current[key].color[0] = target[key].color[0];
                     current[key].color[1] = target[key].color[1];
                     current[key].color[2] = target[key].color[2];
-               //     unifs[key].x = current[key].color[0];
-               //     unifs[key].y = current[key].color[1];
-                //    unifs[key].z = current[key].color[2];
+                    unifs[key].x = current[key].color[0];
+                    unifs[key].y = current[key].color[1];
+                    unifs[key].z = current[key].color[2];
                 }
 
                 if (current[key].density) {
@@ -318,7 +315,7 @@ class ThreeEnvironment {
             if (MATH.stupidChecksumArray(lastStatus['fogColor']) === statusMap['fogColor']) {
                 if (MATH.stupidChecksumArray(lastStatus['ambColor']) === statusMap['ambColor']) {
                     if (MATH.stupidChecksumArray(lastStatus['sunColor']) === statusMap['sunColor']) {
-
+                        return 1;
                      } else {
                      //   statusMap.transitionProgress = 0.99;
                         statusMap.write = true;
@@ -336,13 +333,13 @@ class ThreeEnvironment {
         return MATH.calcFraction(0, this.transitionTime, statusMap.transitionProgress);
     };
 
-    setEnvConfigId(envConfId, time) {
+    setEnvConfigId(envConfId) {
         console.log("Set Env ", envConfId)
-        this.transitionTime = time || 0;
+    //    this.transitionTime = time || 0;
         statusMap.transitionProgress = 0;
         this.currentEnvId = envConfId;
         statusMap.write = false;
-        this.currentEnvConfig = this.envList[envConfId]
+    //    this.currentEnvConfig = this.envList[envConfId]
     //    this.applyEnvironment();
     //    this.setCanvasColor();
     //    statusMap.write = false;
@@ -357,18 +354,17 @@ class ThreeEnvironment {
         this.calcVec.set(0, 0, 0);
         MATH.randomVector(this.calcVec)
     //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:this.calcVec, to:this.world.sun.position, color:'YELLOW'})
-
-        //    console.log("Tick Env", tpf)
-        let fraction = this.calcTransitionProgress(tpf * 1.0);
-
         let listIndex = getSetting(ENUMS.Settings.ENVIRONMENT_INDEX);
 
         let force = false;
 
         if (statusMap.envIndex !== listIndex) {
             statusMap.envIndex = listIndex;
-            this.setEnvConfigId(statusMap.configIds[listIndex], 5);
+            this.setEnvConfigId(statusMap.configIds[listIndex]);
         }
+
+        //    console.log("Tick Env", tpf)
+        let fraction = this.calcTransitionProgress(tpf);
 
         this.currentElevation = camPos.y;
 
@@ -385,9 +381,9 @@ class ThreeEnvironment {
 
         if (fraction < 1) {
             useSky = this.interpolateSky(this.currentSkyConfig, this.skyList[this.currentEnvId], fraction);
-            if (force === false) {
+        //    if (force === false) {
                 this.interpolateEnv(this.currentEnvConfig, this.envList[this.currentEnvId], fraction);
-            }
+        //    }
 
         }
         this.theta = Math.PI * ( useSky.inclination - 0.5 );
@@ -415,7 +411,7 @@ class ThreeEnvironment {
 
         //   world.sun.position.add(worldCenter);
         this.world.sun.quaternion.copy(this.sunSphere.quaternion);
-
+/*
         this.calcVec.x = 0;
         this.calcVec.y = 0;
         this.calcVec.z = 1;
@@ -427,16 +423,14 @@ class ThreeEnvironment {
         this.calcVec.applyQuaternion(this.sunSphere.quaternion);
         this.calcVec2.applyQuaternion(this.camera.quaternion);
 
+           calcVec.normalize();
+           calcVec2.normalize();
 
+        let sunInTheBack = this.calcVec.dot(this.calcVec2);
 
-        //   calcVec.normalize();
-        //   calcVec2.normalize();
-
-    //    let sunInTheBack = this.calcVec.dot(this.calcVec2);
-
-    //    this.updateDynamigFog(sunInTheBack);
-    //    this.updateDynamigAmbient(sunInTheBack);
-
+        this.updateDynamigFog(sunInTheBack);
+        this.updateDynamigAmbient(sunInTheBack);
+*/
         this.applyEnvironment();
 
     };

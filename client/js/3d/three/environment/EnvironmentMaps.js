@@ -219,33 +219,33 @@ class EnvironmentMaps {
                 // cutoff angle at 90 to avoid singularity in next formula.
                 const angleToUp = dot( upUniform, direction )
 
-                const angleToDown = dot( downUniform, direction )
+                const angleToDown = mul( angleToUp, -1)
                 const zenithAngle = acos( max( 0.0, angleToUp ) );
                 const horizonAngle = cos( max( -1.0, angleToUp ) );
 
-                const belowHorizonFactor = mul(pow( 1.5, angleToDown), 0.85  );
-
-                const cosTheta = dot( direction, vSunDirection );
-                const sunFactor = pow( cosTheta, 4 );
-                const skyColor = mix(ambColor, sunColor, sunFactor)
+                const belowHorizonFactor = max(0.0, min(1.0, mul(pow( 5, angleToDown), 0.95  )));
+                const sunAngle = dot(normalize(sunPosition), direction)
+                const sunFactor = mul(0.25, max(0.0, pow( sunAngle, 0.8 )));
+                const skyShade = add( ambColor, fogColor);
+                const skyColor = mix(ambColor, skyShade, sunFactor);
+                const skySpace = mix(skyColor, spaceColor, mul(pow(angleToUp, 0.25), 0.8));
                 const fogGradientColor = mix(ambColor, fogColor, 0.5)
-                const fogGradientFactor =  pow( horizonAngle, 4 );
-                const fogGradient =  mix(skyColor, fogGradientColor, fogGradientFactor)
-                const fogHorizonFactor = pow( horizonAngle, 200 );
+                const fogGradientFactor =  pow( horizonAngle, 12 );
+                const fogGradient =  mix(skySpace, fogGradientColor, fogGradientFactor)
+                const fogHorizonFactor = pow( horizonAngle, 2000 );
                 const foggedColor = mix(fogGradient, fogColor, fogHorizonFactor)
 
-                const sunAngle = dot(normalize(sunPosition), direction)
-                const skySunShaded = mix( foggedColor, sunColor, max(0.0, min(0.9, pow( mul(sunAngle, 0.95), 8) )));
+                const skySunShaded = mix( foggedColor, sunColor, max(0.0, mul(0.1, pow( mul(sunAngle, 0.99), 1) )));
+                const skySunBrightened = mix( skySunShaded, add(sunColor, fogColor),  mul(0.19, max(0.0,pow( mul(sunAngle, 0.99), 52) )));
 
-                const belowHorizonColor = mix(ambColor, spaceColor, belowHorizonFactor)
+                const sunDisc = mix( skySunBrightened, add(sunColor, fogColor), mul(1.0, max(0.0, min( 1.0, pow( mul(sunAngle, 1.0003), 21000.0) ))));
 
-                const sealevelColor = mix(skySunShaded, belowHorizonColor, belowHorizonFactor)
+                const belowHorizonColor = mix(ambColor, spaceColor, max(0.0, min(0.7, belowHorizonFactor)))
 
-                const skyNode = vec4( sealevelColor, 1.0 );
+                const sealevelColor = mix(sunDisc, belowHorizonColor,  belowHorizonFactor)
 
-                const intensityFilter = skyNode.mul( intensityNode );
-                const hueFilter = hue( intensityFilter, hueNode );
-                return saturation( hueFilter, saturationNode );
+                return vec4( sealevelColor, 1.0 );
+
 
             };
 
