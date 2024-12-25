@@ -8,11 +8,13 @@ import {
     translateElement3DPercent
 } from "../DomUtils.js";
 import {MATH} from "../../../MATH.js";
+import {getFrame} from "../../../utils/DataUtils.js";
+import {InputDragPointer} from "../pointer/InputDragPointer.js";
 
 
 class DomSweep {
     constructor() {
-
+        let inputDragPointer = new InputDragPointer()
         let htmlElement;
         let _this = this;
         let statusMap;
@@ -44,14 +46,30 @@ class DomSweep {
         }
 
         let pressActive = false;
-
+        let pressStartTime = 0;
+        let isDoubbleTap = false;
         function pressStart(e) {
             pressActive = true;
-            pointerMove(e)
+            let now = getFrame().systemTime;
+
+            if (now - pressStartTime < 0.25) {
+                isDoubbleTap = true;
+            } else {
+                isDoubbleTap = false;
+                pointerMove(e)
+            }
+
+            pressStartTime = now;
         }
 
         function pressEnd(e) {
             pressActive = false;
+            let now = getFrame().systemTime;
+
+            if (now - pressStartTime < 0.25) {
+                statusMap['AXIS_Y'] = 0;
+            }
+
             translateElement3DPercent(inputElement, statusMap['AXIS_Y'], 0, 0);
         }
 
@@ -60,7 +78,6 @@ class DomSweep {
                 statusMap['AXIS_Y'] = MATH.clamp( (-0.25 + pointerEventToPercentY(e)/50), 0, 1);
                 translateElement3DPercent(inputElement,0, statusMap['AXIS_Y']*100,  0);
             }
-
         }
 
         function setupListeners() {
@@ -71,9 +88,11 @@ class DomSweep {
             dynamicRollL = htmlElement.call.getChildElement('dynamic_l')
             dynamicRollR = htmlElement.call.getChildElement('dynamic_r')
 
-            addPressStartFunction(surface, pressStart)
-            addMouseMoveFunction(surface, pointerMove)
-            addPressEndFunction(surface, pressEnd)
+            let opts = [
+                {axis:"Y", min:-1, max:1, origin: 0.5, margin:0.25},
+            ]
+
+            inputDragPointer.call.activateDragSurface(surface, inputElement, statusMap, opts)
         }
 
         function initElement(sMap, url, styleClass, onReady) {

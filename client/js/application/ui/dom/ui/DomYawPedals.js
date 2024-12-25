@@ -8,11 +8,13 @@ import {
     translateElement3DPercent
 } from "../DomUtils.js";
 import {MATH} from "../../../MATH.js";
+import {getFrame} from "../../../utils/DataUtils.js";
+import {InputDragPointer} from "../pointer/InputDragPointer.js";
 
 
 class DomYawPedals {
     constructor() {
-
+        let inputDragPointer = new InputDragPointer()
         let htmlElement;
         let _this = this;
         let statusMap;
@@ -42,30 +44,8 @@ class DomYawPedals {
 
             translateElement3DPercent(dynamicRollL, dynRollL,0,  0);
             translateElement3DPercent(dynamicRollR, dynRollR,50,  0);
-
         }
 
-        let pressActive = false;
-
-        function pressStart(e) {
-            pressActive = true;
-            pointerMove(e)
-        }
-
-        function pressEnd(e) {
-            pressActive = false;
-        //    statusMap['AXIS_X'] = 0;
-            translateElement3DPercent(inputElement, statusMap['AXIS_X'], 0, 0);
-        }
-
-        function pointerMove(e) {
-            if (pressActive) {
-            //    console.log(e);
-                statusMap['AXIS_X'] = MATH.clamp((-50 + pointerEventToPercentX(e))/25, -1, 1);
-                translateElement3DPercent(inputElement, statusMap['AXIS_X']*50, 0, 0);
-            }
-
-        }
 
         function setupListeners() {
             let surface = htmlElement.call.getChildElement('sampler_surface')
@@ -76,9 +56,11 @@ class DomYawPedals {
             dynamicRollL = htmlElement.call.getChildElement('dynamic_yaw_l');
             dynamicRollR = htmlElement.call.getChildElement('dynamic_yaw_r');
 
-            addPressStartFunction(surface, pressStart)
-            addMouseMoveFunction(surface, pointerMove)
-            addPressEndFunction(surface, pressEnd)
+            let opts = [
+                {axis:"X", min:-1, max:1, origin: 0, margin:0.25},
+            ]
+
+            inputDragPointer.call.activateDragSurface(surface, inputElement, statusMap, opts)
         }
 
         function initElement(sMap, url, styleClass, onReady) {

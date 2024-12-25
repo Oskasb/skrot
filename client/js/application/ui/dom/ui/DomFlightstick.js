@@ -8,11 +8,13 @@ import {
 } from "../DomUtils.js";
 import {MATH} from "../../../MATH.js";
 import {getFrame} from "../../../utils/DataUtils.js";
+import {InputDragPointer} from "../pointer/InputDragPointer.js";
 
 
 class DomFlightstick {
     constructor() {
 
+        let inputDragPointer = new InputDragPointer()
         let htmlElement;
         let _this = this;
         let statusMap;
@@ -49,50 +51,6 @@ class DomFlightstick {
 
         }
 
-        let pressActive = false;
-
-        let pressStartTime = 0;
-
-        let isDoubbleTap = false;
-
-        function pressStart(e) {
-            pressActive = true;
-
-            let now = getFrame().systemTime;
-
-            if (now - pressStartTime < 0.25) {
-                isDoubbleTap = true;
-            } else {
-                isDoubbleTap = false;
-                pointerMove(e)
-            }
-
-            pressStartTime = now;
-
-        }
-
-        function pressEnd(e) {
-            pressActive = false;
-
-            let now = getFrame().systemTime;
-
-            if (now - pressStartTime < 0.25) {
-                    statusMap['AXIS_X'] = 0;
-                    statusMap['AXIS_Y'] = 0;
-            } 
-
-            translateElement3DPercent(inputElement, statusMap['AXIS_X'], statusMap['AXIS_Y'], 0);
-        }
-
-        function pointerMove(e) {
-            if (pressActive) {
-            //    console.log(e);
-                statusMap['AXIS_X'] = MATH.clamp((-50 + pointerEventToPercentX(e))/25, -1, 1);
-                statusMap['AXIS_Y'] = MATH.clamp((-50 + pointerEventToPercentY(e))/25, -1, 1);
-                translateElement3DPercent(inputElement, statusMap['AXIS_X']*50, statusMap['AXIS_Y']*50, 0);
-            }
-
-        }
 
         function setupListeners() {
             let surface = htmlElement.call.getChildElement('stick_sampler')
@@ -106,9 +64,14 @@ class DomFlightstick {
             dynamicPitchL = htmlElement.call.getChildElement('dynamic_pitch_l');
             dynamicPitchR = htmlElement.call.getChildElement('dynamic_pitch_r');
 
-            addPressStartFunction(surface, pressStart)
-            addMouseMoveFunction(surface, pointerMove)
-            addPressEndFunction(surface, pressEnd)
+
+            let opts = [
+                    {axis:"X", min:-1, max:1, origin: 0, margin:0.25},
+                    {axis:"Y", min:-1, max:1, origin: 0, margin:0.25}
+                ]
+
+            inputDragPointer.call.activateDragSurface(surface, inputElement, statusMap, opts)
+
         }
 
         function initElement(sMap, url, styleClass, onReady) {
