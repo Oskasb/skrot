@@ -1,0 +1,11 @@
+[
+  {
+    "id": "UI_PEDALS",
+    "ui": "DomYawPedals",
+    "html": "ui_yaw_pedals",
+    "class": "ui_yaw_pedals",
+    "input_targets": [
+      {"sample":"AXIS_X", "target":"INPUT_YAW", "init": 0}
+    ]
+  }
+]

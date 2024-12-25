@@ -4,12 +4,13 @@ import {
     addPressEndFunction,
     addPressStartFunction,
     pointerEventToPercentX,
-    pointerEventToPercentY, translateElement3DPercent
+    pointerEventToPercentY,
+    translateElement3DPercent
 } from "../DomUtils.js";
 import {MATH} from "../../../MATH.js";
 
 
-class DomFlightstick {
+class DomYawPedals {
     constructor() {
 
         let htmlElement;
@@ -28,24 +29,19 @@ class DomFlightstick {
         let dynamicPitchR;
 
         function update() {
-            translateElement3DPercent(stickElement, statusMap['INPUT_ROLL']*50, statusMap['INPUT_PITCH']*50, 0);
+            translateElement3DPercent(stickElement, statusMap['INPUT_YAW']*50, 0, 0);
 
-            let outRoll = statusMap['output_INPUT_ROLL']*50+50
-            let outPitch = statusMap['output_INPUT_PITCH']*50+50
+            let outRoll = statusMap['output_INPUT_YAW']*50+50
+            let outPitch = statusMap['INPUT_YAW']*50+50
 
             translateElement3DPercent(controlLineX, outRoll, 0,  0);
-            translateElement3DPercent(controlLineY, 0,outPitch,  0);
+        //    translateElement3DPercent(controlLineY, 0,outPitch,  0);
 
-            let dynRollR = statusMap['DYNAMIC_ROLL_L']*20
-            let dynRollL = statusMap['DYNAMIC_ROLL_R']*20
-            let dynPitchR = statusMap['DYNAMIC_PITCH_L']*20
-            let dynPitchL = statusMap['DYNAMIC_PITCH_R']*20
+            let dynRollR = statusMap['DYNAMIC_RUDDER_R']*20
+            let dynRollL = statusMap['DYNAMIC_RUDDER_L']*20
 
             translateElement3DPercent(dynamicRollL, outRoll + dynRollL,0,  0);
             translateElement3DPercent(dynamicRollR, outRoll + dynRollR,50,  0);
-            translateElement3DPercent(dynamicPitchL, 0,outPitch + dynPitchL,  0);
-            translateElement3DPercent(dynamicPitchR, 0,outPitch + dynPitchR,  0);
-
 
         }
 
@@ -59,31 +55,26 @@ class DomFlightstick {
         function pressEnd(e) {
             pressActive = false;
             statusMap['AXIS_X'] = 0;
-            statusMap['AXIS_Y'] = 0;
-            translateElement3DPercent(inputElement, statusMap['AXIS_X'], statusMap['AXIS_Y'], 0);
+            translateElement3DPercent(inputElement, statusMap['AXIS_X'], 0, 0);
         }
 
         function pointerMove(e) {
             if (pressActive) {
             //    console.log(e);
                 statusMap['AXIS_X'] = MATH.clamp((-50 + pointerEventToPercentX(e))/25, -1, 1);
-                statusMap['AXIS_Y'] = MATH.clamp((-50 + pointerEventToPercentY(e))/25, -1, 1);
-                translateElement3DPercent(inputElement, statusMap['AXIS_X']*50, statusMap['AXIS_Y']*50, 0);
+                translateElement3DPercent(inputElement, statusMap['AXIS_X']*50, 0, 0);
             }
 
         }
 
         function setupListeners() {
-            let surface = htmlElement.call.getChildElement('stick_sampler')
+            let surface = htmlElement.call.getChildElement('sampler_surface')
             controlLineX = htmlElement.call.getChildElement('actuator_x')
-            controlLineY = htmlElement.call.getChildElement('actuator_y')
-            inputElement = htmlElement.call.getChildElement('stick_input')
-            stickElement = htmlElement.call.getChildElement('stick_state')
+            inputElement = htmlElement.call.getChildElement('yaw_input')
+            stickElement = htmlElement.call.getChildElement('yaw_state')
 
-            dynamicRollL = htmlElement.call.getChildElement('dynamic_roll_l');
-            dynamicRollR = htmlElement.call.getChildElement('dynamic_roll_r');
-            dynamicPitchL = htmlElement.call.getChildElement('dynamic_pitch_l');
-            dynamicPitchR = htmlElement.call.getChildElement('dynamic_pitch_r');
+            dynamicRollL = htmlElement.call.getChildElement('dynamic_yaw_l');
+            dynamicRollR = htmlElement.call.getChildElement('dynamic_yaw_r');
 
             addPressStartFunction(surface, pressStart)
             addMouseMoveFunction(surface, pointerMove)
@@ -110,4 +101,4 @@ class DomFlightstick {
     }
 }
 
-export { DomFlightstick }
+export { DomYawPedals }
