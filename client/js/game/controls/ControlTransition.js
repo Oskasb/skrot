@@ -42,7 +42,7 @@ class ControlTransition {
                 let fraction = diff / range;
                 let time = fraction / speed
 
-           if (time > 0.001) {
+           if (time > 0.02) {
                transition = poolFetch('ScalarTransition');
                transitionEnded = false;
                transition.initScalarTransition(state.value, targetValue,  time, transitionProgressUpdate, null, transitionCompleted)

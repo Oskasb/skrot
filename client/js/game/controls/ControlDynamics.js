@@ -84,11 +84,19 @@ class ControlDynamics {
             MATH.callAll(applyCalls);
         }
 
+        let updateFrame = 0;
 
         function applyTargetStateChange(targetValue) {
             if (state.targetValue !== targetValue) {
-                state.targetValue = targetValue
-                controlTransition.call.updateControlTransition(targetValue, state, onTransitionChange);
+
+                let frame = getFrame().frame;
+                if (frame !== updateFrame) {
+                    updateFrame = frame;
+                    state.targetValue = targetValue
+                    controlTransition.call.updateControlTransition(targetValue, state, onTransitionChange);
+                }
+
+
             }
 
         }

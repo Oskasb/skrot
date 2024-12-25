@@ -5,8 +5,6 @@ import {WebGLRenderList as influences} from "../../../../../libs/three/renderers
 class DynamicBone {
     constructor(assetInstance, bone) {
 
-        let actuators = {};
-
         let influensors = [];
         let callbacks = [];
         let boneCalls = {};
@@ -33,14 +31,6 @@ class DynamicBone {
 
             for (let i = 0; i  < influensors.length; i++) {
                 let obj3d = influensors[i].obj3d;
-
-                if (i === 0) {
-                //    obj3d.rotateX(0.01);
-                }
-                if (i === 1) {
-                //    obj3d.rotateZ(0.01);
-                }
-
 
                 let callName = influensors[i].callName;
                 if (callName === "setBoneRotation") {

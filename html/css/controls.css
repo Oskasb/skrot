@@ -107,9 +107,9 @@ div.stick_state_feedback {
 
 div.pedals_input {
     position: absolute;
-    left: 14em;
+    left: 14.3em;
     top:1em;
-    right: 14em;
+    right: 13.7em;
     bottom: 1em;
     width: auto;
     height: auto;
@@ -120,9 +120,9 @@ div.pedals_input {
 
 div.pedals_state {
     position: absolute;
-    left: 14em;
+    left: 14.3em;
     top:1em;
-    right: 14em;
+    right: 13.7em;
     bottom: 1em;
     transform-origin: 50% 50%;
     border-radius: 50%;
