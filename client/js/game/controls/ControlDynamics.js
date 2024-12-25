@@ -86,7 +86,18 @@ class ControlDynamics {
 
         let updateFrame = 0;
 
-        function applyTargetStateChange(targetValue) {
+        function applyRange(value, rangeMin, rangeMax) {
+            let frac = MATH.calcFraction(rangeMin, rangeMax, value);
+            return value * MATH.clamp(frac, 0, 1);
+        }
+
+        function applyTargetStateChange(targetValue, range) {
+
+            if (typeof (range) === 'object') {
+                targetValue = applyRange(targetValue, range.min, range.max);
+                console.log("Ranged value", targetValue);
+            }
+
             if (state.targetValue !== targetValue) {
 
                 let frame = getFrame().frame;
@@ -111,8 +122,8 @@ class ControlDynamics {
     }
 
 
-    setTargetState(value) {
-        this.call.applyTargetStateChange(value);
+    setTargetState(value, range) {
+        this.call.applyTargetStateChange(value, range);
     }
 
 

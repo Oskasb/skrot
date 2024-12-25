@@ -1,3 +1,6 @@
+import {range} from "../../../../libs/three/Three.TSL.js";
+import {MATH} from "../../application/MATH.js";
+
 class ControlState {
     constructor(controllablePiece, id, config) {
         this.id = id;
@@ -10,6 +13,8 @@ class ControlState {
         let targetValue = 0;
         let currentValue = 0;
 
+
+
         function applyStateToDynamicTarget(value, target) {
             currentValue = value;
             let dynamicId = target.dynamic;
@@ -21,7 +26,11 @@ class ControlState {
                 console.log("No such dynamic", dynamicId, controlDynamics)
                 return;
             }
-            controlDynamic.setTargetState(value * factor)
+
+            controlDynamic.setTargetState(value * factor, target.range)
+
+
+
         }
 
         function setControlState(value) {
