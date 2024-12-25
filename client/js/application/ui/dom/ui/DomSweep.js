@@ -29,17 +29,17 @@ class DomSweep {
         let dynamicPitchR;
 
         function update() {
-            translateElement3DPercent(stickElement, statusMap['INPUT_SWEEP']*50, 0, 0);
+            translateElement3DPercent(stickElement, 0,statusMap['INPUT_SWEEP']*100,  0);
 
             let outRoll = statusMap['output_INPUT_SWEEP']*100
 
             translateElement3DPercent(controlLineX, 0, outRoll,   0);
 
-            let dynRollR = statusMap['DYNAMIC_SWEEP_R']*20
-            let dynRollL = statusMap['DYNAMIC_SWEEP_L']*20
+            let dynRollR = statusMap['DYNAMIC_SWEEP_R']*100
+            let dynRollL = statusMap['DYNAMIC_SWEEP_L']*100
 
-            translateElement3DPercent(dynamicRollL, -70, outRoll + dynRollL,0  );
-            translateElement3DPercent(dynamicRollR, 70, outRoll + dynRollR,  0);
+            translateElement3DPercent(dynamicRollL, -70, dynRollL,0  );
+            translateElement3DPercent(dynamicRollR, 70, dynRollR,  0);
 
         }
 
@@ -52,14 +52,13 @@ class DomSweep {
 
         function pressEnd(e) {
             pressActive = false;
-            statusMap['AXIS_Y'] = 0;
             translateElement3DPercent(inputElement, statusMap['AXIS_Y'], 0, 0);
         }
 
         function pointerMove(e) {
             if (pressActive) {
-                statusMap['AXIS_Y'] = MATH.clamp( (pointerEventToPercentX(e)/100), 0, 1);
-                translateElement3DPercent(inputElement, statusMap['AXIS_Y']*100, 0, 0);
+                statusMap['AXIS_Y'] = MATH.clamp( (-0.25 + pointerEventToPercentY(e)/50), 0, 1);
+                translateElement3DPercent(inputElement,0, statusMap['AXIS_Y']*100,  0);
             }
 
         }

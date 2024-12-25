@@ -37,11 +37,11 @@ class DomYawPedals {
             translateElement3DPercent(controlLineX, outRoll, 0,  0);
         //    translateElement3DPercent(controlLineY, 0,outPitch,  0);
 
-            let dynRollR = statusMap['DYNAMIC_RUDDER_R']*20
-            let dynRollL = statusMap['DYNAMIC_RUDDER_L']*20
+            let dynRollR = statusMap['DYNAMIC_RUDDER_R']*50+50
+            let dynRollL = statusMap['DYNAMIC_RUDDER_L']*50+50
 
-            translateElement3DPercent(dynamicRollL, outRoll + dynRollL,0,  0);
-            translateElement3DPercent(dynamicRollR, outRoll + dynRollR,50,  0);
+            translateElement3DPercent(dynamicRollL, dynRollL,0,  0);
+            translateElement3DPercent(dynamicRollR, dynRollR,50,  0);
 
         }
 
@@ -54,7 +54,7 @@ class DomYawPedals {
 
         function pressEnd(e) {
             pressActive = false;
-            statusMap['AXIS_X'] = 0;
+        //    statusMap['AXIS_X'] = 0;
             translateElement3DPercent(inputElement, statusMap['AXIS_X'], 0, 0);
         }
 

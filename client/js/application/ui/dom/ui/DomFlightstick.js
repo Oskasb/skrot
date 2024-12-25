@@ -7,6 +7,7 @@ import {
     pointerEventToPercentY, translateElement3DPercent
 } from "../DomUtils.js";
 import {MATH} from "../../../MATH.js";
+import {getFrame} from "../../../utils/DataUtils.js";
 
 
 class DomFlightstick {
@@ -36,30 +37,50 @@ class DomFlightstick {
             translateElement3DPercent(controlLineX, outRoll, 0,  0);
             translateElement3DPercent(controlLineY, 0,outPitch,  0);
 
-            let dynRollR = statusMap['DYNAMIC_ROLL_L']*20
-            let dynRollL = statusMap['DYNAMIC_ROLL_R']*20
-            let dynPitchR = statusMap['DYNAMIC_PITCH_L']*20
-            let dynPitchL = statusMap['DYNAMIC_PITCH_R']*20
+            let dynRollL = -statusMap['DYNAMIC_ROLL_L']*50+50
+            let dynRollR = statusMap['DYNAMIC_ROLL_R']*50+50
+            let dynPitchR = statusMap['DYNAMIC_PITCH_L']*50+50
+            let dynPitchL = statusMap['DYNAMIC_PITCH_R']*50+50
 
-            translateElement3DPercent(dynamicRollL, outRoll + dynRollL,0,  0);
-            translateElement3DPercent(dynamicRollR, outRoll + dynRollR,50,  0);
-            translateElement3DPercent(dynamicPitchL, 0,outPitch + dynPitchL,  0);
-            translateElement3DPercent(dynamicPitchR, 0,outPitch + dynPitchR,  0);
-
+            translateElement3DPercent(dynamicRollL, dynRollL,0,  0);
+            translateElement3DPercent(dynamicRollR, dynRollR,50,  0);
+            translateElement3DPercent(dynamicPitchL, 0, dynPitchL,  0);
+            translateElement3DPercent(dynamicPitchR, 0, dynPitchR,  0);
 
         }
 
         let pressActive = false;
 
+        let pressStartTime = 0;
+
+        let isDoubbleTap = false;
+
         function pressStart(e) {
             pressActive = true;
-            pointerMove(e)
+
+            let now = getFrame().systemTime;
+
+            if (now - pressStartTime < 0.25) {
+                isDoubbleTap = true;
+            } else {
+                isDoubbleTap = false;
+                pointerMove(e)
+            }
+
+            pressStartTime = now;
+
         }
 
         function pressEnd(e) {
             pressActive = false;
-            statusMap['AXIS_X'] = 0;
-            statusMap['AXIS_Y'] = 0;
+
+            let now = getFrame().systemTime;
+
+            if (now - pressStartTime < 0.25) {
+                    statusMap['AXIS_X'] = 0;
+                    statusMap['AXIS_Y'] = 0;
+            } 
+
             translateElement3DPercent(inputElement, statusMap['AXIS_X'], statusMap['AXIS_Y'], 0);
         }
 
