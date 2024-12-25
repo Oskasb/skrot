@@ -1,13 +1,13 @@
 {
   "dynamic": "DOORS_R",
-  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.2},
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.5},
   "targets": [
     {
       "speed": 0.01,
       "joints": [
-        {"bone": "door_main_r", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.2},
-        {"bone": "door_rear_r", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.2},
-        {"bone": "door_inner_r", "call": "setBoneRotation", "args": ["rotateX"], "factor": 1.2}
+        {"bone": "door_main_r", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.4},
+        {"bone": "door_rear_r", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.4},
+        {"bone": "door_inner_r", "call": "setBoneRotation", "args": ["rotateX"], "factor": 1.4}
       ]
     }
   ]

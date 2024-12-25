@@ -1,12 +1,12 @@
 {
   "dynamic": "DOORS_NOSE",
-  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.3},
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.5},
   "targets": [
     {
       "speed": 0.01,
       "joints": [
-        {"bone": "door_nose_l", "call": "setBoneRotation", "args": ["rotateX"], "factor":  1.2},
-        {"bone": "door_nose_r", "call": "setBoneRotation", "args": ["rotateX"], "factor": -1.2}
+        {"bone": "door_nose_l", "call": "setBoneRotation", "args": ["rotateX"], "factor":  1.65},
+        {"bone": "door_nose_r", "call": "setBoneRotation", "args": ["rotateX"], "factor": -1.65}
       ]
     }
   ]

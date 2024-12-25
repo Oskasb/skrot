@@ -5,8 +5,8 @@
     {
       "speed": 0.01,
       "joints": [
-        {"bone": "gear_r", "call": "setBoneRotation", "args": ["rotateX"], "factor":  2},
-        {"bone": "susp_gear_r", "call": "setBoneRotation", "args": ["rotateX"], "factor":  1.4}
+        {"bone": "gear_r", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.65 , "offset": -1},
+        {"bone": "susp_gear_r", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.4, "offset": -1}
       ]
     }
   ]

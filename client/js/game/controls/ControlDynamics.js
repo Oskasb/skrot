@@ -48,7 +48,7 @@ class ControlDynamics {
                     let args = jointFb.args;
                     let factor = jointFb['factor'] || 1;
 
-                    let influence = dynamicBone.call.registerInfluence(jointFb.call, args, state, factor)
+                    let influence = dynamicBone.call.registerInfluence(jointFb.call, args, state, factor, jointFb.offset || 0)
 
                     let applyJointCall = function () {
                         dynamicBone.call.applyDynamicBoneInfluence(influence)

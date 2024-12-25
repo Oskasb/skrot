@@ -18,6 +18,7 @@ import {ControllablePiece} from "../../game/pieces/ControllablePiece.js";
 import {DomFlightstick} from "../ui/dom/ui/DomFlightstick.js";
 import {DomYawPedals} from "../ui/dom/ui/DomYawPedals.js";
 import {DomSweep} from "../ui/dom/ui/DomSweep.js";
+import {DomGear} from "../ui/dom/ui/DomGear.js";
 
 let pools = {}
 let stats = {};
@@ -45,6 +46,7 @@ function initPools() {
     registerPool(DomFlightstick)
     registerPool(DomYawPedals)
     registerPool(DomSweep)
+    registerPool(DomGear)
 }
 
 function registerPool(DataObj) {

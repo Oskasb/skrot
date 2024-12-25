@@ -284,8 +284,18 @@ iframe.ui_yaw_pedals {
 
 iframe.ui_sweep_wings {
     z-index: 100000;
-    top: auto;
-    bottom: 30%;
+    top: 20%;
+    left: 40em;
+    width: 60em;
+    height: 90em;
+    position: absolute;
+    border: none;
+    color: #ecffdc;
+}
+
+iframe.ui_gear {
+    z-index: 100000;
+    top: 40%;
     left: 40em;
     width: 60em;
     height: 90em;

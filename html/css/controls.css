@@ -45,7 +45,11 @@ div.line_x {
     height: 100%;
     width: 0;
 }
-
+div.line_center {
+    left: 40%;
+    right: 40%;
+    width: auto;
+}
 div.line_r {
     left: auto;
     right: 0;

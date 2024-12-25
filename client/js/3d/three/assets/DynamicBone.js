@@ -17,11 +17,12 @@ class DynamicBone {
                 let influence = updatedInfluences.pop();
                 let callName = influence.callName;
                 let factor = influence.factor;
+                let offset = influence.offset;
                 let args = influence.args;
                 let value = influence.state.value;
                 let obj3d = influence.obj3d;
                 obj3d.quaternion.set(0, 0, 0, 1);
-                jointCalls[callName](obj3d, args, value, factor);
+                jointCalls[callName](obj3d, args, value + offset, factor);
 
                 if (callName === "applyBoneScale") {
                     bone.scale.copy(bone.userData.bindPoseObj3D.scale)
@@ -58,14 +59,15 @@ class DynamicBone {
         }
 
 
-        function registerInfluence(callName, args, state, factor) {
+        function registerInfluence(callName, args, state, factor, offset) {
 
             let influence = {
                 callName:callName,
                 factor:factor,
                 state:state,
                 args:args,
-                obj3d:new Object3D()
+                obj3d:new Object3D(),
+                offset:offset
             }
             influensors.push(influence);
 

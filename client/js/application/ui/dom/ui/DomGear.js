@@ -12,7 +12,7 @@ import {getFrame} from "../../../utils/DataUtils.js";
 import {InputDragPointer} from "../pointer/InputDragPointer.js";
 
 
-class DomSweep {
+class DomGear {
     constructor() {
         let inputDragPointer = new InputDragPointer()
         let htmlElement;
@@ -23,26 +23,26 @@ class DomSweep {
         let stickElement;
 
         let controlLineX;
-        let controlLineY;
 
-        let dynamicRollL;
-        let dynamicRollR;
-        let dynamicPitchL;
-        let dynamicPitchR;
+        let dynamicL;
+        let dynamicR;
+        let dynamicMid;
+
 
         function update() {
-            translateElement3DPercent(stickElement, 0,statusMap['INPUT_SWEEP']*100,  0);
+            translateElement3DPercent(stickElement, 0,statusMap['INPUT_GEAR']*100,  0);
 
-            let outRoll = statusMap['output_INPUT_SWEEP']*100
+            let outRoll = statusMap['output_INPUT_GEAR']*100
 
             translateElement3DPercent(controlLineX, 0, outRoll,   0);
 
-            let dynRollR = statusMap['DYNAMIC_SWEEP_R']*100
-            let dynRollL = statusMap['DYNAMIC_SWEEP_L']*100
+            let dynGearR = statusMap['DYNAMIC_GEAR_R']*100
+            let dynGearL = statusMap['DYNAMIC_GEAR_L']*100
+            let dynGearN = statusMap['DYNAMIC_GEAR_NOSE']*100
 
-            translateElement3DPercent(dynamicRollL, -70, dynRollL,0  );
-            translateElement3DPercent(dynamicRollR, 70, dynRollR,  0);
-
+            translateElement3DPercent(dynamicL, -80, dynGearL,0  );
+            translateElement3DPercent(dynamicR, 80, dynGearR,  0);
+            translateElement3DPercent(dynamicMid, 0, dynGearN,  0);
         }
 
         let pressActive = false;
@@ -85,11 +85,11 @@ class DomSweep {
             controlLineX = htmlElement.call.getChildElement('actuator')
             inputElement = htmlElement.call.getChildElement('input')
             stickElement = htmlElement.call.getChildElement('input_state')
-            dynamicRollL = htmlElement.call.getChildElement('dynamic_l')
-            dynamicRollR = htmlElement.call.getChildElement('dynamic_r')
-
+            dynamicL = htmlElement.call.getChildElement('dynamic_l')
+            dynamicR = htmlElement.call.getChildElement('dynamic_r')
+            dynamicMid = htmlElement.call.getChildElement('dynamic_mid')
             let opts = [
-                {axis:"Y", min:0, max:1, origin: 0, margin:0.25},
+                {axis:"Y", min:0, max:1, origin: 0, margin:0.5},
             ]
 
             inputDragPointer.call.activateDragSurface(surface, inputElement, statusMap, opts)
@@ -115,4 +115,4 @@ class DomSweep {
     }
 }
 
-export { DomSweep }
+export { DomGear }
