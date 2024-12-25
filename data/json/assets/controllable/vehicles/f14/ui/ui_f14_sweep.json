@@ -1,0 +1,11 @@
+[
+  {
+    "id": "UI_SWEEP",
+    "ui": "DomSweep",
+    "html": "ui_sweep_wings",
+    "class": "ui_sweep_wings",
+    "input_targets": [
+      {"sample":"AXIS_Y", "target":"INPUT_SWEEP", "init": 0}
+    ]
+  }
+]

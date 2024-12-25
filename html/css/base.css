@@ -282,6 +282,18 @@ iframe.ui_yaw_pedals {
     color: #ecffdc;
 }
 
+iframe.ui_sweep_wings {
+    z-index: 100000;
+    top: auto;
+    bottom: 30%;
+    left: 40em;
+    width: 60em;
+    height: 90em;
+    position: absolute;
+    border: none;
+    color: #ecffdc;
+}
+
 iframe.bar_right {
     z-index: 100000;
     top: auto;
