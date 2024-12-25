@@ -4,7 +4,6 @@ class ScalarTransition {
     constructor() {
         this.from = 0;
         this.to = 0;
-        this.delta = 0;
         this.frameValue = 0;
         this.elapsedTime = 0;
         this.startTime = 0;
@@ -23,16 +22,24 @@ class ScalarTransition {
 
     }
 
-    initScalarTransition(from, to, overTime, callback, curve, onFrameUpdateCB) {
+
+    updateScalarTransition(to, overTime) {
+        this.to = to;
+        this.startTime = 0;
+        this.targetTime = this.startTime + overTime;
+    }
+
+
+
+        initScalarTransition(from, to, overTime, callback, curve, onFrameUpdateCB) {
 
         if (typeof (curve) === 'string') {
             this.curve = MATH[curve]
         }
 
-
         this.from = from;
         this.to = to;
-        this.delta = to-from;
+
         this.frameValue = from;
         this.elapsedTime = 0;
         this.startTime = 0;
@@ -59,7 +66,9 @@ class ScalarTransition {
                 curveValue = this.curve(fraction);
             }
 
-            this.frameValue = this.from+this.delta*curveValue;
+            let delta = this.to - this.from;
+
+            this.frameValue = this.from+delta*curveValue;
             MATH.callAll(this.onFrameUpdateCallbacks, this.frameValue, fraction);
         } else {
             this.frameValue = this.to;

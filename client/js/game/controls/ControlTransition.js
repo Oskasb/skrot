@@ -1,5 +1,6 @@
 import {poolFetch, poolReturn} from "../../application/utils/PoolUtils.js";
 import {MATH} from "../../application/MATH.js";
+import {getFrame} from "../../application/utils/DataUtils.js";
 
 class ControlTransition {
     constructor() {
@@ -17,39 +18,47 @@ class ControlTransition {
         let transitionEnded = false;
 
         function transitionCompleted(value) {
-            if (transitionEnded === false) {
+        //    if (transitionEnded === false) {
                 MATH.callAll(updateCallbacks, value);
-            }
-
+        //    }
+            poolReturn(transition)
+            transition = null //poolFetch('ScalarTransition');
         }
 
+        let updateFrame = 0;
 
         function updateControlTransition(targetValue, state, onUpdateCB) {
 
-            if (transition !== null) {
-                transition.cancelScalarTransition()
-                transitionEnded = true;
-                poolReturn(transition)
+            let frame = getFrame().frame;
+            if (updateFrame === frame) {
+                if (transition !== null) {
+                 //   transition.to = targetValue;
+                }
+                updateFrame = frame;
+                console.log("same frame updateControlTransition")
+                return;
             }
+
+            let speed = state.speed || 1;
+            let range = state.max - state.min;
+            let diff = Math.abs(state.value - targetValue) ;
+            let fraction = diff / range;
+            let time = fraction / speed
+
+            if (transition !== null) {
+            //    console.log("updateScalarTransition updateControlTransition")
+                transition.updateScalarTransition(targetValue, time)
+            } else {
 
                 if (updateCallbacks.indexOf(onUpdateCB) === -1) {
                     updateCallbacks.push(onUpdateCB)
                 }
 
-                let speed = state.speed || 1;
-                let range = state.max - state.min;
-                let diff = Math.abs(state.value - targetValue) ;
-                let fraction = diff / range;
-                let time = fraction / speed
+                transition = poolFetch('ScalarTransition');
+            //    transitionEnded = false;
+                transition.initScalarTransition(state.value, targetValue,  time, transitionCompleted , null, transitionProgressUpdate)
+            }
 
-           if (time > 0.02) {
-               transition = poolFetch('ScalarTransition');
-               transitionEnded = false;
-               transition.initScalarTransition(state.value, targetValue,  time, transitionProgressUpdate, null, transitionCompleted)
-           } else {
-               transitionEnded = false;
-               transitionCompleted(targetValue);
-           }
 
         }
 

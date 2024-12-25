@@ -30,6 +30,8 @@ class ControlState {
                 for (let i = 0; i < targets.length; i++) {
                     applyStateToDynamicTarget(value, targets[i]);
                 }
+            } else {
+            //    console.log("Value same ctr state", id, value)
             }
         }
 
