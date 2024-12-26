@@ -306,12 +306,12 @@ iframe.ui_gear {
 
 iframe.ui_power {
     z-index: 100000;
-    bottom: 140em;
+    bottom: 60em;
     right: 400em;
     left:auto;
     top: auto;
     width: 120em;
-    height: 280em;
+    height: 260em;
     position: absolute;
     border: none;
     color: #ecffdc;

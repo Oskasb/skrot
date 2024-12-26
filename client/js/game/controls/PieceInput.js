@@ -25,7 +25,13 @@ class PieceInput {
 
             for (let i = 0; i < dynamicTargets.length; i++) {
                 let dynamicId = dynamicTargets[i].dynamic;
-                statusMap[dynamicId] = controllablePiece.assetInstance.getControlDynamic(dynamicId).state.value;
+                let dynamic = controllablePiece.assetInstance.getControlDynamic(dynamicId)
+                if (!dynamic) {
+                    statusMap[dynamicId] = 0;
+                } else {
+                    statusMap[dynamicId] = dynamic.state.value;
+                }
+
             }
 
         }

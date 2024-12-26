@@ -95,7 +95,7 @@ class ControlDynamics {
         function applyRange(value, rangeMin, rangeMax) {
             let frac = MATH.calcFraction(rangeMin, rangeMax, value);
             let clamped = MATH.clamp(frac, 0, 1)
-            console.log(value, clamped, frac)
+       //     console.log(value, clamped, frac)
 
             return value * clamped;
         }
@@ -120,7 +120,7 @@ class ControlDynamics {
 
             if (typeof (range) === 'object') {
                 targetValue = applyRange(targetValue, range.min, range.max);
-                console.log("Ranged value", targetValue);
+            //    console.log("Ranged value", targetValue);
             }
 
             if (state.targetValue !== targetValue) {
@@ -135,7 +135,7 @@ class ControlDynamics {
 
 
             } else {
-                console.log("Dynamic value same ", controlId, targetValue);
+            //    console.log("Dynamic value same ", controlId, targetValue);
             }
 
         }

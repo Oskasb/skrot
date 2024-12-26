@@ -348,8 +348,25 @@ let refDiv;
     }
 
     function translateElement3DPercent(element, x, y, z) {
-        let parentHeight = element.offsetParent.offsetHeight;
-        let parentWidth = element.offsetParent.offsetWidth;
+
+
+
+        if (!element.parent) {
+            element.style.transformStyle = 'preserve-3d'
+            element.parent = element.offsetParent
+            element.parent.style.transformStyle = 'preserve-3d';
+            element.parentHeight = parent.offsetHeight;
+            element.parentWidth = parent.offsetWidth;
+
+        }
+
+        if (Math.random() < 0.01) {
+            element.parentHeight = element.parent.offsetHeight;
+            element.parentWidth = element.parent.offsetWidth;
+        }
+
+        let parentHeight = element.parentHeight;
+        let parentWidth = element.parentWidth;
         let pxX = parentWidth * x / 100;
         let pxY = parentHeight * y / 100;
         let trf = "translate3d("+pxX+"px, "+pxY+"px, "+z+"px)";
