@@ -185,7 +185,7 @@ class EnvironmentMaps {
                     const zenithAngle = acos( max( 0.0, angleToUp ) );
                     const horizonAngle = cos( max( -1.0, angleToUp ) );
 
-                    const belowHorizonFactor = min(0.7, mul(pow( 1.1, angleToDown), 0.85  ));
+                    const belowHorizonFactor = max(0.0, min(1.0, mul(pow( 9999, mul(angleToDown, 10.11)), 0.9  )));
 
                     const cosTheta = dot( direction, vSunDirection );
                     const sunFactor = pow( cosTheta, 4 );
@@ -200,11 +200,7 @@ class EnvironmentMaps {
                     const sealevelColor = mix(foggedColor, belowHorizonColor, belowHorizonFactor)
                     const skyNode = vec4( sealevelColor, 1.0 );
 
-                const proceduralEnv = mix( skySunTinted, skyNode, proceduralNode );
-
-                const intensityFilter = proceduralEnv.mul( intensityNode );
-                const hueFilter = hue( intensityFilter, hueNode );
-                return saturation( hueFilter, saturationNode );
+                    return mix( skySunTinted, skyNode, proceduralNode );
 
             };
 
