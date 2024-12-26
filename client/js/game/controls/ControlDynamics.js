@@ -60,12 +60,18 @@ class ControlDynamics {
         }
 
 
+        let condition = null;
+
         let onData = function(json) {
 
             this.dynamic = json.dynamic;
 
             for (let key in json.state) {
                 state[key] = json.state[key];
+            }
+
+            if (json.condition) {
+                condition = json.condition;
             }
 
             this.targets = MATH.jsonCopy(json.targets);
@@ -94,7 +100,23 @@ class ControlDynamics {
             return value * clamped;
         }
 
+        function testControlCondition(condition) {
+            let dyn = condition.dynamic;
+            let range = condition.range;
+            let currentValue = assetInstance.getControlDynamic(dyn).getControlValue();
+            return MATH.valueIsBetween(currentValue, range.min, range.max);
+        }
+
+
         function applyTargetStateChange(targetValue, range) {
+
+            if (condition !== null) {
+                let isMet = testControlCondition(condition)
+                if (isMet === false) {
+                    targetValue = condition.value;
+                }
+            }
+
 
             if (typeof (range) === 'object') {
                 targetValue = applyRange(targetValue, range.min, range.max);
@@ -129,6 +151,9 @@ class ControlDynamics {
         this.call.applyTargetStateChange(value, range);
     }
 
+    getControlValue() {
+        return this.state.value;
+    }
 
 
 }

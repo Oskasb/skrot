@@ -1,6 +1,7 @@
 {
   "dynamic": "DOORS_R",
   "state": {"min": 0, "max": 1, "value": 0, "speed": 0.5},
+  "condition": {"dynamic": "DYNAMIC_GEAR_R", "range": {"min":0, "max": 0.3}, "value": 1},
   "targets": [
     {
       "joints": [
