@@ -45,40 +45,6 @@ class DomSweep {
 
         }
 
-        let pressActive = false;
-        let pressStartTime = 0;
-        let isDoubbleTap = false;
-        function pressStart(e) {
-            pressActive = true;
-            let now = getFrame().systemTime;
-
-            if (now - pressStartTime < 0.25) {
-                isDoubbleTap = true;
-            } else {
-                isDoubbleTap = false;
-                pointerMove(e)
-            }
-
-            pressStartTime = now;
-        }
-
-        function pressEnd(e) {
-            pressActive = false;
-            let now = getFrame().systemTime;
-
-            if (now - pressStartTime < 0.25) {
-                statusMap['AXIS_Y'] = 0;
-            }
-
-            translateElement3DPercent(inputElement, statusMap['AXIS_Y'], 0, 0);
-        }
-
-        function pointerMove(e) {
-            if (pressActive) {
-                statusMap['AXIS_Y'] = MATH.clamp( (-0.25 + pointerEventToPercentY(e)/50), 0, 1);
-                translateElement3DPercent(inputElement,0, statusMap['AXIS_Y']*100,  0);
-            }
-        }
 
         function setupListeners() {
             let surface = htmlElement.call.getChildElement('sampler_surface')

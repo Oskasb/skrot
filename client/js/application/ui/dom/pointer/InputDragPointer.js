@@ -47,15 +47,35 @@ class InputDragPointer {
             pressActive = false;
 
             let now = getFrame().systemTime;
-
+            let posX = 0;
+            let posY = 0;
             if (now - pressStartTime < 0.25) {
                 for (let i = 0;i<options.length;i++) {
                     statusMap['AXIS_'+options[i].axis] = options[i].origin;
+                    let min =  options[i].min;
+                    let max =  options[i].max;
+                    let origin = options[i].origin;
+                    let axis = options[i].axis
+                    let offsetFrac = MATH.calcFraction(min, max, origin);
+                    let inputPos = statusMap['AXIS_'+axis];
+
+                    let inputFrac = (MATH.calcFraction(min, max, inputPos) - offsetFrac) * 100;
+
+                    if (axis === 'X') {
+                        posX = inputFrac
+                    }
+
+                    if (axis === 'Y') {
+                        posY = inputFrac
+                    }
+
                 }
+
+                translateElement3DPercent(inputElement, posX, posY, 0);
 
             }
 
-            translateElement3DPercent(inputElement, statusMap['AXIS_X'] || 0, statusMap['AXIS_Y'] || 0, 0);
+        //    translateElement3DPercent(inputElement, statusMap['AXIS_X'] || 0, statusMap['AXIS_Y'] || 0, 0);
         }
 
 

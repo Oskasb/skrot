@@ -160,12 +160,12 @@ div.pedals_state_feedback {
 
 div.sweep_input {
     position: absolute;
-    left: 14.3em;
-    top:1em;
-    right: 13.8em;
-    bottom: 1em;
+    left: 1em;
+    top:-2em;
+    right: 1em;
+    bottom: auto;
     width: auto;
-    height: auto;
+    height: 4em;
     transform-origin: 50% 50%;
     border-radius: 50%;
     box-shadow: 0 0 1em rgba(123, 248, 255, 0.9);
@@ -173,10 +173,12 @@ div.sweep_input {
 
 div.sweep_state {
     position: absolute;
-    left: 14.2em;
-    top:1em;
-    right: 13.7em;
-    bottom: 1em;
+    left: 1em;
+    top:-2em;
+    right: 1em;
+    bottom: auto;
+    width: auto;
+    height: 4em;
     transform-origin: 50% 50%;
     border-radius: 50%;
     box-shadow: 0 0 1em rgba(103, 239, 255, 0.9);
