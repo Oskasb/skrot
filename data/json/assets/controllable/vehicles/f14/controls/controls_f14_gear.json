@@ -1,9 +1,9 @@
 [
   {"id": "INPUT_GEAR",     "targets": [
-    {"dynamic": "DYNAMIC_GEAR_NOSE",  "factor":     1, "range": {"min": 0.8, "max": 0.93}},
+    {"dynamic": "DYNAMIC_GEAR_NOSE",  "factor":     1, "range": {"min": 0.8, "max": 0.9}},
     {"dynamic": "DYNAMIC_GEAR_L",     "factor":     1},
     {"dynamic": "DYNAMIC_GEAR_R",     "factor":     1},
-    {"dynamic": "DYNAMIC_DOORS_NOSE", "factor":     1, "range": {"min": 0.0, "max": 0.2}},
+    {"dynamic": "DYNAMIC_DOORS_NOSE", "factor":     1, "range": {"min": 0.1, "max": 0.2}},
     {"dynamic": "DYNAMIC_DOORS_L",    "factor":     1},
     {"dynamic": "DYNAMIC_DOORS_R",    "factor":     1}
   ]}
