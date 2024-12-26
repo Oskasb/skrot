@@ -165,9 +165,7 @@ class EnvironmentMaps {
                 const direction = normalize( cameraPosition.sub( positionWorld ) );
 
                 const mixCubeMaps = mix( sky1tx, sky2tx,  mixNode );
-
                 const skyShade = add( ambColor, fogColor);
-
 
                 const sky1Ambient = mul( mixCubeMaps, skyShade);
                 const sky1AmbTinted = mix( sky1Ambient, ambColor, min(0.75, pow(2, mul(flippedUV1.y, 15)) ));
@@ -175,32 +173,7 @@ class EnvironmentMaps {
                 const sky1ShadeTinted = mix( sky1FogTinted, spaceColor, max(0.0, min(0.75, pow( mul(flippedUV1.y, 0.99), 3) )));
                 const skySunTinted = mix( sky1ShadeTinted, add(sunColor, sky1FogTinted), max(0.0, min(0.85, pow( mul(flippedUV1.y, -0.99), 35) )));
 
-
-                    // optical length
-                    // cutoff angle at 90 to avoid singularity in next formula.
-                    const angleToUp = dot( upUniform, direction )
-
-                    const angleToDown = mul( angleToUp, -1)
-
-                    const zenithAngle = acos( max( 0.0, angleToUp ) );
-                    const horizonAngle = cos( max( -1.0, angleToUp ) );
-
-                    const belowHorizonFactor = max(0.0, min(1.0, mul(pow( 9999, mul(angleToDown, 10.11)), 0.9  )));
-
-                    const cosTheta = dot( direction, vSunDirection );
-                    const sunFactor = pow( cosTheta, 4 );
-                    const skyColor = mix(ambColor, sunColor, sunFactor)
-                    const fogGradientColor = mix(ambColor, fogColor, 0.5)
-                    const fogGradientFactor =  min(0.9, pow( horizonAngle, 4 ));
-                    const fogGradient =  mix(skyColor, fogGradientColor, fogGradientFactor)
-                    const fogHorizonFactor = pow( horizonAngle, 1000 );
-                    const foggedColor = mix(fogGradient, fogColor, fogHorizonFactor)
-
-                    const belowHorizonColor = mix(ambColor, spaceColor, belowHorizonFactor)
-                    const sealevelColor = mix(foggedColor, belowHorizonColor, belowHorizonFactor)
-                    const skyNode = vec4( sealevelColor, 1.0 );
-
-                    return mix( skySunTinted, skyNode, proceduralNode );
+                return vec4( skySunTinted, 1.0 );
 
             };
 

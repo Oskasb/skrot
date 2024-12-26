@@ -88,7 +88,10 @@ class ControlDynamics {
 
         function applyRange(value, rangeMin, rangeMax) {
             let frac = MATH.calcFraction(rangeMin, rangeMax, value);
-            return value * MATH.clamp(frac, 0, 1);
+            let clamped = MATH.clamp(frac, 0, 1)
+            console.log(value, clamped, frac)
+
+            return value * clamped;
         }
 
         function applyTargetStateChange(targetValue, range) {
