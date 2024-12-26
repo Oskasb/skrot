@@ -306,11 +306,11 @@ iframe.ui_gear {
 
 iframe.ui_power {
     z-index: 100000;
-    bottom: 80em;
+    bottom: 140em;
     right: 400em;
     left:auto;
     top: auto;
-    width: 90em;
+    width: 120em;
     height: 280em;
     position: absolute;
     border: none;

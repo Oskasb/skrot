@@ -19,6 +19,7 @@ import {DomFlightstick} from "../ui/dom/ui/DomFlightstick.js";
 import {DomYawPedals} from "../ui/dom/ui/DomYawPedals.js";
 import {DomSweep} from "../ui/dom/ui/DomSweep.js";
 import {DomGear} from "../ui/dom/ui/DomGear.js";
+import {DomPower} from "../ui/dom/ui/DomPower.js";
 
 let pools = {}
 let stats = {};
@@ -47,6 +48,7 @@ function initPools() {
     registerPool(DomYawPedals)
     registerPool(DomSweep)
     registerPool(DomGear)
+    registerPool(DomPower)
 }
 
 function registerPool(DataObj) {

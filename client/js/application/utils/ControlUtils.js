@@ -11,13 +11,17 @@ function setObjAxisRotation(value, obj3d, axis) {
     obj3d[axis](value);
 }
 
-function setObjUniformScale(value, obj3d, axis) {
+function setObjUniformScale(value, obj3d, args) {
 
-    obj3d.scale.multiplyScalar(1+value);
+    let min = args.min || 0;
+    let max = args.max || 1;
+    let range = max-min;
+    let scale = min + value*range;
+    obj3d.scale.set(scale, scale, scale);
 }
 
 jointCalls["applyBoneScale"] = function(bone, args, value, factor) {
-    setObjUniformScale(value*factor, bone)
+    setObjUniformScale(value*factor, bone, args)
 }
 
 jointCalls["applyBoneRotation"] = function(bone, args, value, factor) {

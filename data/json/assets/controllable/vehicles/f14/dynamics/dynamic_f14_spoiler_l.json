@@ -5,7 +5,7 @@
   "targets": [
     {
       "joints": [
-        {"bone": "spoiler_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": 0.95}
+        {"bone": "spoiler_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": 1.15}
       ]
     }
   ]

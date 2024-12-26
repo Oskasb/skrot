@@ -57,9 +57,16 @@ class InputDragPointer {
                     let origin = options[i].origin;
                     let axis = options[i].axis
                     let offsetFrac = MATH.calcFraction(min, max, origin);
+
                     let inputPos = statusMap['AXIS_'+axis];
 
                     let inputFrac = (MATH.calcFraction(min, max, inputPos) - offsetFrac) * 100;
+
+                    let invert = options[i].invert;
+                    if (invert === true) {
+                        inputFrac = 100-inputFrac;
+                    }
+
 
                     if (axis === 'X') {
                         posX = inputFrac
@@ -93,17 +100,30 @@ class InputDragPointer {
                     let max =  options[i].max;
                     let origin = options[i].origin;
 
+
+
                     let axisLength = max - min;
                     let margin = options[i].margin * axisLength;
+
                     let offsetFrac = MATH.calcFraction(min, max, origin);
+
+
                     let centerPcnt = offsetFrac*100;
 
                     let upscale = 100/(axisLength+margin);
                     let inputPos = MATH.clamp((-centerPcnt + pointerPcnt)/upscale, min, max);
 
-                    statusMap['AXIS_'+axis] = inputPos;
+
 
                     let inputFrac = (MATH.calcFraction(min, max, inputPos) - offsetFrac) * 100;
+
+                    let invert = options[i].invert;
+                    if (invert === true) {
+                     //   inputFrac = 100-inputFrac;
+                        statusMap['AXIS_'+axis] = 1-inputPos;
+                    } else {
+                        statusMap['AXIS_'+axis] = inputPos;
+                    }
 
                     if (axis === 'X') {
                         posX = inputFrac
