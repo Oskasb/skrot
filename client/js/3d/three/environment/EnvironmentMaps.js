@@ -249,7 +249,7 @@ class EnvironmentMaps {
 
             scene.environmentNode = getEnvironmentNode( reflectVector, positionWorld );
             scene.backgroundNode = getBackgroundNode( positionWorldDirection, positionLocal );
-        //  scene.emissiveNode = getBackgroundNode( positionWorldDirection, positionLocal );
+            scene.backgroundNode = getEnvironmentNode( positionWorldDirection, positionLocal );
         }
 
         function initSky() {
