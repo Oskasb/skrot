@@ -3,7 +3,6 @@
   "state": {"min": 0, "max": 1, "value": 0, "speed": 2},
   "targets": [
     {
-      "speed": 0.01,
       "joints": [
         {"bone": "spoiler_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": 0.75}
       ]

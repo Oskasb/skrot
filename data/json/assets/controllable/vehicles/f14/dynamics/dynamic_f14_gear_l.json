@@ -3,7 +3,6 @@
   "state": {"min": 0, "max": 1, "value": 0, "speed": 0.5},
   "targets": [
     {
-      "speed": 0.01,
       "joints": [
         {"bone": "gear_l", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.68 , "offset": -1},
         {"bone": "susp_gear_l", "call": "setBoneRotation", "args": ["rotateX"], "factor":  1.4, "offset": -1}

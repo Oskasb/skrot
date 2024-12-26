@@ -3,7 +3,6 @@
   "state": {"min": 0, "max": 1, "value": 0, "speed": 0.7},
   "targets": [
     {
-      "speed": 0.01,
       "joints": [
         {"bone": "hook", "call": "setBoneRotation", "args": ["rotateX"], "factor":  1.1}
       ]
