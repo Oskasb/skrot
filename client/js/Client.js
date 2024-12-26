@@ -1,5 +1,5 @@
 
-import {setRefDiv} from "./application/ui/dom/DomUtils.js";
+import {notifyDomResize, setRefDiv} from "./application/ui/dom/DomUtils.js";
 import {evt} from "./application/event/evt.js";
 
 import {
@@ -82,6 +82,7 @@ function init3d() {
         camera.updateProjectionMatrix();
         renderer.setSize( window.innerWidth, window.innerHeight );
         GameScreen.notifyResize()
+        notifyDomResize();
     }
 
 

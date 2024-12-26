@@ -1,4 +1,5 @@
 import {MATH} from "../../MATH.js";
+import {getFrame} from "../../utils/DataUtils.js";
 
 let rect = {
     centerX:0,
@@ -347,22 +348,36 @@ let refDiv;
         element.addEventListener('touchcancel', cb);
     }
 
+    let recalculate = true;
+
+    let recalcFrame = 0;
+
+    function notifyDomResize() {
+        recalculate = true;
+        recalcFrame = getFrame().frame;
+    }
+
+
     function translateElement3DPercent(element, x, y, z) {
-
-
 
         if (!element.parent) {
             element.style.transformStyle = 'preserve-3d'
             element.parent = element.offsetParent
             element.parent.style.transformStyle = 'preserve-3d';
-            element.parentHeight = parent.offsetHeight;
-            element.parentWidth = parent.offsetWidth;
-
-        }
-
-        if (Math.random() < 0.01) {
             element.parentHeight = element.parent.offsetHeight;
             element.parentWidth = element.parent.offsetWidth;
+            recalculate = true;
+            recalcFrame = getFrame().frame;
+        }
+
+        if (recalculate === true) {
+
+            element.parentHeight = element.parent.offsetHeight;
+            element.parentWidth = element.parent.offsetWidth;
+            let frame = getFrame().frame;
+            if (recalcFrame < frame -2 ) {
+                recalculate = false;
+            }
         }
 
         let parentHeight = element.parentHeight;
@@ -464,5 +479,6 @@ export {
     transformElement3DPercent,
     buildCssTransform,
     pointerEventToPercentX,
-    pointerEventToPercentY
+    pointerEventToPercentY,
+    notifyDomResize
 };
