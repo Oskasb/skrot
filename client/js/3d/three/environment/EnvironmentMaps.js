@@ -157,22 +157,13 @@ class EnvironmentMaps {
             const getEnvironmentNode = function( reflectNode, positionNode ) {
 
                 const custom1UV = reflectNode.xyz.mul( uniform( rotateY1Matrix ) );
-                const custom2UV = reflectNode.xyz.mul( uniform( rotateY2Matrix ) );
                 const flippedUV1 = vec3(custom1UV.x, mul(custom1UV.y, -1), custom1UV.z);
-                const flippedUV2 = vec3(custom2UV.x, mul(custom2UV.y, -1), custom2UV.z);
                 const sky1tx = pmremTexture( cube1Texture, flippedUV1 )
-                const sky2tx = pmremTexture( cube2Texture, flippedUV2 )
-                const direction = normalize( cameraPosition.sub( positionWorld ) );
-
-                const mixCubeMaps = mix( sky1tx, sky2tx,  mixNode );
                 const skyShade = add( ambColor, fogColor);
-
-                const sky1Ambient = mul( mixCubeMaps, skyShade);
+                const sky1Ambient = mul( sky1tx, skyShade);
                 const sky1AmbTinted = mix( sky1Ambient, ambColor, max(0.0, min(0.75, pow(2, mul(flippedUV1.y, 15)) )));
                 const sky1FogTinted = mix( sky1AmbTinted, fogColor, mul(0.55, pow( cos(mul(flippedUV1.y, 2)), 30) ));
-                const sky1ShadeTinted = mix( sky1FogTinted, spaceColor, max(0.0, min(0.75, pow( mul(flippedUV1.y, 0.99), 3) )));
-                const skySunTinted = mix( sky1ShadeTinted, add(sunColor, sky1FogTinted), max(0.0, min(0.85, pow( mul(flippedUV1.y, -0.99), 35) )));
-
+                const sky1ShadeTinted = mix( sky1FogTinted, spaceColor, max(0.0, min(0.7, pow( 15, sub(flippedUV1.y, 0.15)) )));
                 return vec4( sky1ShadeTinted, 1.0 );
 
             };
