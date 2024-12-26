@@ -169,11 +169,11 @@ class EnvironmentMaps {
 
                 const sky1Ambient = mul( mixCubeMaps, skyShade);
                 const sky1AmbTinted = mix( sky1Ambient, ambColor, max(0.0, min(0.75, pow(2, mul(flippedUV1.y, 15)) )));
-                const sky1FogTinted = mix( sky1AmbTinted, fogColor, mul(0.35, pow( cos(mul(flippedUV1.y, 2)), 30) ));
+                const sky1FogTinted = mix( sky1AmbTinted, fogColor, mul(0.55, pow( cos(mul(flippedUV1.y, 2)), 30) ));
                 const sky1ShadeTinted = mix( sky1FogTinted, spaceColor, max(0.0, min(0.75, pow( mul(flippedUV1.y, 0.99), 3) )));
                 const skySunTinted = mix( sky1ShadeTinted, add(sunColor, sky1FogTinted), max(0.0, min(0.85, pow( mul(flippedUV1.y, -0.99), 35) )));
 
-                return vec4( sky1AmbTinted, 1.0 );
+                return vec4( sky1ShadeTinted, 1.0 );
 
             };
 
