@@ -158,7 +158,7 @@ div.pedals_state_feedback {
     transform-origin: 50% 50%;
 }
 
-div.sweep_input {
+div.input_y {
     position: absolute;
     left: 1em;
     top:-2em;
@@ -171,7 +171,7 @@ div.sweep_input {
     box-shadow: 0 0 1em rgba(123, 248, 255, 0.9);
 }
 
-div.sweep_state {
+div.input_state_y {
     position: absolute;
     left: 1em;
     top:-2em;
@@ -184,7 +184,7 @@ div.sweep_state {
     box-shadow: 0 0 1em rgba(103, 239, 255, 0.9);
 }
 
-div.sweep_input_feedback {
+div.input_y_feedback {
     position: absolute;
     left: 2em;
     top:2em;
@@ -197,7 +197,7 @@ div.sweep_input_feedback {
 }
 
 
-div.sweep_state_feedback {
+div.input_state_y_feedback {
     position: absolute;
     left: 1em;
     top:1em;

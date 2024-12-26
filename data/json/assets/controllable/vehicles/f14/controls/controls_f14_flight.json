@@ -16,5 +16,9 @@
   {"id": "INPUT_SWEEP",   "targets": [
     {"dynamic": "DYNAMIC_SWEEP_L", "factor": 1},
     {"dynamic": "DYNAMIC_SWEEP_R", "factor": 1}
+  ]},
+  {"id": "INPUT_POWER",   "targets": [
+    {"dynamic": "DYNAMIC_NOZZLE_L", "factor": 1},
+    {"dynamic": "DYNAMIC_NOZZLE_R", "factor": 1}
   ]}
 ]

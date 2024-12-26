@@ -4,14 +4,16 @@
     {"id": "FLIGHT_STICK",          "file": "ui_f14_stick"},
     {"id": "YAW_PEDALS",            "file": "ui_f14_pedals"},
     {"id": "WINGS_SWEEP",           "file": "ui_f14_sweep"},
-    {"id": "GEAR",                  "file": "ui_f14_gear"}
+    {"id": "GEAR",                  "file": "ui_f14_gear"},
+    {"id": "POWER",                 "file": "ui_f14_power"}
   ],
   "inputs": [
     {"id": "INPUT_ROLL",    "state": {"min":-1, "max": 1, "value": 0, "speed": 0.7}},
     {"id": "INPUT_PITCH",   "state": {"min":-1, "max": 1, "value": 0, "speed": 0.7}},
     {"id": "INPUT_YAW",     "state": {"min":-1, "max": 1, "value": 0, "speed": 0.8}},
     {"id": "INPUT_SWEEP",   "state": {"min": 0, "max": 1, "value": 0.5, "speed": 2}},
-    {"id": "INPUT_GEAR",    "state": {"min": 0, "max": 1, "value": 0,   "speed": 0.5}}
+    {"id": "INPUT_GEAR",    "state": {"min": 0, "max": 1, "value": 0,   "speed": 0.5}},
+    {"id": "INPUT_POWER",   "state": {"min": 0, "max": 1, "value": 0.5, "speed": 0.5}}
   ],
   "controls": [
     {"id": "CONTROLS_FLIGHT",       "file": "controls_f14_flight"},
