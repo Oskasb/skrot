@@ -24,6 +24,10 @@ class ControllablePiece {
 
     }
 
+    addToScene() {
+        this.getAssetInstance().call.addToScene()
+    }
+
     getStatus(key) {
         return this.status.getStatus(key);
     }
@@ -124,7 +128,12 @@ class ControllablePiece {
     }
 
     getControlStateValue(id) {
-        return this.controlStates[id].call.getControlCurrentValue();
+        if (this.controlStates[id]) {
+            return this.controlStates[id].call.getControlCurrentValue();
+        } else {
+            return 0;
+        }
+
     }
 
 }

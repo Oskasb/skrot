@@ -16,10 +16,11 @@ import {DomWorldHud} from "./application/ui/dom/DomWorldHud.js";
 import {ThreeBloom} from "./3d/three/fx/ThreeBloom.js";
 import {DebugLines} from "./application/debug/lines/DebugLines.js";
 import {GameWorld} from "./game/world/GameWorld.js";
-import {setGameWorld} from "./application/utils/GameUtils.js";
+import {getGameWorld, setGameWorld} from "./application/utils/GameUtils.js";
 import {GamePlayer} from "./game/player/GamePlayer.js";
 import {OrbitControls} from "../../libs/jsm/controls/OrbitControls.js";
 import {GLTFLoader} from "../../libs/jsm/loaders/GLTFLoader.js";
+import {ThreeAPI} from "./3d/three/ThreeAPI.js";
 
 let gameWorld = new GameWorld();
 
@@ -27,8 +28,15 @@ let gameWorld = new GameWorld();
 function startGameWorld() {
     setGameWorld(gameWorld);
     gameWorld.initGameWorld();
+
     let player = new GamePlayer();
     player.enterWorld('controllable_f14')
+
+    function cvn(boat) {
+        boat.addToScene();
+    }
+
+    getGameWorld().call.loadGamePiece('controllable_enterprise', cvn)
 
 }
 
@@ -50,7 +58,7 @@ function init3d() {
 
     function init() {
 
-        camera.position.set( - 24, 100, 2.7 );
+        camera.position.set( - 24, 28, 2.7 );
 
         /*
 
@@ -69,8 +77,8 @@ function init3d() {
         const controls = new OrbitControls( camera, renderer.domElement );
     //    dynamics.addEventListener( 'change', render ); // use if there is no animation loop
         controls.minDistance = 0.5;
-        controls.maxDistance = 200;
-        controls.target.set( 0, 100, 0);
+        controls.maxDistance = 2000;
+        controls.target.set( 0, 24 , 0);
         controls.update();
 
         window.addEventListener( 'resize', onWindowResize );

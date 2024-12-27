@@ -20,7 +20,7 @@ class GamePlayer {
 
         function setControllable(ctrlPiece) {
             ctrlPiece.getAssetInstance().call.addToScene();
-            ctrlPiece.getAssetInstance().call.getObj3d().position.y = 100
+            ctrlPiece.getAssetInstance().call.getObj3d().position.y = 23.3
             status.setStatusKey(ENUMS.PlayerStatus.CONTROLLABLE_ID, ctrlPiece.getStatus(ENUMS.ControllableStatus.CONTROLLABLE_ID));
 
 

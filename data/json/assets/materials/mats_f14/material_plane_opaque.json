@@ -1,0 +1,12 @@
+{
+  "material": "MeshStandardMaterial",
+  "textures": [
+    { "slot":"map",           "tx": "texture_plane_atlas"},
+    { "slot":"normalMap",     "tx": "texture_plane_atlas_normal"},
+    { "slot":"metalnessMap",  "tx": "texture_plane_atlas_metalness"},
+    { "slot":"roughnessMap",  "tx": "texture_plane_atlas_roughness"}
+  ],
+  "settings": {
+
+  }
+}
