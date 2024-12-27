@@ -1,13 +1,21 @@
 import {getFrame} from "./DataUtils.js";
+import {Vector3} from "../../../../libs/three/Three.Core.js";
 
 let jointCalls = {};
+
+let tempEvt = {
+    color:'GREEN',
+    from:new Vector3(),
+    to:new Vector3(),
+    size:0,
+    pos:new Vector3()
+}
 
 function addValueToObjRotAxis(value, obj3d, axis) {
     console.log("addValueToObjRotAxis", axis, obj3d, value)
 }
 
 function setObjAxisRotation(value, obj3d, axis) {
-
     obj3d[axis](value);
 }
 

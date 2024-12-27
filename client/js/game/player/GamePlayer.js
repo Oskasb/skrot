@@ -3,6 +3,8 @@ import {getGameWorld} from "../../application/utils/GameUtils.js";
 import {ENUMS} from "../../application/ENUMS.js";
 import {SimpleStatus} from "../../application/setup/SimpleStatus.js";
 import {debugDrawDynamicPoints} from "../../application/utils/DebugUtils.js";
+import {evt} from "../../application/event/evt.js";
+import {MATH} from "../../application/MATH.js";
 
 class GamePlayer {
     constructor() {
@@ -27,7 +29,12 @@ class GamePlayer {
 
 
             function debugDrawControllable() {
-            //    debugDrawDynamicPoints(ctrlPiece.getAssetInstance().dynamicPoints)
+                debugDrawDynamicPoints(ctrlPiece.getAssetInstance().dynamicPoints)
+
+                MATH.randomVector(obj3d.position)
+                obj3d.position.y -=20;
+                obj3d.position.add(ctrlPiece.getAssetInstance().call.getObj3d().position)
+                evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from: ctrlPiece.getAssetInstance().call.getObj3d().position, to:  obj3d.position, color:'GREEN'})
 
             //    console.log("Update Ui state")
                 for (let key in ui) {
