@@ -7,6 +7,8 @@ import {PieceInput} from "../controls/PieceInput.js";
 import {MATH} from "../../application/MATH.js";
 import {ControlState} from "../controls/ControlState.js";
 
+let tempArray = [];
+
 class ControllablePiece {
     constructor() {
         let status = new SimpleStatus()
@@ -120,11 +122,19 @@ class ControllablePiece {
     }
 
     applyControlState(id, value) {
-        this.controlStates[id].call.setControlState(value)
+        if (this.controlStates[id]) {
+            this.controlStates[id].call.setControlState(value)
+        }
+
     }
 
     getControlStateTargets(id) {
-        return this.controlStates[id].call.getControlStateDynamicTargets();
+
+        if (this.controlStates[id]) {
+            return this.controlStates[id].call.getControlStateDynamicTargets();
+        } else {
+            return tempArray;
+        }
     }
 
     getControlStateValue(id) {
