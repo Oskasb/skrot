@@ -36,7 +36,10 @@ function startGameWorld() {
         boat.addToScene();
     }
 
-    getGameWorld().call.loadGamePiece('controllable_enterprise', cvn)
+    setTimeout(function() {
+        getGameWorld().call.loadGamePiece('controllable_enterprise', cvn)
+    },2000)
+
 
 }
 

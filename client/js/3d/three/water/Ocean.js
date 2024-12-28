@@ -1,4 +1,4 @@
-import {Mesh, PlaneGeometry, Raycaster, Vector2} from "../../../../../libs/three/Three.Core.js";
+import {Mesh, PlaneGeometry, Raycaster, Vector2, Vector3} from "../../../../../libs/three/Three.Core.js";
 import {SimplexNoise} from "../../../../../libs/jsm/math/SimplexNoise.js";
 import {
     clamp,
@@ -10,9 +10,11 @@ import {
     transformNormalToView,
     uniform,
     varyingProperty, vec2, vec3,
-    vertexIndex
+    vertexIndex, mul, add, sin
 } from "../../../../../libs/three/Three.TSL.js";
 import {MeshPhongNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
+import {getFrame} from "../../../application/utils/DataUtils.js";
+import MeshStandardNodeMaterial from "../../../../../libs/three/materials/nodes/MeshStandardNodeMaterial.js";
 
 class Ocean {
     constructor(store) {
@@ -25,21 +27,24 @@ class Ocean {
         function generateOcean() {
 
             // Dimensions of simulation grid.
-            const WIDTH = 128;
+            const WIDTH = 64;
 
             // Water size in system units.
-            const BOUNDS = 1024*8;
+            const BOUNDS = 1024*64;
             const BOUNDS_HALF = BOUNDS * 0.5;
 
-            const waterMaxHeight = 10;
+            const waterMaxHeight = 1;
 
             let mouseMoved = false;
             const mouseCoords = new Vector2();
             let effectController;
 
+            let time = 0;
+
             let waterMesh, meshRay;
             let computeHeight, computeSmooth, computeSphere;
 
+            let waveInfluence = new Vector3();
 
             const simplex = new SimplexNoise();
 
@@ -63,9 +68,10 @@ class Ocean {
 
 
                 effectController = {
-                    mousePos: uniform( new Vector2( 10000, 10000 ) ).label( 'mousePos' ),
+                    mousePos: uniform( waveInfluence ).label( 'mousePos' ),
                     mouseSize: uniform( 30.0 ).label( 'mouseSize' ),
-                    viscosity: uniform( 0.95 ).label( 'viscosity' ),
+                    viscosity: uniform( 0.98 ).label( 'viscosity' ),
+                    time: uniform( time ).label( 'time' ),
                     spheresEnabled: true,
                     wireframe: false
                 };
@@ -73,7 +79,7 @@ class Ocean {
                 // Initialize height storage buffers
                 const heightArray = new Float32Array( WIDTH * WIDTH );
                 const prevHeightArray = new Float32Array( WIDTH * WIDTH );
-
+/*
                 let p = 0;
                 for ( let j = 0; j < WIDTH; j ++ ) {
 
@@ -82,7 +88,7 @@ class Ocean {
                         const x = i * 128 / WIDTH;
                         const y = j * 128 / WIDTH;
 
-                        const height = noise( x, y );
+                        const height = 1 // noise( x, y );
 
                         heightArray[ p ] = height;
                         prevHeightArray[ p ] = height;
@@ -92,7 +98,7 @@ class Ocean {
                     }
 
                 }
-
+*/
                 const heightStorage = instancedArray( heightArray ).label( 'Height' );
                 const prevHeightStorage = instancedArray( prevHeightArray ).label( 'PrevHeight' );
 
@@ -157,29 +163,33 @@ class Ocean {
 
             computeHeight = Fn( () => {
 
-                const { viscosity, mousePos, mouseSize } = effectController;
-
+                const { viscosity, mousePos, mouseSize, time } = effectController;
+                const x = float( instanceIndex.modInt( WIDTH ) ).mul( 1 / WIDTH );
+                const y = float( instanceIndex.div( WIDTH ) ).mul( 1 / WIDTH );
                 const height = heightStorage.element( instanceIndex ).toVar();
                 const prevHeight = prevHeightStorage.element( instanceIndex ).toVar();
 
                 const { north, south, east, west } = getNeighborValuesTSL( instanceIndex, heightStorage );
 
+                const posx = mul(x, BOUNDS)
+                const posy = mul(y, BOUNDS)
+                const waveA = mul(cos(add(add(mul(mousePos.z, 0.4), add(posx, posy)), posx)),0.1);
+                const waveB = mul(sin(add(add(mul(mousePos.z, 0.5), mul(add(posx, posy), 0.6)), posy)), 0.2)
                 const neighborHeight = north.add( south ).add( east ).add( west );
-                neighborHeight.mulAssign( 0.5 );
-                neighborHeight.subAssign( prevHeight );
+                neighborHeight.mulAssign( 0.49 );
+                neighborHeight.subAssign( mul(prevHeight, 0.99).add(waveA).add(waveB) );
 
-                const newHeight = neighborHeight.mul( viscosity );
+                const newHeight = neighborHeight.mul( viscosity ).add(0.99);
 
                 // Get 2-D compute coordinate from one-dimensional instanceIndex.
-                const x = float( instanceIndex.modInt( WIDTH ) ).mul( 1 / WIDTH );
-                const y = float( instanceIndex.div( WIDTH ) ).mul( 1 / WIDTH );
+
 
                 // Mouse influence
                 const centerVec = vec2( 0.5 );
                 // Get length of position in range [ -BOUNDS / 2, BOUNDS / 2 ], offset by mousePos, then scale.
-                const mousePhase = clamp( length( ( vec2( x, y ).sub( centerVec ) ).mul( BOUNDS ).sub( mousePos ) ).mul( Math.PI ).div( mouseSize ), 0.0, Math.PI );
+                const mousePhase = clamp( length( ( vec2( x, y ).sub( centerVec ) ).mul( BOUNDS ).sub( mousePos.xy ) ).mul( Math.PI ).div( mouseSize ), 0.0, Math.PI );
 
-                newHeight.addAssign( cos( mousePhase ).add( 1.0 ).mul( 0.28 ) );
+                newHeight.addAssign( cos( mousePhase) ).add(2.0 ).mul( 0.1  );
 
                 prevHeightStorage.element( instanceIndex ).assign( height );
                 heightStorage.element( instanceIndex ).assign( newHeight );
@@ -189,18 +199,21 @@ class Ocean {
                 // Water Geometry corresponds with buffered compute grid.
                 const waterGeometry = new PlaneGeometry( BOUNDS, BOUNDS, WIDTH - 1, WIDTH - 1 );
                 // material: make a THREE.ShaderMaterial clone of THREE.MeshPhongMaterial, with customized position shader.
-                const waterMaterial = new MeshPhongNodeMaterial();
+                const waterMaterial = new MeshStandardNodeMaterial();
 
                 waterMaterial.lights = true;
-                waterMaterial.colorNode = color( 0x0040C0 );
-                waterMaterial.specularNode = color( 0x111111 );
-                waterMaterial.shininess = Math.max( 50, 1e-4 );
-                waterMaterial.positionNode = Fn( () => {
+                waterMaterial.colorNode = store.env.ambient;
+            waterMaterial.metalness = 1.0;
+            waterMaterial.envMapIntensity = 0.5;
+            waterMaterial.roughness = 0.2;
+
+            waterMaterial.positionNode = Fn( () => {
+
 
                     // To correct the lighting as our mesh undulates, we have to reassign the normals in the position shader.
                     const { normalX, normalY } = getNormalsFromHeightTSL( vertexIndex, heightStorage );
 
-                    varyingProperty( 'vec3', 'v_normalView' ).assign( transformNormalToView( vec3( normalX, negate( normalY ), 1.0 ) ) );
+                    varyingProperty( 'vec3', 'v_normalView' ).assign( transformNormalToView( vec3( normalX, mul( normalY, mul(BOUNDS / WIDTH, 0.2) ), 1.0 ) ) );
 
                     return vec3( positionLocal.x, positionLocal.y, heightStorage.element( vertexIndex ) );
 
@@ -214,9 +227,16 @@ class Ocean {
                 scene.add( waterMesh );
 
 
+            function update(){
+                time = getFrame().gameTime
+             //   waveInfluence.x = Math.sin(time * 1.8)*50;
+             //   waveInfluence.y = Math.cos(time * 1.3)*600;
+                waveInfluence.z = time;
+                renderer.computeAsync( computeHeight );
+            }
 
-            renderer.computeAsync( computeHeight );
 
+                ThreeAPI.addPostrenderCallback(update);
 
         }
 

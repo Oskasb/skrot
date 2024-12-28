@@ -167,14 +167,13 @@ class ThreeEnvironment {
 
 
                 if (key === 'fog') {
-                    /*
-                    this.fogColor.setRGB(config[key].color[0],config[key].color[1],config[key].color[2]);
-                    this.world[key].fog.color.r = this.fogColor.r*0.5;
-                    this.world[key].fog.color.g = this.fogColor.g*0.5;
-                    this.world[key].fog.color.b = this.fogColor.b*0.5;
 
-                     */
-                    this.world[key].fog.density = this.world[key].density*1.5;
+                    this.fogColor.setRGB(config[key].color[0],config[key].color[1],config[key].color[2]);
+                    this.world[key].fog.color.r = this.fogColor.r // *0.5;
+                    this.world[key].fog.color.g = this.fogColor.g // *0.5;
+                    this.world[key].fog.color.b = this.fogColor.b // *0.5;
+
+                    this.world[key].fog.density = config[key].density*0.005;
                 }
 
                 if (key === 'ambient') {

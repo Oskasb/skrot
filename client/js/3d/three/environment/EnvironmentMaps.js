@@ -200,7 +200,7 @@ class EnvironmentMaps {
 
                 const belowHorizonColor = mix(ambColor, spaceColor, max(0.0, min(0.5, belowHorizonFactor)))
 
-                const sealevelColor = mix(sunDisc, belowHorizonColor,  max(0.0, min(1, belowHorizonFactor)))
+                const sealevelColor = mix(sunDisc, fogColor,  max(0.0, min(1, belowHorizonFactor)))
 
                 return vec4( sealevelColor, 1.0 );
 

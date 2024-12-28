@@ -130,7 +130,7 @@ class ThreeSetup {
         // Hack the context attributes to prevent canvas alpha
         let pxScale = getSetting(ENUMS.Settings.RENDER_SCALE);
 
-        const camera = new PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.25, 10000 );
+        const camera = new PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.5, 40000 );
 
            let renderer = new WebGPURenderer( { antialias:antialias, alpha:false, devicePixelRatio: pxRatio, reverseDepthBuffer: true, sortObjects: true, trackTimestamp: true });
             renderer.setSize( window.innerWidth / pxScale, window.innerHeight / pxScale);

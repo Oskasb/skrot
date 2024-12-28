@@ -2,14 +2,14 @@
       {
         "id":"current",
         "sky":{
-          "inclination":    0.05,
-          "azimuth":        0.25,
-          "distance":      1000000000
+          "inclination":     0.03   ,
+          "azimuth":         0.04 ,
+          "distance":        1000000000
         },
         "configs":[
-          {"id":"sun",     "color":[1.0,  0.85,  0.15]},
-          {"id":"ambient", "color":[0.20, 0.35,  0.85]},
-          {"id":"fog",     "color":[0.46, 0.79,  0.99], "density":0.015}
+          {"id":"sun",     "color":[1.0, 0.92,  0.4]},
+          {"id":"ambient", "color":[0.1,  0.3,  0.6]},
+          {"id":"fog",     "color":[0.35, 0.83,  0.95], "density":0.013}
         ]
       },
       {
@@ -21,7 +21,7 @@
         },
         "configs":[
           {"id":"sun",     "color":[0.95,   0.55,  0.2]},
-          {"id":"ambient", "color":[0.45,   0.01,  0.31]},
+          {"id":"ambient", "color":[0.45,   0.01,  0.2]},
           {"id":"fog",     "color":[0.44,   0.01,  0.215], "density":0.014}
         ]
       },
@@ -72,9 +72,9 @@
           "distance":      1000000000
         },
         "configs":[
-          {"id":"sun",     "color":[1.0,  1.0,  0.75]},
-          {"id":"ambient", "color":[0.15,  0.21,  0.65]},
-          {"id":"fog",     "color":[0.36,  0.57,  0.79], "density":0.007}
+          {"id":"sun",     "color":[1.0,  1.0,  0.69]},
+          {"id":"ambient", "color":[0.35,  0.51,  0.99]},
+          {"id":"fog",     "color":[0.46,  0.57,  0.99], "density":0.007}
         ]
       },
       {
@@ -93,14 +93,14 @@
       {
         "id":"night",
         "sky":{
-          "inclination":       0.05   ,
+          "inclination":       0.25   ,
           "azimuth":           0.23   ,
           "distance":          10000000000
         },
         "configs":[
-          {"id":"sun",     "color":[0.51,   0.80,  0.58]},
-          {"id":"ambient", "color":[0.12,   0.01,  0.49]},
-          {"id":"fog",     "color":[0.13,   0.01,  0.02], "density":0.014}
+          {"id":"sun",     "color":[0.05,   0.60,  0.88]},
+          {"id":"ambient", "color":[0.01,   0.10,  0.39]},
+          {"id":"fog",     "color":[0.01,   0.02,  0.03], "density":0.014}
         ]
       },
       {
@@ -124,8 +124,8 @@
           "distance":          1000000
         },
         "configs":[
-          {"id":"sun",     "color":[0.0,  0.88,  0.16]},
-          {"id":"ambient", "color":[0.0,  0.00,  0.80]},
+          {"id":"sun",     "color":[0.0,  0.88,  0.46]},
+          {"id":"ambient", "color":[0.0,  0.00,  0.40]},
           {"id":"fog",     "color":[0.0,  0.01,  0.05], "density":0.045}
         ]
       }
