@@ -17,7 +17,6 @@ let minZ = 1000;
 let spawnCount = 0;
 let row = 0;
 let col = 0;
-let ocean = new Ocean();
 
 let gridPosX = function() {
     row = MATH.moduloPositive(spawnCount, gridWidth);

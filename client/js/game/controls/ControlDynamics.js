@@ -103,8 +103,13 @@ class ControlDynamics {
         function testControlCondition(condition) {
             let dyn = condition.dynamic;
             let range = condition.range;
-            let currentValue = assetInstance.getControlDynamic(dyn).getControlValue();
-            return MATH.valueIsBetween(currentValue, range.min, range.max);
+            let cDyn = assetInstance.getControlDynamic(dyn);
+            if (cDyn) {
+                let currentValue = assetInstance.getControlDynamic(dyn).getControlValue();
+                return MATH.valueIsBetween(currentValue, range.min, range.max);
+            } else {
+                return false;
+            }
         }
 
 

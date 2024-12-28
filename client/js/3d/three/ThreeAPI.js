@@ -16,6 +16,7 @@ import {DynamicMain} from "../DynamicMain.js";
 import {AssetLoader} from "../../application/load/AssetLoader.js";
 import {InstanceAPI} from "./instancer/InstanceAPI.js";
 import {EnvironmentMaps} from "./environment/EnvironmentMaps.js";
+import {Ocean} from "./water/Ocean.js";
 
 
 let cameraSpatialCursor;
@@ -75,6 +76,7 @@ class ThreeAPI {
             _this.threeEnvironment.initEnvironment(store, envReady);
             let env = new EnvironmentMaps(store);
             env.call.activateEnvMaps()
+            new Ocean(store)
         };
 
         this.threeEnvironment.loadEnvironmentData(onLoaded);
