@@ -174,8 +174,8 @@ class Ocean {
 
                 const posx = mul(x, BOUNDS)
                 const posy = mul(y, BOUNDS)
-                const waveA = mul(cos(add(add(mul(mousePos.z, 0.4), add(posx, posy)), posx)),0.1);
-                const waveB = mul(sin(add(add(mul(mousePos.z, 0.5), mul(add(posx, posy), 0.6)), posy)), 0.2)
+                const waveA = mul(cos(add(add(mul(mousePos.z, 0.824), add(posx, posy)), posx)),0.1);
+                const waveB = mul(sin(add(add(mul(mousePos.z, 0.835), mul(add(posx, posy), 0.8)), posy)), 0.12)
                 const neighborHeight = north.add( south ).add( east ).add( west );
                 neighborHeight.mulAssign( 0.49 );
                 neighborHeight.subAssign( mul(prevHeight, 0.99).add(waveA).add(waveB) );
@@ -254,13 +254,27 @@ class Ocean {
                 const waveA1 = cos(posx.mul(0.013).add(time.mul(1.2)))
                 const waveB1 = sin(posy.mul(0.009).add(time))
 
+                const waveA2 = cos(posx.mul(0.0213).add(time.mul(0.4)))
+                const waveB2 = sin(posy.mul(0.0209).add(time.mul(0.4)))
+
+                const waveA3 = cos(posx.mul(1.813).add(time.mul(0.5)))
+                const waveB3 = sin(posy.mul(1.809).add(time.mul(0.5)))
+
+                const waveA4 = cos(posx.mul(2.213).add(time.mul(0.5)))
+                const waveB4 = sin(posy.mul(2.109).add(time.mul(0.5)))
+
                 const r = waveA1 // .add(waveA1.mul(0));
                 const b = waveB1 // .add(waveB1.mul(0));
-                const finalNm = color(waveA1, 12, waveB1).normalize();
+                const detail3Nm = vec3(waveA4, 26, waveB4).normalize();
+                const detail2Nm = vec3(waveA3, 36, waveB3).normalize();
+                const detailNm = vec3(waveA2, 8, waveB2).normalize();
 
+                const mediumNm =  vec3(waveA1, 4, waveB1).normalize();
+
+                const finalNm = bigWaveNm.add(mediumNm).add(detailNm).add(detail2Nm).add(detail3Nm);
 //                finalColor.add(r.mul(0.2), 1, b.mul(0.2));
 
-                return bigWaveNm.add(finalNm).normalize();
+                return finalNm.normalize();
 
             } )();
 
@@ -270,9 +284,9 @@ class Ocean {
                 waterMaterial.lights = true;
                 waterMaterial.colorNode = store.env.ambient;
        //     waterMaterial.colorNode = texture( storageTexture );
-            waterMaterial.metalness = 0.8;
-            waterMaterial.envMapIntensity = 0.4;
-            waterMaterial.roughness = 0.12;
+            waterMaterial.metalness = 0.9;
+            waterMaterial.envMapIntensity = 0.9;
+            waterMaterial.roughness = 0.08;
 
             waterMaterial.positionNode = Fn( () => {
 
@@ -280,7 +294,7 @@ class Ocean {
                     // To correct the lighting as our mesh undulates, we have to reassign the normals in the position shader.
                     const { normalX, normalY } = getNormalsFromHeightTSL( vertexIndex, heightStorage );
 
-                    varyingProperty( 'vec3', 'v_normalView' ).assign( transformNormalToView( vec3( normalX, mul( normalY, mul(BOUNDS / WIDTH, 0.2) ), 1.0 ) ) );
+                    varyingProperty( 'vec3', 'v_normalView' ).assign( transformNormalToView( vec3( normalX, mul( normalY, mul(BOUNDS / WIDTH, 5.9) ).add(1.1), 1.0 ).normalize() ) );
 
                     return vec3( positionLocal.x, positionLocal.y, heightStorage.element( vertexIndex ) );
 
