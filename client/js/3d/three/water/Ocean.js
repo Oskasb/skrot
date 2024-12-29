@@ -246,7 +246,7 @@ class Ocean {
                 const waveAp = waveA.abs().add(0.1);
                 const waveBp = waveB.abs().add(0.1);
 
-                const bigWaveNm = vec3(waveA, waveBp.mul(waveAp).mul(0.3).add(4.8), waveB).normalize();
+                const bigWaveNm = vec3(waveA, waveBp.mul(waveAp).mul(0.5).add(2.8), waveB).normalize();
 
                 const timeSin = time.sin();
                 const timeCos = time.cos();
@@ -255,21 +255,21 @@ class Ocean {
                 const waveB1 = sin(posy.mul(0.009).add(time))
 
                 const waveA2 = cos(posx.mul(0.0213).add(time.mul(0.4)))
-                const waveB2 = sin(posy.mul(0.0209).add(time.mul(0.4)))
+                const waveB2 = sin(posy.mul(0.0309).add(time.mul(0.4)))
 
-                const waveA3 = cos(posx.mul(1.813).add(time.mul(0.5)))
-                const waveB3 = sin(posy.mul(1.809).add(time.mul(0.5)))
+                const waveA3 = cos(posx.mul(0.083).add(time.mul(0.5)))
+                const waveB3 = sin(posy.mul(0.099).add(time.mul(0.35)))
 
-                const waveA4 = cos(posx.mul(2.213).add(time.mul(0.5)))
-                const waveB4 = sin(posy.mul(2.109).add(time.mul(0.5)))
+                const waveA4 = cos(posx.mul(0.153).add(time.mul(0.65)))
+                const waveB4 = sin(posy.mul(0.189).add(time.mul(0.75)))
 
                 const r = waveA1 // .add(waveA1.mul(0));
                 const b = waveB1 // .add(waveB1.mul(0));
-                const detail3Nm = vec3(waveA4, 26, waveB4).normalize();
-                const detail2Nm = vec3(waveA3, 36, waveB3).normalize();
-                const detailNm = vec3(waveA2, 8, waveB2).normalize();
+                const detail3Nm = vec3(waveA4, 6, waveB4).normalize();
+                const detail2Nm = vec3(waveA3, 9, waveB3).normalize();
+                const detailNm = vec3(waveA2, 7, waveB2).normalize();
 
-                const mediumNm =  vec3(waveA1, 4, waveB1).normalize();
+                const mediumNm =  vec3(waveA1, 3, waveB1).normalize();
 
                 const finalNm = bigWaveNm.add(mediumNm).add(detailNm).add(detail2Nm).add(detail3Nm);
 //                finalColor.add(r.mul(0.2), 1, b.mul(0.2));
@@ -286,7 +286,7 @@ class Ocean {
        //     waterMaterial.colorNode = texture( storageTexture );
             waterMaterial.metalness = 0.9;
             waterMaterial.envMapIntensity = 0.9;
-            waterMaterial.roughness = 0.08;
+            waterMaterial.roughness = 0.15;
 
             waterMaterial.positionNode = Fn( () => {
 
