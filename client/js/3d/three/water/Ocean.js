@@ -236,18 +236,36 @@ class Ocean {
             } );
 
             waterMaterial.normalNode = Fn( () => {
+                const { mousePos } = effectController;
+                const time = mousePos.z;
+                const posx = positionLocal.x
+                const posy = positionLocal.y
+                const waveA = cos(add(add(mul(time, 12.5), add(posx, posy)), posx).mul(0.01));
+                const waveB = sin(add(add(mul(time, 9.2), mul(add(posx, posy), 0.9)), posy).mul(0.007));
 
-                const finalColor = color(cos(positionLocal.y.mul(0.3)).mul(0.1), 1, sin(positionLocal.x.mul(0.414)).mul(0.1));
+                const waveAp = waveA.pow(1.2);
+                const waveBp = waveB.abs().pow(4);
 
-                return finalColor;
+                const bigWaveNm = vec3(waveA, waveBp.mul(waveAp).mul(0.3).add(4.8), waveB).normalize();
+
+                const timeSin = time.sin();
+                const timeCos = time.cos();
+
+                const waveA1 = cos(posx.mul(0.14).add(time.mul(1.2)))
+                const waveB1 = sin(posy.mul(0.214).add(time))
+
+                const r = waveA1 // .add(waveA1.mul(0));
+                const b = waveB1 // .add(waveB1.mul(0));
+                const finalNm = color(waveA1, 12, waveB1).normalize();
+
+//                finalColor.add(r.mul(0.2), 1, b.mul(0.2));
+
+                return bigWaveNm.add(finalNm).normalize();
 
             } )();
 
         //    const computeTx = computeTexture( { storageTexture } ).compute( width * height );
         //    renderer.computeAsync( computeTx );
-
-            waterMaterial.normalScale.x = 9990.2;
-            waterMaterial.normalScale.y = 9990.2;
 
                 waterMaterial.lights = true;
                 waterMaterial.colorNode = store.env.ambient;
