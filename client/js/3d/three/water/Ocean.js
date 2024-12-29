@@ -240,19 +240,19 @@ class Ocean {
                 const time = mousePos.z;
                 const posx = positionLocal.x
                 const posy = positionLocal.y
-                const waveA = cos(add(add(mul(time, 12.5), add(posx, posy)), posx).mul(0.01));
-                const waveB = sin(add(add(mul(time, 9.2), mul(add(posx, posy), 0.9)), posy).mul(0.007));
+                const waveA = cos(add(add(mul(time, 8.5), add(posx, posy)), posx).mul(0.01));
+                const waveB = sin(add(add(mul(time, 7.2), mul(add(posx, posy), 0.9)), posy).mul(0.007));
 
-                const waveAp = waveA.pow(1.2);
-                const waveBp = waveB.abs().pow(4);
+                const waveAp = waveA.abs().add(0.1);
+                const waveBp = waveB.abs().add(0.1);
 
                 const bigWaveNm = vec3(waveA, waveBp.mul(waveAp).mul(0.3).add(4.8), waveB).normalize();
 
                 const timeSin = time.sin();
                 const timeCos = time.cos();
 
-                const waveA1 = cos(posx.mul(0.08).add(time.mul(1.2)))
-                const waveB1 = sin(posy.mul(0.114).add(time))
+                const waveA1 = cos(posx.mul(0.013).add(time.mul(1.2)))
+                const waveB1 = sin(posy.mul(0.009).add(time))
 
                 const r = waveA1 // .add(waveA1.mul(0));
                 const b = waveB1 // .add(waveB1.mul(0));
