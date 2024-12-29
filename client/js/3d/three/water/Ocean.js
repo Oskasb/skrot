@@ -10,11 +10,12 @@ import {
     transformNormalToView,
     uniform,
     varyingProperty, vec2, vec3,
-    vertexIndex, mul, add, sin
+    vertexIndex, mul, add, sin, texture, uvec2, textureStore, vec4, normalLocal
 } from "../../../../../libs/three/Three.TSL.js";
 import {MeshPhongNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
 import {getFrame} from "../../../application/utils/DataUtils.js";
 import MeshStandardNodeMaterial from "../../../../../libs/three/materials/nodes/MeshStandardNodeMaterial.js";
+import {StorageTexture} from "../../../../../libs/three/Three.WebGPU.js";
 
 class Ocean {
     constructor(store) {
@@ -201,8 +202,56 @@ class Ocean {
                 // material: make a THREE.ShaderMaterial clone of THREE.MeshPhongMaterial, with customized position shader.
                 const waterMaterial = new MeshStandardNodeMaterial();
 
+
+            const width = 512, height = 512;
+
+            const storageTexture = new StorageTexture( width, height );
+            //storageTexture.minFilter = THREE.LinearMipMapLinearFilter;
+
+            // create function
+
+            const computeTexture = Fn( ( { storageTexture } ) => {
+
+                const posX = instanceIndex.modInt( width );
+                const posY = instanceIndex.div( width );
+                const indexUV = uvec2( posX, posY );
+
+                // https://www.shadertoy.com/view/Xst3zN
+
+                const x = float( posX ).div( 50.0 );
+                const y = float( posY ).div( 50.0 );
+
+                const v1 = x.sin().abs();
+                const v2 = y.sin().abs();
+                const v3 = x.add( y ).sin();
+                const v4 = x.mul( x ).add( y.mul( y ) ).sqrt().add( 5.0 ).sin();
+                const v = v1.add( v2, v3, v4 );
+
+                const r = v.sin().abs();
+                const g = v.add( Math.PI ).sin().abs();
+                const b = v.add( Math.PI ).sub( 0.5 ).sin().abs();
+
+                textureStore( storageTexture, indexUV, vec4( r, g, b, 1 ) ).toWriteOnly();
+
+            } );
+
+            waterMaterial.normalNode = Fn( () => {
+
+                const finalColor = color(cos(positionLocal.y.mul(0.3)).mul(0.1), 1, sin(positionLocal.x.mul(0.414)).mul(0.1));
+
+                return finalColor;
+
+            } )();
+
+        //    const computeTx = computeTexture( { storageTexture } ).compute( width * height );
+        //    renderer.computeAsync( computeTx );
+
+            waterMaterial.normalScale.x = 9990.2;
+            waterMaterial.normalScale.y = 9990.2;
+
                 waterMaterial.lights = true;
                 waterMaterial.colorNode = store.env.ambient;
+       //     waterMaterial.colorNode = texture( storageTexture );
             waterMaterial.metalness = 1.0;
             waterMaterial.envMapIntensity = 0.5;
             waterMaterial.roughness = 0.2;

@@ -38,7 +38,7 @@ function startGameWorld() {
 
     setTimeout(function() {
         getGameWorld().call.loadGamePiece('controllable_enterprise', cvn)
-    },2000)
+    },3000)
 
 
 }
