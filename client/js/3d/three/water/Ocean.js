@@ -251,8 +251,8 @@ class Ocean {
                 const timeSin = time.sin();
                 const timeCos = time.cos();
 
-                const waveA1 = cos(posx.mul(0.14).add(time.mul(1.2)))
-                const waveB1 = sin(posy.mul(0.214).add(time))
+                const waveA1 = cos(posx.mul(0.08).add(time.mul(1.2)))
+                const waveB1 = sin(posy.mul(0.114).add(time))
 
                 const r = waveA1 // .add(waveA1.mul(0));
                 const b = waveB1 // .add(waveB1.mul(0));
@@ -270,9 +270,9 @@ class Ocean {
                 waterMaterial.lights = true;
                 waterMaterial.colorNode = store.env.ambient;
        //     waterMaterial.colorNode = texture( storageTexture );
-            waterMaterial.metalness = 1.0;
-            waterMaterial.envMapIntensity = 0.5;
-            waterMaterial.roughness = 0.2;
+            waterMaterial.metalness = 0.8;
+            waterMaterial.envMapIntensity = 0.4;
+            waterMaterial.roughness = 0.12;
 
             waterMaterial.positionNode = Fn( () => {
 
