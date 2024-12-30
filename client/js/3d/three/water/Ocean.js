@@ -243,35 +243,38 @@ class Ocean {
                 const waveA = cos(add(add(mul(time, 8.5), add(posx, posy)), posx).mul(0.01));
                 const waveB = sin(add(add(mul(time, 7.2), mul(add(posx, posy), 0.9)), posy).mul(0.007));
 
-                const waveAp = waveA.abs().add(0.1);
-                const waveBp = waveB.abs().add(0.1);
+                const waveAp = waveA.add(cos(posy.mul(0.001)));
+                const waveBp = waveB.add(sin(posx.mul(0.001)));
 
-                const bigWaveNm = vec3(waveA, waveBp.mul(waveAp).mul(0.5).add(2.8), waveB).normalize();
+                const bigWaveNm = vec3(waveAp, 2, waveBp).normalize();
 
                 const timeSin = time.sin();
                 const timeCos = time.cos();
 
-                const waveA1 = cos(posx.mul(0.013).add(time.mul(1.2)))
-                const waveB1 = sin(posy.mul(0.009).add(time))
+                const waveA1 = timeSin.mul(0.1).add(cos(add(posy.mul(0.008), posx.mul(0.013)).add(time.mul(0.2))))
+                const waveB1 = timeCos.mul(0.1).add(sin(add(posx.mul(0.007), posy.mul(0.011)).add(time.mul(0.2))));
 
-                const waveA2 = cos(posx.mul(0.0213).add(time.mul(0.4)))
-                const waveB2 = sin(posy.mul(0.0309).add(time.mul(0.4)))
+                const waveA2 = timeCos.mul(0.24).add(cos(add(posy.mul(0.02), posx.mul(0.033)).add(time.mul(0.4))))
+                const waveB2 = timeSin.mul(0.22).add(cos(add(posx.mul(0.025), posy.mul(0.023)).add(time.mul(0.4))))
 
-                const waveA3 = cos(posx.mul(0.083).add(time.mul(0.5)))
-                const waveB3 = sin(posy.mul(0.099).add(time.mul(0.35)))
+                const waveA3 = timeCos.mul(0.34).add(cos(add(posy.mul(0.04), posx.mul(0.13)).add(time.mul(0.45))))
+                const waveB3 = timeSin.mul(0.42).add(sin(add(posx.mul(0.044), posy.mul(0.11)).add(time.mul(0.85))))
 
-                const waveA4 = cos(posx.mul(0.153).add(time.mul(0.65)))
-                const waveB4 = sin(posy.mul(0.189).add(time.mul(0.75)))
+                const waveA4 = timeCos.mul(0.44).add(cos(add(posy.mul(0.082), posx.mul(0.193)).add(time.mul(0.95))))
+                const waveB4 = timeSin.mul(0.52).add(sin(add(posx.mul(0.097), posy.mul(0.14)).add(time.mul(0.35))))
 
-                const r = waveA1 // .add(waveA1.mul(0));
-                const b = waveB1 // .add(waveB1.mul(0));
-                const detail3Nm = vec3(waveA4, 6, waveB4).normalize();
-                const detail2Nm = vec3(waveA3, 9, waveB3).normalize();
-                const detailNm = vec3(waveA2, 7, waveB2).normalize();
+                const waveA5 = time.mul(2.24).sin().add(cos(add(posy.mul(0.22), posx.mul(0.293)).add(time.mul(0.55))))
+                const waveB5 = time.mul(2.22).cos().add(sin(add(posx.mul(0.29), posy.mul(0.223)).add(time.mul(0.25))))
 
-                const mediumNm =  vec3(waveA1, 3, waveB1).normalize();
+                const wave5Nm = vec3(waveA5, 15, waveB5).normalize();
+                const wave4Nm = vec3(waveA4, 12, waveB4).normalize();
+                const wave3Nm = vec3(waveA3, 9, waveB3).normalize();
+                const wave2Nm = vec3(waveA2, 6, waveB2).normalize();
 
-                const finalNm = bigWaveNm.add(mediumNm).add(detailNm).add(detail2Nm).add(detail3Nm);
+                const wave1Nm =  vec3(waveA1, 5, waveB1).normalize();
+
+//                const finalNm = bigWaveNm.add(mediumNm).add(detailNm).add(detail2Nm).add(detail3Nm);
+                const finalNm = bigWaveNm.add(wave1Nm).add(wave2Nm).add(wave3Nm).add(wave4Nm).add(wave5Nm);
 //                finalColor.add(r.mul(0.2), 1, b.mul(0.2));
 
                 return finalNm.normalize();
