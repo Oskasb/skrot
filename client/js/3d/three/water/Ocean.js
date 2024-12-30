@@ -246,7 +246,7 @@ class Ocean {
                 const waveAp = waveA.add(cos(posy.mul(0.001)));
                 const waveBp = waveB.add(sin(posx.mul(0.001)));
 
-                const bigWaveNm = vec3(waveAp, 2, waveBp).normalize();
+                const bigWaveNm = vec3(waveAp, 3, waveBp).normalize();
 
                 const timeSin = time.sin();
                 const timeCos = time.cos();
@@ -269,13 +269,13 @@ class Ocean {
                 const waveA6 = time.mul(1.24).sin().add(cos(add(posy.mul(0.72), posx.mul(1.193)).add(time.mul(0.25))))
                 const waveB6 = time.mul(1.22).cos().add(sin(add(posx.mul(-0.29), posy.mul(0.123)).add(time.mul(0.85))))
 
-                const wave6Nm = vec3(waveA6, 15, waveB6).normalize();
-                const wave5Nm = vec3(waveA5, 15, waveB5).normalize();
-                const wave4Nm = vec3(waveA4, 12, waveB4).normalize();
-                const wave3Nm = vec3(waveA3, 9, waveB3).normalize();
-                const wave2Nm = vec3(waveA2, 6, waveB2).normalize();
+                const wave6Nm = vec3(waveA6, 11, waveB6).normalize();
+                const wave5Nm = vec3(waveA5, 11, waveB5).normalize();
+                const wave4Nm = vec3(waveA4, 9, waveB4).normalize();
+                const wave3Nm = vec3(waveA3, 8, waveB3).normalize();
+                const wave2Nm = vec3(waveA2, 5, waveB2).normalize();
 
-                const wave1Nm =  vec3(waveA1, 5, waveB1).normalize();
+                const wave1Nm =  vec3(waveA1, 3, waveB1).normalize();
 
 //                const finalNm = bigWaveNm.add(mediumNm).add(detailNm).add(detail2Nm).add(detail3Nm);
                 const finalNm = bigWaveNm.add(wave1Nm).add(wave2Nm).add(wave3Nm).add(wave4Nm).add(wave5Nm).add(wave6Nm);
@@ -291,9 +291,9 @@ class Ocean {
                 waterMaterial.lights = true;
                 waterMaterial.colorNode = store.env.ambient;
        //     waterMaterial.colorNode = texture( storageTexture );
-            waterMaterial.metalness = 0.9;
-            waterMaterial.envMapIntensity = 0.9;
-            waterMaterial.roughness = 0.15;
+            waterMaterial.metalness = 0.97;
+            waterMaterial.envMapIntensity = 0.99;
+            waterMaterial.roughness = 0.21;
 
             waterMaterial.positionNode = Fn( () => {
 
