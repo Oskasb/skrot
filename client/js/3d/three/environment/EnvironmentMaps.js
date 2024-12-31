@@ -2,7 +2,7 @@ import {
     CubeTextureLoader, EquirectangularReflectionMapping,
     ImageBitmapLoader,
     LinearMipmapLinearFilter,
-    Matrix4, Texture, TextureLoader, Vector3
+    Matrix4, Scene, Texture, TextureLoader, Vector3
 } from "../../../../../libs/three/Three.Core.js";
 import {RGBMLoader} from "../../../../../libs/jsm/loaders/RGBMLoader.js";
 import {
@@ -62,11 +62,14 @@ class EnvironmentMaps {
             cube2Texture.generateMipmaps = false;
             cube2Texture.mapping = EquirectangularReflectionMapping;
 
+            scene.userData.reflectionScene = new Scene();
             function tx1Loaded(image) {
                 console.log("tx loaded", image)
                 cube1Texture.source.data = image;
                 cube1Texture.flipY = false;
                 cube1Texture.needsUpdate = true;
+                scene.environment = cube1Texture;
+
             }
 
             function tx2Loaded(image) {
@@ -74,6 +77,7 @@ class EnvironmentMaps {
                 cube2Texture.source.data = image;
                 cube2Texture.flipY = true;
                 cube2Texture.needsUpdate = true;
+                scene.environment = cube2Texture;
             }
 
             loadImageAsset('ref_sphere_5', tx1Loaded)
