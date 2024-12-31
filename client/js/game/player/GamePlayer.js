@@ -29,7 +29,7 @@ class GamePlayer {
 
 
             function debugDrawControllable() {
-            //    debugDrawDynamicPoints(ctrlPiece.getAssetInstance().dynamicPoints)
+                debugDrawDynamicPoints(ctrlPiece.getAssetInstance().dynamicPoints)
 
                 MATH.randomVector(obj3d.position)
                 obj3d.position.y -=20;
