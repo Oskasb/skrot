@@ -21,6 +21,7 @@ import {GamePlayer} from "./game/player/GamePlayer.js";
 import {OrbitControls} from "../../libs/jsm/controls/OrbitControls.js";
 import {GLTFLoader} from "../../libs/jsm/loaders/GLTFLoader.js";
 import {ThreeAPI} from "./3d/three/ThreeAPI.js";
+import {debugDrawPhysicalWorld} from "./application/utils/PhysicsUtils.js";
 
 let gameWorld = new GameWorld();
 
@@ -104,7 +105,7 @@ function init3d() {
 
     function triggerFrame() {
         frame.frame ++;
-
+        debugDrawPhysicalWorld()
         updateKeyboardFrame(frame.frame);
         frame.tpf = MATH.clamp(clock.getDelta(), 0, 0.5);
         frame.avgTpf = window.ThreeAPI.getSetup().avgTpf;

@@ -1,4 +1,6 @@
 import {AmmoFunctions} from "./AmmoFunctions.js";
+import {evt} from "../event/evt.js";
+import {ENUMS} from "../ENUMS.js";
 
 "use strict";
 
@@ -37,6 +39,7 @@ class AmmoAPI {
 
     initPhysics = function() {
         world = ammoFunctions.createPhysicalWorld();
+        return world;
     };
 
     getYGravity = function() {

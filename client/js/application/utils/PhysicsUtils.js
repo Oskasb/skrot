@@ -4,6 +4,8 @@ import {Object3D} from "../../../../libs/three/core/Object3D.js";
 
 import {ENUMS} from "../ENUMS.js";
 import {getSetting} from "./StatusUtils.js";
+import {getFrame} from "./DataUtils.js";
+import {evt} from "../event/evt.js";
 
 
 let tempObj = new Object3D();
@@ -32,8 +34,14 @@ let probeResult = {
     destination:new Vector3()
 }
 
+let physicalWorld;
+
+function setPhysicalWorld(wrld) {
+    physicalWorld = wrld;
+}
+
 function getPhysicalWorld() {
-    return GameAPI.gameMain.phyiscalWorld;
+    return physicalWorld
 }
 function addPhysicsToModel(assetId, obj3d, updateCB) {
     let physicalModel = getPhysicalWorld().addPhysicalModel();
@@ -79,8 +87,8 @@ function debugDrawPhysicalWorld() {
 
   //  let terrainHeight = ThreeAPI.terrainAt(pos);
 
-    pos.y = ThreeAPI.terrainAt(pos, tempVec3) - 1.0;
-    let intersects = physicalIntersection(pos, tempVec);
+    pos.y = - 15 // ThreeAPI.terrainAt(pos, tempVec3) - 1.0;
+ //   let intersects = physicalIntersection(pos, tempVec);
 
     tempVec3.copy(pos);
     tempVec3.y += 3;
@@ -95,7 +103,7 @@ function debugDrawPhysicalWorld() {
     tempVec3.z -= 20;
     rayTest(tempVec3, pos, tempVec3, normalStore, true);
 
-    let time = GameAPI.getGameTime();
+    let time = getFrame().gameTime;
 
     for (let i = 0; i < 50; i++) {
         tempVec.copy(pos)
@@ -569,6 +577,7 @@ function activatePhysicalShockwave(pos, size, duration, strength, color) {
 }
 
 export {
+    setPhysicalWorld,
     getTerrainBodyPointer,
     getPhysicalWorld,
     detectFreeSpaceAbovePoint,

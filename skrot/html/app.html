@@ -25,6 +25,8 @@
         import {ThreeAPI} from "../../client/js/3d/three/ThreeAPI.js";
         import {GameScreen} from "../../client/js/application/ui/GameScreen.js";
         import {setRefDiv} from "../../client/js/application/ui/dom/DomUtils.js";
+        import {AmmoAPI} from "../../client/js/application/physics/AmmoAPI.js";
+        import {setPhysicalWorld} from "../../client/js/application/utils/PhysicsUtils.js";
 
         let loc = window.location.href;
         console.log("location:", window.location.href)
@@ -33,6 +35,14 @@
             window.islocal = true;
         }
 
+        window.AMMO = new Ammo();
+
+        let ammoReady = function(e) {
+            setPhysicalWorld(window.AmmoAPI.initPhysics());
+            console.log("Ammo ready", e)
+        }
+
+        window.AmmoAPI = new AmmoAPI(ammoReady);
 
         let client = new Client();
 
