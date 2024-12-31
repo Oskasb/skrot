@@ -1,6 +1,6 @@
 {
   "model": "model_enterprise",
-
+  "physical": "physical_enterprise",
   "points": [
 
   ],

@@ -22,7 +22,6 @@ class ModelMaterial {
         let txLoads = [];
 
         function materialLoaded() {
-            console.log("materialLoaded", settings.fileName);
             settings.material.needsUpdate = true;
             MATH.callAll(subscribers, settings);
             ready = true;
@@ -57,7 +56,7 @@ class ModelMaterial {
             let jsonAsset = new JsonAsset(name);
 
             function onJsonLoaded(data) {
-                console.log("material JSON", name, data);
+             //   console.log("material JSON", name, data);
                 settings.fileName = name;
 
                 if (data.settings) {
@@ -76,7 +75,7 @@ class ModelMaterial {
 
                                     }
                                     if (typeof (mat[key][element]) === 'undefined') {
-                                        console.log("No element for", mat[key], key, element)
+                                    //    console.log("No element for", mat[key], key, element)
                                     } else {
                                         mat[key][element] = values[element];
                                     }

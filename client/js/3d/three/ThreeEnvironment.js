@@ -333,16 +333,10 @@ class ThreeEnvironment {
     };
 
     setEnvConfigId(envConfId) {
-        console.log("Set Env ", envConfId)
-    //    this.transitionTime = time || 0;
+
         statusMap.transitionProgress = 0;
         this.currentEnvId = envConfId;
         statusMap.write = false;
-    //    this.currentEnvConfig = this.envList[envConfId]
-    //    this.applyEnvironment();
-    //    this.setCanvasColor();
-    //    statusMap.write = false;
-    //    this.interpolateEnv(this.currentEnvConfig, this.envList[this.currentEnvId], 0.99);
 
     }
 
@@ -446,7 +440,7 @@ class ThreeEnvironment {
 
     initEnvironment(store, ready) {
         store.env = this.world;
-        console.log("Init Env")
+    //    console.log("Init Env")
 
         let _this = this;
 
@@ -513,7 +507,6 @@ class ThreeEnvironment {
 
             for (let i = 0; i < data.length; i++){
 
-                console.log("Env data", data[i])
                 statusMap.configIds.push(data[i].id)
                 _this.envList[data[i].id] = {};
                 _this.skyList[data[i].id] = {};
@@ -530,7 +523,7 @@ class ThreeEnvironment {
             _this.currentSkyConfig = _this.skyList['current'];
             _this.currentEnvConfig = _this.envList['current'];
 
-            console.log("Env Loaded", _this.currentSkyConfig, _this.currentEnvConfig)
+        //    console.log("Env Loaded", _this.currentSkyConfig, _this.currentEnvConfig)
 
             _this.applySkyConfig();
             _this.applyEnvironment();
@@ -540,7 +533,7 @@ class ThreeEnvironment {
         createEnvWorld(this.worldSetup);
 
 
-        console.log("Load env json")
+    //    console.log("Load env json")
 
         new JsonAsset('environments').subscribe(environmentListLoaded)
 

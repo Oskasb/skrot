@@ -95,6 +95,12 @@ class AssetInstance {
                 }
 
                 loadAssetModel(modelName, modelLoaded, obj3d);
+
+                if (settings.json['physical']) {
+                    console.log("Load Physical Model", settings.json['physical']);
+
+                }
+
             }
 
             jsonAsset.subscribe(onJsonLoaded)

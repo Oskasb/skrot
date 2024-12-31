@@ -30,9 +30,9 @@ class AsynchQueueFeedback {
     //    this.domNotice.call.close()
         if (activeEntries.length < 3) {
             if (activeEntries[0]) {
-                console.log(activeEntries[0].key)
+            //    console.log(activeEntries[0].key)
             } else {
-                console.log(activeEntries)
+            //    console.log(activeEntries)
                 if (queueFeedback !== null) {
                 //    queueFeedback.call.close()
                 //    queueFeedback = null;

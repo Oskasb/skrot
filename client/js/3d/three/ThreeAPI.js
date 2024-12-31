@@ -95,9 +95,6 @@ class ThreeAPI {
         pipelineAPI.setCategoryKeyValue('SYSTEM', 'CAMERA', store.camera);
     //    store.camera.matrixWorldAutoUpdate = false;
 
-
-        console.log("WebGPU Setup: ", store)
-
         this.glContext = store.renderer.getContext();
 
         this.threeSetup.addPrerenderCallback(this.threeModelLoader.updateActiveMixers);

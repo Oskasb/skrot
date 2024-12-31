@@ -47,7 +47,6 @@ function startGameWorld() {
 function init3d() {
 
     let store = window.ThreeAPI.initThreeScene(document.body, 1, false)
-    console.log("Call Init Env")
     window.ThreeAPI.initEnvironment(store);
 
     let camera, scene, renderer;

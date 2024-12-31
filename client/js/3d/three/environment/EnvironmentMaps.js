@@ -64,16 +64,13 @@ class EnvironmentMaps {
 
             scene.userData.reflectionScene = new Scene();
             function tx1Loaded(image) {
-                console.log("tx loaded", image)
                 cube1Texture.source.data = image;
                 cube1Texture.flipY = false;
                 cube1Texture.needsUpdate = true;
                 scene.environment = cube1Texture;
-
             }
 
             function tx2Loaded(image) {
-                console.log("tx loaded", image)
                 cube2Texture.source.data = image;
                 cube2Texture.flipY = true;
                 cube2Texture.needsUpdate = true;

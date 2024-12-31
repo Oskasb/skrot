@@ -60,7 +60,6 @@ class PieceInput {
 
 
         function activate() {
-            console.log("Activate Piece Input", json)
             domUiElement= poolFetch(json['ui']);
             domUiElement.call.initElement(statusMap, 'ui/'+json['html'], json['class'], elemReady)
         }

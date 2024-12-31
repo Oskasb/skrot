@@ -5,7 +5,7 @@ class ControlState {
     constructor(controllablePiece, id, config) {
         this.id = id;
         this.controllablePiece = controllablePiece;
-        console.log("Attach Control State", controllablePiece, config)
+    //    console.log("Attach Control State", controllablePiece, config)
 
         let targets = config.targets;
 

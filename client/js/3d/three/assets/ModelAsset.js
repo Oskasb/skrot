@@ -59,7 +59,7 @@ class ModelAsset {
                 }
             }
 
-            console.log("Asset obj3d:", obj3d)
+        //    console.log("Asset obj3d:", obj3d)
             return obj3d;
         }
 

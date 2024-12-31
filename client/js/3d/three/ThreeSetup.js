@@ -267,7 +267,7 @@ class ThreeSetup {
     };
 
     setCamera(camera) {
-        console.log("Set Camera", camera);
+     //   console.log("Set Camera", camera);
         this.camera = camera;
     };
 
