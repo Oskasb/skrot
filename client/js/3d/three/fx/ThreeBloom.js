@@ -20,56 +20,43 @@ class ThreeBloom{
 
         function initBloom(scene, camera, renderer) {
 
+            const scenePass = pass( scene, camera, { minFilter: NearestFilter, magFilter: NearestFilter } );
+            scenePass.setMRT( mrt( {
+                output: output,
+                normal: transformedNormalView,
+                metalness: metalness,
+                emissive:emissive
+            } ) );
+            /*
             const scenePass = pass( scene, camera );
             scenePass.setMRT( mrt( {
                 output,
                 emissive
             } ) );
-
-            const outputPass = scenePass.getTextureNode();
+*/
+            const outputPass = scenePass.getTextureNode( 'output' );
+        //    const scenePassColor = scenePass.getTextureNode( 'output' );
             const emissivePass = scenePass.getTextureNode( 'emissive' );
 
-            const bloomPass = bloom( emissivePass, 1.4, 1.05, 0 );
+            const bloomPass = bloom( emissivePass, 1.6, 1.05, 0 );
 
-            let ssrPass = initSSR(scene, camera, renderer)
+            let ssrPass = initSSR(scene, camera, renderer, scenePass, outputPass)
 
             let postBloomProcessing = new PostProcessing( renderer );
-        //    postBloomProcessing.outputNode = outputPass.add( bloomPass );
-            //       ThreeAPI.addPostProcess(postBloomProcessing)
-        //    outputPass.add( ssrNode );
-        //    postBloomProcessing.outputNode = outputPass.add( bloomPass );
 
-            //    console.log("BLOOM PASSES",ssrNode, bloomPass)
+            let blendedSsr = blendColor(outputPass, ssrPass);
+            let blendedBloom = blendedSsr.add(bloomPass);
 
-        //    postSsrProcessing.outputNode = scenePassColor.add( ssrNode );
-         //
-
-            postBloomProcessing.outputColorTransform = false;
-       //    outputPass.add(bloomPass)
-            const mixPasses = renderOutput( ssrPass);
-        //    const fxaaPass = fxaa( outputPass );
-
-            postBloomProcessing.outputNode = mixPasses;
+            postBloomProcessing.outputNode = blendedBloom // outputPass.add(bloomPass)
             ThreeAPI.addPostProcess(postBloomProcessing)
         }
 
-        function initSSR(scene, camera, renderer, bloomPass, outputPass) {
+        function initSSR(scene, camera, renderer, scenePass, outputPass) {
 
-        //    let envMap = scene.userData.cube1Texture;
-        //    const pmremGenerator = new PMREMGenerator( renderer );
 
-       //     scene.environment = pmremGenerator.fromScene( scene.userData.reflectionScene ).texture;
             scene.environmentIntensity = 1.0;
-        //    pmremGenerator.dispose();
 
-            const scenePass = pass( scene, camera, { minFilter: NearestFilter, magFilter: NearestFilter } );
-            scenePass.setMRT( mrt( {
-                output: output,
-                normal: transformedNormalView,
-                metalness: metalness
-            } ) );
-
-            const scenePassColor = scenePass.getTextureNode( 'output' );
+            const scenePassColor = outputPass;
             const scenePassNormal = scenePass.getTextureNode( 'normal' );
             const scenePassDepth = scenePass.getTextureNode( 'depth' );
             const scenePassMetalness = scenePass.getTextureNode( 'metalness' );
@@ -77,20 +64,11 @@ class ThreeBloom{
             const ssrPass = ssr( scenePassColor, scenePassDepth, scenePassNormal, scenePassMetalness, camera );
             ssrPass.resolutionScale = 0.5;
             ssrPass.maxDistance.value = 12;
-            ssrPass.opacity.value = 1;
-            ssrPass.thickness.value = 0.02;
-            // blend SSR over beauty
+            ssrPass.opacity.value = 0.9;
+            ssrPass.thickness.value = 0.001;
 
-        //    let postSsrProcessing = new PostProcessing( renderer );
-
-        //    outputPass.add(bloomPass)
-       //     let ssrNode = bloomPass.add(ssrPass);
-            return blendColor(scenePassColor, ssrPass);
             return ssrPass;
-       //    ssrNode.add(bloomPass)
-            postSsrProcessing.outputNode = ssrNode  ;
-            ThreeAPI.addPostProcess(postSsrProcessing)
-        //    outputPass.add(outputNode)
+
         }
 
 

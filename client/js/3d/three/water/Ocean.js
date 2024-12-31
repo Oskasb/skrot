@@ -10,7 +10,7 @@ import {
     transformNormalToView,
     uniform,
     varyingProperty, vec2, vec3,
-    vertexIndex, mul, add, sin, texture, uvec2, textureStore, vec4, normalLocal
+    vertexIndex, mul, add, sin, texture, uvec2, textureStore, vec4, normalLocal, blendColor, mix
 } from "../../../../../libs/three/Three.TSL.js";
 import {MeshPhongNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
 import {getFrame} from "../../../application/utils/DataUtils.js";
@@ -174,8 +174,8 @@ class Ocean {
 
                 const posx = mul(x, BOUNDS)
                 const posy = mul(y, BOUNDS)
-                const waveA = mul(cos(add(add(mul(mousePos.z, 0.824), add(posx, posy)), posx)),0.1);
-                const waveB = mul(sin(add(add(mul(mousePos.z, 0.835), mul(add(posx, posy), 0.8)), posy)), 0.12)
+                const waveA = mul(cos(add(add(mul(mousePos.z, 1.124), add(posx, posy)), posx)),0.02).add(0.02);
+                const waveB = mul(sin(add(add(mul(mousePos.z, 0.835), mul(add(posx, posy), 0.8)), posy)), 0.02).add(0.02)
                 const neighborHeight = north.add( south ).add( east ).add( west );
                 neighborHeight.mulAssign( 0.49 );
                 neighborHeight.subAssign( mul(prevHeight, 0.99).add(waveA).add(waveB) );
@@ -271,11 +271,11 @@ class Ocean {
 
                 const wave6Nm = vec3(waveA6, 18, waveB6).normalize();
                 const wave5Nm = vec3(waveA5, 18, waveB5).normalize();
-                const wave4Nm = vec3(waveA4, 11, waveB4).normalize();
-                const wave3Nm = vec3(waveA3, 9, waveB3).normalize();
-                const wave2Nm = vec3(waveA2, 8, waveB2).normalize();
+                const wave4Nm = vec3(waveA4, 14, waveB4).normalize();
+                const wave3Nm = vec3(waveA3, 11, waveB3).normalize();
+                const wave2Nm = vec3(waveA2, 11, waveB2).normalize();
 
-                const wave1Nm =  vec3(waveA1, 7, waveB1).normalize();
+                const wave1Nm =  vec3(waveA1, 11, waveB1).normalize();
 
 //                const finalNm = bigWaveNm.add(mediumNm).add(detailNm).add(detail2Nm).add(detail3Nm);
                 const finalNm = bigWaveNm.add(wave1Nm).add(wave2Nm).add(wave3Nm).add(wave4Nm).add(wave5Nm).add(wave6Nm);
@@ -289,11 +289,11 @@ class Ocean {
         //    renderer.computeAsync( computeTx );
 
                 waterMaterial.lights = true;
-                waterMaterial.colorNode = store.env.ambient;
+                waterMaterial.colorNode = mix(store.env.ambient.color, store.env.sun.color, store.env.ambient.color.b);
        //     waterMaterial.colorNode = texture( storageTexture );
             waterMaterial.metalness = 0.97;
             waterMaterial.envMapIntensity = 0.99;
-            waterMaterial.roughness = 0.21;
+            waterMaterial.roughness = 0.17;
 
             waterMaterial.positionNode = Fn( () => {
 
