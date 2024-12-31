@@ -29,13 +29,13 @@
         "id":"dawn",
         "sky":{
           "inclination":       0.05   ,
-          "azimuth":           0.03 ,
+          "azimuth":           0.01 ,
           "distance":          1000000000
         },
         "configs":[
-          {"id":"sun",     "color":[0.75,  0.65,  0.15]},
-          {"id":"ambient", "color":[0.11,  0.21,  0.65]},
-          {"id":"fog",     "color":[0.55,  0.25,  0.01],  "density":0.014}
+          {"id":"sun",     "color":[0.75,  0.65,  0.05]},
+          {"id":"ambient", "color":[0.11,  0.41,  0.65]},
+          {"id":"fog",     "color":[0.25,  0.55,  0.31],  "density":0.014}
         ]
       },
       {
