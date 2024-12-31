@@ -5,6 +5,7 @@ import {SimpleStatus} from "../../../application/setup/SimpleStatus.js";
 import {ControlDynamics} from "../../../game/controls/ControlDynamics.js";
 import {MATH} from "../../../application/MATH.js";
 import {DynamicPoint} from "../../../game/pieces/DynamicPoint.js";
+import {PhysicalModel} from "../../../application/physics/PhysicalModel.js";
 
 
 class AssetInstance {
@@ -98,7 +99,7 @@ class AssetInstance {
 
                 if (settings.json['physical']) {
                     console.log("Load Physical Model", settings.json['physical']);
-
+                    new PhysicalModel(obj3d, settings.json['physical'])
                 }
 
             }

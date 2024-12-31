@@ -1,6 +1,8 @@
 import {AmmoFunctions} from "./AmmoFunctions.js";
 import {evt} from "../event/evt.js";
 import {ENUMS} from "../ENUMS.js";
+import {loadModelAsset} from "../utils/DataUtils.js";
+import {getGroupMesh} from "../utils/ModelUtils.js";
 
 "use strict";
 
@@ -72,7 +74,31 @@ class AmmoAPI {
             bodyReadyCB(body);
         };
 
-        ammoFunctions.createRigidBody(obj3d, shapeName, mass, friction, pos, rot, scale, assetId, convex, onReady);
+        if (typeof (assetId) === "string") {
+
+            let loadedBuffer = ammoFunctions.getGeometryBuffer(assetId)
+
+            if (loadedBuffer) {
+                ammoFunctions.createRigidBody(obj3d, shapeName, mass, friction, pos, rot, scale, assetId, convex, onReady);
+            } else {
+
+                function onModel(model) {
+                    console.log("physics buffer model", model.scene);
+                    let mesh = model.scene.children[0];
+                    window.AmmoAPI.registerGeoBuffer(assetId, mesh.geometry.attributes.position.array)
+                    ammoFunctions.createRigidBody(obj3d, shapeName, mass, friction, pos, rot, scale, assetId, convex, onReady);
+                }
+                loadModelAsset(assetId, onModel)
+            }
+
+
+        } else {
+            ammoFunctions.createRigidBody(obj3d, shapeName, mass, friction, pos, rot, scale, assetId, convex, onReady);
+        }
+
+
+
+
 
     };
 

@@ -576,6 +576,19 @@ function activatePhysicalShockwave(pos, size, duration, strength, color) {
     shockwave.call.initPhysicalShockwave(pos, size, duration, strength, color);
 }
 
+function calcBoxSubmersion(height, size) {
+
+        let depth = height - size*0.5;
+
+        if (depth < 0) {
+            depth = Math.max(size , depth);
+            return Math.abs(size * depth * size);
+        }
+        return 0;
+
+}
+
+
 export {
     setPhysicalWorld,
     getTerrainBodyPointer,
@@ -600,5 +613,6 @@ export {
     getBodyAngularVelocity,
     processRayHitKickInfluence,
     applyPhysicalInfluenceRayProbe,
-    activatePhysicalShockwave
+    activatePhysicalShockwave,
+    calcBoxSubmersion
 }

@@ -5,6 +5,7 @@ import {Object3D} from "../../../../libs/three/core/Object3D.js";
 import {Quaternion} from "../../../../libs/three/math/Quaternion.js";
 import {getObj3dScaleKey} from "../utils/ModelUtils.js";
 import {isDev} from "../utils/DebugUtils.js";
+import {MATH} from "../MATH.js";
 
 let threeVec = new Vector3();
 let threeVec2 = new Vector3();
@@ -712,7 +713,7 @@ class AmmoFunctions {
             VECTOR_AUX2.setY(pointVec.y );
             VECTOR_AUX2.setZ(pointVec.z );
 
-            body.setLinearVelocity(VECTOR_AUX) // , VECTOR_AUX2);
+            body.applyForce(VECTOR_AUX, VECTOR_AUX2) // , VECTOR_AUX2);
         }
 
 
@@ -1237,6 +1238,10 @@ class AmmoFunctions {
         max.x = VECTOR_AUX2.x();
         max.y = VECTOR_AUX2.y();
         max.z = VECTOR_AUX2.z();
+    }
+
+    getGeometryBuffer(id) {
+        return geometryBuffers[id];
     }
 
 
