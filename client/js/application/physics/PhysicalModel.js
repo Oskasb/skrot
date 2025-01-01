@@ -12,7 +12,7 @@ let tempVec2 = new Vector3();
 let tempVec3 = new Vector3();
 let lineEvt = {
     from:tempVec,
-    to:tempVec2,
+    to:tempVec3,
     color:"YELLOW"
 }
 
@@ -27,17 +27,23 @@ class PhysicalModel {
                 tempVec.x = buoyancy[i].x;
                 tempVec.y = buoyancy[i].y;
                 tempVec.z = buoyancy[i].z;
-                tempVec3.copy(tempVec);
-                tempVec.add(obj3d.position);
 
                 tempVec.applyQuaternion(obj3d.quaternion);
-                tempVec2.copy(tempVec);
-                tempVec2.y = 0;
+                tempVec3.copy(tempVec)
+                tempVec.add(obj3d.position);
+
+
+                tempVec2.set(0, 0, 0);
+
+
+
+                let submersion = calcBoxSubmersion(tempVec.y - Math.cos(time*0.8+(tempVec.x+tempVec.z*0.2)*0.04)*3, buoyancy[i].w);
+                tempVec2.y = submersion * 100000 * AmmoAPI.getStepTime();
+                AmmoAPI.applyForceAtPointToBody(tempVec2, tempVec3, obj3d.userData.body)
+                tempVec3.set(0, submersion*0.05, 0);
+                tempVec3.add(tempVec)
                 evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt);
 
-                let submersion = calcBoxSubmersion(tempVec.y - Math.cos(time*0.5+(tempVec.x+tempVec.z*0.2)*0.05)*2, buoyancy[i].w);
-                tempVec2.y = submersion * 100000 * AmmoAPI.getStepTime();
-                AmmoAPI.applyForceAtPointToBody(tempVec2, tempVec, obj3d.userData.body)
             }
         }
 

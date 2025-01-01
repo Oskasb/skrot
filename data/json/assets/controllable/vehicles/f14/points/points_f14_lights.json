@@ -1,15 +1,15 @@
 [
-  {"id": "LIGHT_GEAR_LANDING",  "bone": "gear_nose",          "pos": [0.35, 0.2, -0.65], "rot": [-2.2, 0, 0]},
-  {"id": "LIGHT_LANDING_REAR_L","pos": [-1.67, 8.45, -3.42],  "rot": [-1.6, 0, 0]},
-  {"id": "LIGHT_NAV_WING_L"  ,  "bone": "wing_flex_l",        "pos": [6.25, -0.35, 0.01], "rot": [ 1.6, 0.5, 0], "factors": [1, 0.09, 1]},
-  {"id": "LIGHT_NAV_WING_R"  ,  "bone": "wing_flex_r",        "pos": [6.25,  0.35, 0.01], "rot": [-1.6, 0.5, 0], "factors": [1, 0.09, 1]},
-  {"id": "LIGHT_CHINPOD",       "pos": [0,   -0.38, -8.95],  "rot": [2.5, 0, 0]},
-  {"id": "LIGHT_NAV_REAR",      "pos": [-1.7, 3.6 ,  7.05],  "rot": [2.2, 0, 0]},
-  {"id": "LIGHT_NAV_L1",        "pos": [-2.4, 1.05, -2.65],  "rot": [2.7,-0.4, 0]},
-  {"id": "LIGHT_NAV_R1",        "pos": [ 2.4, 1.05, -2.65],  "rot": [2.7, 0.4, 0]},
-  {"id": "LIGHT_NAV_L2",        "pos": [-2.4, 0.75, -2.65],  "rot": [0.7,-0.4, 0]},
-  {"id": "LIGHT_NAV_R2",        "pos": [ 2.4, 0.75, -2.65],  "rot": [0.7, 0.4, 0]},
-  {"id": "LIGHT_POS_L",         "pos": [-1.9, 0.35, -1.95],  "rot": [0.7,-0.4, 0]},
-  {"id": "LIGHT_POS_R",         "pos": [ 1.9, 0.35, -1.95],  "rot": [0.7, 0.4, 0]},
-  {"id": "LIGHT_POS_REAR",      "pos": [ 1.7, 3.68,  8.44],  "rot": [-1.5, 0, 0]}
+  {"id": "LIGHT_GEAR_LANDING",  "bone": "gear_nose",         "pos": [0.35, 0.2, -0.65], "rot": [-2.2, 0, 0]},
+  {"id": "LIGHT_LANDING_REAR_L","pos": [-1.67, 3.42, 8.45],  "rot": [-0.0, 0, 0]},
+  {"id": "LIGHT_NAV_WING_L"  ,  "bone": "wing_flex_l",       "pos": [6.25, -0.35, 0.01], "rot": [ 1.6, 0.5, 0], "factors": [1, 0.09, 1]},
+  {"id": "LIGHT_NAV_WING_R"  ,  "bone": "wing_flex_r",       "pos": [6.25,  0.35, 0.01], "rot": [-1.6, 0.5, 0], "factors": [1, 0.09, 1]},
+  {"id": "LIGHT_CHINPOD",       "pos": [0,   -0.38, -8.95],  "rot": [4.1, 0, 0]},
+  {"id": "LIGHT_NAV_REAR",      "pos": [-1.7, 3.6 ,  7.05],  "rot": [3.7, 0, 0]},
+  {"id": "LIGHT_NAV_L1",        "pos": [-2.4, 1.05, -2.65],  "rot": [4.3,-0.4, 0]},
+  {"id": "LIGHT_NAV_R1",        "pos": [ 2.4, 1.05, -2.65],  "rot": [4.3, 0.4, 0]},
+  {"id": "LIGHT_NAV_L2",        "pos": [-2.4, 0.75, -2.65],  "rot": [2.3,-0.4, 0]},
+  {"id": "LIGHT_NAV_R2",        "pos": [ 2.4, 0.75, -2.65],  "rot": [2.3, 0.4, 0]},
+  {"id": "LIGHT_POS_L",         "pos": [-1.9, 0.35, -1.95],  "rot": [2.3,-0.4, 0]},
+  {"id": "LIGHT_POS_R",         "pos": [ 1.9, 0.35, -1.95],  "rot": [2.3, 0.4, 0]},
+  {"id": "LIGHT_POS_REAR",      "pos": [ 1.7, 3.68,  8.44],  "rot": [0.0, 0, 0]}
 ]

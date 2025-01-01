@@ -26,6 +26,10 @@ class ControllablePiece {
 
     }
 
+    getObj3d() {
+        return this.getAssetInstance().call.getObj3d()
+    }
+
     addToScene() {
         this.getAssetInstance().call.addToScene()
     }
@@ -125,7 +129,6 @@ class ControllablePiece {
         if (this.controlStates[id]) {
             this.controlStates[id].call.setControlState(value)
         }
-
     }
 
     getControlStateTargets(id) {

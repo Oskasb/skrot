@@ -20,21 +20,39 @@ import {getGameWorld, setGameWorld} from "./application/utils/GameUtils.js";
 import {GamePlayer} from "./game/player/GamePlayer.js";
 import {OrbitControls} from "../../libs/jsm/controls/OrbitControls.js";
 import {GLTFLoader} from "../../libs/jsm/loaders/GLTFLoader.js";
-import {ThreeAPI} from "./3d/three/ThreeAPI.js";
 import {debugDrawPhysicalWorld} from "./application/utils/PhysicsUtils.js";
 
-let gameWorld = new GameWorld();
 
+let gameWorld = new GameWorld();
+let player = new GamePlayer();
+let orbitControls;
 
 function startGameWorld() {
     setGameWorld(gameWorld);
     gameWorld.initGameWorld();
 
-    let player = new GamePlayer();
     player.enterWorld('controllable_f14')
 
     function cvn(boat) {
+        console.log("CVN ", boat);
         boat.addToScene();
+
+
+        function updatePhys() {
+            let obj3d = boat.getObj3d();
+            let body = obj3d.userData.body;
+            ThreeAPI.tempVec3.set(0, 0, -5999999);
+            ThreeAPI.tempVec3.applyQuaternion(obj3d.quaternion);
+            ThreeAPI.tempVec3b.set(2, 3, -100);
+            ThreeAPI.tempVec3b.applyQuaternion(obj3d.quaternion);
+        //    ThreeAPI.tempVec3b.add(obj3d.position)
+            AmmoAPI.applyForceAtPointToBody(ThreeAPI.tempVec3, ThreeAPI.tempVec3b, body)
+
+        }
+
+
+        AmmoAPI.registerPhysicsStepCallback(updatePhys)
+
     }
 
     setTimeout(function() {
@@ -77,12 +95,12 @@ function init3d() {
         setRefDiv(document.body)
 
 
-        const controls = new OrbitControls( camera, renderer.domElement );
+        orbitControls = new OrbitControls( camera, renderer.domElement );
     //    dynamics.addEventListener( 'change', render ); // use if there is no animation loop
-        controls.minDistance = 0.5;
-        controls.maxDistance = 2000;
-        controls.target.set( 0, 24 , 0);
-        controls.update();
+        orbitControls.minDistance = 0.5;
+        orbitControls.maxDistance = 2000;
+        orbitControls.target.set( 0, 24 , 0);
+        orbitControls.update();
 
         window.addEventListener( 'resize', onWindowResize );
 
@@ -132,6 +150,9 @@ function init3d() {
         window.ThreeAPI.updateSceneMatrixWorld();
         window.ThreeAPI.applyPostrenderUpdates()
 
+
+        orbitControls.target.copy(player.call.getObj3d().position);
+        orbitControls.update();
     //    EffectAPI.updateEffectAPI();
     //    pipelineAPI.tickPipelineAPI(frame.tpf)
 

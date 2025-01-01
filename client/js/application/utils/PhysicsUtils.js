@@ -6,6 +6,7 @@ import {ENUMS} from "../ENUMS.js";
 import {getSetting} from "./StatusUtils.js";
 import {getFrame} from "./DataUtils.js";
 import {evt} from "../event/evt.js";
+import {MATH} from "../MATH.js";
 
 
 let tempObj = new Object3D();
@@ -578,11 +579,11 @@ function activatePhysicalShockwave(pos, size, duration, strength, color) {
 
 function calcBoxSubmersion(height, size) {
 
-        let depth = height - size*0.5;
+        let depth = (height - size*0.5);
 
         if (depth < 0) {
-            depth = Math.max(size , depth);
-            return Math.abs(size * depth * size);
+            depth = Math.min(size , MATH.curveQuad(Math.abs(depth)));
+            return size * depth * size;
         }
         return 0;
 
