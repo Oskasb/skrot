@@ -50,10 +50,11 @@ class ModelGeometry{
             geometry = null;
 
             let assetLoaded = function(model) {
-            //    console.log("assetLoaded", model);
+
                 scene = model.scene;
                 geometry = getGroupMesh(model.scene.children);
-              geometry.frustumCulled = false;
+                geometry.frustumCulled = false;
+
             //    geometry.boundingBox.setFromObject(geometry, true)
                 if (geometry.computeBoundingBox) {
                     //       geometry.computeBoundingBox()

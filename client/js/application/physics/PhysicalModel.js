@@ -66,10 +66,10 @@ class PhysicalModel {
                     buoyancy[i] = point;
                 }
             }
-            
+
             for (let i = 0; i < config.shapes.length; i++) {
                 let conf = config.shapes[i];
-                AmmoAPI.setupRigidBody(obj3d, conf['shape'], conf['mass'], conf['friction'], conf['pos'], conf['rot'], conf['scale'], conf['asset'], conf['convex'], bodyReadyCB)
+                AmmoAPI.setupRigidBody(obj3d, conf['shape'], conf['mass'], conf['friction'], conf['pos'], conf['rot'], conf['scale'], conf['asset'], conf['convex'], conf['children'], bodyReadyCB)
             }
         }
 

@@ -11,12 +11,72 @@
     {
       "asset": "ent_conv_1",
       "shape": "compound",
-      "scale": [40, 10, 300],
+      "scale": [30, 10, 200],
       "rot": [0, 0, 0],
       "pos": [0, 0, 0],
-      "convex": true,
+      "convex": false,
       "mass": 95000000,
-      "friction": 2.9
+      "friction": 2.9,
+      "children": [
+        {
+          "shape": "box",
+          "scale": [40, 10, 300],
+          "rot": [0, 0, 0],
+          "pos": [0, 0, 0]
+        },
+        {
+          "shape": "convex",
+          "asset": "ent_conv_1"
+        },
+        {
+          "shape": "convex",
+          "asset": "ent_conv_2"
+        },
+        {
+          "shape": "convex",
+          "asset": "ent_conv_3"
+        },
+        {
+          "shape": "convex",
+          "asset": "ent_conv_4"
+        },
+        {
+          "shape": "convex",
+          "asset": "ent_conv_5"
+        },
+        {
+          "shape": "convex",
+          "asset": "ent_conv_6"
+        },
+        {
+          "shape": "convex",
+          "asset": "ent_conv_7"
+        },
+        {
+          "shape": "convex",
+          "asset": "ent_conv_8"
+        },
+        {
+          "shape": "convex",
+          "asset": "ent_conv_9"
+        },
+        {
+          "shape": "convex",
+          "asset": "ent_conv_10"
+        },
+        {
+          "shape": "convex",
+          "asset": "ent_conv_11"
+        },
+        {
+          "shape": "convex",
+          "asset": "ent_conv_12"
+        },
+        {
+          "shape": "convex",
+          "asset": "ent_conv_13"
+        }
+      ]
     }
   ]
 }

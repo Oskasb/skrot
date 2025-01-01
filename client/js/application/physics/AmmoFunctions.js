@@ -102,25 +102,44 @@ function ammoSphereShape(r) {
     return new Ammo.btSphereShape(r);
 }
 
+let zeroPos = [0, 0, 0];
+let zeroQuat = [0, 0, 0, 1]
 
-
-function ammoCompoundShape(args) {
+function ammoCompoundShape(children) {
 
     let compoundShape = new Ammo.btCompoundShape();
 
-    for (let i = 0; i < args.length; i++) {
-        let subShape = createPrimitiveShape(args[i]);
+    for (let i = 0; i < children.length; i++) {
 
-        let offset = args[i].offset;
-        let rot = args[i].rotation;
-
-        let rotation = new Ammo.btQuaternion(rot[0], rot[1], rot[2], 1);
+        let subShape;
+        let offset = children[i].pos || zeroPos;
+        let quat = MATH.quatFromRotArray(children[i].rot || zeroQuat)
+        let rotation = new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat.w);
         let position = new Ammo.btVector3(offset[0], offset[1], offset[2]);
-        compoundShape.addChildShape(new Ammo.btTransform(rotation, position), subShape);
+
+        if (children[i].shape === 'convex') {
+
+            let assetId = children[i].asset;
+
+            function onLoad(buffer) {
+                subShape = createConvexHullFromBuffer(buffer)
+                compoundShape.addChildShape(new Ammo.btTransform(rotation, position), subShape);
+            }
+
+            AmmoAPI.getGeoBuffer(assetId, onLoad);
+
+        } else {
+            subShape = createPrimitiveShape(children[i]);
+            compoundShape.addChildShape(new Ammo.btTransform(rotation, position), subShape);
+        }
 
     }
 
     return compoundShape
+}
+
+function addChildToCompound(compoundBody, childShape, pos, rot) {
+
 }
 
 function createConvexHullFromBuffer(buffer) {
@@ -221,28 +240,27 @@ let configureMeshShape = function(shape, mass, friction, position, quaternion) {
 
 
 let createPrimitiveShape = function(bodyParams) {
-    let args = bodyParams.args;
 
     let shape;
 
-    if (bodyParams.shape === 'Sphere') {
-        shape = ammoSphereShape(args[0]);
+    if (bodyParams.shape === 'sphere') {
+        let size = bodyParams.size;
+        shape = ammoSphereShape(size);
     }
 
-    if (bodyParams.shape === 'Cylinder') {
+    if (bodyParams.shape === 'cylinder') {
         shape = ammoCylinderShape(args[0], args[1], args[2]);
     }
 
-    if (bodyParams.shape === 'Box') {
-        shape = ammoBoxShape(args[0], args[1], args[2]);
-        //    shape = new CANNON[bodyParams.shape](new CANNON.Vec3(args[2],args[0],args[1]));
+    if (bodyParams.shape === 'box') {
+        let scale = bodyParams.scale;
+        shape = ammoBoxShape(scale[0], scale[1], scale[2]);
     }
 
-    if (bodyParams.shape === 'Compound') {
+    if (bodyParams.shape === 'compound') {
         shape = ammoCompoundShape(args);
     }
 
-    shapes.push(shape);
     return shape;
 
 };
@@ -1091,33 +1109,11 @@ class AmmoFunctions {
 
     };
 
-    createCompoundBody() {
 
-    }
-
-    ammoCompoundShape(args) {
-
-        let compoundShape = new Ammo.btCompoundShape();
-
-        for (let i = 0; i < args.length; i++) {
-            let subShape = createPrimitiveShape(args[i]);
-
-            let offset = args[i].offset;
-            let rot = args[i].rotation;
-
-            let rotation = new Ammo.btQuaternion(rot[0], rot[1], rot[2], 1);
-            let position = new Ammo.btVector3(offset[0], offset[1], offset[2]);
-            compoundShape.addChildShape(new Ammo.btTransform(rotation, position), subShape);
-
-        }
-
-        return compoundShape
-    }
-
-    createRigidBody(obj3d, shapeKey, mass, friction, pos, rot, scale, assetId, convex, onReady) {
+    createRigidBody(obj3d, shapeKey, mass, friction, pos, rot, scale, assetId, convex, children, onReady) {
 
 
-        let dataKey = assetId+getObj3dScaleKey(obj3d, scale);
+        let dataKey = assetId || shapeKey + getObj3dScaleKey(obj3d, scale);
 
 
         MATH.vec3FromArray(threeVec, pos);
@@ -1186,7 +1182,7 @@ class AmmoFunctions {
                     return shape = createBody(physicsShape, mass);
                 };
 
-                let shape = ammoBoxShape(scaleVec.x, scaleVec.y, scaleVec.z);
+                let shape = ammoCompoundShape(children);
 
                 bodyPools[dataKey] = new BodyPool(shape, createFunc);
                 rigidBody = fetchPoolBody(dataKey);
@@ -1195,8 +1191,6 @@ class AmmoFunctions {
             }
             rigidBody.forceActivationState(STATE.ACTIVE);
             rigidBody.dataKey = dataKey;
-            //    position.y += args[2] / 2;
-            //    console.log("Box", scaleVec, rigidBody)
             setBodyTransform(rigidBody, position, quaternion);
             onReady(rigidBody)
             return;

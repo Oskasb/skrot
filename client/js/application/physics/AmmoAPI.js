@@ -73,7 +73,25 @@ class AmmoAPI {
         ammoFunctions.setGeometryBuffer(id, buffer);
     };
 
-    setupRigidBody = function(obj3d, shapeName, mass, friction, pos, rot, scale, assetId, convex, bodyReadyCB) {
+    getGeoBuffer = function(assetId, cb) {
+
+        let buffer = ammoFunctions.getGeometryBuffer(assetId);
+
+        if (buffer) {
+            cb(buffer)
+        } else {
+            function onModel(model) {
+                console.log("physics buffer model", model.scene);
+                let mesh = model.scene.children[0];
+                window.AmmoAPI.registerGeoBuffer(assetId, mesh.geometry.attributes.position.array)
+                cb(ammoFunctions.getGeometryBuffer(assetId))
+            }
+            loadModelAsset(assetId, onModel)
+        }
+
+    }
+
+    setupRigidBody = function(obj3d, shapeName, mass, friction, pos, rot, scale, assetId, convex, children, bodyReadyCB) {
 
         let onReady = function(body, bdCfg) {
 /*
@@ -94,26 +112,22 @@ class AmmoAPI {
             let loadedBuffer = ammoFunctions.getGeometryBuffer(assetId)
 
             if (loadedBuffer) {
-                ammoFunctions.createRigidBody(obj3d, shapeName, mass, friction, pos, rot, scale, assetId, convex, onReady);
+                ammoFunctions.createRigidBody(obj3d, shapeName, mass, friction, pos, rot, scale, assetId, convex, children, onReady);
             } else {
 
                 function onModel(model) {
                     console.log("physics buffer model", model.scene);
                     let mesh = model.scene.children[0];
                     window.AmmoAPI.registerGeoBuffer(assetId, mesh.geometry.attributes.position.array)
-                    ammoFunctions.createRigidBody(obj3d, shapeName, mass, friction, pos, rot, scale, assetId, convex, onReady);
+                    ammoFunctions.createRigidBody(obj3d, shapeName, mass, friction, pos, rot, scale, assetId, convex, children, onReady);
                 }
                 loadModelAsset(assetId, onModel)
             }
 
 
         } else {
-            ammoFunctions.createRigidBody(obj3d, shapeName, mass, friction, pos, rot, scale, assetId, convex, onReady);
+            ammoFunctions.createRigidBody(obj3d, shapeName, mass, friction, pos, rot, scale, assetId, convex, children, onReady);
         }
-
-
-
-
 
     };
 
