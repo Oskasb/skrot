@@ -31,6 +31,8 @@ let rayHits = [];
 let Ammo;
 let ammoHeightData;
 
+let physicsStepCallbacks = [];
+
 let STATE = {
     ACTIVE : 1,
     ISLAND_SLEEPING : 2,
@@ -353,12 +355,13 @@ let settings = {
 let remaining = 0;
 let MODEL = {};
 
-MODEL.PhysicsStepTime = 0.01;
-MODEL.PhysicsMaxSubSteps = 2;
+MODEL.PhysicsStepTime = 0.005;
+MODEL.PhysicsMaxSubSteps = 1;
 MODEL.SpatialTolerance = 1;
 MODEL.AngularVelocityTolerance = 1;
 MODEL.TemporalTolerance = 1;
-
+MODEL.PhysicsTotalTime = 0;
+MODEL.TotalRenderTime = 0
 
 
 let buildConf = function(jnt, bodyCfg) {
@@ -713,13 +716,14 @@ class AmmoFunctions {
             VECTOR_AUX2.setY(pointVec.y );
             VECTOR_AUX2.setZ(pointVec.z );
 
-            body.applyForce(VECTOR_AUX, VECTOR_AUX2) // , VECTOR_AUX2);
+            body.applyImpulse(VECTOR_AUX, VECTOR_AUX2) // , VECTOR_AUX2);
+        //    body.applyTorque(VECTOR_AUX2);
         }
-
-
     };
 
-    forceAndTorqueToBody(forceVec3, body, torqueVec) {
+
+
+    forceAndTorqueToBody(forceVec3, torqueVec, body) {
 
         body.activate();
         body.forceActivationState(STATE.ACTIVE);
@@ -729,7 +733,7 @@ class AmmoFunctions {
             VECTOR_AUX.setY(forceVec3.y);
             VECTOR_AUX.setZ(forceVec3.z);
 
-            body.applyCentralForce(VECTOR_AUX);
+            body.applyCentralImpulse(VECTOR_AUX);
         }
 
         if (torqueVec) {
@@ -737,7 +741,7 @@ class AmmoFunctions {
             VECTOR_AUX.setY(torqueVec.y );
             VECTOR_AUX.setZ(torqueVec.z );
 
-            body.applyLocalTorque(VECTOR_AUX);
+            body.applyTorque(VECTOR_AUX);
         }
 
     };
@@ -952,13 +956,29 @@ class AmmoFunctions {
 
     updatePhysicalWorld(world, dt) {
         let timePre = performance.now();
-        world.stepSimulation(dt, MODEL.PhysicsMaxSubSteps, dt);
+
+        MODEL.TotalRenderTime += dt;
+
+        let maxCleanSteps = 3;
+        let step = 0;
+
+        while (MODEL.PhysicsTotalTime < MODEL.TotalRenderTime) {
+            MODEL.PhysicsTotalTime += MODEL.PhysicsStepTime;
+            MATH.callAll(physicsStepCallbacks);
+            world.stepSimulation(MODEL.PhysicsStepTime, MODEL.PhysicsMaxSubSteps, MODEL.PhysicsStepTime);
+            step++;
+            if (step > maxCleanSteps) {
+                MODEL.PhysicsTotalTime += MODEL.PhysicsStepTime
+            }
+        }
+
         let physTime = performance.now() - timePre;
         return physTime;
     };
 
-
-
+    getSimModel() {
+        return MODEL;
+    }
 
     createPhysicalTerrain(world, data, totalSize, posx, posz, minHeight, maxHeight) {
 
@@ -1071,6 +1091,28 @@ class AmmoFunctions {
 
     };
 
+    createCompoundBody() {
+
+    }
+
+    ammoCompoundShape(args) {
+
+        let compoundShape = new Ammo.btCompoundShape();
+
+        for (let i = 0; i < args.length; i++) {
+            let subShape = createPrimitiveShape(args[i]);
+
+            let offset = args[i].offset;
+            let rot = args[i].rotation;
+
+            let rotation = new Ammo.btQuaternion(rot[0], rot[1], rot[2], 1);
+            let position = new Ammo.btVector3(offset[0], offset[1], offset[2]);
+            compoundShape.addChildShape(new Ammo.btTransform(rotation, position), subShape);
+
+        }
+
+        return compoundShape
+    }
 
     createRigidBody(obj3d, shapeKey, mass, friction, pos, rot, scale, assetId, convex, onReady) {
 
@@ -1096,7 +1138,7 @@ class AmmoFunctions {
         //    dynamicSpatial.setSpatialDynamicFlag(0);
         }
 
-        mass = mass*scaleVec.x*scaleVec.y*scaleVec.z || 0;
+        mass = mass || 0;
 
         let rigidBody;
 
@@ -1133,6 +1175,33 @@ class AmmoFunctions {
             onReady(rigidBody)
             return;
         }
+
+        if (shapeKey === "compound") {
+
+            rigidBody = fetchPoolBody(dataKey);
+
+            if (!rigidBody) {
+
+                let createFunc = function(physicsShape) {
+                    return shape = createBody(physicsShape, mass);
+                };
+
+                let shape = ammoBoxShape(scaleVec.x, scaleVec.y, scaleVec.z);
+
+                bodyPools[dataKey] = new BodyPool(shape, createFunc);
+                rigidBody = fetchPoolBody(dataKey);
+            } else {
+                clearBodyState(rigidBody);
+            }
+            rigidBody.forceActivationState(STATE.ACTIVE);
+            rigidBody.dataKey = dataKey;
+            //    position.y += args[2] / 2;
+            //    console.log("Box", scaleVec, rigidBody)
+            setBodyTransform(rigidBody, position, quaternion);
+            onReady(rigidBody)
+            return;
+        }
+
 
         if (shapeKey === "primitive") {
 
@@ -1244,6 +1313,15 @@ class AmmoFunctions {
         return geometryBuffers[id];
     }
 
+    addPhysStepCb(cb) {
+        if (physicsStepCallbacks.indexOf(cb) === -1) {
+            physicsStepCallbacks.push(cb);
+        }
+    }
+
+    removePhysStepC(cb) {
+        MATH.splice(physicsStepCallbacks, cb);
+    }
 
 }
 

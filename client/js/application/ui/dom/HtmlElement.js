@@ -155,7 +155,6 @@ class HtmlElement {
             if (closed === true) {
                 return;
             }
-            window.requestAnimationFrame(update);
 
         }.bind(this);
 
@@ -208,6 +207,7 @@ class HtmlElement {
                     this.onCloseCallbacks.pop()(this);
                 }
             }
+            ThreeAPI.unregisterPrerenderCallback(update);
         }.bind(this)
 
         let setBaseTransform = function(trf) {
@@ -354,7 +354,7 @@ class HtmlElement {
             }
 
             this.call.update();
-        //    ThreeAPI.addPrerenderCallback(this.call.update);
+            ThreeAPI.addPrerenderCallback(this.call.update);
 
         }.bind(this)
 

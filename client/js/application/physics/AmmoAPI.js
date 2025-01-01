@@ -11,6 +11,8 @@ let world;
 
 let bodyIndex = [];
 
+
+
 let STATE = {
     ACTIVE : 1,
     ISLAND_SLEEPING : 2,
@@ -43,6 +45,19 @@ class AmmoAPI {
         world = ammoFunctions.createPhysicalWorld();
         return world;
     };
+
+
+    registerPhysicsStepCallback(cb) {
+        ammoFunctions.addPhysStepCb(cb);
+    }
+
+    getStepTime() {
+        return ammoFunctions.getSimModel().PhysicsStepTime;
+    }
+
+    unregisterPhysicsStepCallback(cb) {
+        ammoFunctions.removePhysStepC(cb);
+    }
 
     getYGravity = function() {
         return ammoFunctions.getYGravity();
@@ -149,8 +164,8 @@ class AmmoAPI {
         status.updateTime = ammoFunctions.updatePhysicalWorld(world, dt)
     };
 
-    applyForceAndTorqueToBody = function(forceVec3, body, torqueVec) {
-        ammoFunctions.forceAndTorqueToBody(forceVec3, body, torqueVec)
+    applyForceAndTorqueToBody = function(forceVec3, torqueVec, body) {
+        ammoFunctions.forceAndTorqueToBody(forceVec3, torqueVec, body)
     };
 
     applyForceAtPointToBody = function(forceVec3, pointVec, body) {

@@ -320,7 +320,7 @@ class Ocean {
              //   waveInfluence.x = Math.sin(time * 1.8)*50;
              //   waveInfluence.y = Math.cos(time * 1.3)*600;
                 waveInfluence.z = time;
-                renderer.computeAsync( computeHeight );
+            //    renderer.computeAsync( computeHeight );
             }
 
 

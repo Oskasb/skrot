@@ -637,7 +637,7 @@ function fetchConfigByEditId(editId, callback) {
         // processJsonVariation(savedConfigs[editId], activeVariations);
         callback(savedConfigs[editId])
     } else {
-    //    console.log("Config loading ", editId)
+        console.log("Config loading ", editId)
         setTimeout(function() {
             fetchConfigByEditId(editId, callback)
         }, 200)
@@ -660,7 +660,7 @@ function getItemConfigByTemplateId(itemId) {
     return null;
 }
 
-fetchConfigByEditId('spawn_population', populationConfigsCB);
+// fetchConfigByEditId('spawn_population', populationConfigsCB);
 
 export {
     loadVariationConfigs,
