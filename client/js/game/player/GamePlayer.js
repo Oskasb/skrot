@@ -13,6 +13,7 @@ class GamePlayer {
 
         this.status = new SimpleStatus();
         let status = this.status;
+        let playerControllable = null;
 
         function getObj3d() {
             return obj3d;
@@ -20,35 +21,27 @@ class GamePlayer {
 
         function setControllable(ctrlPiece) {
             ctrlPiece.getAssetInstance().call.addToScene();
-            ctrlPiece.getAssetInstance().call.getObj3d().position.y = 23.3
             status.setStatusKey(ENUMS.PlayerStatus.CONTROLLABLE_ID, ctrlPiece.getStatus(ENUMS.ControllableStatus.CONTROLLABLE_ID));
-
-            let ui = ctrlPiece.ui;
-
-            function debugDrawControllable() {
-                obj3d.position.copy(ctrlPiece.getAssetInstance().call.getObj3d().position)
-                obj3d.quaternion.copy(ctrlPiece.getAssetInstance().call.getObj3d().quaternion)
-                debugDrawDynamicPoints(ctrlPiece.getAssetInstance().dynamicPoints)
-
-             //   MATH.randomVector(obj3d.position)
-            //    obj3d.position.y -=20;
-            //    obj3d.position.add(ctrlPiece.getAssetInstance().call.getObj3d().position)
-            //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from: ctrlPiece.getAssetInstance().call.getObj3d().position, to:  obj3d.position, color:'GREEN'})
-
-            //    console.log("Update Ui state")
-                for (let key in ui) {
-                    ui[key].call.update();
-                }
-
-            }
-
-            ThreeAPI.registerPrerenderCallback(debugDrawControllable)
-
+            playerControllable = ctrlPiece;
+            ThreeAPI.registerPrerenderCallback(updatePlayer)
         }
 
         function activateControllable(controllableId) {
             getGameWorld().call.loadGamePiece(controllableId, setControllable)
+        }
 
+        function debugDrawControllable() {
+            debugDrawDynamicPoints(playerControllable.getAssetInstance().dynamicPoints)
+        }
+
+        function updatePlayer() {
+            obj3d.position.copy(playerControllable.getAssetInstance().call.getObj3d().position)
+            obj3d.quaternion.copy(playerControllable.getAssetInstance().call.getObj3d().quaternion)
+            let ui = playerControllable.ui;
+            for (let key in ui) {
+                ui[key].call.update();
+            }
+            debugDrawControllable()
         }
 
         this.call = {

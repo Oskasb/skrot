@@ -19,8 +19,8 @@ import {GameWorld} from "./game/world/GameWorld.js";
 import {getGameWorld, setGameWorld} from "./application/utils/GameUtils.js";
 import {GamePlayer} from "./game/player/GamePlayer.js";
 import {OrbitControls} from "../../libs/jsm/controls/OrbitControls.js";
-import {GLTFLoader} from "../../libs/jsm/loaders/GLTFLoader.js";
 import {debugDrawPhysicalWorld} from "./application/utils/PhysicsUtils.js";
+import {PlayerCamera} from "./game/player/PlayerCamera.js";
 
 
 let gameWorld = new GameWorld();
@@ -74,37 +74,9 @@ function init3d() {
 
     new ThreeBloom().call.initBloom(scene, camera, renderer)
     new DebugLines()
+    new PlayerCamera(camera, renderer, player)
 
-    init();
-
-    function init() {
-
-        camera.position.set( - 24, 28, 2.7 );
-
-        /*
-
-        setTimeout(function() {
-                const loader = new GLTFLoader().setPath( './data/assets/' );
-                loader.load( 'test/glTF/DamagedHelmet.gltf', function ( gltf ) {
-                    console.log(gltf.scene)
-                    scene.add( gltf.scene );
-                } );
-
-        }, 1000)
-*/
-        setRefDiv(document.body)
-
-
-        orbitControls = new OrbitControls( camera, renderer.domElement );
-    //    dynamics.addEventListener( 'change', render ); // use if there is no animation loop
-        orbitControls.minDistance = 0.5;
-        orbitControls.maxDistance = 2000;
-        orbitControls.target.set( 0, 24 , 0);
-        orbitControls.update();
-
-        window.addEventListener( 'resize', onWindowResize );
-
-    }
+    setRefDiv(document.body)
 
     function onWindowResize() {
         camera.aspect = window.innerWidth / window.innerHeight;
@@ -113,9 +85,7 @@ function init3d() {
         GameScreen.notifyResize()
         notifyDomResize();
     }
-
-
-
+    window.addEventListener( 'resize', onWindowResize );
 
     const clock = new Clock(true);
     let frame = getFrame();
@@ -151,8 +121,7 @@ function init3d() {
         window.ThreeAPI.applyPostrenderUpdates()
 
 
-        orbitControls.target.copy(player.call.getObj3d().position);
-        orbitControls.update();
+
     //    EffectAPI.updateEffectAPI();
     //    pipelineAPI.tickPipelineAPI(frame.tpf)
 

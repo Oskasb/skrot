@@ -81,7 +81,7 @@ class AmmoAPI {
             cb(buffer)
         } else {
             function onModel(model) {
-                console.log("physics buffer model", model.scene);
+        //        console.log("physics buffer model", model.scene);
                 let mesh = model.scene.children[0];
                 window.AmmoAPI.registerGeoBuffer(assetId, mesh.geometry.attributes.position.array)
                 cb(ammoFunctions.getGeometryBuffer(assetId))
