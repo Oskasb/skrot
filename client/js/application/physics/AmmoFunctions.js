@@ -980,7 +980,7 @@ class AmmoFunctions {
         let maxCleanSteps = 3;
         let step = 0;
 
-        while (MODEL.PhysicsTotalTime < MODEL.TotalRenderTime) {
+        while (MODEL.PhysicsTotalTime < MODEL.TotalRenderTime + MODEL.PhysicsStepTime) {
             MODEL.PhysicsTotalTime += MODEL.PhysicsStepTime;
             MATH.callAll(physicsStepCallbacks);
             world.stepSimulation(MODEL.PhysicsStepTime, MODEL.PhysicsMaxSubSteps, MODEL.PhysicsStepTime);
