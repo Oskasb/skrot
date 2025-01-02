@@ -7,6 +7,7 @@ import {PieceInput} from "../controls/PieceInput.js";
 import {MATH} from "../../application/MATH.js";
 import {ControlState} from "../controls/ControlState.js";
 import {PiecePropulsion} from "../controls/PiecePropulsion.js";
+import {ControllableForceProcessor} from "./ControllableForceProcessor.js";
 
 let tempArray = [];
 
@@ -20,7 +21,7 @@ class ControllablePiece {
         this.controlStates = {};
 
         this.propulsion = {};
-
+        new ControllableForceProcessor(this);
         this.call = {
 
         }
@@ -45,6 +46,20 @@ class ControllablePiece {
 
     getAssetInstance() {
         return this.assetInstance
+    }
+
+    getDynamicPoint(id) {
+
+        if (this.assetInstance) {
+            return this.assetInstance.call.getPointById(id);
+        }
+
+    }
+
+    getControlByName(name) {
+        if (this.assetInstance) {
+            return this.assetInstance.getControlDynamicByName(name);
+        }
     }
 
     initControllable(id, callback) {
@@ -89,7 +104,6 @@ class ControllablePiece {
         function attachPropulsion(point, fileName) {
             console.log("attachPropulsion", point, fileName)
             function attachProp(data) {
-                console.log("Attach attachProp List", data)
                     props[point] = new PiecePropulsion(point, data);
                 }
 
@@ -166,6 +180,13 @@ class ControllablePiece {
         }
 
     }
+
+    getAmmoBody() {
+        if (this.assetInstance) {
+            return this.getObj3d().userData.body;
+        }
+    }
+
 
 }
 

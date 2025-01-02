@@ -8,8 +8,6 @@ class JsonAsset {
         this.name = name;
         this.json = null;
 
-
-
         this.subscribers = [];
 
         let onDataUpdated = function(url,data) {

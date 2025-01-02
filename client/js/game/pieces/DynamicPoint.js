@@ -37,28 +37,28 @@ class DynamicPoint {
 
         function updateObj3d() {
 
+            obj3d.position.copy(offset);
+
             if (hasBoneParent === true) {
                 getBoneWorldTransform(parentNode, tempObj);
+
+                if (axisFactors !== false) {
+                    let lng = obj3d.position.length();
+                    obj3d.position.normalize();
+                    MATH.vec3FromArray(tempVec, axisFactors);
+                    obj3d.position.x *= tempVec.x;
+                    obj3d.position.y *= tempVec.y;
+                    obj3d.position.z *= tempVec.z;
+                    obj3d.position.normalize();
+                    obj3d.position.multiplyScalar(lng);
+                }
+
             } else {
                 tempObj.position.copy(parentNode.position);
                 tempObj.quaternion.copy(parentNode.quaternion);
                 tempObj.scale.copy(parentNode.scale);
             }
 
-            obj3d.position.copy(offset);
-
-            if (axisFactors !== false) {
-                let lng = obj3d.position.length();
-                obj3d.position.normalize();
-                MATH.vec3FromArray(tempVec, axisFactors);
-                //    tempVec.applyQuaternion(tempObj.quaternion)
-                    obj3d.position.x *= tempVec.x;
-                   obj3d.position.y *= tempVec.y;
-                    obj3d.position.z *= tempVec.z;
-                obj3d.position.normalize();
-                obj3d.position.multiplyScalar(lng);
-
-            }
 
             obj3d.position.applyQuaternion(tempObj.quaternion);
 

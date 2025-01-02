@@ -34,8 +34,8 @@ class DomPower {
 
             translateElement3DPercent(controlLineX, 0, outRoll,   0);
 
-            let dynR = 100 - statusMap['DYNAMIC_NOZZLE_L']*100
-            let dynL = 100 - statusMap['DYNAMIC_NOZZLE_R']*100
+            let dynR = 100 - statusMap['DYNAMIC_ENGINE_L']*100
+            let dynL = 100 - statusMap['DYNAMIC_ENGINE_R']*100
 
             translateElement3DPercent(dynamicRollL, -70, dynL,0  );
             translateElement3DPercent(dynamicRollR, 70, dynR,  0);

@@ -58,16 +58,7 @@ class AssetInstance {
 
             function dynLoaded(ctrlDyn) {
                 controlDynamics[id] = ctrlDyn;
-                /*
-                function randomChange() {
-                //    debugDrawSkeleton(settings.assetInstance)
-                    if (Math.random() < 0.05) {
-                        ctrlDyn.setTargetState(MATH.randomBetween(ctrlDyn.state.min, ctrlDyn.state.max));
-                    }
-                }
-
-                ThreeAPI.addPostrenderCallback(randomChange);
-*/
+                console.log("Control Dyns", controlDynamics)
             }
 
             new ControlDynamics(settings.assetInstance, id, fileName, dynLoaded)
@@ -152,7 +143,8 @@ class AssetInstance {
             getObj3d:getObj3d,
             addToScene:addToScene,
             closeAsset:closeAsset,
-            removeFromScene:removeFromScene
+            removeFromScene:removeFromScene,
+            getPointById:getPointById
         }
 
     }
@@ -171,6 +163,14 @@ class AssetInstance {
 
     getControlDynamic(id) {
         return this.controlDynamics[id];
+    }
+
+    getControlDynamicByName(name) {
+        for (let key in this.controlDynamics) {
+            if (this.controlDynamics[key].dynamic === name) {
+                return this.controlDynamics[key];
+            }
+        }
     }
 
 }
