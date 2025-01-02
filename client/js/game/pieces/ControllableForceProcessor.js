@@ -1,5 +1,8 @@
 import {Object3D, Vector3} from "../../../../libs/three/Three.Core.js";
 import {bodyTransformToObj3d, getBodyVelocity} from "../../application/utils/PhysicsUtils.js";
+import {ENUMS} from "../../application/ENUMS.js";
+import {evt} from "../../application/event/evt.js";
+import {MATH} from "../../application/MATH.js";
 
 let tempObj = new Object3D();
 let tempObj2 = new Object3D();
@@ -40,6 +43,11 @@ class ControllableForceProcessor {
                             tempObj2.quaternion.multiply(tempObj.quaternion);
                             tempVec1.applyQuaternion(tempObj2.quaternion)
                             AmmoAPI.applyForceAtPointToBody(tempVec1, tempObj2.position, body);
+                            tempObj2.position.add(tempObj.position);
+                            evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:tempObj2.position, size:0.4, color:'YELLOW'});
+                            tempVec1.multiplyScalar(0.001);
+                            tempVec1.add(tempObj2.position);
+                            evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempObj2.position, to:tempVec1, color:'YELLOW'});
                         }
                     }
                 }
@@ -47,25 +55,44 @@ class ControllableForceProcessor {
 
             for (let key in surfaces) {
                 let surface = surfaces[key];
-                let point = controllablePiece.getControlByName(key);
+                let point = controllablePiece.getDynamicPoint(key);
                 if (point) {
-                    let ctrlDyn = controllablePiece.getControlByName(key)
-                    if (ctrlDyn) {
-                        let stateValue = ctrlDyn.state.value;
-                        if (typeof stateValue === 'number') {
+                //    let ctrlDyn = controllablePiece.getControlByName(key)
+                //    if (ctrlDyn) {
+                //        let stateValue = ctrlDyn.state.value;
+                 //       if (typeof stateValue === 'number') {
                             point.call.getLocalTransform(tempObj2);
                             tempObj2.quaternion.multiply(tempObj.quaternion);
-                            tempVec1.copy(surface.scale);
-                            tempVec1.applyQuaternion(tempObj2.quaternion);
-                            tempVec1.set(0, velocity.length(), 0);
-                            tempVec1.multiply(100 * stepTime);
+
+                            tempVec1.set(0, 0, 1);
+                            tempVec1.applyQuaternion(tempObj2.quaternion)
+
+                    let angZ = MATH.angleZFromVectorToVector(tempVec1, velocity);
+                    let lift = Math.sin(-angZ) * velocity.lengthSq();
+                            tempVec2.set(0, lift, 0);
+                            tempVec2.applyQuaternion(tempObj.quaternion)
+                            //tempVec2.cross(tempVec1);
+                    tempVec2.multiplyScalar(1 * stepTime);
+                    tempVec1.copy(tempVec2);
                             AmmoAPI.applyForceAtPointToBody(tempVec1, tempObj2.position, body);
-                        }
-                    }
+
+                    tempVec2.set(0, 0, 1);
+                    tempVec2.applyQuaternion(tempObj2.quaternion);
+                            tempObj2.position.add(tempObj.position);
+                            evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:tempObj2.position, size:0.2, color:'YELLOW'});
+                    tempVec2.add(tempObj2.position);
+                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempObj2.position, to:tempVec2, color:'YELLOW'});
+                //    tempVec1.copy(velocity);
+                    tempVec1.add(tempObj2.position)
+                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempObj2.position, to:tempVec1, color:'GREEN'});
+                  //      }
+                //    }
                 }
             }
 
-
+            tempVec1.copy(velocity)
+            tempVec1.add(tempObj.position)
+            evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempObj.position, to:tempVec1, color:'CYAN'});
 
 
         }

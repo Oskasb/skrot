@@ -57,16 +57,23 @@ class DynamicPoint {
                     obj3d.position.multiplyScalar(lng);
                 }
 
+                localObj3d.quaternion.copy(obj3d.quaternion);
+                obj3d.position.applyQuaternion(tempObj.quaternion);
+                localObj3d.position.copy(obj3d.position)
+                obj3d.quaternion.copy(tempObj.quaternion);
+
             } else {
                 tempObj.position.copy(parentNode.position);
                 tempObj.quaternion.copy(parentNode.quaternion);
                 tempObj.scale.copy(parentNode.scale);
+
+                obj3d.position.applyQuaternion(tempObj.quaternion);
+                localObj3d.quaternion.copy(obj3d.quaternion);
+                obj3d.quaternion.copy(tempObj.quaternion);
+                localObj3d.position.copy(obj3d.position)
+
             }
 
-
-            obj3d.position.applyQuaternion(tempObj.quaternion);
-            localObj3d.position.copy(obj3d.position)
-            obj3d.quaternion.copy(tempObj.quaternion);
 
             if (hasRotarion === true) {
                 MATH.rotateObj(obj3d, config.rot);
@@ -82,9 +89,19 @@ class DynamicPoint {
         function getLocalTransform(storeObj) {
             if (hasBoneParent) {
                 updateObj3d();
-                localObj3d.quaternion.copy(obj3d.quaternion);
-                MATH.rotateObj(localObj3d, config.rot);
+
+            //    localObj3d.quaternion.invert();
+            //    localObj3d.quaternion.multiply(assetInstance.getObj3d().quaternion);
+            //    MATH.rotateObj(localObj3d, config.rot);
             }
+
+            let assetNode = assetInstance.getObj3d();
+            tempObj.position.copy(assetNode.position);
+            tempObj.quaternion.copy(assetNode.quaternion).invert();
+            localObj3d.position.copy(obj3d.position);
+            localObj3d.position.sub(tempObj.position);
+            localObj3d.quaternion.copy(tempObj.quaternion)
+            localObj3d.quaternion.premultiply(obj3d.quaternion);
             storeObj.position.copy(localObj3d.position);
             storeObj.quaternion.copy(localObj3d.quaternion);
         }
