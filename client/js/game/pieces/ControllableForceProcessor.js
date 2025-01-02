@@ -30,10 +30,11 @@ class ControllableForceProcessor {
                     if (ctrlDyn) {
                         let stateValue = ctrlDyn.state.value;
                         if (typeof stateValue === 'number') {
-                            tempVec1.set(0, 0, stateValue * prop.force * stepTime * -100)
+                            let force = stateValue * prop.force * stepTime * 100
+                            tempVec1.set(0, 0, force);
+                            point.call.getLocalTransform(tempObj);
                             tempVec1.applyQuaternion(tempObj.quaternion)
-                            tempVec2.set(0, 0, 0);
-                            AmmoAPI.applyForceAtPointToBody(tempVec1, tempVec2, body);
+                            AmmoAPI.applyForceAtPointToBody(tempVec1, tempObj.position, body);
                         }
                     }
                 }

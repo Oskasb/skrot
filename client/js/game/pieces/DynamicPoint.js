@@ -12,6 +12,8 @@ class DynamicPoint {
         let obj3d = new Object3D();
         let offset = new Vector3();
 
+        let localObj3d = new Object3D();
+
         MATH.vec3FromArray(offset, config.pos);
 
         let hasRotarion = false;
@@ -25,11 +27,14 @@ class DynamicPoint {
         if (config.bone) {
             hasBoneParent = true;
             parentNode = getAssetBoneByName(assetInstance, config.bone)
+        } else {
+            MATH.vec3FromArray(localObj3d.position, config.pos);
         }
 
         if (config.rot) {
             hasRotarion = true;
             MATH.vec3FromArray(obj3d.up, config.rot);
+            MATH.rotateObj(localObj3d, config.rot);
             if (config['factors']) {
                 axisFactors = config['factors'];
             }
@@ -75,9 +80,15 @@ class DynamicPoint {
             return obj3d;
         }
 
+        function getLocalTransform(storeObj) {
+            storeObj.position.copy(localObj3d.position);
+            storeObj.quaternion.copy(localObj3d.quaternion);
+        }
+
         this.call = {
             getObj3d:getObj3d,
-            updateObj3d:updateObj3d
+            updateObj3d:updateObj3d,
+            getLocalTransform:getLocalTransform
         }
 
     }
