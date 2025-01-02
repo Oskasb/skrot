@@ -8,11 +8,13 @@ class JsonAsset {
         this.name = name;
         this.json = null;
 
+
+
         this.subscribers = [];
 
         let onDataUpdated = function(url,data) {
             this.json = data;
-        //    console.log("Json Data Updated", url, data)
+            console.log("Json Data Updated", url, data)
             pipeMsgCB('load OK', 'json', this.name+'.json')
             MATH.callAll(this.subscribers, this.json)
         }.bind(this);
@@ -21,8 +23,8 @@ class JsonAsset {
             onDataUpdated:onDataUpdated
         }
 
-        this.loadJsonAsset();
         registerJsonAsset(this);
+        this.loadJsonAsset();
     }
 
     loadJsonAsset() {
@@ -33,6 +35,7 @@ class JsonAsset {
     subscribe(callback) {
         this.subscribers.push(callback);
         if (this.json !== null) {
+            console.log("Already loaded", this.json)
             callback(this.json);
         }
     }

@@ -6,6 +6,7 @@ import {PieceControl} from "../controls/PieceControl.js";
 import {PieceInput} from "../controls/PieceInput.js";
 import {MATH} from "../../application/MATH.js";
 import {ControlState} from "../controls/ControlState.js";
+import {PiecePropulsion} from "../controls/PiecePropulsion.js";
 
 let tempArray = [];
 
@@ -16,9 +17,9 @@ class ControllablePiece {
 
         this.inputs = {};
         this.ui = {};
-
-
         this.controlStates = {};
+
+        this.propulsion = {};
 
         this.call = {
 
@@ -60,6 +61,7 @@ class ControllablePiece {
         let inputs = this.inputs;
         let ui = this.ui;
         let controlStates = this.controlStates;
+        let props = this.propulsion;
 
         function attachInput(input) {
             inputs[input.id] = new PieceControl(_this, input.id, input.state);
@@ -81,9 +83,19 @@ class ControllablePiece {
                     controlStates[data[i].id] = new ControlState(_this, data[i].id, data[i]);
                 }
             }
-
             new JsonAsset(fileName).subscribe(attachControlList)
         }
+
+        function attachPropulsion(point, fileName) {
+            console.log("attachPropulsion", point, fileName)
+            function attachProp(data) {
+                console.log("Attach attachProp List", data)
+                    props[point] = new PiecePropulsion(point, data);
+                }
+
+            new JsonAsset(fileName).subscribe(attachProp)
+        }
+
 
         function onData(json) {
             _this.json = json;
@@ -109,6 +121,12 @@ class ControllablePiece {
                 }
             }
 
+            let propulsion = json['propulsion'];
+            if (propulsion) {
+                for (let i = 0; i < propulsion.length; i++) {
+                    attachPropulsion(propulsion[i].point, propulsion[i].file);
+                }
+            }
 
             loadAssetInstance(json['controllable'], controllableLoaded)
         }

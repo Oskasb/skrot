@@ -68,12 +68,12 @@ class JsonPipe {
             }
         };
 
-		storeConfig = function(url, config, success) {
+		storeConfig(url, config, success) {
 			this.loadedData[url] = config;
 			success(url, config);
 		};
 
-		loadJsonFromUrl = function(url, dataUpdated, fail) {
+		loadJsonFromUrl(url, dataUpdated, fail) {
 		    let _this = this;
             let onLoaded = function(config, fileUrl) {
                 _this.storeConfig(fileUrl, config, dataUpdated);

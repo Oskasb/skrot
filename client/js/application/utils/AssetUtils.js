@@ -23,7 +23,10 @@ let jsonAssets = {};
 let tempObj = new Object3D()
 
 function registerJsonAsset(jsonAsset) {
-    jsonAssets[jsonAsset.name] = jsonAsset;
+    if (!jsonAssets[jsonAsset.name]) {
+        jsonAssets[jsonAsset.name] = [];
+    }
+    jsonAssets[jsonAsset.name].push(jsonAsset);
 }
 
 function assetReloaded(e) {
@@ -41,7 +44,9 @@ function notifyAssetUpdated(url, entry) {
             console.log("No JsonAsset")
             loadJsonFile(locUrl, assetReloaded);
         } else {
-            jsonAssets[entry[0]].loadJsonAsset();
+            for (let i = 0; i < jsonAssets[entry[0]].length; i++) {
+                jsonAssets[entry[0]][i].loadJsonAsset();
+            }
         }
 
     } else if (fileType === 'png') {

@@ -18,5 +18,9 @@
   "controls": [
     {"id": "CONTROLS_FLIGHT",       "file": "controls_f14_flight"},
     {"id": "CONTROLS_GEAR",         "file": "controls_f14_gear"}
+  ],
+  "propulsion": [
+    {"point": "ENGINE_L",     "file": "propulsion_f14_engine"},
+    {"point": "ENGINE_R",     "file": "propulsion_f14_engine"}
   ]
 }
