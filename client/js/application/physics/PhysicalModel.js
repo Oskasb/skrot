@@ -48,15 +48,19 @@ class PhysicalModel {
         }
 
         function updateBodyObj3d() {
+            updateFloatation()
+        }
+
+        function alignVisualModel() {
             let body = obj3d.userData.body;
             bodyTransformToObj3d(body, obj3d);
-            updateFloatation()
         }
 
         function bodyReadyCB(body) {
             console.log("body added", body);
             obj3d.userData.body = body;
             AmmoAPI.registerPhysicsStepCallback(updateBodyObj3d)
+            ThreeAPI.addPostrenderCallback(alignVisualModel)
         }
 
 

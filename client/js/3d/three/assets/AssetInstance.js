@@ -28,13 +28,26 @@ class AssetInstance {
         let dynamicPoints = [];
         this.dynamicPoints = dynamicPoints;
 
+        function getPointById(id) {
+            for (let i = 0; i < dynamicPoints.length; i++) {
+                let point = dynamicPoints[i];
+                if (point.id === id) {
+                    return point;
+                }
+            }
+        }
 
-        function attachPoints(id, fileName) {
+
+        function attachPoints(groupId, fileName) {
             function attachPointList(data) {
                 console.log("Attach Point List", data)
-                MATH.emptyArray(dynamicPoints)
                 for (let i = 0; i < data.length; i++) {
-                    dynamicPoints.push(new DynamicPoint(settings.assetInstance, data[i]))
+                    let id = data[i].id;
+                    let existingPoint = getPointById(id)
+                    if (existingPoint) {
+                        MATH.splice(dynamicPoints, existingPoint);
+                    }
+                    dynamicPoints.push(new DynamicPoint(settings.assetInstance, data[i], groupId))
                 }
             }
 

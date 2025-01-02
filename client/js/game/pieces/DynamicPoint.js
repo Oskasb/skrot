@@ -3,11 +3,15 @@ import {getAssetBoneByName, getBoneWorldTransform} from "../../application/utils
 import {MATH} from "../../application/MATH.js";
 
 let tempObj = new Object3D();
+let tempVec = new Vector3();
 
 class DynamicPoint {
-    constructor(assetInstance, config) {
+    constructor(assetInstance, config, groupName) {
+        this.id = config.id;
+        this.groupName = groupName;
         let obj3d = new Object3D();
         let offset = new Vector3();
+
         MATH.vec3FromArray(offset, config.pos);
 
         let hasRotarion = false;
@@ -42,19 +46,21 @@ class DynamicPoint {
             }
 
             obj3d.position.copy(offset);
-            obj3d.position.applyQuaternion(tempObj.quaternion);
-
 
             if (axisFactors !== false) {
                 let lng = obj3d.position.length();
                 obj3d.position.normalize();
-                obj3d.position.x *= axisFactors[0];
-                obj3d.position.y *= axisFactors[1];
-                obj3d.position.z *= axisFactors[2];
+                MATH.vec3FromArray(tempVec, axisFactors);
+                //    tempVec.applyQuaternion(tempObj.quaternion)
+                    obj3d.position.x *= tempVec.x;
+                   obj3d.position.y *= tempVec.y;
+                    obj3d.position.z *= tempVec.z;
                 obj3d.position.normalize();
                 obj3d.position.multiplyScalar(lng);
+
             }
 
+            obj3d.position.applyQuaternion(tempObj.quaternion);
 
             obj3d.quaternion.copy(tempObj.quaternion);
 

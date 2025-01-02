@@ -5,6 +5,7 @@ import {SimpleStatus} from "../../application/setup/SimpleStatus.js";
 import {debugDrawDynamicPoints} from "../../application/utils/DebugUtils.js";
 import {evt} from "../../application/event/evt.js";
 import {MATH} from "../../application/MATH.js";
+import {bodyTransformToObj3d} from "../../application/utils/PhysicsUtils.js";
 
 class GamePlayer {
     constructor() {
@@ -23,7 +24,7 @@ class GamePlayer {
             ctrlPiece.getAssetInstance().call.addToScene();
             status.setStatusKey(ENUMS.PlayerStatus.CONTROLLABLE_ID, ctrlPiece.getStatus(ENUMS.ControllableStatus.CONTROLLABLE_ID));
             playerControllable = ctrlPiece;
-            ThreeAPI.registerPrerenderCallback(updatePlayer)
+            ThreeAPI.threeSetup.addPrerenderCallback(updatePlayer)
         }
 
         function activateControllable(controllableId) {
@@ -35,8 +36,8 @@ class GamePlayer {
         }
 
         function updatePlayer() {
-            obj3d.position.copy(playerControllable.getAssetInstance().call.getObj3d().position)
-            obj3d.quaternion.copy(playerControllable.getAssetInstance().call.getObj3d().quaternion)
+            let assetObj3d = playerControllable.getAssetInstance().getObj3d();
+            bodyTransformToObj3d(assetObj3d.userData.body, obj3d)
             let ui = playerControllable.ui;
             for (let key in ui) {
                 ui[key].call.update();

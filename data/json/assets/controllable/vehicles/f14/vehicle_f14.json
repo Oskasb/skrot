@@ -2,8 +2,9 @@
   "model": "model_f14",
   "physical": "physical_f14",
   "points": [
-    {"id": "LIGHT_POINTS",          "file": "points_f14_lights"},
-    {"id": "ENGINE_POINTS",         "file": "points_f14_engines"}
+    {"id": "LIGHTS",          "file": "points_f14_lights"},
+    {"id": "ENGINES",         "file": "points_f14_engines"},
+    {"id": "SURFACES",        "file": "points_f14_surfaces"}
   ],
   "control_dynamics": [
     {"id": "DYNAMIC_FLEX_L",       "file": "dynamic_f14_flex_l"},
