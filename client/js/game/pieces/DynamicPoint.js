@@ -46,7 +46,6 @@ class DynamicPoint {
 
             if (hasBoneParent === true) {
                 getBoneWorldTransform(parentNode, tempObj);
-
                 if (axisFactors !== false) {
                     let lng = obj3d.position.length();
                     obj3d.position.normalize();
@@ -66,7 +65,7 @@ class DynamicPoint {
 
 
             obj3d.position.applyQuaternion(tempObj.quaternion);
-
+            localObj3d.position.copy(obj3d.position)
             obj3d.quaternion.copy(tempObj.quaternion);
 
             if (hasRotarion === true) {
@@ -81,6 +80,11 @@ class DynamicPoint {
         }
 
         function getLocalTransform(storeObj) {
+            if (hasBoneParent) {
+                updateObj3d();
+                localObj3d.quaternion.copy(obj3d.quaternion);
+                MATH.rotateObj(localObj3d, config.rot);
+            }
             storeObj.position.copy(localObj3d.position);
             storeObj.quaternion.copy(localObj3d.quaternion);
         }

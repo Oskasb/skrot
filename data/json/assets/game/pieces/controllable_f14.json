@@ -22,5 +22,14 @@
   "propulsion": [
     {"point": "ENGINE_L",     "file": "propulsion_f14_engine"},
     {"point": "ENGINE_R",     "file": "propulsion_f14_engine"}
+  ],
+  "surfaces": [
+    {"point": "TAIL_L",     "file": "surface_f14_tail"},
+    {"point": "TAIL_R",     "file": "surface_f14_tail"},
+    {"point": "RUDDER_L",   "file": "surface_f14_rudder"},
+    {"point": "RUDDER_R",   "file": "surface_f14_rudder"},
+    {"point": "WING_L",     "file": "surface_f14_wing"},
+    {"point": "WING_R",     "file": "surface_f14_wing"},
+    {"point": "FUSELAGE",   "file": "surface_f14_fuselage"}
   ]
 }

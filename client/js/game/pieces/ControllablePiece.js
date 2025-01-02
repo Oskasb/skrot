@@ -8,6 +8,7 @@ import {MATH} from "../../application/MATH.js";
 import {ControlState} from "../controls/ControlState.js";
 import {PiecePropulsion} from "../controls/PiecePropulsion.js";
 import {ControllableForceProcessor} from "./ControllableForceProcessor.js";
+import {PieceSurface} from "../controls/PieceSurface.js";
 
 let tempArray = [];
 
@@ -19,7 +20,7 @@ class ControllablePiece {
         this.inputs = {};
         this.ui = {};
         this.controlStates = {};
-
+        this.surfaces = {};
         this.propulsion = {};
         new ControllableForceProcessor(this);
         this.call = {
@@ -77,6 +78,7 @@ class ControllablePiece {
         let ui = this.ui;
         let controlStates = this.controlStates;
         let props = this.propulsion;
+        let surfs = this.surfaces;
 
         function attachInput(input) {
             inputs[input.id] = new PieceControl(_this, input.id, input.state);
@@ -107,6 +109,13 @@ class ControllablePiece {
                     props[point] = new PiecePropulsion(point, data);
                 }
 
+            jsonAsset(fileName, attachProp)
+        }
+
+        function attachSurface(point, fileName) {
+            function attachProp(data) {
+                surfs[point] = new PieceSurface(point, data);
+            }
             jsonAsset(fileName, attachProp)
         }
 
@@ -141,6 +150,14 @@ class ControllablePiece {
                     attachPropulsion(propulsion[i].point, propulsion[i].file);
                 }
             }
+
+            let surfaces = json['surfaces']
+                if (surfaces) {
+                    for (let i = 0; i < surfaces.length; i++) {
+                        attachSurface(surfaces[i].point, surfaces[i].file);
+                    }
+                }
+
 
             loadAssetInstance(json['controllable'], controllableLoaded)
         }

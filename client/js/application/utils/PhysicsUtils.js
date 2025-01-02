@@ -501,8 +501,6 @@ function updateViewObstruction(pos) {
 }
 
 function getBodyVelocity(body) {
-//    body.getMotionState()
-//    console.log(body);
     let ammoVec3 = body.getLinearVelocity();
     tempVel.set(ammoVec3.x(), ammoVec3.y(), ammoVec3.z())
     return tempVel;
