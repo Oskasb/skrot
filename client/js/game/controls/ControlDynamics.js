@@ -2,7 +2,7 @@ import {JsonAsset} from "../../application/load/JsonAsset.js";
 import {MATH} from "../../application/MATH.js";
 import {jointCalls} from "../../application/utils/ControlUtils.js";
 import {poolFetch, poolReturn} from "../../application/utils/PoolUtils.js";
-import {getAssetBoneByName} from "../../application/utils/AssetUtils.js";
+import {getAssetBoneByName, jsonAsset} from "../../application/utils/AssetUtils.js";
 import {Object3D} from "../../../../libs/three/Three.Core.js";
 import {ControlTransition} from "./ControlTransition.js";
 import {DynamicBone} from "../../3d/three/assets/DynamicBone.js";
@@ -28,7 +28,7 @@ class ControlDynamics {
         let controlTransition = new ControlTransition();
         let applyCalls = [];
 
-        let jsonAsset = new JsonAsset(fileName)
+
 
         function attachDynamicTargets(targets) {
             if (targets.joints) {
@@ -83,7 +83,7 @@ class ControlDynamics {
 
         }.bind(this)
 
-        jsonAsset.subscribe(onData);
+        jsonAsset(fileName, onData);
 
         function onTransitionChange(value) {
             state.value = value;

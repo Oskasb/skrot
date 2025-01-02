@@ -1,6 +1,6 @@
 import {getJsonUrlByFileName, loadJsonFile, pipeMsgCB, pipeMsgLoadInitCB} from "../utils/DataUtils.js";
 import {MATH} from "../MATH.js";
-import {registerJsonAsset} from "../utils/AssetUtils.js";
+
 
 class JsonAsset {
     constructor(name) {
@@ -23,7 +23,6 @@ class JsonAsset {
             onDataUpdated:onDataUpdated
         }
 
-        registerJsonAsset(this);
         this.loadJsonAsset();
     }
 

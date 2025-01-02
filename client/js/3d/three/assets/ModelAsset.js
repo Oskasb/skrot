@@ -1,6 +1,6 @@
 import {getJsonByFileName} from "../../../application/utils/DataUtils.js";
 import {MATH} from "../../../application/MATH.js";
-import {loadAssetMaterial, loadModelGeometry} from "../../../application/utils/AssetUtils.js";
+import {jsonAsset, loadAssetMaterial, loadModelGeometry} from "../../../application/utils/AssetUtils.js";
 import {Object3D} from "../../../../../libs/three/Three.Core.js";
 import {JsonAsset} from "../../../application/load/JsonAsset.js";
 
@@ -73,7 +73,7 @@ class ModelAsset {
         function initAsset(modelFileName) {
             settings.modelFileName = modelFileName;
 
-            let jsonAsset = new JsonAsset(modelFileName);
+
 
             function onJson(data) {
 
@@ -131,8 +131,7 @@ class ModelAsset {
 
             }
 
-            jsonAsset.subscribe(onJson);
-
+            jsonAsset(modelFileName, onJson);
         }
 
         function subscribe(cb, obj3d) {

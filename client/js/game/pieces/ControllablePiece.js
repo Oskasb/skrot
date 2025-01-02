@@ -1,6 +1,6 @@
 import {JsonAsset} from "../../application/load/JsonAsset.js";
 import {poolFetch} from "../../application/utils/PoolUtils.js";
-import {loadAssetInstance} from "../../application/utils/AssetUtils.js";
+import {jsonAsset, loadAssetInstance} from "../../application/utils/AssetUtils.js";
 import {SimpleStatus} from "../../application/setup/SimpleStatus.js";
 import {PieceControl} from "../controls/PieceControl.js";
 import {PieceInput} from "../controls/PieceInput.js";
@@ -50,7 +50,7 @@ class ControllablePiece {
     initControllable(id, callback) {
 
         let _this = this;
-        let jsonAsset = new JsonAsset(id);
+
 
         function controllableLoaded(assetInstance) {
             console.log("assetInstance Loaded:", assetInstance);
@@ -73,7 +73,7 @@ class ControllablePiece {
                     ui[json[i].id] = new PieceInput(_this, json[i].id, json[i])
                 }
             }
-            new JsonAsset(file).subscribe(attach)
+            jsonAsset(file, attach)
         }
 
         function attachControls(id, fileName) {
@@ -83,7 +83,7 @@ class ControllablePiece {
                     controlStates[data[i].id] = new ControlState(_this, data[i].id, data[i]);
                 }
             }
-            new JsonAsset(fileName).subscribe(attachControlList)
+            jsonAsset(fileName, attachControlList)
         }
 
         function attachPropulsion(point, fileName) {
@@ -93,7 +93,7 @@ class ControllablePiece {
                     props[point] = new PiecePropulsion(point, data);
                 }
 
-            new JsonAsset(fileName).subscribe(attachProp)
+            jsonAsset(fileName, attachProp)
         }
 
 
@@ -131,7 +131,7 @@ class ControllablePiece {
             loadAssetInstance(json['controllable'], controllableLoaded)
         }
 
-        jsonAsset.subscribe(onData)
+        jsonAsset(id, onData)
 
     }
 

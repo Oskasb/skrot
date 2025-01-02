@@ -3,6 +3,7 @@ import {getGroupMesh} from "../../../application/utils/ModelUtils.js";
 import {MATH} from "../../../application/MATH.js";
 import {CanvasTexture, RepeatWrapping, Texture} from "../../../../../libs/three/Three.Core.js";
 import {JsonAsset} from "../../../application/load/JsonAsset.js";
+import {jsonAsset} from "../../../application/utils/AssetUtils.js";
 
 class AssetTexture {
     constructor(textureFileName) {
@@ -36,12 +37,12 @@ class AssetTexture {
                 sendToSubscribers();
             }
 
-            let jsonAsset = new JsonAsset(txName);
 
             function onJson(data) {
                 loadImageAsset(data.file, assetLoaded)
             }
-            jsonAsset.subscribe(onJson)
+            jsonAsset(txName, onJson);
+
 
         }
 

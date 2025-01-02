@@ -16,6 +16,7 @@ import {getFrame} from "../../application/utils/DataUtils.js";
 import {getSetting} from "../../application/utils/StatusUtils.js";
 import {ThreeWater} from "./terrain/ThreeWater.js";
 import {JsonAsset} from "../../application/load/JsonAsset.js";
+import {jsonAsset} from "../../application/utils/AssetUtils.js";
 
 let statusMap = {
     transitionProgress:0,
@@ -535,7 +536,7 @@ class ThreeEnvironment {
 
     //    console.log("Load env json")
 
-        new JsonAsset('environments').subscribe(environmentListLoaded)
+        jsonAsset('environments', environmentListLoaded)
 
     };
 

@@ -1,7 +1,7 @@
 import {MeshPhysicalMaterial, MeshStandardMaterial} from "../../../../../libs/three/materials/Materials.js";
 import {getJsonByFileName, getJsonUrlByFileName} from "../../../application/utils/DataUtils.js";
 import {MATH} from "../../../application/MATH.js";
-import {loadAsset, loadAssetTexture} from "../../../application/utils/AssetUtils.js";
+import {jsonAsset, loadAsset, loadAssetTexture} from "../../../application/utils/AssetUtils.js";
 import {JsonAsset} from "../../../application/load/JsonAsset.js";
 import * as constants from "../../../../../libs/three/constants.js";
 
@@ -53,7 +53,7 @@ class ModelMaterial {
 
         function initMaterial(name) {
 
-            let jsonAsset = new JsonAsset(name);
+
 
             function onJsonLoaded(data) {
              //   console.log("material JSON", name, data);
@@ -100,8 +100,7 @@ class ModelMaterial {
                 }
             }
 
-            jsonAsset.subscribe(onJsonLoaded)
-
+            jsonAsset(name, onJsonLoaded)
         }
 
         function subscribe(cb) {

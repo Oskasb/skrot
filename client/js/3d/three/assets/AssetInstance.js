@@ -1,5 +1,5 @@
 import {Object3D} from "../../../../../libs/three/Three.Core.js";
-import {loadAssetModel} from "../../../application/utils/AssetUtils.js";
+import {jsonAsset, loadAssetModel} from "../../../application/utils/AssetUtils.js";
 import {JsonAsset} from "../../../application/load/JsonAsset.js";
 import {SimpleStatus} from "../../../application/setup/SimpleStatus.js";
 import {ControlDynamics} from "../../../game/controls/ControlDynamics.js";
@@ -51,7 +51,7 @@ class AssetInstance {
                 }
             }
 
-            new JsonAsset(fileName).subscribe(attachPointList)
+            jsonAsset(fileName, attachPointList)
         }
 
         function attachControlDynamic(id, fileName) {
@@ -76,7 +76,7 @@ class AssetInstance {
 
         function instantiate(assetFileName, callback) {
 
-            let jsonAsset = new JsonAsset(assetFileName);
+
 
             function onJsonLoaded(data) {
                 settings.json = data;
@@ -117,7 +117,7 @@ class AssetInstance {
 
             }
 
-            jsonAsset.subscribe(onJsonLoaded)
+            jsonAsset(assetFileName, onJsonLoaded)
 
         }
 

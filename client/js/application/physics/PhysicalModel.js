@@ -5,6 +5,7 @@ import {MATH} from "../MATH.js";
 import {ENUMS} from "../ENUMS.js";
 import {evt} from "../event/evt.js";
 import {getFrame} from "../utils/DataUtils.js";
+import {jsonAsset} from "../utils/AssetUtils.js";
 
 let tempVec = new Vector3();
 
@@ -83,7 +84,7 @@ class PhysicalModel {
             }
         }
 
-        new JsonAsset(fileName).subscribe(onConf)
+       jsonAsset(fileName, onConf)
 
     }
 

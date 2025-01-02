@@ -75,6 +75,7 @@ class JsonPipe {
 
 		loadJsonFromUrl(url, dataUpdated, fail) {
 		    let _this = this;
+
             let onLoaded = function(config, fileUrl) {
                 _this.storeConfig(fileUrl, config, dataUpdated);
                 _this.registerPollCallback(fileUrl, dataUpdated);

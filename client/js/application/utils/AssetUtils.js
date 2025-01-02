@@ -11,6 +11,7 @@ import {poolFetch} from "./PoolUtils.js";
 import {ENUMS} from "../ENUMS.js";
 import {evt} from "../event/evt.js";
 import {Object3D} from "../../../../libs/three/Three.Core.js";
+import {JsonAsset} from "../load/JsonAsset.js";
 
 let loadCalls = {};
 let loadedAssets = {};
@@ -22,11 +23,14 @@ let loadedTextures = {};
 let jsonAssets = {};
 let tempObj = new Object3D()
 
-function registerJsonAsset(jsonAsset) {
-    if (!jsonAssets[jsonAsset.name]) {
-        jsonAssets[jsonAsset.name] = [];
+
+function jsonAsset(name, callback) {
+    if (!jsonAssets[name]) {
+        jsonAssets[name] = new JsonAsset(name);
     }
-    jsonAssets[jsonAsset.name].push(jsonAsset);
+
+    jsonAssets[name].subscribe(callback);
+
 }
 
 function assetReloaded(e) {
@@ -44,9 +48,7 @@ function notifyAssetUpdated(url, entry) {
             console.log("No JsonAsset")
             loadJsonFile(locUrl, assetReloaded);
         } else {
-            for (let i = 0; i < jsonAssets[entry[0]].length; i++) {
-                jsonAssets[entry[0]][i].loadJsonAsset();
-            }
+            jsonAssets[entry[0]].loadJsonAsset();
         }
 
     } else if (fileType === 'png') {
@@ -169,7 +171,7 @@ function getBoneWorldTransform(bone, obj3d) {
 
 
 export {
-    registerJsonAsset,
+    jsonAsset,
     notifyAssetUpdated,
     loadAsset,
     loadAssetModel,
