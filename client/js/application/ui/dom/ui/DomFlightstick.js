@@ -5,6 +5,7 @@ import {
 } from "../DomUtils.js";
 import {InputDragPointer} from "../pointer/InputDragPointer.js";
 import {MATH} from "../../../MATH.js";
+import {getFrame} from "../../../utils/DataUtils.js";
 
 
 class DomFlightstick {
@@ -35,6 +36,11 @@ class DomFlightstick {
             let yawStateDiv;
             let aoaYStateDiv;
 
+            let nState;
+        let eState;
+        let sState;
+        let wState;
+
         let moveRange = 40;
 
         function update() {
@@ -63,9 +69,18 @@ class DomFlightstick {
             translateElement3DPercent(pitchLineDiv, 0, pitch,  0);
             transformElement3DPercent(rollStateDiv,  0,0,  0, roll);
             translateElement3DPercent(yawStateDiv, yaw, 0,  0);
-            let txt = MATH.numberToDigits( statusMap['STATUS_PITCH'], 2, 2);
-            txt += '2 '+MATH.numberToDigits( statusMap['STATUS_ROLL'], 2, 2);
-            txt += '3 '+MATH.numberToDigits( statusMap['STATUS_YAW'], 2, 2);
+
+            let n = statusMap['STATUS_ANGLE_NORTH']*50 / 3.15 + 50
+            let e = statusMap['STATUS_ANGLE_EAST']*50 / 3.15 + 50
+            let s = statusMap['STATUS_ANGLE_SOUTH']*50 / 3.15 + 50
+            let w = statusMap['STATUS_ANGLE_WEST']*50 / 3.15 + 50
+
+            translateElement3DPercent(nState, n, 0,  0);
+            translateElement3DPercent(eState, e, 0,  0);
+            translateElement3DPercent(sState, s, 0,  0);
+            translateElement3DPercent(wState, w, 0,  0);
+
+            let txt = 'FPS:'+MATH.numberToDigits(1 / getFrame().avgTpf, 0, 0);
             surface.innerHTML = txt
         }
 
@@ -87,6 +102,13 @@ class DomFlightstick {
             aoaXStateDiv = htmlElement.call.getChildElement('aoa_x_state');
             rollStateDiv = htmlElement.call.getChildElement('roll_state');
             yawStateDiv = htmlElement.call.getChildElement('yaw_state');
+
+
+            nState = htmlElement.call.getChildElement('n_state');;
+            eState = htmlElement.call.getChildElement('w_state');;
+            sState = htmlElement.call.getChildElement('s_state');;
+            wState = htmlElement.call.getChildElement('e_state');;
+
             let opts = [
                     {axis:"X", min:-1, max:1, origin: 0, margin:1.5},
                     {axis:"Y", min:-1, max:1, origin: 0, margin:1.5}

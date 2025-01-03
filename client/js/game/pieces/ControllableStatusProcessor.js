@@ -17,6 +17,12 @@ function sampleSpatialState(controllable) {
     controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_PITCH, pitch);
     controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_ROLL, roll);
     controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_YAW, yaw);
+
+    controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_ANGLE_NORTH, yaw);
+    controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_ANGLE_EAST, MATH.angleInsideCircle(yaw+MATH.HALF_PI));
+    controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_ANGLE_SOUTH, MATH.angleInsideCircle(yaw+MATH.HALF_PI*2));
+    controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_ANGLE_WEST, MATH.angleInsideCircle(yaw-MATH.HALF_PI));
+
 }
 
 function processControllableStatus(controllable) {

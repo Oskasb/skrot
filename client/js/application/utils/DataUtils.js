@@ -8,6 +8,7 @@ let pipelineAPI = new PipelineAPI();
 let loadCalls = [];
 let frame = {
     tpf:0.01,
+    tpfAvg:0.01,
     gameTime:0.01,
     systemTime:0.01,
     elapsedTime:0.01,
