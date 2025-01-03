@@ -7,6 +7,13 @@
     "input_targets": [
       {"sample":"AXIS_X", "target":"INPUT_ROLL", "init": 0},
       {"sample":"AXIS_Y", "target":"INPUT_PITCH", "init": 0}
+    ],
+    "feedback": [
+      {"status": "STATUS_PITCH"},
+      {"status": "STATUS_ROLL"},
+      {"status": "STATUS_YAW"},
+      {"status": "STATUS_AOA_Y"},
+      {"status": "STATUS_AOA_X"}
     ]
   }
 ]

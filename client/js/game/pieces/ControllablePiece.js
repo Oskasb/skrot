@@ -9,6 +9,7 @@ import {ControlState} from "../controls/ControlState.js";
 import {PiecePropulsion} from "../controls/PiecePropulsion.js";
 import {ControllableForceProcessor} from "./ControllableForceProcessor.js";
 import {PieceSurface} from "../controls/PieceSurface.js";
+import {ControllableStatusProcessor} from "./ControllableStatusProcessor.js";
 
 let tempArray = [];
 
@@ -23,10 +24,6 @@ class ControllablePiece {
         this.surfaces = {};
         this.propulsion = {};
         new ControllableForceProcessor(this);
-        this.call = {
-
-        }
-
     }
 
     getObj3d() {
@@ -50,11 +47,9 @@ class ControllablePiece {
     }
 
     getDynamicPoint(id) {
-
         if (this.assetInstance) {
             return this.assetInstance.call.getPointById(id);
         }
-
     }
 
     getControlByName(name) {
@@ -71,6 +66,7 @@ class ControllablePiece {
         function controllableLoaded(assetInstance) {
             console.log("assetInstance Loaded:", assetInstance);
             _this.assetInstance = assetInstance;
+            new ControllableStatusProcessor(_this);
             callback(_this)
         }
 
@@ -158,7 +154,6 @@ class ControllablePiece {
                     }
                 }
 
-
             loadAssetInstance(json['controllable'], controllableLoaded)
         }
 
@@ -195,7 +190,6 @@ class ControllablePiece {
         } else {
             return 0;
         }
-
     }
 
     getAmmoBody() {

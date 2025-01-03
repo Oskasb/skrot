@@ -550,30 +550,16 @@ function setBodyTransform(body, position, quaternion) {
 
     //    body.getWorldTransform(TRANSFORM_AUX);
 
-
     QUAT_AUX.setX(quaternion.x);
     QUAT_AUX.setY(quaternion.y);
     QUAT_AUX.setZ(quaternion.z);
     QUAT_AUX.setW(quaternion.w);
 
-    /*
-               TRANSFORM_AUX.getRotation().setX(quaternion.x);
-               TRANSFORM_AUX.getRotation().setY(quaternion.y);
-               TRANSFORM_AUX.getRotation().setZ(quaternion.z);
-               TRANSFORM_AUX.getRotation().setW(quaternion.w);
-           */
-
-
     TRANSFORM_AUX.setRotation(QUAT_AUX);
-
-    //    body.setWorldTransform(TRANSFORM_AUX);
-
-    //    ms.setWorldTransform(TRANSFORM_AUX);
 
     body.setWorldTransform(TRANSFORM_AUX);
 
     body.getMotionState().setWorldTransform(TRANSFORM_AUX);
-
 
     VECTOR_AUX.setX(0);
     VECTOR_AUX.setY(0);
@@ -1124,7 +1110,7 @@ class AmmoFunctions {
             threeObj.quaternion.copy(obj3d.quaternion);
         MATH.rotXYZFromArray(threeObj, rot);
         let quaternion = threeObj.quaternion
-        quaternion.multiply(obj3d.quaternion);
+
         let scaleVec = MATH.vec3FromArray(threeObj.scale, scale);
         threeObj.scale.multiply(obj3d.scale);
 

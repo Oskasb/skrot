@@ -1,14 +1,10 @@
 import {poolFetch} from "../../../utils/PoolUtils.js";
 import {
-    addMouseMoveFunction,
-    addPressEndFunction,
-    addPressStartFunction,
-    pointerEventToPercentX,
-    pointerEventToPercentY, translateElement3DPercent
+    transformElement3DPercent,
+    translateElement3DPercent
 } from "../DomUtils.js";
-import {MATH} from "../../../MATH.js";
-import {getFrame} from "../../../utils/DataUtils.js";
 import {InputDragPointer} from "../pointer/InputDragPointer.js";
+import {MATH} from "../../../MATH.js";
 
 
 class DomFlightstick {
@@ -18,6 +14,8 @@ class DomFlightstick {
         let htmlElement;
         let _this = this;
         let statusMap;
+
+        let surface;
 
         let inputElement;
         let stickElement;
@@ -30,30 +28,50 @@ class DomFlightstick {
         let dynamicPitchL;
         let dynamicPitchR;
 
-        function update() {
-            translateElement3DPercent(stickElement, statusMap['INPUT_ROLL']*50, statusMap['INPUT_PITCH']*50, 0);
+        let pitchStateDiv;
+        let pitchLineDiv;
+        let aoaXStateDiv;
+            let rollStateDiv;
+            let yawStateDiv;
+            let aoaYStateDiv;
 
-            let outRoll = statusMap['output_INPUT_ROLL']*50+50
-            let outPitch = statusMap['output_INPUT_PITCH']*50+50
+        let moveRange = 40;
+
+        function update() {
+            translateElement3DPercent(stickElement, statusMap['INPUT_ROLL']*moveRange, statusMap['INPUT_PITCH']*moveRange, 0);
+
+            let outRoll = statusMap['output_INPUT_ROLL']*moveRange+50
+            let outPitch = statusMap['output_INPUT_PITCH']*moveRange+50
 
             translateElement3DPercent(controlLineX, outRoll, 0,  0);
             translateElement3DPercent(controlLineY, 0,outPitch,  0);
 
-            let dynRollL = -statusMap['DYNAMIC_ROLL_L']*50+50
-            let dynRollR = statusMap['DYNAMIC_ROLL_R']*50+50
-            let dynPitchR = statusMap['DYNAMIC_PITCH_L']*50+50
-            let dynPitchL = statusMap['DYNAMIC_PITCH_R']*50+50
+            let dynRollL = statusMap['DYNAMIC_ROLL_L']*moveRange+50
+            let dynRollR = -statusMap['DYNAMIC_ROLL_R']*moveRange+50
+            let dynPitchR = statusMap['DYNAMIC_PITCH_L']*moveRange+50
+            let dynPitchL = statusMap['DYNAMIC_PITCH_R']*moveRange+50
 
-            translateElement3DPercent(dynamicRollL, dynRollL,0,  0);
-            translateElement3DPercent(dynamicRollR, dynRollR,50,  0);
-            translateElement3DPercent(dynamicPitchL, 0, dynPitchL,  0);
-            translateElement3DPercent(dynamicPitchR, 0, dynPitchR,  0);
+            translateElement3DPercent(dynamicRollL, dynRollL,15,  0);
+            translateElement3DPercent(dynamicRollR, dynRollR,60,  0);
+            translateElement3DPercent(dynamicPitchL, 12, dynPitchL,  0);
+            translateElement3DPercent(dynamicPitchR, -12, dynPitchR,  0);
 
+            let pitch = statusMap['STATUS_PITCH']*50 / 3.15 + 50
+            let roll = statusMap['STATUS_ROLL'] // *50 / 3.15 + 50
+            let yaw = statusMap['STATUS_YAW']*50 / 3.15 + 50
+            translateElement3DPercent(pitchStateDiv, 0, pitch,  0);
+            translateElement3DPercent(pitchLineDiv, 0, pitch,  0);
+            transformElement3DPercent(rollStateDiv,  0,0,  0, roll);
+            translateElement3DPercent(yawStateDiv, yaw, 0,  0);
+            let txt = MATH.numberToDigits( statusMap['STATUS_PITCH'], 2, 2);
+            txt += '2 '+MATH.numberToDigits( statusMap['STATUS_ROLL'], 2, 2);
+            txt += '3 '+MATH.numberToDigits( statusMap['STATUS_YAW'], 2, 2);
+            surface.innerHTML = txt
         }
 
 
         function setupListeners() {
-            let surface = htmlElement.call.getChildElement('stick_sampler')
+            surface = htmlElement.call.getChildElement('stick_sampler')
             controlLineX = htmlElement.call.getChildElement('actuator_x')
             controlLineY = htmlElement.call.getChildElement('actuator_y')
             inputElement = htmlElement.call.getChildElement('stick_input')
@@ -64,10 +82,14 @@ class DomFlightstick {
             dynamicPitchL = htmlElement.call.getChildElement('dynamic_pitch_l');
             dynamicPitchR = htmlElement.call.getChildElement('dynamic_pitch_r');
 
-
+            pitchStateDiv = htmlElement.call.getChildElement('pitch_state');
+            pitchLineDiv = htmlElement.call.getChildElement('pitch_state_line');
+            aoaXStateDiv = htmlElement.call.getChildElement('aoa_x_state');
+            rollStateDiv = htmlElement.call.getChildElement('roll_state');
+            yawStateDiv = htmlElement.call.getChildElement('yaw_state');
             let opts = [
-                    {axis:"X", min:-1, max:1, origin: 0, margin:0.25},
-                    {axis:"Y", min:-1, max:1, origin: 0, margin:0.25}
+                    {axis:"X", min:-1, max:1, origin: 0, margin:1.5},
+                    {axis:"Y", min:-1, max:1, origin: 0, margin:1.5}
                 ]
 
             inputDragPointer.call.activateDragSurface(surface, inputElement, statusMap, opts)

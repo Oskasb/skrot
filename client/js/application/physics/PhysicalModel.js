@@ -37,14 +37,17 @@ class PhysicalModel {
                 tempVec2.set(0, 0, 0);
 
 
+                let waveHeight = Math.cos(time*0.8+(tempVec.x+tempVec.z*0.2)*0.04)*2
 
-                let submersion = calcBoxSubmersion(tempVec.y - Math.cos(time*0.8+(tempVec.x+tempVec.z*0.2)*0.04)*3, buoyancy[i].w);
+                let submersion = calcBoxSubmersion(tempVec.y  + waveHeight, buoyancy[i].w);
                 tempVec2.y = submersion * 100000 * AmmoAPI.getStepTime();
                 AmmoAPI.applyForceAtPointToBody(tempVec2, tempVec3, obj3d.userData.body)
+
+              /*
                 tempVec3.set(0, submersion*0.05, 0);
                 tempVec3.add(tempVec)
                 evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt);
-
+                */
             }
         }
 

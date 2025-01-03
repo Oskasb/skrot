@@ -12,7 +12,7 @@ function cosWave(time, speed, amplitude) {
 	return Math.cos(time * speed) * amplitude;
 }
 
-
+let calcVec = new Vector3();
 let calcVec1 = new Vector3();
 let tempObj = new Object3D()
 let half32BitInt = 1047483647;
@@ -30,7 +30,6 @@ let setTri = function(tri, x, y, z) {
 let origin = new Vector3(0, 0, 0);
 let points = [];
 let mag;
-let calcVec = null;
 let euler = null;
 let progString = ''
 
@@ -737,8 +736,6 @@ MATH.angleZFromVectorToVector = function(fromVec, toVec) {
 };
 
 
-
-
 MATH.applyNormalVectorToPitch = function(normalVec, upVec) {
 	upVec.setX(MATH.subAngles(upVec.getX() - normalVec.getX()));
 };
@@ -789,12 +786,27 @@ MATH.pitchFromQuaternion = function(q) {
 	return 2*Math.acos(q.x / mag)-Math.PI;
 };
 
+MATH.pitchFromQuaternion2 = function(q) {
+	mag = Math.sqrt(q.w*q.w + q.x*q.x);
+	return 2*Math.asin(q.x / mag) // -Math.PI;
+};
+
+MATH.pitchFromQuaternion3 = function(q) {
+	mag = Math.sqrt(q.w*q.w + q.x*q.x);
+	return 2*Math.acos(q.x / mag) // -Math.PI;
+};
+
 MATH.yawFromQuaternion = function(q) {
 	mag = Math.sqrt(q.w*q.w + q.y*q.y);
 	return 2*Math.acos(q.y / mag)-Math.PI;
 };
 
-
+MATH.pitchFromBodyObj3d = function(obj3d) {
+	calcVec.set(0, 0, 1);
+	let q = obj3d.quaternion;
+	calcVec.applyQuaternion(q);
+	return Math.sin(-calcVec.y) // MATH.HALF_PI;
+}
 
 MATH.rollFromQuaternion = function(q) {
 	mag = Math.sqrt(q.w*q.w + q.z*q.z);
@@ -803,24 +815,20 @@ MATH.rollFromQuaternion = function(q) {
 
 
 MATH.horizonAttitudeFromQuaternion = function(q) {
-	if (!calcVec) calcVec = new Vector3();
 	calcVec.set(0, 0, 1);
 	calcVec.applyQuaternion(q);
-	return -calcVec.y * Math.PI // Math.atan2(calcVec.x, calcVec.y);
+	return calcVec.y * Math.PI // Math.atan2(calcVec.x, calcVec.y);
 };
 
 MATH.compassAttitudeFromQuaternion = function(q) {
-	if (!calcVec) calcVec = new Vector3();
 	calcVec.set(0, 0, 1);
 	calcVec.applyQuaternion(q);
 	return MATH.vectorXZToAngleAxisY(calcVec)
 };
 
-
-
 MATH.rollAttitudeFromQuaternion = function(q) {
 	let rotation = MATH.eulerFromQuaternion(q, "YXZ");
-	return rotation.z
+	return -rotation.z
 };
 
 MATH.eulerFromQuaternion = function(q, order) {

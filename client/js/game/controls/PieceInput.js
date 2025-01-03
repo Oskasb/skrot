@@ -9,6 +9,8 @@ class PieceInput {
 
         let inputTargets = json['input_targets'];
 
+        let feedback = json['feedback'] || [];
+
         for (let i = 0; i < inputTargets.length; i++) {
             statusMap[inputTargets[i].sample] = inputTargets[i].init || 0;
             statusMap[inputTargets[i].target] = inputTargets[i].init || 0;
@@ -31,7 +33,11 @@ class PieceInput {
                 } else {
                     statusMap[dynamicId] = dynamic.state.value;
                 }
+            }
 
+            for (let i = 0; i < feedback.length; i++) {
+                let statusKey = feedback[i].status;
+                statusMap[statusKey] = controllablePiece.getStatus(statusKey);
             }
 
         }

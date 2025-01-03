@@ -71,9 +71,7 @@ class DynamicPoint {
                 localObj3d.quaternion.copy(obj3d.quaternion);
                 obj3d.quaternion.copy(tempObj.quaternion);
                 localObj3d.position.copy(obj3d.position)
-
             }
-
 
             if (hasRotarion === true) {
                 MATH.rotateObj(obj3d, config.rot);
@@ -87,13 +85,13 @@ class DynamicPoint {
         }
 
         function getLocalTransform(storeObj) {
-            if (hasBoneParent) {
+         //   if (hasBoneParent) {
                 updateObj3d();
 
             //    localObj3d.quaternion.invert();
             //    localObj3d.quaternion.multiply(assetInstance.getObj3d().quaternion);
             //    MATH.rotateObj(localObj3d, config.rot);
-            }
+        //    }
 
             let assetNode = assetInstance.getObj3d();
             tempObj.position.copy(assetNode.position);

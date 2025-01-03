@@ -42,7 +42,7 @@ class GamePlayer {
             for (let key in ui) {
                 ui[key].call.update();
             }
-            debugDrawControllable()
+        //    debugDrawControllable()
         }
 
         this.call = {

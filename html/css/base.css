@@ -260,10 +260,10 @@ iframe.ui_flight_stick {
     z-index: 100000;
     top: auto;
     bottom: 130em;
-    right: 40em;
+    right: 10em;
     left: auto;
-    width: 340em;
-    height: 340em;
+    width: 400em;
+    height: 400em;
     position: absolute;
     border: none;
     color: #ecffdc;
@@ -307,7 +307,7 @@ iframe.ui_gear {
 iframe.ui_power {
     z-index: 100000;
     bottom: 60em;
-    right: 400em;
+    right: 430em;
     left:auto;
     top: auto;
     width: 120em;
@@ -319,8 +319,7 @@ iframe.ui_power {
 
 iframe.bar_right {
     z-index: 100000;
-    top: auto;
-    bottom: 250em;
+    top: -70em;
     right: 10em;
     left: auto;
     width: 135em;

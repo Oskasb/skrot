@@ -344,8 +344,9 @@ let refDiv;
         element.style.cursor = "pointer";
         element.addEventListener('mouseup', cb);
         element.addEventListener('touchend', cb);
-        element.addEventListener('mouseout', cb);
-        element.addEventListener('touchcancel', cb);
+
+        element.offsetParent.addEventListener('mouseout', cb);
+        element.offsetParent.addEventListener('touchcancel', cb);
     }
 
     let recalculate = true;

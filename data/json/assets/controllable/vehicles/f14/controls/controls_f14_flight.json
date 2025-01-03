@@ -8,8 +8,8 @@
     {"dynamic": "DYNAMIC_PITCH_R", "factor": 1}
   ]},
   {"id": "INPUT_ROLL",   "targets": [
-    {"dynamic": "DYNAMIC_ROLL_L", "factor":-1},
-    {"dynamic": "DYNAMIC_ROLL_R", "factor": 1},
+    {"dynamic": "DYNAMIC_ROLL_L", "factor": 1},
+    {"dynamic": "DYNAMIC_ROLL_R", "factor": -1},
     {"dynamic": "DYNAMIC_SPOILER_L", "factor":-1, "range": {"min": 0, "max": 1}},
     {"dynamic": "DYNAMIC_SPOILER_R", "factor": 1, "range": {"min": 0, "max": 1}}
   ]},
