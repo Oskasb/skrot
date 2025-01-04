@@ -80,8 +80,10 @@ class DomFlightstick {
             translateElement3DPercent(sState, s, 0,  0);
             translateElement3DPercent(wState, w, 0,  0);
 
-            let txt = 'FPS:'+MATH.numberToDigits(1 / getFrame().avgTpf, 0, 0);
-            surface.innerHTML = txt
+            let txt = 'FPS: '+MATH.numberToDigits(1 / getFrame().avgTpf, 0, 0);
+            statusMap['fps_avg'] = txt;
+            statusMap['elevation'] = 'ALT: '+MATH.numberToDigits(statusMap['STATUS_ELEVATION'], 0, 0);
+        //    surface.innerHTML = txt
         }
 
 
