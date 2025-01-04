@@ -95,8 +95,8 @@ class EnvironmentClouds {
             const posy = positionLocal.y
             const posz = positionLocal.z
             const mod = posx.add(instanceIndex.mul(2).add(posx.mul(3))).sin().abs()
-            const ambShade = mix( ambColor, fogColor, posy.pow(mod.mul(7)).mul(0.5).add(0.5));
-            const sunShade = mix(ambShade, sunColor,  posy.pow(0.9));
+            const ambShade = mix( ambColor, fogColor, min(1, max( 0, posy.pow(mod.mul(5)).mul(0.65).add(0.35))));
+            const sunShade = mix(ambShade, sunColor,  min(1, max( 0, posy.pow(0.76))));
             return sunShade;
         })()
 
