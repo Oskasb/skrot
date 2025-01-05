@@ -15,7 +15,7 @@ import {
     Color,
     Data3DTexture,
     InstancedBufferAttribute,
-    Mesh, Sprite, Texture,
+    Mesh, Object3D, Sprite, Texture,
     TextureLoader,
     Vector3
 } from "../../../../../libs/three/Three.Core.js";
@@ -40,34 +40,44 @@ class EnvironmentClouds {
 
         const positions = [];
 
-        let size = 70000;
+        let size = 40000;
         let height = 4000;
-        let elevation = 2000;
-        let layerHeight = 700;
-        let clouds = 30;
+        let elevation = 4000;
+        let layerHeight = 400;
+        let clouds = 20;
 
-        let cloudWidth = 2000;
-        let cloudHeight = 3000;
+        let cloudWidth = 1600;
+        let cloudHeight = 1200;
         let cloudSizeVec = new Vector3(cloudWidth, cloudHeight, cloudWidth);
+
+        let tempObj = new Object3D();
 
         function addCloudPuff(center, puffIndex, cloudIndex, cloudMass) {
             let offset = MATH.sillyRandomVector(puffIndex+cloudIndex);
             tempVec.copy(offset);
-            tempVec.y = tempVec.y*tempVec.y;
+
+            let height = tempVec.y;
+            let edgeness = tempVec.length();
+                tempVec.y = tempVec.y*2;
+            tempVec.normalize();
+            tempVec.y = MATH.clamp(Math.abs(tempVec.y)-MATH.curveSqrt(edgeness*1.2) , 0, cloudHeight );
+            tempVec.multiplyScalar(MATH.curveQuad(cloudMass+0.4*edgeness))
             tempVec.multiply(cloudSizeVec)
-            tempVec.multiplyScalar(MATH.curveQuad(cloudMass+0.5))
+            tempVec.applyQuaternion(tempObj.quaternion)
             tempVec.add(center);
             positions.push( tempVec.x, tempVec.y, tempVec.z);
             count++;
         }
 
         function buildCloud(index) {
+            tempObj.quaternion.set(0,  0, 0, 1)
+            tempObj.rotateY(index)
             let centerX = MATH.sillyRandomBetween(-size, size, index);
             let centerZ = MATH.sillyRandomBetween(-size, size, index+2);
             let centerY = MATH.sillyRandomBetween(elevation, elevation+layerHeight, index+4);
             tempCenter.set(centerX, centerY, centerZ);
-            let cloudMass = MATH.sillyRandom(index+1);
-            let puffCount = Math.ceil(MATH.curveCube(cloudMass+0.5) * 50);
+            let cloudMass = MATH.curveQuad(MATH.sillyRandomBetween(0.1, 1.4,index+1));
+            let puffCount = Math.ceil(MATH.curveCube(cloudMass) * 140);
             for (let i = 0; i < puffCount; i++) {
                 addCloudPuff(tempCenter, i, index, cloudMass);
             }
@@ -103,7 +113,7 @@ class EnvironmentClouds {
             const mod = time.mul(0.05).add( instanceIndex.mul(4.5)).sin().add(1.0);
             const sunShade = mix( fogColor, sunColor, min(1, max( 0, posy.pow(mod.add(3.5)))));
             const ambShade = mix(ambColor, sunShade,  min(1, max( 0, posy.pow(0.8))));
-            return vec4(ambShade, mod.sin().add(1.0).mul(0.1));
+            return vec4(ambShade, mod.sin().add(1.0).mul(0.04));
         })()
 
         material.color = store.env.fog.fog.color;
@@ -111,13 +121,14 @@ class EnvironmentClouds {
         material.depthWrite = false;
         material.positionNode = instancedBufferAttribute( positionAttribute );
         material.rotationNode = time.add( instanceIndex.mul(2.1) ).sin().mul(0.07);
-        material.scaleNode = time.add( instanceIndex.mul(2.4) ).sin().mul(0.08).add(1.1).mul(2200);
+        material.scaleNode = time.add( instanceIndex.mul(2.4) ).sin().mul(0.08).add(1.1).mul(1500);
 
         // sprites
 
         const particles = new Sprite( material );
         particles.frustumCulled = false;
         particles.count = count;
+        console.log("Cloud Particle count", count)
         scene.add( particles );
 
     }
