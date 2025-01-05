@@ -42,11 +42,11 @@ class EnvironmentClouds {
 
         let size = 40000;
         let height = 4000;
-        let elevation = 4000;
-        let layerHeight = 400;
+        let elevation = 2000;
+        let layerHeight = 300;
         let clouds = 20;
 
-        let cloudWidth = 1600;
+        let cloudWidth = 1200;
         let cloudHeight = 1200;
         let cloudSizeVec = new Vector3(cloudWidth, cloudHeight, cloudWidth);
 
