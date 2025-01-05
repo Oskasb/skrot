@@ -421,6 +421,15 @@ MATH.randomVector = function(vec) {
 	return vec;
 };
 
+MATH.sillyRandomVector = function(seed) {
+	let vec = calcVec;
+	vec.x = MATH.sillyRandomBetween(-1, 1, seed+3);
+	vec.y = MATH.sillyRandomBetween(-1, 1, seed+5);
+	vec.z = MATH.sillyRandomBetween(-1, 1, seed+7);
+	return vec;
+};
+
+
 MATH.safeForceVector = function(vec) {
 	vec.x = MATH.safeInt(vec.x);
 	vec.y = MATH.safeInt(vec.y);
