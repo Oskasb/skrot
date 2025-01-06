@@ -71,13 +71,13 @@ class Ocean {
 
                 const posx = positionLocal.x
                 const posy = positionLocal.y
-                const waveA = cos(add(add(mul(time, 6.5), add(posx, posy)), posx).mul(0.002));
-                const waveB = sin(add(add(mul(time, 6.2), mul(add(posx, posy), 0.9)), posy).mul(0.002));
+                const waveA = cos(add(add(mul(time, 6.5), add(posx, posy)), posx).mul(0.006));
+                const waveB = sin(add(add(mul(time, 6.2), mul(add(posx, posy), 0.9)), posy).mul(0.006));
 
-                const waveAp = waveA.add(cos(posy.mul(0.000001)));
-                const waveBp = waveB.add(sin(posx.mul(0.000001)));
+                const waveAp = waveA.add(cos(posy.mul(0.00001)));
+                const waveBp = waveB.add(sin(posx.mul(0.00001)));
 
-                const bigWaveNm = vec3(waveAp, 12, waveBp).normalize();
+                const bigWaveNm = vec3(waveAp, 993, waveBp).normalize();
 
                 const timeSin = time.sin();
                 const timeCos = time.cos();
@@ -106,8 +106,7 @@ class Ocean {
                 const wave3Nm = vec3(waveA3, 17, waveB3).normalize();
                 const wave2Nm = vec3(waveA2, 15, waveB2).normalize();
                 const wave1Nm = vec3(waveA1, 14, waveB1).normalize();
-
-                return bigWaveNm.add(wave1Nm.add(wave2Nm.add(wave3Nm.add(wave4Nm.add(wave5Nm.add(wave6Nm)))))).normalize()
+                return bigWaveNm.add(wave1Nm).add(wave2Nm).add(wave3Nm).add(wave4Nm).add(wave5Nm).add(wave6Nm).normalize()
 
             } )();
 
@@ -124,18 +123,17 @@ class Ocean {
 
                     const waveAp = waveA.add(cos(posy.mul(0.0004)));
                     const waveBp = waveB.add(sin(posx.mul(0.001)));
-                    const bigWaveNm = vec3(waveAp, 2, waveBp).normalize();
+                    const bigWaveNm = vec3(waveAp, 1, waveBp).normalize();
 
                     const sunColor = uniform( envUnifs.sun );
                     const fogColor = uniform( envUnifs.fog );
                     const ambColor = uniform( envUnifs.ambient );
 
+                    const waterColor = vec3(0.3, 0.4, 0.9).mul(sunColor);
+                    const blendColor = mix(waterColor, ambColor, bigWaveNm.x.abs());
+                    const blend2Color = mix(blendColor, fogColor, bigWaveNm.z.abs());
+                    return blend2Color
 
-                    const waterColor = vec3(0, 0.3, 0.7);
-                    const blendColor = mix(waterColor, fogColor, waveAp);
-                    const blend2Color = mix(blendColor, ambColor, waveBp);
-
-                    return mix(blend2Color, sunColor, ambColor.b);
                 } )();
 
 
@@ -166,8 +164,8 @@ class Ocean {
                 const globalPos = vec3(pX, 0, pZ).add(camOffsetPos);
 
                 const height = time.add(pX.sub(camOffsetPos.x).mul(bnd.z.mul(3))).sin().add(pZ.sub(camOffsetPos.z).mul(bnd.z.mul(2))).cos().mul(2);
-                varyingProperty( 'vec3', 'v_normalView' ).assign( transformNormalToView(vec3(1, 1, height.mul(centerNess)).normalize() ) );
-
+              varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, height.mul(centerNess)).normalize()  );
+                //       varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, 0).normalize()  );
                 return vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
 
                 } )();
