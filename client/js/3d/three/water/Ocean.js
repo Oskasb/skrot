@@ -1,4 +1,12 @@
-import {DoubleSide, Mesh, PlaneGeometry, Raycaster, Vector2, Vector3} from "../../../../../libs/three/Three.Core.js";
+import {
+    BufferAttribute,
+    DoubleSide,
+    Mesh,
+    PlaneGeometry,
+    Raycaster,
+    Vector2,
+    Vector3
+} from "../../../../../libs/three/Three.Core.js";
 import {SimplexNoise} from "../../../../../libs/jsm/math/SimplexNoise.js";
 import {
     clamp,
@@ -17,6 +25,9 @@ import {MeshPhongNodeMaterial} from "../../../../../libs/three/materials/nodes/N
 import {getFrame} from "../../../application/utils/DataUtils.js";
 import MeshStandardNodeMaterial from "../../../../../libs/three/materials/nodes/MeshStandardNodeMaterial.js";
 import {StorageTexture} from "../../../../../libs/three/Three.WebGPU.js";
+import {ENUMS} from "../../../application/ENUMS.js";
+import {evt} from "../../../application/event/evt.js";
+import {MATH} from "../../../application/MATH.js";
 
 class Ocean {
     constructor(store) {
@@ -31,15 +42,7 @@ class Ocean {
             // Dimensions of simulation grid.
             const TILE_SIZE = 10;
             const WIDTH = 100;
-
-            // Water size in system units.
             const BOUNDS = WIDTH*TILE_SIZE;
-            const BOUNDS_HALF = BOUNDS * 0.5;
-
-            const waterMaxHeight = 1;
-
-            let mouseMoved = false;
-            const mouseCoords = new Vector2();
             let effectController;
 
             let waterMesh, meshRay;
@@ -64,7 +67,6 @@ class Ocean {
 
             waterMaterial.side = DoubleSide;
             const width = 512, height = 512;
-
 
             waterMaterial.normalNode = Fn( () => {
                 const { mousePos } = effectController;
@@ -126,10 +128,14 @@ class Ocean {
                     const fogColor = uniform( envUnifs.fog );
                     const ambColor = uniform( envUnifs.ambient );
 
+                    const white = vec3(1, 1, 1);
                     const waterColor = vec3(0.4, 0.7, 0.99).mul(sunColor);
                     const blendColor = mix(waterColor, ambColor.mul(0.7), bigWaveNm.x.mul(0.3));
                     const blend2Color = mix(blendColor, fogColor, bigWaveNm.z.mul(0.3));
-                    return blend2Color
+
+                    const dx = min(1, max(0, posx.abs().mul(-1).add(21)).mul(0.11))
+
+                    return mix(blendColor, white, dx);
 
                 } )();
 
@@ -159,7 +165,7 @@ class Ocean {
                 const globalPos = vec3(pX, 0, pZ).add(camOffsetPos);
 
                 const height = time.add(pX.sub(camOffsetPos.x).mul(bnd.z.mul(3))).sin().add(pZ.sub(camOffsetPos.z).mul(bnd.z.mul(2))).cos().mul(1.3);
-              varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, height.mul(centerNess)).normalize()  );
+                varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, height.mul(centerNess)).normalize()  );
                 //       varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, 0).normalize()  );
                 return vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
 
@@ -196,6 +202,26 @@ class Ocean {
         }
 
         generateOcean();
+
+        let splashes = [];
+
+        for (let i = 0; i < 50; i++) {
+            let x = MATH.sillyRandomBetween(-1000, 1000, i);
+            let z = MATH.sillyRandomBetween(-1000, 1000, i+1);
+            let dx = MATH.sillyRandomBetween(-1, 1, i+2);
+            let dy = MATH.sillyRandomBetween(-1, 1, i+3);
+            let time = 0;
+            let strength = 1;
+            splashes.push(x, z, dx, dy, time, strength);
+        }
+
+        const splashAttribute = new BufferAttribute(new Float32Array( splashes ), 6)
+
+        function splashWater(e) {
+
+        }
+
+        evt.on(ENUMS.Event.SPLASH_OCEAN, splashWater())
 
     }
 
