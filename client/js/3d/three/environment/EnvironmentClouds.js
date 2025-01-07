@@ -52,6 +52,9 @@ class EnvironmentClouds {
 
         let tempObj = new Object3D();
 
+
+
+
         function addCloudPuff(center, puffIndex, cloudIndex, cloudMass) {
             let offset = MATH.sillyRandomVector(puffIndex+cloudIndex);
             tempVec.copy(offset);

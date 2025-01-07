@@ -37,13 +37,33 @@ class Ocean {
         let camera = scene.camera;
         let envUnifs = store.env.uniforms;
 
+
+
         function generateOcean() {
 
             // Dimensions of simulation grid.
             const TILE_SIZE = 10;
             const WIDTH = 100;
             const BOUNDS = WIDTH*TILE_SIZE;
+            const BOUNDS_TILES = BOUNDS * TILE_SIZE;
             let effectController;
+
+            const foamArray = new Float32Array( BOUNDS * BOUNDS );
+            const foamStorage = instancedArray( foamArray ).label( 'Foam' );
+
+
+            let p = 0;
+
+            for ( let j = 0; j < BOUNDS; j ++ ) {
+                for ( let i = 0; i < BOUNDS; i ++ ) {
+                    let foam = 0;
+                    if (MATH.sillyRandom(p) < 0.1) {
+                        foam = MATH.sillyRandomBetween(0, 0.2, p+1);
+                    }
+                    foamArray[ p ] = foam;
+                    p ++;
+                }
+            }
 
             let waterMesh, meshRay;
 
@@ -117,6 +137,31 @@ class Ocean {
 
                     const posx = positionLocal.x
                     const posy = positionLocal.y
+
+                    const waveAx = posx.add(time.add(posy.mul(0.1)).cos().mul(5));
+                    const waveBx = posy.add(time.add(posx.mul(0.1)).sin().mul(5));
+
+                    const indexX = waveAx.mod(BOUNDS_TILES).div(TILE_SIZE) // max(BOUNDS, globalPos.x)
+                    const indexY = waveBx.mod(BOUNDS_TILES).div(TILE_SIZE)
+
+                    const indXFloor = floor(indexX)
+                    const indYFloor = floor(indexY)
+
+                    const tileDx = indexX.sub(indXFloor);
+                    const tileDy = indexY.sub(indYFloor);
+
+                    const uvIndex = indXFloor.mul(indYFloor)
+
+                    const foamMax = foamStorage.element( uvIndex ).toVar();
+
+                    const foamFade = max(0, foamMax.mul(tileDx.mul(3.14).sin().mul(tileDy.mul(3.14).sin())));
+
+                    const modulate = foamFade.mul(time.mul(0.8).sin().add(posx.mul(2.6).sin().add(posy.mul(2.6).sin())).abs());
+
+                    const bubbleMod = time.mul(0.4).sin().add(1).mul(0.5).mul(22)
+
+                    const foam = max(0, foamFade.mul(tileDx.mul(bubbleMod).add(posx).sin().mul(tileDy.mul(bubbleMod).add(posy).sin()))).add(modulate);
+
                     const waveA = cos(add(add(1, add(posx, posy)), posx).mul(0.0005));
                     const waveB = sin(add(add(1, mul(add(posx, posy), 0.9)), posy).mul(0.0003));
 
@@ -135,7 +180,7 @@ class Ocean {
 
                     const dx = min(1, max(0, posx.abs().mul(-1).add(21)).mul(0.11))
 
-                    return mix(blendColor, white, dx);
+                    return mix(blendColor, white, foam);
 
                 } )();
 
