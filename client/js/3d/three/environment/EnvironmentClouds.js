@@ -111,9 +111,10 @@ class EnvironmentClouds {
             const posy = uv().y
             const posz = positionLocal.z
             const mod = time.mul(0.05).add( instanceIndex.mul(4.5)).sin().add(1.0);
-            const sunShade = mix( fogColor, sunColor, min(1, max( 0, posy.pow(mod.add(3.5)))));
-            const ambShade = mix(ambColor, sunShade,  min(1, max( 0, posy.pow(0.8))));
-            return vec4(ambShade, mod.sin().add(1.0).mul(0.04));
+            const sunShade = mix( fogColor, sunColor.add(sunColor.normalize()), min(1, max( 0, posy.pow(mod.add(3.8)))));
+            const ambShade = mix(ambColor.mul(fogColor.normalize()), sunShade,  min(1, max( 0, posy.pow(0.6))));
+            const lowShade = mix(ambColor.mul(0.05), ambShade,  min(1, max( 0, posy.pow(0.4))));
+            return vec4(lowShade, mod.sin().add(1.0).mul(0.04));
         })()
 
         material.color = store.env.fog.fog.color;
