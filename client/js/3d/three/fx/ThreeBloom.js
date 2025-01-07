@@ -44,8 +44,14 @@ class ThreeBloom{
 
             let postBloomProcessing = new PostProcessing( renderer );
 
-            let blendedSsr = blendColor(outputPass, ssrPass);
+            const bloomAll = bloom( outputPass, 0.2, 0.95, 0.55 );
+
+            let blendedSsr = blendColor(outputPass, ssrPass).add(bloomAll);
+
+
             let blendedBloom = blendedSsr.add(bloomPass);
+
+
 
             postBloomProcessing.outputNode = blendedBloom // outputPass.add(bloomPass)
             ThreeAPI.addPostProcess(postBloomProcessing)

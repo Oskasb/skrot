@@ -111,10 +111,10 @@ class EnvironmentClouds {
             const posy = uv().y
             const posz = positionLocal.z
             const mod = time.mul(0.05).add( instanceIndex.mul(4.5)).sin().add(1.0);
-            const sunShade = mix( fogColor, sunColor.add(sunColor.normalize()), min(1, max( 0, posy.pow(mod.add(3.8)))));
+            const sunShade = mix( fogColor, sunColor.add(sunColor.normalize().mul(8)), min(1, max( 0, posy.pow(mod.add(4.8)))));
             const ambShade = mix(ambColor.mul(fogColor.normalize()), sunShade,  min(1, max( 0, posy.pow(0.6))));
             const lowShade = mix(ambColor.mul(0.05), ambShade,  min(1, max( 0, posy.pow(0.4))));
-            return vec4(lowShade, mod.sin().add(1.0).mul(0.04));
+            return vec4(lowShade, mod.sin().add(1.2).mul(0.5));
         })()
 
         material.color = store.env.fog.fog.color;
@@ -122,7 +122,7 @@ class EnvironmentClouds {
         material.depthWrite = false;
         material.positionNode = instancedBufferAttribute( positionAttribute );
         material.rotationNode = time.add( instanceIndex.mul(2.1) ).sin().mul(0.07);
-        material.scaleNode = time.add( instanceIndex.mul(2.4) ).sin().mul(0.08).add(1.1).mul(1500);
+        material.scaleNode = time.add( instanceIndex.mul(2.4) ).sin().mul(0.08).add(1.1).mul(1200);
 
         // sprites
 

@@ -196,10 +196,8 @@ class EnvironmentMaps {
                 const skySunShaded = mix( foggedColor, sunColor, max(0.0, mul(0.05, pow( mul(sunAngle, 0.99), 118) )));
                 const haloFactor = max(0.0,pow( mul(sunAngle, 0.99), 2));
                 const skySunBrightened = mix( skySunShaded, add(sunColor, ambColor),  mul(0.06, pow(haloFactor, 1.2) ));
-                const skySunHalo = mix( skySunBrightened, add(sunColor, fogColor),  mul(0.13, pow(haloFactor, 30) ));
-                const sunDisc = mix( skySunHalo, add(sunColor, fogColor), mul(1.0, max(0.0, min( 1.0, pow( mul(sunAngle, 1.0003), 21000.0) ))));
-
-                const belowHorizonColor = mix(ambColor, spaceColor, max(0.0, min(0.5, belowHorizonFactor)))
+                const skySunHalo = mix( skySunBrightened, add(sunColor, fogColor),  mul(0.53, pow(haloFactor, 15) ));
+                const sunDisc = mix( skySunHalo, add(sunColor.add(sunColor.normalize().mul(70)), fogColor), mul(1.0, max(0.0, min( 1.0, pow( mul(sunAngle, 1.0003), 21000.0) ))));
 
                 const sealevelColor = mix(sunDisc, fogColor,  max(0.0, min(1, belowHorizonFactor)))
 
