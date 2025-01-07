@@ -38,7 +38,7 @@ class ThreeBloom{
         //    const scenePassColor = scenePass.getTextureNode( 'output' );
             const emissivePass = scenePass.getTextureNode( 'emissive' );
 
-            const bloomPass = bloom( emissivePass, 1.6, 1.05, 0 );
+            const bloomPass = bloom( emissivePass, 1.8, 1.02, 0 );
 
             let ssrPass = initSSR(scene, camera, renderer, scenePass, outputPass)
 
