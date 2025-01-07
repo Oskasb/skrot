@@ -297,10 +297,10 @@ class Ocean {
                 const posy = uv().y
                 const posz = positionLocal.z
                 const mod = time.mul(0.05).add( instanceIndex.mul(4.5)).sin().add(1.0);
-                const sunShade = mix( fogColor, sunColor.add(sunColor.normalize().mul(1)), min(1, max( 0, posy.pow(mod.add(4.8)))));
-                const ambShade = mix(ambColor.mul(fogColor.normalize()), sunShade,  min(1, max( 0, posy.pow(0.8))));
+                const sunShade = mix( fogColor, sunColor, min(1, max( 0, posy.pow(mod.add(4.8)))));
+                const ambShade = mix(ambColor.mul(fogColor.normalize()), sunShade.mul(2),  min(1, max( 0, posy.pow(0.8))));
                 const lowShade = mix(ambColor.mul(0.05), ambShade,  min(1, max( 0, posy.pow(0.6))));
-                return vec4(lowShade, mod.sin().add(1.2).mul(0.5));
+                return vec4(lowShade, mod.sin().add(1.2).mul(0.2));
             })()
 
 
@@ -315,7 +315,7 @@ class Ocean {
                 const position = positionBuffer.element( instanceIndex );
                 const velocity = velocityBuffer.element( instanceIndex );
 
-                velocity.addAssign( vec3( 0.00, ZERO.sub(tpf.mul(0.5)), 0.00 ) );
+                velocity.addAssign( vec3( 0.00, ZERO.sub(tpf.mul(splashIndex.cos().add(1.5).mul(0.5))), 0.00 ) );
                 position.addAssign( velocity.mul(tpf));
                 velocity.mulAssign( ONE.sub(tpf.mul(1.1)) );
 
@@ -334,7 +334,7 @@ class Ocean {
 
                 const up = vec3(0, 0.05, 0);
 
-                const hitSpeed = splashVelocity.length();
+                const hitSpeed = splashVelocity.length().mul(splashIndex.sin().add(1.5).mul(0.5));
 
                 const position = positionBuffer.element( splashIndex );
                 position.assign(splashPosition);
@@ -342,7 +342,7 @@ class Ocean {
                 velocity.assign( splashNormal.add(up.mul(hitDot.add(0.05))).mul(hitSpeed).add(splashVelocity));
                 const scale = scaleBuffer.element(splashIndex);
                 const size = sizeBuffer.element(splashIndex);
-                size.assign(hitDot.mul(hitSpeed).add(hitDot).add(10.5))
+                size.assign(hitDot.mul(hitSpeed).add(hitDot).add(splashIndex.sin().add(3).mul(4)))
                 scale.assign(0);
             } )().compute( 1 );
 
@@ -354,7 +354,7 @@ class Ocean {
 
             splashMaterial.positionNode = positionBuffer.toAttribute();
 
-            splashMaterial.rotationNode = instanceIndex.mul(2.1);
+            splashMaterial.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
             splashMaterial.scaleNode = scaleBuffer.toAttribute();
 
 

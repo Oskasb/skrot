@@ -69,9 +69,9 @@ class ThreeBloom{
 
             const ssrPass = ssr( scenePassColor, scenePassDepth, scenePassNormal, scenePassMetalness, camera );
             ssrPass.resolutionScale = 0.5;
-            ssrPass.maxDistance.value = 12;
+            ssrPass.maxDistance.value = 10;
             ssrPass.opacity.value = 0.9;
-            ssrPass.thickness.value = 0.001;
+            ssrPass.thickness.value = 0.02;
 
             return ssrPass;
 
