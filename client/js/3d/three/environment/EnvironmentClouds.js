@@ -52,9 +52,6 @@ class EnvironmentClouds {
 
         let tempObj = new Object3D();
 
-
-
-
         function addCloudPuff(center, puffIndex, cloudIndex, cloudMass) {
             let offset = MATH.sillyRandomVector(puffIndex+cloudIndex);
             tempVec.copy(offset);
@@ -127,7 +124,6 @@ class EnvironmentClouds {
         material.rotationNode = time.add( instanceIndex.mul(2.1) ).sin().mul(0.07);
         material.scaleNode = time.add( instanceIndex.mul(2.4) ).sin().mul(0.08).add(1.1).mul(1200);
 
-        // sprites
 
         const particles = new Sprite( material );
         particles.frustumCulled = false;

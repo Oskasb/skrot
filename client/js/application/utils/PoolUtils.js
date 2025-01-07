@@ -20,6 +20,7 @@ import {DomYawPedals} from "../ui/dom/ui/DomYawPedals.js";
 import {DomSweep} from "../ui/dom/ui/DomSweep.js";
 import {DomGear} from "../ui/dom/ui/DomGear.js";
 import {DomPower} from "../ui/dom/ui/DomPower.js";
+import {OceanSplash} from "../../3d/three/water/OceanSplash.js";
 
 let pools = {}
 let stats = {};
@@ -49,6 +50,7 @@ function initPools() {
     registerPool(DomSweep)
     registerPool(DomGear)
     registerPool(DomPower)
+    registerPool(OceanSplash)
 }
 
 function registerPool(DataObj) {

@@ -1,5 +1,5 @@
 import {JsonAsset} from "../load/JsonAsset.js";
-import {bodyTransformToObj3d, calcBoxSubmersion} from "../utils/PhysicsUtils.js";
+import {bodyTransformToObj3d, calcBoxSubmersion, getBodyVelocity, rayTest} from "../utils/PhysicsUtils.js";
 import {Vector3, Vector4} from "../../../../libs/three/Three.Core.js";
 import {MATH} from "../MATH.js";
 import {ENUMS} from "../ENUMS.js";
@@ -11,10 +11,21 @@ let tempVec = new Vector3();
 
 let tempVec2 = new Vector3();
 let tempVec3 = new Vector3();
+
+let lineFrom = new Vector3();
+let lineTo = new Vector3();
+
 let lineEvt = {
-    from:tempVec,
-    to:tempVec3,
+    from:lineFrom,
+    to:lineTo,
     color:"YELLOW"
+}
+
+let splashEvt ={
+    pos:new Vector3(),
+    normal:new Vector3(),
+    velocity: new Vector3(),
+    hitDot:0
 }
 
 class PhysicalModel {
@@ -23,31 +34,59 @@ class PhysicalModel {
         let buoyancy = []
 
         function updateFloatation() {
+            splashEvt.velocity.copy(getBodyVelocity(obj3d.userData.body));
             let time = getFrame().gameTime
             for (let i = 0; i < buoyancy.length; i++) {
                 tempVec.x = buoyancy[i].x;
                 tempVec.y = buoyancy[i].y;
                 tempVec.z = buoyancy[i].z;
 
+                let size = buoyancy[i].w;
+
                 tempVec.applyQuaternion(obj3d.quaternion);
                 tempVec3.copy(tempVec)
                 tempVec.add(obj3d.position);
 
-
                 tempVec2.set(0, 0, 0);
 
-
                 let waveHeight = Math.cos(time*0.8+(tempVec.x+tempVec.z*0.2)*0.04)*2
+                let submersion = calcBoxSubmersion(tempVec.y  + waveHeight, buoyancy[i].w)
 
-                let submersion = calcBoxSubmersion(tempVec.y  + waveHeight, buoyancy[i].w);
-                tempVec2.y = submersion * 100000 * AmmoAPI.getStepTime();
-                AmmoAPI.applyForceAtPointToBody(tempVec2, tempVec3, obj3d.userData.body)
+                if (submersion > 0) {
+                    tempVec2.y = submersion * 100000 * AmmoAPI.getStepTime();
+                    AmmoAPI.applyForceAtPointToBody(tempVec2, tempVec3, obj3d.userData.body)
 
-              /*
-                tempVec3.set(0, submersion*0.05, 0);
-                tempVec3.add(tempVec)
-                evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt);
-                */
+
+                    tempVec3.add(obj3d.position)
+                    lineFrom.copy(tempVec);
+                    lineTo.copy(tempVec3);
+
+                    lineTo.y = 0;
+
+                    MATH.randomVector(tempVec)
+                    //    tempVec.set(Math.sin(getFrame().gameTime)*50, 0, Math.cos(getFrame().gameTime)*50)
+                    tempVec.multiplyScalar(size);
+                //    tempVec.applyQuaternion(obj3d.quaternion)
+                    tempVec.y = 0;
+                    //    tempVec.copy(tempVec3);
+                    //    tempVec.add(obj3d.position)
+                    lineFrom.add(tempVec)
+                    lineFrom.y = 0;
+
+                    let hit = rayTest(lineFrom, lineTo, splashEvt.pos, splashEvt.normal, false);
+
+                    if (hit) {
+                        tempVec.copy(splashEvt.velocity).normalize();
+                        splashEvt.normal.y = 0.1;
+                        splashEvt.hitDot = (tempVec.dot(splashEvt.normal)+1)/2
+                        if (splashEvt.hitDot > Math.random() * 0.9) {
+                            evt.dispatch(ENUMS.Event.SPLASH_OCEAN, splashEvt)
+                        }
+                    }
+
+                //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt);
+
+                }
             }
         }
 

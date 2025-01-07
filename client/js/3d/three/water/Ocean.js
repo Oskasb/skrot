@@ -1,9 +1,9 @@
 import {
     BufferAttribute,
-    DoubleSide,
+    DoubleSide, InstancedBufferAttribute,
     Mesh,
     PlaneGeometry,
-    Raycaster,
+    Raycaster, Sprite, SRGBColorSpace, Texture,
     Vector2,
     Vector3
 } from "../../../../../libs/three/Three.Core.js";
@@ -14,42 +14,70 @@ import {
     int,
     uint,
     time,
-    color, cos, float,
-    Fn, instancedArray, instanceIndex, max, min, negate, positionLocal,
+    color,
+    cos,
+    float,
+    Fn,
+    instancedArray,
+    instanceIndex,
+    max,
+    min,
+    negate,
+    positionLocal,
     transformNormalToView,
     uniform,
-    varyingProperty, vec2, vec3,
-    vertexIndex, mul, add, sin, texture, uvec2, textureStore, vec4, normalLocal, blendColor, mix, floor, uv, sign
+    varyingProperty,
+    vec2,
+    vec3,
+    vertexIndex,
+    mul,
+    add,
+    sin,
+    texture,
+    uvec2,
+    textureStore,
+    vec4,
+    normalLocal,
+    blendColor,
+    mix,
+    floor,
+    uv,
+    sign,
+    instancedBufferAttribute
 } from "../../../../../libs/three/Three.TSL.js";
-import {MeshPhongNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
-import {getFrame} from "../../../application/utils/DataUtils.js";
+import {MeshPhongNodeMaterial, SpriteNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
+import {getFrame, loadImageAsset} from "../../../application/utils/DataUtils.js";
 import MeshStandardNodeMaterial from "../../../../../libs/three/materials/nodes/MeshStandardNodeMaterial.js";
 import {StorageTexture} from "../../../../../libs/three/Three.WebGPU.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {evt} from "../../../application/event/evt.js";
 import {MATH} from "../../../application/MATH.js";
+import {poolFetch} from "../../../application/utils/PoolUtils.js";
 
 class Ocean {
     constructor(store) {
 
-        let scene = store.scene;
-        let renderer = store.renderer;
-        let camera = scene.camera;
-        let envUnifs = store.env.uniforms;
+        const scene = store.scene;
+        const renderer = store.renderer;
+        const camera = scene.camera;
+        const envUnifs = store.env.uniforms;
 
+        const TILE_SIZE = 10;
+        const WIDTH = 100;
+        const BOUNDS = WIDTH*TILE_SIZE;
+        const BOUNDS_TILES = BOUNDS * TILE_SIZE;
+        const camPos = new Vector3();
 
+        const foamArray = new Float32Array( BOUNDS * BOUNDS );
+        const foamStorage = instancedArray( foamArray ).label( 'Foam' );
 
         function generateOcean() {
 
             // Dimensions of simulation grid.
-            const TILE_SIZE = 10;
-            const WIDTH = 100;
-            const BOUNDS = WIDTH*TILE_SIZE;
-            const BOUNDS_TILES = BOUNDS * TILE_SIZE;
+
             let effectController;
 
-            const foamArray = new Float32Array( BOUNDS * BOUNDS );
-            const foamStorage = instancedArray( foamArray ).label( 'Foam' );
+
 
 
             let p = 0;
@@ -69,7 +97,7 @@ class Ocean {
 
             let waveInfluence = new Vector3();
 
-            let camPos = new Vector3();
+
 
                 effectController = {
                     mousePos: uniform( waveInfluence ).label( 'mousePos' ),
@@ -221,52 +249,162 @@ class Ocean {
                 waterMesh.matrixAutoUpdate = false;
                 waterMesh.frustumCulled = false;
                 waterMesh.updateMatrix();
-
                 scene.add( waterMesh );
-
-
-            function update(){
-
-             //   waveInfluence.x = Math.sin(time * 1.8)*50;
-             //   waveInfluence.y = Math.cos(time * 1.3)*600;
-
-            //    renderer.computeAsync( computeHeight );
-            //    console.log(store.scene);
-                let camera = ThreeAPI.getCamera();
-                if (camera) {
-                    let x= Math.floor(camera.position.x / TILE_SIZE);
-                    let z = Math.floor(camera.position.z / TILE_SIZE);
-                //   console.log(camera);
-                    camPos.x = x*TILE_SIZE;
-                    camPos.z = -z*TILE_SIZE;
-                }
-            }
-
-                ThreeAPI.addPostrenderCallback(update);
 
         }
 
         generateOcean();
 
-        let splashes = [];
+        let splashPositions = [];
+        let splashCount = 3000;
+        function setupSplashes() {
 
-        for (let i = 0; i < 50; i++) {
-            let x = MATH.sillyRandomBetween(-1000, 1000, i);
-            let z = MATH.sillyRandomBetween(-1000, 1000, i+1);
-            let dx = MATH.sillyRandomBetween(-1, 1, i+2);
-            let dy = MATH.sillyRandomBetween(-1, 1, i+3);
-            let time = 0;
-            let strength = 1;
-            splashes.push(x, z, dx, dy, time, strength);
+
+
+            for (let i = 0; i < splashCount; i++ ) {
+                splashPositions.push(MATH.sillyRandomBetween(-BOUNDS, BOUNDS, i));
+                splashPositions.push(MATH.sillyRandomBetween(0.5, 2, i+1.5));
+                splashPositions.push(MATH.sillyRandomBetween(-BOUNDS, BOUNDS, i+1.2));
+                splashPositions.push(MATH.sillyRandomBetween(0.5, 2, i+1.8));
+            }
+
+        //    const splashPositionAttribute = new InstancedBufferAttribute( new Float32Array( splashPositions ), 4 );
+
+            const texture = new Texture();
+            texture.generateMipmaps = false;
+            function tx1Loaded(image) {
+                texture.colorSpace = SRGBColorSpace;
+                texture.source.data = image;
+                texture.flipY = false;
+                texture.needsUpdate = true;
+            }
+            loadImageAsset('splash_img', tx1Loaded)
+
+            const splashMaterial = new SpriteNodeMaterial( {
+                sizeAttenuation: true, texture, alphaMap: texture, alphaTest: 0.01, transparent: true } );
+
+            const sunColor = uniform( envUnifs.sun );
+            const fogColor = uniform( envUnifs.fog );
+            const ambColor = uniform( envUnifs.ambient );
+            const tpf = uniform(0.01);
+            const hitDot = uniform(1);
+
+            const ONE = uniform(1);
+            const ZERO = uniform(0);
+
+            splashMaterial.colorNode = Fn( () => {
+                const posx = positionLocal.x
+                const posy = uv().y
+                const posz = positionLocal.z
+                const mod = time.mul(0.05).add( instanceIndex.mul(4.5)).sin().add(1.0);
+                const sunShade = mix( fogColor, sunColor.add(sunColor.normalize().mul(1)), min(1, max( 0, posy.pow(mod.add(4.8)))));
+                const ambShade = mix(ambColor.mul(fogColor.normalize()), sunShade,  min(1, max( 0, posy.pow(0.8))));
+                const lowShade = mix(ambColor.mul(0.05), ambShade,  min(1, max( 0, posy.pow(0.6))));
+                return vec4(lowShade, mod.sin().add(1.2).mul(0.5));
+            })()
+
+
+
+            const positionBuffer = instancedArray( splashCount, 'vec3' );
+            const velocityBuffer = instancedArray( splashCount, 'vec3' );
+            const scaleBuffer = instancedArray( splashCount);
+            const sizeBuffer = instancedArray( splashCount);
+
+            const computeUpdate = Fn( () => {
+
+                const position = positionBuffer.element( instanceIndex );
+                const velocity = velocityBuffer.element( instanceIndex );
+
+                velocity.addAssign( vec3( 0.00, ZERO.sub(tpf.mul(0.5)), 0.00 ) );
+                position.addAssign( velocity.mul(tpf));
+                velocity.mulAssign( ONE.sub(tpf.mul(1.1)) );
+
+                const scale = scaleBuffer.element(instanceIndex);
+                const size = sizeBuffer.element(instanceIndex);
+                scale.assign(max(0, size.mul(position.y.mul(0.2))))
+            } );
+
+
+            const splashPosition = uniform( new Vector3() );
+            const splashVelocity = uniform( new Vector3() );
+            const splashNormal = uniform( new Vector3() );
+            const splashIndex = uniform(0)
+
+            const applySplash = Fn( () => {
+
+                const up = vec3(0, 0.05, 0);
+
+                const hitSpeed = splashVelocity.length();
+
+                const position = positionBuffer.element( splashIndex );
+                position.assign(splashPosition);
+                const velocity = velocityBuffer.element( splashIndex );
+                velocity.assign( splashNormal.add(up.mul(hitDot.add(0.05))).mul(hitSpeed).add(splashVelocity));
+                const scale = scaleBuffer.element(splashIndex);
+                const size = sizeBuffer.element(splashIndex);
+                size.assign(hitDot.mul(hitSpeed).add(hitDot).add(10.5))
+                scale.assign(0);
+            } )().compute( 1 );
+
+            const computeSplashes = computeUpdate().compute( splashCount );
+
+            splashMaterial.color = store.env.fog.fog.color;
+            splashMaterial.depthTest = true;
+            splashMaterial.depthWrite = false;
+
+            splashMaterial.positionNode = positionBuffer.toAttribute();
+
+            splashMaterial.rotationNode = instanceIndex.mul(2.1);
+            splashMaterial.scaleNode = scaleBuffer.toAttribute();
+
+
+            const particles = new Sprite( splashMaterial );
+            particles.frustumCulled = false;
+            particles.count = splashCount;
+            console.log("Splash Particle count", splashCount)
+            scene.add( particles );
+
+        //    splashPositionAttribute.addUpdateRange(0, splashCount)
+
+            let lastIndex = 0;
+
+            function splashWater(e) {
+                splashPosition.value.copy( e.pos );
+                splashVelocity.value.copy( e.velocity );
+                splashNormal.value.copy( e.normal )
+                splashIndex.value = lastIndex;
+                hitDot.value = e.hitDot;
+                lastIndex++;
+                if (lastIndex > splashCount) {
+                    lastIndex = 0;
+                }
+                renderer.computeAsync( applySplash );
+            }
+
+            evt.on(ENUMS.Event.SPLASH_OCEAN, splashWater)
+
+
+            function update(){
+
+                tpf.value = getFrame().tpf;
+
+                let camera = ThreeAPI.getCamera();
+                if (camera) {
+                    let x= Math.floor(camera.position.x / TILE_SIZE);
+                    let z = Math.floor(camera.position.z / TILE_SIZE);
+                    camPos.x = x*TILE_SIZE;
+                    camPos.z = -z*TILE_SIZE;
+                }
+
+                renderer.computeAsync( computeSplashes );
+
+            }
+
+            ThreeAPI.addPostrenderCallback(update);
+
         }
 
-        const splashAttribute = new BufferAttribute(new Float32Array( splashes ), 6)
-
-        function splashWater(e) {
-
-        }
-
-        evt.on(ENUMS.Event.SPLASH_OCEAN, splashWater())
+        setupSplashes()
 
     }
 
