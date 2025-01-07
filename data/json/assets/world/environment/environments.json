@@ -7,7 +7,7 @@
           "distance":        100000000000
         },
         "configs":[
-          {"id":"sun",     "color":[0.7, 0.62,  0.2]},
+          {"id":"sun",     "color":[0.8, 0.62,  0.2]},
           {"id":"ambient", "color":[0.1,  0.3,  0.6]},
           {"id":"fog",     "color":[0.35, 0.83,  0.95], "density":0.013}
         ]
@@ -33,7 +33,7 @@
           "distance":          1000000000
         },
         "configs":[
-          {"id":"sun",     "color":[0.75,  0.65,  0.05]},
+          {"id":"sun",     "color":[0.85,  0.65,  0.05]},
           {"id":"ambient", "color":[0.11,  0.41,  0.65]},
           {"id":"fog",     "color":[0.25,  0.55,  0.31],  "density":0.014}
         ]
@@ -46,9 +46,9 @@
           "distance":        100000000000
         },
         "configs":[
-          {"id":"sun",     "color":[0.7, 0.62,  0.1]},
-          {"id":"ambient", "color":[0.0,  0.2,  0.4]},
-          {"id":"fog",     "color":[0.35, 0.73,  0.85], "density":0.013}
+          {"id":"sun",     "color":[0.88, 0.56,  0.2]},
+          {"id":"ambient", "color":[0.05, 0.23,  0.4]},
+          {"id":"fog",     "color":[0.27, 0.43,  0.45], "density":0.013}
         ]
       },
       {
@@ -59,9 +59,9 @@
           "distance":        1000000000
         },
         "configs":[
-          {"id":"sun",     "color":[0.7,   0.65,  0.25]},
+          {"id":"sun",     "color":[0.97,  0.65,  0.25]},
           {"id":"ambient", "color":[0.13,  0.18,  0.55]},
-          {"id":"fog",     "color":[0.96,  0.89,  0.69], "density":0.009}
+          {"id":"fog",     "color":[0.33,  0.59,  0.89], "density":0.009}
         ]
       },
       {
@@ -85,8 +85,8 @@
           "distance":          1000000000
         },
         "configs":[
-          {"id":"sun",     "color":[0.90,  0.22,  0.12]},
-          {"id":"ambient", "color":[0.55,  0.11,  0.01]},
+          {"id":"sun",     "color":[0.90,  0.14,  0.05]},
+          {"id":"ambient", "color":[0.35,  0.11,  0.01]},
           {"id":"fog",     "color":[0.80,  0.05,  0.01], "density":0.023}
         ]
       },
