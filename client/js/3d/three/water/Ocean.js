@@ -43,7 +43,7 @@ import {
     floor,
     uv,
     sign,
-    instancedBufferAttribute
+    instancedBufferAttribute, ceil, round, dot
 } from "../../../../../libs/three/Three.TSL.js";
 import {MeshPhongNodeMaterial, SpriteNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
 import {getFrame, loadImageAsset} from "../../../application/utils/DataUtils.js";
@@ -71,6 +71,26 @@ class Ocean {
         const foamArray = new Float32Array( BOUNDS * BOUNDS );
         const foamStorage = instancedArray( foamArray ).label( 'Foam' );
 
+        const splashCount = 500;
+
+        const splashPosition = uniform( new Vector3() );
+        const splashVelocity = uniform( new Vector3() );
+        const splashNormal = uniform( new Vector3() );
+        const splashIndex = uniform(0)
+        const positionBuffer = instancedArray( splashCount, 'vec3' );
+        const velocityBuffer = instancedArray( splashCount, 'vec3' );
+        const scaleBuffer = instancedArray( splashCount);
+        const sizeBuffer = instancedArray( splashCount);
+        const ageBuffer = instancedArray( splashCount);
+        const sunColor = uniform( envUnifs.sun );
+        const fogColor = uniform( envUnifs.fog );
+        const ambColor = uniform( envUnifs.ambient );
+        const tpf = uniform(0.01);
+        const hitDot = uniform(1);
+        const ONE = uniform(1);
+        const ZERO = uniform(0);
+        const duration = uniform(5)
+
         function generateOcean() {
 
             // Dimensions of simulation grid.
@@ -85,9 +105,6 @@ class Ocean {
             for ( let j = 0; j < BOUNDS; j ++ ) {
                 for ( let i = 0; i < BOUNDS; i ++ ) {
                     let foam = 0;
-                    if (MATH.sillyRandom(p) < 0.1) {
-                        foam = MATH.sillyRandomBetween(0, 0.2, p+1);
-                    }
                     foamArray[ p ] = foam;
                     p ++;
                 }
@@ -166,6 +183,14 @@ class Ocean {
                     const posx = positionLocal.x
                     const posy = positionLocal.y
 
+
+
+                 //   const splashState = foamStorage.element(instanceIndex);
+                //    splashState.assign(splashState.mul(ONE.sub(tpf.mul(0.1))));
+
+                //    const addSplash = foamStorage.element(splashIndex).toVar();
+                //    addSplash.assign(ONE);
+
                     const waveAx = posx.add(time.add(posy.mul(0.1)).cos().mul(5));
                     const waveBx = posy.add(time.add(posx.mul(0.1)).sin().mul(5));
 
@@ -180,7 +205,8 @@ class Ocean {
 
                     const uvIndex = indXFloor.mul(indYFloor)
 
-                    const foamMax = foamStorage.element( uvIndex ).toVar();
+                    const foamMax = foamStorage.element( uvIndex );
+                //    foamStorage.element( uvIndex ).assign(1)
 
                     const foamFade = max(0, foamMax.mul(tileDx.mul(3.14).sin().mul(tileDy.mul(3.14).sin())));
 
@@ -255,20 +281,8 @@ class Ocean {
 
         generateOcean();
 
-        let splashPositions = [];
-        let splashCount = 500;
+
         function setupSplashes() {
-
-
-
-            for (let i = 0; i < splashCount; i++ ) {
-                splashPositions.push(MATH.sillyRandomBetween(-BOUNDS, BOUNDS, i));
-                splashPositions.push(MATH.sillyRandomBetween(0.5, 2, i+1.5));
-                splashPositions.push(MATH.sillyRandomBetween(-BOUNDS, BOUNDS, i+1.2));
-                splashPositions.push(MATH.sillyRandomBetween(0.5, 2, i+1.8));
-            }
-
-        //    const splashPositionAttribute = new InstancedBufferAttribute( new Float32Array( splashPositions ), 4 );
 
             const texture = new Texture();
             texture.generateMipmaps = false;
@@ -283,15 +297,7 @@ class Ocean {
             const splashMaterial = new SpriteNodeMaterial( {
                 sizeAttenuation: true, texture, alphaMap: texture, alphaTest: 0.01, transparent: true } );
 
-            const sunColor = uniform( envUnifs.sun );
-            const fogColor = uniform( envUnifs.fog );
-            const ambColor = uniform( envUnifs.ambient );
-            const tpf = uniform(0.01);
-            const hitDot = uniform(1);
 
-            const ONE = uniform(1);
-            const ZERO = uniform(0);
-            const duration = uniform(5)
 
             splashMaterial.colorNode = Fn( () => {
                 const posx = positionLocal.x
@@ -301,19 +307,9 @@ class Ocean {
                 const sunShade = mix( fogColor, sunColor, min(1, max( 0, posy.pow(mod.add(4.8)))));
                 const ambShade = mix(ambColor.mul(fogColor.normalize()), sunShade.mul(2),  min(1, max( 0, posy.pow(1.8))));
                 const lowShade = mix(ambColor.mul(0.05), ambShade,  min(1, max( 0, posy.pow(0.6))));
-
                 const age = ageBuffer.element(instanceIndex);
-
                 return vec4(lowShade, mod.sin().add(1.2).mul(duration.sub(age)).mul(0.4));
             })()
-
-
-
-            const positionBuffer = instancedArray( splashCount, 'vec3' );
-            const velocityBuffer = instancedArray( splashCount, 'vec3' );
-            const scaleBuffer = instancedArray( splashCount);
-            const sizeBuffer = instancedArray( splashCount);
-            const ageBuffer = instancedArray( splashCount);
 
             const computeUpdate = Fn( () => {
 
@@ -331,13 +327,25 @@ class Ocean {
                 scale.assign(max(0, size.mul(age.pow(0.2).mul(duration.sub(age.div(duration))))))
             } );
 
+            const computeClearSplashes = Fn( () => {
 
-            const splashPosition = uniform( new Vector3() );
-            const splashVelocity = uniform( new Vector3() );
-            const splashNormal = uniform( new Vector3() );
-            const splashIndex = uniform(0)
+                const foam = foamStorage.element(instanceIndex);
+                foamStorage.element(instanceIndex).assign(foam.mul(ONE.sub(0.01)))
+
+            } )().compute( foamArray.length );
 
             const applySplash = Fn( () => {
+
+                const splashIndexY = floor(splashPosition.x.mod(BOUNDS_TILES).div(TILE_SIZE));
+                const splashIndexX = floor(splashPosition.z.mul(-1).mod(BOUNDS_TILES).div(TILE_SIZE));
+                const splashPosIndex = splashIndexX.mul(splashIndexY);
+                foamStorage.element(splashPosIndex).assign(ONE.mul(splashIndex.sin().add(2).mul(0.4)));
+
+                const randomPick = mul(BOUNDS_TILES, BOUNDS_TILES);
+
+                const random = uv().dot(vec2(12.9898,78.233).mul(43758.5453123)).add(1).mul(0.5);
+                const rndSelect = floor(randomPick.mul(random));
+                foamStorage.element(rndSelect).assign(ONE.mul(200));
 
                 const up = vec3(0, 0.05, 0);
 
@@ -408,7 +416,9 @@ class Ocean {
                 }
 
                 renderer.computeAsync( computeSplashes );
-
+                if (Math.random() < (tpf.value * 1)) {
+                    renderer.computeAsync( computeClearSplashes )
+                }
             }
 
             ThreeAPI.addPostrenderCallback(update);
