@@ -330,7 +330,7 @@ class Ocean {
             const computeClearSplashes = Fn( () => {
 
                 const foam = foamStorage.element(instanceIndex);
-                foamStorage.element(instanceIndex).assign(foam.mul(ONE.sub(0.01)))
+                foamStorage.element(instanceIndex).assign(foam.mul(ONE.sub(0.001)))
 
             } )().compute( foamArray.length );
 
