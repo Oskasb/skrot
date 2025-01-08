@@ -89,7 +89,7 @@ class Ocean {
         const hitDot = uniform(1);
         const ONE = uniform(1);
         const ZERO = uniform(0);
-        const duration = uniform(5)
+        const duration = uniform(3)
 
         function generateOcean() {
 
@@ -340,7 +340,7 @@ class Ocean {
                 const splashIndexX = floor(splashPosition.z.mul(-1).mod(BOUNDS_TILES).div(TILE_SIZE));
                 const splashPosIndex = splashIndexX.mul(splashIndexY);
                 const foam = foamStorage.element(splashPosIndex)
-                foamStorage.element(splashPosIndex).assign(foam.add(0.25).pow(0.5));
+                foamStorage.element(splashPosIndex).assign(foam.add(0.1).pow(0.5));
 
                 const randomPick = mul(BOUNDS_TILES, BOUNDS_TILES);
 
@@ -358,7 +358,7 @@ class Ocean {
                 velocity.assign( splashNormal.add(up.mul(hitDot.add(0.05))).mul(hitSpeed).mul(0.25).add(splashVelocity.mul(1.2)));
                 const scale = scaleBuffer.element(splashIndex);
                 const size = sizeBuffer.element(splashIndex);
-                size.assign(hitDot.mul(hitSpeed).add(hitDot).add(splashIndex.sin().add(2)).mul(0.1))
+                size.assign(hitDot.mul(hitSpeed).add(hitDot).add(splashIndex.sin().add(2)).div(duration).mul(0.5))
                 scale.assign(0);
 
                 const age = ageBuffer.element(splashIndex);
