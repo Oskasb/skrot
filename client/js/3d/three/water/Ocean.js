@@ -330,7 +330,7 @@ class Ocean {
             const computeClearSplashes = Fn( () => {
 
                 const foam = foamStorage.element(instanceIndex);
-                foamStorage.element(instanceIndex).assign(foam.mul(ONE.sub(0.001)))
+                foamStorage.element(instanceIndex).assign(foam.mul(0.99))
 
             } )().compute( foamArray.length );
 
@@ -339,13 +339,14 @@ class Ocean {
                 const splashIndexY = floor(splashPosition.x.mod(BOUNDS_TILES).div(TILE_SIZE));
                 const splashIndexX = floor(splashPosition.z.mul(-1).mod(BOUNDS_TILES).div(TILE_SIZE));
                 const splashPosIndex = splashIndexX.mul(splashIndexY);
-                foamStorage.element(splashPosIndex).assign(ONE.mul(splashIndex.sin().add(2).mul(0.4)));
+                const foam = foamStorage.element(splashPosIndex)
+                foamStorage.element(splashPosIndex).assign(foam.add(0.25).pow(0.5));
 
                 const randomPick = mul(BOUNDS_TILES, BOUNDS_TILES);
 
                 const random = uv().dot(vec2(12.9898,78.233).mul(43758.5453123)).add(1).mul(0.5);
                 const rndSelect = floor(randomPick.mul(random));
-                foamStorage.element(rndSelect).assign(ONE.mul(200));
+                foamStorage.element(rndSelect).assign(0.2);
 
                 const up = vec3(0, 0.05, 0);
 
@@ -416,7 +417,7 @@ class Ocean {
                 }
 
                 renderer.computeAsync( computeSplashes );
-                if (Math.random() < (tpf.value * 1)) {
+                if (Math.random() < (tpf.value * 4)) {
                     renderer.computeAsync( computeClearSplashes )
                 }
             }
