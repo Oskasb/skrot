@@ -37,11 +37,12 @@ class PhysicalModel {
             splashEvt.velocity.copy(getBodyVelocity(obj3d.userData.body));
             let time = getFrame().gameTime
             for (let i = 0; i < buoyancy.length; i++) {
-                tempVec.x = buoyancy[i].x;
-                tempVec.y = buoyancy[i].y;
-                tempVec.z = buoyancy[i].z;
+                tempVec.x = buoyancy[i].pos.x;
+                tempVec.y = buoyancy[i].pos.y;
+                tempVec.z = buoyancy[i].pos.z;
 
-                let size = buoyancy[i].w;
+                let size = buoyancy[i].size;
+                let splash = buoyancy[i].splash;
 
                 tempVec.applyQuaternion(obj3d.quaternion);
                 tempVec3.copy(tempVec)
@@ -50,37 +51,38 @@ class PhysicalModel {
                 tempVec2.set(0, 0, 0);
 
                 let waveHeight = Math.cos(time*0.8+(tempVec.x+tempVec.z*0.2)*0.04)*2
-                let submersion = calcBoxSubmersion(tempVec.y  + waveHeight, buoyancy[i].w)
+                let submersion = calcBoxSubmersion(tempVec.y  + waveHeight, size)
 
                 if (submersion > 0) {
                     tempVec2.y = submersion * 100000 * AmmoAPI.getStepTime();
                     AmmoAPI.applyForceAtPointToBody(tempVec2, tempVec3, obj3d.userData.body)
 
+                    if (splash > Math.random()) {
+                        tempVec3.add(obj3d.position)
+                        lineFrom.copy(tempVec);
+                        lineTo.copy(tempVec3);
 
-                    tempVec3.add(obj3d.position)
-                    lineFrom.copy(tempVec);
-                    lineTo.copy(tempVec3);
+                        lineTo.y = 0;
 
-                    lineTo.y = 0;
+                        MATH.randomVector(tempVec)
+                        //    tempVec.set(Math.sin(getFrame().gameTime)*50, 0, Math.cos(getFrame().gameTime)*50)
+                        tempVec.multiplyScalar(size);
+                        //    tempVec.applyQuaternion(obj3d.quaternion)
+                        tempVec.y = 0;
+                        //    tempVec.copy(tempVec3);
+                        //    tempVec.add(obj3d.position)
+                        lineFrom.add(tempVec)
+                        lineFrom.y = 0;
 
-                    MATH.randomVector(tempVec)
-                    //    tempVec.set(Math.sin(getFrame().gameTime)*50, 0, Math.cos(getFrame().gameTime)*50)
-                    tempVec.multiplyScalar(size);
-                //    tempVec.applyQuaternion(obj3d.quaternion)
-                    tempVec.y = 0;
-                    //    tempVec.copy(tempVec3);
-                    //    tempVec.add(obj3d.position)
-                    lineFrom.add(tempVec)
-                    lineFrom.y = 0;
+                        let hit = rayTest(lineFrom, lineTo, splashEvt.pos, splashEvt.normal, false);
 
-                    let hit = rayTest(lineFrom, lineTo, splashEvt.pos, splashEvt.normal, false);
-
-                    if (hit) {
-                        tempVec.copy(splashEvt.velocity).normalize();
-                        splashEvt.normal.y = 0.1;
-                        splashEvt.hitDot = (tempVec.dot(splashEvt.normal)+1)/2
-                        if (splashEvt.hitDot > Math.random() * 0.9) {
-                            evt.dispatch(ENUMS.Event.SPLASH_OCEAN, splashEvt)
+                        if (hit) {
+                            tempVec.copy(splashEvt.velocity).normalize();
+                            splashEvt.normal.y = 0.5;
+                            splashEvt.hitDot = (tempVec.dot(splashEvt.normal)+1)/2
+                            if (splashEvt.hitDot > Math.random() * 0.9) {
+                                evt.dispatch(ENUMS.Event.SPLASH_OCEAN, splashEvt)
+                            }
                         }
                     }
 
@@ -113,9 +115,13 @@ class PhysicalModel {
             if (config['buoyancy']) {
                 for (let i = 0; i < config['buoyancy'].length; i++) {
                     let buoy = config['buoyancy'][i];
-                    let point = new Vector4();
-                    MATH.vec3FromArray(point, buoy.pos)
-                    point.w = buoy.size;
+                    let point = {
+                        pos:new Vector3(),
+                        size: buoy.size,
+                        splash:buoy.splash || 0
+                    };
+                    MATH.vec3FromArray(point.pos, buoy.pos)
+
                     buoyancy[i] = point;
                 }
             }

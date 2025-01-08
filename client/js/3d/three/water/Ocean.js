@@ -256,7 +256,7 @@ class Ocean {
         generateOcean();
 
         let splashPositions = [];
-        let splashCount = 3000;
+        let splashCount = 500;
         function setupSplashes() {
 
 
@@ -291,6 +291,7 @@ class Ocean {
 
             const ONE = uniform(1);
             const ZERO = uniform(0);
+            const duration = uniform(3)
 
             splashMaterial.colorNode = Fn( () => {
                 const posx = positionLocal.x
@@ -298,9 +299,12 @@ class Ocean {
                 const posz = positionLocal.z
                 const mod = time.mul(0.05).add( instanceIndex.mul(4.5)).sin().add(1.0);
                 const sunShade = mix( fogColor, sunColor, min(1, max( 0, posy.pow(mod.add(4.8)))));
-                const ambShade = mix(ambColor.mul(fogColor.normalize()), sunShade.mul(2),  min(1, max( 0, posy.pow(0.8))));
+                const ambShade = mix(ambColor.mul(fogColor.normalize()), sunShade.mul(2),  min(1, max( 0, posy.pow(1.8))));
                 const lowShade = mix(ambColor.mul(0.05), ambShade,  min(1, max( 0, posy.pow(0.6))));
-                return vec4(lowShade, mod.sin().add(1.2).mul(0.2));
+
+                const age = ageBuffer.element(instanceIndex);
+
+                return vec4(lowShade, mod.sin().add(1.2).mul(duration.sub(age)).mul(0.4));
             })()
 
 
@@ -309,19 +313,22 @@ class Ocean {
             const velocityBuffer = instancedArray( splashCount, 'vec3' );
             const scaleBuffer = instancedArray( splashCount);
             const sizeBuffer = instancedArray( splashCount);
+            const ageBuffer = instancedArray( splashCount);
 
             const computeUpdate = Fn( () => {
 
                 const position = positionBuffer.element( instanceIndex );
                 const velocity = velocityBuffer.element( instanceIndex );
 
-                velocity.addAssign( vec3( 0.00, ZERO.sub(tpf.mul(splashIndex.cos().add(1.5).mul(0.5))), 0.00 ) );
+                velocity.addAssign( vec3( 0.00, ZERO.sub(tpf.mul(splashIndex.cos().add(1.5).mul(2.5))), 0.00 ) );
                 position.addAssign( velocity.mul(tpf));
                 velocity.mulAssign( ONE.sub(tpf.mul(1.1)) );
 
                 const scale = scaleBuffer.element(instanceIndex);
                 const size = sizeBuffer.element(instanceIndex);
-                scale.assign(max(0, size.mul(position.y.mul(0.2))))
+                const age = ageBuffer.element(instanceIndex);
+                age.assign(age.add(tpf));
+                scale.assign(max(0, size.mul(age.pow(0.2).mul(duration.sub(age.mul(0.4))))))
             } );
 
 
@@ -339,11 +346,15 @@ class Ocean {
                 const position = positionBuffer.element( splashIndex );
                 position.assign(splashPosition);
                 const velocity = velocityBuffer.element( splashIndex );
-                velocity.assign( splashNormal.add(up.mul(hitDot.add(0.05))).mul(hitSpeed).add(splashVelocity));
+                velocity.assign( splashNormal.add(up.mul(hitDot.add(0.05))).mul(hitSpeed).mul(0.25).add(splashVelocity.mul(1.2)));
                 const scale = scaleBuffer.element(splashIndex);
                 const size = sizeBuffer.element(splashIndex);
-                size.assign(hitDot.mul(hitSpeed).add(hitDot).add(splashIndex.sin().add(3).mul(4)))
+                size.assign(hitDot.mul(hitSpeed).add(hitDot).add(splashIndex.sin().add(2)).mul(0.25))
                 scale.assign(0);
+
+                const age = ageBuffer.element(splashIndex);
+                age.assign(0);
+
             } )().compute( 1 );
 
             const computeSplashes = computeUpdate().compute( splashCount );

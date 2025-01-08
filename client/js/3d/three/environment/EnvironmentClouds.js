@@ -95,7 +95,7 @@ class EnvironmentClouds {
         function tx1Loaded(image) {
             texture.colorSpace = SRGBColorSpace;
             texture.source.data = image;
-            texture.flipY = false;
+            texture.flipY = true;
             texture.needsUpdate = true;
         }
         loadImageAsset('cloud_img', tx1Loaded)
