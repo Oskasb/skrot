@@ -291,7 +291,7 @@ class Ocean {
 
             const ONE = uniform(1);
             const ZERO = uniform(0);
-            const duration = uniform(3)
+            const duration = uniform(5)
 
             splashMaterial.colorNode = Fn( () => {
                 const posx = positionLocal.x
@@ -320,15 +320,15 @@ class Ocean {
                 const position = positionBuffer.element( instanceIndex );
                 const velocity = velocityBuffer.element( instanceIndex );
 
-                velocity.addAssign( vec3( 0.00, ZERO.sub(tpf.mul(splashIndex.cos().add(1.5).mul(2.5))), 0.00 ) );
+                velocity.addAssign( vec3( 0.00, ZERO.sub(tpf.mul(splashIndex.cos().add(1.5).mul(1.5))), 0.00 ) );
                 position.addAssign( velocity.mul(tpf));
-                velocity.mulAssign( ONE.sub(tpf.mul(1.1)) );
+                velocity.mulAssign( ONE.sub(tpf.mul(0.6)) );
 
                 const scale = scaleBuffer.element(instanceIndex);
                 const size = sizeBuffer.element(instanceIndex);
                 const age = ageBuffer.element(instanceIndex);
                 age.assign(age.add(tpf));
-                scale.assign(max(0, size.mul(age.pow(0.2).mul(duration.sub(age.mul(0.4))))))
+                scale.assign(max(0, size.mul(age.pow(0.2).mul(duration.sub(age.div(duration))))))
             } );
 
 
@@ -349,7 +349,7 @@ class Ocean {
                 velocity.assign( splashNormal.add(up.mul(hitDot.add(0.05))).mul(hitSpeed).mul(0.25).add(splashVelocity.mul(1.2)));
                 const scale = scaleBuffer.element(splashIndex);
                 const size = sizeBuffer.element(splashIndex);
-                size.assign(hitDot.mul(hitSpeed).add(hitDot).add(splashIndex.sin().add(2)).mul(0.25))
+                size.assign(hitDot.mul(hitSpeed).add(hitDot).add(splashIndex.sin().add(2)).mul(0.1))
                 scale.assign(0);
 
                 const age = ageBuffer.element(splashIndex);
