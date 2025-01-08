@@ -8,6 +8,7 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "three": "^0.172.0",
     "ws": "^8.18.0"
   }
 }

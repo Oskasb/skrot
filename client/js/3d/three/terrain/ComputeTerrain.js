@@ -1,6 +1,6 @@
 
-import {loadImageAsset} from "../../../application/utils/DataUtils.js";
-import {CanvasTexture, Mesh, PlaneGeometry} from "../../../../../libs/three/Three.Core.js";
+import {getFrame, loadImageAsset, loadModelAsset} from "../../../application/utils/DataUtils.js";
+import {CanvasTexture, Mesh, PlaneGeometry, Vector3} from "../../../../../libs/three/Three.Core.js";
 import MeshStandardNodeMaterial from "../../../../../libs/three/materials/nodes/MeshStandardNodeMaterial.js";
 import {
     floor,
@@ -14,6 +14,9 @@ import {
     vec3, vec4
 } from "../../../../../libs/three/Three.TSL.js";
 import {vertexIndex} from "../../../../../libs/three/nodes/core/IndexNode.js";
+import {loadAsset} from "../../../application/utils/AssetUtils.js";
+import {aaBoxTestVisibility, borrowBox} from "../../../application/utils/ModelUtils.js";
+import {InstancedMesh} from "three";
 
 let heightCanvas = document.createElement('canvas');
 let heightmapContext;
@@ -28,23 +31,84 @@ let TILES_X;
 let TILES_Y;
 let BOUND_TILES;
 
+let GEO_SEGS_XY = 32;
+let SECTIONS_XY;
+
+
+let centerSize = 30;
+let lodLayers = 5;
+let gridOffsets = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
+let layerScale = [1, 3, 9, 27, 81, 243]
+let tempPoint = new Vector3();
+
+const camPos = new Vector3();
+
 class ComputeTerrain {
 
     constructor() {
 
-        function setupTerrain() {
+
+        function update(){
+
+            let camera = ThreeAPI.getCamera();
+            if (camera) {
+                let x= Math.floor(camera.position.x / TILE_SIZE);
+                let z = Math.floor(camera.position.z / TILE_SIZE);
+                camPos.x = x*TILE_SIZE;
+                camPos.z = -z*TILE_SIZE;
+            }
+
+            let scaleFactor = centerSize
+
+            for (let l = 0; l < lodLayers; l++) {
+                let lodLayer = l;
+
+                for (let i = 0; i < gridOffsets.length; i++) {
+                    let lodScale = layerScale[lodLayer]
+                }
+            }
+
+        }
+
+
+
+        function setupTerrain(tiles32geo) {
             BOUND_TILES = heightData.length / 4;
             TILES_X = Math.sqrt(BOUND_TILES);
             TILES_Y = Math.sqrt(BOUND_TILES);
+
+            SECTIONS_XY = TILES_X / GEO_SEGS_XY;
+
+            let count = 1;
+            for (let l = 0; l < lodLayers; l++) {
+                let lodLayer = l;
+                for (let i = 0; i < gridOffsets.length; i++) {
+                    let lodScale = layerScale[lodLayer]
+                    count++
+                }
+            }
+
+
+            let tileGeo = tiles32geo.scene.children[0].geometry;
+            console.log("Setup Terrain geo:", SECTIONS_XY, tileGeo)
+
+            return;
+
             terrainGeometry = new PlaneGeometry( TILES_X*TILE_SIZE, TILES_Y*TILE_SIZE, TILES_X - 1, TILES_Y - 1 );
             terrainMaterial = new MeshStandardNodeMaterial();
+            terrainMaterial.transparent = true;
+
+
+            let tile32mesh = new InstancedMesh( tileGeo, terrainMaterial, count );
 
             terrainMesh = new Mesh( terrainGeometry, terrainMaterial );
             terrainMesh.rotation.x = - Math.PI / 2;
-            terrainMesh.position.set(TILES_X*TILE_SIZE*0.5, -30, TILES_Y*TILE_SIZE*0.5);
+            terrainMesh.position.set(0 * TILES_X*TILE_SIZE*0.5, -30, 0 * TILES_Y*TILE_SIZE*0.5);
             terrainMesh.matrixAutoUpdate = false;
             terrainMesh.frustumCulled = false;
             terrainMesh.updateMatrix();
+
+
 
 
             const heightArray = new Float32Array(heightData.length / 4);
@@ -70,7 +134,7 @@ class ComputeTerrain {
             } )();
 
             terrainMaterial.colorNode = Fn( () => {
-                return vec4(0.3, 0.4, 0.2, 1);
+                return vec4(0.3, 0.4, 0.2, 0.5);
             } )();
 
 /*
@@ -92,6 +156,10 @@ class ComputeTerrain {
                 "vec3 fragNormal = normalize(cross(tangent, biTangent));",
   */
             ThreeAPI.addToScene(terrainMesh);
+
+
+            ThreeAPI.addPostrenderCallback(update);
+
         }
 
 
@@ -108,8 +176,10 @@ class ComputeTerrain {
             heightmapContext = heightCanvas.getContext('2d', { willReadFrequently: true } )
             heightmapContext.drawImage(imgData, 0, 0, width, height);
             heightData = heightmapContext.getImageData(0, 0, width, height).data;
+
+            loadAsset('unit_grid_32', 'glb', setupTerrain)
+
             console.log("Heightmap image", tx, heightData);
-            setupTerrain();
         }
 
         loadImageAsset('heightmap_w01_20', tx1Loaded)

@@ -474,6 +474,7 @@ let oceanModel = function(model) {
 function registerWorldLevel(worldLevel) {
     if (!worldLevels[worldLevel]) {
 
+
         worldLevels[worldLevel] = {
             heightCanvas : document.createElement('canvas'),
             terrainCanvas : document.createElement('canvas'),
