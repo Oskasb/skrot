@@ -43,7 +43,7 @@ import {
     floor,
     uv,
     sign,
-    instancedBufferAttribute, ceil, round, dot
+    instancedBufferAttribute, ceil, round, dot, varying
 } from "../../../../../libs/three/Three.TSL.js";
 import {MeshPhongNodeMaterial, SpriteNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
 import {getFrame, loadImageAsset} from "../../../application/utils/DataUtils.js";
@@ -77,6 +77,7 @@ class Ocean {
         const splashVelocity = uniform( new Vector3() );
         const splashNormal = uniform( new Vector3() );
         const splashIndex = uniform(0)
+
         const positionBuffer = instancedArray( splashCount, 'vec3' );
         const velocityBuffer = instancedArray( splashCount, 'vec3' );
         const scaleBuffer = instancedArray( splashCount);
@@ -180,22 +181,15 @@ class Ocean {
                 waterMaterial.lights = true;
                 waterMaterial.colorNode = Fn( () => {
 
-                    const posx = positionLocal.x
-                    const posy = positionLocal.y
-
-
-
-                 //   const splashState = foamStorage.element(instanceIndex);
-                //    splashState.assign(splashState.mul(ONE.sub(tpf.mul(0.1))));
-
-                //    const addSplash = foamStorage.element(splashIndex).toVar();
-                //    addSplash.assign(ONE);
+                    const posNode = positionLocal;
+                    const posx = posNode.y
+                    const posy = posNode.x
 
                     const waveAx = posx.add(time.add(posy.mul(0.1)).cos().mul(5));
                     const waveBx = posy.add(time.add(posx.mul(0.1)).sin().mul(5));
 
-                    const indexX = waveAx.mod(BOUNDS_TILES).div(TILE_SIZE) // max(BOUNDS, globalPos.x)
-                    const indexY = waveBx.mod(BOUNDS_TILES).div(TILE_SIZE)
+                    const indexX = min(BOUNDS, max(0, waveAx.mod(BOUNDS_TILES).div(TILE_SIZE)));
+                    const indexY = min(BOUNDS, max(0, waveBx.mod(BOUNDS_TILES).div(TILE_SIZE)));
 
                     const indXFloor = floor(indexX)
                     const indYFloor = floor(indexY)
@@ -232,7 +226,6 @@ class Ocean {
                     const blendColor = mix(waterColor, ambColor.mul(0.7), bigWaveNm.x.mul(0.3));
                     const blend2Color = mix(blendColor, fogColor, bigWaveNm.z.mul(0.3));
 
-                    const dx = min(1, max(0, posx.abs().mul(-1).add(21)).mul(0.11))
 
                     return mix(blendColor, white, foam);
 
@@ -249,6 +242,8 @@ class Ocean {
                 const uvY = uv().y.sub(0.5)
                 const pX = uvX.mul(BOUNDS)
                 const pZ = uvY.mul(BOUNDS)
+                const camOffsetPos = vec3(floor(camPos.x.div(TILE_SIZE)).mul(TILE_SIZE), 0 , floor(camPos.z.div(TILE_SIZE)).mul(TILE_SIZE));
+                const globalPos = vec3(pX, 0, pZ).add(camOffsetPos);
 
                 const bnd = vec3(BOUNDS, 1, TILE_SIZE);
 
@@ -260,13 +255,12 @@ class Ocean {
 
                 const centerNess = max(0, cX.mul(cZ));
 
-                const camOffsetPos = vec3(floor(camPos.x.div(TILE_SIZE)).mul(TILE_SIZE), 0 , floor(camPos.z.div(TILE_SIZE)).mul(TILE_SIZE));
-                const globalPos = vec3(pX, 0, pZ).add(camOffsetPos);
-
                 const height = time.add(pX.sub(camOffsetPos.x).mul(bnd.z.mul(3))).sin().add(pZ.sub(camOffsetPos.z).mul(bnd.z.mul(2))).cos().mul(1.3);
                 varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, height.mul(centerNess)).normalize()  );
                 //       varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, 0).normalize()  );
-                return vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
+                const finalPosition = vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
+
+                return finalPosition;
 
                 } )();
 
@@ -296,8 +290,6 @@ class Ocean {
 
             const splashMaterial = new SpriteNodeMaterial( {
                 sizeAttenuation: true, texture, alphaMap: texture, alphaTest: 0.01, transparent: true } );
-
-
 
             splashMaterial.colorNode = Fn( () => {
                 const posx = positionLocal.x
@@ -342,12 +334,12 @@ class Ocean {
                 const foam = foamStorage.element(splashPosIndex)
                 foamStorage.element(splashPosIndex).assign(foam.add(0.1).pow(0.5));
 
+                /*
                 const randomPick = mul(BOUNDS_TILES, BOUNDS_TILES);
-
                 const random = uv().dot(vec2(12.9898,78.233).mul(43758.5453123)).add(1).mul(0.5);
                 const rndSelect = floor(randomPick.mul(random));
                 foamStorage.element(rndSelect).assign(0.2);
-
+*/
                 const up = vec3(0, 0.05, 0);
 
                 const hitSpeed = splashVelocity.length().mul(splashIndex.sin().add(1.5).mul(0.5));
@@ -387,6 +379,8 @@ class Ocean {
         //    splashPositionAttribute.addUpdateRange(0, splashCount)
 
             let lastIndex = 0;
+
+
 
             function splashWater(e) {
                 splashPosition.value.copy( e.pos );

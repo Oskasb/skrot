@@ -18,6 +18,7 @@ import {InstanceAPI} from "./instancer/InstanceAPI.js";
 import {EnvironmentMaps} from "./environment/EnvironmentMaps.js";
 import {Ocean} from "./water/Ocean.js";
 import {EnvironmentClouds} from "./environment/EnvironmentClouds.js";
+import {ComputeTerrain} from "./terrain/ComputeTerrain.js";
 
 
 let cameraSpatialCursor;
@@ -79,6 +80,7 @@ class ThreeAPI {
             new EnvironmentClouds(store);
             env.call.activateEnvMaps()
             new Ocean(store)
+            new ComputeTerrain(store);
         };
 
         this.threeEnvironment.loadEnvironmentData(onLoaded);
