@@ -15,8 +15,8 @@ import {
 } from "../../../../../libs/three/Three.TSL.js";
 import {vertexIndex} from "../../../../../libs/three/nodes/core/IndexNode.js";
 import {loadAsset} from "../../../application/utils/AssetUtils.js";
-import {DynamicDrawUsage, InstancedMesh} from "three";
-import {uniform} from "three/tsl";
+import {DoubleSide, DynamicDrawUsage, InstancedMesh} from "three";
+import {mix, uniform} from "three/tsl";
 import {evt} from "../../../application/event/evt.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {aaBoxTestVisibility, borrowBox} from "../../../application/utils/ModelUtils.js";
@@ -36,10 +36,12 @@ let TILES_X;
 let TILES_Y;
 let BOUND_TILES;
 
+
+
 const GEO_SEGS_XY = 32;
 let SECTIONS_XY;
 
-const HEIGHT_MIN =-30;
+const HEIGHT_MIN =4 // -30;
 
 const centerSize = 30;
 const lodLayers = 5;
@@ -47,18 +49,55 @@ const gridOffsets = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0
 const layerScale = [1, 3, 9, 27, 81, 243]
 let tempPoint = new Vector3();
 
-let offsetsBuffer;
 
 const dummy = new Object3D();
 
 const camPos = new Vector3();
 
+const tilePosition = uniform( new Vector3() );
+const tileScale = uniform( new Vector3() );
+const tileIndex = uniform(0)
+
 class ComputeTerrain {
 
     constructor(store) {
+
+        let positionBuffer;
+        let scaleBuffer;
+
         let renderer = store.renderer;
         const scaleFactor = centerSize*TILE_SIZE;
         const gridCenter = uniform(camPos, 'vec3');
+        let tileGeo;
+
+
+        const applyTileUpdate = Fn( () => {
+
+            const tilePX = tilePosition.x;
+            const tilePY = tilePosition.y;
+            const tilePZ = tilePosition.z;
+
+            const tileScaleX = tileScale.x;
+            const tileScaleZ = tileScale.z;
+
+
+        //    const position = positionBuffer.element( tileIndex );
+        //    position.assign(vec3(0, 0, 0));
+
+        //    let local = positionLocal;
+        //    positionLocal.assign(vec3(local.x, 100, local.z));
+        //    varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 100, 1 ))
+
+        //    const scale = scaleBuffer.element( tileIndex );
+        //    scale.assign(vec3(100, 1, 100))
+        } )().compute( 1 );
+
+        function updateTile(dummy, index) {
+            tilePosition.value.copy( dummy.position );
+            tileScale.value.copy( dummy.scale );
+            tileIndex.value = index;
+            renderer.computeAsync( applyTileUpdate );
+        }
 
         function update(){
 
@@ -69,13 +108,25 @@ class ComputeTerrain {
 
 
                 dummy.position.set(x, HEIGHT_MIN, z);
-                dummy.scale.set(scaleFactor, 1, scaleFactor);
+                dummy.scale.set(TILE_SIZE, 1, TILE_SIZE);
+
                 tempPoint.copy(dummy.position);
                 tempPoint.y = 20;
-                evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:dummy.position, size:4, color:'YELLOW'})
-                dummy.updateMatrix();
-                tile32mesh.setMatrixAt(0, dummy.matrix);
-                let tileCount = 1;
+                let tileCount = 0;
+                let visible = aaBoxTestVisibility(dummy.position, dummy.scale.x*centerSize+1, 2000, dummy.scale.z*centerSize+1)
+                if (visible) {
+                    updateTile(dummy, tileCount);
+                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:dummy.position, size:7, color:'GREEN'})
+                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempPoint, to:dummy.position, color:'CYAN'})
+                //    let borrowedBox = borrowBox();
+                //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_AABOX, {min:borrowedBox.min, max:borrowedBox.max, color:'GREEN'})
+
+                    dummy.updateMatrix();
+                    tile32mesh.setMatrixAt(tileCount, dummy.matrix);
+                    tileCount++
+                }
+
+
                 for (let l = 0; l < lodLayers; l++) {
                     let lodLayer = l;
                     for (let i = 0; i < gridOffsets.length; i++) {
@@ -86,14 +137,15 @@ class ComputeTerrain {
                         dummy.position.set(tx, HEIGHT_MIN, tz);
 
 
-                        dummy.scale.set(scaleFactor*lodScale, 1, scaleFactor*lodScale);
+                        dummy.scale.set(TILE_SIZE*lodScale, 1, TILE_SIZE*lodScale);
 
-                        let visible = aaBoxTestVisibility(dummy.position, dummy.scale.x, 2000, dummy.scale.z)
+                        visible = aaBoxTestVisibility(dummy.position, dummy.scale.x*centerSize, 2000, dummy.scale.z*centerSize)
                         if (visible) {
+                            updateTile(dummy, tileCount);
                             evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:dummy.position, size:lodScale*4, color:'CYAN'})
                             evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempPoint, to:dummy.position, color:'CYAN'})
-                            let borrowedBox = borrowBox();
-                            evt.dispatch(ENUMS.Event.DEBUG_DRAW_AABOX, {min:borrowedBox.min, max:borrowedBox.max, color:'RED'})
+                       //     let borrowedBox = borrowBox();
+                       //     evt.dispatch(ENUMS.Event.DEBUG_DRAW_AABOX, {min:borrowedBox.min, max:borrowedBox.max, color:'RED'})
                             dummy.updateMatrix();
                             tile32mesh.setMatrixAt(tileCount, dummy.matrix);
                             tileCount++
@@ -105,9 +157,11 @@ class ComputeTerrain {
 
 
                 if (camPos.x !== x*TILE_SIZE || camPos.z !== z*TILE_SIZE) {
+
+                    tileGeo.count = tileCount;
                     camPos.x = x*TILE_SIZE;
                     camPos.z = z*TILE_SIZE;
-                    renderer.computeAsync( computeTiles().compute( tileCount ) );
+                //    renderer.computeAsync( computeTiles().compute( tileCount ) );
                 }
             }
         }
@@ -115,9 +169,8 @@ class ComputeTerrain {
 
         const computeTiles = Fn( () => {
 
-            const offsetX = offsetsBuffer.element( instanceIndex.mul(3) );
-            const offsetZ = offsetsBuffer.element( instanceIndex.mul(3).add(1) );
-            const offsetScale = offsetsBuffer.element( instanceIndex.mul(3).add(2) );
+            const position = positionBuffer.element( instanceIndex );
+            position.assign(vec3( 0, 0, 0));
 
             const origin = gridCenter;
 
@@ -134,31 +187,39 @@ class ComputeTerrain {
 
             SECTIONS_XY = TILES_X / GEO_SEGS_XY;
 
-            let offsets = [0, 0, 1];
-
             tileCount = 1;
+
             for (let l = 0; l < lodLayers; l++) {
-                let lodLayer = l;
                 for (let i = 0; i < gridOffsets.length; i++) {
-                    let lodScale = layerScale[lodLayer];
-
-                    let x = scaleFactor*gridOffsets[i][0]*lodScale;
-                    let z = scaleFactor*gridOffsets[i][1]*lodScale
-                    offsets.push(x, z, lodScale);
-
                     tileCount++
                 }
             }
 
-            offsetsBuffer = instancedArray( new Float32Array(offsets) ).label( 'tile_offsets' );
-
-            let tileGeo = tiles32geo.scene.children[0].geometry;
+            tileGeo = tiles32geo.scene.children[0].geometry;
+        //    tileGeo.computeVertexNormals();
             console.log("Setup Terrain geo:", SECTIONS_XY, tileGeo)
 
 
             terrainGeometry = new PlaneGeometry( TILES_X*TILE_SIZE, TILES_Y*TILE_SIZE, TILES_X - 1, TILES_Y - 1 );
             terrainMaterial = new MeshStandardNodeMaterial();
             tilesMaterial = new MeshStandardNodeMaterial();
+            tilesMaterial.side = DoubleSide;
+            positionBuffer = instancedArray( tileCount, 'vec3' );
+            scaleBuffer = instancedArray( tileCount, 'vec3' );
+        //    tilesMaterial.positionNode = positionBuffer.toAttribute();
+        //    tilesMaterial.scaleNode = scaleBuffer.toAttribute();
+
+
+            tilesMaterial.positionNode = Fn( () => {
+                let localPos = positionLocal;
+
+                return vec3(localPos.x, localPos.x.sin().mul(10).add(localPos.z.cos().mul(10)), localPos.z);
+
+            } )();
+
+
+            tilesMaterial.colorNode =  vec3(positionLocal.x.mul(0.0001).add(instanceIndex).sin().add(1).mul(0.5), positionLocal.y.mul(0.0001).sub(instanceIndex).cos().add(1).mul(0.5) , positionLocal.y.mul(0.0001).add(instanceIndex.mul(2)).cos().add(1).mul(0.5));
+
             terrainMaterial.transparent = true;
 
             tile32mesh = new InstancedMesh( tileGeo, tilesMaterial, tileCount );
