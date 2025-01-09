@@ -16,7 +16,7 @@ import {
 import {vertexIndex} from "../../../../../libs/three/nodes/core/IndexNode.js";
 import {loadAsset} from "../../../application/utils/AssetUtils.js";
 import {DoubleSide, DynamicDrawUsage, InstancedMesh} from "three";
-import {mix, uniform} from "three/tsl";
+import {min, mix, uniform} from "three/tsl";
 import {evt} from "../../../application/event/evt.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {aaBoxTestVisibility, borrowBox} from "../../../application/utils/ModelUtils.js";
@@ -34,14 +34,14 @@ let terrainMesh;
 const TILE_SIZE = 10;
 let TILES_X;
 let TILES_Y;
-let BOUND_TILES;
+let BOUND_VERTS;
 
 
 
 const GEO_SEGS_XY = 32;
 let SECTIONS_XY;
 
-const HEIGHT_MIN =4 // -30;
+const HEIGHT_MIN = 0 // -30;
 
 const centerSize = 30;
 const lodLayers = 5;
@@ -57,10 +57,19 @@ const camPos = new Vector3();
 const tilePosition = uniform( new Vector3() );
 const tileScale = uniform( new Vector3() );
 const tileIndex = uniform(0)
+const ONE = uniform(1);
+const ZERO = uniform(0);
+const TEXEL_SIZE = uniform(TILE_SIZE);
+
+const HALF_TILE_SIZE = uniform(GEO_SEGS_XY / 2);
+
+const CAMERA_POS = uniform(new Vector3()).label('CAMERA_POS');
 
 class ComputeTerrain {
 
     constructor(store) {
+
+        return;
 
         let positionBuffer;
         let scaleBuffer;
@@ -71,25 +80,15 @@ class ComputeTerrain {
         let tileGeo;
 
 
+
+
         const applyTileUpdate = Fn( () => {
 
-            const tilePX = tilePosition.x;
-            const tilePY = tilePosition.y;
-            const tilePZ = tilePosition.z;
+            const position = positionBuffer.element( tileIndex );
+            position.assign(tilePosition);
 
-            const tileScaleX = tileScale.x;
-            const tileScaleZ = tileScale.z;
-
-
-        //    const position = positionBuffer.element( tileIndex );
-        //    position.assign(vec3(0, 0, 0));
-
-        //    let local = positionLocal;
-        //    positionLocal.assign(vec3(local.x, 100, local.z));
-        //    varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 100, 1 ))
-
-        //    const scale = scaleBuffer.element( tileIndex );
-        //    scale.assign(vec3(100, 1, 100))
+            const scale = scaleBuffer.element( tileIndex );
+            scale.assign(tileScale)
         } )().compute( 1 );
 
         function updateTile(dummy, index) {
@@ -161,6 +160,8 @@ class ComputeTerrain {
                     tileGeo.count = tileCount;
                     camPos.x = x*TILE_SIZE;
                     camPos.z = z*TILE_SIZE;
+                    CAMERA_POS.value.copy(camPos);
+                    tileGeo.needsUpdate = true;
                 //    renderer.computeAsync( computeTiles().compute( tileCount ) );
                 }
             }
@@ -181,12 +182,15 @@ class ComputeTerrain {
         let tileCount = 0;
 
         function setupTerrain(tiles32geo) {
-            BOUND_TILES = heightData.length / 4;
-            TILES_X = Math.sqrt(BOUND_TILES);
-            TILES_Y = Math.sqrt(BOUND_TILES);
+            BOUND_VERTS = heightData.length / 4;
+            TILES_X = Math.sqrt(BOUND_VERTS) -1;
+            TILES_Y = Math.sqrt(BOUND_VERTS) -1;
 
             SECTIONS_XY = TILES_X / GEO_SEGS_XY;
-
+            const CENTER_SIZE = uniform(centerSize);
+            const MAP_BOUNDS = uniform(TILES_X * centerSize);
+            const MAP_TEXELS_SIDE = uniform(TILES_X+1);
+            const TOTAL_TEXELS = uniform(BOUND_VERTS);
             tileCount = 1;
 
             for (let l = 0; l < lodLayers; l++) {
@@ -200,7 +204,7 @@ class ComputeTerrain {
             console.log("Setup Terrain geo:", SECTIONS_XY, tileGeo)
 
 
-            terrainGeometry = new PlaneGeometry( TILES_X*TILE_SIZE, TILES_Y*TILE_SIZE, TILES_X - 1, TILES_Y - 1 );
+            terrainGeometry = new PlaneGeometry( (TILES_X+1)*TILE_SIZE, (TILES_Y+1)*TILE_SIZE, TILES_X, TILES_Y );
             terrainMaterial = new MeshStandardNodeMaterial();
             tilesMaterial = new MeshStandardNodeMaterial();
             tilesMaterial.side = DoubleSide;
@@ -211,14 +215,33 @@ class ComputeTerrain {
 
 
             tilesMaterial.positionNode = Fn( () => {
-                let localPos = positionLocal;
 
-                return vec3(localPos.x, localPos.x.sin().mul(10).add(localPos.z.cos().mul(10)), localPos.z);
+                const scale = scaleBuffer.element(instanceIndex);
+                const localPos = positionLocal // .mul(scale);
+
+                const tileCenterPos = positionBuffer.element(instanceIndex);
+
+                const localFlip = vec3(localPos.z.mul(1).add(HALF_TILE_SIZE), 0, localPos.x.mul(1).add(HALF_TILE_SIZE));
+
+                const posGlobal = tileCenterPos.add(localFlip);
+
+             //   localFlip
+
+                const pxX = floor(localFlip.x.div(1))
+                const pxY = floor(localFlip.z.div(1))
+
+                const texelX = min(MAP_TEXELS_SIDE, max(0, pxY));
+                const texelY = min(MAP_TEXELS_SIDE, max(0, pxX)); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
+
+                const idx = texelY.mul(texelX);
+                const height = heightBuffer.element(idx);
+
+                return vec3(positionLocal.x, height, positionLocal.z);
 
             } )();
 
 
-            tilesMaterial.colorNode =  vec3(positionLocal.x.mul(0.0001).add(instanceIndex).sin().add(1).mul(0.5), positionLocal.y.mul(0.0001).sub(instanceIndex).cos().add(1).mul(0.5) , positionLocal.y.mul(0.0001).add(instanceIndex.mul(2)).cos().add(1).mul(0.5));
+            tilesMaterial.colorNode =  vec3(ZERO.add(instanceIndex).mul(0.02).mod(1),0 , ZERO.add(instanceIndex).mul(0.11).mod(1));
 
             terrainMaterial.transparent = true;
 
@@ -229,7 +252,7 @@ class ComputeTerrain {
 
             terrainMesh = new Mesh( terrainGeometry, terrainMaterial );
             terrainMesh.rotation.x = - Math.PI / 2;
-            terrainMesh.position.set(0 * TILES_X*TILE_SIZE*0.5, HEIGHT_MIN, 0 * TILES_Y*TILE_SIZE*0.5);
+            terrainMesh.position.set(TILES_X*TILE_SIZE*0.5, HEIGHT_MIN, TILES_Y*TILE_SIZE*0.5);
             terrainMesh.matrixAutoUpdate = false;
             terrainMesh.frustumCulled = false;
             terrainMesh.updateMatrix();
@@ -244,8 +267,7 @@ class ComputeTerrain {
             const heightBuffer = instancedArray( heightArray ).label( 'Height' );
 
             terrainMaterial.positionNode = Fn( () => {
-                const ix = floor(uv().y.mul(TILES_X));
-                const iy = floor(uv().x.mul(TILES_Y));
+
                 const idx = vertexIndex;
                 const height = heightBuffer.element(idx);
                 const pos = vec3(positionLocal.x, positionLocal.y, height);
@@ -303,7 +325,7 @@ class ComputeTerrain {
             console.log("Heightmap image", tx, heightData);
         }
 
-        loadImageAsset('heightmap_w01_20', tx1Loaded)
+        loadImageAsset('heightmap_test', tx1Loaded)
 
     }
 

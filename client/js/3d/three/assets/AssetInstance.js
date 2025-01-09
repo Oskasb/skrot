@@ -58,7 +58,7 @@ class AssetInstance {
 
             function dynLoaded(ctrlDyn) {
                 controlDynamics[id] = ctrlDyn;
-                console.log("Control Dyns", controlDynamics)
+             //   console.log("Control Dyns", controlDynamics)
             }
 
             new ControlDynamics(settings.assetInstance, id, fileName, dynLoaded)

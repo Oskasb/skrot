@@ -115,8 +115,6 @@ class Ocean {
 
             let waveInfluence = new Vector3();
 
-
-
                 effectController = {
                     mousePos: uniform( waveInfluence ).label( 'mousePos' ),
                     mouseSize: uniform( 30.0 ).label( 'mouseSize' ),
