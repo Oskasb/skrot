@@ -65,6 +65,8 @@ const HALF_TILE_SIZE = uniform(GEO_SEGS_XY / 2);
 
 const CAMERA_POS = uniform(new Vector3()).label('CAMERA_POS');
 
+const camLookPoint = new Vector3();
+
 class ComputeTerrain {
 
     constructor(store) {
@@ -102,8 +104,13 @@ class ComputeTerrain {
 
             let camera = ThreeAPI.getCamera();
             if (camera) {
-                let x= Math.floor(camera.position.x / TILE_SIZE) * TILE_SIZE;
-                let z = Math.floor(camera.position.z / TILE_SIZE) * TILE_SIZE;
+
+                camLookPoint.set(0, 0, -TILE_SIZE*centerSize);
+                camLookPoint.applyQuaternion(camera.quaternion);
+                camLookPoint.add(camera.position);
+
+                let x= Math.floor(camLookPoint.x / TILE_SIZE) * TILE_SIZE;
+                let z = Math.floor(camLookPoint.z / TILE_SIZE) * TILE_SIZE;
 
 
                 dummy.position.set(x, HEIGHT_MIN, z);
@@ -131,10 +138,10 @@ class ComputeTerrain {
                     for (let i = 0; i < gridOffsets.length; i++) {
                         let lodScale = layerScale[lodLayer];
 
+
                         let tx = x + scaleFactor*gridOffsets[i][0]*lodScale;
                         let tz = z + scaleFactor*gridOffsets[i][1]*lodScale
                         dummy.position.set(tx, HEIGHT_MIN, tz);
-
 
                         dummy.scale.set(TILE_SIZE*lodScale, 1, TILE_SIZE*lodScale);
 
@@ -218,7 +225,7 @@ class ComputeTerrain {
 
                 const scale = scaleBuffer.element(instanceIndex);
                 const camPos = CAMERA_POS;
-                const localPos = positionLocal //.mul(scale);
+                const localPos = positionLocal.mul(scale);
 
                 const tileCenterPos = positionBuffer.element(instanceIndex);
 
@@ -228,13 +235,13 @@ class ComputeTerrain {
 
              //   localFlip
 
-                const pxX = floor(localFlip.x) // .add(tileCenterPos.x) // .add(camPos.x))
-                const pxY = floor(localFlip.z) // .div(1))
+                const pxX = floor(localFlip.x.div(TILE_SIZE)).add(tileCenterPos.x.div(TILE_SIZE)) // .add(camPos.x))
+                const pxY = floor(localFlip.z.div(TILE_SIZE)).add(tileCenterPos.z.div(TILE_SIZE)) // .div(1))
 
-                const texelX = min(MAP_TEXELS_SIDE.mul(MAP_TEXELS_SIDE), max(0, pxX.mul(MAP_TEXELS_SIDE))).mul(1);
-                const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
+                const texelX = min(MAP_TEXELS_SIDE, max(0, pxX));
+                const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)).mul(MAP_TEXELS_SIDE); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
 
-                const idx = texelX // texelY.add(texelX);
+                const idx = texelY.add(texelX);
                 const height = heightBuffer.element(idx);
 
                 return vec3(positionLocal.x, height, positionLocal.z);
@@ -246,7 +253,7 @@ class ComputeTerrain {
 
             terrainMaterial.transparent = true;
 
-            tile32mesh = new InstancedMesh( tileGeo, tilesMaterial, tileCount );
+            tile32mesh = new InstancedMesh( tileGeo, tilesMaterial, Math.floor(tileCount*0.4) );
 
             tile32mesh.instanceMatrix.setUsage( DynamicDrawUsage );
             tile32mesh.frustumCulled = false;
