@@ -41,10 +41,10 @@ class EnvironmentClouds {
         const positions = [];
 
         let size = 40000;
-        let height = 4000;
-        let elevation = 2000;
+        let height = 3000;
+        let elevation = 1800;
         let layerHeight = 300;
-        let clouds = 20;
+        let clouds = 4;
 
         let cloudWidth = 1200;
         let cloudHeight = 1200;
@@ -76,8 +76,8 @@ class EnvironmentClouds {
             let centerZ = MATH.sillyRandomBetween(-size, size, index+2);
             let centerY = MATH.sillyRandomBetween(elevation, elevation+layerHeight, index+4);
             tempCenter.set(centerX, centerY, centerZ);
-            let cloudMass = MATH.curveQuad(MATH.sillyRandomBetween(0.1, 1.4,index+1));
-            let puffCount = Math.ceil(MATH.curveCube(cloudMass) * 140);
+            let cloudMass = MATH.curveQuad(MATH.sillyRandomBetween(1.2, 1.4,index+1));
+            let puffCount = Math.ceil(MATH.curveCube(cloudMass) * 40);
             for (let i = 0; i < puffCount; i++) {
                 addCloudPuff(tempCenter, i, index, cloudMass);
             }
@@ -108,21 +108,20 @@ class EnvironmentClouds {
 
         material.colorNode = Fn( () => {
             const posx = positionLocal.x.mul(8)
-            const posy = uv().y
+            const posy = uv().y.mul(uv().x)
             const posz = positionLocal.z
-            const mod = time.mul(0.05).add( instanceIndex.mul(4.5)).sin().add(1.0);
-            const sunShade = mix( fogColor, sunColor.add(sunColor.normalize().mul(8)), min(1, max( 0, posy.pow(mod.add(4.8)))));
-            const ambShade = mix(ambColor.mul(fogColor.normalize()), sunShade,  min(1, max( 0, posy.pow(0.6))));
-            const lowShade = mix(ambColor.mul(0.05), ambShade,  min(1, max( 0, posy.pow(0.4))));
-            return vec4(lowShade, mod.sin().add(1.2).mul(0.5));
+            const sunShade = mix( fogColor, sunColor.add(vec3(0.5, 0.5, 0.5)).mul(15), min(1, max( 0, posy.pow(1.8))))
+            const ambShade = mix(ambColor.mul(fogColor.normalize()), sunShade,  min(1, max( 0, posy.pow(1.2))));
+            const lowShade = mix(ambColor.mul(vec3(-0.5, -0.5, 0.2)), ambShade.mul(0.3),  min(1, max( 0, uv().y.pow(0.5))));
+            return vec4(lowShade, 0.5);
         })()
 
         material.color = store.env.fog.fog.color;
         material.depthTest = true;
         material.depthWrite = false;
         material.positionNode = instancedBufferAttribute( positionAttribute );
-        material.rotationNode = time.add( instanceIndex.mul(2.1) ).sin().mul(0.07);
-        material.scaleNode = time.add( instanceIndex.mul(2.4) ).sin().mul(0.08).add(1.1).mul(1200);
+    //    material.rotationNode = instanceIndex.mul(0.02).mod(1).mul(0.07);
+        material.scaleNode = 1800 // instanceIndex.add(200).mul(0.5);
 
 
         const particles = new Sprite( material );

@@ -20,6 +20,8 @@ class ThreeBloom{
 
         function initBloom(scene, camera, renderer) {
 
+          //  return;
+
             const scenePass = pass( scene, camera, { minFilter: NearestFilter, magFilter: NearestFilter } );
             scenePass.setMRT( mrt( {
                 output: output,
@@ -36,24 +38,24 @@ class ThreeBloom{
 */
             const outputPass = scenePass.getTextureNode( 'output' );
         //    const scenePassColor = scenePass.getTextureNode( 'output' );
-            const emissivePass = scenePass.getTextureNode( 'emissive' );
+        //    const emissivePass = scenePass.getTextureNode( 'emissive' );
 
-            const bloomPass = bloom( emissivePass, 1.8, 1.02, 0 );
+        //    const bloomPass = bloom( emissivePass, 1.8, 1.02, 0 );
 
-            let ssrPass = initSSR(scene, camera, renderer, scenePass, outputPass)
+        //    let ssrPass = initSSR(scene, camera, renderer, scenePass, outputPass)
 
             let postBloomProcessing = new PostProcessing( renderer );
 
-            const bloomAll = bloom( outputPass, 0.2, 0.95, 0.55 );
+            const bloomAll = bloom( outputPass, 0.2, 1, 0.85 );
 
-            let blendedSsr = blendColor(outputPass, ssrPass).add(bloomAll);
-
-
-            let blendedBloom = blendedSsr.add(bloomPass);
+         //   let blendedSsr = blendColor(outputPass, ssrPass).add(bloomAll);
 
 
+       //     let blendedBloom = blendedSsr.add(bloomPass);
 
-            postBloomProcessing.outputNode = blendedBloom // outputPass.add(bloomPass)
+
+
+            postBloomProcessing.outputNode = outputPass.add(bloomAll)
             ThreeAPI.addPostProcess(postBloomProcessing)
         }
 
@@ -69,9 +71,9 @@ class ThreeBloom{
 
             const ssrPass = ssr( scenePassColor, scenePassDepth, scenePassNormal, scenePassMetalness, camera );
             ssrPass.resolutionScale = 0.5;
-            ssrPass.maxDistance.value = 10;
-            ssrPass.opacity.value = 0.9;
-            ssrPass.thickness.value = 0.02;
+            ssrPass.maxDistance.value = 4;
+            ssrPass.opacity.value = 1;
+            ssrPass.thickness.value = 0.01;
 
             return ssrPass;
 
