@@ -19,6 +19,7 @@ class PlayerCamera {
             orbitControls.update();
 
             lastCamPos.copy(camera.position);
+            ThreeAPI.getCameraCursor().getPos().copy(orbitControls.target)
         }
 
 

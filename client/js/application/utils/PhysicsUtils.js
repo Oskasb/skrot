@@ -88,7 +88,7 @@ function debugDrawPhysicalWorld() {
 
   //  let terrainHeight = ThreeAPI.terrainAt(pos);
 
-    pos.y = - 15 // ThreeAPI.terrainAt(pos, tempVec3) - 1.0;
+    pos.y = - 5 // ThreeAPI.terrainAt(pos, tempVec3) - 1.0;
  //   let intersects = physicalIntersection(pos, tempVec);
 
     tempVec3.copy(pos);

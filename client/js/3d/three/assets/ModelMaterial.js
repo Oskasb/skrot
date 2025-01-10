@@ -4,11 +4,34 @@ import {MATH} from "../../../application/MATH.js";
 import {jsonAsset, loadAsset, loadAssetTexture} from "../../../application/utils/AssetUtils.js";
 import {JsonAsset} from "../../../application/load/JsonAsset.js";
 import * as constants from "../../../../../libs/three/constants.js";
+import {MeshStandardNodeMaterial} from "three/webgpu";
+import {positionLocal, vec2} from "three/tsl";
+import {customTerrainUv} from "../terrain/ComputeTerrain.js";
+
+
+
+class MeshSpecialTerrainNodeMaterial extends MeshStandardNodeMaterial {
+
+    setup( builder ) {
+        builder.setContext( { ...builder.context,
+            getUV: ( /*reqNode*/ ) => {
+                return customTerrainUv(); // return a custom uv
+            }
+        } );
+
+        return super.setup( builder );
+    }
+}
+
 
 let mats = 0;
 let materials = {};
 materials['MeshStandardMaterial'] = MeshStandardMaterial;
+materials['MeshStandardNodeMaterial'] = MeshStandardNodeMaterial;
 materials['MeshPhysicalMaterial'] = MeshPhysicalMaterial;
+materials['MeshSpecialTerrainNodeMaterial'] = MeshSpecialTerrainNodeMaterial
+
+
 class ModelMaterial {
     constructor() {
         let settings = {

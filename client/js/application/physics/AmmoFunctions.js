@@ -657,7 +657,7 @@ function createTerrainShape(data, sideSize, terrainMaxHeight, terrainMinHeight, 
     //    for (let j = 0; j < terrainWidth; j++) {
     for (let i = 0; i < data.length; i++) {
         // write 32-bit float data to memory
-        Ammo.HEAPF32[ammoHeightData + p2 >> 2] = data[i] * heightScale * (256/255);
+        Ammo.HEAPF32[ammoHeightData + p2 >> 2] = data[i] / (256/255);
         p++;
         // 4 bytes/float
         p2 += 4;

@@ -14,9 +14,9 @@ import {
     vec3, vec4
 } from "../../../../../libs/three/Three.TSL.js";
 import {vertexIndex} from "../../../../../libs/three/nodes/core/IndexNode.js";
-import {loadAsset} from "../../../application/utils/AssetUtils.js";
+import {loadAsset, loadAssetMaterial} from "../../../application/utils/AssetUtils.js";
 import {Box3, DoubleSide, DynamicDrawUsage, InstancedMesh} from "three";
-import {min, mix, uniform} from "three/tsl";
+import {min, mix, texture, uniform, vec2} from "three/tsl";
 import {evt} from "../../../application/event/evt.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {aaBoxTestVisibility, borrowBox} from "../../../application/utils/ModelUtils.js";
@@ -36,13 +36,15 @@ let TILES_X;
 let TILES_Y;
 let BOUND_VERTS;
 
-
-
 const GEO_SEGS_XY = 32;
 let SECTIONS_XY;
 
+const factorR = 1;
+const factorG = 2;
+const factorB = 4;
+
 const HEIGHT_MIN = -60;
-const HEIGHT_MAX = 255+255*2+255*4+HEIGHT_MIN;
+const HEIGHT_MAX = 255*factorR+255*factorG+255*factorB+HEIGHT_MIN;
 
 const centerSize = 30;
 const lodLayers = 4;
@@ -50,9 +52,7 @@ const gridOffsets = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0
 const layerScale = [1, 3, 9, 27, 81, 243]
 let tempPoint = new Vector3();
 
-
 const dummy = new Object3D();
-
 const camPos = new Vector3();
 
 const tilePosition = uniform( new Vector3() );
@@ -61,14 +61,18 @@ const tileIndex = uniform(0)
 const ONE = uniform(1);
 const ZERO = uniform(0);
 const TEXEL_SIZE = uniform(TILE_SIZE);
-
 const HALF_TILE_SIZE = uniform(GEO_SEGS_XY / 2);
-
 const worldBox = new Box3();
-
 const CAMERA_POS = uniform(new Vector3()).label('CAMERA_POS');
-
 const camLookPoint = new Vector3();
+
+
+let heightTx;
+let terrainTx;
+
+function customTerrainUv() {
+    return vec2(positionLocal.x.div(TILE_SIZE).mod(TILE_SIZE), positionLocal.z.div(TILE_SIZE).mod(TILE_SIZE))
+}
 
 class ComputeTerrain {
 
@@ -87,9 +91,9 @@ class ComputeTerrain {
 
             const position = positionBuffer.element( tileIndex );
             position.assign(tilePosition);
-
             const scale = scaleBuffer.element( tileIndex );
             scale.assign(tileScale)
+
         } )().compute( 1 );
 
         function updateTile(dummy, index) {
@@ -127,6 +131,8 @@ class ComputeTerrain {
                 updateTile(obj3d, tileIndex);
             }
 
+            return hasUpdate;
+
         }
 
         function update(){
@@ -146,7 +152,9 @@ class ComputeTerrain {
 
                 let tileCount = 0;
 
-                setTileDimensions(tileCount, dummy);
+
+
+                let hasUpdate = setTileDimensions(tileCount, dummy);
                 tileCount++
 
                 for (let l = 0; l < lodLayers; l++) {
@@ -174,8 +182,11 @@ class ComputeTerrain {
                             let tileBox = borrowBox();
                             let intersects = worldBox.intersectsBox(tileBox);
                             if (intersects) {
-                                setTileDimensions(tileCount, dummy);
+                                let update = setTileDimensions(tileCount, dummy);
                                 tileCount++
+                                if (update) {
+                                    hasUpdate = true;
+                                }
                             }
                         }
                     }
@@ -186,6 +197,11 @@ class ComputeTerrain {
                     camPos.z = z*TILE_SIZE;
                     CAMERA_POS.value.copy(camPos);
                 }
+
+                if (hasUpdate) {
+                    tileGeo.count = tileCount;
+                }
+
             }
         }
 
@@ -204,13 +220,17 @@ class ComputeTerrain {
         let tileCount = 0;
 
         function setupTerrain(tiles32geo) {
+
+            heightTx = texture(heightCanvasTx);
+            terrainTx = texture(terrainCanvasTx);
+
             BOUND_VERTS = heightData.length / 4;
             TILES_X = Math.sqrt(BOUND_VERTS) -1;
             TILES_Y = Math.sqrt(BOUND_VERTS) -1;
-
             SECTIONS_XY = TILES_X / GEO_SEGS_XY;
+
             const CENTER_SIZE = uniform(centerSize);
-            const MAP_BOUNDS = uniform(TILES_X * centerSize);
+            const MAP_BOUNDS = uniform(TILES_X * TILE_SIZE);
             const MAP_TEXELS_SIDE = uniform(TILES_X+1);
             const TOTAL_TEXELS = uniform(BOUND_VERTS);
 
@@ -229,70 +249,95 @@ class ComputeTerrain {
         //    tileGeo.computeVertexNormals();
             console.log("Setup Terrain geo:", SECTIONS_XY, tileGeo)
 
-            tilesMaterial = new MeshStandardNodeMaterial();
-            tilesMaterial.side = DoubleSide;
-            positionBuffer = instancedArray( tileCount, 'vec3' );
-            scaleBuffer = instancedArray( tileCount, 'vec3' );
-        //    tilesMaterial.positionNode = positionBuffer.toAttribute();
-        //    tilesMaterial.scaleNode = scaleBuffer.toAttribute();
+            function matLoaded(mat) {
+                console.log("Loaded Mat ", mat);
 
-            tilesMaterial.positionNode = Fn( () => {
-                const scale = scaleBuffer.element(instanceIndex);
-                const localPos = positionLocal.mul(scale);
-                const tileCenterPos = positionBuffer.element(instanceIndex);
-                const localFlip = vec3(localPos.x.mul(1), 0, localPos.z);
-                const pxX = floor(localFlip.x.div(TILE_SIZE)).add(tileCenterPos.x.div(TILE_SIZE)) // .add(camPos.x))
-                const pxY = floor(localFlip.z.div(TILE_SIZE)).add(tileCenterPos.z.div(TILE_SIZE)) // .div(1))
-                const texelX = min(MAP_TEXELS_SIDE, max(0, pxX));
-                const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)).mul(MAP_TEXELS_SIDE); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
-                const idx = texelY.add(texelX);
-                const height = heightBuffer.element(idx);
-                return vec3(positionLocal.x, height, positionLocal.z);
-            } )();
+                tilesMaterial = mat.material //new MeshStandardNodeMaterial();
+
+                const nmTx = texture(tilesMaterial.normalMap);
+                console.log("nmTx", nmTx, tilesMaterial.normalMap)
+                tilesMaterial.normalMap = null;
+
+                tilesMaterial.side = DoubleSide;
+                positionBuffer = instancedArray( tileCount, 'vec3' );
+                scaleBuffer = instancedArray( tileCount, 'vec3' );
+                //    tilesMaterial.positionNode = positionBuffer.toAttribute();
+                //    tilesMaterial.scaleNode = scaleBuffer.toAttribute();
+
+                tilesMaterial.positionNode = Fn( () => {
+                    const scale = scaleBuffer.element(instanceIndex);
+                    const localPos = positionLocal.mul(scale);
+                    const tileCenterPos = positionBuffer.element(instanceIndex);
+                    const localFlip = vec3(localPos.x.mul(1), 0, localPos.z);
+                    const pxX = floor(localFlip.x.div(TILE_SIZE)).add(tileCenterPos.x.div(TILE_SIZE)) // .add(camPos.x))
+                    const pxY = floor(localFlip.z.div(TILE_SIZE)).add(tileCenterPos.z.div(TILE_SIZE)) // .div(1))
+                    const texelX = min(MAP_TEXELS_SIDE, max(0, pxX));
+                    const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)).mul(MAP_TEXELS_SIDE); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
+                    const idx = texelY.add(texelX);
+                    const height = heightBuffer.element(idx);
+                    return vec3(positionLocal.x, height, positionLocal.z);
+                } )();
+
+                tilesMaterial.normalNode = Fn( () => {
+                    return nmTx.sample(customTerrainUv())
+                } )();
+
+            //    tilesMaterial.colorNode =  vec3(ZERO.add(instanceIndex).mul(0.02).mod(1),0 , ZERO.add(instanceIndex).mul(0.11).mod(1));
+
+                tile32mesh = new InstancedMesh( tileGeo, tilesMaterial, Math.floor(tileCount) );
+                tile32mesh.instanceMatrix.setUsage( DynamicDrawUsage );
+                tile32mesh.frustumCulled = false;
+
+                const heightArray = new Float32Array(heightData.length / 4);
+
+                const ammoData = [];
+
+                for (let i = 0; i < heightArray.length; i++) {
+                    let sourceHeight = heightData[i*4]*factorB + heightData[i*4 + 1] * factorG + heightData[i*4 + 2]*factorB;
+                    ammoData[i] = sourceHeight + factorB+factorR+factorB;
+                    heightArray[i] = sourceHeight +1
+                }
+
+           //     AmmoAPI.buildPhysicalTerrain(ammoData, MAP_BOUNDS.value, MAP_BOUNDS.value/2, MAP_BOUNDS.value/2, HEIGHT_MIN, HEIGHT_MAX)
+
+                AmmoAPI.buildPhysicalTerrain(ammoData, MAP_BOUNDS.value, MAP_BOUNDS.value/2,MAP_BOUNDS.value/2, HEIGHT_MIN, HEIGHT_MAX) // HEIGHT_MAX)
 
 
-            tilesMaterial.colorNode =  vec3(ZERO.add(instanceIndex).mul(0.02).mod(1),0 , ZERO.add(instanceIndex).mul(0.11).mod(1));
+                const heightBuffer = instancedArray( heightArray ).label( 'Height' );
 
-            tile32mesh = new InstancedMesh( tileGeo, tilesMaterial, Math.floor(tileCount*0.65) );
+                /*
+                            "vec2 normalSamplerP0 = vec2(terrainSampler.x +shift*0.5 , terrainSampler.y +shift*0.5);",
+                                "vec4 normalSampleP0 = texture2D( heightmap, normalSamplerP0);",
 
-            tile32mesh.instanceMatrix.setUsage( DynamicDrawUsage );
-            tile32mesh.frustumCulled = false;
+                                "vec2 normalSamplerP1 = vec2(normalSamplerP0.x - shift*1.0, normalSamplerP0.y);",
+                                "vec4 normalSampleP1 = texture2D( heightmap, normalSamplerP1);",
 
+                                "vec2 normalSamplerP2 = vec2(normalSamplerP0.x, normalSamplerP0.y - shift*1.0);",
+                                "vec4 normalSampleP2 = texture2D( heightmap, normalSamplerP2);",
 
-            const heightArray = new Float32Array(heightData.length / 4);
+                                "vec3 triPoint0 = vec3( normalSamplerP0.x, normalSampleP0.x*0.01, normalSamplerP0.y);",
+                                "vec3 triPoint1 = vec3( normalSamplerP1.x, normalSampleP1.x*0.01, normalSamplerP1.y);",
+                                "vec3 triPoint2 = vec3( normalSamplerP2.x, normalSampleP2.x*0.01, normalSamplerP2.y);",
 
-            for (let i = 0; i < heightArray.length; i++) {
-                heightArray[i] = heightData[i*4] + heightData[i*4 + 1] *2 + heightData[i*4 + 2]*4;
+                                "vec3 tangent = triPoint2 - triPoint0;",
+                                "vec3 biTangent = triPoint1 - triPoint0;",
+                                "vec3 fragNormal = normalize(cross(tangent, biTangent));",
+                  */
+                //    ThreeAPI.addToScene(terrainMesh);
+                ThreeAPI.addToScene(tile32mesh);
+                ThreeAPI.addPostrenderCallback(update);
             }
 
-            const heightBuffer = instancedArray( heightArray ).label( 'Height' );
-
-/*
-            "vec2 normalSamplerP0 = vec2(terrainSampler.x +shift*0.5 , terrainSampler.y +shift*0.5);",
-                "vec4 normalSampleP0 = texture2D( heightmap, normalSamplerP0);",
-
-                "vec2 normalSamplerP1 = vec2(normalSamplerP0.x - shift*1.0, normalSamplerP0.y);",
-                "vec4 normalSampleP1 = texture2D( heightmap, normalSamplerP1);",
-
-                "vec2 normalSamplerP2 = vec2(normalSamplerP0.x, normalSamplerP0.y - shift*1.0);",
-                "vec4 normalSampleP2 = texture2D( heightmap, normalSamplerP2);",
-
-                "vec3 triPoint0 = vec3( normalSamplerP0.x, normalSampleP0.x*0.01, normalSamplerP0.y);",
-                "vec3 triPoint1 = vec3( normalSamplerP1.x, normalSampleP1.x*0.01, normalSamplerP1.y);",
-                "vec3 triPoint2 = vec3( normalSamplerP2.x, normalSampleP2.x*0.01, normalSamplerP2.y);",
-
-                "vec3 tangent = triPoint2 - triPoint0;",
-                "vec3 biTangent = triPoint1 - triPoint0;",
-                "vec3 fragNormal = normalize(cross(tangent, biTangent));",
-  */
-        //    ThreeAPI.addToScene(terrainMesh);
-            ThreeAPI.addToScene(tile32mesh);
-            ThreeAPI.addPostrenderCallback(update);
+            loadAssetMaterial('material_terrain', matLoaded)
 
         }
 
+        let heightCanvasTx;
+        let terrainCanvasTx;
+
         function tx1Loaded(img) {
             let tx = new CanvasTexture(img);
+            heightCanvasTx = tx;
             tx.generateMipmaps = false;
             tx.flipY = false;
 
@@ -305,17 +350,25 @@ class ComputeTerrain {
             heightmapContext.drawImage(imgData, 0, 0, width, height);
             heightData = heightmapContext.getImageData(0, 0, width, height).data;
 
-            loadAsset('unit_grid_32', 'glb', setupTerrain)
+            function tx2Loaded(img) {
+                let tx = new CanvasTexture(img);
+                terrainCanvasTx = tx;
+                tx.generateMipmaps = false;
+                tx.flipY = false;
+                loadAsset('unit_grid_32', 'glb', setupTerrain)
+            }
 
+            loadImageAsset('terrainmap_w01_20', tx2Loaded)
             console.log("Heightmap image", tx, heightData);
+
         }
-
         loadImageAsset('heightmap_w01_20', tx1Loaded)
-
+        //    loadImageAsset('heightmap_test', tx1Loaded)
     }
-
-
 
 }
 
-export { ComputeTerrain }
+export {
+    ComputeTerrain,
+    customTerrainUv
+}
