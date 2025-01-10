@@ -69,7 +69,7 @@ class ComputeTerrain {
 
     constructor(store) {
 
-        return;
+   //     return;
 
         let positionBuffer;
         let scaleBuffer;
@@ -217,23 +217,24 @@ class ComputeTerrain {
             tilesMaterial.positionNode = Fn( () => {
 
                 const scale = scaleBuffer.element(instanceIndex);
-                const localPos = positionLocal // .mul(scale);
+                const camPos = CAMERA_POS;
+                const localPos = positionLocal //.mul(scale);
 
                 const tileCenterPos = positionBuffer.element(instanceIndex);
 
-                const localFlip = vec3(localPos.z.mul(1).add(HALF_TILE_SIZE), 0, localPos.x.mul(1).add(HALF_TILE_SIZE));
+                const localFlip = vec3(localPos.x.mul(1), 0, localPos.z);
 
-                const posGlobal = tileCenterPos.add(localFlip);
+                const posGlobal = localFlip.add(tileCenterPos);
 
              //   localFlip
 
-                const pxX = floor(localFlip.x.div(1))
-                const pxY = floor(localFlip.z.div(1))
+                const pxX = floor(localFlip.x) // .add(tileCenterPos.x) // .add(camPos.x))
+                const pxY = floor(localFlip.z) // .div(1))
 
-                const texelX = min(MAP_TEXELS_SIDE, max(0, pxY));
-                const texelY = min(MAP_TEXELS_SIDE, max(0, pxX)); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
+                const texelX = min(MAP_TEXELS_SIDE.mul(MAP_TEXELS_SIDE), max(0, pxX.mul(MAP_TEXELS_SIDE))).mul(1);
+                const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
 
-                const idx = texelY.mul(texelX);
+                const idx = texelX // texelY.add(texelX);
                 const height = heightBuffer.element(idx);
 
                 return vec3(positionLocal.x, height, positionLocal.z);
