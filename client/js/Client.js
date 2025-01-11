@@ -31,6 +31,8 @@ function startGameWorld() {
     setGameWorld(gameWorld);
     gameWorld.initGameWorld();
 
+    return;
+
     player.enterWorld('controllable_f14')
 
     function cvn(boat) {

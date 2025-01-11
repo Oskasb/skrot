@@ -1,5 +1,14 @@
 import {KeyState} from "./KeyState.js";
 
+
+window.document.addEventListener('keydown', function(event) {
+    updateKeyState(event.key, true, event);
+});
+
+window.document.addEventListener('keyup', function(event) {
+    updateKeyState(event.key, false, event);
+});
+
 let keyStates = {};
 let frame = 0;
 function updateKeyState(key, press, event) {
@@ -25,9 +34,18 @@ function updateKeyboardFrame(f) {
     }
 
 
+function keyToValue(key) {
+    if (isPressed(key)) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 export {
     updateKeyboardFrame,
     updateKeyState,
     getKeyStates,
-    isPressed
+    isPressed,
+    keyToValue
 }

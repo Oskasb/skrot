@@ -1,5 +1,8 @@
 import {OrbitControls} from "../../../../libs/jsm/controls/OrbitControls.js";
 import {Vector3} from "../../../../libs/three/Three.Core.js";
+import {isPressed, keyToValue} from "../../application/ui/input/KeyboardState.js";
+import {MATH} from "../../application/MATH.js";
+import {getFrame} from "../../application/utils/DataUtils.js";
 
 class PlayerCamera {
     constructor(camera, renderer, player) {
@@ -11,7 +14,24 @@ class PlayerCamera {
         lastCamPos.copy(camera.position);
         let posFrameDelta = new Vector3();
 
+        let keyMoveVec3 = new Vector3();
+
+        function updateKeyMove() {
+            let forward = keyToValue('w');
+            let back = keyToValue('s');
+            let left = keyToValue('a');
+            let right = keyToValue('d');
+            keyMoveVec3.set(right-left, 0, back-forward);
+
+        }
+
+
         function updateCamera() {
+            updateKeyMove();
+            keyMoveVec3.applyQuaternion(camera.quaternion);
+            keyMoveVec3.y = 0;
+            keyMoveVec3.multiplyScalar(MATH.distanceBetween(camera.position, orbitControls.target) * getFrame().tpf);
+            player.call.getObj3d().position.add(keyMoveVec3);
             lastCamPos.copy(orbitControls.target);
             orbitControls.target.copy(player.call.getObj3d().position);
             posFrameDelta.subVectors(orbitControls.target, lastCamPos)
@@ -28,7 +48,9 @@ class PlayerCamera {
             //    dynamics.addEventListener( 'change', render ); // use if there is no animation loop
             orbitControls.minDistance = 0.5;
             orbitControls.maxDistance = 2000;
-            orbitControls.target.set( 0, 24 , 0);
+            orbitControls.target.set( 2000, 24 , 2000);
+            ThreeAPI.getCameraCursor().getPos().copy(orbitControls.target)
+            player.call.getObj3d().position.copy(orbitControls.target)
             orbitControls.update();
             ThreeAPI.registerPrerenderCallback(updateCamera);
         }

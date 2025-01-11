@@ -20,10 +20,20 @@ import {min, mix, texture, uniform, vec2} from "three/tsl";
 import {evt} from "../../../application/event/evt.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {aaBoxTestVisibility, borrowBox} from "../../../application/utils/ModelUtils.js";
+import * as TerrainFunctions from "./TerrainFunctions.js";
 
 let heightCanvas = document.createElement('canvas');
 let heightmapContext;
 let heightData;
+const terrainParams = {}
+let terrainScale = new Vector3(1, 1, 1);
+terrainParams.tx_width = null;
+terrainParams.groundTxWidth  = null
+terrainParams.unitScale = 1;
+terrainParams.minHeight = 0;
+terrainParams.maxHeight = 1;
+
+let heightArray;
 let width;
 let height;
 let terrainGeometry;
@@ -247,7 +257,10 @@ class ComputeTerrain {
 
             worldBox.min.set(0, HEIGHT_MIN, 0);
             worldBox.max.set(MAP_BOUNDS.value, HEIGHT_MAX, MAP_BOUNDS.value);
-
+            terrainParams.unitScale = TILE_SIZE;
+            terrainParams.tx_width = MAP_TEXELS_SIDE.value;
+            terrainParams.minHeight = HEIGHT_MIN;
+            terrainParams.maxHeight = HEIGHT_MAX;
             tileCount = 1;
 
             for (let l = 0; l < lodLayers; l++) {
@@ -299,7 +312,7 @@ class ComputeTerrain {
                 tile32mesh.instanceMatrix.setUsage( DynamicDrawUsage );
                 tile32mesh.frustumCulled = false;
 
-                const heightArray = new Float32Array(heightData.length / 4);
+                heightArray = new Float32Array(heightData.length / 4);
 
                 const ammoData = [];
 
@@ -390,7 +403,23 @@ class ComputeTerrain {
 
 }
 
+
+function getHeightmapData() {
+    return heightArray;
+}
+
+function getTerrainParams() {
+    return terrainParams;
+}
+
+function terrainAt(pos, normalStore) {
+    return TerrainFunctions.getHeightAt(pos, heightArray, terrainParams.unitScale, terrainParams.tx_width, terrainParams.tx_width - 1, normalStore, terrainScale, worldBox.min);
+}
+
 export {
     ComputeTerrain,
-    customTerrainUv
+    customTerrainUv,
+    getHeightmapData,
+    getTerrainParams,
+    terrainAt
 }

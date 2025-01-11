@@ -9,6 +9,7 @@ import {ENUMS} from "../../../application/ENUMS.js";
 import {detachConfig} from "../../../application/utils/ConfigUtils.js";
 import {getSetting} from "../../../application/utils/StatusUtils.js";
 import {Vector3} from "../../../../../libs/three/Three.Core.js";
+import {getHeightmapData, getTerrainParams} from "./ComputeTerrain.js";
 
 let scrubIndex = 0;
 
@@ -71,15 +72,15 @@ let getThreeTerrainByPosition = function(pos) {
 };
 
 let getThreeTerrainHeightAt = function(pos, normalStore, groundData) {
-    if (!terrainBigGeometry.getHeightmapData()) {
+    if (!getHeightmapData().length) {
         if (normalStore) {
             normalStore.set(0, 1, 0);
         }
         return pos.y
     }
 
-    let params = terrainBigGeometry.getTerrainParams()
-    return TerrainFunctions.getHeightAt(pos, terrainBigGeometry.getHeightmapData(), params.unitScale, params.tx_width, params.tx_width - 1, normalStore, terrainScale, terrainOrigin, groundData);
+    let params = getTerrainParams()
+    return TerrainFunctions.getHeightAt(pos, getHeightmapData(), params.unitScale, params.tx_width, params.tx_width - 1, normalStore, terrainScale, terrainOrigin, groundData);
 };
 
 let getThreeTerrainDataAt = function(pos, dataStore) {
