@@ -3,6 +3,10 @@ import {Vector3} from "../../../../libs/three/Three.Core.js";
 import {isPressed, keyToValue} from "../../application/ui/input/KeyboardState.js";
 import {MATH} from "../../application/MATH.js";
 import {getFrame} from "../../application/utils/DataUtils.js";
+import {terrainAt} from "../../3d/three/terrain/ComputeTerrain.js";
+import {ENUMS} from "../../application/ENUMS.js";
+import {evt} from "../../application/event/evt.js";
+import {debugDrawPhysicalWorld} from "../../application/utils/PhysicsUtils.js";
 
 class PlayerCamera {
     constructor(camera, renderer, player) {
@@ -31,7 +35,15 @@ class PlayerCamera {
             keyMoveVec3.applyQuaternion(camera.quaternion);
             keyMoveVec3.y = 0;
             keyMoveVec3.multiplyScalar(MATH.distanceBetween(camera.position, orbitControls.target) * getFrame().tpf);
-            player.call.getObj3d().position.add(keyMoveVec3);
+        //    player.call.getObj3d().position.add(keyMoveVec3);
+         //   let y = terrainAt(player.call.getObj3d().position, keyMoveVec3)
+        //    player.call.getObj3d().position.y = y;
+            keyMoveVec3.multiplyScalar(5);
+            keyMoveVec3.add(player.call.getObj3d().position);
+            evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from: player.call.getObj3d().position, to:keyMoveVec3, color:'YELLOW'});
+            evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos: player.call.getObj3d().position, size:1, color:'YELLOW'});
+            debugDrawPhysicalWorld()
+
             lastCamPos.copy(orbitControls.target);
             orbitControls.target.copy(player.call.getObj3d().position);
             posFrameDelta.subVectors(orbitControls.target, lastCamPos)

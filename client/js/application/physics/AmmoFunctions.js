@@ -604,7 +604,7 @@ let disable = function(body) {
 
 let heightFieldShape
 
-function createTerrainShape(data, sideSize, terrainMaxHeight, terrainMinHeight, margin, maxProp) {
+function createTerrainShape(data, sideSize, terrainMaxHeight, terrainMinHeight, margin) {
 
     let terrainWidthExtents = sideSize;
     let terrainDepthExtents = sideSize;
@@ -992,7 +992,7 @@ class AmmoFunctions {
 
         let heightDiff = maxHeight-minHeight;
         let heightScale = heightDiff/100
-        let margin = 1 // 2 / heightScale;
+        let margin = 4 // * heightScale;
 
         let restitution =  0.4;
         let damping     =  0.7;
@@ -1000,13 +1000,13 @@ class AmmoFunctions {
 
             console.log("Ground minY maxY: ", minHeight, maxHeight)
 
-        let groundShape = createTerrainShape( data, totalSize, maxHeight, minHeight, margin, maxProp );
+        let groundShape = createTerrainShape( data, totalSize, maxHeight, minHeight, margin);
         shapes.push(groundShape);
         let groundTransform = new Ammo.btTransform();
         groundTransform.setIdentity();
         // Shifts the terrain, since bullet re-centers it on its bounding box.
-        let posY = minHeight*2 + ((heightDiff-(heightScale*0.8))* 0.5);
-        groundTransform.setOrigin( new Ammo.btVector3(posx, posY,posz) );
+        let posY = minHeight*2 + heightDiff*0.5;
+        groundTransform.setOrigin( new Ammo.btVector3(posx, posY-margin ,posz) );
         console.log("groundTransform",groundTransform)
 
         let groundMass = 0;

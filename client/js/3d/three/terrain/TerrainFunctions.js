@@ -1,6 +1,7 @@
 import {Triangle, Vector3} from "../../../../../libs/three/Three.Core.js";
 import {MATH} from "../../../application/MATH.js";
-
+import {evt} from "../../../application/event/evt.js";
+import {ENUMS} from "../../../application/ENUMS.js";
 
 let  p1  = new Vector3();
 let  p2  = new Vector3();
@@ -586,14 +587,7 @@ let getAt = function(array1d, segments, x, y, groundData) {
     let  xFactor = x;
     let  idx = (yFactor + xFactor);
 
-    if (groundData) {
-        groundData[0] += (array1d[idx * 4] +1) / 1015;
-        groundData[1] += (array1d[idx * 4 + 1] +1) / 1015;
-        groundData[2] += (array1d[idx * 4 + 2] +1) / 1015;
-        groundData[3] += (array1d[idx * 4 + 3]) / 4;
-    }
-
-    return array1d[idx * 4] / 255;
+    return array1d[idx];
 };
 
 // get the value at the precise integer (x, y) coordinates

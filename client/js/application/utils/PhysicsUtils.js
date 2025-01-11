@@ -7,6 +7,7 @@ import {getSetting} from "./StatusUtils.js";
 import {getFrame} from "./DataUtils.js";
 import {evt} from "../event/evt.js";
 import {MATH} from "../MATH.js";
+import {terrainAt} from "../../3d/three/terrain/ComputeTerrain.js";
 
 
 let tempObj = new Object3D();
@@ -86,9 +87,9 @@ function debugDrawPhysicalWorld() {
 
     let pos = ThreeAPI.getCameraCursor().getPos();
 
-  //  let terrainHeight = ThreeAPI.terrainAt(pos);
 
-    pos.y = - 5 // ThreeAPI.terrainAt(pos, tempVec3) - 1.0;
+
+    pos.y = terrainAt(pos, tempVec3) - 4.0;
  //   let intersects = physicalIntersection(pos, tempVec);
 
     tempVec3.copy(pos);
@@ -108,7 +109,7 @@ function debugDrawPhysicalWorld() {
 
     for (let i = 0; i < 50; i++) {
         tempVec.copy(pos)
-        tempVec.y = ThreeAPI.terrainAt(pos)
+        tempVec.y = terrainAt(pos)
         tempVec2.set(tempVec.x + Math.sin(time*1.2 +(i+2)*1.2)*(10+(i+2)*0.5), tempVec.y + (i)*1.5 + (Math.cos( time*0.5+i*1.2)+0.8) * (2+i*0.5), tempVec.z + Math.cos( time*1.2+i*1.2) * (10+(i+2)*0.5))
 
         rayTest(tempVec2, tempVec,  tempVec3, normalStore, true);

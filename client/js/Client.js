@@ -31,7 +31,7 @@ function startGameWorld() {
     setGameWorld(gameWorld);
     gameWorld.initGameWorld();
 
-    return;
+//    return;
 
     player.enterWorld('controllable_f14')
 
@@ -95,7 +95,7 @@ function init3d() {
     function triggerFrame() {
         frame.frame ++;
         window.AmmoAPI.updatePhysicsSimulation(frame.tpf);
-    //    debugDrawPhysicalWorld()
+
         updateKeyboardFrame(frame.frame);
         frame.tpf = MATH.clamp(clock.getDelta(), 0, 0.5);
         frame.avgTpf = window.ThreeAPI.getSetup().avgTpf;

@@ -33,7 +33,7 @@ terrainParams.unitScale = 1;
 terrainParams.minHeight = 0;
 terrainParams.maxHeight = 1;
 
-let heightArray;
+let heightArray = null;
 let width;
 let height;
 let terrainGeometry;
@@ -413,6 +413,9 @@ function getTerrainParams() {
 }
 
 function terrainAt(pos, normalStore) {
+    if (heightArray === null)  {
+        return pos.y;
+    }
     return TerrainFunctions.getHeightAt(pos, heightArray, terrainParams.unitScale, terrainParams.tx_width, terrainParams.tx_width - 1, normalStore, terrainScale, worldBox.min);
 }
 
