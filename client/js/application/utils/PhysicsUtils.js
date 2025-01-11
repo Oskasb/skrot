@@ -113,6 +113,8 @@ function debugDrawPhysicalWorld() {
         tempVec2.set(tempVec.x + Math.sin(time*1.2 +(i+2)*1.2)*(10+(i+2)*0.5), tempVec.y + (i)*1.5 + (Math.cos( time*0.5+i*1.2)+0.8) * (2+i*0.5), tempVec.z + Math.cos( time*1.2+i*1.2) * (10+(i+2)*0.5))
 
         rayTest(tempVec2, tempVec,  tempVec3, normalStore, true);
+        tempVec2.y -= 20;
+        rayTest(tempVec, tempVec2,   tempVec3, normalStore, true);
 
     }
 

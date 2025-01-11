@@ -31,7 +31,13 @@ function startGameWorld() {
     setGameWorld(gameWorld);
     gameWorld.initGameWorld();
 
-//    return;
+    function plane(plane) {
+        console.log("plane ", plane);
+        plane.addToScene();
+    }
+
+    getGameWorld().call.loadGamePiece('controllable_f14', plane)
+    return;
 
     player.enterWorld('controllable_f14')
 

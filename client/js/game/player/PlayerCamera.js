@@ -35,9 +35,9 @@ class PlayerCamera {
             keyMoveVec3.applyQuaternion(camera.quaternion);
             keyMoveVec3.y = 0;
             keyMoveVec3.multiplyScalar(MATH.distanceBetween(camera.position, orbitControls.target) * getFrame().tpf);
-        //    player.call.getObj3d().position.add(keyMoveVec3);
-         //   let y = terrainAt(player.call.getObj3d().position, keyMoveVec3)
-        //    player.call.getObj3d().position.y = y;
+            player.call.getObj3d().position.add(keyMoveVec3);
+            let y = terrainAt(player.call.getObj3d().position, keyMoveVec3)
+            player.call.getObj3d().position.y = y;
             keyMoveVec3.multiplyScalar(5);
             keyMoveVec3.add(player.call.getObj3d().position);
             evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from: player.call.getObj3d().position, to:keyMoveVec3, color:'YELLOW'});
