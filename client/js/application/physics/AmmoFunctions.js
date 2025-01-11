@@ -604,7 +604,7 @@ let disable = function(body) {
 
 let heightFieldShape
 
-function createTerrainShape(data, sideSize, terrainMaxHeight, terrainMinHeight, margin) {
+function createTerrainShape(data, sideSize, terrainMaxHeight, terrainMinHeight, margin, maxProp) {
 
     let terrainWidthExtents = sideSize;
     let terrainDepthExtents = sideSize;
@@ -657,7 +657,7 @@ function createTerrainShape(data, sideSize, terrainMaxHeight, terrainMinHeight, 
     //    for (let j = 0; j < terrainWidth; j++) {
     for (let i = 0; i < data.length; i++) {
         // write 32-bit float data to memory
-        Ammo.HEAPF32[ammoHeightData + p2 >> 2] = data[i] / (256/255);
+        Ammo.HEAPF32[ammoHeightData + p2 >> 2] = data[i] // * maxProp// (256/255);
         p++;
         // 4 bytes/float
         p2 += 4;
@@ -984,7 +984,7 @@ class AmmoFunctions {
         return MODEL;
     }
 
-    createPhysicalTerrain(world, data, totalSize, posx, posz, minHeight, maxHeight) {
+    createPhysicalTerrain(world, data, totalSize, posx, posz, minHeight, maxHeight, maxProp) {
 
    //     console.log("createPhysicalTerrain", totalSize, posx, posz, minHeight, maxHeight);
 
@@ -992,7 +992,7 @@ class AmmoFunctions {
 
         let heightDiff = maxHeight-minHeight;
         let heightScale = heightDiff/100
-        let margin = 0.01 // 2 / heightScale;
+        let margin = 1 // 2 / heightScale;
 
         let restitution =  0.4;
         let damping     =  0.7;
@@ -1000,7 +1000,7 @@ class AmmoFunctions {
 
             console.log("Ground minY maxY: ", minHeight, maxHeight)
 
-        let groundShape = createTerrainShape( data, totalSize, maxHeight, minHeight, margin );
+        let groundShape = createTerrainShape( data, totalSize, maxHeight, minHeight, margin, maxProp );
         shapes.push(groundShape);
         let groundTransform = new Ammo.btTransform();
         groundTransform.setIdentity();

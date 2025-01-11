@@ -44,7 +44,8 @@ const factorG = 2;
 const factorB = 4;
 
 const HEIGHT_MIN = -60;
-const HEIGHT_MAX = 255*factorR+255*factorG+255*factorB+HEIGHT_MIN;
+const clrRng = 255;
+const HEIGHT_MAX = clrRng*factorR+clrRng*factorG+clrRng*factorB+HEIGHT_MIN;
 
 const centerSize = 30;
 const lodLayers = 4;
@@ -65,13 +66,23 @@ const HALF_TILE_SIZE = uniform(GEO_SEGS_XY / 2);
 const worldBox = new Box3();
 const CAMERA_POS = uniform(new Vector3()).label('CAMERA_POS');
 const camLookPoint = new Vector3();
-
+const WORLD_BOX_MAX = uniform(worldBox.max).label('WORLD_BOX_MAX');
 
 let heightTx;
 let terrainTx;
 
 function customTerrainUv() {
-    return vec2(positionLocal.x.div(TILE_SIZE).mod(TILE_SIZE), positionLocal.z.div(TILE_SIZE).mod(TILE_SIZE))
+
+    const txXy = vec2(positionLocal.x.div(TILE_SIZE).mod(TILE_SIZE), positionLocal.z.div(TILE_SIZE).mod(TILE_SIZE))
+
+    let boxMaxX = WORLD_BOX_MAX.x;
+    let boxMaxY = WORLD_BOX_MAX.z;
+    let globalUV = vec2(positionLocal.x.div(boxMaxX), positionLocal.z.div(boxMaxY));
+
+    let elevXYZA = heightTx.sample(globalUV);
+
+
+    return globalUV // txXy // globalUV // .mul(elevXYZA.x.div(244));
 }
 
 class ComputeTerrain {
@@ -292,15 +303,26 @@ class ComputeTerrain {
 
                 const ammoData = [];
 
+                let minh = HEIGHT_MAX;
+                let maxh = HEIGHT_MIN;
+
                 for (let i = 0; i < heightArray.length; i++) {
-                    let sourceHeight = heightData[i*4]*factorB + heightData[i*4 + 1] * factorG + heightData[i*4 + 2]*factorB;
-                    ammoData[i] = sourceHeight + factorB+factorR+factorB;
-                    heightArray[i] = sourceHeight +1
+                    let sourceHeight = heightData[i*4]*factorR + heightData[i*4 + 1] * factorG + heightData[i*4 + 2]*factorB;
+                    ammoData[i] = sourceHeight // + factorB+factorR+factorB;
+                    if (sourceHeight < minh) {
+                        minh = sourceHeight;
+                    }
+                    if (sourceHeight > maxh) {
+                        maxh = sourceHeight;
+                    }
+                    heightArray[i] = sourceHeight // * (256/255) +1
                 }
 
+                let maxProp = (HEIGHT_MAX+HEIGHT_MIN) / maxh
+                console.log("ActualMinMAx", minh, maxh, maxProp);
            //     AmmoAPI.buildPhysicalTerrain(ammoData, MAP_BOUNDS.value, MAP_BOUNDS.value/2, MAP_BOUNDS.value/2, HEIGHT_MIN, HEIGHT_MAX)
 
-                AmmoAPI.buildPhysicalTerrain(ammoData, MAP_BOUNDS.value, MAP_BOUNDS.value/2,MAP_BOUNDS.value/2, HEIGHT_MIN, HEIGHT_MAX) // HEIGHT_MAX)
+                AmmoAPI.buildPhysicalTerrain(ammoData, MAP_BOUNDS.value, MAP_BOUNDS.value/2,MAP_BOUNDS.value/2, HEIGHT_MIN, HEIGHT_MAX, maxProp) // HEIGHT_MAX)
 
 
                 const heightBuffer = instancedArray( heightArray ).label( 'Height' );
