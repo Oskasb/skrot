@@ -52,9 +52,9 @@ let SECTIONS_XY;
 
 const factorR = 1;
 const factorG = 2;
-const factorB = 4;
+const factorB = 10;
 
-const HEIGHT_MIN = -60;
+const HEIGHT_MIN = -200;
 const clrRng = 255;
 const HEIGHT_MAX = clrRng*factorR+clrRng*factorG+clrRng*factorB+HEIGHT_MIN;
 

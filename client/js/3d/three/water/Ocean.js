@@ -180,6 +180,23 @@ class Ocean {
 
             } )();
 
+
+            function oceanShoreness() {
+
+                const posx = positionLocal.x
+                const posy = positionLocal.y
+                const timeSin = time.add(posx.mul(0.01), posy.mul(0.012)).sin();
+                const waveA = cos(add(add(mul(timeSin, 65), add(posx, posy)), posx).mul(0.011));
+                const waveB = sin(add(add(mul(timeSin, 75), mul(add(posx, posy), 1.1)), posy).mul(0.012));
+
+                const boxMaxX = WORLD_BOX_MAX.x;
+                const boxMaxY = WORLD_BOX_MAX.z;
+                const globalUV = vec2(waveA.mul(10).add(posx).div(boxMaxX), waveB.mul(10).add(posy).div(boxMaxY).mul(-1));
+                const heightSample = heightTx.sample(globalUV);
+                const height = heightSample.r.mul(0.05).add(heightSample.g.mul(0.2)).add(heightSample.b);
+                return max(0, min(1, height.mul(add(waveA.add(1).add(waveB.add(1)).mul(0.5), 2)).mul(4)));
+            }
+
                 waterMaterial.lights = true;
                 waterMaterial.colorNode = Fn( () => {
 
@@ -187,11 +204,7 @@ class Ocean {
                     const posx = posNode.y
                     const posy = posNode.x
 
-
-                    const boxMaxX = WORLD_BOX_MAX.x;
-                    const boxMaxY = WORLD_BOX_MAX.z;
-                    const globalUV = vec2(positionLocal.x.div(boxMaxX), positionLocal.y.div(boxMaxY).mul(-1));
-                    const heightSample = heightTx.sample(globalUV);
+                    const shoreness = oceanShoreness();
 
                     const waveAx = posx.add(time.add(posy.mul(0.1)).cos().mul(5));
                     const waveBx = posy.add(time.add(posx.mul(0.1)).sin().mul(5));
@@ -210,15 +223,19 @@ class Ocean {
                     const foamMax = foamStorage.element( uvIndex );
                 //    foamStorage.element( uvIndex ).assign(1)
 
+
                     const foamFade = max(0, foamMax.mul(tileDx.mul(3.14).sin().mul(tileDy.mul(3.14).sin())));
 
                     const modulate = foamFade.mul(time.mul(0.8).sin().add(posx.mul(2.6).sin().add(posy.mul(2.6).sin())).abs());
 
+
+
                     const bubbleMod = time.mul(0.4).sin().add(1).mul(0.5).mul(22)
 
-                    const foam = max(0, foamFade.mul(tileDx.mul(bubbleMod).add(posx).sin().mul(tileDy.mul(bubbleMod).add(posy).sin()))).add(modulate);
 
-                    const shoreness = max(0, min(1, heightSample.b.mul(1)));
+                    const foam = max(0, foamFade.mul(tileDx.mul(bubbleMod).add(posx).sin().mul(tileDy.mul(bubbleMod).add(posy).sin()))).add(modulate).add(shoreness);
+
+
 
                     const waveA = cos(add(add(1, add(posx, posy)), posx).mul(0.0005));
                     const waveB = sin(add(add(1, mul(add(posx, posy), 0.9)), posy).mul(0.0003));
@@ -236,14 +253,17 @@ class Ocean {
                     const blendColor = mix(waterColor, ambColor.mul(0.7), bigWaveNm.x.mul(0.3));
                     const blend2Color = mix(blendColor, fogColor, bigWaveNm.z.mul(0.3));
 
-                    return heightSample.mul(40);
-                 //   return mix(blendColor, white, foam.add(shoreness));
+                 //   return heightSample.mul(10);
+                    return mix(blendColor, white, foam.add(shoreness.pow(12)));
 
                 } )();
 
-            waterMaterial.metalness = 1.3;
+            waterMaterial.metalness = 0.2;
             waterMaterial.envMapIntensity = 1.99;
-            waterMaterial.roughness = 0.32;
+            waterMaterial.roughness = 0.52;
+
+            waterMaterial.roughnessNode = oceanShoreness().pow(2).mul(0.4).add(0.1);
+            waterMaterial.metalnessNode = ONE.sub(oceanShoreness().pow(2.5).mul(0.8));
 
             waterMaterial.positionNode = Fn( () => {
                 const { camPos } = effectController;
@@ -265,7 +285,7 @@ class Ocean {
 
                 const centerNess = max(0, cX.mul(cZ));
 
-                const height = time.add(pX.sub(camOffsetPos.x).mul(bnd.z.mul(3))).sin().add(pZ.sub(camOffsetPos.z).mul(bnd.z.mul(2))).cos().mul(1.3);
+                const height = time.add(pX.sub(camOffsetPos.x).mul(bnd.z.mul(3))).sin().add(pZ.sub(camOffsetPos.z).mul(bnd.z.mul(2))).cos().mul(2.3);
                 varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, height.mul(centerNess)).normalize()  );
                 //       varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, 0).normalize()  );
                 const finalPosition = vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
