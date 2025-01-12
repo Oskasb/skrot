@@ -3,12 +3,13 @@ import {getFrame, loadImageAsset, loadModelAsset} from "../../../application/uti
 import {CanvasTexture, Mesh, Object3D, PlaneGeometry, Vector3} from "../../../../../libs/three/Three.Core.js";
 import MeshStandardNodeMaterial from "../../../../../libs/three/materials/nodes/MeshStandardNodeMaterial.js";
 import {
+    add, cross,
     floor,
     Fn, instancedArray,
     instanceIndex,
     max,
     positionLocal,
-    time,
+    time, transformNormalToView,
     uv,
     varyingProperty,
     vec3, vec4
@@ -43,6 +44,7 @@ let tilesMaterial;
 let tile32mesh;
 let terrainMesh;
 const TILE_SIZE = 80;
+const TILE_SIZE_HALF = TILE_SIZE / 2;
 let TILES_X;
 let TILES_Y;
 let BOUND_VERTS;
@@ -98,7 +100,7 @@ function customTerrainUv() {
     const globalUV = terrainGlobalUv();
     const elevXYZA = heightTx.sample(globalUV);
 
-    return globalUV // txXy // globalUV // .mul(elevXYZA.x.div(244));
+    return txXy // globalUV // .mul(elevXYZA.x.div(244));
 }
 
 class ComputeTerrain {
@@ -309,18 +311,77 @@ class ComputeTerrain {
                     return vec3(positionLocal.x, height, positionLocal.z);
                 } )();
 
-                tilesMaterial.colorNode = Fn( () => {
+                tilesMaterial.aoNode = Fn( () => {
                     const boxMaxX = WORLD_BOX_MAX.x;
                     const boxMaxY = WORLD_BOX_MAX.z;
                     const globalUV = vec2(positionLocal.x.div(boxMaxX), positionLocal.z.div(boxMaxY));
-                    const elevXYZA = heightTx.sample(globalUV);
-                    return elevXYZA
+                    const heightSample = heightTx.sample(globalUV);
+                    const rgbSum = heightSample.r.mul(0.1).add(heightSample.g.mul(0.2)).add(heightSample.b)
+                    const height = rgbSum.mul(11);
+                    const shoreline =  max(0, min(1, height.pow(4)));
+                    return vec4(shoreline, shoreline, shoreline, 1);
                 })();
 
 
                 tilesMaterial.normalNode = Fn( () => {
-                    return nmTx.sample(customTerrainUv())
+
+                    const globalUv = terrainGlobalUv();
+
+                    const shift = ONE.div(MAP_TEXELS_SIDE).mul(0.5);
+                    const nmUv0 = vec2(globalUv.x.add(shift), globalUv.y.add(shift));
+                    const nmUv1 = vec2(globalUv.x.sub(shift), globalUv.y.add(shift));
+                    const nmUv2 = vec2(globalUv.x.add(shift), globalUv.y.sub(shift));
+                    const triPoint0 = heightTx.sample(nmUv0);
+                    const triPoint1 = heightTx.sample(nmUv1);
+                    const triPoint2 = heightTx.sample(nmUv2);
+
+                    const rgbSum0 = triPoint0.r.mul(0.1).add(triPoint0.g.mul(0.2)).add(triPoint0.b)
+                    const rgbSum1 = triPoint1.r.mul(0.1).add(triPoint1.g.mul(0.2)).add(triPoint1.b)
+                    const rgbSum2 = triPoint2.r.mul(0.1).add(triPoint2.g.mul(0.2)).add(triPoint2.b)
+
+                    const point0 = vec3( nmUv0.x, rgbSum0.mul(0.1), nmUv0.y);
+                    const point1 = vec3( nmUv1.x, rgbSum1.mul(0.1), nmUv1.y);
+                    const point2 = vec3( nmUv2.x, rgbSum2.mul(0.1), nmUv2.y);
+/*
+                    const point0 = vec3( nmUv0.x, nmUv0.y, rgbSum0.mul(1.1));
+                    const point1 = vec3( nmUv1.x, nmUv1.y, rgbSum1.mul(1.1));
+                    const point2 = vec3( nmUv2.x, nmUv2.y, rgbSum2.mul(1.1));
+                */
+                    const deltaVec3 = vec3( rgbSum0, rgbSum1,  rgbSum2).normalize();
+
+                    const upness = ONE.sub(rgbSum0.mul(2).sub(rgbSum1.add(rgbSum2)).mul(4));
+                    const upnessVec3 = vec3(0, 0.1, 0);
+
+                    const tangent = point2.sub(point0);
+                    const biTangent = point1.sub(point0);
+                    const fragNormal =tangent.cross(biTangent).normalize().add(upnessVec3)
+
+
+                //    const terrainTxNormal = terrainNmTx.sample(globalUv)
+
+                    const txNormal = nmTx.sample(customTerrainUv())
+
+                    return fragNormal.add(txNormal).normalize();
                 } )();
+
+                /*
+            "vec2 normalSamplerP0 = vec2(terrainSampler.x +shift*0.5 , terrainSampler.y +shift*0.5);",
+                "vec4 normalSampleP0 = texture2D( heightmap, normalSamplerP0);",
+
+                "vec2 normalSamplerP1 = vec2(normalSamplerP0.x - shift*1.0, normalSamplerP0.y);",
+                "vec4 normalSampleP1 = texture2D( heightmap, normalSamplerP1);",
+
+                "vec2 normalSamplerP2 = vec2(normalSamplerP0.x, normalSamplerP0.y - shift*1.0);",
+                "vec4 normalSampleP2 = texture2D( heightmap, normalSamplerP2);",
+
+                "vec3 triPoint0 = vec3( normalSamplerP0.x, normalSampleP0.x*0.01, normalSamplerP0.y);",
+                "vec3 triPoint1 = vec3( normalSamplerP1.x, normalSampleP1.x*0.01, normalSamplerP1.y);",
+                "vec3 triPoint2 = vec3( normalSamplerP2.x, normalSampleP2.x*0.01, normalSamplerP2.y);",
+
+                "vec3 tangent = triPoint2 - triPoint0;",
+                "vec3 biTangent = triPoint1 - triPoint0;",
+                "vec3 fragNormal = normalize(cross(tangent, biTangent));",
+  */
 
             //    tilesMaterial.colorNode =  vec3(ZERO.add(instanceIndex).mul(0.02).mod(1),0 , ZERO.add(instanceIndex).mul(0.11).mod(1));
 
@@ -356,24 +417,7 @@ class ComputeTerrain {
 
                 const heightBuffer = instancedArray( heightArray ).label( 'Height' );
 
-                /*
-                            "vec2 normalSamplerP0 = vec2(terrainSampler.x +shift*0.5 , terrainSampler.y +shift*0.5);",
-                                "vec4 normalSampleP0 = texture2D( heightmap, normalSamplerP0);",
 
-                                "vec2 normalSamplerP1 = vec2(normalSamplerP0.x - shift*1.0, normalSamplerP0.y);",
-                                "vec4 normalSampleP1 = texture2D( heightmap, normalSamplerP1);",
-
-                                "vec2 normalSamplerP2 = vec2(normalSamplerP0.x, normalSamplerP0.y - shift*1.0);",
-                                "vec4 normalSampleP2 = texture2D( heightmap, normalSamplerP2);",
-
-                                "vec3 triPoint0 = vec3( normalSamplerP0.x, normalSampleP0.x*0.01, normalSamplerP0.y);",
-                                "vec3 triPoint1 = vec3( normalSamplerP1.x, normalSampleP1.x*0.01, normalSamplerP1.y);",
-                                "vec3 triPoint2 = vec3( normalSamplerP2.x, normalSampleP2.x*0.01, normalSamplerP2.y);",
-
-                                "vec3 tangent = triPoint2 - triPoint0;",
-                                "vec3 biTangent = triPoint1 - triPoint0;",
-                                "vec3 fragNormal = normalize(cross(tangent, biTangent));",
-                  */
                 //    ThreeAPI.addToScene(terrainMesh);
                 ThreeAPI.addToScene(tile32mesh);
                 ThreeAPI.addPostrenderCallback(update);
@@ -386,6 +430,8 @@ class ComputeTerrain {
 
         let heightCanvasTx;
         let terrainCanvasTx;
+
+        let terrainNormalTx;
 
         function tx1Loaded(img) {
             let tx = new CanvasTexture(img);
@@ -414,7 +460,11 @@ class ComputeTerrain {
             console.log("Heightmap image", tx, heightData);
 
         }
+
         loadImageAsset('heightmap_w01_20', tx1Loaded)
+
+
+
         //    loadImageAsset('heightmap_test', tx1Loaded)
     }
 
