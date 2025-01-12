@@ -74,13 +74,17 @@ class ThreeAPI {
             _this.addPostrenderCallback(_this.threeEnvironment.tickEnvironment);
         };
 
+        function trnLoaded() {
+            new Ocean(store)
+        }
+
         let onLoaded = function() {
             _this.threeEnvironment.initEnvironment(store, envReady);
             let env = new EnvironmentMaps(store);
             new EnvironmentClouds(store);
             env.call.activateEnvMaps()
-            new Ocean(store)
-            new ComputeTerrain(store);
+
+            new ComputeTerrain(store, trnLoaded);
         };
 
         this.threeEnvironment.loadEnvironmentData(onLoaded);

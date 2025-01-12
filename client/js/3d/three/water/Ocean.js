@@ -53,9 +53,14 @@ import {ENUMS} from "../../../application/ENUMS.js";
 import {evt} from "../../../application/event/evt.js";
 import {MATH} from "../../../application/MATH.js";
 import {poolFetch} from "../../../application/utils/PoolUtils.js";
+import {getWorldBoxMax, terrainGlobalUv} from "../terrain/ComputeTerrain.js";
+
+let heightTx;
 
 class Ocean {
     constructor(store) {
+
+        const WORLD_BOX_MAX = getWorldBoxMax();
 
         const scene = store.scene;
         const renderer = store.renderer;
@@ -92,14 +97,13 @@ class Ocean {
         const ZERO = uniform(0);
         const duration = uniform(3)
 
+
+
         function generateOcean() {
 
             // Dimensions of simulation grid.
 
             let effectController;
-
-
-
 
             let p = 0;
 
@@ -183,6 +187,12 @@ class Ocean {
                     const posx = posNode.y
                     const posy = posNode.x
 
+
+                    const boxMaxX = WORLD_BOX_MAX.x;
+                    const boxMaxY = WORLD_BOX_MAX.z;
+                    const globalUV = vec2(positionLocal.x.div(boxMaxX), positionLocal.y.div(boxMaxY).mul(-1));
+                    const heightSample = heightTx.sample(globalUV);
+
                     const waveAx = posx.add(time.add(posy.mul(0.1)).cos().mul(5));
                     const waveBx = posy.add(time.add(posx.mul(0.1)).sin().mul(5));
 
@@ -208,6 +218,8 @@ class Ocean {
 
                     const foam = max(0, foamFade.mul(tileDx.mul(bubbleMod).add(posx).sin().mul(tileDy.mul(bubbleMod).add(posy).sin()))).add(modulate);
 
+                    const shoreness = max(0, min(1, heightSample.b.mul(1)));
+
                     const waveA = cos(add(add(1, add(posx, posy)), posx).mul(0.0005));
                     const waveB = sin(add(add(1, mul(add(posx, posy), 0.9)), posy).mul(0.0003));
 
@@ -224,8 +236,8 @@ class Ocean {
                     const blendColor = mix(waterColor, ambColor.mul(0.7), bigWaveNm.x.mul(0.3));
                     const blend2Color = mix(blendColor, fogColor, bigWaveNm.z.mul(0.3));
 
-
-                    return mix(blendColor, white, foam);
+                    return heightSample.mul(40);
+                 //   return mix(blendColor, white, foam.add(shoreness));
 
                 } )();
 
@@ -424,4 +436,11 @@ class Ocean {
 
 }
 
-export {Ocean}
+function setHeightTxOcean(tx) {
+    heightTx = tx;
+}
+
+export {
+    Ocean,
+    setHeightTxOcean
+}

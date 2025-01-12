@@ -40,9 +40,10 @@ class PlayerCamera {
             player.call.getObj3d().position.y = y;
             keyMoveVec3.multiplyScalar(5);
             keyMoveVec3.add(player.call.getObj3d().position);
+
             evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from: player.call.getObj3d().position, to:keyMoveVec3, color:'YELLOW'});
             evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos: player.call.getObj3d().position, size:1, color:'YELLOW'});
-            debugDrawPhysicalWorld()
+       //     debugDrawPhysicalWorld()
 
             lastCamPos.copy(orbitControls.target);
             orbitControls.target.copy(player.call.getObj3d().position);

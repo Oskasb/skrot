@@ -21,6 +21,7 @@ import {evt} from "../../../application/event/evt.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {aaBoxTestVisibility, borrowBox} from "../../../application/utils/ModelUtils.js";
 import * as TerrainFunctions from "./TerrainFunctions.js";
+import {setHeightTxOcean} from "../water/Ocean.js";
 
 let heightCanvas = document.createElement('canvas');
 let heightmapContext;
@@ -81,23 +82,28 @@ const WORLD_BOX_MAX = uniform(worldBox.max).label('WORLD_BOX_MAX');
 let heightTx;
 let terrainTx;
 
+function getWorldBoxMax() {
+    return WORLD_BOX_MAX;
+}
+
+function terrainGlobalUv() {
+    const boxMaxX = WORLD_BOX_MAX.x;
+    const boxMaxY = WORLD_BOX_MAX.z;
+    return vec2(positionLocal.x.div(boxMaxX), positionLocal.z.div(boxMaxY));
+}
+
 function customTerrainUv() {
 
-    const txXy = vec2(positionLocal.x.div(TILE_SIZE).mod(TILE_SIZE), positionLocal.z.div(TILE_SIZE).mod(TILE_SIZE))
-
-    let boxMaxX = WORLD_BOX_MAX.x;
-    let boxMaxY = WORLD_BOX_MAX.z;
-    let globalUV = vec2(positionLocal.x.div(boxMaxX), positionLocal.z.div(boxMaxY));
-
-    let elevXYZA = heightTx.sample(globalUV);
-
+    const txXy = vec2(positionLocal.x.div(TILE_SIZE).mod(TILE_SIZE), positionLocal.z.div(TILE_SIZE).mod(TILE_SIZE));
+    const globalUV = terrainGlobalUv();
+    const elevXYZA = heightTx.sample(globalUV);
 
     return globalUV // txXy // globalUV // .mul(elevXYZA.x.div(244));
 }
 
 class ComputeTerrain {
 
-    constructor(store) {
+    constructor(store, onReadyCB) {
 
    //     return;
 
@@ -243,6 +249,7 @@ class ComputeTerrain {
         function setupTerrain(tiles32geo) {
 
             heightTx = texture(heightCanvasTx);
+            setHeightTxOcean(heightTx)
             terrainTx = texture(terrainCanvasTx);
 
             BOUND_VERTS = heightData.length / 4;
@@ -301,6 +308,15 @@ class ComputeTerrain {
                     const height = heightBuffer.element(idx);
                     return vec3(positionLocal.x, height, positionLocal.z);
                 } )();
+
+                tilesMaterial.colorNode = Fn( () => {
+                    const boxMaxX = WORLD_BOX_MAX.x;
+                    const boxMaxY = WORLD_BOX_MAX.z;
+                    const globalUV = vec2(positionLocal.x.div(boxMaxX), positionLocal.z.div(boxMaxY));
+                    const elevXYZA = heightTx.sample(globalUV);
+                    return elevXYZA
+                })();
+
 
                 tilesMaterial.normalNode = Fn( () => {
                     return nmTx.sample(customTerrainUv())
@@ -361,6 +377,7 @@ class ComputeTerrain {
                 //    ThreeAPI.addToScene(terrainMesh);
                 ThreeAPI.addToScene(tile32mesh);
                 ThreeAPI.addPostrenderCallback(update);
+                onReadyCB();
             }
 
             loadAssetMaterial('material_terrain', matLoaded)
@@ -421,8 +438,10 @@ function terrainAt(pos, normalStore) {
 
 export {
     ComputeTerrain,
+    getWorldBoxMax,
     customTerrainUv,
     getHeightmapData,
     getTerrainParams,
-    terrainAt
+    terrainAt,
+    terrainGlobalUv
 }
