@@ -17,7 +17,7 @@ import {
 import {vertexIndex} from "../../../../../libs/three/nodes/core/IndexNode.js";
 import {loadAsset, loadAssetMaterial} from "../../../application/utils/AssetUtils.js";
 import {BackSide, Box3, DoubleSide, DynamicDrawUsage, FrontSide, InstancedMesh} from "three";
-import {min, mix, texture, uniform, vec2} from "three/tsl";
+import {min, mix, normalLocal, texture, uniform, vec2} from "three/tsl";
 import {evt} from "../../../application/event/evt.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {aaBoxTestVisibility, borrowBox} from "../../../application/utils/ModelUtils.js";
@@ -81,6 +81,8 @@ const CAMERA_POS = uniform(new Vector3()).label('CAMERA_POS');
 const camLookPoint = new Vector3();
 const WORLD_BOX_MAX = uniform(worldBox.max).label('WORLD_BOX_MAX');
 
+const GROUND_TILES = uniform(8);
+
 let heightTx;
 let terrainTx;
 
@@ -96,11 +98,34 @@ function terrainGlobalUv() {
 
 function customTerrainUv() {
 
-    const txXy = vec2(positionLocal.x.div(TILE_SIZE).mod(TILE_SIZE), positionLocal.z.div(TILE_SIZE).mod(TILE_SIZE));
-    const globalUV = terrainGlobalUv();
-    const elevXYZA = heightTx.sample(globalUV);
+    const tileSize = ZERO.add(TILE_SIZE);
+    const tileFraction = tileSize.div(GROUND_TILES).mul(0.5);
 
-    return txXy // globalUV // .mul(elevXYZA.x.div(244));
+    const tileRatio = ONE.div(GROUND_TILES).mul(0.999);
+
+    const txXy = vec2(positionLocal.x.div(tileFraction.mul(5)).mod(tileFraction).div(GROUND_TILES.add(2)), positionLocal.z.div(tileFraction.mul(5)).mod(tileFraction).div(GROUND_TILES.add(2))).div(GROUND_TILES.div(2));
+    const globalUV = terrainGlobalUv();
+    const terrainRGBA = terrainTx.sample(globalUV);
+
+    const biomeIndex = floor(terrainRGBA.r.div(0.5)).mul(3);
+
+    const civIndex = floor(terrainRGBA.b.mul(GROUND_TILES).mul(0.99));
+    const civRowAdd = min(1, civIndex.mul(10));
+
+    const blockByCiv = ONE.sub(civRowAdd)
+
+    const vegetationIndex = floor(terrainRGBA.g.mul(GROUND_TILES)).mul(blockByCiv).mul(0);
+
+    const modulate = positionLocal.x.add(positionLocal.z.mul(0.4)).mul(0.1).sin().add(1).mul(0.02)
+    const slope = min(0.99, max(0, varyingProperty( 'float', 'slope' ).pow(1.2).add(modulate)));
+
+    const slopeIndex = floor(slope.mul(GROUND_TILES)).mul(blockByCiv);
+    const offsetRow = biomeIndex.add(vegetationIndex).add(civRowAdd.mul(2));
+    const offsetXSum = slopeIndex.add(civIndex).add(vegetationIndex);
+
+    const uvOffsetted = vec2(txXy.x.add(offsetXSum.mul(tileRatio)), txXy.y.add(offsetRow.mul(tileRatio)));
+
+    return uvOffsetted // .add(addUv) // globalUV // .mul(elevXYZA.x.div(244));
 }
 
 class ComputeTerrain {
@@ -220,7 +245,7 @@ class ComputeTerrain {
                                     hasUpdate = true;
                                 }
                          //   }
-                            
+
                         }
                     }
                 }
@@ -318,7 +343,12 @@ class ComputeTerrain {
                     const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)).mul(MAP_TEXELS_SIDE); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
                     const idx = texelY.add(texelX);
                     const height = heightBuffer.element(idx);
+                    const slope = varyingProperty( 'float', 'slope' );
 
+                    const heightDiffFront = heightBuffer.element(idx.add(MAP_TEXELS_SIDE)).sub(height).abs()
+                    const heightDiffSide  = heightBuffer.element(idx.add(1)).sub(height).abs()
+                    slope.assign(min(0.99, max(heightDiffFront, heightDiffSide).mul(0.01)))
+                    //    slope.assign(0.02)
                     return vec3(positionLocal.x, height, positionLocal.z);
 
                 } )();
@@ -366,8 +396,6 @@ class ComputeTerrain {
 
                     const txNormal = nmTx.sample(customTerrainUv()).mul(0.25)
                     const fragNormal = transformNormalToView(tangent.cross(biTangent).normalize());
-
-                //    varyingProperty( 'vec3', 'v_normalView' ).assign( fragNormal );
 
                     return fragNormal.add(txNormal);
                 } )();
