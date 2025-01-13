@@ -65,6 +65,15 @@ class MathNode extends TempNode {
 		 */
 		this.cNode = cNode;
 
+		/**
+		 * This flag can be used for type testing.
+		 *
+		 * @type {Boolean}
+		 * @readonly
+		 * @default true
+		 */
+		this.isMathNode = true;
+
 	}
 
 	/**
@@ -534,9 +543,11 @@ export const acos = /*@__PURE__*/ nodeProxy( MathNode, MathNode.ACOS );
 
 /**
  * Returns the arc-tangent of the parameter.
+ * If two parameters are provided, the result is `atan2(y/x)`.
  *
  * @function
- * @param {Node | Number} x - The parameter.
+ * @param {Node | Number} y - The y parameter.
+ * @param {(Node | Number)?} x - The x parameter.
  * @returns {Node}
  */
 export const atan = /*@__PURE__*/ nodeProxy( MathNode, MathNode.ATAN );
@@ -932,6 +943,8 @@ export const smoothstepElement = ( x, low, high ) => smoothstep( low, high, x );
  * Returns the arc-tangent of the quotient of its parameters.
  *
  * @function
+ * @deprecated since r172. Use {@link atan} instead.
+ *
  * @param {Node | Number} y - The y parameter.
  * @param {Node | Number} x - The x parameter.
  * @returns {Node}

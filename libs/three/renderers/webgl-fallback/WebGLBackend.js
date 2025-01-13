@@ -32,7 +32,7 @@ class WebGLBackend extends Backend {
 	 * @param {Boolean} [parameters.stencil=false] - Whether the default framebuffer should have a stencil buffer or not.
 	 * @param {Boolean} [parameters.antialias=false] - Whether MSAA as the default anti-aliasing should be enabled or not.
 	 * @param {Number} [parameters.samples=0] - When `antialias` is `true`, `4` samples are used by default. Set this parameter to any other integer value than 0 to overwrite the default.
-	 * @param {Boolean} [parameters.forceWebGL=false] - If set to `true`, the renderer uses it WebGL 2 backend no matter if WebGPU is supported or not.
+	 * @param {Boolean} [parameters.forceWebGL=false] - If set to `true`, the renderer uses a WebGL 2 backend no matter if WebGPU is supported or not.
 	 * @param {WebGL2RenderingContext} [parameters.context=undefined] - A WebGL 2 rendering context.
 	 */
 	constructor( parameters = {} ) {
@@ -258,8 +258,8 @@ class WebGLBackend extends Backend {
 	}
 
 	/**
-	 * Transfers buffer data from a storage buffer attribute
-	 * from the GPU to the CPU in context of compute shaders.
+	 * This method performs a readback operation by moving buffer data from
+	 * a storage buffer attribute from the GPU to the CPU.
 	 *
 	 * @async
 	 * @param {StorageBufferAttribute} attribute - The storage buffer attribute.
@@ -611,7 +611,7 @@ class WebGLBackend extends Backend {
 
 					if ( gl.getQueryParameter( query, gl.QUERY_RESULT_AVAILABLE ) ) {
 
-						if ( gl.getQueryParameter( query, gl.QUERY_RESULT ) > 0 ) occluded.add( currentOcclusionQueryObjects[ i ] );
+						if ( gl.getQueryParameter( query, gl.QUERY_RESULT ) === 0 ) occluded.add( currentOcclusionQueryObjects[ i ] );
 
 						currentOcclusionQueries[ i ] = null;
 						gl.deleteQuery( query );
@@ -1137,7 +1137,7 @@ class WebGLBackend extends Backend {
 	}
 
 	/**
-	 * Generates mipmaps for the given texture
+	 * Generates mipmaps for the given texture.
 	 *
 	 * @param {Texture} texture - The texture.
 	 */
@@ -1161,15 +1161,16 @@ class WebGLBackend extends Backend {
 	/**
 	 * Returns texture data as a typed array.
 	 *
+	 * @async
 	 * @param {Texture} texture - The texture to copy.
 	 * @param {Number} x - The x coordinate of the copy origin.
 	 * @param {Number} y - The y coordinate of the copy origin.
 	 * @param {Number} width - The width of the copy.
 	 * @param {Number} height - The height of the copy.
 	 * @param {Number} faceIndex - The face index.
-	 * @return {TypedArray} The texture data as a typed array.
+	 * @return {Promise<TypedArray>} A Promise that resolves with a typed array when the copy operation has finished.
 	 */
-	copyTextureToBuffer( texture, x, y, width, height, faceIndex ) {
+	async copyTextureToBuffer( texture, x, y, width, height, faceIndex ) {
 
 		return this.textureUtils.copyTextureToBuffer( texture, x, y, width, height, faceIndex );
 
@@ -1660,7 +1661,7 @@ class WebGLBackend extends Backend {
 	// attributes
 
 	/**
-	 * Creates the buffer of an indexed shader attribute.
+	 * Creates the GPU buffer of an indexed shader attribute.
 	 *
 	 * @param {BufferAttribute} attribute - The indexed buffer attribute.
 	 */
@@ -1673,7 +1674,7 @@ class WebGLBackend extends Backend {
 	}
 
 	/**
-	 * Creates the buffer of a shader attribute.
+	 * Creates the GPU buffer of a shader attribute.
 	 *
 	 * @param {BufferAttribute} attribute - The buffer attribute.
 	 */
@@ -1688,7 +1689,7 @@ class WebGLBackend extends Backend {
 	}
 
 	/**
-	 * Creates the buffer of a storage attribute.
+	 * Creates the GPU buffer of a storage attribute.
 	 *
 	 * @param {BufferAttribute} attribute - The buffer attribute.
 	 */
@@ -1703,7 +1704,7 @@ class WebGLBackend extends Backend {
 	}
 
 	/**
-	 * Updates the buffer of a shader attribute.
+	 * Updates the GPU buffer of a shader attribute.
 	 *
 	 * @param {BufferAttribute} attribute - The buffer attribute to update.
 	 */
@@ -1714,7 +1715,7 @@ class WebGLBackend extends Backend {
 	}
 
 	/**
-	 * Destroys the buffer of a shader attribute.
+	 * Destroys the GPU buffer of a shader attribute.
 	 *
 	 * @param {BufferAttribute} attribute - The buffer attribute to destroy.
 	 */
@@ -2081,11 +2082,11 @@ class WebGLBackend extends Backend {
 	}
 
 	/**
-	 * Creates a tranform feedback from the given transform buffers.
+	 * Creates a transform feedback from the given transform buffers.
 	 *
 	 * @private
-	 * @param {Array<DualAttributeData>} transformBuffers - The tranform buffers.
-	 * @return {WebGLTransformFeedback} The tranform feedback.
+	 * @param {Array<DualAttributeData>} transformBuffers - The transform buffers.
+	 * @return {WebGLTransformFeedback} The transform feedback.
 	 */
 	_getTransformFeedback( transformBuffers ) {
 

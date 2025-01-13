@@ -9,6 +9,8 @@ import { CubeUVReflectionMapping, EquirectangularReflectionMapping, Equirectangu
 import { hashArray } from '../../../nodes/core/NodeUtils.js';
 
 const _outputNodeMap = new WeakMap();
+const _chainKeys = [];
+const _cacheKeyValues = [];
 
 /**
  * This renderer module manages node-related objects and is the
@@ -136,10 +138,13 @@ class Nodes extends DataMap {
 
 		// other groups are updated just when groupNode.needsUpdate is true
 
-		const groupChain = [ groupNode, nodeUniformsGroup ];
+		_chainKeys[ 0 ] = groupNode;
+		_chainKeys[ 1 ] = nodeUniformsGroup;
 
-		let groupData = this.groupsData.get( groupChain );
-		if ( groupData === undefined ) this.groupsData.set( groupChain, groupData = {} );
+		let groupData = this.groupsData.get( _chainKeys );
+		if ( groupData === undefined ) this.groupsData.set( _chainKeys, groupData = {} );
+
+		_chainKeys.length = 0;
 
 		if ( groupData.version !== groupNode.version ) {
 
@@ -382,32 +387,34 @@ class Nodes extends DataMap {
 	 */
 	getCacheKey( scene, lightsNode ) {
 
-		const chain = [ scene, lightsNode ];
+		_chainKeys[ 0 ] = scene;
+		_chainKeys[ 1 ] = lightsNode;
+
 		const callId = this.renderer.info.calls;
 
-		let cacheKeyData = this.callHashCache.get( chain );
+		const cacheKeyData = this.callHashCache.get( _chainKeys ) || {};
 
-		if ( cacheKeyData === undefined || cacheKeyData.callId !== callId ) {
+		if ( cacheKeyData.callId !== callId ) {
 
 			const environmentNode = this.getEnvironmentNode( scene );
 			const fogNode = this.getFogNode( scene );
 
-			const values = [];
+			if ( lightsNode ) _cacheKeyValues.push( lightsNode.getCacheKey( true ) );
+			if ( environmentNode ) _cacheKeyValues.push( environmentNode.getCacheKey() );
+			if ( fogNode ) _cacheKeyValues.push( fogNode.getCacheKey() );
 
-			if ( lightsNode ) values.push( lightsNode.getCacheKey( true ) );
-			if ( environmentNode ) values.push( environmentNode.getCacheKey() );
-			if ( fogNode ) values.push( fogNode.getCacheKey() );
+			_cacheKeyValues.push( this.renderer.shadowMap.enabled ? 1 : 0 );
 
-			values.push( this.renderer.shadowMap.enabled ? 1 : 0 );
+			cacheKeyData.callId = callId;
+			cacheKeyData.cacheKey = hashArray( _cacheKeyValues );
 
-			cacheKeyData = {
-				callId,
-				cacheKey: hashArray( values )
-			};
+			this.callHashCache.set( _chainKeys, cacheKeyData );
 
-			this.callHashCache.set( chain, cacheKeyData );
+			_cacheKeyValues.length = 0;
 
 		}
+
+		_chainKeys.length = 0;
 
 		return cacheKeyData.cacheKey;
 
@@ -784,7 +791,7 @@ class Nodes extends DataMap {
 	}
 
 	/**
-	 * Frees the intenral resources.
+	 * Frees the internal resources.
 	 */
 	dispose() {
 

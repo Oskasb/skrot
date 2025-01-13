@@ -255,7 +255,7 @@ class Backend {
 	// textures
 
 	/**
-	 * Creates a sampler for the given texture.
+	 * Creates a GPU sampler for the given texture.
 	 *
 	 * @abstract
 	 * @param {Texture} texture - The texture to create the sampler for.
@@ -263,7 +263,7 @@ class Backend {
 	createSampler( /*texture*/ ) { }
 
 	/**
-	 * Destroys the sampler for the given texture.
+	 * Destroys the GPU sampler for the given texture.
 	 *
 	 * @abstract
 	 * @param {Texture} texture - The texture to destroy the sampler for.
@@ -298,7 +298,7 @@ class Backend {
 	updateTexture( /*texture, options = {}*/ ) { }
 
 	/**
-	 * Generates mipmaps for the given texture
+	 * Generates mipmaps for the given texture.
 	 *
 	 * @abstract
 	 * @param {Texture} texture - The texture.
@@ -317,15 +317,16 @@ class Backend {
 	 * Returns texture data as a typed array.
 	 *
 	 * @abstract
+	 * @async
 	 * @param {Texture} texture - The texture to copy.
 	 * @param {Number} x - The x coordinate of the copy origin.
 	 * @param {Number} y - The y coordinate of the copy origin.
 	 * @param {Number} width - The width of the copy.
 	 * @param {Number} height - The height of the copy.
 	 * @param {Number} faceIndex - The face index.
-	 * @return {TypedArray} The texture data as a typed array.
+	 * @return {Promise<TypedArray>} A Promise that resolves with a typed array when the copy operation has finished.
 	 */
-	copyTextureToBuffer( /*texture, x, y, width, height, faceIndex*/ ) {}
+	async copyTextureToBuffer( /*texture, x, y, width, height, faceIndex*/ ) {}
 
 	/**
 	 * Copies data of the given source texture to the given destination texture.
@@ -352,7 +353,7 @@ class Backend {
 	// attributes
 
 	/**
-	 * Creates the buffer of a shader attribute.
+	 * Creates the GPU buffer of a shader attribute.
 	 *
 	 * @abstract
 	 * @param {BufferAttribute} attribute - The buffer attribute.
@@ -360,7 +361,7 @@ class Backend {
 	createAttribute( /*attribute*/ ) { }
 
 	/**
-	 * Creates the buffer of an indexed shader attribute.
+	 * Creates the GPU buffer of an indexed shader attribute.
 	 *
 	 * @abstract
 	 * @param {BufferAttribute} attribute - The indexed buffer attribute.
@@ -368,7 +369,7 @@ class Backend {
 	createIndexAttribute( /*attribute*/ ) { }
 
 	/**
-	 * Creates the buffer of a storage attribute.
+	 * Creates the GPU buffer of a storage attribute.
 	 *
 	 * @abstract
 	 * @param {BufferAttribute} attribute - The buffer attribute.
@@ -376,7 +377,7 @@ class Backend {
 	createStorageAttribute( /*attribute*/ ) { }
 
 	/**
-	 * Updates the buffer of a shader attribute.
+	 * Updates the GPU buffer of a shader attribute.
 	 *
 	 * @abstract
 	 * @param {BufferAttribute} attribute - The buffer attribute to update.
@@ -384,7 +385,7 @@ class Backend {
 	updateAttribute( /*attribute*/ ) { }
 
 	/**
-	 * Destroys the buffer of a shader attribute.
+	 * Destroys the GPU buffer of a shader attribute.
 	 *
 	 * @abstract
 	 * @param {BufferAttribute} attribute - The buffer attribute to destroy.
@@ -451,6 +452,16 @@ class Backend {
 	 * @return {Promise} A Promise that resolves when synchronization has been finished.
 	 */
 	async waitForGPU() {}
+
+	/**
+	 * This method performs a readback operation by moving buffer data from
+	 * a storage buffer attribute from the GPU to the CPU.
+	 *
+	 * @async
+	 * @param {StorageBufferAttribute} attribute - The storage buffer attribute.
+	 * @return {Promise<ArrayBuffer>} A promise that resolves with the buffer data when the data are ready.
+	 */
+	async getArrayBufferAsync( /* attribute */ ) {}
 
 	/**
 	 * Checks if the given feature is supported by the backend.

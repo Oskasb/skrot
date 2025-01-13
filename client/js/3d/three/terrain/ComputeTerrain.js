@@ -16,7 +16,7 @@ import {
 } from "../../../../../libs/three/Three.TSL.js";
 import {vertexIndex} from "../../../../../libs/three/nodes/core/IndexNode.js";
 import {loadAsset, loadAssetMaterial} from "../../../application/utils/AssetUtils.js";
-import {Box3, DoubleSide, DynamicDrawUsage, InstancedMesh} from "three";
+import {BackSide, Box3, DoubleSide, DynamicDrawUsage, FrontSide, InstancedMesh} from "three";
 import {min, mix, texture, uniform, vec2} from "three/tsl";
 import {evt} from "../../../application/event/evt.js";
 import {ENUMS} from "../../../application/ENUMS.js";
@@ -169,7 +169,7 @@ class ComputeTerrain {
             let camera = ThreeAPI.getCamera();
             if (camera) {
 
-                camLookPoint.set(0, 0, -(TILE_SIZE*centerSize*1.5));
+                camLookPoint.set(0, 0, -(TILE_SIZE*centerSize*1.2));
                 camLookPoint.applyQuaternion(camera.quaternion);
                 camLookPoint.add(camera.position);
 
@@ -208,15 +208,19 @@ class ComputeTerrain {
                         let visible = aaBoxTestVisibility(dummy.position, dummy.scale.x*centerSize, HEIGHT_MAX, dummy.scale.z*centerSize)
 
                         if (visible) {
+                        /*
                             let tileBox = borrowBox();
                             let intersects = worldBox.intersectsBox(tileBox);
                             if (intersects) {
+
+                         */
                                 let update = setTileDimensions(tileCount, dummy);
                                 tileCount++
                                 if (update) {
                                     hasUpdate = true;
                                 }
-                            }
+                         //   }
+                            
                         }
                     }
                 }
@@ -290,14 +294,14 @@ class ComputeTerrain {
                 const nmTx = texture(tilesMaterial.normalMap);
                 console.log("nmTx", nmTx, tilesMaterial.normalMap)
                 tilesMaterial.normalMap = null;
-
+/*
                 tilesMaterial.metalnessMap = null;
                 tilesMaterial.roughnessMap = null;
                 tilesMaterial.metalness = 0;
-                tilesMaterial.roughness = 0.6
-
-
-                tilesMaterial.side = DoubleSide;
+                tilesMaterial.roughness = 0.4
+                tilesMaterial.envMapIntensity = 0.0
+*/
+                tilesMaterial.side = FrontSide;
                 positionBuffer = instancedArray( tileCount, 'vec3' );
                 scaleBuffer = instancedArray( tileCount, 'vec3' );
                 //    tilesMaterial.positionNode = positionBuffer.toAttribute();
@@ -355,16 +359,17 @@ class ComputeTerrain {
                     const deltaVec3 = vec3( rgbSum0, rgbSum1,  rgbSum2).normalize();
 
                     const upness = ONE.sub(rgbSum0.mul(2).sub(rgbSum1.add(rgbSum2)).mul(4));
-                    const upnessVec3 = vec3(0, 0.1, 0);
+                    const upnessVec3 = vec3(0, 1.3, 0);
 
                     const tangent = point2.sub(point0);
                     const biTangent = point1.sub(point0);
-                    const fragNormal = tangent.cross(biTangent).normalize();
+
+                    const txNormal = nmTx.sample(customTerrainUv()).mul(0.25)
+                    const fragNormal = transformNormalToView(tangent.cross(biTangent).normalize());
 
                 //    varyingProperty( 'vec3', 'v_normalView' ).assign( fragNormal );
-                    const txNormal = nmTx.sample(customTerrainUv())
 
-                    return fragNormal;
+                    return fragNormal.add(txNormal);
                 } )();
 
                 /*

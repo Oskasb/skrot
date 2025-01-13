@@ -65,6 +65,15 @@ class OperatorNode extends TempNode {
 		 */
 		this.bNode = bNode;
 
+		/**
+		 * This flag can be used for type testing.
+		 *
+		 * @type {Boolean}
+		 * @readonly
+		 * @default true
+		 */
+		this.isOperatorNode = true;
+
 	}
 
 	/**
@@ -541,7 +550,13 @@ addMethodChaining( 'bitXor', bitXor );
 addMethodChaining( 'shiftLeft', shiftLeft );
 addMethodChaining( 'shiftRight', shiftRight );
 
-
+/**
+ * @function
+ * @deprecated since r168. Use {@link modInt} instead.
+ *
+ * @param  {...any} params
+ * @returns {Function}
+ */
 export const remainder = ( ...params ) => { // @deprecated, r168
 
 	console.warn( 'TSL.OperatorNode: .remainder() has been renamed to .modInt().' );

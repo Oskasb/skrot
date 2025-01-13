@@ -435,7 +435,7 @@ MaterialNode.LINE_DASH_SIZE = 'dashSize';
 MaterialNode.LINE_GAP_SIZE = 'gapSize';
 MaterialNode.LINE_WIDTH = 'linewidth';
 MaterialNode.LINE_DASH_OFFSET = 'dashOffset';
-MaterialNode.POINT_WIDTH = 'pointWidth';
+MaterialNode.POINT_SIZE = 'size';
 MaterialNode.DISPERSION = 'dispersion';
 MaterialNode.LIGHT_MAP = 'light';
 MaterialNode.AO = 'ao';
@@ -520,7 +520,7 @@ export const materialReflectivity = /*@__PURE__*/ nodeImmutable( MaterialNode, M
 
 /**
  * TSL object that represents the roughness of the current material.
- * The value is composed via `roughness` * `roughnessMap.g`
+ * The value is composed via `roughness` * `roughnessMap.g`.
  *
  * @type {Node<float>}
  */
@@ -528,7 +528,7 @@ export const materialRoughness = /*@__PURE__*/ nodeImmutable( MaterialNode, Mate
 
 /**
  * TSL object that represents the metalness of the current material.
- * The value is composed via `metalness` * `metalnessMap.b`
+ * The value is composed via `metalness` * `metalnessMap.b`.
  *
  * @type {Node<float>}
  */
@@ -540,7 +540,7 @@ export const materialMetalness = /*@__PURE__*/ nodeImmutable( MaterialNode, Mate
  *
  * @type {Node<vec3>}
  */
-export const materialNormal = /*@__PURE__*/ nodeImmutable( MaterialNode, MaterialNode.NORMAL ).context( { getUV: null } );
+export const materialNormal = /*@__PURE__*/ nodeImmutable( MaterialNode, MaterialNode.NORMAL );
 
 /**
  * TSL object that represents the clearcoat of the current material.
@@ -552,7 +552,7 @@ export const materialClearcoat = /*@__PURE__*/ nodeImmutable( MaterialNode, Mate
 
 /**
  * TSL object that represents the clearcoat roughness of the current material.
- * The value is composed via `clearcoatRoughness` * `clearcoatRoughnessMap.r`
+ * The value is composed via `clearcoatRoughness` * `clearcoatRoughnessMap.r`.
  *
  * @type {Node<float>}
  */
@@ -564,7 +564,7 @@ export const materialClearcoatRoughness = /*@__PURE__*/ nodeImmutable( MaterialN
  *
  * @type {Node<vec3>}
  */
-export const materialClearcoatNormal = /*@__PURE__*/ nodeImmutable( MaterialNode, MaterialNode.CLEARCOAT_NORMAL ).context( { getUV: null } );
+export const materialClearcoatNormal = /*@__PURE__*/ nodeImmutable( MaterialNode, MaterialNode.CLEARCOAT_NORMAL );
 
 /**
  * TSL object that represents the rotation of the current sprite material.
@@ -583,7 +583,7 @@ export const materialSheen = /*@__PURE__*/ nodeImmutable( MaterialNode, Material
 
 /**
  * TSL object that represents the sheen roughness of the current material.
- * The value is composed via `sheenRoughness` * `sheenRoughnessMap.a` .
+ * The value is composed via `sheenRoughness` * `sheenRoughnessMap.a`.
  *
  * @type {Node<float>}
  */
@@ -690,11 +690,11 @@ export const materialLineWidth = /*@__PURE__*/ nodeImmutable( MaterialNode, Mate
 export const materialLineDashOffset = /*@__PURE__*/ nodeImmutable( MaterialNode, MaterialNode.LINE_DASH_OFFSET );
 
 /**
- * TSL object that represents the point width of the current points material.
+ * TSL object that represents the point size of the current points material.
  *
  * @type {Node<float>}
  */
-export const materialPointWidth = /*@__PURE__*/ nodeImmutable( MaterialNode, MaterialNode.POINT_WIDTH );
+export const materialPointSize = /*@__PURE__*/ nodeImmutable( MaterialNode, MaterialNode.POINT_SIZE );
 
 /**
  * TSL object that represents the dispersion of the current material.

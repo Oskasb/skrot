@@ -286,7 +286,7 @@ class Ocean {
                 const centerNess = max(0, cX.mul(cZ));
 
                 const height = time.add(pX.sub(camOffsetPos.x).mul(bnd.z.mul(3))).sin().add(pZ.sub(camOffsetPos.z).mul(bnd.z.mul(2))).cos().mul(2.3);
-                varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, height.mul(centerNess)).normalize()  );
+                varyingProperty( 'vec3', 'v_normalView' ).assign(transformNormalToView( vec3(1, 1, height.mul(centerNess)).normalize())  );
                 //       varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, 0).normalize()  );
                 const finalPosition = vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
 

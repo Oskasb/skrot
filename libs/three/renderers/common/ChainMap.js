@@ -2,14 +2,14 @@
  * Data structure for the renderer. It allows defining values
  * with chained, hierarchical keys. Keys are meant to be
  * objects since the module internally works with Weak Maps
- * for perforamnce reasons.
+ * for performance reasons.
  *
  * @private
  */
-export default class ChainMap {
+class ChainMap {
 
 	/**
-	 * Constructs a new chained map.
+	 * Constructs a new Chain Map.
 	 */
 	constructor() {
 
@@ -32,7 +32,7 @@ export default class ChainMap {
 
 		let map = this.weakMap;
 
-		for ( let i = 0; i < keys.length; i ++ ) {
+		for ( let i = 0; i < keys.length - 1; i ++ ) {
 
 			map = map.get( keys[ i ] );
 
@@ -49,13 +49,13 @@ export default class ChainMap {
 	 *
 	 * @param {Array<Object>} keys - List of keys.
 	 * @param {Any} value - The value to set.
-	 * @return {ChainMap} A reference to this chain map.
+	 * @return {ChainMap} A reference to this Chain Map.
 	 */
 	set( keys, value ) {
 
 		let map = this.weakMap;
 
-		for ( let i = 0; i < keys.length; i ++ ) {
+		for ( let i = 0; i < keys.length - 1; i ++ ) {
 
 			const key = keys[ i ];
 
@@ -81,7 +81,7 @@ export default class ChainMap {
 
 		let map = this.weakMap;
 
-		for ( let i = 0; i < keys.length; i ++ ) {
+		for ( let i = 0; i < keys.length - 1; i ++ ) {
 
 			map = map.get( keys[ i ] );
 
@@ -94,3 +94,5 @@ export default class ChainMap {
 	}
 
 }
+
+export default ChainMap;

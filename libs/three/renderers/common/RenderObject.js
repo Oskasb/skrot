@@ -54,7 +54,7 @@ function getKeys( obj ) {
  *
  * @private
  */
-export default class RenderObject {
+class RenderObject {
 
 	/**
 	 * Constructs a new render object.
@@ -336,7 +336,7 @@ export default class RenderObject {
 	/**
 	 * Returns the node builder state of this render object.
 	 *
-	 * @return {NodeBuilderState} The node buider state.
+	 * @return {NodeBuilderState} The node builder state.
 	 */
 	getNodeBuilderState() {
 
@@ -558,6 +558,26 @@ export default class RenderObject {
 
 		}
 
+		// structural equality isn't sufficient for morph targets since the
+		// data are maintained in textures. only if the targets are all equal
+		// the texture and thus the instance of `MorphNode` can be shared.
+
+		for ( const name of Object.keys( geometry.morphAttributes ).sort() ) {
+
+			const targets = geometry.morphAttributes[ name ];
+
+			cacheKey += 'morph-' + name + ',';
+
+			for ( let i = 0, l = targets.length; i < l; i ++ ) {
+
+				const attribute = targets[ i ];
+
+				cacheKey += attribute.id + ',';
+
+			}
+
+		}
+
 		if ( geometry.index ) {
 
 			cacheKey += 'index,';
@@ -641,12 +661,6 @@ export default class RenderObject {
 
 		}
 
-		if ( object.morphTargetInfluences ) {
-
-			cacheKey += object.morphTargetInfluences.length + ',';
-
-		}
-
 		if ( object.isBatchedMesh ) {
 
 			cacheKey += object._matricesTexture.uuid + ',';
@@ -696,7 +710,7 @@ export default class RenderObject {
 	 * `RenderObjects.get()`. The render object's NodeMaterialObserver is then used to detect
 	 * a need for a refresh due to material, geometry or object related value changes.
 	 *
-	 * TODO: Investigate if it's possible to merge boths steps so there is only a single place
+	 * TODO: Investigate if it's possible to merge both steps so there is only a single place
 	 * that performs the 'needsUpdate' check.
 	 *
 	 * @type {Boolean}
@@ -752,3 +766,5 @@ export default class RenderObject {
 	}
 
 }
+
+export default RenderObject;

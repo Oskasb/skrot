@@ -15,7 +15,6 @@ import WebGPUTextureUtils from './utils/WebGPUTextureUtils.js';
 
 import { WebGPUCoordinateSystem } from '../../constants.js';
 
-
 /**
  * A backend implementation targeting WebGPU.
  *
@@ -34,11 +33,11 @@ class WebGPUBackend extends Backend {
 	 * @param {Boolean} [parameters.stencil=false] - Whether the default framebuffer should have a stencil buffer or not.
 	 * @param {Boolean} [parameters.antialias=false] - Whether MSAA as the default anti-aliasing should be enabled or not.
 	 * @param {Number} [parameters.samples=0] - When `antialias` is `true`, `4` samples are used by default. Set this parameter to any other integer value than 0 to overwrite the default.
-	 * @param {Boolean} [parameters.forceWebGL=false] - If set to `true`, the renderer uses it WebGL 2 backend no matter if WebGPU is supported or not.
+	 * @param {Boolean} [parameters.forceWebGL=false] - If set to `true`, the renderer uses a WebGL 2 backend no matter if WebGPU is supported or not.
 	 * @param {Boolean} [parameters.trackTimestamp=false] - Whether to track timestamps with a Timestamp Query API or not.
-	 * @param {String?} [parameters.powerPreference=null] - The power preference.
-	 * @param {String?} [parameters.requiredLimits={}] - Specifies the limits that are required by the device request.
-	 * The request will fail if the adapter cannot provide these limits.
+	 * @param {String} [parameters.powerPreference=undefined] - The power preference.
+	 * @param {Object} [parameters.requiredLimits=undefined] - Specifies the limits that are required by the device request. The request will fail if the adapter cannot provide these limits.
+	 * @param {GPUDevice} [parameters.device=undefined] - If there is an existing GPU device on app level, it can be passed to the renderer as a parameter.
 	 */
 	constructor( parameters = {} ) {
 
@@ -254,8 +253,8 @@ class WebGPUBackend extends Backend {
 	}
 
 	/**
-	 * Transfers buffer data from a storage buffer attribute
-	 * from the GPU to the CPU in context of compute shaders.
+	 * This method performs a readback operation by moving buffer data from
+	 * a storage buffer attribute from the GPU to the CPU.
 	 *
 	 * @async
 	 * @param {StorageBufferAttribute} attribute - The storage buffer attribute.
@@ -282,7 +281,7 @@ class WebGPUBackend extends Backend {
 	 * Returns the default render pass descriptor.
 	 *
 	 * In WebGPU, the default framebuffer must be configured
-	 * like custom fraemebuffers so the backend needs a render
+	 * like custom framebuffers so the backend needs a render
 	 * pass descriptor even when rendering directly to screen.
 	 *
 	 * @private
@@ -788,7 +787,7 @@ class WebGPUBackend extends Backend {
 
 			for ( let i = 0; i < currentOcclusionQueryObjects.length; i ++ ) {
 
-				if ( results[ i ] !== BigInt( 0 ) ) {
+				if ( results[ i ] === BigInt( 0 ) ) {
 
 					occluded.add( currentOcclusionQueryObjects[ i ] );
 
@@ -891,7 +890,7 @@ class WebGPUBackend extends Backend {
 
 			if ( color ) {
 
-				const descriptor = this._getRenderPassDescriptor( renderTargetContext, { loadOp: GPULoadOp.Clear } );
+				const descriptor = this._getRenderPassDescriptor( renderTargetContext, { loadOp: GPULoadOp.Clear, clearValue } );
 
 				colorAttachments = descriptor.colorAttachments;
 
@@ -949,7 +948,7 @@ class WebGPUBackend extends Backend {
 
 		//
 
-		const encoder = device.createCommandEncoder( {} );
+		const encoder = device.createCommandEncoder( { label: 'clear' } );
 		const currentPass = encoder.beginRenderPass( {
 			colorAttachments,
 			depthStencilAttachment
@@ -974,11 +973,13 @@ class WebGPUBackend extends Backend {
 		const groupGPU = this.get( computeGroup );
 
 
-		const descriptor = {};
+		const descriptor = {
+			label: 'computeGroup_' + computeGroup.id
+		};
 
 		this.initTimestampQuery( computeGroup, descriptor );
 
-		groupGPU.cmdEncoderGPU = this.device.createCommandEncoder();
+		groupGPU.cmdEncoderGPU = this.device.createCommandEncoder( { label: 'computeGroup_' + computeGroup.id } );
 
 		groupGPU.passEncoderGPU = groupGPU.cmdEncoderGPU.beginComputePass( descriptor );
 
@@ -1358,7 +1359,7 @@ class WebGPUBackend extends Backend {
 	// textures
 
 	/**
-	 * Creates a sampler for the given texture.
+	 * Creates a GPU sampler for the given texture.
 	 *
 	 * @param {Texture} texture - The texture to create the sampler for.
 	 */
@@ -1369,7 +1370,7 @@ class WebGPUBackend extends Backend {
 	}
 
 	/**
-	 * Destroys the sampler for the given texture.
+	 * Destroys the GPU sampler for the given texture.
 	 *
 	 * @param {Texture} texture - The texture to destroy the sampler for.
 	 */
@@ -1416,7 +1417,7 @@ class WebGPUBackend extends Backend {
 	}
 
 	/**
-	 * Generates mipmaps for the given texture
+	 * Generates mipmaps for the given texture.
 	 *
 	 * @param {Texture} texture - The texture.
 	 */
@@ -1440,15 +1441,16 @@ class WebGPUBackend extends Backend {
 	/**
 	 * Returns texture data as a typed array.
 	 *
+	 * @async
 	 * @param {Texture} texture - The texture to copy.
 	 * @param {Number} x - The x coordinate of the copy origin.
 	 * @param {Number} y - The y coordinate of the copy origin.
 	 * @param {Number} width - The width of the copy.
 	 * @param {Number} height - The height of the copy.
 	 * @param {Number} faceIndex - The face index.
-	 * @return {TypedArray} The texture data as a typed array.
+	 * @return {Promise<TypedArray>} A Promise that resolves with a typed array when the copy operation has finished.
 	 */
-	copyTextureToBuffer( texture, x, y, width, height, faceIndex ) {
+	async copyTextureToBuffer( texture, x, y, width, height, faceIndex ) {
 
 		return this.textureUtils.copyTextureToBuffer( texture, x, y, width, height, faceIndex );
 
@@ -1466,23 +1468,23 @@ class WebGPUBackend extends Backend {
 
 		const renderContextData = this.get( renderContext );
 
-		if ( ! renderContextData.timeStampQuerySet ) {
+		// init query set if not exists
 
+		if ( ! renderContextData.timestampQuerySet ) {
 
 			const type = renderContext.isComputeNode ? 'compute' : 'render';
-			const timeStampQuerySet = this.device.createQuerySet( { type: 'timestamp', count: 2, label: `timestamp_${type}_${renderContext.id}` } );
 
-			const timestampWrites = {
-				querySet: timeStampQuerySet,
-				beginningOfPassWriteIndex: 0, // Write timestamp in index 0 when pass begins.
-				endOfPassWriteIndex: 1, // Write timestamp in index 1 when pass ends.
-			};
-
-			Object.assign( descriptor, { timestampWrites } );
-
-			renderContextData.timeStampQuerySet = timeStampQuerySet;
+			renderContextData.timestampQuerySet = this.device.createQuerySet( { type: 'timestamp', count: 2, label: `timestamp_${type}_${renderContext.id}` } );
 
 		}
+
+		// augment descriptor
+
+		descriptor.timestampWrites = {
+			querySet: renderContextData.timestampQuerySet,
+			beginningOfPassWriteIndex: 0, // Write timestamp in index 0 when pass begins.
+			endOfPassWriteIndex: 1, // Write timestamp in index 1 when pass ends.
+		};
 
 	}
 
@@ -1499,7 +1501,7 @@ class WebGPUBackend extends Backend {
 		const renderContextData = this.get( renderContext );
 
 
-		const size = 2 * BigInt64Array.BYTES_PER_ELEMENT;
+		const size = 2 * BigUint64Array.BYTES_PER_ELEMENT;
 
 		if ( renderContextData.currentTimestampQueryBuffers === undefined ) {
 
@@ -1521,7 +1523,7 @@ class WebGPUBackend extends Backend {
 		const { resolveBuffer, resultBuffer } = renderContextData.currentTimestampQueryBuffers;
 
 
-		encoder.resolveQuerySet( renderContextData.timeStampQuerySet, 0, 2, resolveBuffer, 0 );
+		encoder.resolveQuerySet( renderContextData.timestampQuerySet, 0, 2, resolveBuffer, 0 );
 
 		if ( resultBuffer.mapState === 'unmapped' ) {
 
@@ -1551,18 +1553,15 @@ class WebGPUBackend extends Backend {
 
 		if ( resultBuffer.mapState === 'unmapped' ) {
 
-			resultBuffer.mapAsync( GPUMapMode.READ ).then( () => {
+			await resultBuffer.mapAsync( GPUMapMode.READ );
 
-				const times = new BigUint64Array( resultBuffer.getMappedRange() );
-				const duration = Number( times[ 1 ] - times[ 0 ] ) / 1000000;
-
-
-				this.renderer.info.updateTimestamp( type, duration );
-
-				resultBuffer.unmap();
+			const times = new BigUint64Array( resultBuffer.getMappedRange() );
+			const duration = Number( times[ 1 ] - times[ 0 ] ) / 1000000;
 
 
-			} );
+			this.renderer.info.updateTimestamp( type, duration );
+
+			resultBuffer.unmap();
 
 		}
 
@@ -1746,7 +1745,7 @@ class WebGPUBackend extends Backend {
 	}
 
 	/**
-	 * Creates the buffer of a shader attribute.
+	 * Creates the GPU buffer of a shader attribute.
 	 *
 	 * @param {BufferAttribute} attribute - The buffer attribute.
 	 */
@@ -1757,7 +1756,7 @@ class WebGPUBackend extends Backend {
 	}
 
 	/**
-	 * Creates the buffer of a storage attribute.
+	 * Creates the GPU buffer of a storage attribute.
 	 *
 	 * @param {BufferAttribute} attribute - The buffer attribute.
 	 */
@@ -1768,7 +1767,7 @@ class WebGPUBackend extends Backend {
 	}
 
 	/**
-	 * Creates the buffer of an indirect storage attribute.
+	 * Creates the GPU buffer of an indirect storage attribute.
 	 *
 	 * @param {BufferAttribute} attribute - The buffer attribute.
 	 */
@@ -1779,7 +1778,7 @@ class WebGPUBackend extends Backend {
 	}
 
 	/**
-	 * Updates the buffer of a shader attribute.
+	 * Updates the GPU buffer of a shader attribute.
 	 *
 	 * @param {BufferAttribute} attribute - The buffer attribute to update.
 	 */
@@ -1790,7 +1789,7 @@ class WebGPUBackend extends Backend {
 	}
 
 	/**
-	 * Destroys the buffer of a shader attribute.
+	 * Destroys the GPU buffer of a shader attribute.
 	 *
 	 * @param {BufferAttribute} attribute - The buffer attribute to destroy.
 	 */
