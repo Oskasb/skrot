@@ -291,6 +291,12 @@ class ComputeTerrain {
                 console.log("nmTx", nmTx, tilesMaterial.normalMap)
                 tilesMaterial.normalMap = null;
 
+                tilesMaterial.metalnessMap = null;
+                tilesMaterial.roughnessMap = null;
+                tilesMaterial.metalness = 0;
+                tilesMaterial.roughness = 0.6
+
+
                 tilesMaterial.side = DoubleSide;
                 positionBuffer = instancedArray( tileCount, 'vec3' );
                 scaleBuffer = instancedArray( tileCount, 'vec3' );
@@ -308,14 +314,14 @@ class ComputeTerrain {
                     const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)).mul(MAP_TEXELS_SIDE); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
                     const idx = texelY.add(texelX);
                     const height = heightBuffer.element(idx);
+
                     return vec3(positionLocal.x, height, positionLocal.z);
+
                 } )();
 
                 tilesMaterial.aoNode = Fn( () => {
-                    const boxMaxX = WORLD_BOX_MAX.x;
-                    const boxMaxY = WORLD_BOX_MAX.z;
-                    const globalUV = vec2(positionLocal.x.div(boxMaxX), positionLocal.z.div(boxMaxY));
-                    const heightSample = heightTx.sample(globalUV);
+                    const globalUv = terrainGlobalUv();
+                    const heightSample = heightTx.sample(globalUv);
                     const rgbSum = heightSample.r.mul(0.1).add(heightSample.g.mul(0.2)).add(heightSample.b)
                     const height = rgbSum.mul(11);
                     const shoreline =  max(0, min(1, height.pow(4)));
@@ -324,10 +330,9 @@ class ComputeTerrain {
 
 
                 tilesMaterial.normalNode = Fn( () => {
-
                     const globalUv = terrainGlobalUv();
 
-                    const shift = ONE.div(MAP_TEXELS_SIDE).mul(0.5);
+                    const shift = ONE.div(MAP_TEXELS_SIDE).mul(0.05);
                     const nmUv0 = vec2(globalUv.x.add(shift), globalUv.y.add(shift));
                     const nmUv1 = vec2(globalUv.x.sub(shift), globalUv.y.add(shift));
                     const nmUv2 = vec2(globalUv.x.add(shift), globalUv.y.sub(shift));
@@ -339,14 +344,14 @@ class ComputeTerrain {
                     const rgbSum1 = triPoint1.r.mul(0.1).add(triPoint1.g.mul(0.2)).add(triPoint1.b)
                     const rgbSum2 = triPoint2.r.mul(0.1).add(triPoint2.g.mul(0.2)).add(triPoint2.b)
 
-                    const point0 = vec3( nmUv0.x, rgbSum0.mul(0.1), nmUv0.y);
-                    const point1 = vec3( nmUv1.x, rgbSum1.mul(0.1), nmUv1.y);
-                    const point2 = vec3( nmUv2.x, rgbSum2.mul(0.1), nmUv2.y);
-/*
-                    const point0 = vec3( nmUv0.x, nmUv0.y, rgbSum0.mul(1.1));
-                    const point1 = vec3( nmUv1.x, nmUv1.y, rgbSum1.mul(1.1));
-                    const point2 = vec3( nmUv2.x, nmUv2.y, rgbSum2.mul(1.1));
-                */
+                    const point0 = vec3( nmUv0.x, rgbSum0.mul(0.05), nmUv0.y);
+                    const point1 = vec3( nmUv1.x, rgbSum1.mul(0.05), nmUv1.y);
+                    const point2 = vec3( nmUv2.x, rgbSum2.mul(0.05), nmUv2.y);
+                    /*
+                                        const point0 = vec3( nmUv0.x, nmUv0.y, rgbSum0.mul(1.1));
+                                        const point1 = vec3( nmUv1.x, nmUv1.y, rgbSum1.mul(1.1));
+                                        const point2 = vec3( nmUv2.x, nmUv2.y, rgbSum2.mul(1.1));
+                                    */
                     const deltaVec3 = vec3( rgbSum0, rgbSum1,  rgbSum2).normalize();
 
                     const upness = ONE.sub(rgbSum0.mul(2).sub(rgbSum1.add(rgbSum2)).mul(4));
@@ -354,14 +359,12 @@ class ComputeTerrain {
 
                     const tangent = point2.sub(point0);
                     const biTangent = point1.sub(point0);
-                    const fragNormal =tangent.cross(biTangent).normalize().add(upnessVec3)
+                    const fragNormal = tangent.cross(biTangent).normalize();
 
-
-                //    const terrainTxNormal = terrainNmTx.sample(globalUv)
-
+                //    varyingProperty( 'vec3', 'v_normalView' ).assign( fragNormal );
                     const txNormal = nmTx.sample(customTerrainUv())
 
-                    return fragNormal.add(txNormal).normalize();
+                    return fragNormal;
                 } )();
 
                 /*
