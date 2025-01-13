@@ -107,20 +107,21 @@ function customTerrainUv() {
     const globalUV = terrainGlobalUv();
     const terrainRGBA = terrainTx.sample(globalUV);
 
-    const biomeIndex = floor(terrainRGBA.r.div(0.5)).mul(3);
+    const biomeRowIndex = floor(terrainRGBA.r.div(0.5)).mul(3);
 
     const civIndex = floor(terrainRGBA.b.mul(GROUND_TILES).mul(0.99));
-    const civRowAdd = min(1, civIndex.mul(10));
+    const civRowAdd = min(1, civIndex);
 
     const blockByCiv = ONE.sub(civRowAdd)
 
-    const vegetationIndex = floor(terrainRGBA.g.mul(GROUND_TILES)).mul(blockByCiv).mul(0);
+    const vegetationIndex = floor(terrainRGBA.g.mul(GROUND_TILES).mul(0.99)).mul(blockByCiv);
+    const vegRowAdd = min(1, vegetationIndex);
 
     const modulate = positionLocal.x.add(positionLocal.z.mul(0.4)).mul(0.1).sin().add(1).mul(0.02)
     const slope = min(0.99, max(0, varyingProperty( 'float', 'slope' ).pow(1.2).add(modulate)));
 
     const slopeIndex = floor(slope.mul(GROUND_TILES)).mul(blockByCiv);
-    const offsetRow = biomeIndex.add(vegetationIndex).add(civRowAdd.mul(2));
+    const offsetRow = biomeRowIndex.add(vegRowAdd).add(civRowAdd.mul(2));
     const offsetXSum = slopeIndex.add(civIndex).add(vegetationIndex);
 
     const uvOffsetted = vec2(txXy.x.add(offsetXSum.mul(tileRatio)), txXy.y.add(offsetRow.mul(tileRatio)));
