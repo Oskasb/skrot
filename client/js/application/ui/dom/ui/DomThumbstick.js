@@ -40,6 +40,8 @@ class DomThumbstick {
             let txt = 'FPS: '+MATH.numberToDigits(1 / getFrame().avgTpf, 0, 0);
             statusMap['fps_avg'] = txt;
             statusMap['elevation'] = 'ALT: '+MATH.numberToDigits(terrainAt(statusMap.controls.target), 2, 2);
+            statusMap['pos_x'] = 'X: '+MATH.numberToDigits(statusMap.controls.target.x, 2, 2);
+            statusMap['pos_z'] = 'Z: '+MATH.numberToDigits(statusMap.controls.target.z, 2, 2);
         }
 
         function setupListeners() {
