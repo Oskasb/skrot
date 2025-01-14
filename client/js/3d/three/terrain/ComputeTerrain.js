@@ -317,6 +317,10 @@ class ComputeTerrain {
 
                 tilesMaterial = mat.material //new MeshStandardNodeMaterial();
 
+                const detailTx = texture(terrainDetailTx);
+                const cracksTx = texture(terrainCracksTx);
+
+
                 const nmTx = texture(tilesMaterial.normalMap);
                 console.log("nmTx", nmTx, tilesMaterial.normalMap)
                 tilesMaterial.normalMap = null;
@@ -354,15 +358,29 @@ class ComputeTerrain {
 
                 } )();
 
+                function detailsLayer() {
+                    return detailTx.sample(terrainGlobalUv().mul(900).mod(1))
+                }
+
+                function cracksLayer() {
+                    return cracksTx.sample(terrainGlobalUv().mul(7900).mod(1))
+                }
+
+
                 tilesMaterial.aoNode = Fn( () => {
                     const globalUv = terrainGlobalUv();
                     const heightSample = heightTx.sample(globalUv);
                     const rgbSum = heightSample.r.mul(0.1).add(heightSample.g.mul(0.2)).add(heightSample.b)
                     const height = rgbSum.mul(11);
                     const shoreline =  max(0, min(1, height.pow(4)));
-                    return vec4(shoreline, shoreline, shoreline, 1);
+
+                    const cracks = detailsLayer().mul(0.5).add(0.5)
+                    const detail = cracksLayer() .mul(0.8).add(0.2)
+                    const shoreColor = vec3(shoreline)
+                    return shoreColor.mul(detail.add(cracks))
                 })();
 
+                //    tilesMaterial.colorNode = detailTx.sample(terrainGlobalUv().mul(450).mod(1)).mul(0.2)
 
                 tilesMaterial.normalNode = Fn( () => {
                     const globalUv = terrainGlobalUv();
@@ -396,31 +414,18 @@ class ComputeTerrain {
                     const biTangent = point1.sub(point0);
 
                     const txNormal = nmTx.sample(customTerrainUv()).mul(0.25)
+
+                    const cracks = cracksLayer().mul(0.5).add(0.5).pow(0.2)
+                    const detail = detailsLayer().add(0.4).pow(0.4)
+
                     const fragNormal = transformNormalToView(tangent.cross(biTangent).normalize());
 
-                    return fragNormal.add(txNormal);
+                    return fragNormal.add(txNormal).mul(cracks).mul(detail);
                 } )();
 
-                /*
-            "vec2 normalSamplerP0 = vec2(terrainSampler.x +shift*0.5 , terrainSampler.y +shift*0.5);",
-                "vec4 normalSampleP0 = texture2D( heightmap, normalSamplerP0);",
-
-                "vec2 normalSamplerP1 = vec2(normalSamplerP0.x - shift*1.0, normalSamplerP0.y);",
-                "vec4 normalSampleP1 = texture2D( heightmap, normalSamplerP1);",
-
-                "vec2 normalSamplerP2 = vec2(normalSamplerP0.x, normalSamplerP0.y - shift*1.0);",
-                "vec4 normalSampleP2 = texture2D( heightmap, normalSamplerP2);",
-
-                "vec3 triPoint0 = vec3( normalSamplerP0.x, normalSampleP0.x*0.01, normalSamplerP0.y);",
-                "vec3 triPoint1 = vec3( normalSamplerP1.x, normalSampleP1.x*0.01, normalSamplerP1.y);",
-                "vec3 triPoint2 = vec3( normalSamplerP2.x, normalSampleP2.x*0.01, normalSamplerP2.y);",
-
-                "vec3 tangent = triPoint2 - triPoint0;",
-                "vec3 biTangent = triPoint1 - triPoint0;",
-                "vec3 fragNormal = normalize(cross(tangent, biTangent));",
-  */
-
             //    tilesMaterial.colorNode =  vec3(ZERO.add(instanceIndex).mul(0.02).mod(1),0 , ZERO.add(instanceIndex).mul(0.11).mod(1));
+
+
 
                 tile32mesh = new InstancedMesh( tileGeo, tilesMaterial, Math.floor(tileCount) );
                 tile32mesh.instanceMatrix.setUsage( DynamicDrawUsage );
@@ -468,7 +473,9 @@ class ComputeTerrain {
         let heightCanvasTx;
         let terrainCanvasTx;
 
-        let terrainNormalTx;
+        let terrainDetailTx;
+        let terrainCracksTx;
+
 
         function tx1Loaded(img) {
             let tx = new CanvasTexture(img);
@@ -498,9 +505,20 @@ class ComputeTerrain {
 
         }
 
-        loadImageAsset('heightmap_w01_20', tx1Loaded)
 
+        function cracksLoaded(img) {
+            terrainCracksTx = new CanvasTexture(img);
+            terrainCracksTx.generateMipmaps = false;
+            loadImageAsset('heightmap_w01_20', tx1Loaded)
+        }
 
+        function detailLoaded(img) {
+            terrainDetailTx = new CanvasTexture(img);
+            terrainDetailTx.generateMipmaps = false;
+            loadImageAsset('crackstile', cracksLoaded)
+        }
+
+        loadImageAsset('fract', detailLoaded)
 
         //    loadImageAsset('heightmap_test', tx1Loaded)
     }
