@@ -18,37 +18,8 @@ class PlayerCamera {
         lastCamPos.copy(camera.position);
         let posFrameDelta = new Vector3();
 
-        let keyMoveVec3 = new Vector3();
-
-        function updateKeyMove() {
-            let forward = keyToValue('w');
-            let back = keyToValue('s');
-            let left = keyToValue('a');
-            let right = keyToValue('d');
-            keyMoveVec3.set(right-left, 0, back-forward);
-            return keyMoveVec3.lengthSq();
-        }
-
-
         function updateCamera() {
-            let moveAmount = updateKeyMove();
-
-            keyMoveVec3.applyQuaternion(camera.quaternion);
-            keyMoveVec3.y = 0;
-            keyMoveVec3.multiplyScalar(MATH.distanceBetween(camera.position, orbitControls.target) * getFrame().tpf);
-
-            let y = terrainAt(player.call.getObj3d().position, keyMoveVec3)
-
-            if (moveAmount > 0.001) {
-                player.call.getObj3d().position.y = y;
-                player.call.getObj3d().position.add(keyMoveVec3);
-            }
-
-            keyMoveVec3.multiplyScalar(5);
-            keyMoveVec3.add(player.call.getObj3d().position);
-
-            evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from: player.call.getObj3d().position, to:keyMoveVec3, color:'YELLOW'});
-            evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos: player.call.getObj3d().position, size:1, color:'YELLOW'});
+            
        //     debugDrawPhysicalWorld()
 
             lastCamPos.copy(orbitControls.target);
