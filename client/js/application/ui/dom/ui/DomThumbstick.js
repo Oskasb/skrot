@@ -8,6 +8,7 @@ import {MATH} from "../../../MATH.js";
 import {getFrame} from "../../../utils/DataUtils.js";
 import {terrainAt} from "../../../../3d/three/terrain/ComputeTerrain.js";
 import {Vector3} from "../../../../../../libs/three/Three.Core.js";
+import {keyToValue} from "../../input/KeyboardState.js";
 
 
 class DomThumbstick {
@@ -24,13 +25,18 @@ class DomThumbstick {
 
         let stickMoveVec3 = new Vector3();
 
+
+
+
         function update() {
+            inputDragPointer.call.updateKeyState();
             translateElement3DPercent(stickElement, statusMap['AXIS_X']*moveRange, statusMap['AXIS_Y']*moveRange, 0);
 
             let forward = statusMap['AXIS_Y'] || 0;
             let left = statusMap['AXIS_X'] || 0;
 
             stickMoveVec3.set(left, 0, forward);
+
             stickMoveVec3.applyQuaternion(statusMap.camera.quaternion);
             stickMoveVec3.y = 0;
             stickMoveVec3.multiplyScalar(MATH.distanceBetween(statusMap.camera.position, statusMap.controls.target) * getFrame().tpf);
@@ -50,8 +56,8 @@ class DomThumbstick {
             stickElement = htmlElement.call.getChildElement('stick_state')
 
             let opts = [
-                {axis:"X", min:-1, max:1, origin: 0, margin:1.5, autoZero:true},
-                {axis:"Y", min:-1, max:1, origin: 0, margin:1.5, autoZero:true}
+                {axis:"X", min:-1, max:1, origin: 0, margin:1.5, autoZero:true,  keys:{add:'d', sub:'a'}},
+                {axis:"Y", min:-1, max:1, origin: 0, margin:1.5, autoZero:true,  keys:{add:'s', sub:'w'}}
             ]
 
             inputDragPointer.call.activateDragSurface(surface, inputElement, statusMap, opts)

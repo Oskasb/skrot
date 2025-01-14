@@ -6,6 +6,8 @@ import {
 } from "../DomUtils.js";
 import {getFrame} from "../../../utils/DataUtils.js";
 import {MATH} from "../../../MATH.js";
+import {keyToValue} from "../../input/KeyboardState.js";
+import {Vector3} from "../../../../../../libs/three/Three.Core.js";
 
 
 let axisPosFunctions = {}
@@ -39,7 +41,7 @@ class InputDragPointer {
 
         }
 
-        function pressEnd(e) {
+        function pressEnd() {
             pressActive = false;
 
             let now = getFrame().systemTime;
@@ -130,6 +132,61 @@ class InputDragPointer {
 
         }
 
+        let hasKeyState = false;
+        let hadKeyState = false;
+
+        function updateKeyState() {
+            let posX = 0;
+            let posY = 0;
+
+            hadKeyState = hasKeyState;
+            hasKeyState = false;
+
+            for (let i = 0;i<options.length;i++) {
+                let axis = options[i].axis
+                //  axisPosFunctions[axis](e);
+                let keys = options[i].keys;
+                let min =  options[i].min;
+                let max =  options[i].max;
+                let origin = options[i].origin;
+
+                let offsetFrac = MATH.calcFraction(min, max, origin);
+
+
+                let keySum = (keyToValue(keys.add) - keyToValue(keys.sub))
+
+                    if (keySum !== 0) {
+                        hasKeyState = true;
+                    }
+
+                let inputPos = MATH.clamp(keyToValue(keys.add) - keyToValue(keys.sub), min, max);
+
+                let inputFrac = (MATH.calcFraction(min, max, inputPos) - offsetFrac) * 100;
+
+                let invert = options[i].invert;
+                if (invert === true) {
+                    //   inputFrac = 100-inputFrac;
+                    statusMap['AXIS_'+axis] += (1-inputPos) * getFrame().tpf*3;
+                } else {
+                    statusMap['AXIS_'+axis] += inputPos * getFrame().tpf*3;
+                }
+
+                if (axis === 'X') {
+                    posX = inputFrac
+                }
+
+                if (axis === 'Y') {
+                    posY = inputFrac
+                }
+
+            }
+
+            if (hasKeyState) {
+                translateElement3DPercent(inputElement, posX, posY, 0);
+            } else if (hadKeyState) {
+                pressEnd();
+            }
+        }
 
         function activateDragSurface(surfaceElem, inputElem, sMap, opts) {
             surfaceElement = surfaceElem;
@@ -143,7 +200,8 @@ class InputDragPointer {
         }
 
         this.call = {
-            activateDragSurface:activateDragSurface
+            activateDragSurface:activateDragSurface,
+            updateKeyState:updateKeyState
         }
     }
 }
