@@ -106,7 +106,7 @@ class ControllableForceProcessor {
             let inputPitch = controllablePiece.getControlStateValue('INPUT_PITCH');
 
             tempVec1.set(0, 0, 0);
-            tempVec2.set(MATH.curveQuad(inputPitch), -MATH.curveQuad(inputYaw), -MATH.curveQuad(inputRoll)).multiplyScalar(500000000 * stepTime)
+            tempVec2.set(MATH.curveQuad(inputPitch), -MATH.curveQuad(inputYaw), -MATH.curveQuad(inputRoll)).multiplyScalar(1200000000 * stepTime)
             tempVec2.applyQuaternion(tempObj.quaternion)
             AmmoAPI.applyForceAndTorqueToBody(tempVec1, tempVec2, body)
 
