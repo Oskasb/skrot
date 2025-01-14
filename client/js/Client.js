@@ -62,14 +62,13 @@ function startGameWorld() {
     }
 
     getGameWorld().call.loadGamePiece('controllable_f14', plane)
-    return;
 
-    player.enterWorld('controllable_f14')
+ //   player.enterWorld('controllable_f14')
 
     function cvn(boat) {
         console.log("CVN ", boat);
         boat.addToScene();
-
+        elementList.push(boat);
 
         function updatePhys() {
             let obj3d = boat.getObj3d();
