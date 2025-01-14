@@ -1,5 +1,4 @@
 import {getGameTime} from "../../../application/utils/DataUtils.js";
-import {WaterMesh} from "../../../../../libs/jsm/objects/WaterMesh.js";
 import {PlaneGeometry} from "../../../../../libs/three/geometries/PlaneGeometry.js";
 import {Color, RepeatWrapping, TextureLoader, Vector3} from "../../../../../libs/three/Three.Core.js";
 

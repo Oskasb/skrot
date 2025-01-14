@@ -18,8 +18,6 @@ import {DebugLines} from "./application/debug/lines/DebugLines.js";
 import {GameWorld} from "./game/world/GameWorld.js";
 import {getGameWorld, setGameWorld} from "./application/utils/GameUtils.js";
 import {GamePlayer} from "./game/player/GamePlayer.js";
-import {OrbitControls} from "../../libs/jsm/controls/OrbitControls.js";
-import {debugDrawPhysicalWorld} from "./application/utils/PhysicsUtils.js";
 import {PlayerCamera} from "./game/player/PlayerCamera.js";
 
 

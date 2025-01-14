@@ -14,7 +14,6 @@ import {ENUMS} from "../../application/ENUMS.js";
 import {MATH} from "../../application/MATH.js";
 import {getFrame} from "../../application/utils/DataUtils.js";
 import {getSetting} from "../../application/utils/StatusUtils.js";
-import {ThreeWater} from "./terrain/ThreeWater.js";
 import {JsonAsset} from "../../application/load/JsonAsset.js";
 import {jsonAsset} from "../../application/utils/AssetUtils.js";
 
