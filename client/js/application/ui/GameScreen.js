@@ -1,5 +1,8 @@
 "use strict";
 
+import {getSetting} from "../utils/StatusUtils.js";
+import {ENUMS} from "../ENUMS.js";
+
 class GameScreen {
 
     constructor() {
@@ -45,7 +48,8 @@ class GameScreen {
         return this.width;
     };
 
-    notifyResize = function() {
+    notifyResize() {
+        this.pxRatio = window.devicePixelRatio;
         this.width = this.gameScreen.offsetWidth;
         this.height = this.gameScreen.offsetHeight;
         this.left = this.gameScreen.offsetLeft;
@@ -55,7 +59,11 @@ class GameScreen {
         document.body.style.fontSize = this.sizeFactor+"px";
         this.scalePercentToX = (1/this.percentZoom) * this.width * ( this.resolution / this.width);
         this.scalePercentToY = (1/this.percentZoom) * this.height* ( this.resolution / this.height);
-
+        let pxScale = getSetting(ENUMS.Settings.RENDER_SCALE);
+        if (window.ThreeAPI) {
+            ThreeAPI.updateWindowParameters( this.width, this.height, this.getAspect(), this.pxRatio / pxScale);
+        //    GuiAPI.setCameraAspect(this.getAspect())
+        }
     };
 
     getAspect = function() {

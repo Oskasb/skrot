@@ -1,5 +1,6 @@
 import {getSetting} from "../application/utils/StatusUtils.js";
 import {pipelineAPI} from "../application/utils/DataUtils.js";
+import {ENUMS} from "../application/ENUMS.js";
 
 class ThreeController {
     constructor() {
@@ -27,7 +28,7 @@ class ThreeController {
     };
 
     notifyRezize = function() {
-    //    console.log("notifyRezize")
+        console.log("notifyRezize")
         let pxScale = getSetting(ENUMS.Settings.RENDER_SCALE);
         ThreeAPI.updateWindowParameters(GameScreen.getWidth(), GameScreen.getHeight(), GameScreen.getAspect(), this.pxRatio / pxScale);
         GuiAPI.setCameraAspect(GameScreen.getAspect())

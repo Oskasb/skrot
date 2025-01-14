@@ -50,8 +50,8 @@ class DomThumbstick {
             stickElement = htmlElement.call.getChildElement('stick_state')
 
             let opts = [
-                {axis:"X", min:-1, max:1, origin: 0, margin:1.5},
-                {axis:"Y", min:-1, max:1, origin: 0, margin:1.5}
+                {axis:"X", min:-1, max:1, origin: 0, margin:1.5, autoZero:true},
+                {axis:"Y", min:-1, max:1, origin: 0, margin:1.5, autoZero:true}
             ]
 
             inputDragPointer.call.activateDragSurface(surface, inputElement, statusMap, opts)

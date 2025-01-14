@@ -45,8 +45,11 @@ class InputDragPointer {
             let now = getFrame().systemTime;
             let posX = 0;
             let posY = 0;
-            if (now - pressStartTime < 0.25) {
-                for (let i = 0;i<options.length;i++) {
+
+            for (let i = 0;i<options.length;i++) {
+
+                if (now - pressStartTime < 0.25 || options[i].autoZero === true) {
+
                     statusMap['AXIS_'+options[i].axis] = options[i].origin;
                     let min =  options[i].min;
                     let max =  options[i].max;
