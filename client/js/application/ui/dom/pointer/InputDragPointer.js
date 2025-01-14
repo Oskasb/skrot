@@ -19,12 +19,8 @@ class InputDragPointer {
         let inputElement = null;
         let statusMap = null;
         let options = null;
-
-
         let pressActive = false;
-
         let pressStartTime = 0;
-
         let isDoubbleTap = false;
 
         function pressStart(e) {
@@ -67,7 +63,6 @@ class InputDragPointer {
                         inputFrac = 100-inputFrac;
                     }
 
-
                     if (axis === 'X') {
                         posX = inputFrac
                     }
@@ -82,10 +77,7 @@ class InputDragPointer {
 
             }
 
-        //    translateElement3DPercent(inputElement, statusMap['AXIS_X'] || 0, statusMap['AXIS_Y'] || 0, 0);
         }
-
-
 
         function pointerMove(e) {
             if (pressActive) {
@@ -100,20 +92,15 @@ class InputDragPointer {
                     let max =  options[i].max;
                     let origin = options[i].origin;
 
-
-
                     let axisLength = max - min;
                     let margin = options[i].margin * axisLength;
 
                     let offsetFrac = MATH.calcFraction(min, max, origin);
 
-
                     let centerPcnt = offsetFrac*100;
 
                     let upscale = 100/(axisLength+margin);
                     let inputPos = MATH.clamp((-centerPcnt + pointerPcnt)/upscale, min, max);
-
-
 
                     let inputFrac = (MATH.calcFraction(min, max, inputPos) - offsetFrac) * 100;
 

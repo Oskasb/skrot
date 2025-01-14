@@ -15,27 +15,21 @@ class DomFlightstick {
         let htmlElement;
         let _this = this;
         let statusMap;
-
         let surface;
-
         let inputElement;
         let stickElement;
-
         let controlLineX;
         let controlLineY;
-
         let dynamicRollL;
         let dynamicRollR;
         let dynamicPitchL;
         let dynamicPitchR;
-
         let pitchStateDiv;
         let pitchLineDiv;
         let aoaXStateDiv;
             let rollStateDiv;
             let yawStateDiv;
             let aoaYStateDiv;
-
             let nState;
         let eState;
         let sState;

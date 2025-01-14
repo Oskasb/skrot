@@ -19,6 +19,7 @@ import {GameWorld} from "./game/world/GameWorld.js";
 import {getGameWorld, setGameWorld} from "./application/utils/GameUtils.js";
 import {GamePlayer} from "./game/player/GamePlayer.js";
 import {PlayerCamera} from "./game/player/PlayerCamera.js";
+import {DomThumbstick} from "./application/ui/dom/ui/DomThumbstick.js";
 
 
 let gameWorld = new GameWorld();
@@ -28,6 +29,21 @@ let orbitControls;
 function startGameWorld() {
     setGameWorld(gameWorld);
     gameWorld.initGameWorld();
+
+    let thumbstick = new DomThumbstick();
+    let sMap = {
+        controls:orbitControls,
+        camera:ThreeAPI.getCamera(),
+        player:player
+    }
+
+    function stickReady() {
+        ThreeAPI.registerPrerenderCallback(thumbstick.call.update);
+    }
+
+    thumbstick.call.initElement(sMap, 'ui/ui_thumb_stick', 'ui_flight_stick', stickReady)
+
+
 
     function plane(plane) {
         console.log("plane ", plane);
@@ -80,7 +96,7 @@ function init3d() {
 
     new ThreeBloom().call.initBloom(scene, camera, renderer)
     new DebugLines()
-    new PlayerCamera(camera, renderer, player)
+    orbitControls = new PlayerCamera(camera, renderer, player)
 
     setRefDiv(document.body)
 

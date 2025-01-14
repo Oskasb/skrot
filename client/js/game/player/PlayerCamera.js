@@ -69,7 +69,7 @@ class PlayerCamera {
         }
 
         initCamera();
-
+        return orbitControls;
     }
 
 
