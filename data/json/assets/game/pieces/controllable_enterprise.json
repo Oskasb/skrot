@@ -1,4 +1,5 @@
 {
+  "label": "CVN65",
   "controllable": "vehicle_enterprise",
   "ui": [
     {"id": "YAW_PEDALS",            "file": "ui_f14_pedals"},

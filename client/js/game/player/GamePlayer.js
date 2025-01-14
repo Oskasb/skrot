@@ -20,11 +20,16 @@ class GamePlayer {
             return obj3d;
         }
 
-        function setControllable(ctrlPiece) {
-            ctrlPiece.getAssetInstance().call.addToScene();
+        function setPlayerActiveControllable(ctrlPiece) {
             status.setStatusKey(ENUMS.PlayerStatus.CONTROLLABLE_ID, ctrlPiece.getStatus(ENUMS.ControllableStatus.CONTROLLABLE_ID));
             playerControllable = ctrlPiece;
             ThreeAPI.threeSetup.addPrerenderCallback(updatePlayer)
+        }
+
+        function setControllable(ctrlPiece) {
+            ctrlPiece.getAssetInstance().call.addToScene();
+            setPlayerActiveControllable(ctrlPiece);
+
         }
 
         function activateControllable(controllableId) {
@@ -47,7 +52,8 @@ class GamePlayer {
 
         this.call = {
             getObj3d:getObj3d,
-            activateControllable:activateControllable
+            activateControllable:activateControllable,
+            setPlayerActiveControllable:setPlayerActiveControllable
         }
 
     }

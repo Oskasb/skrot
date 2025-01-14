@@ -55,7 +55,7 @@ class DomThumbstick {
             ]
 
             inputDragPointer.call.activateDragSurface(surface, inputElement, statusMap, opts)
-
+            ThreeAPI.registerPrerenderCallback(update);
         }
 
         function initElement(sMap, url, styleClass, onReady) {
@@ -70,9 +70,15 @@ class DomThumbstick {
             element.initHtmlElement(url, null, statusMap, styleClass, elemReady);
         }
 
+        function close() {
+            htmlElement.closeHtmlElement();
+            ThreeAPI.unregisterPrerenderCallback(update);
+        }
+
         this.call = {
             update:update,
-            initElement:initElement
+            initElement:initElement,
+            close:close
         }
 
     }

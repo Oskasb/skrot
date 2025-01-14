@@ -20,6 +20,7 @@ import {getGameWorld, setGameWorld} from "./application/utils/GameUtils.js";
 import {GamePlayer} from "./game/player/GamePlayer.js";
 import {PlayerCamera} from "./game/player/PlayerCamera.js";
 import {DomThumbstick} from "./application/ui/dom/ui/DomThumbstick.js";
+import {DomWorldButtonLayer} from "./application/ui/dom/DomWorldButtonLayer.js";
 
 
 let gameWorld = new GameWorld();
@@ -30,6 +31,16 @@ function startGameWorld() {
     setGameWorld(gameWorld);
     gameWorld.initGameWorld();
 
+    let elementList = [];
+    function worldElementClick(e) {
+        console.log("Click Controllable Button", e.target.value);
+        player.call.setPlayerActiveControllable(e.target.value);
+        MATH.splice(elementList, e.target.value);
+        thumbstick.call.close()
+    }
+    let buttonLayer = new DomWorldButtonLayer();
+    buttonLayer.initWorldButtonLayer(elementList, 'PICK', worldElementClick);
+
     let thumbstick = new DomThumbstick();
     let sMap = {
         controls:orbitControls,
@@ -38,16 +49,16 @@ function startGameWorld() {
     }
 
     function stickReady() {
-        ThreeAPI.registerPrerenderCallback(thumbstick.call.update);
+
     }
 
     thumbstick.call.initElement(sMap, 'ui/ui_thumb_stick', 'ui_flight_stick', stickReady)
 
 
-
     function plane(plane) {
         console.log("plane ", plane);
         plane.addToScene();
+        elementList.push(plane);
     }
 
     getGameWorld().call.loadGamePiece('controllable_f14', plane)

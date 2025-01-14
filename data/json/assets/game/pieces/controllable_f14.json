@@ -1,4 +1,5 @@
 {
+  "label": "F14",
   "controllable": "vehicle_f14",
   "ui": [
     {"id": "FLIGHT_STICK",          "file": "ui_f14_stick"},

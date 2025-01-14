@@ -26,8 +26,15 @@ class ControllablePiece {
         new ControllableForceProcessor(this);
     }
 
+    getLabel() {
+        return this.json['label'] || "-GO-"
+    }
     getObj3d() {
         return this.getAssetInstance().call.getObj3d()
+    }
+
+    getPos() {
+        return this.getAssetInstance().call.getObj3d().position;
     }
 
     addToScene() {

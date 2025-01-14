@@ -37,7 +37,6 @@ class AssetInstance {
             }
         }
 
-
         function attachPoints(groupId, fileName) {
             function attachPointList(data) {
                 console.log("Attach Point List", data)
@@ -67,13 +66,9 @@ class AssetInstance {
 
         function instantiate(assetFileName, callback) {
 
-
-
             function onJsonLoaded(data) {
                 settings.json = data;
                 let modelName = settings.json.model;
-
-
 
                 function modelLoaded(modelObj3d) {
 
