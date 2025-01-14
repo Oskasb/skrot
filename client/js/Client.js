@@ -59,12 +59,14 @@ function startGameWorld() {
         console.log("plane ", plane);
         plane.addToScene();
         elementList.push(plane);
+
+        setTimeout(function() {
+            getGameWorld().call.loadGamePiece('controllable_enterprise', cvn)
+        },2000)
+
     }
 
-    getGameWorld().call.loadGamePiece('controllable_f14', plane)
-
  //   player.enterWorld('controllable_f14')
-
     function cvn(boat) {
         console.log("CVN ", boat);
         boat.addToScene();
@@ -82,14 +84,12 @@ function startGameWorld() {
 
         }
 
-
         AmmoAPI.registerPhysicsStepCallback(updatePhys)
-
     }
 
     setTimeout(function() {
-        getGameWorld().call.loadGamePiece('controllable_enterprise', cvn)
-    },100)
+        getGameWorld().call.loadGamePiece('controllable_f14', plane)
+    },3000)
 
 
 }
