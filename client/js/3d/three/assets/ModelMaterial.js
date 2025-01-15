@@ -1,13 +1,11 @@
 import {MeshPhysicalMaterial, MeshStandardMaterial} from "../../../../../libs/three/materials/Materials.js";
-import {getJsonByFileName, getJsonUrlByFileName} from "../../../application/utils/DataUtils.js";
+import {getFrame, getJsonByFileName, getJsonUrlByFileName} from "../../../application/utils/DataUtils.js";
 import {MATH} from "../../../application/MATH.js";
 import {jsonAsset, loadAsset, loadAssetTexture} from "../../../application/utils/AssetUtils.js";
 import {JsonAsset} from "../../../application/load/JsonAsset.js";
 import * as constants from "../../../../../libs/three/constants.js";
 import {MeshStandardNodeMaterial} from "three/webgpu";
-import {positionLocal, vec2} from "three/tsl";
-import {customTerrainUv} from "../terrain/ComputeTerrain.js";
-
+import {customTerrainUv, customOceanUv} from "../terrain/ComputeTerrain.js";
 
 
 class MeshSpecialTerrainNodeMaterial extends MeshStandardNodeMaterial {
@@ -23,6 +21,20 @@ class MeshSpecialTerrainNodeMaterial extends MeshStandardNodeMaterial {
     }
 }
 
+class MeshSpecialOceanNodeMaterial extends MeshStandardNodeMaterial {
+
+    setup( builder ) {
+        builder.setContext( { ...builder.context,
+            getUV: ( /*reqNode*/ ) => {
+                return customOceanUv(); // return a custom uv
+            }
+        } );
+
+        return super.setup( builder );
+    }
+}
+
+
 
 let mats = 0;
 let materials = {};
@@ -30,7 +42,7 @@ materials['MeshStandardMaterial'] = MeshStandardMaterial;
 materials['MeshStandardNodeMaterial'] = MeshStandardNodeMaterial;
 materials['MeshPhysicalMaterial'] = MeshPhysicalMaterial;
 materials['MeshSpecialTerrainNodeMaterial'] = MeshSpecialTerrainNodeMaterial
-
+materials['MeshSpecialOceanNodeMaterial'] = MeshSpecialOceanNodeMaterial
 
 class ModelMaterial {
     constructor() {
@@ -44,12 +56,16 @@ class ModelMaterial {
 
         let txLoads = [];
 
-        function materialLoaded() {
-            settings.material.needsUpdate = true;
-            MATH.callAll(subscribers, settings);
-            ready = true;
-        }
+        let callFrame = 0;
 
+        function materialLoaded() {
+            if (callFrame !== getFrame().frame) {
+                settings.material.needsUpdate = true;
+                MATH.callAll(subscribers, settings);
+                ready = true;
+                callFrame = getFrame().frame
+            }
+        }
 
 
         function addSlotTexture(slot, tx) {
@@ -57,7 +73,7 @@ class ModelMaterial {
             txLoads.push(tx);
 
             function txCB(assetTx) {
-            //    console.log("assetTx:", assetTx, assetTx.texture);
+                console.log("assetTx:", assetTx, assetTx.texture);
                 MATH.splice(txLoads, assetTx.txName);
 
                 if (slot === 'aoMap') {
@@ -66,7 +82,6 @@ class ModelMaterial {
 
                 settings.material[slot] = assetTx.texture;
                 if (txLoads.length === 0) {
-
                     materialLoaded()
                 }
             }

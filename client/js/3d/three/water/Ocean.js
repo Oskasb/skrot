@@ -54,8 +54,12 @@ import {evt} from "../../../application/event/evt.js";
 import {MATH} from "../../../application/MATH.js";
 import {poolFetch} from "../../../application/utils/PoolUtils.js";
 import {getWorldBoxMax, terrainGlobalUv} from "../terrain/ComputeTerrain.js";
+import {loadAssetMaterial} from "../../../application/utils/AssetUtils.js";
 
 let heightTx;
+
+
+
 
 class Ocean {
     constructor(store) {
@@ -99,8 +103,9 @@ class Ocean {
 
 
 
-        function generateOcean() {
-
+        function generateOcean(matSettings) {
+            const waterMaterial = matSettings.material;
+            console.log("Gen Ocean", matSettings)
             // Dimensions of simulation grid.
 
             let effectController;
@@ -129,14 +134,12 @@ class Ocean {
                 };
 
                 // Water Geometry corresponds with buffered compute grid.
-                const waterGeometry = new PlaneGeometry( BOUNDS, BOUNDS, WIDTH - 1, WIDTH - 1 );
-                // material: make a THREE.ShaderMaterial clone of THREE.MeshPhongMaterial, with customized position shader.
-                const waterMaterial = new MeshStandardNodeMaterial();
+                const waterGeometry = new PlaneGeometry( BOUNDS*10, BOUNDS*10, WIDTH - 1, WIDTH - 1 );
+                // material: make a THREE. = ShaderMaterial clone of THREE.MeshPhongMaterial, with customized position shader.
 
             waterMaterial.side = DoubleSide;
-            const width = 512, height = 512;
 
-            waterMaterial.normalNode = Fn( () => {
+            waterMaterial.normalNode_ = Fn( () => {
                 const { mousePos } = effectController;
 
                 const posx = positionLocal.x
@@ -197,8 +200,9 @@ class Ocean {
                 return max(0, min(1, height.mul(add(waveA.add(1).add(waveB.add(1)).mul(0.5), 2)).mul(4)));
             }
 
-                waterMaterial.lights = true;
-                waterMaterial.colorNode = Fn( () => {
+                waterMaterial.lights = true
+
+                waterMaterial.colorNode_ = Fn( () => {
 
                     const posNode = positionLocal;
                     const posx = posNode.y
@@ -258,14 +262,28 @@ class Ocean {
 
                 } )();
 
-            waterMaterial.metalness = 0.2;
-            waterMaterial.envMapIntensity = 1.99;
-            waterMaterial.roughness = 0.52;
+            waterMaterial.positionNode_ = Fn( () => {
+                const scale = scaleBuffer.element(instanceIndex);
+                const localPos = positionLocal.mul(scale);
+                const tileCenterPos = positionBuffer.element(instanceIndex);
+                const localFlip = vec3(localPos.x.mul(1), 0, localPos.z);
+                const pxX = floor(localFlip.x.div(TILE_SIZE)).add(tileCenterPos.x.div(TILE_SIZE)) // .add(camPos.x))
+                const pxY = floor(localFlip.z.div(TILE_SIZE)).add(tileCenterPos.z.div(TILE_SIZE)) // .div(1))
+                const texelX = min(MAP_TEXELS_SIDE, max(0, pxX));
+                const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)).mul(MAP_TEXELS_SIDE); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
+                const idx = texelY.add(texelX);
+                const height = heightBuffer.element(idx);
+                const slope = varyingProperty( 'float', 'slope' );
 
-            waterMaterial.roughnessNode = oceanShoreness().pow(2).mul(0.4).add(0.1);
-            waterMaterial.metalnessNode = ONE.sub(oceanShoreness().pow(2.5).mul(0.8));
+                const heightDiffFront = heightBuffer.element(idx.add(MAP_TEXELS_SIDE)).sub(height).abs()
+                const heightDiffSide  = heightBuffer.element(idx.add(1)).sub(height).abs()
+                slope.assign(min(0.99, max(heightDiffFront, heightDiffSide).mul(0.01)))
+                //    slope.assign(0.02)
+                return vec3(positionLocal.x, 0, positionLocal.z);
 
-            waterMaterial.positionNode = Fn( () => {
+            } )()
+
+            waterMaterial.positionNode_ = Fn( () => {
                 const { camPos } = effectController;
 
                 const uvX = uv().x.sub(0.5)
@@ -290,7 +308,7 @@ class Ocean {
                 //       varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, 0).normalize()  );
                 const finalPosition = vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
 
-                return finalPosition;
+                return camOffsetPos;
 
                 } )();
 
@@ -303,7 +321,7 @@ class Ocean {
 
         }
 
-        generateOcean();
+        loadAssetMaterial('material_ocean', generateOcean)
 
 
         function setupSplashes() {

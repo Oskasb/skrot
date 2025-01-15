@@ -96,15 +96,12 @@ function terrainGlobalUv() {
     return vec2(positionLocal.x.div(boxMaxX), positionLocal.z.div(boxMaxY));
 }
 
-function customTerrainUv() {
+function customOceanUv() {
 
     const tileSize = ZERO.add(TILE_SIZE);
     const tileFraction = tileSize.div(GROUND_TILES).mul(0.5);
 
     const pxScale = ONE.div(4096).mul(4)
-
-
-
 
     const scalePxInverse = tileFraction.mul(4);
     const modBy = tileFraction;
@@ -128,11 +125,52 @@ function customTerrainUv() {
 
     const vegetationIndex = floor(terrainRGBA.g.mul(GROUND_TILES).mul(0.99)).mul(blockByCiv);
     const vegRowAdd = min(1, vegetationIndex);
+    const blockByVeg = ONE.sub(vegRowAdd);
 
-    const modulate = positionLocal.x.add(positionLocal.z.mul(0.8)).mul(0.05).sin().add(1).mul(0.02)
-    const slope = min(0.99, max(0, varyingProperty( 'float', 'slope' ).pow(1.2).add(modulate)));
+    //   const modulate = positionLocal.x.add(positionLocal.z.mul(0.8)).mul(0.05).sin().add(1).mul(0.02)
+    const slopeIndex = 0
+    const offsetRow = biomeRowIndex.add(vegRowAdd).add(civRowAdd.mul(2));
+    const offsetXSum = civIndex.add(vegetationIndex);
 
-    const slopeIndex = floor(slope.mul(GROUND_TILES)).mul(blockByCiv);
+    const uvOffsetted = vec2(txXy.x.add(offsetXSum.div(GROUND_TILES)), txXy.y.add(offsetRow.div(GROUND_TILES)));
+
+    return uvOffsetted // .add(addUv) // globalUV // .mul(elevXYZA.x.div(244));
+}
+function customTerrainUv() {
+
+    const tileSize = ZERO.add(TILE_SIZE);
+    const tileFraction = tileSize.div(GROUND_TILES).mul(0.5);
+
+    const pxScale = ONE.div(4096).mul(4)
+
+    const scalePxInverse = tileFraction.mul(4);
+    const modBy = tileFraction;
+    const scaleDiv = GROUND_TILES.add(2.2)
+    const scaleTile = GROUND_TILES.mul(0.55)
+    const posXLoc = positionLocal.x;
+    const posZLoc = positionLocal.z;
+
+    const txXy = vec2(posXLoc.div(scalePxInverse).mod(modBy).div(scaleDiv).add(pxScale), posZLoc.div(scalePxInverse).mod(modBy).div(scaleDiv)).div(scaleTile).add(pxScale);
+
+
+    const globalUV = terrainGlobalUv();
+    const terrainRGBA = terrainTx.sample(globalUV);
+
+    const biomeRowIndex = floor(terrainRGBA.r.div(0.5)).mul(3);
+
+    const civIndex = floor(terrainRGBA.b.mul(GROUND_TILES).mul(0.99));
+    const civRowAdd = min(1, civIndex);
+
+    const blockByCiv = ONE.sub(civRowAdd)
+
+    const vegetationIndex = floor(terrainRGBA.g.mul(GROUND_TILES).mul(0.99)).mul(blockByCiv);
+    const vegRowAdd = min(1, vegetationIndex);
+    const blockByVeg = ONE.sub(vegRowAdd);
+
+ //   const modulate = positionLocal.x.add(positionLocal.z.mul(0.8)).mul(0.05).sin().add(1).mul(0.02)
+    const slope = min(0.99, max(0, varyingProperty( 'float', 'slope' ).pow(1.2))) // .add(modulate)));
+
+    const slopeIndex = floor(slope.mul(GROUND_TILES)).mul(blockByCiv).mul(blockByVeg);
     const offsetRow = biomeRowIndex.add(vegRowAdd).add(civRowAdd.mul(2));
     const offsetXSum = slopeIndex.add(civIndex).add(vegetationIndex);
 
@@ -277,15 +315,6 @@ class ComputeTerrain {
         }
 
 
-        const computeTiles = Fn( () => {
-
-            const position = positionBuffer.element( instanceIndex );
-            position.assign(vec3( 0, 0, 0));
-
-            const origin = gridCenter;
-
-
-        } );
 
 
         let tileCount = 0;
@@ -557,6 +586,7 @@ export {
     ComputeTerrain,
     getWorldBoxMax,
     customTerrainUv,
+    customOceanUv,
     getHeightmapData,
     getTerrainParams,
     terrainAt,
