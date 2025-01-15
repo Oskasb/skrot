@@ -107,32 +107,25 @@ function customOceanUv() {
     const modBy = tileFraction;
     const scaleDiv = GROUND_TILES.add(2.2)
     const scaleTile = GROUND_TILES.mul(0.55)
-    const posXLoc = positionLocal.x;
-    const posZLoc = positionLocal.z;
+    const vPosition = varyingProperty( 'vec3', 'v_positionFinal' );
+    const posXLoc = vPosition.x;
+    const posZLoc = vPosition.y;
 
     const txXy = vec2(posXLoc.div(scalePxInverse).mod(modBy).div(scaleDiv).add(pxScale), posZLoc.div(scalePxInverse).mod(modBy).div(scaleDiv)).div(scaleTile).add(pxScale);
 
+    const boxMaxX = WORLD_BOX_MAX.x;
+    const boxMaxY = WORLD_BOX_MAX.z;
 
-    const globalUV = terrainGlobalUv();
-    const terrainRGBA = terrainTx.sample(globalUV);
+    const globalUv = vec2(posXLoc.div(boxMaxX), posZLoc.div(boxMaxY));
+    const heightSample = heightTx.sample(globalUv);
+    const rgbSum = heightSample.r.mul(0.1).add(heightSample.g.mul(0.2)).add(heightSample.b)
+    const height = floor(rgbSum.mul(6));
+//    const shoreline =  max(0, min(1, height.pow(4)));
+//    const terrainRGBA = terrainTx.sample(globalUV);
 
-    const biomeRowIndex = floor(terrainRGBA.r.div(0.5)).mul(3);
+    const offsetXSum = height;
 
-    const civIndex = floor(terrainRGBA.b.mul(GROUND_TILES).mul(0.99));
-    const civRowAdd = min(1, civIndex);
-
-    const blockByCiv = ONE.sub(civRowAdd)
-
-    const vegetationIndex = floor(terrainRGBA.g.mul(GROUND_TILES).mul(0.99)).mul(blockByCiv);
-    const vegRowAdd = min(1, vegetationIndex);
-    const blockByVeg = ONE.sub(vegRowAdd);
-
-    //   const modulate = positionLocal.x.add(positionLocal.z.mul(0.8)).mul(0.05).sin().add(1).mul(0.02)
-    const slopeIndex = 0
-    const offsetRow = biomeRowIndex.add(vegRowAdd).add(civRowAdd.mul(2));
-    const offsetXSum = civIndex.add(vegetationIndex);
-
-    const uvOffsetted = vec2(txXy.x.add(offsetXSum.div(GROUND_TILES)), txXy.y.add(offsetRow.div(GROUND_TILES)));
+    const uvOffsetted = vec2(txXy.x.add(offsetXSum.div(GROUND_TILES)), txXy.y.add(7).div(8));
 
     return uvOffsetted // .add(addUv) // globalUV // .mul(elevXYZA.x.div(244));
 }

@@ -53,7 +53,7 @@ import {ENUMS} from "../../../application/ENUMS.js";
 import {evt} from "../../../application/event/evt.js";
 import {MATH} from "../../../application/MATH.js";
 import {poolFetch} from "../../../application/utils/PoolUtils.js";
-import {getWorldBoxMax, terrainGlobalUv} from "../terrain/ComputeTerrain.js";
+import {customOceanUv, customTerrainUv, getWorldBoxMax, terrainGlobalUv} from "../terrain/ComputeTerrain.js";
 import {loadAssetMaterial} from "../../../application/utils/AssetUtils.js";
 
 let heightTx;
@@ -133,54 +133,19 @@ class Ocean {
                     wireframe: false
                 };
 
+
                 // Water Geometry corresponds with buffered compute grid.
-                const waterGeometry = new PlaneGeometry( BOUNDS*10, BOUNDS*10, WIDTH - 1, WIDTH - 1 );
+                const waterGeometry = new PlaneGeometry( 1, 1, WIDTH - 1, WIDTH - 1 );
                 // material: make a THREE. = ShaderMaterial clone of THREE.MeshPhongMaterial, with customized position shader.
 
             waterMaterial.side = DoubleSide;
 
-            waterMaterial.normalNode_ = Fn( () => {
-                const { mousePos } = effectController;
+            const nmTx = texture(waterMaterial.normalMap);
+            waterMaterial.normalMap = null;
 
-                const posx = positionLocal.x
-                const posy = positionLocal.y
-                const waveA = cos(add(add(mul(time, 6.5), add(posx, posy)), posx).mul(0.006));
-                const waveB = sin(add(add(mul(time, 6.2), mul(add(posx, posy), 0.9)), posy).mul(0.006));
-
-                const waveAp = waveA.add(cos(posy.mul(0.00001)));
-                const waveBp = waveB.add(sin(posx.mul(0.00001)));
-
-                const bigWaveNm = vec3(waveAp, 993, waveBp).normalize();
-
-                const timeSin = time.sin();
-                const timeCos = time.cos();
-
-                const waveA1 = timeSin.mul(0.1).add(cos(add(posy.mul(0.008), posx.mul(0.013)).add(time.mul(0.2))))
-                const waveB1 = timeCos.mul(0.1).add(sin(add(posx.mul(0.007), posy.mul(0.011)).add(time.mul(0.2))));
-
-                const waveA2 = timeCos.mul(0.24).add(cos(add(posy.mul(0.02), posx.mul(0.033)).add(time.mul(0.4))))
-                const waveB2 = timeSin.mul(0.22).add(cos(add(posx.mul(0.025), posy.mul(0.023)).add(time.mul(0.4))))
-
-                const waveA3 = timeCos.mul(0.34).add(cos(add(posy.mul(0.04), posx.mul(0.13)).add(time.mul(0.45))))
-                const waveB3 = timeSin.mul(0.42).add(sin(add(posx.mul(0.044), posy.mul(0.11)).add(time.mul(0.85))))
-
-                const waveA4 = timeCos.mul(0.44).add(cos(add(posy.mul(0.082), posx.mul(0.193)).add(time.mul(0.95))))
-                const waveB4 = timeSin.mul(0.52).add(sin(add(posx.mul(0.097), posy.mul(0.14)).add(time.mul(0.35))))
-
-                const waveA5 = time.mul(0.44).sin().add(cos(add(posy.mul(0.32), posx.mul(0.293)).add(time.mul(0.75))))
-                const waveB5 = time.mul(0.42).cos().add(sin(add(posx.mul(0.49), posy.mul(0.223)).add(time.mul(0.55))))
-
-                const waveA6 = time.mul(0.24).sin().add(cos(add(posy.mul(0.52), posx.mul(0.593)).add(time.mul(0.55))))
-                const waveB6 = time.mul(0.22).cos().add(sin(add(posx.mul(0.59), posy.mul(0.423)).add(time.mul(0.85))))
-
-                const wave6Nm = vec3(waveA6, 18, waveB6).normalize();
-                const wave5Nm = vec3(waveA5, 18, waveB5).normalize();
-                const wave4Nm = vec3(waveA4, 18, waveB4).normalize();
-                const wave3Nm = vec3(waveA3, 17, waveB3).normalize();
-                const wave2Nm = vec3(waveA2, 15, waveB2).normalize();
-                const wave1Nm = vec3(waveA1, 14, waveB1).normalize();
-                return bigWaveNm.add(wave1Nm).add(wave2Nm).add(wave3Nm).add(wave4Nm).add(wave5Nm).add(wave6Nm).normalize()
-
+            waterMaterial.normalNode = Fn( () => {
+                const txNormal = nmTx.sample(customOceanUv()).mul(0.75)
+                return txNormal;
             } )();
 
 
@@ -262,32 +227,47 @@ class Ocean {
 
                 } )();
 
-            waterMaterial.positionNode_ = Fn( () => {
-                const scale = scaleBuffer.element(instanceIndex);
-                const localPos = positionLocal.mul(scale);
-                const tileCenterPos = positionBuffer.element(instanceIndex);
-                const localFlip = vec3(localPos.x.mul(1), 0, localPos.z);
-                const pxX = floor(localFlip.x.div(TILE_SIZE)).add(tileCenterPos.x.div(TILE_SIZE)) // .add(camPos.x))
-                const pxY = floor(localFlip.z.div(TILE_SIZE)).add(tileCenterPos.z.div(TILE_SIZE)) // .div(1))
-                const texelX = min(MAP_TEXELS_SIDE, max(0, pxX));
-                const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)).mul(MAP_TEXELS_SIDE); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
-                const idx = texelY.add(texelX);
-                const height = heightBuffer.element(idx);
-                const slope = varyingProperty( 'float', 'slope' );
+            waterMaterial.positionNode = Fn( () => {
+                const { camPos } = effectController;
+            //    const index = vertexIndex.toVar();
+            //    const xIndex = floor(index.div(WIDTH));
+            //    const yIndex = floor(index.sub(xIndex.mul(WIDTH)));
+                const uvX = positionLocal.x // xIndex.div(WIDTH).sub(0.5)
+                const uvY = positionLocal.y // yIndex.div(WIDTH).sub(0.5)
+                const pX = uvX.mul(BOUNDS)
+                const pZ = uvY.mul(BOUNDS)
+                const camOffsetPos = vec3(floor(camPos.x.div(TILE_SIZE)).mul(TILE_SIZE), 0 , floor(camPos.z.div(TILE_SIZE)).mul(TILE_SIZE));
+                const globalPos = vec3(pX, 0, pZ).add(camOffsetPos);
 
-                const heightDiffFront = heightBuffer.element(idx.add(MAP_TEXELS_SIDE)).sub(height).abs()
-                const heightDiffSide  = heightBuffer.element(idx.add(1)).sub(height).abs()
-                slope.assign(min(0.99, max(heightDiffFront, heightDiffSide).mul(0.01)))
-                //    slope.assign(0.02)
-                return vec3(positionLocal.x, 0, positionLocal.z);
+                const bnd = vec3(BOUNDS, 1, TILE_SIZE);
+
+                const cX = bnd.y.sub(uvX.mul(2.2).abs()); // ;
+                const cZ = bnd.y.sub(uvY.mul(2.2).abs());
+
+                const edgeX = uvX.mul(uvX.abs().mul(2.2).pow(100).mul(100));
+                const edgeZ = uvY.mul(uvY.abs().mul(2.2).pow(100).mul(100));
+
+                const centerNess = max(0, cX.mul(cZ));
+
+                const height = time.add(pX.sub(camOffsetPos.x).mul(bnd.z.mul(3))).sin().add(pZ.sub(camOffsetPos.z).mul(bnd.z.mul(2))).cos().mul(2.3);
+                varyingProperty( 'vec3', 'v_normalView' ).assign(transformNormalToView( vec3(1, 1, height.mul(centerNess)).normalize())  );
+                //       varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, 0).normalize()  );
+
+                const finalPosition = vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
+                varyingProperty( 'vec3', 'v_positionFinal' ).assign(finalPosition);
+                return finalPosition;
+
 
             } )()
 
             waterMaterial.positionNode_ = Fn( () => {
                 const { camPos } = effectController;
 
-                const uvX = uv().x.sub(0.5)
-                const uvY = uv().y.sub(0.5)
+                const index = vertexIndex // .toVar();
+                const xIndex = floor(index.div(WIDTH));
+                const yIndex = floor(index.sub(xIndex.mul(WIDTH)));
+                const uvX = xIndex.div(WIDTH).sub(0.5)
+                const uvY = yIndex.div(WIDTH).sub(0.5)
                 const pX = uvX.mul(BOUNDS)
                 const pZ = uvY.mul(BOUNDS)
                 const camOffsetPos = vec3(floor(camPos.x.div(TILE_SIZE)).mul(TILE_SIZE), 0 , floor(camPos.z.div(TILE_SIZE)).mul(TILE_SIZE));
@@ -308,7 +288,7 @@ class Ocean {
                 //       varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, 0).normalize()  );
                 const finalPosition = vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
 
-                return camOffsetPos;
+                return finalPosition;
 
                 } )();
 

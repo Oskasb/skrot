@@ -70,24 +70,37 @@ class ModelMaterial {
 
         function addSlotTexture(slot, tx) {
 
-            txLoads.push(tx);
+            txLoads.push({tx:tx, slot:slot});
 
-            function txCB(assetTx) {
-                console.log("assetTx:", assetTx, assetTx.texture);
-                MATH.splice(txLoads, assetTx.txName);
 
-                if (slot === 'aoMap') {
-                    assetTx.texture.channel = 1;
+        }
+
+        function loadTxList() {
+
+
+            function loadSlotTx(slotTx) {
+                function txCB(assetTx) {
+                 //   console.log("assetTx:", assetTx, assetTx.texture);
+
+                    if (slotTx.slot === 'aoMap') {
+                        assetTx.texture.channel = 1;
+                    }
+
+                    settings.material[slotTx.slot] = assetTx.texture;
+                    if (txLoads.length === 0) {
+                        materialLoaded()
+                    } else {
+                        loadSlotTx(txLoads.pop());
+                    }
                 }
 
-                settings.material[slot] = assetTx.texture;
-                if (txLoads.length === 0) {
-                    materialLoaded()
-                }
+                loadAssetTexture(slotTx.tx, txCB);
             }
 
-            loadAssetTexture(tx, txCB);
+                loadSlotTx(txLoads.pop());
+
         }
+
 
         function initMaterial(name) {
 
@@ -133,6 +146,7 @@ class ModelMaterial {
                         let tx = data.textures[i].tx;
                         addSlotTexture(slot, tx)
                     }
+                    loadTxList()
                 } else {
                     materialLoaded()
                 }
