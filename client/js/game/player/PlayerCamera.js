@@ -19,7 +19,7 @@ class PlayerCamera {
         let posFrameDelta = new Vector3();
 
         function updateCamera() {
-            
+
        //     debugDrawPhysicalWorld()
 
             lastCamPos.copy(orbitControls.target);
