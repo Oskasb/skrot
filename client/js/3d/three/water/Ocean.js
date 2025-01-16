@@ -146,8 +146,8 @@ class Ocean {
             waterMaterial.normalMap = null;
 
             waterMaterial.normalNode = Fn( () => {
-                const txNormal = nmTx.sample(customOceanUv()).mul(0.3)
-                return transformNormalToView(txNormal.add(vec3(0, 0, 0.7)));
+                const txNormal = nmTx.sample(customOceanUv()).mul(1)
+                return transformNormalToView(vec3(0, 0, txNormal.z)) // transformNormalToView(vec3(txNormal.x.mul(-0.5).add(1), txNormal.y.mul(-0.5).add(1), 1).normalize()) //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
             } )();
 
 
