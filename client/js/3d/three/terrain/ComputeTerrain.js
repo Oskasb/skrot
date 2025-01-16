@@ -439,20 +439,11 @@ class ComputeTerrain {
                     const point0 = vec3( nmUv0.x, rgbSum0.mul(0.05), nmUv0.y);
                     const point1 = vec3( nmUv1.x, rgbSum1.mul(0.05), nmUv1.y);
                     const point2 = vec3( nmUv2.x, rgbSum2.mul(0.05), nmUv2.y);
-                    /*
-                                        const point0 = vec3( nmUv0.x, nmUv0.y, rgbSum0.mul(1.1));
-                                        const point1 = vec3( nmUv1.x, nmUv1.y, rgbSum1.mul(1.1));
-                                        const point2 = vec3( nmUv2.x, nmUv2.y, rgbSum2.mul(1.1));
-                                    */
-                    const deltaVec3 = vec3( rgbSum0, rgbSum1,  rgbSum2).normalize();
-
-                    const upness = ONE.sub(rgbSum0.mul(2).sub(rgbSum1.add(rgbSum2)).mul(4));
-                    const upnessVec3 = vec3(0, 1.3, 0);
 
                     const tangent = point2.sub(point0);
                     const biTangent = point1.sub(point0);
 
-                    const txNormal = nmTx.sample(customTerrainUv()).mul(0.25)
+                    const txNormal = nmTx.sample(customTerrainUv()).mul(0.75)
 
                     const cracks = cracksLayer().mul(0.5).add(0.5).pow(0.2)
                     const detail = detailsLayer().add(0.4).pow(0.4)
