@@ -37,7 +37,7 @@ import {
     reflectVector,
     saturation,
     uniform,
-    asin, sin, min, vec2
+    asin, sin, min, vec2, texture
 } from "../../../../../libs/three/Three.TSL.js";
 import {AssetTexture} from "../assets/AssetTexture.js";
 import {loadImageAsset} from "../../../application/utils/DataUtils.js";
@@ -208,6 +208,11 @@ class EnvironmentMaps {
 
             scene.environmentNode = getEnvironmentNode( reflectVector, positionWorld );
             scene.backgroundNode = getBackgroundNode( positionWorldDirection, positionLocal );
+
+            scene.getEnvNode = function() {
+            //    return texture(scene.environmentNode);
+            }
+
         //    scene.backgroundNode = getEnvironmentNode( positionWorldDirection, positionLocal );
         }
 
@@ -227,5 +232,6 @@ class EnvironmentMaps {
 }
 
 export {
-    EnvironmentMaps
+    EnvironmentMaps,
+
 }

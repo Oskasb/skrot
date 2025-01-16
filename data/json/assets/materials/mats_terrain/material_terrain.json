@@ -7,7 +7,7 @@
     { "slot":"roughnessMap",  "tx": "texture_ground8x8rough"}
   ],
   "settings": {
-    "color": [1, 1, 1],
+    "color": {"r": 1, "g": 1, "b": 1},
     "metalness": 1.0,
     "roughness": 1.0,
     "aoMapIntensity": 1.0

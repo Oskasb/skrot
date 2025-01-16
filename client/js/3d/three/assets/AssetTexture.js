@@ -30,10 +30,8 @@ class AssetTexture {
                 settings.texture.wrapS = RepeatWrapping;
                 settings.texture.wrapT = RepeatWrapping;
                 settings.texture.flipY = false;
-                settings.texture.updateMatrix()
                 settings.texture.needsUpdate = true;
-            //    settings.texture.preload()
-            //    settings.texture.generateMipmaps = false;
+                settings.texture.generateMipmaps = false;
                 sendToSubscribers();
             }
 

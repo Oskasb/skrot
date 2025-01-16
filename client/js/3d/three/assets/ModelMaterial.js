@@ -6,9 +6,23 @@ import {JsonAsset} from "../../../application/load/JsonAsset.js";
 import * as constants from "../../../../../libs/three/constants.js";
 import {MeshStandardNodeMaterial} from "three/webgpu";
 import {customTerrainUv, customOceanUv} from "../terrain/ComputeTerrain.js";
+import {MeshPhongNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
 
 
 class MeshSpecialTerrainNodeMaterial extends MeshStandardNodeMaterial {
+
+    setup( builder ) {
+        builder.setContext( { ...builder.context,
+            getUV: ( /*reqNode*/ ) => {
+                return customTerrainUv(); // return a custom uv
+            }
+        } );
+
+        return super.setup( builder );
+    }
+}
+
+class MeshSpecialPhongTerrainNodeMaterial extends MeshPhongNodeMaterial {
 
     setup( builder ) {
         builder.setContext( { ...builder.context,
@@ -34,6 +48,18 @@ class MeshSpecialOceanNodeMaterial extends MeshStandardNodeMaterial {
     }
 }
 
+class MeshSpecialPhongOceanNodeMaterial extends MeshPhongNodeMaterial {
+
+    setup( builder ) {
+        builder.setContext( { ...builder.context,
+            getUV: ( /*reqNode*/ ) => {
+                return customOceanUv(); // return a custom uv
+            }
+        } );
+
+        return super.setup( builder );
+    }
+}
 
 
 let mats = 0;
@@ -43,6 +69,8 @@ materials['MeshStandardNodeMaterial'] = MeshStandardNodeMaterial;
 materials['MeshPhysicalMaterial'] = MeshPhysicalMaterial;
 materials['MeshSpecialTerrainNodeMaterial'] = MeshSpecialTerrainNodeMaterial
 materials['MeshSpecialOceanNodeMaterial'] = MeshSpecialOceanNodeMaterial
+materials['MeshSpecialPhongOceanNodeMaterial'] = MeshSpecialPhongOceanNodeMaterial
+materials['MeshSpecialPhongTerrainNodeMaterial'] = MeshSpecialPhongTerrainNodeMaterial
 
 class ModelMaterial {
     constructor() {
@@ -128,6 +156,7 @@ class ModelMaterial {
                                     if (typeof (mat[key][element]) === 'undefined') {
                                     //    console.log("No element for", mat[key], key, element)
                                     } else {
+                                    //    console.log("Apply values ", key, values, element)
                                         mat[key][element] = values[element];
                                     }
                                 }

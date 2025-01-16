@@ -1,6 +1,6 @@
 import {
     BufferAttribute,
-    DoubleSide, InstancedBufferAttribute,
+    DoubleSide, FrontSide, InstancedBufferAttribute,
     Mesh,
     PlaneGeometry,
     Raycaster, Sprite, SRGBColorSpace, Texture,
@@ -105,11 +105,11 @@ class Ocean {
 
         function generateOcean(matSettings) {
             const waterMaterial = matSettings.material;
-            console.log("Gen Ocean", matSettings)
+            console.log("Gen Ocean", matSettings, store.scene)
             // Dimensions of simulation grid.
 
         //    return;
-
+        //    waterMaterial.envNode = store.scene.getEnvNode();
             let effectController;
 
             let p = 0;
@@ -140,14 +140,14 @@ class Ocean {
                 const waterGeometry = new PlaneGeometry( 1, 1, WIDTH - 1, WIDTH - 1 );
                 // material: make a THREE. = ShaderMaterial clone of THREE.MeshPhongMaterial, with customized position shader.
 
-            waterMaterial.side = DoubleSide;
+            waterMaterial.side = FrontSide;
 
             const nmTx = texture(waterMaterial.normalMap);
             waterMaterial.normalMap = null;
 
             waterMaterial.normalNode = Fn( () => {
-                const txNormal = nmTx.sample(customOceanUv()).mul(0.75)
-                return txNormal;
+                const txNormal = nmTx.sample(customOceanUv()).mul(0.3)
+                return transformNormalToView(txNormal.add(vec3(0, 0, 0.7)));
             } )();
 
 
