@@ -33,7 +33,7 @@ class AssetTexture {
                 settings.texture.updateMatrix()
                 settings.texture.needsUpdate = true;
             //    settings.texture.preload()
-                settings.texture.generateMipmaps = false;
+            //    settings.texture.generateMipmaps = false;
                 sendToSubscribers();
             }
 

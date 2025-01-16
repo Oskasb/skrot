@@ -222,7 +222,7 @@ class Ocean {
 
                     const foamMax = foamStorage.element( uvIndex );
                 //    foamStorage.element( uvIndex ).assign(1)
-                    
+
                     const foamFade = max(0, foamMax.mul(tileDx.mul(3.14).sin().mul(tileDy.mul(3.14).sin())));
                     const modulate = foamFade.mul(time.mul(0.8).sin().add(posx.mul(2.6).sin().add(posy.mul(2.6).sin())).abs());
 

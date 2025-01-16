@@ -547,13 +547,13 @@ class ComputeTerrain {
 
         function cracksLoaded(img) {
             terrainCracksTx = new CanvasTexture(img);
-            terrainCracksTx.generateMipmaps = false;
+        //    terrainCracksTx.generateMipmaps = false;
             loadImageAsset('heightmap_w01_20', tx1Loaded)
         }
 
         function detailLoaded(img) {
             terrainDetailTx = new CanvasTexture(img);
-            terrainDetailTx.generateMipmaps = false;
+        //    terrainDetailTx.generateMipmaps = false;
             loadImageAsset('crackstile', cracksLoaded)
         }
 
