@@ -91,9 +91,10 @@ function getWorldBoxMax() {
 }
 
 function terrainGlobalUv() {
-    const boxMaxX = WORLD_BOX_MAX.x;
-    const boxMaxY = WORLD_BOX_MAX.z;
-    return vec2(positionLocal.x.div(boxMaxX), positionLocal.z.div(boxMaxY));
+    const boxMaxX = WORLD_BOX_MAX.x.add(TILE_SIZE);
+    const boxMaxY = WORLD_BOX_MAX.z.add(TILE_SIZE);
+    const pxScale = ONE.div(4096).mul(4)
+    return vec2(positionLocal.x.div(boxMaxX).add(pxScale.mul(2)), positionLocal.z.div(boxMaxY).add(pxScale.mul(2)));
 }
 
 function customOceanUv() {
@@ -109,21 +110,22 @@ function customOceanUv() {
     const scaleTile = GROUND_TILES.mul(0.55)
     const vPosition = varyingProperty( 'vec3', 'v_positionFinal' );
     const posXLoc = vPosition.x;
-    const posZLoc = vPosition.y;
+    const posZLoc = vPosition.y.mul(-1);
 
     const txXy = vec2(posXLoc.div(scalePxInverse).mod(modBy).div(scaleDiv).add(pxScale), posZLoc.div(scalePxInverse).mod(modBy).div(scaleDiv)).div(scaleTile).add(pxScale);
 
-    const boxMaxX = WORLD_BOX_MAX.x;
-    const boxMaxY = WORLD_BOX_MAX.z;
+    const boxMaxX = WORLD_BOX_MAX.x.add(TILE_SIZE);
+    const boxMaxY = WORLD_BOX_MAX.z.add(TILE_SIZE);
 
-    const globalUv = vec2(posXLoc.div(boxMaxX), posZLoc.div(boxMaxY));
+    const globalUv = vec2(posXLoc.div(boxMaxX).add(pxScale.mul(2)), posZLoc.div(boxMaxY).add(pxScale.mul(2)));
     const heightSample = heightTx.sample(globalUv);
     const rgbSum = heightSample.r.mul(0.1).add(heightSample.g.mul(0.2)).add(heightSample.b)
-    const height = floor(rgbSum.mul(6));
-//    const shoreline =  max(0, min(1, height.pow(4)));
+  //  const shoreline =  max(0, min(1, height.pow(4)));
+    const height = floor(rgbSum.mul(100));
+//
 //    const terrainRGBA = terrainTx.sample(globalUV);
 
-    const offsetXSum = height;
+    const offsetXSum = min(height, 7);
 
     const uvOffsetted = vec2(txXy.x.add(offsetXSum.div(GROUND_TILES)), txXy.y.add(7).div(8));
 

@@ -108,6 +108,8 @@ class Ocean {
             console.log("Gen Ocean", matSettings)
             // Dimensions of simulation grid.
 
+        //    return;
+
             let effectController;
 
             let p = 0;
