@@ -3,9 +3,9 @@ import {getFrame, loadImageAsset, loadModelAsset} from "../../../application/uti
 import {CanvasTexture, Mesh, Object3D, PlaneGeometry, Vector3} from "../../../../../libs/three/Three.Core.js";
 import MeshStandardNodeMaterial from "../../../../../libs/three/materials/nodes/MeshStandardNodeMaterial.js";
 import {
-    add, cross,
+    add, cross, Discard,
     floor,
-    Fn, instancedArray,
+    Fn, If, instancedArray,
     instanceIndex,
     max,
     positionLocal,
@@ -121,13 +121,15 @@ function customOceanUv() {
     const heightSample = heightTx.sample(globalUv);
     const rgbSum = heightSample.r.mul(0.1).add(heightSample.g.mul(0.2)).add(heightSample.b)
   //  const shoreline =  max(0, min(1, height.pow(4)));
-    const height = floor(rgbSum.mul(100));
+    const shoreline = floor(rgbSum.mul(100));
 //
 //    const terrainRGBA = terrainTx.sample(globalUV);
 
-    const offsetXSum = min(height, 7);
+   //  If( height > 1.5).discard()
 
-    const uvOffsetted = vec2(txXy.x.add(offsetXSum.div(GROUND_TILES)), txXy.y.add(7).div(8));
+    const offsetXSum = min(shoreline, 7);
+
+    const uvOffsetted = vec2(txXy.x.add(offsetXSum.div(GROUND_TILES)), txXy.y.add(ONE.sub(ONE.div(GROUND_TILES))));
 
     return uvOffsetted // .add(addUv) // globalUV // .mul(elevXYZA.x.div(244));
 }
@@ -384,6 +386,7 @@ class ComputeTerrain {
                     const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)).mul(MAP_TEXELS_SIDE); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
                     const idx = texelY.add(texelX);
                     const height = heightBuffer.element(idx);
+                //    ONE.mul(height).lessThan(50).discard();
                     const slope = varyingProperty( 'float', 'slope' );
 
                     const heightDiffFront = heightBuffer.element(idx.add(MAP_TEXELS_SIDE)).sub(height).abs()

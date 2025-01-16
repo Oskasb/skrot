@@ -169,6 +169,35 @@ class Ocean {
 
                 waterMaterial.lights = true
 
+                waterMaterial.rougnessNode_ = Fn( () => {
+
+                    const posNode = positionLocal;
+                    const posx = posNode.y
+                    const posy = posNode.x
+                    const shoreness = oceanShoreness();
+                    const waveAx = posx.add(time.add(posy.mul(0.1)).cos().mul(5));
+                    const waveBx = posy.add(time.add(posx.mul(0.1)).sin().mul(5));
+                    const indexX = min(BOUNDS, max(0, waveAx.mod(BOUNDS_TILES).div(TILE_SIZE)));
+                    const indexY = min(BOUNDS, max(0, waveBx.mod(BOUNDS_TILES).div(TILE_SIZE)));
+                    const indXFloor = floor(indexX)
+                    const indYFloor = floor(indexY)
+                    const tileDx = indexX.sub(indXFloor);
+                    const tileDy = indexY.sub(indYFloor);
+                    const uvIndex = indXFloor.mul(indYFloor)
+                    const foamMax = foamStorage.element( uvIndex );
+
+                    const foamFade = max(0, foamMax.mul(tileDx.mul(3.14).sin().mul(tileDy.mul(3.14).sin())));
+                    const modulate = foamFade.mul(time.mul(0.8).sin().add(posx.mul(2.6).sin().add(posy.mul(2.6).sin())).abs());
+                    const bubbleMod = time.mul(0.4).sin().add(1).mul(0.5).mul(22)
+
+                    const foam = max(0, foamFade.mul(tileDx.mul(bubbleMod).add(posx).sin().mul(tileDy.mul(bubbleMod).add(posy).sin()))).add(modulate).add(shoreness);
+                //    varyingProperty( 'float', 'foam' ).assign(foam);
+
+                    const white = vec3(1, foam, ONE.sub(foam));
+                    return foam;
+
+                } )();
+
                 waterMaterial.colorNode_ = Fn( () => {
 
                     const posNode = positionLocal;
@@ -193,20 +222,12 @@ class Ocean {
 
                     const foamMax = foamStorage.element( uvIndex );
                 //    foamStorage.element( uvIndex ).assign(1)
-
-
+                    
                     const foamFade = max(0, foamMax.mul(tileDx.mul(3.14).sin().mul(tileDy.mul(3.14).sin())));
-
                     const modulate = foamFade.mul(time.mul(0.8).sin().add(posx.mul(2.6).sin().add(posy.mul(2.6).sin())).abs());
 
-
-
                     const bubbleMod = time.mul(0.4).sin().add(1).mul(0.5).mul(22)
-
-
                     const foam = max(0, foamFade.mul(tileDx.mul(bubbleMod).add(posx).sin().mul(tileDy.mul(bubbleMod).add(posy).sin()))).add(modulate).add(shoreness);
-
-
 
                     const waveA = cos(add(add(1, add(posx, posy)), posx).mul(0.0005));
                     const waveB = sin(add(add(1, mul(add(posx, posy), 0.9)), posy).mul(0.0003));
@@ -253,11 +274,12 @@ class Ocean {
 
                 const height = time.add(pX.sub(camOffsetPos.x).mul(bnd.z.mul(3))).sin().add(pZ.sub(camOffsetPos.z).mul(bnd.z.mul(2))).cos().mul(2.3);
                 varyingProperty( 'vec3', 'v_normalView' ).assign(transformNormalToView( vec3(1, 1, height.mul(centerNess)).normalize())  );
-                //       varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, 0).normalize()  );
+                varyingProperty( 'float', 'foam' ).assign(0);
 
-                const finalPosition = vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
-                varyingProperty( 'vec3', 'v_positionFinal' ).assign(finalPosition);
-                return finalPosition;
+                const vPosition = vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
+
+                varyingProperty( 'vec3', 'v_positionFinal' ).assign(vPosition);
+                return vPosition;
 
 
             } )()

@@ -67,6 +67,11 @@ function loadAsset(fileName, fileType, callback) {
     let files = configs['files'];
     let assetCfgs = files[fileType];
     let assetCfg = assetCfgs[fileName];
+
+    if (!assetCfg) {
+        console.log("Config error ", fileName, fileType)
+    }
+
     let url = assetCfg.url;
  //   console.log("load url:", url);
 
