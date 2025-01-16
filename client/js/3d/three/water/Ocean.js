@@ -147,7 +147,7 @@ class Ocean {
 
             waterMaterial.normalNode = Fn( () => {
                 const txNormal = nmTx.sample(customOceanUv()).mul(1)
-                return transformNormalToView(vec3(0, 0, txNormal.z)) // transformNormalToView(vec3(txNormal.x.mul(-0.5).add(1), txNormal.y.mul(-0.5).add(1), 1).normalize()) //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
+                return transformNormalToView(vec3(txNormal.x.add(-0.5), txNormal.y.add(-0.5), txNormal.z).normalize()) //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
             } )();
 
 
@@ -273,7 +273,7 @@ class Ocean {
                 const centerNess = max(0, cX.mul(cZ));
 
                 const height = time.add(pX.sub(camOffsetPos.x).mul(bnd.z.mul(3))).sin().add(pZ.sub(camOffsetPos.z).mul(bnd.z.mul(2))).cos().mul(2.3);
-                varyingProperty( 'vec3', 'v_normalView' ).assign(transformNormalToView( vec3(1, 1, height.mul(centerNess)).normalize())  );
+                varyingProperty( 'vec3', 'v_normalView' ).assign(transformNormalToView( vec3(1, 1, height.mul(centerNess).mul(3)).normalize())  );
                 varyingProperty( 'float', 'foam' ).assign(0);
 
                 const vPosition = vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
