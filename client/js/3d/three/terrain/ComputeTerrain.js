@@ -443,14 +443,18 @@ class ComputeTerrain {
                     const tangent = point2.sub(point0);
                     const biTangent = point1.sub(point0);
 
-                    const txNormal = nmTx.sample(customTerrainUv()).mul(0.75)
+                    const nmSample = nmTx.sample(customTerrainUv())
+                    const txNormal = vec3(nmSample.x.add(-0.5), nmSample.y.add(-0.5), nmSample.z).normalize() //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
+
+
+                //    const txNormal = nmTx.sample(customTerrainUv()).mul(0.75)
 
                     const cracks = cracksLayer().mul(0.5).add(0.5).pow(0.2)
                     const detail = detailsLayer().add(0.4).pow(0.4)
 
-                    const fragNormal = transformNormalToView(tangent.cross(biTangent).normalize());
+                    const fragNormal = tangent.cross(biTangent).normalize();
 
-                    return fragNormal.add(txNormal).mul(cracks).mul(detail);
+                    return transformNormalToView(fragNormal.add(txNormal).normalize().mul(cracks).mul(detail));
                 } )();
 
             //    tilesMaterial.colorNode =  vec3(ZERO.add(instanceIndex).mul(0.02).mod(1),0 , ZERO.add(instanceIndex).mul(0.11).mod(1));
