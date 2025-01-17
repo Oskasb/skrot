@@ -1,9 +1,11 @@
 {
-  "material": "MeshSpecialPhongOceanNodeMaterial",
-  "material_": "MeshSpecialOceanNodeMaterial",
+  "material__": "MeshSpecialPhongOceanNodeMaterial",
+  "material_": "MeshSpecialBasicOceanNodeMaterial",
+  "material": "MeshSpecialOceanNodeMaterial",
   "textures_": [
     { "slot":"map",           "tx": "texture_ground8x8"},
-    { "slot":"normalMap",     "tx": "texture_ground8x8nm"}
+    { "slot":"normalMap",     "tx": "texture_ground8x8nm"},
+    { "slot":"envMap",        "tx": "texture_ref_sphere_1"}
   ],
   "textures": [
     { "slot":"map",           "tx": "texture_ground8x8"},
@@ -11,12 +13,12 @@
     { "slot":"metalnessMap",  "tx": "texture_ground8x8metal"},
     { "slot":"roughnessMap",  "tx": "texture_ground8x8rough"}
   ],
-  "settings": {
+  "settings_": {
     "color": {"r": 1, "g": 1, "b": 1},
     "specular": {"r": 1, "g": 1, "b": 1},
-    "reflectivity": 1
+    "reflectivity": 100
   },
-  "settings_": {
+  "settings": {
     "color": {"r": 1, "g": 1, "b": 1},
     "metalness": 1.0,
     "roughness": 0.9

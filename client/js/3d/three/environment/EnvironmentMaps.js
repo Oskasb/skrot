@@ -74,7 +74,7 @@ class EnvironmentMaps {
                 cube2Texture.source.data = image;
                 cube2Texture.flipY = true;
                 cube2Texture.needsUpdate = true;
-                scene.environment = cube2Texture;
+                scene.background = cube2Texture;
             }
 
             loadImageAsset('ref_sphere_5', tx1Loaded)

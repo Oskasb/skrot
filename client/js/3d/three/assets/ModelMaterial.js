@@ -6,7 +6,7 @@ import {JsonAsset} from "../../../application/load/JsonAsset.js";
 import * as constants from "../../../../../libs/three/constants.js";
 import {MeshStandardNodeMaterial} from "three/webgpu";
 import {customTerrainUv, customOceanUv} from "../terrain/ComputeTerrain.js";
-import {MeshPhongNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
+import {MeshBasicNodeMaterial, MeshPhongNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
 
 
 class MeshSpecialTerrainNodeMaterial extends MeshStandardNodeMaterial {
@@ -61,6 +61,18 @@ class MeshSpecialPhongOceanNodeMaterial extends MeshPhongNodeMaterial {
     }
 }
 
+class MeshSpecialBasicOceanNodeMaterial extends MeshBasicNodeMaterial {
+
+    setup( builder ) {
+        builder.setContext( { ...builder.context,
+            getUV: ( /*reqNode*/ ) => {
+                return customOceanUv(); // return a custom uv
+            }
+        } );
+
+        return super.setup( builder );
+    }
+}
 
 let mats = 0;
 let materials = {};
@@ -71,6 +83,7 @@ materials['MeshSpecialTerrainNodeMaterial'] = MeshSpecialTerrainNodeMaterial
 materials['MeshSpecialOceanNodeMaterial'] = MeshSpecialOceanNodeMaterial
 materials['MeshSpecialPhongOceanNodeMaterial'] = MeshSpecialPhongOceanNodeMaterial
 materials['MeshSpecialPhongTerrainNodeMaterial'] = MeshSpecialPhongTerrainNodeMaterial
+materials['MeshSpecialBasicOceanNodeMaterial'] = MeshSpecialBasicOceanNodeMaterial;
 
 class ModelMaterial {
     constructor() {
