@@ -436,9 +436,9 @@ class ComputeTerrain {
                     const rgbSum1 = triPoint1.r.mul(0.1).add(triPoint1.g.mul(0.2)).add(triPoint1.b)
                     const rgbSum2 = triPoint2.r.mul(0.1).add(triPoint2.g.mul(0.2)).add(triPoint2.b)
 
-                    const point0 = vec3( nmUv0.x, rgbSum0.mul(0.05), nmUv0.y);
-                    const point1 = vec3( nmUv1.x, rgbSum1.mul(0.05), nmUv1.y);
-                    const point2 = vec3( nmUv2.x, rgbSum2.mul(0.05), nmUv2.y);
+                    const point0 = vec3( nmUv0.x, rgbSum0.mul(0.08), nmUv0.y);
+                    const point1 = vec3( nmUv1.x, rgbSum1.mul(0.08), nmUv1.y);
+                    const point2 = vec3( nmUv2.x, rgbSum2.mul(0.08), nmUv2.y);
 
                     const tangent = point2.sub(point0);
                     const biTangent = point1.sub(point0);
@@ -454,7 +454,7 @@ class ComputeTerrain {
 
                     const fragNormal = tangent.cross(biTangent).normalize();
 
-                    return transformNormalToView(fragNormal.add(txNormal).normalize().mul(cracks).mul(detail));
+                    return transformNormalToView(fragNormal.add(txNormal).normalize()).mul(cracks).mul(detail);
                 } )();
 
             //    tilesMaterial.colorNode =  vec3(ZERO.add(instanceIndex).mul(0.02).mod(1),0 , ZERO.add(instanceIndex).mul(0.11).mod(1));
