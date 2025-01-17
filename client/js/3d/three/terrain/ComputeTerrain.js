@@ -424,7 +424,8 @@ class ComputeTerrain {
                 tilesMaterial.normalNode = Fn( () => {
                     const globalUv = terrainGlobalUv();
 
-                    const shift = ONE.div(MAP_TEXELS_SIDE).mul(0.05);
+                    const shift = ONE.div(MAP_TEXELS_SIDE).mul(0.3);
+                    const shiftScaled = shift.mul(255);
                     const nmUv0 = vec2(globalUv.x.add(shift), globalUv.y.add(shift));
                     const nmUv1 = vec2(globalUv.x.sub(shift), globalUv.y.add(shift));
                     const nmUv2 = vec2(globalUv.x.add(shift), globalUv.y.sub(shift));
@@ -436,25 +437,25 @@ class ComputeTerrain {
                     const rgbSum1 = triPoint1.r.mul(0.1).add(triPoint1.g.mul(0.2)).add(triPoint1.b)
                     const rgbSum2 = triPoint2.r.mul(0.1).add(triPoint2.g.mul(0.2)).add(triPoint2.b)
 
-                    const point0 = vec3( nmUv0.x, rgbSum0.mul(0.08), nmUv0.y);
-                    const point1 = vec3( nmUv1.x, rgbSum1.mul(0.08), nmUv1.y);
-                    const point2 = vec3( nmUv2.x, rgbSum2.mul(0.08), nmUv2.y);
+                    const point0 = vec3( nmUv0.x, rgbSum0.mul(shiftScaled), nmUv0.y);
+                    const point1 = vec3( nmUv1.x, rgbSum1.mul(shiftScaled), nmUv1.y);
+                    const point2 = vec3( nmUv2.x, rgbSum2.mul(shiftScaled), nmUv2.y);
 
                     const tangent = point2.sub(point0);
                     const biTangent = point1.sub(point0);
 
                     const nmSample = nmTx.sample(customTerrainUv())
-                    const txNormal = vec3(nmSample.x.add(-0.5), nmSample.y.add(-0.5), nmSample.z).normalize() //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
+                    const txNormal = vec3(nmSample.x.add(-0.5).mul(-1), nmSample.y, nmSample.z.add(-0.5)).normalize() //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
 
 
                 //    const txNormal = nmTx.sample(customTerrainUv()).mul(0.75)
 
-                    const cracks = cracksLayer().mul(0.5).add(0.5).pow(0.2)
-                    const detail = detailsLayer().add(0.4).pow(0.4)
+                //    const cracks = cracksLayer().mul(0.5).add(0.5).pow(0.2)
+                //    const detail = detailsLayer().add(0.4).pow(0.4)
 
                     const fragNormal = tangent.cross(biTangent).normalize();
 
-                    return transformNormalToView(fragNormal.add(txNormal).normalize()).mul(cracks).mul(detail);
+                    return transformNormalToView(fragNormal.add(txNormal.mul(0.8))) // .add(txNormal).normalize()).mul(cracks).mul(detail);
                 } )();
 
             //    tilesMaterial.colorNode =  vec3(ZERO.add(instanceIndex).mul(0.02).mod(1),0 , ZERO.add(instanceIndex).mul(0.11).mod(1));
