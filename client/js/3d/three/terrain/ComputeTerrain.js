@@ -455,7 +455,7 @@ class ComputeTerrain {
 
                     const fragNormal = tangent.cross(biTangent).normalize();
 
-                    return transformNormalToView(fragNormal.add(txNormal.mul(0.8))) // .add(txNormal).normalize()).mul(cracks).mul(detail);
+                    return transformNormalToView(fragNormal).add(transformNormalToView(txNormal).mul(0.8)).normalize() // .add(txNormal).normalize()).mul(cracks).mul(detail);
                 } )();
 
             //    tilesMaterial.colorNode =  vec3(ZERO.add(instanceIndex).mul(0.02).mod(1),0 , ZERO.add(instanceIndex).mul(0.11).mod(1));

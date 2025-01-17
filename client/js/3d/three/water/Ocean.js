@@ -146,8 +146,21 @@ class Ocean {
             waterMaterial.normalMap = null;
 
             waterMaterial.normalNode = Fn( () => {
+
+                const posNode = positionLocal;
+                const posx = posNode.y
+                const posy = posNode.x
+
+                const waveAx = time.add(posx.add(posy.mul(0.132)).div(0.5)).mul(0.03).cos();
+                const waveBx = time.add(posy.add(posx.mul(0.135)).div(0.6)).mul(0.04).sin();
+
+                const waveAx1 = time.add(waveAx.mul(18).add(posy.add(posx.mul(0.2)).mul(2.62)).div(12)).mul(0.9).cos();
+                const waveBx1 = time.add(waveBx.mul(18).add(posx.add(posy.mul(0.3)).mul(2.65)).div(7)).mul(1.4).sin();
+
+                const wave0nm = vec3(waveAx, waveBx, 7).add(vec3(waveAx1, waveBx1, 4)).normalize();
+
                 const txNormal = nmTx.sample(customOceanUv())
-                return transformNormalToView(vec3(txNormal.x.add(-0.5), txNormal.y.add(-0.5), txNormal.z).normalize()) //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
+                return transformNormalToView(vec3(txNormal.x.add(-0.5), txNormal.y.add(-0.5), txNormal.z.mul(0.5)).add(wave0nm)) //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
             } )();
 
 
@@ -200,11 +213,12 @@ class Ocean {
 
                 waterMaterial.colorNode_ = Fn( () => {
 
+
+                    const shoreness = oceanShoreness();
+
                     const posNode = positionLocal;
                     const posx = posNode.y
                     const posy = posNode.x
-
-                    const shoreness = oceanShoreness();
 
                     const waveAx = posx.add(time.add(posy.mul(0.1)).cos().mul(5));
                     const waveBx = posy.add(time.add(posx.mul(0.1)).sin().mul(5));
@@ -272,8 +286,10 @@ class Ocean {
 
                 const centerNess = max(0, cX.mul(cZ));
 
-                const height = time.add(pX.sub(camOffsetPos.x).mul(bnd.z.mul(3))).sin().add(pZ.sub(camOffsetPos.z).mul(bnd.z.mul(2))).cos().mul(2.3);
-                varyingProperty( 'vec3', 'v_normalView' ).assign(transformNormalToView( vec3(1, 1, height.mul(centerNess).mul(3)).normalize())  );
+                const gain = 4;
+
+                const height = time.add(pX.sub(camOffsetPos.x).mul(bnd.z.mul(3))).sin().add(pZ.sub(camOffsetPos.z).mul(bnd.z.mul(2))).cos().mul(gain);
+                varyingProperty( 'vec3', 'v_normalView' ).assign(transformNormalToView( vec3(0.5, 0.5, height.mul(centerNess).div(gain)).normalize())  );
                 varyingProperty( 'float', 'foam' ).assign(0);
 
                 const vPosition = vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
