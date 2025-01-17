@@ -1,6 +1,13 @@
 {
-  "material": "MeshSpecialTerrainNodeMaterial",
+  "material_": "MeshSpecialTerrainNodeMaterial",
+  "material": "MeshSpecialPhongTerrainNodeMaterial",
   "textures": [
+    { "slot":"map",           "tx": "texture_ground8x8"},
+    { "slot":"normalMap",     "tx": "texture_ground8x8nm"},
+    { "slot":"specularMap",   "tx": "texture_ground8x8metal"}
+
+  ],
+  "textures_": [
     { "slot":"map",           "tx": "texture_ground8x8"},
     { "slot":"normalMap",     "tx": "texture_ground8x8nm"},
     { "slot":"metalnessMap",  "tx": "texture_ground8x8metal"},
@@ -8,6 +15,8 @@
   ],
   "settings": {
     "color": {"r": 1, "g": 1, "b": 1},
+    "specular": {"r": 1, "g": 1, "b": 1},
+    "shininess":60,
     "metalness": 1.0,
     "roughness": 1.0,
     "aoMapIntensity": 1.0
