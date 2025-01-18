@@ -181,16 +181,18 @@ class EnvironmentMaps {
                 const zenithAngle = acos( max( 0.0, angleToUp ) );
                 const horizonAngle = cos( max( -1.0, angleToUp ) );
 
+                const daylightFactor = sunColor.r.pow(0.65)
+
                 const belowHorizonFactor = max(0.0, min(1.0, mul(pow( 9999, mul(angleToDown, 10.11)), 0.9  )));
                 const sunAngle = dot(normalize(sunPosition), direction)
                 const sunFactor = mul(0.55, max(0.0, pow( sunAngle, 0.8 )));
                 const skyShade = add( ambColor, fogColor);
-                const skyColor = mix(ambColor, skyShade, pow(sunFactor, 4));
-                const skySpace = mix(skyColor, spaceColor, mul(pow(angleToUp, 0.25), 0.8));
-                const fogGradientColor = add(fogColor, sunColor)
-                const fogGradientFactor =  pow( horizonAngle, 6 );
-                const fogGradient =  mix(skySpace, fogGradientColor, mul(0.125, pow(fogGradientFactor, 6)))
-                const fogHorizonFactor = pow( horizonAngle, 1000 );
+                const skyColor = mix(ambColor.add(vec3(0.01, 0.4, 1.2)).mul(daylightFactor), skyShade, pow(sunFactor, 4));
+                const skySpace = mix(skyColor, spaceColor, mul(pow(angleToUp, 0.25), 0.8)).mul(daylightFactor);
+                const fogGradientColor = add(fogColor, sunColor.mul(daylightFactor))
+                const fogGradientFactor =  pow( horizonAngle, 200 );
+                const fogGradient =  mix(skySpace, fogGradientColor, mul(0.125, pow(fogGradientFactor, 0.5)))
+                const fogHorizonFactor = pow( horizonAngle, 50 );
                 const foggedColor = mix(fogGradient, fogColor, fogHorizonFactor)
 
                 const skySunShaded = mix( foggedColor, sunColor, max(0.0, mul(0.05, pow( mul(sunAngle, 0.99), 118) )));
