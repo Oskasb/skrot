@@ -155,9 +155,11 @@ class Ocean {
                 const waveBx = time.add(posy.add(posx.mul(0.135)).div(0.16)).mul(0.12).cos();
 
                 const waveAx1 = time.add(waveAx.mul(0.44).add(posy.add(posx.mul(0.16)).mul(0.62)).div(2)).mul(0.23).cos();
-                const waveBx1 = time.add(waveBx.mul(0.12).add(posx.add(posy.mul(0.04)).mul(0.45)).div(1.2)).mul(0.7).sin();
+                const waveBx1 = time.mul(2).add(waveBx.mul(0.12).add(posx.add(posy.mul(0.04)).mul(0.45)).div(1.2)).mul(0.7).sin();
+                const waveAx2 = time.mul(5).add(waveAx.mul(0.14).add(posy.add(posx.mul(0.12)).mul(0.42)).div(3.2)).mul(0.13).cos();
+                const waveBx2 = time.mul(3).add(waveBx.mul(0.09).add(posx.add(posy.mul(0.63)).mul(0.55)).div(7.5)).mul(0.7).sin();
 
-                const wave0nm = vec3(waveAx1, waveBx1, 7).normalize();
+                const wave0nm = vec3(waveAx1.add(waveAx2.mul(0.6)), waveBx1.add(waveBx2.mul(0.6)), 6).normalize();
 
                 const txNormal = nmTx.sample(customOceanUv())
                 return transformNormalToView(vec3(txNormal.x.add(-0.5), txNormal.y.add(-0.5), txNormal.z.mul(0.5)).add(wave0nm)) //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
