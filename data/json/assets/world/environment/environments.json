@@ -111,9 +111,9 @@
           "distance":          10000000000
         },
         "configs":[
-          {"id":"sun",     "color":[0.07,   0.22,  0.88]},
-          {"id":"ambient", "color":[0.0,   0.02,  0.15]},
-          {"id":"fog",     "color":[0.0,   0.0,  0.02], "density":0.049}
+          {"id":"sun",     "color":[0.07,   0.42,  0.78]},
+          {"id":"ambient", "color":[0.0,   0.05,  0.99]},
+          {"id":"fog",     "color":[0.0,   0.0,  0.12], "density":0.049}
         ]
       },
       {
