@@ -35,7 +35,7 @@
         "configs":[
           {"id":"sun",     "color":[0.85,  0.65,  0.05]},
           {"id":"ambient", "color":[0.11,  0.41,  0.65]},
-          {"id":"fog",     "color":[0.25,  0.55,  0.31],  "density":0.014}
+          {"id":"fog",     "color":[0.02,  0.89,  0.41],  "density":0.014}
         ]
       },
       {
@@ -48,7 +48,7 @@
         "configs":[
           {"id":"sun",     "color":[0.88, 0.56,  0.2]},
           {"id":"ambient", "color":[0.05, 0.23,  0.4]},
-          {"id":"fog",     "color":[0.27, 0.43,  0.45], "density":0.013}
+          {"id":"fog",     "color":[0.0, 0.43,  0.95], "density":0.013}
         ]
       },
       {
@@ -61,7 +61,7 @@
         "configs":[
           {"id":"sun",     "color":[1.27,  0.85,  0.2]},
           {"id":"ambient", "color":[0.17,  0.28,  0.65]},
-          {"id":"fog",     "color":[0.33,  0.39,  0.92], "density":0.009}
+          {"id":"fog",     "color":[0.53,  0.49,  0.92], "density":0.009}
         ]
       },
       {
@@ -74,7 +74,7 @@
         "configs":[
           {"id":"sun",     "color":[1.69,  1.35,  0.40]},
           {"id":"ambient", "color":[0.1,   0.21,  0.99]},
-          {"id":"fog",     "color":[0.36,  0.37,  0.99], "density":0.007}
+          {"id":"fog",     "color":[0.12,  0.33,  1.10], "density":0.007}
         ]
       },
       {
@@ -87,7 +87,7 @@
         "configs":[
           {"id":"sun",     "color":[0.90,  0.14,  0.05]},
           {"id":"ambient", "color":[0.35,  0.11,  0.01]},
-          {"id":"fog",     "color":[0.80,  0.05,  0.01], "density":0.023}
+          {"id":"fog",     "color":[0.90,  0.08,  0.03], "density":0.023}
         ]
       },
   {
@@ -100,7 +100,7 @@
     "configs":[
       {"id":"sun",     "color":[0.78,  0.11,  0.05]},
       {"id":"ambient", "color":[0.25,  0.04,  0.02]},
-      {"id":"fog",     "color":[0.12,  0.0,  0.0], "density":0.043}
+      {"id":"fog",     "color":[0.17,  0.02,  0.0], "density":0.043}
     ]
   },
       {
