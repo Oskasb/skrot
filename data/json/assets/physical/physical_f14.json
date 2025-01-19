@@ -5,19 +5,33 @@
     {"pos": [3, 0, 0], "size": 1.4},
     {"pos": [-3, 0, 0], "size": 1.4}
   ],
+  "wheels": [
+    {"front": true,
+      "pos": [-0.2, -0.5, -6]
+    },
+    {"front": true,
+      "pos": [0.2, -0.5, -6]
+    },
+    {
+      "pos": [-3, -0.5, 1]
+    },
+    {
+      "pos": [ 3, -0.5, 1]
+    }
+  ],
   "tuning": {
 
   },
   "shapes": [
     {
-      "shape": "compound",
-      "scale": [12, 4, 16],
+      "shape": "box",
+      "scale": [1.0, 0.1, 1.0],
       "rot": [0, 0, 0],
-      "pos": [1213, 102, 2540],
+      "pos": [1233, 102, 2540],
       "convex": false,
       "mass": 20000,
       "friction": 2.9,
-      "children": [
+      "children_": [
         {
           "shape": "box",
           "scale": [0.8, 0.8, 2],

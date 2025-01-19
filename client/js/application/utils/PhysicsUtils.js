@@ -166,6 +166,14 @@ function rayAllIntersects(from, to) {
     return AmmoAPI.raycastAllIntersectingBodies(from, tempTo)
 }
 
+function ammoTranformToObj3d(trx, obj3d) {
+    let p = trx.getOrigin();
+    let q = trx.getRotation();
+
+    obj3d.position.set(p.x(), p.y(), p.z());
+    obj3d.quaternion.set(q.x(), q.y(), q.z(), q.w());
+}
+
 function bodyTransformToObj3d(body, obj3d, debugDraw) {
     let ms = body.getMotionState();
 
@@ -616,5 +624,6 @@ export {
     processRayHitKickInfluence,
     applyPhysicalInfluenceRayProbe,
     activatePhysicalShockwave,
-    calcBoxSubmersion
+    calcBoxSubmersion,
+    ammoTranformToObj3d
 }

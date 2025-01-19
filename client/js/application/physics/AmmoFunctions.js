@@ -992,7 +992,7 @@ class AmmoFunctions {
 
         let heightDiff = maxHeight-minHeight;
         let heightScale = heightDiff/100
-        let margin = 5 // * heightScale;
+        let margin = 4 // 5 // * heightScale;
 
         let restitution =  0.4;
         let damping     =  0.7;
@@ -1000,31 +1000,49 @@ class AmmoFunctions {
 
             console.log("Ground minY maxY: ", minHeight, maxHeight)
 
+        // Margin not accounted for by raycasts... need to make two layers to work?
+
         let groundShape = createTerrainShape( data, totalSize, maxHeight, minHeight, margin);
+            let groundShapeNoMargin = createTerrainShape( data, totalSize, maxHeight, minHeight, 0.5);
         shapes.push(groundShape);
+
+        let groundNoMTrx = new Ammo.btTransform();
+        groundNoMTrx.setIdentity();
         let groundTransform = new Ammo.btTransform();
         groundTransform.setIdentity();
         // Shifts the terrain, since bullet re-centers it on its bounding box.
         let posY = minHeight*2 + heightDiff*0.5;
         groundTransform.setOrigin( new Ammo.btVector3(posx, posY-margin ,posz) );
+        groundNoMTrx.setOrigin( new Ammo.btVector3(posx, posY+0.05 ,posz) );
+
         console.log("groundTransform",groundTransform)
 
         let groundMass = 0;
         let groundLocalInertia = new Ammo.btVector3( 0, 0, 0 );
         let groundMotionState = new Ammo.btDefaultMotionState( groundTransform );
 
+        let groundMotionStateNoMg = new Ammo.btDefaultMotionState( groundNoMTrx );
+
+        let rbInfoNoMg = new Ammo.btRigidBodyConstructionInfo( groundMass, groundMotionStateNoMg, groundShapeNoMargin, groundLocalInertia )
+        rbInfoNoMg.set_m_linearSleepingThreshold(0);
+        rbInfoNoMg.set_m_angularSleepingThreshold(0);
+
+        let groundBodyNoMg = new Ammo.btRigidBody(rbInfoNoMg);
+        groundBodyNoMg.setWorldTransform(groundNoMTrx);
+        groundBodyNoMg.setRestitution(restitution);
+        groundBodyNoMg.setFriction(friction);
+        groundBodyNoMg.setDamping(damping, damping);
+        world.addRigidBody( groundBodyNoMg );
+
         let rbInfo = new Ammo.btRigidBodyConstructionInfo( groundMass, groundMotionState, groundShape, groundLocalInertia )
         rbInfo.set_m_linearSleepingThreshold(0);
         rbInfo.set_m_angularSleepingThreshold(0);
 
         let groundBody = new Ammo.btRigidBody(rbInfo);
-
         groundBody.setWorldTransform(groundTransform);
-
         groundBody.setRestitution(restitution);
         groundBody.setFriction(friction);
         groundBody.setDamping(damping, damping);
-
         world.addRigidBody( groundBody );
 
         return groundBody;

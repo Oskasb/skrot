@@ -1,20 +1,20 @@
 import {AmmoVehicleProcessor} from "./AmmoVehicleProcessor.js";
 
 let wheelsMat = [
-    [-1, 0.9, 1], [1, 0.9, 1],
-    [-1, -0.9, 1], [1, -0.9, 1]
+    [-0.1, 0.0, 1], [0.1, 0.0, 1],
+    [-1, 0.0, -1], [1, 0.0, -1]
 ];
 
 class AmmoVehicle {
-    constructor(physicsWorld, body) {
+    constructor(physicsWorld, body, wheelsCfg, tuningcfg) {
 
         let Ammo = AmmoAPI.getAmmo();
 
-        let width = 15;
-        let height = 15;
-        let length = 18;
-        let clearance = 15;
-        let mass = 21400000
+        let width = 5;
+        let height = 1;
+        let length = 5;
+        let clearance = 2;
+        let mass = 200000
 
         let wOpts = {};
 
@@ -22,8 +22,8 @@ class AmmoVehicle {
 
         let wheelMatrix =  wheelsMat;
 
-        let maxSusForce = (mass * 10 / wheelMatrix.length) * 50;
-        let susStiffness = 10; // wheelMatrix.length;
+        let maxSusForce = (mass * 10 / wheelsCfg.length) * 500;
+        let susStiffness = 5; // wheelMatrix.length;
 
         let frictionSlip = wOpts.frictionSlip || 2;
         let suspensionStiffness = susStiffness;
@@ -31,14 +31,35 @@ class AmmoVehicle {
         let dampingRelaxation = wOpts.dampingRelaxation || 5;
         let dampingCompression = wOpts.dampingCompression || 2;
         let suspensionCompression = wOpts.suspensionCompression || 4.4;
-        let suspensionRestLength = wOpts.suspensionLength || 0.6;
+        let suspensionRestLength = wOpts.suspensionLength || 3.6;
         let suspensionTravelCm = wOpts.suspensionTravelCm || suspensionRestLength * 100;
         let rollInfluence = wOpts.rollInfluence || 0.1;
         let radius = wOpts.radius || 0.5;
 
         let wheelY = -height / 2 + radius - clearance;
 
+
+        // Chassis
+/*
+        let geometry = new Ammo.btBoxShape(new Ammo.btVector3(width * .5, height * .5, length * .5));
+        let transform = new Ammo.btTransform();
+        transform.setIdentity();
+        transform.setOrigin(new Ammo.btVector3(1213, 102 + height + radius + clearance, 2540));
+        transform.setRotation(new Ammo.btQuaternion(0, 0, 0, 1));
+        let motionState = new Ammo.btDefaultMotionState(transform);
+        let localInertia = new Ammo.btVector3(0, 1, 0);
+        geometry.calculateLocalInertia(mass, localInertia);
+
+        let rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, geometry, localInertia)
+        rbInfo.set_m_linearSleepingThreshold(0.0);
+        rbInfo.set_m_angularSleepingThreshold(0.0);
+
+        body = new Ammo.btRigidBody(rbInfo);
+*/
+
         body.setActivationState(DISABLE_DEACTIVATION);
+
+
 
         let tuning = new Ammo.btVehicleTuning();
 
@@ -63,16 +84,14 @@ class AmmoVehicle {
 
         let oddEven = 1;
 
-        function addWheel(i) {
+        function addWheel(wheelCfg) {
 
             oddEven = -oddEven;
 
-            let pos = new Ammo.btVector3(0.5 * -width * wheelMatrix[i][0], wheelY + wheelMatrix[i][1], 0.5 * length * wheelMatrix[i][2]);
+            let pos = new Ammo.btVector3(wheelCfg.pos[0], wheelCfg.pos[1], wheelCfg.pos[2]);
 
-            let isFront = false;
-            if (i === 0 || i === 1) {
-                isFront = true;
-            }
+            let isFront = wheelCfg['front'] || false;
+
             let wheelInfo = vehicle.addWheel(
                 pos,
                 wheelDirectionCS0,
@@ -89,8 +108,8 @@ class AmmoVehicle {
             wheelInfo.set_m_rollInfluence(rollInfluence);
         }
 
-        for (let i = 0; i < wheelMatrix.length; i++) {
-            addWheel(i);
+        for (let i = 0; i < wheelsCfg.length; i++) {
+            addWheel(wheelsCfg[i]);
         }
 
         let dynamic = {

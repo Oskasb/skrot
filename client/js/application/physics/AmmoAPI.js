@@ -259,6 +259,9 @@ class AmmoAPI {
         return status;
     }
 
+    applyAmmoTransformToObj3d(trx, obj3d) {
+
+    }
 
 
 }

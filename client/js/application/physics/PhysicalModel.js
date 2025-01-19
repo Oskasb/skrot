@@ -1,5 +1,6 @@
 import {JsonAsset} from "../load/JsonAsset.js";
 import {
+    ammoTranformToObj3d,
     bodyTransformToObj3d,
     calcBoxSubmersion,
     getBodyVelocity,
@@ -13,6 +14,7 @@ import {evt} from "../event/evt.js";
 import {getFrame} from "../utils/DataUtils.js";
 import {jsonAsset} from "../utils/AssetUtils.js";
 import {AmmoVehicle} from "./AmmoVehicle.js";
+import {Object3D} from "three/webgpu";
 
 let tempVec = new Vector3();
 
@@ -21,6 +23,8 @@ let tempVec3 = new Vector3();
 
 let lineFrom = new Vector3();
 let lineTo = new Vector3();
+
+let tempObj = new Object3D();
 
 let lineEvt = {
     from:lineFrom,
@@ -100,23 +104,54 @@ class PhysicalModel {
         }
 
         function updateBodyObj3d() {
+
+
+
+        //    if (ammoVehicle !== null) {
+        //        console.log(ammoVehicle.processor);
+        //    }
+
             updateFloatation()
         }
 
         function alignVisualModel() {
             let body = obj3d.userData.body;
             bodyTransformToObj3d(body, obj3d);
+
+            if (ammoVehicle !== null) {
+                let vehicle = ammoVehicle.vehicle;
+            //    console.log(vehicle);
+                vehicle.updateWheelTransformsWS();
+
+                let wheels = vehicle.getNumWheels();
+                for (let i = 0; i < wheels; i++) {
+                    let ammoTrx = vehicle.getWheelTransformWS(i);
+                    ammoTranformToObj3d(ammoTrx, tempObj);
+
+                    lineFrom.copy(tempObj.position);
+                    lineTo.set(0, 0, 1);
+                    lineTo.applyQuaternion(obj3d.quaternion)
+                    lineTo.add(lineFrom);
+                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt);
+                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:lineFrom, size:0.2, color:'CYAN'});
+                }
+
+            }
+
         }
 
 
-
+        let ammoVehicle = null;
 
         function onConf(config) {
             console.log("Physical Config", config);
 
             function bodyReadyCB(body) {
                 if (config['tuning']) {
-                    new AmmoVehicle(getPhysicalWorld(), body )
+                    ammoVehicle = new AmmoVehicle(getPhysicalWorld(), body, config['wheels'], config['tuning'] )
+                    console.log("ammoVehicle:", ammoVehicle); // getChassisWorldTransform
+
+                //    body = ammoVehicle.body;
                 }
                 console.log("body added", body);
                 obj3d.userData.body = body;
