@@ -10,8 +10,9 @@ class AmmoVehicle {
 
         let Ammo = AmmoAPI.getAmmo();
 
-        let width = 5;
-        let height = 5
+        let width = 15;
+        let height = 15;
+        let length = 18;
         let clearance = 15;
         let mass = 21400000
 
