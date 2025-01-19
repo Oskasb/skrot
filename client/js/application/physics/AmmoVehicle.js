@@ -6,7 +6,7 @@ let wheelsMat = [
 ];
 
 class AmmoVehicle {
-    constructor(physicsWorld, body, wheelsCfg, tuningcfg) {
+    constructor(physicsWorld, body, wheelsCfg, tuningCfg) {
 
         let Ammo = AmmoAPI.getAmmo();
 
@@ -22,7 +22,7 @@ class AmmoVehicle {
 
         let wheelMatrix =  wheelsMat;
 
-        let maxSusForce = (mass * 10 / wheelsCfg.length) * 500;
+        let maxSusForce = (mass * 10 / wheelsCfg.length) * 10;
         let susStiffness = 5; // wheelMatrix.length;
 
         let frictionSlip = wOpts.frictionSlip || 2;
@@ -31,7 +31,7 @@ class AmmoVehicle {
         let dampingRelaxation = wOpts.dampingRelaxation || 5;
         let dampingCompression = wOpts.dampingCompression || 2;
         let suspensionCompression = wOpts.suspensionCompression || 4.4;
-        let suspensionRestLength = wOpts.suspensionLength || 3.6;
+        let suspensionRestLength = wOpts.suspensionLength || 2.6;
         let suspensionTravelCm = wOpts.suspensionTravelCm || suspensionRestLength * 100;
         let rollInfluence = wOpts.rollInfluence || 0.1;
         let radius = wOpts.radius || 0.5;
@@ -60,11 +60,12 @@ class AmmoVehicle {
         body.setActivationState(DISABLE_DEACTIVATION);
 
 
+        let mainTuning = tuningCfg['main']
 
         let tuning = new Ammo.btVehicleTuning();
 
         tuning.set_m_frictionSlip(frictionSlip);
-        tuning.set_m_maxSuspensionForce(maxSusForce);
+        tuning.set_m_maxSuspensionForce(mainTuning['max_sus_force'] || maxSusForce);
         tuning.set_m_maxSuspensionTravelCm(suspensionTravelCm);
         tuning.set_m_suspensionCompression(suspensionCompression);
         tuning.set_m_suspensionDamping(suspensionDamping);
@@ -90,7 +91,20 @@ class AmmoVehicle {
 
             let pos = new Ammo.btVector3(wheelCfg.pos[0], wheelCfg.pos[1], wheelCfg.pos[2]);
 
+            let wheelTuning = tuning;
+
             let isFront = wheelCfg['front'] || false;
+
+            if (isFront) {
+                let frontTuning = tuningCfg['front']
+                wheelTuning = new Ammo.btVehicleTuning();
+                wheelTuning.set_m_frictionSlip(frictionSlip);
+                wheelTuning.set_m_maxSuspensionForce(frontTuning['max_sus_force'] || maxSusForce);
+                wheelTuning.set_m_maxSuspensionTravelCm(suspensionTravelCm);
+                wheelTuning.set_m_suspensionCompression(suspensionCompression);
+                wheelTuning.set_m_suspensionDamping(suspensionDamping);
+                wheelTuning.set_m_suspensionStiffness(susStiffness);
+            }
 
             let wheelInfo = vehicle.addWheel(
                 pos,
@@ -98,7 +112,7 @@ class AmmoVehicle {
                 wheelAxleCS,
                 suspensionRestLength,
                 radius,
-                tuning,
+                wheelTuning,
                 isFront);
 
             wheelInfo.set_m_suspensionStiffness(suspensionStiffness);
