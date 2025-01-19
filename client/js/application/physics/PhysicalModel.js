@@ -1,11 +1,18 @@
 import {JsonAsset} from "../load/JsonAsset.js";
-import {bodyTransformToObj3d, calcBoxSubmersion, getBodyVelocity, rayTest} from "../utils/PhysicsUtils.js";
+import {
+    bodyTransformToObj3d,
+    calcBoxSubmersion,
+    getBodyVelocity,
+    getPhysicalWorld,
+    rayTest
+} from "../utils/PhysicsUtils.js";
 import {Vector3, Vector4} from "../../../../libs/three/Three.Core.js";
 import {MATH} from "../MATH.js";
 import {ENUMS} from "../ENUMS.js";
 import {evt} from "../event/evt.js";
 import {getFrame} from "../utils/DataUtils.js";
 import {jsonAsset} from "../utils/AssetUtils.js";
+import {AmmoVehicle} from "./AmmoVehicle.js";
 
 let tempVec = new Vector3();
 
@@ -101,16 +108,22 @@ class PhysicalModel {
             bodyTransformToObj3d(body, obj3d);
         }
 
-        function bodyReadyCB(body) {
-            console.log("body added", body);
-            obj3d.userData.body = body;
-            AmmoAPI.registerPhysicsStepCallback(updateBodyObj3d)
-            ThreeAPI.addPostrenderCallback(alignVisualModel)
-        }
+
 
 
         function onConf(config) {
             console.log("Physical Config", config);
+
+            function bodyReadyCB(body) {
+                if (config['tuning']) {
+                    new AmmoVehicle(getPhysicalWorld(), body )
+                }
+                console.log("body added", body);
+                obj3d.userData.body = body;
+                AmmoAPI.registerPhysicsStepCallback(updateBodyObj3d)
+                ThreeAPI.addPostrenderCallback(alignVisualModel)
+            }
+
 
             if (config['buoyancy']) {
                 for (let i = 0; i < config['buoyancy'].length; i++) {

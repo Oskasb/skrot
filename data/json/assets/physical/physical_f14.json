@@ -5,6 +5,9 @@
     {"pos": [3, 0, 0], "size": 1.4},
     {"pos": [-3, 0, 0], "size": 1.4}
   ],
+  "tuning": {
+
+  },
   "shapes": [
     {
       "shape": "compound",

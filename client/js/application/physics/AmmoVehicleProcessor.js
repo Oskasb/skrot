@@ -18,6 +18,26 @@ let dyn = {
     brakeCommand:{state:0}
 };
 
+let steerMat = [
+    1, 1,
+    0, 0
+];
+
+let brakeMat = [
+    0.2,0.2,
+    1  ,1
+];
+
+let transmissionMat = [
+    1,1,
+    0,0
+];
+
+let transmissionYawMat = [
+    0,0,
+    0,0
+];
+
 let getWheelInfo = function(vehicle) {
     return vehicle.getWheelInfo();
 };
@@ -29,13 +49,15 @@ let calcVec = new Vector3();
 let TRANSFORM_AUX;
 let VECTOR_AUX;
 
-class AmmoVehicleProcessor {
 
-    constructor(vehicle, bodyParams, dynamic) {
+    class AmmoVehicleProcessor {
+
+    constructor(vehicle, wheelMatrix, dynamic) {
 
         let numWheels = vehicle.getNumWheels();
 
         if (!TRANSFORM_AUX) {
+            let Ammo = AmmoAPI.getAmmo();
             TRANSFORM_AUX = new Ammo.btTransform();
             VECTOR_AUX = new Ammo.btVector3()
         }
@@ -48,12 +70,12 @@ class AmmoVehicleProcessor {
             this.wheelInfos.push(new AmmoInfoParser(info, transform));
         }
 
-        this.driveTrain = bodyParams.drive_train || drive_train;
-        this.wheelMatrix = bodyParams.wheelMatrix || wheelsMat;
-        this.steerMatrix = bodyParams.steerMatrix || steerMat;
-        this.brakeMatrix = bodyParams.brakeMatrix || brakeMat;
-        this.transmissionMatrix = bodyParams.transmissionMatrix || transmissionMat;
-        this.transmissionYawMatrix = bodyParams.transmissionYawMatrix || transmissionYawMat;
+        this.driveTrain = drive_train;
+        this.wheelMatrix =  wheelMatrix;
+        this.steerMatrix =  steerMat;
+        this.brakeMatrix =  brakeMat;
+        this.transmissionMatrix = transmissionMat;
+        this.transmissionYawMatrix =  transmissionYawMat;
 
         this.dynamic = dynamic || dyn;
 

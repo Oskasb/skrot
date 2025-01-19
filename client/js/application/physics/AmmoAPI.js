@@ -26,8 +26,11 @@ let status = {
     updateTime:0
 };
 
+let Ammo;
+
 let initApi = function(onReady) {
         window.AMMO.then(function(ammo) {
+            Ammo = ammo
         //    AMMO = Ammo
         //    console.log("Ammo Ready", ammo);
             ammoFunctions = new AmmoFunctions(ammo);
@@ -39,6 +42,10 @@ class AmmoAPI {
 
     constructor(onReady) {
         initApi(onReady);
+    }
+
+    getAmmo() {
+        return Ammo;
     }
 
     initPhysics = function() {
