@@ -1,11 +1,22 @@
+import {MATH} from "../MATH.js";
 
 
 class SimpleStatus {
     constructor(statusValues) {
         this.statusMap = statusValues || {};
+
+        this.onKeyChangeCallbacks = {};
+
     }
 
     setStatusKey(key, status) {
+
+        if(this.statusMap[key] !== status) {
+            if (this.onKeyChangeCallbacks[key]) {
+                MATH.callAll(this.onKeyChangeCallbacks[key], status);
+            }
+        }
+
         this.statusMap[key] = status;
     }
 
@@ -21,6 +32,13 @@ class SimpleStatus {
             return this.statusMap;
         }
         return this.statusMap[key];
+    }
+
+    addStatusKeyCallback(key, callback) {
+        if (!this.onKeyChangeCallbacks[key]) {
+            this.onKeyChangeCallbacks[key] = [];
+        }
+        this.onKeyChangeCallbacks[key].push(callback);
     }
 
 }

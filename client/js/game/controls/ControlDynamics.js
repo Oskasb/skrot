@@ -61,6 +61,7 @@ class ControlDynamics {
 
 
         let condition = null;
+        let sample = null;
 
         let onData = function(json) {
 
@@ -74,11 +75,18 @@ class ControlDynamics {
                 condition = json.condition;
             }
 
+            if (json.sample) {
+                sample = json.sample;
+                console.log("Register sampled status dynamic", sample)
+                assetInstance.registerStatusChangeCallback(sample['status'], applyTargetStateChange)
+            }
+
             this.targets = MATH.jsonCopy(json.targets);
             MATH.emptyArray(applyCalls);
             for (let i = 0; i < this.targets.length; i++) {
                 attachDynamicTargets(this.targets[i])
             }
+
             onReady(this)
 
         }.bind(this)
@@ -135,7 +143,14 @@ class ControlDynamics {
                     updateFrame = frame;
                //     console.log("Dynamic applyTargetStateChange ", controlId, targetValue);
                     state.targetValue = targetValue
-                    controlTransition.call.updateControlTransition(targetValue, state, onTransitionChange);
+
+                    if (sample) {
+                        onTransitionChange(targetValue)
+                    } else {
+                        controlTransition.call.updateControlTransition(targetValue, state, onTransitionChange);
+                    }
+
+
                 }
 
 

@@ -426,6 +426,16 @@ let ENUMS = {}
         STATUS_SPEED:'STATUS_SPEED'
     }
 
+    ENUMS.InstanceStatus = {
+        SUSP_COMP_WHEEL_0:'SUSP_COMP_WHEEL_0',
+        SUSP_COMP_WHEEL_1:'SUSP_COMP_WHEEL_1',
+        SUSP_COMP_WHEEL_2:'SUSP_COMP_WHEEL_2',
+        SUSP_COMP_WHEEL_3:'SUSP_COMP_WHEEL_3',
+        FORCE_G:'FORCE_G',
+        LIFT_L:'LIFT_l',
+        LIFT_R:'LIFT_R',
+    }
+
 ENUMS.CombatStatus = {
     LEAPING:1,
     RUSHGIN:2,

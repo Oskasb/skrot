@@ -20,7 +20,7 @@ class PlayerCamera {
 
         function updateCamera() {
 
-            debugDrawPhysicalWorld()
+        //    debugDrawPhysicalWorld()
 
             lastCamPos.copy(orbitControls.target);
             orbitControls.target.copy(player.call.getObj3d().position);
@@ -34,11 +34,11 @@ class PlayerCamera {
 
 
         function initCamera() {
-            camera.position.set( - 24, 28, 2.7 );
+            camera.position.set( 1178, 60, 3475 );
             //    dynamics.addEventListener( 'change', render ); // use if there is no animation loop
             orbitControls.minDistance = 0.5;
-            orbitControls.maxDistance = 2000;
-            orbitControls.target.set( 2000, 24 , 2000);
+            orbitControls.maxDistance = 8000;
+            orbitControls.target.set( 1178, 40 , 3425);
             ThreeAPI.getCameraCursor().getPos().copy(orbitControls.target)
             player.call.getObj3d().position.copy(orbitControls.target)
             orbitControls.update();

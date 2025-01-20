@@ -28,6 +28,13 @@ class DynamicBone {
                     bone.scale.copy(bone.userData.bindPoseObj3D.scale)
                     bone.scale.copy(obj3d.scale)
                 }
+
+                if (callName === "setBonePosition") {
+                    bone.position.copy(bone.userData.bindPoseObj3D.position)
+                    bone.position.add(obj3d.position)
+                }
+
+
             }
 
             for (let i = 0; i  < influensors.length; i++) {

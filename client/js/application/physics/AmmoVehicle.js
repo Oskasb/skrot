@@ -23,16 +23,14 @@ class AmmoVehicle {
         let wheelMatrix =  wheelsMat;
 
         let maxSusForce = (mass * 10 / wheelsCfg.length) * 10;
-        let susStiffness = 5; // wheelMatrix.length;
+        let susStiffness = 15; // wheelMatrix.length;
 
         let frictionSlip = wOpts.frictionSlip || 2;
         let suspensionStiffness = susStiffness;
-        let suspensionDamping = wOpts.suspensionDamping || 2.3;
-        let dampingRelaxation = wOpts.dampingRelaxation || 5;
-        let dampingCompression = wOpts.dampingCompression || 2;
-        let suspensionCompression = wOpts.suspensionCompression || 4.4;
-        let suspensionRestLength = wOpts.suspensionLength || 2.6;
-        let suspensionTravelCm = wOpts.suspensionTravelCm || suspensionRestLength * 100;
+        let suspensionDamping = wOpts.suspensionDamping || 2.7;
+        let dampingRelaxation = wOpts.dampingRelaxation || 6;
+        let dampingCompression = wOpts.dampingCompression || 2.7;
+
         let rollInfluence = wOpts.rollInfluence || 0.1;
         let radius = wOpts.radius || 0.5;
 
@@ -62,18 +60,25 @@ class AmmoVehicle {
 
         let mainTuning = tuningCfg['main']
 
-        let tuning = new Ammo.btVehicleTuning();
 
-        tuning.set_m_frictionSlip(frictionSlip);
-        tuning.set_m_maxSuspensionForce(mainTuning['max_sus_force'] || maxSusForce);
-        tuning.set_m_maxSuspensionTravelCm(suspensionTravelCm);
-        tuning.set_m_suspensionCompression(suspensionCompression);
-        tuning.set_m_suspensionDamping(suspensionDamping);
-        tuning.set_m_suspensionStiffness(susStiffness);
 
+        let suspensionCompression = wOpts.suspensionCompression || 4.4;
+        let suspensionRestLength = mainTuning['sus_length'] || 2.6;
+
+        maxSusForce = mainTuning['max_sus_force'] || maxSusForce
+        let suspLength = mainTuning['sus_length'] || 2.6;
+        let suspensionTravelCm = suspLength * 50;
+        let wheelTuning = new Ammo.btVehicleTuning();
+        wheelTuning.set_m_maxSuspensionTravelCm(suspensionTravelCm);
+        wheelTuning.set_m_maxSuspensionForce(maxSusForce);
+        wheelTuning.set_m_frictionSlip(frictionSlip);
+        wheelTuning.set_m_suspensionDamping(suspensionDamping);
+        wheelTuning.set_m_suspensionStiffness(susStiffness);
+        wheelTuning.set_m_suspensionCompression(suspensionCompression);
 
         let rayCaster = new Ammo.btDefaultVehicleRaycaster(physicsWorld);
-        let vehicle = new Ammo.btRaycastVehicle(tuning, body, rayCaster);
+        console.log("Vehicle Ray Caster: ", rayCaster);
+        let vehicle = new Ammo.btRaycastVehicle(wheelTuning, body, rayCaster);
 
         vehicle.setCoordinateSystem(0, 1, 2);
         physicsWorld.addAction(vehicle);
@@ -85,26 +90,28 @@ class AmmoVehicle {
 
         let oddEven = 1;
 
+
         function addWheel(wheelCfg) {
 
             oddEven = -oddEven;
 
             let pos = new Ammo.btVector3(wheelCfg.pos[0], wheelCfg.pos[1], wheelCfg.pos[2]);
 
-            let wheelTuning = tuning;
 
             let isFront = wheelCfg['front'] || false;
 
+            suspensionRestLength = mainTuning['sus_length'] || 2.6;
+            maxSusForce = mainTuning['max_sus_force'] || maxSusForce;
+
             if (isFront) {
                 let frontTuning = tuningCfg['front']
-                wheelTuning = new Ammo.btVehicleTuning();
-                wheelTuning.set_m_frictionSlip(frictionSlip);
-                wheelTuning.set_m_maxSuspensionForce(frontTuning['max_sus_force'] || maxSusForce);
-                wheelTuning.set_m_maxSuspensionTravelCm(suspensionTravelCm);
-                wheelTuning.set_m_suspensionCompression(suspensionCompression);
-                wheelTuning.set_m_suspensionDamping(suspensionDamping);
-                wheelTuning.set_m_suspensionStiffness(susStiffness);
+                suspensionRestLength = frontTuning['sus_length'] || 2.6;
+                maxSusForce = frontTuning['max_sus_force'] || maxSusForce
+                radius = frontTuning['radius'] || 0.5;
+            } else {
+                radius = mainTuning['radius'] || 0.5;
             }
+
 
             let wheelInfo = vehicle.addWheel(
                 pos,
@@ -115,11 +122,13 @@ class AmmoVehicle {
                 wheelTuning,
                 isFront);
 
+            wheelInfo.set_m_maxSuspensionForce(maxSusForce);
             wheelInfo.set_m_suspensionStiffness(suspensionStiffness);
             wheelInfo.set_m_wheelsDampingRelaxation(dampingRelaxation);
             wheelInfo.set_m_wheelsDampingCompression(dampingCompression);
             wheelInfo.set_m_frictionSlip(frictionSlip);
             wheelInfo.set_m_rollInfluence(rollInfluence);
+            console.log("wheel info", wheelInfo);
         }
 
         for (let i = 0; i < wheelsCfg.length; i++) {
@@ -138,6 +147,9 @@ class AmmoVehicle {
         this.vehicle = vehicle;
         this.processor = new AmmoVehicleProcessor(vehicle, wheelMatrix, dynamic);
     }
+
+
+
 }
 
 export { AmmoVehicle }

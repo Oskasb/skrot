@@ -15,6 +15,7 @@ import {getFrame} from "../utils/DataUtils.js";
 import {jsonAsset} from "../utils/AssetUtils.js";
 import {AmmoVehicle} from "./AmmoVehicle.js";
 import {Object3D} from "three/webgpu";
+import {Quaternion} from "three";
 
 let tempVec = new Vector3();
 
@@ -40,9 +41,16 @@ let splashEvt ={
 }
 
 class PhysicalModel {
-    constructor(obj3d, fileName) {
+    constructor(obj3d, fileName, assetStatus) {
 
         let buoyancy = []
+
+        let wheelStates = [];
+        this.wheelStates = wheelStates;
+
+        let velocity = new Vector3();
+        let acceleration = new Vector3();
+        let forceG = 1;
 
         function updateFloatation() {
             splashEvt.velocity.copy(getBodyVelocity(obj3d.userData.body));
@@ -96,22 +104,87 @@ class PhysicalModel {
                             }
                         }
                     }
-
-                //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt);
-
                 }
             }
         }
 
+
+        let lastG = 0;
+
         function updateBodyObj3d() {
-
-
-
-        //    if (ammoVehicle !== null) {
-        //        console.log(ammoVehicle.processor);
-        //    }
-
+            acceleration.copy(velocity);
+            let ammoVel = obj3d.userData.body.getLinearVelocity();
+            velocity.set(ammoVel.x(), ammoVel.y(), ammoVel.z());
+            velocity.applyQuaternion(obj3d.quaternion);
+            acceleration.sub(velocity);
+            lastG = acceleration.y;
+            assetStatus.setStatusKey('FORCE_G',acceleration.y);
+            assetStatus.setStatusKey('LIFT_l',(acceleration.y + lastG) * 0.5);
+            assetStatus.setStatusKey('LIFT_R',(acceleration.y + lastG) * 0.5);
             updateFloatation()
+        }
+
+        function updateWheeledVehicle() {
+            let vehicle = ammoVehicle.vehicle;
+            //    console.log(vehicle);
+            vehicle.updateWheelTransformsWS();
+
+            let wheels = vehicle.getNumWheels();
+            for (let i = 0; i < wheels; i++) {
+
+                if (!wheelStates[i]) {
+                    wheelStates[i] = {
+                        suspensionCompression:0,
+                        wheelRotation:0,
+                        quaternion:new Quaternion(),
+                        position:new Vector3(),
+                        wheelYaw:0,
+                        wheelContact:false,
+                        contactPoint: new Vector3(),
+                        contactNormal: new Vector3()
+                    }
+                }
+
+                let wInfo = vehicle.getWheelInfo(i);
+                //    wInfo.updateWheel()
+                let rayInfo = wInfo.get_m_raycastInfo();
+                let maxTravel = wInfo.get_m_maxSuspensionTravelCm()*0.01;
+                let suspTotal = wInfo.get_m_suspensionRestLength1();
+                let currentLength = rayInfo.get_m_suspensionLength();
+
+                let radius = wInfo.get_m_wheelsRadius();
+
+                let isInContact = rayInfo.get_m_isInContact();
+                wheelStates[i].wheelContact = isInContact;
+                wheelStates[i].wheelRotation = wInfo.get_m_rotation();
+                if (isInContact) {
+                    let contactPoint = rayInfo.get_m_contactPointWS();
+                    let contactNormal = rayInfo.get_m_contactNormalWS();
+                    wheelStates[i].contactPoint.set(contactPoint.x(), contactPoint.y(), contactPoint.z());
+                    wheelStates[i].contactNormal.set(contactNormal.x(), contactNormal.y(), contactNormal.z());
+                    let compressFraction = MATH.calcFraction(0, maxTravel, suspTotal-currentLength);
+                    wheelStates[i].suspensionCompression = compressFraction;
+
+                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:wheelStates[i].contactPoint, size:compressFraction, color:'RED'});
+
+                } else {
+                    wheelStates[i].suspensionCompression = 0;
+                }
+
+                assetStatus.setStatusKey('SUSP_COMP_WHEEL_'+i,wheelStates[i].suspensionCompression - radius);
+
+                //    console.log("rayInfo ", rayInfo);
+
+                let ammoTrx = vehicle.getWheelTransformWS(i);
+                ammoTranformToObj3d(ammoTrx, wheelStates[i]);
+
+                lineFrom.copy(wheelStates[i].position);
+                lineTo.set(0, 0, currentLength);
+                lineTo.applyQuaternion(wheelStates[i].quaternion)
+                lineTo.add(lineFrom);
+                evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt);
+                evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:lineFrom, size:0.2, color:'GREEN'});
+            }
         }
 
         function alignVisualModel() {
@@ -119,26 +192,51 @@ class PhysicalModel {
             bodyTransformToObj3d(body, obj3d);
 
             if (ammoVehicle !== null) {
-                let vehicle = ammoVehicle.vehicle;
-            //    console.log(vehicle);
-                vehicle.updateWheelTransformsWS();
-
-                let wheels = vehicle.getNumWheels();
-                for (let i = 0; i < wheels; i++) {
-                    let ammoTrx = vehicle.getWheelTransformWS(i);
-                    ammoTranformToObj3d(ammoTrx, tempObj);
-
-                    lineFrom.copy(tempObj.position);
-                    lineTo.set(0, 0, 1);
-                    lineTo.applyQuaternion(obj3d.quaternion)
-                    lineTo.add(lineFrom);
-                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt);
-                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:lineFrom, size:0.2, color:'CYAN'});
-                }
-
+                updateWheeledVehicle();
             }
 
         }
+
+        /*
+        Ray Info:
+
+get_m_contactNormalWS
+get_m_contactPointWS
+get_m_groundObject
+get_m_hardPointWS
+get_m_isInContact
+get_m_suspensionLength
+get_m_wheelAxleWS
+get_m_wheelDirectionWS
+
+        wheelInfo:
+
+        getSuspensionRestLength
+get_m_bIsFrontWheel
+get_m_brake
+get_m_chassisConnectionPointCS
+get_m_clippedInvContactDotSuspension
+get_m_deltaRotation
+get_m_engineForce
+get_m_frictionSlip
+get_m_maxSuspensionForce
+get_m_maxSuspensionTravelCm
+get_m_raycastInfo
+get_m_rollInfluence
+get_m_rotation
+get_m_skidInfo
+get_m_steering
+get_m_suspensionRelativeVelocity
+get_m_suspensionRestLength1
+get_m_suspensionStiffness
+get_m_wheelAxleCS
+get_m_wheelDirectionCS
+get_m_wheelsDampingCompression
+get_m_wheelsDampingRelaxation
+get_m_wheelsRadius
+get_m_wheelsSuspensionForce
+get_m_worldTransform
+         */
 
 
         let ammoVehicle = null;
@@ -148,7 +246,7 @@ class PhysicalModel {
 
             function bodyReadyCB(body) {
                 if (config['tuning']) {
-                    ammoVehicle = new AmmoVehicle(getPhysicalWorld(), body, config['wheels'], config['tuning'] )
+                    ammoVehicle = new AmmoVehicle(getPhysicalWorld(), body, config['wheels'], config['tuning'])
                     console.log("ammoVehicle:", ammoVehicle); // getChassisWorldTransform
 
                 //    body = ammoVehicle.body;
@@ -184,7 +282,9 @@ class PhysicalModel {
 
     }
 
-
+    getWheelStates() {
+        return this.wheelStates;
+    }
 
 }
 

@@ -19,6 +19,14 @@ function setObjAxisRotation(value, obj3d, axis) {
     obj3d[axis](value);
 }
 
+function setObjAxisPosition(value, obj3d, axis) {
+ //   console.log("setObjAxisPosition", axis, obj3d, value)
+    obj3d.position[axis] = value;
+    obj3d.updateMatrixWorld();
+}
+
+
+
 function setObjUniformScale(value, obj3d, args) {
 
     let min = args.min || 0;
@@ -53,6 +61,20 @@ jointCalls["setBoneRotation"] = function(bone, args, value, factor) {
         }
     }
 }
+
+jointCalls["setBonePosition"] = function(bone, args, value, factor) {
+    if (typeof (args) === "string") {
+        setObjAxisPosition(value*factor, bone, args)
+    } else {
+        for (let i = 0; i < args.length; i++) {
+            let axis = args[i];
+            setObjAxisPosition(value*factor, bone, axis)
+        }
+    }
+}
+
+
+
 
 export {
     jointCalls

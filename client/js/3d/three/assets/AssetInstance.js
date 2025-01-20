@@ -98,7 +98,7 @@ class AssetInstance {
 
                 if (settings.json['physical']) {
                     console.log("Load Physical Model", settings.json['physical']);
-                    new PhysicalModel(obj3d, settings.json['physical'])
+                    new PhysicalModel(obj3d, settings.json['physical'], status)
                 }
 
             }
@@ -142,6 +142,10 @@ class AssetInstance {
             getPointById:getPointById
         }
 
+    }
+
+    registerStatusChangeCallback(statusKey, callback) {
+        this.status.addStatusKeyCallback(statusKey, callback);
     }
 
     setPos(pos) {
