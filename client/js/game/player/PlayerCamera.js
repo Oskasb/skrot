@@ -20,7 +20,7 @@ class PlayerCamera {
 
         function updateCamera() {
 
-       //     debugDrawPhysicalWorld()
+            debugDrawPhysicalWorld()
 
             lastCamPos.copy(orbitControls.target);
             orbitControls.target.copy(player.call.getObj3d().position);

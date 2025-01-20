@@ -43,7 +43,7 @@ let terrainMaterial;
 let tilesMaterial;
 let tile32mesh;
 let terrainMesh;
-const TILE_SIZE = 80;
+const TILE_SIZE = 10;
 const TILE_SIZE_HALF = TILE_SIZE / 2;
 let TILES_X;
 let TILES_Y;
@@ -52,8 +52,8 @@ let BOUND_VERTS;
 const GEO_SEGS_XY = 32;
 let SECTIONS_XY;
 
-const factorR = 1;
-const factorG = 2;
+const factorR = 0.1;
+const factorG = 1;
 const factorB = 10;
 
 const HEIGHT_MIN = -200;
@@ -61,7 +61,7 @@ const clrRng = 255;
 const HEIGHT_MAX = clrRng*factorR+clrRng*factorG+clrRng*factorB+HEIGHT_MIN;
 
 const centerSize = 30;
-const lodLayers = 4;
+const lodLayers = 5;
 const gridOffsets = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
 const layerScale = [1, 3, 9, 27, 81, 243]
 let tempPoint = new Vector3();
@@ -100,7 +100,7 @@ function terrainGlobalUv() {
 function customOceanUv() {
 
     const tileSize = ZERO.add(TILE_SIZE);
-    const tileFraction = tileSize.div(GROUND_TILES).mul(0.5);
+    const tileFraction = tileSize.div(GROUND_TILES).mul(4);
 
     const pxScale = ONE.div(4096).mul(4)
 
@@ -117,11 +117,11 @@ function customOceanUv() {
     const boxMaxX = WORLD_BOX_MAX.x.add(TILE_SIZE);
     const boxMaxY = WORLD_BOX_MAX.z.add(TILE_SIZE);
 
-    const globalUv = vec2(posXLoc.div(boxMaxX).add(pxScale.mul(2)), posZLoc.div(boxMaxY).add(pxScale.mul(2)));
+    const globalUv = vec2(posXLoc.div(boxMaxX).add(pxScale.mul(0.25)), posZLoc.div(boxMaxY).add(pxScale.mul(0.25)));
     const heightSample = heightTx.sample(globalUv);
-    const rgbSum = heightSample.r.mul(0.1).add(heightSample.g.mul(0.2)).add(heightSample.b)
+    const rgbSum = heightSample.r.mul(0.01).add(heightSample.g.mul(0.1)).add(heightSample.b)
   //  const shoreline =  max(0, min(1, height.pow(4)));
-    const shoreline = floor(rgbSum.mul(100));
+    const shoreline = floor(rgbSum.mul(99));
 //
 //    const terrainRGBA = terrainTx.sample(globalUV);
 
@@ -136,7 +136,7 @@ function customOceanUv() {
 function customTerrainUv() {
 
     const tileSize = ZERO.add(TILE_SIZE);
-    const tileFraction = tileSize.div(GROUND_TILES).mul(0.5);
+    const tileFraction = tileSize.div(GROUND_TILES).mul(4);
 
     const pxScale = ONE.div(4096).mul(4)
 
@@ -391,7 +391,7 @@ class ComputeTerrain {
 
                     const heightDiffFront = heightBuffer.element(idx.add(MAP_TEXELS_SIDE)).sub(height).abs()
                     const heightDiffSide  = heightBuffer.element(idx.add(1)).sub(height).abs()
-                    slope.assign(min(0.99, max(heightDiffFront, heightDiffSide).mul(0.01)))
+                    slope.assign(min(0.99, max(heightDiffFront, heightDiffSide).mul(0.1)))
                     //    slope.assign(0.02)
                     return vec3(positionLocal.x, height, positionLocal.z);
 
@@ -409,7 +409,7 @@ class ComputeTerrain {
                 tilesMaterial.aoNode = Fn( () => {
                     const globalUv = terrainGlobalUv();
                     const heightSample = heightTx.sample(globalUv);
-                    const rgbSum = heightSample.r.mul(0.1).add(heightSample.g.mul(0.2)).add(heightSample.b)
+                    const rgbSum = heightSample.r.mul(0.01).add(heightSample.g.mul(0.1)).add(heightSample.b)
                     const height = rgbSum.mul(11);
                     const shoreline =  max(0, min(1, height.pow(4)));
 

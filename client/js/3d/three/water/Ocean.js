@@ -178,7 +178,7 @@ class Ocean {
                 const boxMaxY = WORLD_BOX_MAX.z;
                 const globalUV = vec2(waveA.mul(10).add(posx).div(boxMaxX), waveB.mul(10).add(posy).div(boxMaxY).mul(-1));
                 const heightSample = heightTx.sample(globalUV);
-                const height = heightSample.r.mul(0.05).add(heightSample.g.mul(0.2)).add(heightSample.b);
+                const height = heightSample.r.mul(0.01).add(heightSample.g.mul(0.1)).add(heightSample.b);
                 return max(0, min(1, height.mul(add(waveA.add(1).add(waveB.add(1)).mul(0.5), 2)).mul(4)));
             }
 

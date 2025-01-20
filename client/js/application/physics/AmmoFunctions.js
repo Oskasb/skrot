@@ -633,7 +633,7 @@ function createTerrainShape(data, sideSize, terrainMaxHeight, terrainMinHeight, 
 
         heightFieldShape = new Ammo.btHeightfieldTerrainShape(
             terrainWidth,
-            terrainDepth,
+            terrainWidth,
             ammoHeightData,
             1,
             terrainMinHeight-margin,
@@ -992,7 +992,7 @@ class AmmoFunctions {
 
         let heightDiff = maxHeight-minHeight;
         let heightScale = heightDiff/100
-        let margin = 2 // * heightScale;
+        let margin = 1 // * heightScale;
 
         let restitution =  0.4;
         let damping     =  0.7;
@@ -1001,26 +1001,24 @@ class AmmoFunctions {
             console.log("Ground minY maxY: ", minHeight, maxHeight)
 
         // Margin not accounted for by raycasts... need to make two layers to work?
-
+        let groundMass = 0;
         let groundShape = createTerrainShape( data, totalSize, maxHeight, minHeight, margin);
-            let groundShapeNoMargin = createTerrainShape( data, totalSize, maxHeight, minHeight, 0.2);
         shapes.push(groundShape);
 
-        let groundNoMTrx = new Ammo.btTransform();
-        groundNoMTrx.setIdentity();
         let groundTransform = new Ammo.btTransform();
         groundTransform.setIdentity();
         // Shifts the terrain, since bullet re-centers it on its bounding box.
         let posY = minHeight*2 + heightDiff*0.5;
-        groundTransform.setOrigin( new Ammo.btVector3(posx, posY-margin ,posz) );
+        groundTransform.setOrigin( new Ammo.btVector3(posx, posY-margin-0.1 ,posz) );
+
+
+     /*
+        let groundShapeNoMargin = createTerrainShape( data, totalSize, maxHeight, minHeight, 0.2);
+        let groundNoMTrx = new Ammo.btTransform();
+        groundNoMTrx.setIdentity();
         groundNoMTrx.setOrigin( new Ammo.btVector3(posx, posY-0.5 ,posz) );
 
-        console.log("groundTransform",groundTransform)
-
-        let groundMass = 0;
-        let groundLocalInertia = new Ammo.btVector3( 0, 0, 0 );
         let groundLocalInertiaNoMg = new Ammo.btVector3( 0, 0, 0 );
-        let groundMotionState = new Ammo.btDefaultMotionState( groundTransform );
 
         let groundMotionStateNoMg = new Ammo.btDefaultMotionState( groundNoMTrx );
 
@@ -1034,6 +1032,11 @@ class AmmoFunctions {
         groundBodyNoMg.setFriction(friction);
         groundBodyNoMg.setDamping(damping, damping);
         world.addRigidBody( groundBodyNoMg );
+     */
+    //
+        let groundLocalInertia = new Ammo.btVector3( 0, 0, 0 );
+        let groundMotionState = new Ammo.btDefaultMotionState( groundTransform );
+
 
         let rbInfo = new Ammo.btRigidBodyConstructionInfo( groundMass, groundMotionState, groundShape, groundLocalInertia )
         rbInfo.set_m_linearSleepingThreshold(0);
@@ -1046,7 +1049,7 @@ class AmmoFunctions {
         groundBody.setDamping(damping, damping);
         world.addRigidBody( groundBody );
 
-        return groundBodyNoMg;
+        return groundBody;
     };
 
 
@@ -1162,7 +1165,7 @@ class AmmoFunctions {
                 };
 
                 let shape = ammoBoxShape(scaleVec.x, scaleVec.y, scaleVec.z);
-
+                shape.setMargin(0);
                 bodyPools[dataKey] = new BodyPool(shape, createFunc);
                 rigidBody = fetchPoolBody(dataKey);
             } else {
@@ -1188,7 +1191,7 @@ class AmmoFunctions {
                 };
 
                 let shape = ammoCompoundShape(children);
-
+                shape.setMargin(0);
                 bodyPools[dataKey] = new BodyPool(shape, createFunc);
                 rigidBody = fetchPoolBody(dataKey);
             } else {
@@ -1271,7 +1274,7 @@ class AmmoFunctions {
 
 
                 shape.setLocalScaling(new Ammo.btVector3(scaleVec.x, scaleVec.y, scaleVec.z));
-
+                shape.setMargin(0);
                 bodyPools[dataKey] = new BodyPool(shape, createFunc);
                 body = fetchPoolBody(dataKey);
                 body.dataKey = dataKey;
