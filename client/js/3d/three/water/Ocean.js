@@ -338,6 +338,8 @@ class Ocean {
                 waterMesh.rotation.x = - Math.PI / 2;
                 waterMesh.matrixAutoUpdate = false;
                 waterMesh.frustumCulled = false;
+                waterMesh.castShadow = false;
+                waterMesh.receiveShadow = true;
                 waterMesh.updateMatrix();
                 scene.add( waterMesh );
 

@@ -21,6 +21,7 @@ import {GamePlayer} from "./game/player/GamePlayer.js";
 import {PlayerCamera} from "./game/player/PlayerCamera.js";
 import {DomThumbstick} from "./application/ui/dom/ui/DomThumbstick.js";
 import {DomWorldButtonLayer} from "./application/ui/dom/DomWorldButtonLayer.js";
+import {ThreeShadows} from "./3d/three/fx/ThreeShadows.js";
 
 
 let gameWorld = new GameWorld();
@@ -105,6 +106,7 @@ function init3d() {
     renderer = store.renderer;
 
     new ThreeBloom().call.initBloom(scene, camera, renderer)
+    new ThreeShadows(store)
     new DebugLines()
     orbitControls = new PlayerCamera(camera, renderer, player)
 

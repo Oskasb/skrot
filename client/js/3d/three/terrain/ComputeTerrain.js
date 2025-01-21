@@ -1,6 +1,14 @@
 
 import {getFrame, loadImageAsset, loadModelAsset} from "../../../application/utils/DataUtils.js";
-import {CanvasTexture, Mesh, Object3D, PlaneGeometry, Vector3} from "../../../../../libs/three/Three.Core.js";
+import {
+    AddOperation,
+    CanvasTexture, CustomBlending, DstAlphaFactor, DstColorFactor,
+    Mesh, MultiplyOperation,
+    Object3D, OneFactor, OneMinusDstAlphaFactor, OneMinusDstColorFactor, OneMinusSrcAlphaFactor,
+    PlaneGeometry, SrcAlphaFactor, SrcColorFactor, SubtractEquation,
+    SubtractiveBlending,
+    Vector3
+} from "../../../../../libs/three/Three.Core.js";
 import MeshStandardNodeMaterial from "../../../../../libs/three/materials/nodes/MeshStandardNodeMaterial.js";
 import {
     add, cross, Discard,
@@ -23,6 +31,11 @@ import {ENUMS} from "../../../application/ENUMS.js";
 import {aaBoxTestVisibility, borrowBox} from "../../../application/utils/ModelUtils.js";
 import * as TerrainFunctions from "./TerrainFunctions.js";
 import {setHeightTxOcean} from "../water/Ocean.js";
+import {
+    MeshBasicNodeMaterial,
+    MeshLambertNodeMaterial, MeshPhongNodeMaterial
+} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
+import Color4 from "../../../../../libs/three/renderers/common/Color4.js";
 
 let heightCanvas = document.createElement('canvas');
 let heightmapContext;
@@ -42,6 +55,7 @@ let terrainGeometry;
 let terrainMaterial;
 let tilesMaterial;
 let tile32mesh;
+let shadowMesh;
 let terrainMesh;
 const TILE_SIZE = 10;
 const TILE_SIZE_HALF = TILE_SIZE / 2;
@@ -282,9 +296,10 @@ class ComputeTerrain {
                 dummy.position.set(x, HEIGHT_MIN, z);
                 dummy.scale.set(TILE_SIZE, 1, TILE_SIZE);
 
+                shadowMesh.position.copy(dummy.position)
+                shadowMesh.scale.copy(dummy.scale)
+
                 let tileCount = 0;
-
-
 
                 let hasUpdate = setTileDimensions(tileCount, dummy);
                 tileCount++
@@ -386,6 +401,7 @@ class ComputeTerrain {
 
                 tilesMaterial = mat.material //new MeshStandardNodeMaterial();
 
+
                 const detailTx = texture(terrainDetailTx);
                 const cracksTx = texture(terrainCracksTx);
 
@@ -407,7 +423,6 @@ class ComputeTerrain {
                 //    tilesMaterial.scaleNode = scaleBuffer.toAttribute();
 
                 tilesMaterial.positionNode = Fn( () => {
-
                     const scale = scaleBuffer.element(instanceIndex);
                     const localPos = positionLocal.mul(scale);
                     const tileCenterPos = positionBuffer.element(instanceIndex);
@@ -417,36 +432,16 @@ class ComputeTerrain {
                     const texelX = min(MAP_TEXELS_SIDE, max(0, pxX));
                     const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)).mul(MAP_TEXELS_SIDE); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
                     const idx = texelY.add(texelX);
-/*
-                    const globalUv = vec2(pxX.div(MAP_TEXELS_SIDE), pxY.div(MAP_TEXELS_SIDE));
-                    const heightSample = heightTx.sample(globalUv);
-                    const rgbSum = heightSample.r.mul(0.01).add(heightSample.g.mul(0.1)).add(heightSample.b)
-*/
-
                     const height = heightBuffer.element(idx);
-
-                //    ONE.mul(height).lessThan(50).discard();
-                    /*
-                    const slope = varyingProperty( 'float', 'slope' );
-
-                    const heightDiffFront = heightBuffer.element(idx.add(MAP_TEXELS_SIDE)).sub(height).abs()
-                    const heightDiffSide  = heightBuffer.element(idx.add(1)).sub(height).abs()
-                    slope.assign(min(0.99, max(heightDiffFront, heightDiffSide).mul(0.1)))
-                    //    slope.assign(0.02)
-
-*/
                     return vec3(positionLocal.x, height, positionLocal.z);
-
                 } )();
 
                 function detailsLayer() {
                     return detailTx.sample(terrainGlobalUv().mul(900).mod(1))
                 }
-
                 function cracksLayer() {
                     return cracksTx.sample(terrainGlobalUv().mul(7900).mod(1))
                 }
-
 
                 tilesMaterial.aoNode = Fn( () => {
                     const globalUv = terrainGlobalUv();
@@ -465,7 +460,6 @@ class ComputeTerrain {
 
                 tilesMaterial.normalNode = Fn( () => {
 
-
                     const nmSample = nmTx.sample(customTerrainUv())
                     const txNormal = vec3(nmSample.x.add(-0.5).mul(-1), nmSample.y, nmSample.z.add(-0.5)).normalize() //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
 
@@ -481,9 +475,14 @@ class ComputeTerrain {
 
 
 
+
+
                 tile32mesh = new InstancedMesh( tileGeo, tilesMaterial, Math.floor(tileCount) );
                 tile32mesh.instanceMatrix.setUsage( DynamicDrawUsage );
                 tile32mesh.frustumCulled = false;
+
+                tile32mesh.castShadow = true;
+                tile32mesh.receiveShadow = false;
 
                 heightArray = new Float32Array(heightData.length / 4);
 
@@ -514,10 +513,57 @@ class ComputeTerrain {
                 const heightBuffer = instancedArray( heightArray ).label( 'Height' );
 
 
+                function setupShadowTerrain(shadowGeo) {
+
+                    let shadowMaterial = new MeshLambertNodeMaterial();
+
+                    shadowMaterial.positionNode = Fn( () => {
+                        const scale = scaleBuffer.element(instanceIndex);
+                        const localPos = positionLocal.mul(scale);
+                        const tileCenterPos = positionBuffer.element(instanceIndex);
+                        const localFlip = vec3(localPos.x.mul(1), 0, localPos.z);
+                        const pxX = floor(localFlip.x.div(TILE_SIZE)).add(tileCenterPos.x.div(TILE_SIZE)) // .add(camPos.x))
+                        const pxY = floor(localFlip.z.div(TILE_SIZE)).add(tileCenterPos.z.div(TILE_SIZE)) // .div(1))
+                        const texelX = min(MAP_TEXELS_SIDE, max(0, pxX));
+                        const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)).mul(MAP_TEXELS_SIDE); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
+                        const idx = texelY.add(texelX);
+                        const height = heightBuffer.element(idx).add(0.5);
+                        return vec3(positionLocal.x, height, positionLocal.z);
+                    } )();
+
+
+                    let geo = shadowGeo.scene.children[0].geometry;
+                    shadowMesh = new Mesh( geo, shadowMaterial);
+                    shadowMesh.frustumCulled = false;
+                    shadowMesh.castShadow = false;
+                    shadowMesh.receiveShadow = true;
+
+                    shadowMaterial.fog = false;
+                    shadowMaterial.flatShading = true;
+                    shadowMaterial.depthWrite = false;
+                    shadowMaterial.lights = true;
+                    shadowMaterial.transparent = true;
+                    shadowMaterial.blending = CustomBlending;
+                    shadowMaterial.blendEquation = MultiplyOperation;
+                    shadowMaterial.blendDst = OneMinusSrcAlphaFactor;
+                //    shadowMaterial.blendDstAlpha= OneMinusDstColorFactor;
+                 //   shadowMaterial.blendEquationAlpha= MultiplyOperation;
+                    shadowMaterial.blendSrc = SrcAlphaFactor;
+
+                    shadowMaterial.color = new Color4(0.9, 0.9, 0.9, 2)
+                    shadowMaterial.opacity = 0.2;
+                    console.log("Shadow Material ", shadowMaterial);
+
+                    ThreeAPI.addToScene(shadowMesh);
+                    ThreeAPI.addPostrenderCallback(update);
+                    onReadyCB();
+                }
+
                 //    ThreeAPI.addToScene(terrainMesh);
+
+                loadAsset('unit_grid_102', 'glb', setupShadowTerrain)
                 ThreeAPI.addToScene(tile32mesh);
-                ThreeAPI.addPostrenderCallback(update);
-                onReadyCB();
+
             }
 
             loadAssetMaterial('material_terrain', matLoaded)

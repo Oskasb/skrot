@@ -225,4 +225,7 @@ class ModelMaterial {
 
 
 
-export { ModelMaterial };
+export {
+    ModelMaterial,
+    MeshSpecialTerrainNodeMaterial
+};

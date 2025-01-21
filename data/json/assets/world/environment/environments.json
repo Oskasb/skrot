@@ -4,7 +4,7 @@
         "sky":{
           "inclination":       0.25 ,
           "azimuth":         0.22,
-          "distance":        1000000000
+          "distance":        100
         },
         "configs":[
           {"id":"sun",     "color":[1.27,  0.85,  0.2]},
@@ -17,7 +17,7 @@
         "sky":{
           "inclination":       0.25 ,
           "azimuth":           0.003    ,
-          "distance":          1000000000
+          "distance":          100
         },
         "configs":[
           {"id":"sun",     "color":[0.85,   0.15,  0.0]},
@@ -30,7 +30,7 @@
         "sky":{
           "inclination":       0.25 ,
           "azimuth":           0.012 ,
-          "distance":          1000000000
+          "distance":          100
         },
         "configs":[
           {"id":"sun",     "color":[0.85,  0.65,  0.05]},
@@ -43,7 +43,7 @@
         "sky":{
           "inclination":       0.25 ,
           "azimuth":         0.07 ,
-          "distance":        100000000000
+          "distance":        100
         },
         "configs":[
           {"id":"sun",     "color":[0.88, 0.56,  0.2]},
@@ -56,7 +56,7 @@
         "sky":{
           "inclination":       0.25 ,
           "azimuth":         0.22,
-          "distance":        1000000000
+          "distance":        100
         },
         "configs":[
           {"id":"sun",     "color":[1.27,  0.85,  0.2]},
@@ -69,7 +69,7 @@
         "sky":{
           "inclination":       0.25 ,
           "azimuth":        0.35,
-          "distance":      1000000000
+          "distance":      100
         },
         "configs":[
           {"id":"sun",     "color":[1.69,  1.35,  0.40]},
@@ -82,7 +82,7 @@
         "sky":{
           "inclination":       0.25 ,
           "azimuth":           0.48,
-          "distance":          1000000000
+          "distance":          100
         },
         "configs":[
           {"id":"sun",     "color":[0.90,  0.14,  0.05]},
@@ -95,7 +95,7 @@
     "sky":{
       "inclination":       0.25 ,
       "azimuth":           0.501,
-      "distance":          1000000000
+      "distance":          100
     },
     "configs":[
       {"id":"sun",     "color":[0.78,  0.11,  0.05]},
@@ -108,7 +108,7 @@
         "sky":{
           "inclination":       0.25   ,
           "azimuth":           0.23   ,
-          "distance":          10000000000
+          "distance":          100
         },
         "configs":[
           {"id":"sun",     "color":[0.07,   0.42,  0.78]},
@@ -121,7 +121,7 @@
         "sky":{
           "inclination":      0.05,
           "azimuth":          0.25,
-          "distance":          1000000
+          "distance":          100
         },
         "configs":[
           {"id":"sun",     "color":[0.4,   0.5,  0.3]},

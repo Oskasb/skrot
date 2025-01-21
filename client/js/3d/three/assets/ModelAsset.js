@@ -36,8 +36,6 @@ class ModelAsset {
             }
         }
 
-
-
         function instantiate(obj3d) {
 
             obj3d.frustumCulled = false;
@@ -72,8 +70,6 @@ class ModelAsset {
 
         function initAsset(modelFileName) {
             settings.modelFileName = modelFileName;
-
-
 
             function onJson(data) {
 
