@@ -58,7 +58,9 @@ const factorB = 10;
 
 const HEIGHT_MIN = -200;
 const clrRng = 255;
-const HEIGHT_MAX = clrRng*factorR+clrRng*factorG+clrRng*factorB+HEIGHT_MIN;
+const HEIGHT_DIFF = clrRng*factorR+clrRng*factorG+clrRng*factorB
+const HEIGHT_MAX = HEIGHT_DIFF+HEIGHT_MIN;
+
 
 const centerSize = 30;
 const lodLayers = 5;
@@ -76,6 +78,7 @@ const ONE = uniform(1);
 const ZERO = uniform(0);
 const TEXEL_SIZE = uniform(TILE_SIZE);
 const HALF_TILE_SIZE = uniform(GEO_SEGS_XY / 2);
+const MAP_TEXELS_SIDE = uniform(2048);
 const worldBox = new Box3();
 const CAMERA_POS = uniform(new Vector3()).label('CAMERA_POS');
 const camLookPoint = new Vector3();
@@ -94,7 +97,7 @@ function terrainGlobalUv() {
     const boxMaxX = WORLD_BOX_MAX.x.add(TILE_SIZE);
     const boxMaxY = WORLD_BOX_MAX.z.add(TILE_SIZE);
     const pxScale = ONE.div(4096).mul(4)
-    return vec2(positionLocal.x.div(boxMaxX).add(pxScale.mul(2)), positionLocal.z.div(boxMaxY).add(pxScale.mul(2)));
+    return vec2(positionLocal.x.div(boxMaxX).add(pxScale.mul(0.25)), positionLocal.z.div(boxMaxY).add(pxScale.mul(0.25)));
 }
 
 function customOceanUv() {
@@ -164,8 +167,10 @@ function customTerrainUv() {
     const vegRowAdd = min(1, vegetationIndex);
     const blockByVeg = ONE.sub(vegRowAdd);
 
+    const vNormal = customTerrainVnormal()
+    normalLocal.assign(vNormal);
  //   const modulate = positionLocal.x.add(positionLocal.z.mul(0.8)).mul(0.05).sin().add(1).mul(0.02)
-    const slope = min(0.99, max(0, varyingProperty( 'float', 'slope' ).pow(1.2))) // .add(modulate)));
+    const slope = min(0.99, max(0, vNormal.z.abs().mul(3).pow(1))) // .add(modulate)));
 
     const slopeIndex = floor(slope.mul(GROUND_TILES)).mul(blockByCiv).mul(blockByVeg);
     const offsetRow = biomeRowIndex.add(vegRowAdd).add(civRowAdd.mul(2));
@@ -174,6 +179,31 @@ function customTerrainUv() {
     const uvOffsetted = vec2(txXy.x.add(offsetXSum.div(GROUND_TILES)), txXy.y.add(offsetRow.div(GROUND_TILES)));
 
     return uvOffsetted // .add(addUv) // globalUV // .mul(elevXYZA.x.div(244));
+}
+
+function customTerrainVnormal() {
+    const globalUv = terrainGlobalUv();
+
+    const shift = ONE.div(MAP_TEXELS_SIDE).mul(0.35);
+    const shiftScaled = shift.mul(255);
+    const nmUv0 = vec2(globalUv.x.add(shift), globalUv.y.add(shift));
+    const nmUv1 = vec2(globalUv.x.sub(shift), globalUv.y.add(shift));
+    const nmUv2 = vec2(globalUv.x.add(shift), globalUv.y.sub(shift));
+    const triPoint0 = heightTx.sample(nmUv0);
+    const triPoint1 = heightTx.sample(nmUv1);
+    const triPoint2 = heightTx.sample(nmUv2);
+
+    const rgbSum0 = triPoint0.r.mul(0.1).add(triPoint0.g.mul(0.2)).add(triPoint0.b)
+    const rgbSum1 = triPoint1.r.mul(0.1).add(triPoint1.g.mul(0.2)).add(triPoint1.b)
+    const rgbSum2 = triPoint2.r.mul(0.1).add(triPoint2.g.mul(0.2)).add(triPoint2.b)
+
+    const point0 = vec3( nmUv0.x, rgbSum0.mul(shiftScaled), nmUv0.y);
+    const point1 = vec3( nmUv1.x, rgbSum1.mul(shiftScaled), nmUv1.y);
+    const point2 = vec3( nmUv2.x, rgbSum2.mul(shiftScaled), nmUv2.y);
+
+    const tangent = point2.sub(point0);
+    const biTangent = point1.sub(point0);
+    return tangent.cross(biTangent).normalize();
 }
 
 class ComputeTerrain {
@@ -329,7 +359,8 @@ class ComputeTerrain {
 
             const CENTER_SIZE = uniform(centerSize);
             const MAP_BOUNDS = uniform(TILES_X * TILE_SIZE);
-            const MAP_TEXELS_SIDE = uniform(TILES_X+1);
+
+            MAP_TEXELS_SIDE.value = TILES_X+1
             const TOTAL_TEXELS = uniform(BOUND_VERTS);
 
             worldBox.min.set(0, HEIGHT_MIN, 0);
@@ -376,6 +407,7 @@ class ComputeTerrain {
                 //    tilesMaterial.scaleNode = scaleBuffer.toAttribute();
 
                 tilesMaterial.positionNode = Fn( () => {
+
                     const scale = scaleBuffer.element(instanceIndex);
                     const localPos = positionLocal.mul(scale);
                     const tileCenterPos = positionBuffer.element(instanceIndex);
@@ -385,14 +417,24 @@ class ComputeTerrain {
                     const texelX = min(MAP_TEXELS_SIDE, max(0, pxX));
                     const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)).mul(MAP_TEXELS_SIDE); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
                     const idx = texelY.add(texelX);
+/*
+                    const globalUv = vec2(pxX.div(MAP_TEXELS_SIDE), pxY.div(MAP_TEXELS_SIDE));
+                    const heightSample = heightTx.sample(globalUv);
+                    const rgbSum = heightSample.r.mul(0.01).add(heightSample.g.mul(0.1)).add(heightSample.b)
+*/
+
                     const height = heightBuffer.element(idx);
+
                 //    ONE.mul(height).lessThan(50).discard();
+                    /*
                     const slope = varyingProperty( 'float', 'slope' );
 
                     const heightDiffFront = heightBuffer.element(idx.add(MAP_TEXELS_SIDE)).sub(height).abs()
                     const heightDiffSide  = heightBuffer.element(idx.add(1)).sub(height).abs()
                     slope.assign(min(0.99, max(heightDiffFront, heightDiffSide).mul(0.1)))
                     //    slope.assign(0.02)
+
+*/
                     return vec3(positionLocal.x, height, positionLocal.z);
 
                 } )();
@@ -422,40 +464,17 @@ class ComputeTerrain {
                 //    tilesMaterial.colorNode = detailTx.sample(terrainGlobalUv().mul(450).mod(1)).mul(0.2)
 
                 tilesMaterial.normalNode = Fn( () => {
-                    const globalUv = terrainGlobalUv();
 
-                    const shift = ONE.div(MAP_TEXELS_SIDE).mul(0.3);
-                    const shiftScaled = shift.mul(255);
-                    const nmUv0 = vec2(globalUv.x.add(shift), globalUv.y.add(shift));
-                    const nmUv1 = vec2(globalUv.x.sub(shift), globalUv.y.add(shift));
-                    const nmUv2 = vec2(globalUv.x.add(shift), globalUv.y.sub(shift));
-                    const triPoint0 = heightTx.sample(nmUv0);
-                    const triPoint1 = heightTx.sample(nmUv1);
-                    const triPoint2 = heightTx.sample(nmUv2);
-
-                    const rgbSum0 = triPoint0.r.mul(0.1).add(triPoint0.g.mul(0.2)).add(triPoint0.b)
-                    const rgbSum1 = triPoint1.r.mul(0.1).add(triPoint1.g.mul(0.2)).add(triPoint1.b)
-                    const rgbSum2 = triPoint2.r.mul(0.1).add(triPoint2.g.mul(0.2)).add(triPoint2.b)
-
-                    const point0 = vec3( nmUv0.x, rgbSum0.mul(shiftScaled), nmUv0.y);
-                    const point1 = vec3( nmUv1.x, rgbSum1.mul(shiftScaled), nmUv1.y);
-                    const point2 = vec3( nmUv2.x, rgbSum2.mul(shiftScaled), nmUv2.y);
-
-                    const tangent = point2.sub(point0);
-                    const biTangent = point1.sub(point0);
 
                     const nmSample = nmTx.sample(customTerrainUv())
                     const txNormal = vec3(nmSample.x.add(-0.5).mul(-1), nmSample.y, nmSample.z.add(-0.5)).normalize() //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
 
-
                 //    const txNormal = nmTx.sample(customTerrainUv()).mul(0.75)
-
                 //    const cracks = cracksLayer().mul(0.5).add(0.5).pow(0.2)
                 //    const detail = detailsLayer().add(0.4).pow(0.4)
 
-                    const fragNormal = tangent.cross(biTangent).normalize();
-
-                    return transformNormalToView(fragNormal).add(transformNormalToView(txNormal).mul(0.8)).normalize() // .add(txNormal).normalize()).mul(cracks).mul(detail);
+                //    const fragNormal = normalLocal // customTerrainVnormal()
+                    return transformNormalToView(normalLocal).add(transformNormalToView(txNormal).mul(0.8)).normalize() // .add(txNormal).normalize()).mul(cracks).mul(detail);
                 } )();
 
             //    tilesMaterial.colorNode =  vec3(ZERO.add(instanceIndex).mul(0.02).mod(1),0 , ZERO.add(instanceIndex).mul(0.11).mod(1));
