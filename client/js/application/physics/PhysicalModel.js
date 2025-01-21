@@ -117,10 +117,20 @@ class PhysicalModel {
             velocity.set(ammoVel.x(), ammoVel.y(), ammoVel.z());
             velocity.applyQuaternion(obj3d.quaternion);
             acceleration.sub(velocity);
+            acceleration.y += 9.81;
             lastG = acceleration.y;
-            assetStatus.setStatusKey('FORCE_G',acceleration.y);
-            assetStatus.setStatusKey('LIFT_l',(acceleration.y + lastG) * 0.5);
-            assetStatus.setStatusKey('LIFT_R',(acceleration.y + lastG) * 0.5);
+            assetStatus.setStatusKey('SPEED_AIR',velocity.z);
+
+            if (Math.abs(velocity.z) < 0.5) {
+                assetStatus.setStatusKey('TAXI_SLOW',1);
+            } else {
+                assetStatus.setStatusKey('TAXI_SLOW',0);
+            }
+
+            assetStatus.setStatusKey('FLAP_ENGAGE', 1 - MATH.clamp(Math.abs(Math.round(velocity.z) * 0.003), 0, 1));
+            assetStatus.setStatusKey('FORCE_G',acceleration.y * 0.1);
+            assetStatus.setStatusKey('LIFT_L', 0.05 * (acceleration.y + lastG) * 0.5);
+            assetStatus.setStatusKey('LIFT_R',0.05 * (acceleration.y + lastG) * 0.5);
             updateFloatation()
         }
 

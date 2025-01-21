@@ -431,8 +431,11 @@ let ENUMS = {}
         SUSP_COMP_WHEEL_1:'SUSP_COMP_WHEEL_1',
         SUSP_COMP_WHEEL_2:'SUSP_COMP_WHEEL_2',
         SUSP_COMP_WHEEL_3:'SUSP_COMP_WHEEL_3',
+        TAXI_SLOW:'TAXI_SLOW',
+        SPEED_AIR:'SPEED_AIR',
+        FLAP_ENGAGE:'FLAP_ENGAGE',
         FORCE_G:'FORCE_G',
-        LIFT_L:'LIFT_l',
+        LIFT_L:'LIFT_L',
         LIFT_R:'LIFT_R',
     }
 

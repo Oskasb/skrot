@@ -140,17 +140,17 @@ class ControlDynamics {
 
                 let frame = getFrame().frame;
                 if (frame !== updateFrame) {
-                    updateFrame = frame;
+
                //     console.log("Dynamic applyTargetStateChange ", controlId, targetValue);
                     state.targetValue = targetValue
 
-                    if (sample) {
+                    if (sample && frame - updateFrame === 1) {
                         onTransitionChange(targetValue)
                     } else {
                         controlTransition.call.updateControlTransition(targetValue, state, onTransitionChange);
                     }
 
-
+                    updateFrame = frame;
                 }
 
 

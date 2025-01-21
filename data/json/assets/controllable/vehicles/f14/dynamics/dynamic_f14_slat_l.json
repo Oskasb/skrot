@@ -1,6 +1,8 @@
 {
   "dynamic": "SURFACE_SLAT_L",
   "state": {"min": 0, "max": 1, "value": 0, "speed": 0.3},
+  "condition": {"dynamic": "DYNAMIC_SWEEP_L", "range": {"min":0.0, "max": 0.2}, "value": 0},
+  "sample": {"status": "FLAP_ENGAGE"},
   "targets": [
     {
       "joints": [
