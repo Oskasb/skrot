@@ -171,7 +171,7 @@ class PhysicalModel {
                     wheelStates[i].suspensionCompression = 0;
                 }
 
-                assetStatus.setStatusKey('SUSP_COMP_WHEEL_'+i,wheelStates[i].suspensionCompression - radius);
+                assetStatus.setStatusKey('SUSP_COMP_WHEEL_'+i, wheelStates[i].suspensionCompression);
 
                 //    console.log("rayInfo ", rayInfo);
 

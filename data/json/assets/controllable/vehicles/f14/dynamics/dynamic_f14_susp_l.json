@@ -6,7 +6,7 @@
   "targets": [
     {
       "joints": [
-        {"bone": "susp_gear_l", "call": "setBonePosition", "args": ["z"], "factor":  10}
+        {"bone": "susp_gear_l", "call": "setBonePosition", "args": ["z"], "factor":  10, "offset": -1}
       ]
     }
   ]

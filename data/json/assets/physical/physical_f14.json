@@ -17,19 +17,19 @@
     }
   ],
   "tuning": {
-    "front": {"max_sus_force": 510000, "sus_length": 1.7, "radius": 0.4},
-    "main":  {"max_sus_force": 7950000, "sus_length": 1.8, "radius": 0.7}
+    "front": {"max_sus_force": 510000, "sus_length": 2.1, "radius": 0.3},
+    "main":  {"max_sus_force": 7950000, "sus_length": 2.3, "radius": 0.5}
   },
   "shapes": [
     {
-      "shape": "box",
-      "scale": [10.0, 0.1, 10.0],
+      "shape": "compound",
+      "scale": [2.0, 0.1, 2.0],
       "rot": [0, 0, 0],
       "pos": [1178, 70, 3425],
       "convex": false,
       "mass": 20000,
       "friction": 2.9,
-      "children_": [
+      "children": [
         {
           "shape": "box",
           "scale": [0.8, 0.8, 2],
@@ -56,33 +56,33 @@
         },
         {
           "shape": "box",
-          "scale": [4, 1.8, 12],
+          "scale": [4, 1.2, 12],
           "rot": [0, 0, 0],
-          "pos": [0, 0.2, 2]
+          "pos": [0, 0.8, 2]
         },
         {
           "shape": "box",
-          "scale": [0.4, 2.8, 2],
+          "scale": [0.4, 2.0, 2],
           "rot": [0, 0, 0],
-          "pos": [2.0, 2, 7]
+          "pos": [2.0, 3, 7]
         },
         {
           "shape": "box",
-          "scale": [0.4, 2.8, 2],
+          "scale": [0.4, 2.0, 2],
           "rot": [0, 0, 0],
-          "pos": [-2.0, 2, 7]
+          "pos": [-2.0, 3, 7]
         },
         {
           "shape": "box",
-          "scale": [2.2, 0.8, 2],
+          "scale": [2.2, 0.2, 2],
           "rot": [0, 0, 0],
-          "pos": [4.1, 0, 7]
+          "pos": [4.1, 0.5, 7]
         },
         {
           "shape": "box",
-          "scale": [2.2, 0.8, 2],
+          "scale": [2.2, 0.2, 2],
           "rot": [0, 0, 0],
-          "pos": [-4.1, 0, 7]
+          "pos": [-4.1, 0.5, 7]
         }
       ]
     }

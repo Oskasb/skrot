@@ -992,7 +992,7 @@ class AmmoFunctions {
 
         let heightDiff = maxHeight-minHeight;
         let heightScale = heightDiff/100
-        let margin = 1 // * heightScale;
+        let margin = 0.5 // * heightScale;
 
         let restitution =  0.4;
         let damping     =  0.7;
