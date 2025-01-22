@@ -25,7 +25,7 @@ import {
 import {vertexIndex} from "../../../../../libs/three/nodes/core/IndexNode.js";
 import {loadAsset, loadAssetMaterial} from "../../../application/utils/AssetUtils.js";
 import {BackSide, Box3, DoubleSide, DynamicDrawUsage, FrontSide, InstancedMesh} from "three";
-import {min, mix, normalLocal, texture, uniform, vec2} from "three/tsl";
+import {abs, min, mix, normalLocal, round, texture, uniform, vec2} from "three/tsl";
 import {evt} from "../../../application/event/evt.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {aaBoxTestVisibility, borrowBox} from "../../../application/utils/ModelUtils.js";
@@ -296,12 +296,16 @@ class ComputeTerrain {
                 dummy.position.set(x, HEIGHT_MIN, z);
                 dummy.scale.set(TILE_SIZE, 1, TILE_SIZE);
 
-                shadowMesh.position.copy(dummy.position)
-                shadowMesh.scale.copy(dummy.scale)
 
                 let tileCount = 0;
 
                 let hasUpdate = setTileDimensions(tileCount, dummy);
+
+                if (hasUpdate) {
+                    shadowMesh.position.copy(dummy.position)
+                    shadowMesh.scale.copy(dummy.scale)
+                }
+
                 tileCount++
 
                 for (let l = 0; l < lodLayers; l++) {
@@ -422,6 +426,8 @@ class ComputeTerrain {
                 //    tilesMaterial.positionNode = positionBuffer.toAttribute();
                 //    tilesMaterial.scaleNode = scaleBuffer.toAttribute();
 
+
+
                 tilesMaterial.positionNode = Fn( () => {
                     const scale = scaleBuffer.element(instanceIndex);
                     const localPos = positionLocal.mul(scale);
@@ -433,7 +439,7 @@ class ComputeTerrain {
                     const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)).mul(MAP_TEXELS_SIDE); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
                     const idx = texelY.add(texelX);
                     const height = heightBuffer.element(idx);
-                    return vec3(positionLocal.x, height, positionLocal.z);
+                    return vec3(floor(positionLocal.x), height, floor(positionLocal.z));
                 } )();
 
                 function detailsLayer() {
@@ -516,21 +522,22 @@ class ComputeTerrain {
                 function setupShadowTerrain(shadowGeo) {
 
                     let shadowMaterial = new MeshLambertNodeMaterial();
-
+                    const SHADOW_TILE_SIZE =11 // TILE_SIZE //*  (32 / 102 )
                     shadowMaterial.positionNode = Fn( () => {
                         const scale = scaleBuffer.element(instanceIndex);
                         const localPos = positionLocal.mul(scale);
+                        const farness = positionLocal.x.abs().add(positionLocal.z.abs()).mul(0.1);
                         const tileCenterPos = positionBuffer.element(instanceIndex);
-                        const localFlip = vec3(localPos.x.mul(1), 0, localPos.z);
-                        const pxX = floor(localFlip.x.div(TILE_SIZE)).add(tileCenterPos.x.div(TILE_SIZE)) // .add(camPos.x))
-                        const pxY = floor(localFlip.z.div(TILE_SIZE)).add(tileCenterPos.z.div(TILE_SIZE)) // .div(1))
+                        const pxX = floor(localPos.x.div(TILE_SIZE)).add(tileCenterPos.x.div(TILE_SIZE)) // .add(camPos.x))
+                        const pxY = floor(localPos.z.div(TILE_SIZE)).add(tileCenterPos.z.div(TILE_SIZE)) // .div(1))
                         const texelX = min(MAP_TEXELS_SIDE, max(0, pxX));
                         const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)).mul(MAP_TEXELS_SIDE); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
                         const idx = texelY.add(texelX);
-                        const height = heightBuffer.element(idx).add(0.5);
-                        return vec3(positionLocal.x, height, positionLocal.z);
+                        const height = heightBuffer.element(idx).add(0.2);
+                        return vec3(floor(positionLocal.x), height.add(farness), floor(positionLocal.z));
                     } )();
 
+                    shadowMaterial.normalNode = vec3(0, 1, 0)
 
                     let geo = shadowGeo.scene.children[0].geometry;
                     shadowMesh = new Mesh( geo, shadowMaterial);
@@ -560,8 +567,8 @@ class ComputeTerrain {
                 }
 
                 //    ThreeAPI.addToScene(terrainMesh);
-
-                loadAsset('unit_grid_102', 'glb', setupShadowTerrain)
+                //   setupShadowTerrain(new PlaneGeometry(100, 100, 100, 100);)
+              loadAsset('unit_grid_102', 'glb', setupShadowTerrain)
                 ThreeAPI.addToScene(tile32mesh);
 
             }
