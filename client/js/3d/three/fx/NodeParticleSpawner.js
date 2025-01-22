@@ -2,6 +2,7 @@ import {jsonAsset} from "../../../application/utils/AssetUtils.js";
 import {activateParticleEffectConfig, spawnParticle} from "./NodeParticles.js";
 import {getFrame} from "../../../application/utils/DataUtils.js";
 import {MATH} from "../../../application/MATH.js";
+import {Vector3} from "three/webgpu";
 
 const tempVec = new Vector3();
 
