@@ -32,19 +32,25 @@ class ParticleNodes {
 
 
         const applyParticle = Fn( () => {
-            const position = positionBuffer.element( pIndex );
-            position.assign(pPosition);
-            const velocity = velocityBuffer.element( pIndex );
-            velocity.assign(pVelocity);
-            const scale = scaleBuffer.element(pIndex);
-            const size = sizeBuffer.element(pIndex);
-            size.assign(pSizeFromTo)
-            scale.assign(pScale);
-            const timeInit = timeInitBuffer.element(pIndex);
-            timeInit.assign(time);
+            positionBuffer.element( pIndex ).assign(pPosition);
+            velocityBuffer.element( pIndex ).assign(pVelocity);
+            scaleBuffer.element(pIndex).assign(pScale);
+            sizeBuffer.element(pIndex).assign(pSizeFromTo);
+            timeInitBuffer.element(pIndex).assign(time);
         } )().compute( 1 );
 
-        material.positionNode = positionBuffer.toAttribute();
+        material.positionNode = Fn( () => {
+
+            const scale = scaleBuffer.element(instanceIndex);
+            const position = positionBuffer.element(instanceIndex);
+            const sizeFromTo = sizeBuffer.element(instanceIndex);
+            const velocity = velocityBuffer.element( instanceIndex );
+            const timeInit = timeInitBuffer.element(instanceIndex);
+            const age = time.sub(timeInit);
+         //   position.add();
+         //   scale.assign(sizeFromTo.x)
+            return velocity.mul(age).add(position)
+        } )();
         material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
         material.scaleNode = scaleBuffer.toAttribute();
 
@@ -58,9 +64,7 @@ class ParticleNodes {
             const velocity = velocityBuffer.element( instanceIndex );
             const timeInit = timeInitBuffer.element(instanceIndex);
             const age = time.sub(timeInit);
-
-            position.addAssign( velocity.mul(0.01));
-
+            position.addAssign(velocity.mul(0.1));
             scale.assign(sizeFromTo.x)
 
         } );
@@ -72,7 +76,7 @@ class ParticleNodes {
         let activeParticles = 0;
         let isActive = false;
         function update() {
-            ThreeAPI.getRenderer().computeAsync( computeParticles );
+        //    ThreeAPI.getRenderer().computeAsync( computeParticles );
         }
 
         function spawnNodeParticle(pos, vel, config) {

@@ -66,6 +66,7 @@ class NodeParticleGeometry {
                 geoMatEffects[matName].needsUpdate = true;
             } else {
                 geoMatEffects[matName] = new geometries[key](material)
+                geoMatEffects[matName].matrixWorldAutoUpdate = false;
                 ThreeAPI.addToScene(geoMatEffects[matName])
             }
 

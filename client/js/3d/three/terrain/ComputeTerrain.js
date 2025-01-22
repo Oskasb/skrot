@@ -304,6 +304,7 @@ class ComputeTerrain {
                 if (hasUpdate) {
                     shadowMesh.position.copy(dummy.position)
                     shadowMesh.scale.copy(dummy.scale)
+                    shadowMesh.updateMatrixWorld();
                 }
 
                 tileCount++
@@ -487,7 +488,7 @@ class ComputeTerrain {
                 tile32mesh.instanceMatrix.setUsage( DynamicDrawUsage );
                 tile32mesh.frustumCulled = false;
 
-                tile32mesh.castShadow = true;
+                tile32mesh.castShadow = false;
                 tile32mesh.receiveShadow = false;
 
                 heightArray = new Float32Array(heightData.length / 4);
@@ -544,7 +545,7 @@ class ComputeTerrain {
                     shadowMesh.frustumCulled = false;
                     shadowMesh.castShadow = false;
                     shadowMesh.receiveShadow = true;
-
+                //    shadowMesh.matrixWorldAutoUpdate = false;
                     shadowMaterial.fog = false;
                     shadowMaterial.flatShading = true;
                     shadowMaterial.depthWrite = false;
@@ -566,6 +567,7 @@ class ComputeTerrain {
                     console.log("Shadow Material ", shadowMaterial);
 
                     ThreeAPI.addToScene(shadowMesh);
+
                     ThreeAPI.addPostrenderCallback(update);
                     onReadyCB();
                 }
