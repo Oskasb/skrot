@@ -24,7 +24,7 @@ import {
 } from "../../../../../libs/three/Three.TSL.js";
 import {vertexIndex} from "../../../../../libs/three/nodes/core/IndexNode.js";
 import {loadAsset, loadAssetMaterial} from "../../../application/utils/AssetUtils.js";
-import {BackSide, Box3, DoubleSide, DynamicDrawUsage, FrontSide, InstancedMesh} from "three";
+import {BackSide, Box3, DoubleSide, DynamicDrawUsage, FrontSide, InstancedMesh, OneMinusSrcColorFactor} from "three";
 import {abs, min, mix, normalLocal, round, texture, uniform, vec2} from "three/tsl";
 import {evt} from "../../../application/event/evt.js";
 import {ENUMS} from "../../../application/ENUMS.js";
@@ -286,7 +286,7 @@ class ComputeTerrain {
             let camera = ThreeAPI.getCamera();
             if (camera) {
 
-                camLookPoint.set(0, 0, -(TILE_SIZE*centerSize*1.2));
+                camLookPoint.set(0, 0, -(TILE_SIZE*centerSize*0.8));
                 camLookPoint.applyQuaternion(camera.quaternion);
                 camLookPoint.add(camera.position);
 
@@ -522,22 +522,22 @@ class ComputeTerrain {
                 function setupShadowTerrain(shadowGeo) {
 
                     let shadowMaterial = new MeshLambertNodeMaterial();
-                    const SHADOW_TILE_SIZE =11 // TILE_SIZE //*  (32 / 102 )
+                    const SHADOW_TILE_SIZE = TILE_SIZE *  (102 / 32)
                     shadowMaterial.positionNode = Fn( () => {
                         const scale = scaleBuffer.element(instanceIndex);
                         const localPos = positionLocal.mul(scale);
-                        const farness = positionLocal.x.abs().add(positionLocal.z.abs()).mul(0.1);
+                        const farness = positionLocal.x.abs().add(positionLocal.z.abs()).mul(0.005);
                         const tileCenterPos = positionBuffer.element(instanceIndex);
                         const pxX = floor(localPos.x.div(TILE_SIZE)).add(tileCenterPos.x.div(TILE_SIZE)) // .add(camPos.x))
                         const pxY = floor(localPos.z.div(TILE_SIZE)).add(tileCenterPos.z.div(TILE_SIZE)) // .div(1))
                         const texelX = min(MAP_TEXELS_SIDE, max(0, pxX));
                         const texelY = min(MAP_TEXELS_SIDE, max(0, pxY)).mul(MAP_TEXELS_SIDE); // floor(MAP_TEXELS_SIDE.sub(tileCenterPos.z.div(TEXEL_SIZE)));
                         const idx = texelY.add(texelX);
-                        const height = heightBuffer.element(idx).add(0.2);
+                        const height = heightBuffer.element(idx).add(0.05);
                         return vec3(floor(positionLocal.x), height.add(farness), floor(positionLocal.z));
                     } )();
 
-                    shadowMaterial.normalNode = vec3(0, 1, 0)
+                    shadowMaterial.normalNode = transformNormalToView(vec3(0, 1, 0))
 
                     let geo = shadowGeo.scene.children[0].geometry;
                     shadowMesh = new Mesh( geo, shadowMaterial);
@@ -550,15 +550,19 @@ class ComputeTerrain {
                     shadowMaterial.depthWrite = false;
                     shadowMaterial.lights = true;
                     shadowMaterial.transparent = true;
+/*
                     shadowMaterial.blending = CustomBlending;
                     shadowMaterial.blendEquation = MultiplyOperation;
-                    shadowMaterial.blendDst = OneMinusSrcAlphaFactor;
+                    shadowMaterial.blendDst = DstAlphaFactor;
                 //    shadowMaterial.blendDstAlpha= OneMinusDstColorFactor;
                  //   shadowMaterial.blendEquationAlpha= MultiplyOperation;
-                    shadowMaterial.blendSrc = SrcAlphaFactor;
+                    shadowMaterial.blendSrc = OneMinusSrcColorFactor;
+*/
+                //    shadowMaterial.color = new Color4(0.9, 0.9, 0.9, 1)
+                    shadowMaterial.colorNode = vec4(0.9, 0.9, 0.9, ONE.sub(positionLocal.x.abs().div(68).pow(1.8).add(positionLocal.z.abs().div(68).pow(1.8))).mul(0.3));
+                //    shadowMaterial.alphaNode = ;
+                    shadowMaterial.opacity = 0.75;
 
-                    shadowMaterial.color = new Color4(0.9, 0.9, 0.9, 2)
-                    shadowMaterial.opacity = 0.2;
                     console.log("Shadow Material ", shadowMaterial);
 
                     ThreeAPI.addToScene(shadowMesh);
@@ -568,7 +572,7 @@ class ComputeTerrain {
 
                 //    ThreeAPI.addToScene(terrainMesh);
                 //   setupShadowTerrain(new PlaneGeometry(100, 100, 100, 100);)
-              loadAsset('unit_grid_102', 'glb', setupShadowTerrain)
+              loadAsset('unit_grid_128', 'glb', setupShadowTerrain)
                 ThreeAPI.addToScene(tile32mesh);
 
             }
