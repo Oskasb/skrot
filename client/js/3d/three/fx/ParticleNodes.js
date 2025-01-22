@@ -76,6 +76,7 @@ class ParticleNodes {
         let activeParticles = 0;
         let isActive = false;
         function update() {
+            isActive = true;
         //    ThreeAPI.getRenderer().computeAsync( computeParticles );
         }
 

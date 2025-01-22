@@ -4,7 +4,6 @@ import {CSMHelper} from "../../../../../libs/jsm/csm/CSMHelper.js";
 
 class ThreeShadows {
     constructor(store) {
-
         let camera, scene, renderer;
         camera = store.camera;
         scene = store.scene;
