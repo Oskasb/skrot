@@ -12,14 +12,10 @@ import {
     vec3, vec4
 } from "../../../../../libs/three/Three.TSL.js";
 import {
-    Color,
-    Data3DTexture,
     InstancedBufferAttribute,
     Mesh, Object3D, Sprite, Texture,
-    TextureLoader,
     Vector3
 } from "../../../../../libs/three/Three.Core.js";
-import {ImprovedNoise} from "../../../../../libs/jsm/math/ImprovedNoise.js";
 import {loadImageAsset} from "../../../application/utils/DataUtils.js";
 import {MATH} from "../../../application/MATH.js";
 

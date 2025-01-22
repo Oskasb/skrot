@@ -1,5 +1,5 @@
 {
-  "material": "MeshStandardMaterial",
+  "material": "MeshLambertMaterial",
   "textures": [
     { "slot":"map",           "tx": "texture_f14_lights_diffuse"},
     { "slot":"emissiveMap",     "tx": "texture_f14_lights_emit"}

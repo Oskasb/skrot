@@ -7,6 +7,7 @@ import {Object3D} from "../../../../libs/three/Three.Core.js";
 import {ControlTransition} from "./ControlTransition.js";
 import {DynamicBone} from "../../3d/three/assets/DynamicBone.js";
 import {getFrame} from "../../application/utils/DataUtils.js";
+import {DynamicEffect} from "../../3d/three/assets/DynamicEffect.js";
 
 
 class ControlDynamics {
@@ -27,7 +28,6 @@ class ControlDynamics {
         this.assetInstance = assetInstance;
         let controlTransition = new ControlTransition();
         let applyCalls = [];
-
 
 
         function attachDynamicTargets(targets) {
@@ -57,6 +57,23 @@ class ControlDynamics {
                     applyCalls.push(applyJointCall);
                 }
             }
+
+            if (targets['emitters']) {
+                let emitters = targets['emitters']
+                for (let i = 0; i < emitters.length; i++) {
+                    let pointKey = emitters[i]['point'];
+                    let particleList = emitters[i]['particles'];
+                    let dynEffect = new DynamicEffect(assetInstance, pointKey, particleList);
+
+                    function applyFxCall() {
+                        dynEffect.call.applyStateValue(state.value);
+                    }
+
+                    applyCalls.push(applyFxCall);
+
+                }
+            }
+
         }
 
 

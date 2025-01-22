@@ -1,6 +1,7 @@
 import {Object3D, Vector3} from "../../../../libs/three/Three.Core.js";
 import {getAssetBoneByName, getBoneWorldTransform} from "../../application/utils/AssetUtils.js";
 import {MATH} from "../../application/MATH.js";
+import {getFrame} from "../../application/utils/DataUtils.js";
 
 let tempObj = new Object3D();
 let tempVec = new Vector3();
@@ -40,7 +41,14 @@ class DynamicPoint {
             }
         }
 
+        let updateFrame = getFrame().frame;
         function updateObj3d() {
+
+            let frame = getFrame().frame;
+            if (updateFrame === frame) {
+                return false;
+            }
+            updateFrame = frame;
 
             obj3d.position.copy(offset);
 
@@ -78,6 +86,7 @@ class DynamicPoint {
             }
 
             obj3d.position.add(tempObj.position)
+            return true;
         }
 
         function getObj3d() {
@@ -85,13 +94,8 @@ class DynamicPoint {
         }
 
         function getLocalTransform(storeObj) {
-         //   if (hasBoneParent) {
-                updateObj3d();
 
-            //    localObj3d.quaternion.invert();
-            //    localObj3d.quaternion.multiply(assetInstance.getObj3d().quaternion);
-            //    MATH.rotateObj(localObj3d, config.rot);
-        //    }
+            updateObj3d();
 
             let assetNode = assetInstance.getObj3d();
             tempObj.position.copy(assetNode.position);
@@ -110,6 +114,18 @@ class DynamicPoint {
             getLocalTransform:getLocalTransform
         }
 
+    }
+
+    getPos() {
+        return this.call.getObj3d().position;
+    }
+
+    getTransformWS(storeObj) {
+        this.call.updateObj3d()
+        let obj3d = this.call.getObj3d();
+        storeObj.position.copy(obj3d.position);
+        storeObj.quaternion.copy(obj3d.quaternion);
+        storeObj.scale.copy(obj3d.scale);
     }
 
     getObj3d() {

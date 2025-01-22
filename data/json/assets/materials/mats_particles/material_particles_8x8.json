@@ -1,0 +1,21 @@
+{
+  "material": "TiledSpriteNodeMaterial8x8",
+  "textures": [
+    { "slot":"map",           "tx": "texture_particles_8x8"},
+    { "slot":"emissiveMap",     "tx": "texture_particles_8x8"}
+  ],
+  "settings": {
+    "emissive": {"r": 1, "g": 1,"b": 1},
+    "transparent": true,
+    "depthWrite": false,
+    "depthTest": true,
+    "generateMipmaps": false,
+    "opacity": 0.0,
+    "color": {"r": 0, "g": 0, "b": 0},
+    "emissiveIntensity": 5.0,
+    "blending": "CustomBlending",
+    "blendEquation": "AddEquation",
+    "blendSrc": "SrcColorFactor",
+    "blendDst": "OneFactor"
+  }
+}

@@ -444,6 +444,8 @@ class Ocean {
 
             const particles = new Sprite( splashMaterial );
             particles.frustumCulled = false;
+            particles.castShadow = false;
+            particles.receiveShadow = false;
             particles.count = splashCount;
             console.log("Splash Particle count", splashCount)
             scene.add( particles );

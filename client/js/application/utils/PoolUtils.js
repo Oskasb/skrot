@@ -21,6 +21,8 @@ import {DomSweep} from "../ui/dom/ui/DomSweep.js";
 import {DomGear} from "../ui/dom/ui/DomGear.js";
 import {DomPower} from "../ui/dom/ui/DomPower.js";
 import {OceanSplash} from "../../3d/three/water/OceanSplash.js";
+import {NodeParticleEmitter} from "../../3d/three/fx/NodeParticleEmitter.js";
+import {NodeParticleSpawner} from "../../3d/three/fx/NodeParticleSpawner.js";
 
 let pools = {}
 let stats = {};
@@ -51,6 +53,8 @@ function initPools() {
     registerPool(DomGear)
     registerPool(DomPower)
     registerPool(OceanSplash)
+    registerPool(NodeParticleEmitter);
+    registerPool(NodeParticleSpawner);
 }
 
 function registerPool(DataObj) {
