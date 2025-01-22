@@ -252,5 +252,6 @@ class ModelMaterial {
 
 export {
     ModelMaterial,
-    MeshSpecialTerrainNodeMaterial
+    MeshSpecialTerrainNodeMaterial,
+    TiledSpriteNodeMaterial8x8
 };

@@ -1,12 +1,18 @@
 import {jsonAsset, loadAssetMaterial} from "../../../application/utils/AssetUtils.js";
 import {Sprite} from "three";
 import {uniform, vec2} from "three/tsl";
-import {positionLocal} from "../../../../../libs/three/Three.TSL.js";
+import {positionGeometry, positionLocal} from "../../../../../libs/three/Three.TSL.js";
+import {ParticleNodes} from "./ParticleNodes.js";
+import {Texture} from "../../../../../libs/three/textures/Texture.js";
+import {SRGBColorSpace} from "../../../../../libs/three/constants.js";
+import {loadImageAsset} from "../../../application/utils/DataUtils.js";
+import {SpriteNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
+import {TiledSpriteNodeMaterial8x8} from "../assets/ModelMaterial.js";
 
-const TILES_8 = uniform('float', 8);
+const TILES_8 = uniform(8);
 
 function customSpriteUv8x8() {
-    return vec2(positionLocal.x.div(TILES_8), positionLocal.y.div(TILES_8));
+    return vec2(positionGeometry.x.add(0.5).div(TILES_8), positionGeometry.y.add(0.5).div(TILES_8));
 }
 
 const geometries = {};
@@ -19,11 +25,6 @@ class NodeParticleGeometry {
         let geoMatEffects = {};
         let key = null;
         let maxInstanceCount = 0;
-
-
-        function attachMaterialNodes(mat) {
-
-        }
 
         function setJson(json) {
             maxInstanceCount = json['max_instance_count']
@@ -42,15 +43,37 @@ class NodeParticleGeometry {
             console.log("setEffectMaterial", matName, matSettings);
             particleMaterials[matName] = matSettings;
 
+            let sourceMat = matSettings.material;
+
+            sourceMat.map.colorSpace = SRGBColorSpace;
+
+            let tx = sourceMat.map
+
+            const material = new TiledSpriteNodeMaterial8x8( {
+                sizeAttenuation: true, map:tx, alphaMap: tx, alphaTest: 0.01, transparent: true } );
+
+            material.blending = sourceMat.blending;
+            material.blendEquation = sourceMat.blendEquation;
+            material.blendSrc = sourceMat.blendSrc;
+            material.blendDst = sourceMat.blendDst;
+            material.blendSrcAlpha = sourceMat.blendSrcAlpha;
+            material.blendDstAlpha = sourceMat.blendDstAlpha;
+            material.blendEquationAlpha = sourceMat.blendEquationAlpha;
+            material.lights = false;
+
             if (typeof(geoMatEffects[matName]) === 'object') {
-                geoMatEffects[matName].material = matSettings.material;
+                geoMatEffects[matName].material = material;
                 geoMatEffects[matName].needsUpdate = true;
             } else {
-                geoMatEffects[matName] = new geometries[key](matSettings.material)
+                geoMatEffects[matName] = new geometries[key](material)
                 ThreeAPI.addToScene(geoMatEffects[matName])
             }
-            attachMaterialNodes(matSettings.material);
+
+            geoMatEffects[matName].material.particleNodes = new ParticleNodes(material, maxInstanceCount)
             geoMatEffects[matName].count = maxInstanceCount;
+            geoMatEffects[matName].frustumCulled = false;
+            geoMatEffects[matName].castShadow = false;
+            geoMatEffects[matName].receiveShadow = false;
         }
 
         function bindParticleMaterial(matName) {
@@ -63,7 +86,7 @@ class NodeParticleGeometry {
         function spawnGeometryParticle(pos, vel, config) {
             let matName = config['material'];
             if (geoMatEffects[matName]) {
-
+                geoMatEffects[matName].material.particleNodes.call.spawnNodeParticle(pos, vel, config);
             }
         }
 

@@ -23,7 +23,6 @@ function activateParticleEffectConfig(config) {
 }
 
 function spawnParticle(pos, vel, config) {
-    console.log('activateParticleEffect',  config['geometry'])
     if (particleGeometries[config['geometry']]) {
         particleGeometries[config['geometry']].call.spawnGeometryParticle(pos, vel, config)
     }

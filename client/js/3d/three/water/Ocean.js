@@ -102,7 +102,6 @@ class Ocean {
         const duration = uniform(3)
 
 
-
         function generateOcean(matSettings) {
             const waterMaterial = matSettings.material;
             console.log("Gen Ocean", matSettings, store.scene)
@@ -441,7 +440,6 @@ class Ocean {
             splashMaterial.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
             splashMaterial.scaleNode = scaleBuffer.toAttribute();
 
-
             const particles = new Sprite( splashMaterial );
             particles.frustumCulled = false;
             particles.castShadow = false;
@@ -453,8 +451,6 @@ class Ocean {
         //    splashPositionAttribute.addUpdateRange(0, splashCount)
 
             let lastIndex = 0;
-
-
 
             function splashWater(e) {
                 splashPosition.value.copy( e.pos );
@@ -470,7 +466,6 @@ class Ocean {
             }
 
             evt.on(ENUMS.Event.SPLASH_OCEAN, splashWater)
-
 
             function update(){
 

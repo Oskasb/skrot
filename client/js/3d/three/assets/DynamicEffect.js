@@ -9,7 +9,7 @@ class DynamicEffect {
         let activeEmitter = null;
 
         function applyStateValue(stateValue) {
-            console.log("Apply State Value Dyn Fx ", stateValue);
+         //   console.log("Apply State Value Dyn Fx ", stateValue);
             let point = assetInstance.call.getPointById(pointKey);
             point.getTransformWS(obj3d);
 
