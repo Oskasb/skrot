@@ -37,7 +37,7 @@ class NodeParticleSpawner {
             if (count > 0) {
                 point.updateDynamicPoint();
                 let obj3d = point.getObj3d();
-                tempVec.set(0, 0, 1);
+                tempVec.set(0, 0, 30);
                 tempVec.applyQuaternion(obj3d.quaternion);
                 for (let i = 0; i < 1; i++) {
                     spawnParticle(obj3d.position, tempVec, particleConfig)

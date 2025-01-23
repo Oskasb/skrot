@@ -2,8 +2,19 @@
   "geometry": "geometry_particles_sprites",
   "material": "material_particles_8x8",
   "sprite": 1,
-  "spawn_rate_max":100,
-  "uniforms": {
-
+  "spawn_rate_max":50,
+  "curves":{
+    "color": "orangeFire",
+    "alpha": "oneToZero",
+    "size": "halfSin",
+    "drag": "slowFadeIn"
+  },
+  "params": {
+    "pPosSpread": [0, 0.2],
+    "pVelSpread": [0, 0.1],
+    "pLifeTime": [0.05, 0.15],
+    "pSizeFrom": [0.4, 0.8],
+    "pSizeTo":   [0.9, 1.1],
+    "pSizeMod":  [0.7, 0.9]
   }
 }
