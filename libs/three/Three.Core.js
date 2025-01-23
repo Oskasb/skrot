@@ -157,7 +157,7 @@ export { ShapeUtils } from './extras/ShapeUtils.js';
 export { TextureUtils } from './extras/TextureUtils.js';
 export { createCanvasElement } from './utils.js';
 export * from './constants.js';
-export * from './Three.Legacy.js';
+
 
 if ( typeof __THREE_DEVTOOLS__ !== 'undefined' ) {
 
