@@ -1,4 +1,4 @@
-import {jsonAsset, loadAssetMaterial} from "../../../application/utils/AssetUtils.js";
+import {jsonAsset, loadAssetMaterial, loadAssetTexture} from "../../../application/utils/AssetUtils.js";
 import {Sprite} from "three";
 import {uniform, vec2} from "three/tsl";
 import {positionGeometry, positionLocal} from "../../../../../libs/three/Three.TSL.js";
@@ -50,13 +50,19 @@ class NodeParticleGeometry {
             sourceMat.map.colorSpace = SRGBColorSpace;
 
             let tx = sourceMat.map
-
-            let dataTx = sourceMat.alphaMap;
+            let dTx = sourceMat.alphaMap;
 
             const material = new TiledSpriteNodeMaterial8x8( {
                 sizeAttenuation: true, map:tx, alphaMap: tx, alphaTest: 0.01, transparent: true } );
+/*
+            function dataTxCb(dTx) {
+                material.dataTexture = dTx;
+            }
 
-            material.dataTexture = dataTx;
+            loadAssetTexture("texture_data_tx", dataTxCb)
+*/
+            material.dataTexture = dTx;
+            material.depthTest = false;
             material.blending = sourceMat.blending;
             material.blendEquation = sourceMat.blendEquation;
             material.blendSrc = sourceMat.blendSrc;

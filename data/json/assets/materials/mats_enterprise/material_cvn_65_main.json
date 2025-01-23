@@ -11,5 +11,9 @@
     "metalness": 1.0,
     "roughness": 1.0,
     "aoMapIntensity": 1.0
+  },
+  "shadows": {
+    "cast": true,
+    "receive": true
   }
 }

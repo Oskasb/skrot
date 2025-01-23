@@ -53,7 +53,7 @@ class ParticleNodes {
         material.positionNode = positionBuffer.toAttribute();
         material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
         material.scaleNode = scaleBuffer.toAttribute();
-        material.normalNode = transformNormalToView(vec3(0, 1, 0));
+    //    material.normalNode = transformNormalToView(vec3(0, 1, 0));
 
         material.colorNode = Fn( () => {
             const color = vec3(0.2, 0.1, 0);

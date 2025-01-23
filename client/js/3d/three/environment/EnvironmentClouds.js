@@ -100,7 +100,7 @@ class EnvironmentClouds {
 
 
         let material = new SpriteNodeMaterial( {
-            sizeAttenuation: true, texture, alphaMap: texture, alphaTest: 0.01, transparent: true } );
+            sizeAttenuation: true, map:texture, alphaMap: texture, alphaTest: 0.01, transparent: true } );
 
         material.colorNode = Fn( () => {
             const posx = positionLocal.x.mul(8)

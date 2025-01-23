@@ -8,14 +8,15 @@
     "emissive": {"r": 1, "g": 1,"b": 1},
     "transparent": true,
     "depthWrite": false,
-    "depthTest": true,
+    "depthTest": false,
     "generateMipmaps": false,
     "opacity": 1,
     "color": {"r": 5, "g": 5, "b": 5},
     "emissiveIntensity": 1.0,
     "blending": "CustomBlending",
     "blendEquation": "AddEquation",
-    "blendSrc": "SrcColorFactor",
-    "blendDst": "OneMinusDstColorFactor"
+    "blendSrc": "SrcAlphaFactor",
+    "blendDst": "OneFactor",
+    "side": "DoubleSide"
   }
 }

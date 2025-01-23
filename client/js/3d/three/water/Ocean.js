@@ -360,7 +360,7 @@ class Ocean {
             loadImageAsset('splash_img', tx1Loaded)
 
             const splashMaterial = new SpriteNodeMaterial( {
-                sizeAttenuation: true, texture, alphaMap: texture, alphaTest: 0.01, transparent: true } );
+                sizeAttenuation: true, map:texture, alphaMap: texture, alphaTest: 0.01, transparent: true } );
 
             splashMaterial.colorNode = Fn( () => {
                 const posx = positionLocal.x

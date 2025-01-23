@@ -37,6 +37,7 @@ import {
 } from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
 import Color4 from "../../../../../libs/three/renderers/common/Color4.js";
 
+
 let heightCanvas = document.createElement('canvas');
 let heightmapContext;
 let heightData;

@@ -1,4 +1,4 @@
-import { hashString } from '../../nodes/core/NodeUtils.js';
+import { hash, hashString } from '../../nodes/core/NodeUtils.js';
 
 let _id = 0;
 
@@ -181,6 +181,16 @@ class RenderObject {
 		this.pipeline = null;
 
 		/**
+		 * Only relevant for objects using
+		 * multiple materials. This represents a group entry
+		 * from the respective `BufferGeometry`.
+		 *
+		 * @type {{start: Number, count: Number}?}
+		 * @default null
+		 */
+		this.group = null;
+
+		/**
 		 * An array holding the vertex buffers which can
 		 * be buffer attributes but also interleaved buffers.
 		 *
@@ -351,7 +361,7 @@ class RenderObject {
 	 */
 	getMonitor() {
 
-		return this._monitor || ( this._monitor = this.getNodeBuilderState().monitor );
+		return this._monitor || ( this._monitor = this.getNodeBuilderState().observer );
 
 	}
 
@@ -363,6 +373,26 @@ class RenderObject {
 	getBindings() {
 
 		return this._bindings || ( this._bindings = this.getNodeBuilderState().createBindings() );
+
+	}
+
+	/**
+	 * Returns a binding group by group name of this render object.
+	 *
+	 * @param {String} name - The name of the binding group.
+	 * @return {BindGroup?} The bindings.
+	 */
+	getBindingGroup( name ) {
+
+		for ( const bindingGroup of this.getBindings() ) {
+
+			if ( bindingGroup.name === name ) {
+
+				return bindingGroup;
+
+			}
+
+		}
 
 	}
 
@@ -593,7 +623,7 @@ class RenderObject {
 	 *
 	 * The material cache key is part of the render object cache key.
 	 *
-	 * @return {String} The material cache key.
+	 * @return {Number} The material cache key.
 	 */
 	getMaterialCacheKey() {
 
@@ -725,17 +755,30 @@ class RenderObject {
 	/**
 	 * Returns the dynamic cache key which represents a key that is computed per draw command.
 	 *
-	 * @return {String} The cache key.
+	 * @return {Number} The cache key.
 	 */
 	getDynamicCacheKey() {
 
-		// Environment Nodes Cache Key
+		let cacheKey = 0;
 
-		let cacheKey = this._nodes.getCacheKey( this.scene, this.lightsNode );
+		// `Nodes.getCacheKey()` returns an environment cache key which is not relevant when
+		// the renderer is inside a shadow pass.
+
+		if ( this.material.isShadowPassMaterial !== true ) {
+
+			cacheKey = this._nodes.getCacheKey( this.scene, this.lightsNode );
+
+		}
+
+		if ( this.camera.isArrayCamera ) {
+
+			cacheKey = hash( cacheKey, this.camera.cameras.length );
+
+		}
 
 		if ( this.object.receiveShadow ) {
 
-			cacheKey += 1;
+			cacheKey = hash( cacheKey, 1 );
 
 		}
 
@@ -746,7 +789,7 @@ class RenderObject {
 	/**
 	 * Returns the render object's cache key.
 	 *
-	 * @return {String} The cache key.
+	 * @return {Number} The cache key.
 	 */
 	getCacheKey() {
 

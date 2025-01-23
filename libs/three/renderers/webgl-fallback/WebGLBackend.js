@@ -13,6 +13,7 @@ import { WebGLBufferRenderer } from './WebGLBufferRenderer.js';
 
 import { warnOnce } from '../../utils.js';
 import { WebGLCoordinateSystem } from '../../constants.js';
+import WebGLTimestampQueryPool from './utils/WebGLTimestampQueryPool.js';
 
 /**
  * A backend implementation targeting WebGL 2.
@@ -185,6 +186,16 @@ class WebGLBackend extends Backend {
 		 */
 		this._knownBindings = new WeakSet();
 
+		/**
+		 * The target framebuffer when rendering with
+		 * the WebXR device API.
+		 *
+		 * @private
+		 * @type {WebGLFramebuffer}
+		 * @default null
+		 */
+		this._xrFamebuffer = null;
+
 	}
 
 	/**
@@ -285,6 +296,61 @@ class WebGLBackend extends Backend {
 	}
 
 	/**
+	 * Ensures the backend is XR compatible.
+	 *
+	 * @async
+	 * @return {Promise} A Promise that resolve when the renderer is XR compatible.
+	 */
+	async makeXRCompatible() {
+
+		const attributes = this.gl.getContextAttributes();
+
+		if ( attributes.xrCompatible !== true ) {
+
+			await this.gl.makeXRCompatible();
+
+		}
+
+	}
+	/**
+	 * Sets the XR rendering destination.
+	 *
+	 * @param {WebGLFramebuffer} xrFamebuffer - The XR framebuffer.
+	 */
+	setXRTarget( xrFamebuffer ) {
+
+		this._xrFamebuffer = xrFamebuffer;
+
+	}
+
+	/**
+	 * Configures the given XR render target with external textures.
+	 *
+	 * This method is only relevant when using the WebXR Layers API.
+	 *
+	 * @param {XRRenderTarget} renderTarget - The XR render target.
+	 * @param {WebGLTexture} colorTexture - A native color texture.
+	 * @param {WebGLTexture?} [depthTexture=null] - A native depth texture.
+	 */
+	setXRRenderTargetTextures( renderTarget, colorTexture, depthTexture = null ) {
+
+		const gl = this.gl;
+
+		this.set( renderTarget.texture, { textureGPU: colorTexture, glInternalFormat: gl.RGBA8 } ); // see #24698 why RGBA8 and not SRGB8_ALPHA8 is used
+
+		if ( depthTexture !== null ) {
+
+			const glInternalFormat = renderTarget.stencilBuffer ? gl.DEPTH24_STENCIL8 : gl.DEPTH_COMPONENT24;
+
+			this.set( renderTarget.depthTexture, { textureGPU: depthTexture, glInternalFormat: glInternalFormat } );
+
+			renderTarget.autoAllocateDepthBuffer = false;
+
+		}
+
+	}
+
+	/**
 	 * Inits a time stamp query for the given render context.
 	 *
 	 * @param {RenderContext} renderContext - The render context.
@@ -293,29 +359,22 @@ class WebGLBackend extends Backend {
 
 		if ( ! this.disjoint || ! this.trackTimestamp ) return;
 
-		const renderContextData = this.get( renderContext );
+		const type = renderContext.isComputeNode ? 'compute' : 'render';
 
-		if ( this.queryRunning ) {
+		if ( ! this.timestampQueryPool[ type ] ) {
 
-		  if ( ! renderContextData.queryQueue ) renderContextData.queryQueue = [];
-		  renderContextData.queryQueue.push( renderContext );
-		  return;
-
-		}
-
-		if ( renderContextData.activeQuery ) {
-
-		  this.gl.endQuery( this.disjoint.TIME_ELAPSED_EXT );
-		  renderContextData.activeQuery = null;
+			// TODO: Variable maxQueries?
+			this.timestampQueryPool[ type ] = new WebGLTimestampQueryPool( this.gl, type, 2048 );
 
 		}
 
-		renderContextData.activeQuery = this.gl.createQuery();
+		const timestampQueryPool = this.timestampQueryPool[ type ];
 
-		if ( renderContextData.activeQuery !== null ) {
+		const baseOffset = timestampQueryPool.allocateQueriesForContext( renderContext );
 
-		  this.gl.beginQuery( this.disjoint.TIME_ELAPSED_EXT, renderContextData.activeQuery );
-		  this.queryRunning = true;
+		if ( baseOffset !== null ) {
+
+			timestampQueryPool.beginQuery( renderContext );
 
 		}
 
@@ -332,64 +391,13 @@ class WebGLBackend extends Backend {
 
 		if ( ! this.disjoint || ! this.trackTimestamp ) return;
 
-		const renderContextData = this.get( renderContext );
+		const type = renderContext.isComputeNode ? 'compute' : 'render';
+		const timestampQueryPool = this.timestampQueryPool[ type ];
 
-		if ( renderContextData.activeQuery ) {
-
-		  this.gl.endQuery( this.disjoint.TIME_ELAPSED_EXT );
-
-		  if ( ! renderContextData.gpuQueries ) renderContextData.gpuQueries = [];
-		  renderContextData.gpuQueries.push( { query: renderContextData.activeQuery } );
-		  renderContextData.activeQuery = null;
-		  this.queryRunning = false;
-
-		  if ( renderContextData.queryQueue && renderContextData.queryQueue.length > 0 ) {
-
-				const nextRenderContext = renderContextData.queryQueue.shift();
-				this.initTimestampQuery( nextRenderContext );
-
-			}
-
-		}
+		timestampQueryPool.endQuery( renderContext );
 
 	}
 
-	/**
-	 * Resolves the time stamp for the given render context and type.
-	 *
-	 * @async
-	 * @param {RenderContext} renderContext - The render context.
-	 * @param {String} type - The render context.
-	 * @return {Promise} A Promise that resolves when the time stamp has been computed.
-	 */
-	async resolveTimestampAsync( renderContext, type = 'render' ) {
-
-		if ( ! this.disjoint || ! this.trackTimestamp ) return;
-
-		const renderContextData = this.get( renderContext );
-
-		if ( ! renderContextData.gpuQueries ) renderContextData.gpuQueries = [];
-
-		for ( let i = 0; i < renderContextData.gpuQueries.length; i ++ ) {
-
-		  const queryInfo = renderContextData.gpuQueries[ i ];
-		  const available = this.gl.getQueryParameter( queryInfo.query, this.gl.QUERY_RESULT_AVAILABLE );
-		  const disjoint = this.gl.getParameter( this.disjoint.GPU_DISJOINT_EXT );
-
-		  if ( available && ! disjoint ) {
-
-				const elapsed = this.gl.getQueryParameter( queryInfo.query, this.gl.QUERY_RESULT );
-				const duration = Number( elapsed ) / 1000000; // Convert nanoseconds to milliseconds
-				this.gl.deleteQuery( queryInfo.query );
-				renderContextData.gpuQueries.splice( i, 1 ); // Remove the processed query
-				i --;
-				this.renderer.info.updateTimestamp( type, duration );
-
-			}
-
-		}
-
-	}
 
 	/**
 	 * Returns the backend's rendering context.
@@ -410,7 +418,7 @@ class WebGLBackend extends Backend {
 	 */
 	beginRender( renderContext ) {
 
-		const { gl } = this;
+		const { state, gl } = this;
 		const renderContextData = this.get( renderContext );
 
 		//
@@ -433,7 +441,7 @@ class WebGLBackend extends Backend {
 
 		} else {
 
-			gl.viewport( 0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight );
+			state.viewport( 0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight );
 
 		}
 
@@ -441,7 +449,7 @@ class WebGLBackend extends Backend {
 
 			const { x, y, width, height } = renderContext.scissorValue;
 
-			gl.scissor( x, renderContext.height - height - y, width, height );
+			state.scissor( x, renderContext.height - height - y, width, height );
 
 		}
 
@@ -565,7 +573,7 @@ class WebGLBackend extends Backend {
 
 			} else {
 
-				gl.viewport( 0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight );
+				state.viewport( 0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight );
 
 			}
 
@@ -663,10 +671,10 @@ class WebGLBackend extends Backend {
 	 */
 	updateViewport( renderContext ) {
 
-		const gl = this.gl;
+		const { state } = this;
 		const { x, y, width, height } = renderContext.viewportValue;
 
-		gl.viewport( x, renderContext.height - height - y, width, height );
+		state.viewport( x, renderContext.height - height - y, width, height );
 
 	}
 
@@ -677,17 +685,9 @@ class WebGLBackend extends Backend {
 	 */
 	setScissorTest( boolean ) {
 
-		const gl = this.gl;
+		const state = this.state;
 
-		if ( boolean ) {
-
-			gl.enable( gl.SCISSOR_TEST );
-
-		} else {
-
-			gl.disable( gl.SCISSOR_TEST );
-
-		}
+		state.setScissorTest( boolean );
 
 	}
 
@@ -1043,31 +1043,101 @@ class WebGLBackend extends Backend {
 
 		}
 
-		if ( object.isBatchedMesh ) {
+		const draw = () => {
 
-			if ( object._multiDrawInstances !== null ) {
+			if ( object.isBatchedMesh ) {
 
-				renderer.renderMultiDrawInstances( object._multiDrawStarts, object._multiDrawCounts, object._multiDrawCount, object._multiDrawInstances );
+				if ( object._multiDrawInstances !== null ) {
 
-			} else if ( ! this.hasFeature( 'WEBGL_multi_draw' ) ) {
+					renderer.renderMultiDrawInstances( object._multiDrawStarts, object._multiDrawCounts, object._multiDrawCount, object._multiDrawInstances );
 
-				warnOnce( 'THREE.WebGLRenderer: WEBGL_multi_draw not supported.' );
+				} else if ( ! this.hasFeature( 'WEBGL_multi_draw' ) ) {
+
+					warnOnce( 'THREE.WebGLRenderer: WEBGL_multi_draw not supported.' );
+
+				} else {
+
+					renderer.renderMultiDraw( object._multiDrawStarts, object._multiDrawCounts, object._multiDrawCount );
+
+				}
+
+			} else if ( instanceCount > 1 ) {
+
+				renderer.renderInstances( firstVertex, vertexCount, instanceCount );
 
 			} else {
 
-				renderer.renderMultiDraw( object._multiDrawStarts, object._multiDrawCounts, object._multiDrawCount );
+				renderer.render( firstVertex, vertexCount );
 
 			}
 
-		} else if ( instanceCount > 1 ) {
+		};
 
-			renderer.renderInstances( firstVertex, vertexCount, instanceCount );
+		if ( renderObject.camera.isArrayCamera && renderObject.camera.cameras.length > 0 ) {
+
+			const cameraData = this.get( renderObject.camera );
+			const cameras = renderObject.camera.cameras;
+			const cameraIndex = renderObject.getBindingGroup( 'cameraIndex' ).bindings[ 0 ];
+
+			if ( cameraData.indexesGPU === undefined || cameraData.indexesGPU.length !== cameras.length ) {
+
+				const data = new Uint32Array( [ 0, 0, 0, 0 ] );
+				const indexesGPU = [];
+
+				for ( let i = 0, len = cameras.length; i < len; i ++ ) {
+
+					const bufferGPU = gl.createBuffer();
+
+					data[ 0 ] = i;
+
+					gl.bindBuffer( gl.UNIFORM_BUFFER, bufferGPU );
+					gl.bufferData( gl.UNIFORM_BUFFER, data, gl.STATIC_DRAW );
+
+					indexesGPU.push( bufferGPU );
+
+				}
+
+				cameraData.indexesGPU = indexesGPU; // TODO: Create a global library for this
+
+			}
+
+			const cameraIndexData = this.get( cameraIndex );
+			const pixelRatio = this.renderer.getPixelRatio();
+
+			for ( let i = 0, len = cameras.length; i < len; i ++ ) {
+
+				const subCamera = cameras[ i ];
+
+				if ( object.layers.test( subCamera.layers ) ) {
+
+					const vp = subCamera.viewport;
+
+					const x = vp.x * pixelRatio;
+					const y = vp.y * pixelRatio;
+					const width = vp.width * pixelRatio;
+					const height = vp.height * pixelRatio;
+
+					state.viewport(
+						Math.floor( x ),
+						Math.floor( renderObject.context.height - height - y ),
+						Math.floor( width ),
+						Math.floor( height )
+					);
+
+					state.bindBufferBase( gl.UNIFORM_BUFFER, cameraIndexData.index, cameraData.indexesGPU[ i ] );
+
+					draw();
+
+				}
+
+			}
 
 		} else {
 
-			renderer.render( firstVertex, vertexCount );
+			draw();
 
 		}
+
 		//
 
 		gl.bindVertexArray( null );
@@ -1807,6 +1877,8 @@ class WebGLBackend extends Backend {
 			const isCube = renderTarget.isWebGLCubeRenderTarget === true;
 			const isRenderTarget3D = renderTarget.isRenderTarget3D === true;
 			const isRenderTargetArray = renderTarget.isRenderTargetArray === true;
+			const isXRRenderTarget = renderTarget.isXRRenderTarget === true;
+			const hasExternalTextures = ( isXRRenderTarget === true && renderTarget.hasExternalTextures === true );
 
 			let msaaFb = renderTargetContextData.msaaFrameBuffer;
 			let depthRenderbuffer = renderTargetContextData.depthRenderbuffer;
@@ -1820,6 +1892,10 @@ class WebGLBackend extends Backend {
 				renderTargetContextData.cubeFramebuffers || ( renderTargetContextData.cubeFramebuffers = {} );
 
 				fb = renderTargetContextData.cubeFramebuffers[ cacheKey ];
+
+			} else if ( isXRRenderTarget && hasExternalTextures === false ) {
+
+				fb = this._xrFamebuffer;
 
 			} else {
 
@@ -1888,6 +1964,32 @@ class WebGLBackend extends Backend {
 					textureData.cacheKey = cacheKey; // required for copyTextureToTexture()
 
 					gl.framebufferTexture2D( gl.FRAMEBUFFER, depthStyle, gl.TEXTURE_2D, textureData.textureGPU, 0 );
+
+				}
+
+			} else {
+
+				// rebind external XR textures
+
+				if ( isXRRenderTarget && hasExternalTextures ) {
+
+					state.bindFramebuffer( gl.FRAMEBUFFER, fb );
+
+					// rebind color
+
+					const textureData = this.get( descriptor.textures[ 0 ] );
+					gl.framebufferTexture2D( gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, textureData.textureGPU, 0 );
+
+					// rebind depth
+
+					if ( descriptor.depthTexture !== null ) {
+
+						const textureData = this.get( descriptor.depthTexture );
+						const depthStyle = stencilBuffer ? gl.DEPTH_STENCIL_ATTACHMENT : gl.DEPTH_ATTACHMENT;
+
+						gl.framebufferTexture2D( gl.FRAMEBUFFER, depthStyle, gl.TEXTURE_2D, textureData.textureGPU, 0 );
+
+					}
 
 				}
 
@@ -2202,6 +2304,9 @@ class WebGLBackend extends Backend {
 	 * Frees internal resources.
 	 */
 	dispose() {
+
+		const extension = this.extensions.get( 'WEBGL_lose_context' );
+		if ( extension ) extension.loseContext();
 
 		this.renderer.domElement.removeEventListener( 'webglcontextlost', this._onContextLost );
 

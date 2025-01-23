@@ -137,8 +137,13 @@ function applyMaterial(mesh, materialName) {
     //    console.log("applyMaterial", call, materialName, mesh);
     function matCB(matSetting) {
         mesh.material = matSetting.material;
-        mesh.castShadow = true;
-        mesh.receiveShadow = false;
+
+        let shadows = matSetting.material.userData.shadows;
+        if (shadows) {
+            mesh.castShadow = shadows['cast']
+            mesh.receiveShadow = shadows['receive'];
+        }
+
     }
 
     loadAssetMaterial(materialName, matCB)

@@ -13,7 +13,7 @@ import { NodeUpdateType, defaultBuildStages, shaderStages } from './constants.js
 
 import {
 	NumberNodeUniform, Vector2NodeUniform, Vector3NodeUniform, Vector4NodeUniform,
-	ColorNodeUniform, Matrix3NodeUniform, Matrix4NodeUniform
+	ColorNodeUniform, Matrix2NodeUniform, Matrix3NodeUniform, Matrix4NodeUniform
 } from '../../renderers/common/nodes/NodeUniform.js';
 
 import { stack } from './StackNode.js';
@@ -177,7 +177,7 @@ class NodeBuilder {
 		 * @type {NodeMaterialObserver?}
 		 * @default null
 		 */
-		this.monitor = null;
+		this.observer = null;
 
 		/**
 		 * A reference to the current lights node.
@@ -1054,6 +1054,55 @@ class NodeBuilder {
 	}
 
 	/**
+	 * Generates the array declaration string.
+	 *
+	 * @param {String} type - The type.
+	 * @param {Number?} [count] - The count.
+	 * @return {String} The generated value as a shader string.
+	 */
+	generateArrayDeclaration( type, count ) {
+
+		return this.getType( type ) + '[ ' + count + ' ]';
+
+	}
+
+	/**
+	 * Generates the array shader string for the given type and value.
+	 *
+	 * @param {String} type - The type.
+	 * @param {Number?} [count] - The count.
+	 * @param {Array<Node>?} [values=null] - The default values.
+	 * @return {String} The generated value as a shader string.
+	 */
+	generateArray( type, count, values = null ) {
+
+		let snippet = this.generateArrayDeclaration( type, count ) + '( ';
+
+		for ( let i = 0; i < count; i ++ ) {
+
+			const value = values ? values[ i ] : null;
+
+			if ( value !== null ) {
+
+				snippet += value.build( this, type );
+
+			} else {
+
+				snippet += this.generateConst( type );
+
+			}
+
+			if ( i < count - 1 ) snippet += ', ';
+
+		}
+
+		snippet += ' )';
+
+		return snippet;
+
+	}
+
+	/**
 	 * Generates the shader string for the given type and value.
 	 *
 	 * @param {String} type - The type.
@@ -1320,8 +1369,15 @@ class NodeBuilder {
 
 		if ( length === 1 ) return componentType;
 
-		const baseType = getTypeFromLength( length );
+		let baseType = getTypeFromLength( length );
 		const prefix = componentType === 'float' ? '' : componentType[ 0 ];
+
+		// fix edge case for mat2x2 being same size as vec4
+		if ( /mat2/.test( componentType ) === true ) {
+
+			baseType = baseType.replace( 'vec', 'mat' );
+
+		}
 
 		return prefix + baseType;
 
@@ -1598,6 +1654,23 @@ class NodeBuilder {
 	}
 
 	/**
+	 * Returns the array length.
+	 *
+	 * @param {Node} node - The node.
+	 * @return {Number?} The array length.
+	 */
+	getArrayCount( node ) {
+
+		let count = null;
+
+		if ( node.isArrayNode ) count = node.count;
+		else if ( node.isVarNode && node.node.isArrayNode ) count = node.node.count;
+
+		return count;
+
+	}
+
+	/**
 	 * Returns an instance of {@link NodeVar} for the given variable node.
 	 *
 	 * @param {VarNode} node - The variable node.
@@ -1629,7 +1702,11 @@ class NodeBuilder {
 
 			}
 
-			nodeVar = new NodeVar( name, type, readOnly );
+			//
+
+			const count = this.getArrayCount( node );
+
+			nodeVar = new NodeVar( name, type, readOnly, count );
 
 			if ( ! readOnly ) {
 
@@ -1663,6 +1740,24 @@ class NodeBuilder {
 
 			return this.isDeterministic( node.aNode ) &&
 				( node.bNode ? this.isDeterministic( node.bNode ) : true );
+
+		} else if ( node.isArrayNode ) {
+
+			if ( node.values !== null ) {
+
+				for ( const n of node.values ) {
+
+					if ( ! this.isDeterministic( n ) ) {
+
+						return false;
+
+					}
+
+				}
+
+			}
+
+			return true;
 
 		} else if ( node.isConstNode ) {
 
@@ -2127,11 +2222,12 @@ class NodeBuilder {
 	 *
 	 * @param {String} type - The variable's type.
 	 * @param {String} name - The variable's name.
+	 * @param {Number?} [count=null] - The array length.
 	 * @return {String} The shader string.
 	 */
-	getVar( type, name ) {
+	getVar( type, name, count = null ) {
 
-		return `${ this.getType( type ) } ${ name }`;
+		return `${ count !== null ? this.generateArrayDeclaration( type, count ) : this.getType( type ) } ${ name }`;
 
 	}
 
@@ -2359,6 +2455,7 @@ class NodeBuilder {
 		if ( type === 'vec3' || type === 'ivec3' || type === 'uvec3' ) return new Vector3NodeUniform( uniformNode );
 		if ( type === 'vec4' || type === 'ivec4' || type === 'uvec4' ) return new Vector4NodeUniform( uniformNode );
 		if ( type === 'color' ) return new ColorNodeUniform( uniformNode );
+		if ( type === 'mat2' ) return new Matrix2NodeUniform( uniformNode );
 		if ( type === 'mat3' ) return new Matrix3NodeUniform( uniformNode );
 		if ( type === 'mat4' ) return new Matrix4NodeUniform( uniformNode );
 
@@ -2467,7 +2564,7 @@ class NodeBuilder {
 
 	}
 
-	// deprecated
+	// Deprecated
 
 	/**
 	 * @function

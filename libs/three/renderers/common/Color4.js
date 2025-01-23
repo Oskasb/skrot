@@ -12,10 +12,12 @@ class Color4 extends Color {
 
 	/**
 	 * Constructs a new four-component color.
+	 * You can also pass a single THREE.Color, hex or
+	 * string argument to this constructor.
 	 *
-	 * @param {Number|String} r - The red value.
-	 * @param {Number} g - The green value.
-	 * @param {Number} b - The blue value.
+	 * @param {Number|String} [r=1] - The red value.
+	 * @param {Number} [g=1] - The green value.
+	 * @param {Number} [b=1] - The blue value.
 	 * @param {Number} [a=1] - The alpha value.
 	 */
 	constructor( r, g, b, a = 1 ) {
@@ -28,6 +30,8 @@ class Color4 extends Color {
 
 	/**
 	 * Overwrites the default to honor alpha.
+	 * You can also pass a single THREE.Color, hex or
+	 * string argument to this method.
 	 *
 	 * @param {Number|String} r - The red value.
 	 * @param {Number} g - The green value.

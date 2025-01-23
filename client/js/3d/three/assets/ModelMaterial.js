@@ -119,9 +119,7 @@ class ModelMaterial {
         mats++
         let ready = false;
         let subscribers = [];
-
         let txLoads = [];
-
         let callFrame = 0;
 
         function materialLoaded() {
@@ -133,16 +131,11 @@ class ModelMaterial {
             }
         }
 
-
         function addSlotTexture(slot, tx) {
-
             txLoads.push({tx:tx, slot:slot});
-
-
         }
 
         function loadTxList() {
-
 
             function loadSlotTx(slotTx) {
                 function txCB(assetTx) {
@@ -178,6 +171,11 @@ class ModelMaterial {
 
                 if (data.settings) {
                     settings.material = new materials[data.material]();
+
+                    if (data.shadows) {
+                        settings.material.userData.shadows = data.shadows;
+                    }
+
                     let mat = settings.material;
                     let matSettings = data.settings
                     for (let key in matSettings) {
