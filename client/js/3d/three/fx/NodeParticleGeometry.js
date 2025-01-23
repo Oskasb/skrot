@@ -4,7 +4,7 @@ import {uniform, vec2} from "three/tsl";
 import {positionGeometry, positionLocal} from "../../../../../libs/three/Three.TSL.js";
 import {ParticleNodes} from "./ParticleNodes.js";
 import {Texture} from "../../../../../libs/three/textures/Texture.js";
-import {SRGBColorSpace} from "../../../../../libs/three/constants.js";
+import {ClampToEdgeWrapping, SRGBColorSpace} from "../../../../../libs/three/constants.js";
 import {loadImageAsset} from "../../../application/utils/DataUtils.js";
 import {SpriteNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
 import {TiledSpriteNodeMaterial8x8} from "../assets/ModelMaterial.js";
@@ -51,18 +51,20 @@ class NodeParticleGeometry {
 
             let tx = sourceMat.map
             let dTx = sourceMat.alphaMap;
+            dTx.flipY = true;
+            dTx.wrapS = ClampToEdgeWrapping;
+            dTx.wrapT = ClampToEdgeWrapping;
 
-            const material = new TiledSpriteNodeMaterial8x8( {
-                sizeAttenuation: true, map:tx, alphaMap: tx, alphaTest: 0.01, transparent: true } );
-/*
-            function dataTxCb(dTx) {
-                material.dataTexture = dTx;
-            }
+            const material = new TiledSpriteNodeMaterial8x8();
 
-            loadAssetTexture("texture_data_tx", dataTxCb)
-*/
+            material.map = tx;
             material.dataTexture = dTx;
-            material.depthTest = false;
+            material.alphaTest = sourceMat.alphaTest;
+            material.sizeAttenuation = true // sourceMat.transparent;
+
+            material.transparent = sourceMat.transparent;
+            material.depthTest = sourceMat.depthTest;
+            material.depthWrite = sourceMat.depthWrite;
             material.blending = sourceMat.blending;
             material.blendEquation = sourceMat.blendEquation;
             material.blendSrc = sourceMat.blendSrc;
