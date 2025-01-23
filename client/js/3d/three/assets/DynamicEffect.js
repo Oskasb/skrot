@@ -11,9 +11,9 @@ class DynamicEffect {
         function applyStateValue(stateValue) {
          //   console.log("Apply State Value Dyn Fx ", stateValue);
             let point = assetInstance.call.getPointById(pointKey);
-            point.getTransformWS(obj3d);
+        //    point.getTransformWS(obj3d);
 
-            debugDrawDynamicPoint(point)
+        //    debugDrawDynamicPoint(point)
 
             if (stateValue !== 0) {
                 if (activeEmitter === null) {

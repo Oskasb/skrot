@@ -1,4 +1,4 @@
-import {min, transformNormalToView, uniform, texture, vec2} from "three/tsl";
+import {min, transformNormalToView, uniform, texture, vec2, vec4} from "three/tsl";
 import {Vector3} from "../../../../../libs/three/math/Vector3.js";
 import {
     floor,
@@ -25,10 +25,11 @@ class ParticleNodes {
         const pSizeFromToMod = uniform(new Vector3() );
         const pScale = uniform(1 );
         const pIndex = uniform( 0);
+        const pIntensity = uniform( 0);
         const tpf = uniform(0)
         const pLifeTime = uniform(1);
         const curvesBuffer = instancedArray( maxInstanceCount, 'vec4' );
-        const colorBuffer = instancedArray( maxInstanceCount, 'vec3' );
+        const colorBuffer = instancedArray( maxInstanceCount, 'vec4' );
         const positionBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const velocityBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const scaleBuffer = instancedArray( maxInstanceCount);
@@ -68,7 +69,7 @@ class ParticleNodes {
 
             const txColor = colorTx.sample(customSpriteUv8x8());
             const color =  colorBuffer.element(instanceIndex)
-            return color.mul(txColor);
+            return txColor.mul(color.xyz).mul(color.w);
         } )();
 
         const computeUpdate = Fn( () => {
@@ -97,13 +98,15 @@ class ParticleNodes {
             const sizeColor = dataTx.sample(vec2(ltCoordX, ONE.sub(sizeCurveRow))) //  lifeTimeFraction));
             const frictionColor = dataTx.sample(vec2(ltCoordX, ONE.sub(frictionCurveRow))) //  lifeTimeFraction));
 
-            const stengthMod = stengthColor.r;
+            const strengthMod = stengthColor.r;
             const sizeMod = sizeFromToMod.z.mul(sizeColor.r);
             const frictionMod = frictionColor.r;
 
             const lifecycleSize = sizeMod.add(sizeFromToMod.x.mul(ONE.sub(lifeTimeFraction)).add(sizeFromToMod.y.mul(lifeTimeFraction)))
 
-            colorBuffer.element(instanceIndex).assign(curveColor.mul(stengthMod));
+            const intensityColor = vec4(curveColor.r.mul(strengthMod), curveColor.g.mul(strengthMod), curveColor.b.mul(strengthMod), pIntensity.mul(strengthMod))
+
+            colorBuffer.element(instanceIndex).assign(intensityColor);
             position.addAssign(velocity.mul(tpf).mul(frictionMod));
 
             const scale = scaleBuffer.element(instanceIndex);
@@ -120,7 +123,7 @@ class ParticleNodes {
         function update() {
 
             isActive = true;
-            tpf.value = getFrame().tpf;
+            tpf.value = getFrame().tpfAvg;
             ThreeAPI.getRenderer().computeAsync( computeParticles );
         }
 
@@ -144,11 +147,18 @@ class ParticleNodes {
             }
 
             pVelocity.value.copy( vel );
+            let pVelVariance = params['pVelVariance']
+            if (pVelVariance) {
+                let variance = MATH.randomBetween(pVelVariance[0], pVelVariance[1])
+                pVelocity.value.multiplyScalar(1 + variance)
+            }
+
             let pVelSpread = params['pVelSpread']
             if (pVelSpread) {
-                let randomVec = MATH.randomVector()
-                randomVec.multiplyScalar(MATH.randomBetween(pVelSpread[0], pVelSpread[1]))
-                pVelocity.value.add(randomVec);
+                let randomVec = MATH.randomVector();
+                let speed = vel.length();
+                randomVec.multiplyScalar(MATH.randomBetween(pVelSpread[0]*speed, pVelSpread[1]*speed))
+                MATH.spreadVector(pVelocity.value, randomVec)
             }
 
             pSizeFromToMod.value.set(
@@ -156,7 +166,7 @@ class ParticleNodes {
                 MATH.randomBetween(params.pSizeTo[0], params.pSizeTo[1]),
                 MATH.randomBetween(params.pSizeMod[0], params.pSizeMod[1])
             );
-
+            pIntensity.value = MATH.randomBetween(params.pIntensity[0], params.pIntensity[1]);
             pLifeTime.value = MATH.randomBetween(params.pLifeTime[0], params.pLifeTime[1]);
 
             pIndex.value = lastIndex;
@@ -164,7 +174,7 @@ class ParticleNodes {
             if (lastIndex > maxInstanceCount) {
                 lastIndex = 0;
             }
-            ThreeAPI.getRenderer().computeAsync( applyParticle );
+            ThreeAPI.getRenderer().compute( applyParticle );
             activeParticles++;
 
             if (isActive === false) {

@@ -10,6 +10,7 @@ class NodeParticleEmitter {
         const spawners = []
 
         function attachEffectJson(json) {
+        //    console.log("attachEffectJson", json)
             let fxSpawners = json['spawners'];
             for (let i = 0; i < fxSpawners.length; i++) {
                 let spawner = poolFetch('NodeParticleSpawner')

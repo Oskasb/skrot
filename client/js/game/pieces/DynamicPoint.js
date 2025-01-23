@@ -10,10 +10,11 @@ class DynamicPoint {
     constructor(assetInstance, config, groupName) {
         this.id = config.id;
         this.groupName = groupName;
-        let obj3d = new Object3D();
-        let offset = new Vector3();
+        const obj3d = new Object3D();
+        const offset = new Vector3();
 
-        let localObj3d = new Object3D();
+        const velocity = new Vector3();
+        const localObj3d = new Object3D();
 
         MATH.vec3FromArray(offset, config.pos);
 
@@ -42,13 +43,18 @@ class DynamicPoint {
         }
 
         let updateFrame = getFrame().frame;
-        function updateObj3d() {
+        let timeDelta = 0;
+        let lastFrameTime = getFrame().gameTime;
+        let lastUpdatePos = new Vector3();
+        let updateObj3d = function() {
+
+
 
             let frame = getFrame().frame;
             if (updateFrame === frame) {
-                return false;
+        //        return false;
+                console.log("Double UPdate Frame")
             }
-            updateFrame = frame;
 
             obj3d.position.copy(offset);
 
@@ -86,6 +92,9 @@ class DynamicPoint {
             }
 
             obj3d.position.add(tempObj.position)
+            updateVelocity();
+
+        //    console.log(timeDelta, velocity)
             return true;
         }
 
@@ -93,7 +102,7 @@ class DynamicPoint {
             return obj3d;
         }
 
-        function getLocalTransform(storeObj) {
+        let getLocalTransform = function(storeObj) {
 
             updateObj3d();
 
@@ -108,16 +117,41 @@ class DynamicPoint {
             storeObj.quaternion.copy(localObj3d.quaternion);
         }
 
+        function updateVelocity() {
+
+            let now = getFrame().gameTime;
+            timeDelta = now - lastFrameTime;
+
+            if (timeDelta === 0) {
+                return velocity;
+            }
+
+            lastFrameTime = now
+            velocity.copy(lastUpdatePos)
+            lastUpdatePos.copy(obj3d.position)
+            velocity.sub(lastUpdatePos)
+            velocity.multiplyScalar(  -1/ timeDelta);
+        }
+
+        let getPointVelocity = function() {
+            return velocity
+        }
+
         this.call = {
             getObj3d:getObj3d,
             updateObj3d:updateObj3d,
-            getLocalTransform:getLocalTransform
+            getLocalTransform:getLocalTransform,
+            getPointVelocity:getPointVelocity
         }
 
     }
 
     getPos() {
         return this.call.getObj3d().position;
+    }
+
+    getVel() {
+        return this.call.getPointVelocity()
     }
 
     getTransformWS(storeObj) {

@@ -3,18 +3,24 @@
   "material": "material_particles_8x8",
   "sprite": 1,
   "spawn_rate_max":50,
+  "sample_gain": {
+    "velocity_base": 50,
+    "velocity_gain_factor":50
+  },
   "curves":{
-    "color": "orangeFire",
+    "color": "warmFire",
     "alpha": "oneToZero",
-    "size": "halfSin",
-    "drag": "slowFadeIn"
+    "size": "quickInSlowOut",
+    "drag": "zeroToOne"
   },
   "params": {
-    "pPosSpread": [0, 0.2],
+    "pPosSpread": [0, 0.4],
     "pVelSpread": [0, 0.1],
-    "pLifeTime": [0.05, 0.15],
-    "pSizeFrom": [0.4, 0.8],
-    "pSizeTo":   [0.9, 1.1],
-    "pSizeMod":  [0.7, 0.9]
+    "pVelVariance": [0.0, 0.3],
+    "pLifeTime": [0.1, 0.12],
+    "pSizeFrom": [0.5, 0.8],
+    "pSizeTo":   [0.2, 0.9],
+    "pSizeMod":  [0.4, 0.9],
+    "pIntensity": [4, 4]
   }
 }
