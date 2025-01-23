@@ -21,6 +21,8 @@ geometries['Sprite'] = Sprite;
 class NodeParticleGeometry {
     constructor() {
 
+
+
         let particleMaterials = {};
         let geoMatEffects = {};
         let key = null;
@@ -49,9 +51,12 @@ class NodeParticleGeometry {
 
             let tx = sourceMat.map
 
+            let dataTx = sourceMat.alphaMap;
+
             const material = new TiledSpriteNodeMaterial8x8( {
                 sizeAttenuation: true, map:tx, alphaMap: tx, alphaTest: 0.01, transparent: true } );
 
+            material.dataTexture = dataTx;
             material.blending = sourceMat.blending;
             material.blendEquation = sourceMat.blendEquation;
             material.blendSrc = sourceMat.blendSrc;

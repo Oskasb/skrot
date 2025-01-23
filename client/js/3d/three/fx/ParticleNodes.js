@@ -1,4 +1,4 @@
-import {min, transformNormalToView, uniform} from "three/tsl";
+import {min, transformNormalToView, uniform, texture, vec2} from "three/tsl";
 import {Vector3} from "../../../../../libs/three/math/Vector3.js";
 import {
     floor,
@@ -10,61 +10,73 @@ import {
     vec3,
     time
 } from "../../../../../libs/three/Three.TSL.js";
-import {Vector2} from "three/webgpu";
+import {Vector2, Vector4} from "three/webgpu";
+import {getFrame} from "../../../application/utils/DataUtils.js";
 
 class ParticleNodes {
     constructor(material, maxInstanceCount) {
 
+        const pCurves = uniform(new Vector4() );
         const pPosition = uniform(new Vector3() );
         const pVelocity = uniform(new Vector3() );
         const pSizeFromTo = uniform(new Vector2() );
         const pScale = uniform(1 );
-        const pIndex = uniform( 0)
+        const pIndex = uniform( 0);
+        const tpf = uniform(0)
+        const pLifeTime = uniform(1);
+        const curvesBuffer = instancedArray( maxInstanceCount, 'vec4' );
+        const colorBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const positionBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const velocityBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const scaleBuffer = instancedArray( maxInstanceCount);
         const sizeBuffer = instancedArray( maxInstanceCount, 'vec2');
-        const timeInitBuffer = instancedArray( maxInstanceCount);
-        const tpf = uniform( 0.01);
+        const timeBuffer = instancedArray( maxInstanceCount, 'vec2');
         const ONE = uniform( 1);
         const ZERO = uniform( 0);
         const duration = uniform( 3)
 
+        const DATA_ROWNS = 128;
+        const DATA_PX_OFFSET = 0.5 / DATA_ROWNS;
+        const ROW_SELECT_FACTOR = DATA_PX_OFFSET * 2;
+
+        const dataTx = texture(material.dataTexture);
 
         const applyParticle = Fn( () => {
+            curvesBuffer.element( pIndex ).assign(pCurves);
             positionBuffer.element( pIndex ).assign(pPosition);
             velocityBuffer.element( pIndex ).assign(pVelocity);
             scaleBuffer.element(pIndex).assign(pScale);
             sizeBuffer.element(pIndex).assign(pSizeFromTo);
-            timeInitBuffer.element(pIndex).assign(time);
+            timeBuffer.element(pIndex).assign(vec2(time, pLifeTime));
         } )().compute( 1 );
 
-        material.positionNode = Fn( () => {
-
-            const scale = scaleBuffer.element(instanceIndex);
-            const position = positionBuffer.element(instanceIndex);
-            const sizeFromTo = sizeBuffer.element(instanceIndex);
-            const velocity = velocityBuffer.element( instanceIndex );
-            const timeInit = timeInitBuffer.element(instanceIndex);
-            const age = time.sub(timeInit);
-         //   position.add();
-         //   scale.assign(sizeFromTo.x)
-            return velocity.mul(age).add(position)
-        } )();
+        material.positionNode = positionBuffer.toAttribute();
         material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
         material.scaleNode = scaleBuffer.toAttribute();
-
         material.normalNode = transformNormalToView(vec3(0, 1, 0));
 
-        const computeUpdate = Fn( () => {
+        material.colorNode = Fn( () => {
+            const color = vec3(0.2, 0.1, 0);
+            return color;
+        } )();
 
+        const computeUpdate = Fn( () => {
+                    // color - colorStrength - sizeCurve - velocityDrag
+            const curves = curvesBuffer.element(instanceIndex);
             const scale = scaleBuffer.element(instanceIndex);
             const position = positionBuffer.element(instanceIndex);
             const sizeFromTo = sizeBuffer.element(instanceIndex);
             const velocity = velocityBuffer.element( instanceIndex );
-            const timeInit = timeInitBuffer.element(instanceIndex);
-            const age = time.sub(timeInit);
-            position.addAssign(velocity.mul(0.1));
+            const timeInit = timeBuffer.element(instanceIndex);
+            const age = time.sub(timeInit.x);
+            const lifeTimeTotal = timeInit.y;
+
+            const lifeTimeFraction = lifeTimeTotal.div(age);
+            const colorUvRow = curves.x.mul(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET)
+
+            const curveColor = dataTx.sample(vec2(0.1, 0.1)) //  lifeTimeFraction));
+            colorBuffer.element(instanceIndex).assign(vec3(1, 1, 0));
+            position.addAssign(velocity.mul(tpf));
             scale.assign(sizeFromTo.x)
 
         } );
@@ -77,14 +89,17 @@ class ParticleNodes {
         let isActive = false;
         function update() {
             isActive = true;
-        //    ThreeAPI.getRenderer().computeAsync( computeParticles );
+            tpf.value = getFrame().tpf;
+            ThreeAPI.getRenderer().computeAsync( computeParticles );
         }
 
         function spawnNodeParticle(pos, vel, config) {
         //    console.log("spawnNodeParticle", pos, vel, config)
+            pCurves.value.set( 32, 5, 7, 10 ); // color - colorStrength - sizeCurve - velocityDrag
             pPosition.value.copy( pos );
             pVelocity.value.copy( vel );
             pSizeFromTo.value.set(1, 2);
+            pLifeTime.value = 2;
             pScale.value = 1;
             pIndex.value = lastIndex;
             lastIndex++;
