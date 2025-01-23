@@ -78,11 +78,13 @@ class ParticleNodes {
 
             const lifeTimeFraction = age.div(lifeTimeTotal);
             const colorUvRow = curves.x.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
-
-            const curveColor = dataTx.sample(vec2(lifeTimeFraction.mul(1), ONE.sub(colorUvRow))) //  lifeTimeFraction));
+            const curveColor = dataTx.sample(vec2(lifeTimeFraction, ONE.sub(colorUvRow))) //  lifeTimeFraction));
             colorBuffer.element(instanceIndex).assign(curveColor);
             position.addAssign(velocity.mul(tpf));
-            scale.assign(sizeFromTo.x)
+
+            const activeOne = max(0, ONE.sub(lifeTimeFraction).sign())
+
+            scale.assign(sizeFromTo.x.mul(activeOne))
 
         } );
 
@@ -104,7 +106,7 @@ class ParticleNodes {
             pPosition.value.copy( pos );
             pVelocity.value.copy( vel );
             pSizeFromTo.value.set(1, 2);
-            pLifeTime.value = 1;
+            pLifeTime.value = 0.3;
             pScale.value = 1;
             pIndex.value = lastIndex;
             lastIndex++;
