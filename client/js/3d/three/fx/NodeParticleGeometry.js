@@ -20,6 +20,7 @@ let quadMesh = new PlaneGeometry(1, 1, 1, 1)
 
 function quad(mat, count) {
     let mesh = new InstancedMesh(quadMesh, mat, count)
+    console.log("Make Quad for count", count)
     mesh.instanceMatrix.setUsage( DynamicDrawUsage );
     mesh.frustumCulled = false;
     mesh.castShadow = false;

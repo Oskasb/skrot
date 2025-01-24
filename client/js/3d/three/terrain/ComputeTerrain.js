@@ -467,15 +467,8 @@ class ComputeTerrain {
                 //    tilesMaterial.colorNode = detailTx.sample(terrainGlobalUv().mul(450).mod(1)).mul(0.2)
 
                 tilesMaterial.normalNode = Fn( () => {
-
                     const nmSample = nmTx.sample(customTerrainUv())
                     const txNormal = vec3(nmSample.x.add(-0.5).mul(-1), nmSample.y, nmSample.z.add(-0.5)).normalize() //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
-
-                //    const txNormal = nmTx.sample(customTerrainUv()).mul(0.75)
-                //    const cracks = cracksLayer().mul(0.5).add(0.5).pow(0.2)
-                //    const detail = detailsLayer().add(0.4).pow(0.4)
-
-                //    const fragNormal = normalLocal // customTerrainVnormal()
                     return transformNormalToView(normalLocal).add(transformNormalToView(txNormal).mul(0.8)).normalize() // .add(txNormal).normalize()).mul(cracks).mul(detail);
                 } )();
 
