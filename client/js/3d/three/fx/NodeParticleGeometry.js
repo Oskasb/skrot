@@ -73,7 +73,7 @@ class NodeParticleGeometry {
             material.dataTexture = dTx;
             material.alphaTest = sourceMat.alphaTest;
             material.sizeAttenuation = true // sourceMat.transparent;
-
+            material.side = sourceMat.side;
             material.transparent = sourceMat.transparent;
             material.depthTest = sourceMat.depthTest;
             material.depthWrite = sourceMat.depthWrite;
