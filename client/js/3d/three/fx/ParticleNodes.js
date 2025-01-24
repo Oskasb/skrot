@@ -179,7 +179,10 @@ class ParticleNodes {
 
                   varyingProperty( 'vec4', 'v_intensityColor' ).assign(intensityColor);
             //     colorBuffer.element(instanceIndex).assign(intensityColor);
-                return positionLocal
+
+                const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(ZERO.sub(age));
+
+                return velocityOffset.add(positionLocal);
             } )();
      //   } );
 
@@ -232,6 +235,7 @@ class ParticleNodes {
             ); // color - alpha - size - drag
 
             pVelocity.value.copy( vel );
+
             let pVelVariance = params['pVelVariance']
             if (pVelVariance) {
                 let variance = MATH.randomBetween(pVelVariance[0], pVelVariance[1])
