@@ -15,9 +15,13 @@ import {getFrame} from "../../../application/utils/DataUtils.js";
 import {customSpriteUv8x8} from "./NodeParticleGeometry.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {MATH} from "../../../application/MATH.js";
+import {Object3D} from "../../../../../libs/three/core/Object3D.js";
+
+
+let tempObj = new Object3D();
 
 class ParticleNodes {
-    constructor(material, maxInstanceCount) {
+    constructor(material, maxInstanceCount, mesh) {
 
         const pCurves = uniform(new Vector4() );
         const pPosition = uniform(new Vector3() );
@@ -58,7 +62,7 @@ class ParticleNodes {
             timeBuffer.element(pIndex).assign(vec2(0, pLifeTime));
         } )().compute( 1 );
 
-        material.positionNode = positionBuffer.toAttribute();
+    //    material.positionNode = positionBuffer.toAttribute();
         material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
         material.scaleNode = scaleBuffer.toAttribute();
     //    material.normalNode = transformNormalToView(vec3(0, 1, 0));
@@ -127,8 +131,13 @@ class ParticleNodes {
             ThreeAPI.getRenderer().computeAsync( computeParticles );
         }
 
+        console.log("P Nodes Geo: ", mesh);
+
         function spawnNodeParticle(pos, vel, config) {
         //    console.log("spawnNodeParticle", pos, vel, config)
+            tempObj.position.copy(pos);
+            tempObj.updateMatrix();
+            mesh.setMatrixAt(lastIndex, tempObj.matrix);
             let curves = config.curves;
             let params = config.params;
             pCurves.value.set(

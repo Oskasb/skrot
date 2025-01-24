@@ -1,5 +1,5 @@
 import {jsonAsset, loadAssetMaterial, loadAssetTexture} from "../../../application/utils/AssetUtils.js";
-import {Sprite} from "three";
+import {DynamicDrawUsage, PlaneGeometry, Sprite} from "three";
 import {uniform, vec2} from "three/tsl";
 import {positionGeometry, positionLocal} from "../../../../../libs/three/Three.TSL.js";
 import {ParticleNodes} from "./ParticleNodes.js";
@@ -8,6 +8,7 @@ import {ClampToEdgeWrapping, SRGBColorSpace} from "../../../../../libs/three/con
 import {loadImageAsset} from "../../../application/utils/DataUtils.js";
 import {SpriteNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
 import {TiledSpriteNodeMaterial8x8} from "../assets/ModelMaterial.js";
+import {InstancedMesh} from "../../../../../libs/three/objects/InstancedMesh.js";
 
 const TILES_8 = uniform(8);
 
@@ -15,8 +16,19 @@ function customSpriteUv8x8() {
     return vec2(positionGeometry.x.add(0.5).div(TILES_8), positionGeometry.y.add(0.5).div(TILES_8));
 }
 
+let quadMesh = new PlaneGeometry(1, 1, 1, 1)
+
+function quad(mat, count) {
+    let mesh = new InstancedMesh(quadMesh, mat, count)
+    mesh.instanceMatrix.setUsage( DynamicDrawUsage );
+    mesh.frustumCulled = false;
+    mesh.castShadow = false;
+    mesh.receiveShadow = false;
+    return mesh;
+}
+
 const geometries = {};
-geometries['Sprite'] = Sprite;
+geometries['Sprite'] = quad;
 
 class NodeParticleGeometry {
     constructor() {
@@ -78,12 +90,12 @@ class NodeParticleGeometry {
                 geoMatEffects[matName].material = material;
                 geoMatEffects[matName].needsUpdate = true;
             } else {
-                geoMatEffects[matName] = new geometries[key](material)
+                geoMatEffects[matName] = new geometries[key](material, maxInstanceCount)
                 geoMatEffects[matName].matrixWorldAutoUpdate = false;
                 ThreeAPI.addToScene(geoMatEffects[matName])
             }
 
-            geoMatEffects[matName].material.particleNodes = new ParticleNodes(material, maxInstanceCount)
+            geoMatEffects[matName].material.particleNodes = new ParticleNodes(material, maxInstanceCount, geoMatEffects[matName])
             geoMatEffects[matName].count = maxInstanceCount;
             geoMatEffects[matName].frustumCulled = false;
             geoMatEffects[matName].castShadow = false;

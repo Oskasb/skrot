@@ -84,7 +84,7 @@ class MeshParticleLambertNodeMaterial extends MeshLambertNodeMaterial {
     }
 }
 
-class TiledSpriteNodeMaterial8x8 extends SpriteNodeMaterial {
+class TiledSpriteNodeMaterial8x8 extends MeshBasicNodeMaterial {
     setup( builder ) {
         builder.setContext( { ...builder.context,
             getUV: ( /*reqNode*/ ) => {

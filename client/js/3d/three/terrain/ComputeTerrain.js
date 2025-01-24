@@ -305,7 +305,7 @@ class ComputeTerrain {
                 if (hasUpdate) {
                     shadowMesh.position.copy(dummy.position)
                     shadowMesh.scale.copy(dummy.scale)
-                    shadowMesh.updateMatrixWorld();
+                //    shadowMesh.updateMatrixWorld();
                 }
 
                 tileCount++
