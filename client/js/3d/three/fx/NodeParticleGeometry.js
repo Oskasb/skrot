@@ -1,5 +1,5 @@
 import {jsonAsset, loadAssetMaterial, loadAssetTexture} from "../../../application/utils/AssetUtils.js";
-import {DynamicDrawUsage, PlaneGeometry, Sprite} from "three";
+import {DynamicDrawUsage, Float32BufferAttribute, PlaneGeometry, Sprite} from "three";
 import {uniform, vec2} from "three/tsl";
 import {positionGeometry, positionLocal} from "../../../../../libs/three/Three.TSL.js";
 import {ParticleNodes} from "./ParticleNodes.js";
@@ -17,7 +17,22 @@ function customSpriteUv8x8() {
 }
 
 let quadMesh = new PlaneGeometry(1, 1, 1, 1)
+/*
+const curveData     = new Float32BufferAttribute( new Float32Array( 4 ), 4 );
+const velocityData  = new Float32BufferAttribute( new Float32Array( 4 ), 4 );
+const timeData      = new Float32BufferAttribute( new Float32Array( 4 ), 4 );
+const sizeData      = new Float32BufferAttribute( new Float32Array( 4 ), 4 );
 
+curveData.setUsage(DynamicDrawUsage)
+velocityData.setUsage(DynamicDrawUsage)
+timeData.setUsage(DynamicDrawUsage)
+sizeData.setUsage(DynamicDrawUsage)
+
+quadMesh.setAttribute('curveData', curveData)
+quadMesh.setAttribute('velocityData', velocityData)
+quadMesh.setAttribute('timeData', timeData)
+quadMesh.setAttribute('sizeData', sizeData)
+*/
 function quad(mat, count) {
     let mesh = new InstancedMesh(quadMesh, mat, count)
     console.log("Make Quad for count", count)
