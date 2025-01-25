@@ -203,17 +203,28 @@ class ParticleNodes {
 
         console.log("P Nodes Geo: ", mesh);
 
-        const applyParticle = Fn( () => {
-            customCurveBuffer.element(pIndex).assign(pCurves)
-            customVelocityBuffer.element(pIndex).assign(pVelocity)
-            customTimeBuffer.element(pIndex).assign(timeValues)
-            customSizeBuffer.element(pIndex).assign(sizeValueUniforms)
-        } );
 
-        const computeApply = applyParticle().compute( 1 );
+        const emitterPositions = uniformArray([new Vector3()])
+        const emitterVelocities = uniformArray([new Vector3()])
+        const emitterObjects = []
 
-        function spawnNodeParticle(pos, vel, config) {
+        function setParticleEmitterGain(obj3d, gain, config) {
         //    console.log("spawnNodeParticle", pos, vel, config)
+
+            if (gain === 0) {
+                MATH.splice(emitterObjects, obj3d)
+                MATH.splice(emitterPositions.array, obj3d.position);
+                MATH.splice(emitterVelocities.array, obj3d.up);
+            } else {
+
+                if (emitterObjects.indexOf(obj3d) === -1) {
+                    emitterObjects.push(obj3d)
+                    emitterPositions.array.push(obj3d.position);
+                    emitterVelocities.array.push(obj3d.up);
+                }
+
+            }
+
 
             let curves = config.curves;
             let params = config.params;
@@ -234,7 +245,7 @@ class ParticleNodes {
                 dragrCurve
             ); // color - alpha - size - drag
 
-            pVelocity.value.copy( vel );
+            pVelocity.value.copy( obj3d.up );
 
             let pVelVariance = params['pVelVariance']
             if (pVelVariance) {
@@ -245,7 +256,7 @@ class ParticleNodes {
             let pVelSpread = params['pVelSpread']
             if (pVelSpread) {
                 let randomVec = MATH.randomVector();
-                let speed = vel.length();
+                let speed = obj3d.up.length();
                 randomVec.multiplyScalar(MATH.randomBetween(pVelSpread[0]*speed, pVelSpread[1]*speed))
                 MATH.spreadVector(pVelocity.value, randomVec)
             }
@@ -274,29 +285,35 @@ class ParticleNodes {
 
             pIndex.value = lastIndex;
 
+            /*
             tempObj.position.copy(pos);
             tempObj.lookAt(vel);
             tempObj.updateMatrix();
 
             mesh.setMatrixAt(lastIndex, tempObj.matrix);
-
+*/
             lastIndex++;
             if (lastIndex > maxInstanceCount) {
                 lastIndex = 0;
             }
 
-            ThreeAPI.getRenderer().compute( computeApply );
+        //    ThreeAPI.getRenderer().compute( computeApply );
             activeParticles++;
 
             if (isActive === false) {
             //    console.log(mesh.geometry.attributes)
                 ThreeAPI.registerPrerenderCallback(update)
+            } else {
+                if (emitterObjects.length === 0) {
+                    ThreeAPI.unregisterPrerenderCallback(update)
+                    isActive = false;
+                }
             }
 
         }
 
         this.call = {
-            spawnNodeParticle:spawnNodeParticle
+            setParticleEmitterGain:setParticleEmitterGain
         }
     }
 }

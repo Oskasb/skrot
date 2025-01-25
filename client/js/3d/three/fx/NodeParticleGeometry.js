@@ -44,7 +44,7 @@ function quad(mat, count) {
 }
 
 const geometries = {};
-geometries['Sprite'] = quad;
+geometries['Sprite'] = Sprite;
 
 class NodeParticleGeometry {
     constructor() {
@@ -125,10 +125,10 @@ class NodeParticleGeometry {
             loadAssetMaterial(matName, applyJson)
         }
 
-        function spawnGeometryParticle(pos, vel, config) {
+        function spawnGeometryParticle(obj3d, gain, config) {
             let matName = config['material'];
             if (geoMatEffects[matName]) {
-                geoMatEffects[matName].material.particleNodes.call.spawnNodeParticle(pos, vel, config);
+                geoMatEffects[matName].material.particleNodes.call.setParticleEmitterGain(obj3d, gain, config);
             }
         }
 

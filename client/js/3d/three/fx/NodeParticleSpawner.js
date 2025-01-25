@@ -1,5 +1,5 @@
 import {jsonAsset} from "../../../application/utils/AssetUtils.js";
-import {activateParticleEffectConfig, spawnParticle} from "./NodeParticles.js";
+import {activateParticleEffectConfig, updateEmitterGain} from "./NodeParticles.js";
 import {getFrame} from "../../../application/utils/DataUtils.js";
 import {MATH} from "../../../application/MATH.js";
 import {Vector3} from "three/webgpu";
@@ -41,7 +41,7 @@ class NodeParticleSpawner {
         function update() {
             let frameSpawnWeight = gain * maxSpawnRate / getFrame().tpfAvg;
             let count = Math.floor(MATH.remainder(frameSpawnWeight) * Math.random()) + Math.floor(frameSpawnWeight)
-
+            let obj3d = point.getObj3d();
             if (count > 0) {
 
                 let sampleGain = particleConfig['sample_gain']
@@ -49,16 +49,16 @@ class NodeParticleSpawner {
                 let velBase = sampleGain['velocity_base']
 
                 point.updateDynamicPoint();
-                let obj3d = point.getObj3d();
-                tempVec.set(0, 0,velBase+velToGain*gain);
-                tempVec.applyQuaternion(obj3d.quaternion);
-                tempVec2.addVectors(tempVec, point.getVel());
+
+                obj3d.up.set(0, 0,velBase+velToGain*gain);
+                obj3d.up.applyQuaternion(obj3d.quaternion);
+                obj3d.up.add(point.getVel());
             //    console.log(getFrame().frame)
             //    for (let i = 0; i < 1; i++) {
-                    spawnParticle(obj3d.position, tempVec2, particleConfig)
+
             //    }
             }
-
+            updateEmitterGain(obj3d, gain, particleConfig)
 
         }
 
