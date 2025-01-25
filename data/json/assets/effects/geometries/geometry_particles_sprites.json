@@ -1,4 +1,4 @@
 {
-  "max_instance_count": 200,
+  "max_instance_count": 4000,
   "geometry": "Sprite"
 }

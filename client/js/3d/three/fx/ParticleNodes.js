@@ -19,7 +19,7 @@ import {
     max,
     positionLocal,
     vec3,
-    time, uv, If, modelViewMatrix, varyingProperty, Loop
+    time, uv, If, modelViewMatrix, varyingProperty, Loop, int
 } from "../../../../../libs/three/Three.TSL.js";
 import {Color, StorageBufferAttribute, Vector2, Vector4} from "three/webgpu";
 import {getFrame} from "../../../application/utils/DataUtils.js";
@@ -38,6 +38,8 @@ let tempVec4 = new Vector4();
 
 class ParticleNodes {
     constructor(material, maxInstanceCount, mesh) {
+
+        const emitterObjects = []
 
         const updateRanges = {
             start:0,
@@ -59,35 +61,10 @@ class ParticleNodes {
         const now = uniform(0);
         const pLifeTime = uniform(1);
 
-        /*
-
-        const curveData     = new Float32BufferAttribute( new Float32Array( maxInstanceCount * 4 ), 4 );
-        const velocityData  = new Float32BufferAttribute( new Float32Array( maxInstanceCount * 4 ), 4 );
-        const timeData      = new Float32BufferAttribute( new Float32Array( maxInstanceCount * 4 ), 4 );
-        const sizeData      = new Float32BufferAttribute( new Float32Array( maxInstanceCount * 4 ), 4 );
-
-        curveData.setUsage(DynamicDrawUsage)
-        velocityData.setUsage(DynamicDrawUsage)
-        timeData.setUsage(DynamicDrawUsage)
-        sizeData.setUsage(DynamicDrawUsage)
-
-        mesh.geometry.setAttribute('curveData', curveData)
-        mesh.geometry.setAttribute('velocityData', velocityData)
-        mesh.geometry.setAttribute('timeData', timeData)
-        mesh.geometry.setAttribute('sizeData', sizeData)
-
-        */
-
-
-        const customCurveBuffer = instancedArray( maxInstanceCount, 'vec4' );
-        const customVelocityBuffer = instancedArray( maxInstanceCount, 'vec4' );
-        const customTimeBuffer = instancedArray( maxInstanceCount, 'vec4' );
-        const customSizeBuffer = instancedArray( maxInstanceCount, 'vec4' );
-        const colorBuffer = instancedArray( maxInstanceCount, 'vec4' );
 
         const positionBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const scaleBuffer = instancedArray( maxInstanceCount, 'float' );
-        const customMatrixBuffer = instancedArray( maxInstanceCount, 'mat4' );
+        const customTimeBuffer = instancedArray( maxInstanceCount, 'vec2' );
 
         const ONE = uniform( 1);
         const ZERO = uniform( 0);
@@ -114,7 +91,14 @@ class ParticleNodes {
             return positionLocal;
         } )();
 
-        material.positionNode = positionBuffer.toAttribute();
+        material.positionNode = Fn( () => {
+
+            const positionInit = positionBuffer.element(instanceIndex);
+            return positionInit
+
+        } )();
+
+
     //    material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
         material.scaleNode = scaleBuffer.toAttribute();
     //    material.normalNode = transformNormalToView(vec3(0, 1, 0));
@@ -189,33 +173,32 @@ class ParticleNodes {
 
         const computeUpdate = Fn( () => {
 
-            const startIndex = pIndex;
+            const now = time;
 
-            Loop( emittersLength, ( { i } ) => {
-
-                const emitterPositionV4 = emitterPositions.element( i );
-                const emitterVelV4 = emitterVelocities.element( i );
-         //  const emitterPos = emitterPositionV4.xyz;
-
-                   const emitterPos = emitterPositionV4.xyz // vec3(1179,    emitterPositionV4.y, startIndex.add(3340))
-
+                const emitterPositionV4 = emitterPositions.element( instanceIndex );
+                const emitterVelV4 = emitterVelocities.element( instanceIndex );
+                const emittParamsV4 = emitterParams.element( instanceIndex );
+                const emitterPos = emitterPositionV4.xyz // vec3(1179,    emitterPositionV4.y, startIndex.add(3340))
                 const emitterSize = emitterPositionV4.w;
                 const emitterVel = emitterVelV4.xyz;
-                const velocityGain = emitterVelV4.w;
+                const emitCountOffset = emittParamsV4.x;
+                const emitCount = int(emittParamsV4.y)
 
-                const particleIndex = startIndex.add(i);
+                Loop ( emitCount, ( { i } ) => {
+                    const step =  ZERO.add(i);
+                    const particleIndex = pIndex.add(emitCountOffset.add(emitCount)).add(i)
+                    const offsetX = step.pow(0.5).mul(emitterSize.mod(step))
+                    const offsetY = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX)))
+                    const offsetZ = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX).add(offsetY)))
+                    const offsetPos = emitterVel.mul(step.mul(tpf)).add(vec3(offsetX, offsetY, offsetZ))
+                    positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos))
+                    scaleBuffer.element(particleIndex).assign(ONE)
+                } );
 
-                positionBuffer.element(particleIndex).assign(emitterPos)
-                scaleBuffer.element(particleIndex).assign(2)
 
-            } );
 
         } );
 
-
-
-
-        const computeParticles = computeUpdate().compute( 1 );
 
         let lastIndex = 0;
 
@@ -229,10 +212,11 @@ class ParticleNodes {
                 let obj = emitterObjects[i];
                 let gain = obj.userData.gain;
                 emitterPositions.array[i].set(obj.position.x, obj.position.y, obj.position.z, gain +1);
-                let emitterCount = Math.floor(gain +1)
-                applyCount += emitterCount
-                emitterVelocities.array[i].set(obj.up.x, obj.up.y, obj.up.z, emitterCount);
+                let emitCount = Math.floor(10 + gain*50)
 
+                emitterVelocities.array[i].set(obj.up.x, obj.up.y, obj.up.z, emitCount);
+                emitterParams.array[i].set(applyCount, emitCount, 0, 0)
+                applyCount += emitCount
             }
 
             emittersLength.value = emitterObjects.length;
@@ -248,23 +232,26 @@ class ParticleNodes {
             isActive = true;
             tpf.value = getFrame().tpfAvg;
             now.value = getFrame().gameTime;
-            ThreeAPI.getRenderer().computeAsync( computeParticles );
+            ThreeAPI.getRenderer().computeAsync( computeUpdate().compute( emitterObjects.length ) );
         }
 
         console.log("P Nodes Geo: ", mesh);
 
 
         let positions = [];
-        let velocities = []
+        let velocities = [];
+        let params = [];
+
 
         for (let i = 0; i < 20; i++) {
             positions.push(new Vector4());
             velocities.push(new Vector4());
+            params.push(new Vector4());
         }
 
         const emitterPositions = uniformArray(positions)
         const emitterVelocities = uniformArray(velocities)
-        const emitterObjects = []
+        const emitterParams = uniformArray(params)
 
         const emittersLength = uniform( 0, 'uint' );
 
@@ -273,8 +260,8 @@ class ParticleNodes {
             if (typeof (gain) !== 'number') {
                 console.log("Gain is NaN", gain)
                 gain = 0;
-
             }
+
             obj3d.userData.gain = gain;
             if (gain === 0) {
                 MATH.splice(emitterObjects, obj3d)
@@ -284,8 +271,6 @@ class ParticleNodes {
                 }
             }
 
-
-
             let curves = config.curves;
             let params = config.params;
 
@@ -293,10 +278,6 @@ class ParticleNodes {
             let alphaCurve = ENUMS.ColorCurve[curves.alpha || 'oneToZero']
             let sizeCurve  = ENUMS.ColorCurve[curves.size  || 'oneToZero']
             let dragrCurve = ENUMS.ColorCurve[curves.drag  || 'zeroToOne']
-
-
-        //    tempColor.set(colorCurve, alphaCurve, sizeCurve)
-        //    mesh.setColorAt(lastIndex, tempColor);
 
             pCurves.value.set(
                 colorCurve,
@@ -337,13 +318,6 @@ class ParticleNodes {
                 0,
                 0
             )
-
-            customCurveBuffer.needsUpdate = true;
-            customVelocityBuffer.needsUpdate = true;
-            customTimeBuffer.needsUpdate = true;
-            customSizeBuffer.needsUpdate = true;
-
-
 
         //    ThreeAPI.getRenderer().compute( computeApply );
             activeParticles++;
