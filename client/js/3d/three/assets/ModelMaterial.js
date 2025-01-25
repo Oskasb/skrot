@@ -84,15 +84,12 @@ class MeshParticleLambertNodeMaterial extends MeshLambertNodeMaterial {
     }
 }
 
-class TiledSpriteNodeMaterial8x8 extends MeshBasicNodeMaterial {
+class TiledSpriteNodeMaterial8x8 extends SpriteNodeMaterial {
     setup( builder ) {
         builder.setContext( { ...builder.context,
             getUV: ( /*reqNode*/ ) => {
                 return customSpriteUv8x8(); // return a custom uv
             },
-            getCustomMatrix: ( /*reqNode*/ ) => {
-                return customSpriteUv8x8(); // return a custom uv
-            }
         } );
         return super.setup( builder );
     }

@@ -19,7 +19,7 @@ import {
     max,
     positionLocal,
     vec3,
-    time, uv, If, modelViewMatrix, varyingProperty
+    time, uv, If, modelViewMatrix, varyingProperty, Loop
 } from "../../../../../libs/three/Three.TSL.js";
 import {Color, StorageBufferAttribute, Vector2, Vector4} from "three/webgpu";
 import {getFrame} from "../../../application/utils/DataUtils.js";
@@ -53,7 +53,7 @@ class ParticleNodes {
         const sizeValueUniforms = uniform(new Vector4() );
         const timeValues = uniform(new Vector4() );
         const pScale = uniform(1 );
-        const pIndex = uniform( 0);
+        const pIndex = uniform( 0, 'uint');
         const pIntensity = uniform( 0);
         const tpf = uniform(0)
         const now = uniform(0);
@@ -77,7 +77,7 @@ class ParticleNodes {
         mesh.geometry.setAttribute('sizeData', sizeData)
 
         */
-        mesh.needsUpdate = true;
+
 
         const customCurveBuffer = instancedArray( maxInstanceCount, 'vec4' );
         const customVelocityBuffer = instancedArray( maxInstanceCount, 'vec4' );
@@ -85,6 +85,8 @@ class ParticleNodes {
         const customSizeBuffer = instancedArray( maxInstanceCount, 'vec4' );
         const colorBuffer = instancedArray( maxInstanceCount, 'vec4' );
 
+        const positionBuffer = instancedArray( maxInstanceCount, 'vec3' );
+        const scaleBuffer = instancedArray( maxInstanceCount, 'float' );
         const customMatrixBuffer = instancedArray( maxInstanceCount, 'mat4' );
 
         const ONE = uniform( 1);
@@ -112,22 +114,22 @@ class ParticleNodes {
             return positionLocal;
         } )();
 
-
+        material.positionNode = positionBuffer.toAttribute();
     //    material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
-    //    material.scaleNode = scaleBuffer.toAttribute();
+        material.scaleNode = scaleBuffer.toAttribute();
     //    material.normalNode = transformNormalToView(vec3(0, 1, 0));
 
-        material.colorNode = Fn( () => {
+        material.colorNode_ = Fn( () => {
 
 
             const txColor = colorTx.sample(customSpriteUv8x8());
-            const color = varyingProperty( 'vec4', 'v_intensityColor' ) // colorBuffer.element(instanceIndex)
-            return txColor.mul(color.xyz).mul(color.w);
+            // const color = varyingProperty( 'vec4', 'v_intensityColor' ) // colorBuffer.element(instanceIndex)
+            return txColor // .mul(color.xyz).mul(color.w);
         } )();
 
-      //  const computeUpdate = Fn( () => {
+        const computeUpdate_ = Fn( () => {
 
-            material.positionNode = Fn( () => {
+
 
             const timeValues = customTimeBuffer.element(instanceIndex)
             const curveValues = customCurveBuffer.element(instanceIndex)
@@ -182,12 +184,38 @@ class ParticleNodes {
 
                 const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(ZERO.sub(age));
 
-                return velocityOffset.add(positionLocal);
-            } )();
-     //   } );
+
+        } );
+
+        const computeUpdate = Fn( () => {
+
+            const startIndex = pIndex;
+
+            Loop( emittersLength, ( { i } ) => {
+
+                const emitterPositionV4 = emitterPositions.element( i );
+                const emitterVelV4 = emitterVelocities.element( i );
+         //  const emitterPos = emitterPositionV4.xyz;
+
+                   const emitterPos = emitterPositionV4.xyz // vec3(1179,    emitterPositionV4.y, startIndex.add(3340))
+
+                const emitterSize = emitterPositionV4.w;
+                const emitterVel = emitterVelV4.xyz;
+                const velocityGain = emitterVelV4.w;
+
+                const particleIndex = startIndex.add(i);
+
+                positionBuffer.element(particleIndex).assign(emitterPos)
+                scaleBuffer.element(particleIndex).assign(2)
+
+            } );
+
+        } );
 
 
-     //   const computeParticles = computeUpdate().compute( maxInstanceCount );
+
+
+        const computeParticles = computeUpdate().compute( 1 );
 
         let lastIndex = 0;
 
@@ -195,35 +223,67 @@ class ParticleNodes {
         let isActive = false;
         function update() {
 
+            let applyCount = 0;
+
+            for (let i = 0; i < emitterObjects.length; ++i) {
+                let obj = emitterObjects[i];
+                let gain = obj.userData.gain;
+                emitterPositions.array[i].set(obj.position.x, obj.position.y, obj.position.z, gain +1);
+                let emitterCount = Math.floor(gain +1)
+                applyCount += emitterCount
+                emitterVelocities.array[i].set(obj.up.x, obj.up.y, obj.up.z, emitterCount);
+
+            }
+
+            emittersLength.value = emitterObjects.length;
+
+
+            pIndex.value = lastIndex;
+            lastIndex += applyCount;
+
+            if (lastIndex + applyCount > maxInstanceCount) {
+                lastIndex = 0;
+            }
+
             isActive = true;
             tpf.value = getFrame().tpfAvg;
             now.value = getFrame().gameTime;
-        //    ThreeAPI.getRenderer().computeAsync( computeParticles );
+            ThreeAPI.getRenderer().computeAsync( computeParticles );
         }
 
         console.log("P Nodes Geo: ", mesh);
 
 
-        const emitterPositions = uniformArray([new Vector3()])
-        const emitterVelocities = uniformArray([new Vector3()])
+        let positions = [];
+        let velocities = []
+
+        for (let i = 0; i < 20; i++) {
+            positions.push(new Vector4());
+            velocities.push(new Vector4());
+        }
+
+        const emitterPositions = uniformArray(positions)
+        const emitterVelocities = uniformArray(velocities)
         const emitterObjects = []
+
+        const emittersLength = uniform( 0, 'uint' );
 
         function setParticleEmitterGain(obj3d, gain, config) {
         //    console.log("spawnNodeParticle", pos, vel, config)
-
-            if (gain === 0) {
-                MATH.splice(emitterObjects, obj3d)
-                MATH.splice(emitterPositions.array, obj3d.position);
-                MATH.splice(emitterVelocities.array, obj3d.up);
-            } else {
-
-                if (emitterObjects.indexOf(obj3d) === -1) {
-                    emitterObjects.push(obj3d)
-                    emitterPositions.array.push(obj3d.position);
-                    emitterVelocities.array.push(obj3d.up);
-                }
+            if (typeof (gain) !== 'number') {
+                console.log("Gain is NaN", gain)
+                gain = 0;
 
             }
+            obj3d.userData.gain = gain;
+            if (gain === 0) {
+                MATH.splice(emitterObjects, obj3d)
+            } else {
+                if (emitterObjects.indexOf(obj3d) === -1) {
+                    emitterObjects.push(obj3d)
+                }
+            }
+
 
 
             let curves = config.curves;
@@ -283,19 +343,7 @@ class ParticleNodes {
             customTimeBuffer.needsUpdate = true;
             customSizeBuffer.needsUpdate = true;
 
-            pIndex.value = lastIndex;
 
-            /*
-            tempObj.position.copy(pos);
-            tempObj.lookAt(vel);
-            tempObj.updateMatrix();
-
-            mesh.setMatrixAt(lastIndex, tempObj.matrix);
-*/
-            lastIndex++;
-            if (lastIndex > maxInstanceCount) {
-                lastIndex = 0;
-            }
 
         //    ThreeAPI.getRenderer().compute( computeApply );
             activeParticles++;
