@@ -95,7 +95,7 @@ class ParticleNodes {
             return 1
 
         } )();
-        material.colorNode_ = Fn( () => {
+        material.colorNode = Fn( () => {
 
 
             const timeValues = customTimeBuffer.element(instanceIndex)
@@ -111,7 +111,6 @@ class ParticleNodes {
             const alphaCurve    = pCurves.y;
 
 
-
             const colorUvRow = colorCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
             const colorStrengthCurveRow = alphaCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
             const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
@@ -122,7 +121,7 @@ class ParticleNodes {
             const intensityColor = vec4(curveColor.r.mul(strengthMod), curveColor.g.mul(strengthMod), curveColor.b.mul(strengthMod), pIntensity.mul(strengthMod))
 
             const txColor = colorTx.sample(customSpriteUv8x8());
-            return vec4(1, 1, 0, 1 ) // curveColor // txColor // vec4(txColor.r, txColor.g, txColor.b, txColor.a ) //.mul(lifeTimeFraction);
+            return txColor.mul(intensityColor);
         } )();
 
      //   const computeUpdate_ = Fn( () => {
