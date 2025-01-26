@@ -173,8 +173,8 @@ class ParticleNodes {
                      const lifecycleSize = sizeMod.add(pSizeFrom.mul(ONE.sub(lifeTimeFraction)).add(pSizeTo.mul(lifeTimeFraction)))
 
 
-                varyingProperty( 'float', 'p_lifeTimeFraction' ).assign(lifeTimeFraction);
-                varyingProperty( 'float', 'v_lifecycleScale' ).assign(lifecycleSize);
+            //    varyingProperty( 'float', 'p_lifeTimeFraction' ).assign(lifeTimeFraction);
+            //    varyingProperty( 'float', 'v_lifecycleScale' ).assign(lifecycleSize);
 
                 //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
