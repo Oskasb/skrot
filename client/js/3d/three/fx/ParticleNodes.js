@@ -8,7 +8,7 @@ import {
     instance,
     vertexColor,
     storage,
-    attribute, uniformArray
+    attribute, uniformArray, ceil
 } from "three/tsl";
 import {Vector3} from "../../../../../libs/three/math/Vector3.js";
 import {
@@ -139,7 +139,7 @@ class ParticleNodes {
                      const age = time.sub(spawnTime); // 12 = pSpawnTime
 
                      const lifeTimeFraction = age.div(lifeTimeTotal);
-                     const activeOne = int(max(0, ONE.sub(lifeTimeFraction).sign()));
+                     const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
 
                      const colorUvRow = colorCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
                      const colorStrengthCurveRow = alphaCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
