@@ -157,13 +157,13 @@ class ParticleNodes {
 
 
 
-                const frictionMod = frictionColor.r;
+                const frictionMod = ONE.sub(frictionColor.r);
             //    varyingProperty( 'float', 'p_lifeTimeFraction' ).assign(lifeTimeFraction);
             //    varyingProperty( 'float', 'v_lifecycleScale' ).assign(lifecycleSize);
 
                 //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
-                const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(tpf);
+                const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(tpf).mul(frictionMod);
 
                 let pPos = particlePosition.add(velocityOffset).mul(activeOne)
 
@@ -248,14 +248,15 @@ class ParticleNodes {
                     params.pSizeMod[1]
                 );
 
+                let intensity = params.pIntensity[0]
                 let gain = obj.userData.gain;
                 emitterPositions.array[i].set(obj.position.x, obj.position.y, obj.position.z, gain +1);
-                let emitCount = Math.floor(gain*10 + gain*50)
+                let emitCount = Math.floor(MATH.curveSqrt(gain+Math.random())*intensity + (gain+0.5+Math.random())*intensity)
                 tempVec.set(0, 0, obj.userData.emitForce);
                 tempVec.applyQuaternion(obj.quaternion);
                 emitterDirections.array[i].set(tempVec.x, tempVec.y, tempVec.z);
                 emitterVelocities.array[i].set(obj.up.x, obj.up.y, obj.up.z, emitCount);
-                emitterParams.array[i].set(applyCount, emitCount, 0.1, params.pIntensity[0])
+                emitterParams.array[i].set(applyCount, emitCount, params.pLifeTime[0], intensity)
                 applyCount += emitCount
 
                 if (obj.userData.gain === 0) {
@@ -296,7 +297,7 @@ class ParticleNodes {
         }
 
         console.log("P Nodes Geo: ", mesh);
-        
+
         let positions = [];
         let velocities = [];
         let directions = [];

@@ -1,0 +1,25 @@
+{
+  "geometry": "geometry_particles_smoke",
+  "material": "material_particles_8x8",
+  "sprite": 1,
+  "sample_gain": {
+    "velocity_base": 50,
+    "velocity_gain_factor":30
+  },
+  "curves":{
+    "color": "smoke",
+    "alpha": "quickInSlowOut",
+    "size": "zeroOneZero",
+    "drag": "halfQuickIn"
+  },
+  "params": {
+    "pPosSpread": [0, 0.4],
+    "pVelSpread": [0, 0.1],
+    "pVelVariance": [0.0, 0.3],
+    "pLifeTime": [8.2, 0.22],
+    "pSizeFrom": [0.1, 0.8],
+    "pSizeTo":   [10.2, 0.9],
+    "pSizeMod":  [28.3, 0.3],
+    "pIntensity": [0.4, 1]
+  }
+}

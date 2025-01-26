@@ -11,13 +11,9 @@ class NodeParticleSpawner {
     constructor() {
 
         let point = null;
-        let maxSpawnRate = 0;
         let gain = 0;
         let particleConfig = null;
 
-        const dynamicParameters = {
-
-        }
 
         function closeParticleSpawner() {
             setSpawnerGain(0)
@@ -26,10 +22,7 @@ class NodeParticleSpawner {
         function setSpawnerConfig(config) {
             activateParticleEffectConfig(config);
             particleConfig = config;
-            maxSpawnRate = config['spawn_rate_max'];
         }
-
-
 
 
         function activatePointSpawner(file, dynamicPoint) {
@@ -37,31 +30,19 @@ class NodeParticleSpawner {
             jsonAsset(file, setSpawnerConfig)
         }
 
-
         function update() {
-            let frameSpawnWeight = gain * maxSpawnRate / getFrame().tpfAvg;
-            let count = Math.floor(MATH.remainder(frameSpawnWeight) * Math.random()) + Math.floor(frameSpawnWeight)
             let obj3d = point.getObj3d();
-            if (count > 0) {
-
+            obj3d.userData.gain = gain;
+            if (gain > 0) {
                 let sampleGain = particleConfig['sample_gain']
                 let velToGain = sampleGain['velocity_gain_factor']
                 let velBase = sampleGain['velocity_base']
-
                 point.updateDynamicPoint();
-
                 let vel = point.getVel()
-
-                obj3d.userData.gain = gain;
                 obj3d.userData.emitForce = velBase+velToGain*gain;
-
                 obj3d.up.set(0, 0, obj3d.userData.emitForce);
                 obj3d.up.applyQuaternion(obj3d.quaternion);
                 obj3d.up.add(vel);
-            //    console.log(getFrame().frame)
-            //    for (let i = 0; i < 1; i++) {
-
-            //    }
             }
             updateEmitterGain(obj3d, particleConfig)
 

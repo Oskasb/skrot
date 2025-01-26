@@ -12,6 +12,11 @@
     "generateMipmaps": false,
     "opacity": 1,
     "color": {"r": 5, "g": 5, "b": 5},
-    "emissiveIntensity": 1.0
+    "emissiveIntensity": 1.0,
+    "blending": "CustomBlending",
+    "blendEquation": "AddEquation",
+    "blendSrc": "SrcAlphaFactor",
+    "blendDst": "OneFactor",
+    "side": "DoubleSide"
   }
 }

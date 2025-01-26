@@ -1,15 +1,14 @@
 {
   "geometry": "geometry_particles_sprites",
-  "material": "material_particles_8x8",
+  "material": "material_particles_8x8_add",
   "sprite": 1,
-  "spawn_rate_max":50,
   "sample_gain": {
-    "velocity_base": 150,
-    "velocity_gain_factor":50
+    "velocity_base": 40,
+    "velocity_gain_factor":110
   },
   "curves":{
     "color": "warmFire",
-    "alpha": "oneToZero",
+    "alpha": "quickFadeOut",
     "size": "quickInSlowOut",
     "drag": "zeroToOne"
   },
@@ -18,9 +17,9 @@
     "pVelSpread": [0, 0.1],
     "pVelVariance": [0.0, 0.3],
     "pLifeTime": [0.2, 0.22],
-    "pSizeFrom": [0.5, 0.8],
-    "pSizeTo":   [0.2, 0.9],
-    "pSizeMod":  [0.4, 0.9],
+    "pSizeFrom": [0.8, 0.8],
+    "pSizeTo":   [1.2, 0.9],
+    "pSizeMod":  [0.3, 0.3],
     "pIntensity": [4, 4]
   }
 }
