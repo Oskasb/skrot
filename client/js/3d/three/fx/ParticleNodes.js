@@ -41,6 +41,7 @@ class ParticleNodes {
     constructor(material, maxInstanceCount, mesh) {
 
         const emitterObjects = []
+        const emitterConfigs = [];
 
         const updateRanges = {
             start:0,
@@ -60,13 +61,13 @@ class ParticleNodes {
         const pIntensity = uniform( 0);
         const tpf = uniform(0)
         const now = uniform(0);
-        const pLifeTime = uniform(1);
 
 
         const positionBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const velocityBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const scaleBuffer = instancedArray( maxInstanceCount, 'float' );
         const customTimeBuffer = instancedArray( maxInstanceCount, 'vec2' );
+        const customCurveBuffer = instancedArray( maxInstanceCount, 'vec4' );
 
         const ONE = uniform( 1);
         const ZERO = uniform( 0);
@@ -94,9 +95,8 @@ class ParticleNodes {
 
             const timeValues = customTimeBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
-            const pLifeTime     = timeValues.y;
-            const sizeCurve     = pCurves.z;
-            const lifeTimeTotal = pLifeTime;
+            const sizeCurve     = customCurveBuffer.element(instanceIndex).z;
+            const lifeTimeTotal = timeValues.y.add(tpf);
             const age = time.sub(spawnTime);
 
             const pSizeFrom     = sizeValueUniforms.x;
@@ -104,29 +104,27 @@ class ParticleNodes {
             const sizeModulate  = sizeValueUniforms.z;
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
-
+            const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
             const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
 
             const sizeCurveRow = sizeCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
             const sizeColor = dataTx.sample(vec2(ltCoordX, ONE.sub(sizeCurveRow))) //  lifeTimeFraction));
             const sizeMod = sizeModulate.mul(sizeColor.r);
             const lifecycleSize = sizeMod.add(pSizeFrom.mul(ONE.sub(lifeTimeFraction)).add(pSizeTo.mul(lifeTimeFraction)))
-            return lifecycleSize
+            return lifecycleSize // lifecycleSize.mul(ONE.sub(lifeTimeFraction))
 
         } )();
         material.colorNode = Fn( () => {
 
             const timeValues = customTimeBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
-            const pLifeTime     = timeValues.y;
-
-            const lifeTimeTotal = pLifeTime; // 11 = pLifeTime
+            const lifeTimeTotal = timeValues.y.add(tpf);
             const age = time.sub(spawnTime); // 12 = pSpawnTime
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
 
-            const colorCurve    = pCurves.x;
-            const alphaCurve    = pCurves.y;
+            const colorCurve    = customCurveBuffer.element(instanceIndex).x;
+            const alphaCurve    = customCurveBuffer.element(instanceIndex).y;
 
             const colorUvRow = colorCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
             const colorStrengthCurveRow = alphaCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
@@ -134,33 +132,36 @@ class ParticleNodes {
 
             const curveColor = dataTx.sample(vec2(ltCoordX, ONE.sub(colorUvRow)));
             const stengthColor = dataTx.sample(vec2(ltCoordX, ONE.sub(colorStrengthCurveRow))) ;
-            const strengthMod = stengthColor.r;
+            const strengthMod = ONE // stengthColor.r;
             const intensityColor = vec4(curveColor.r.mul(strengthMod), curveColor.g.mul(strengthMod), curveColor.b.mul(strengthMod), pIntensity.mul(strengthMod))
 
             const txColor = colorTx.sample(customSpriteUv8x8());
             return txColor.mul(intensityColor);
         } )();
 
-     //   const computeUpdate_ = Fn( () => {
-            material.positionNode = Fn( () => {
+        material.positionNode = Fn( () => {
+            return positionBuffer.element(instanceIndex);
+        } )();
+
+        const computeParticles = Fn( () => {
+
 
             const particlePosition = positionBuffer.element(instanceIndex)
             const particlevelocity = velocityBuffer.element(instanceIndex)
             const timeValues = customTimeBuffer.element(instanceIndex)
 
 
-            const dragrCurve    = pCurves.w;
+            const dragrCurve    = customCurveBuffer.element(instanceIndex).w;
             const pVelocityX    = particlevelocity.x;
             const pVelocityY    = particlevelocity.y;
             const pVelocityZ    = particlevelocity.z;
             const spawnTime     = timeValues.x;
-            const pLifeTime     = timeValues.y;
 
 
-            const pIntensity    = sizeValueUniforms.w;
+        //    const pIntensity    = sizeValueUniforms.w;
 
 
-                     const lifeTimeTotal = pLifeTime; // 11 = pLifeTime
+            const lifeTimeTotal = timeValues.y.add(tpf);
                      const age = time.sub(spawnTime); // 12 = pSpawnTime
 
                      const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
@@ -178,20 +179,22 @@ class ParticleNodes {
 
                 //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
-                const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age);
+                const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(tpf);
 
-                return particlePosition.add(velocityOffset)
+                let pPos = particlePosition.add(velocityOffset).mul(activeOne)
 
-            } )();
+                particlePosition.assign(pPos)
+
+            } );
 
         const computeUpdate = Fn( () => {
 
-            const now = time;
 
                 const emitterPositionV4 = emitterPositions.element( instanceIndex );
                 const emitterDirectionV3 = emitterDirections.element( instanceIndex );
                 const emitterVelV4 = emitterVelocities.element( instanceIndex );
                 const emittParamsV4 = emitterParams.element( instanceIndex );
+                const emittCurvesV4 = emitterCurves.element( instanceIndex );
                 const emitterPos = emitterPositionV4.xyz // vec3(1179,    emitterPositionV4.y, startIndex.add(3340))
                 const emitterSize = emitterPositionV4.w;
                 const emitterVel = emitterVelV4.xyz;
@@ -210,16 +213,15 @@ class ParticleNodes {
                     const offsetY = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX)))
                     const offsetZ = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX).add(offsetY)))
 
-                    const offsetTime = emitFraction.mul(tpf)
+                    const offsetTime = emitFraction.mul(0.02)
 
-                    const offsetPos = emitterVel.mul(tpf).sub(emitterDirectionV3.mul(offsetTime)) // .add(vec3(offsetX, offsetY, offsetZ))
+                    const offsetPos = emitterDirectionV3.mul(offsetTime).sub(emitterDirectionV3.mul(0.02))// .mul(-1)).add() // .add(vec3(offsetX, offsetY, offsetZ))
                     positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos))
                     velocityBuffer.element(particleIndex).assign(emitterVel)
-                    customTimeBuffer.element(particleIndex).assign(vec2(now.sub(offsetTime), particleDuration))
+                    customTimeBuffer.element(particleIndex).assign(vec2(time.sub(offsetTime), particleDuration))
+                    customCurveBuffer.element(particleIndex).assign(emittCurvesV4)
                     scaleBuffer.element(particleIndex).assign(ONE)
                 } );
-
-
 
         } );
 
@@ -228,24 +230,47 @@ class ParticleNodes {
 
         let activeParticles = 0;
         let isActive = false;
+        let clearEmitters = [];
         function update() {
 
             let applyCount = 0;
 
+            emittersLength.value = emitterObjects.length;
+
             for (let i = 0; i < emitterObjects.length; ++i) {
                 let obj = emitterObjects[i];
+                let config = emitterConfigs[obj.uuid];
+
+                let curves = config.curves;
+                let colorCurve = ENUMS.ColorCurve[curves.color || 'brightMix']
+                let alphaCurve = ENUMS.ColorCurve[curves.alpha || 'oneToZero']
+                let sizeCurve  = ENUMS.ColorCurve[curves.size  || 'oneToZero']
+                let dragrCurve = ENUMS.ColorCurve[curves.drag  || 'zeroToOne']
+
+                emitterCurves.array[i].set(
+                    colorCurve,
+                    alphaCurve,
+                    sizeCurve,
+                    dragrCurve
+                ); // color - alpha - size - drag
+
                 let gain = obj.userData.gain;
                 emitterPositions.array[i].set(obj.position.x, obj.position.y, obj.position.z, gain +1);
-                let emitCount = Math.floor(10 + gain*50)
+                let emitCount = Math.floor(gain*10 + gain*50)
                 tempVec.set(0, 0, obj.userData.emitForce);
                 tempVec.applyQuaternion(obj.quaternion);
                 emitterDirections.array[i].set(tempVec.x, tempVec.y, tempVec.z);
                 emitterVelocities.array[i].set(obj.up.x, obj.up.y, obj.up.z, emitCount);
                 emitterParams.array[i].set(applyCount, emitCount, 0.1, 0)
                 applyCount += emitCount
-            }
 
-            emittersLength.value = emitterObjects.length;
+                if (obj.userData.gain === 0) {
+                    clearEmitters.push(obj)
+                }
+
+
+
+            }
 
 
             pIndex.value = lastIndex;
@@ -258,7 +283,22 @@ class ParticleNodes {
             isActive = true;
             tpf.value = getFrame().tpf;
         //    now.value = getFrame().gameTime;
-            ThreeAPI.getRenderer().computeAsync( computeUpdate().compute( emitterObjects.length ) );
+            if (emitterObjects.length !== 0) {
+                ThreeAPI.getRenderer().computeAsync( computeUpdate().compute( emitterObjects.length ) );
+            }
+
+            while (clearEmitters.length) {
+                let obj = clearEmitters.pop();
+                let config = emitterConfigs[obj.uuid];
+                MATH.splice(emitterConfigs, config)
+                MATH.splice(emitterObjects, clearEmitters.pop())
+            }
+
+        }
+
+        function updateParticles() {
+            update();
+            ThreeAPI.getRenderer().computeAsync( computeParticles().compute( maxInstanceCount ) );
         }
 
         console.log("P Nodes Geo: ", mesh);
@@ -269,18 +309,25 @@ class ParticleNodes {
         let directions = [];
         let params = [];
 
+        let curves = [];
+        let dimensions = [];
 
         for (let i = 0; i < 20; i++) {
             positions.push(new Vector4());
             directions.push(new Vector3());
             velocities.push(new Vector4());
             params.push(new Vector4());
+            curves.push(new Vector4());
+            dimensions.push(new Vector4());
         }
 
         const emitterPositions = uniformArray(positions)
         const emitterDirections = uniformArray(directions)
         const emitterVelocities = uniformArray(velocities)
         const emitterParams = uniformArray(params)
+        const emitterCurves = uniformArray(curves)
+        const emitterDimensions = uniformArray(dimensions)
+
 
         const emittersLength = uniform( 0, 'uint' );
 
@@ -288,17 +335,18 @@ class ParticleNodes {
         //    console.log("spawnNodeParticle", pos, vel, config)
 
 
-            if (obj3d.userData.gain === 0) {
-                MATH.splice(emitterObjects, obj3d)
-            } else {
                 if (emitterObjects.indexOf(obj3d) === -1) {
                     emitterObjects.push(obj3d)
+                    emitterConfigs[obj3d.uuid] = config;
                 }
-            }
 
-            let curves = config.curves;
+
+
             let params = config.params;
 
+                /*
+
+            let curves = config.curves;
             let colorCurve = ENUMS.ColorCurve[curves.color || 'brightMix']
             let alphaCurve = ENUMS.ColorCurve[curves.alpha || 'oneToZero']
             let sizeCurve  = ENUMS.ColorCurve[curves.size  || 'oneToZero']
@@ -310,7 +358,17 @@ class ParticleNodes {
                 sizeCurve,
                 dragrCurve
             ); // color - alpha - size - drag
+*/
+            pIntensity.value = params.pIntensity[0];
 
+            sizeValueUniforms.value.set(
+                params.pSizeFrom[0],
+                params.pSizeTo[0],
+                params.pSizeMod[0],
+                params.pSizeMod[1]
+            );
+
+            /*
             pVelocity.value.copy( obj3d.up );
 
             let pVelVariance = params['pVelVariance']
@@ -327,32 +385,28 @@ class ParticleNodes {
                 MATH.spreadVector(pVelocity.value, randomVec)
             }
 
-            pIntensity.value = MATH.randomBetween(params.pIntensity[0], params.pIntensity[1]);
-            sizeValueUniforms.value.set(
-                MATH.randomBetween(params.pSizeFrom[0], params.pSizeFrom[1]),
-                MATH.randomBetween(params.pSizeTo[0], params.pSizeTo[1]),
-                MATH.randomBetween(params.pSizeMod[0], params.pSizeMod[1]),
-                pIntensity.value
-            );
+  */
 
-            pLifeTime.value = MATH.randomBetween(params.pLifeTime[0], params.pLifeTime[1]);
 
+
+            /*
             timeValues.value.set(
                 getFrame().gameTime,
                 pLifeTime.value,
                 0,
                 0
             )
-
+*/
         //    ThreeAPI.getRenderer().compute( computeApply );
             activeParticles++;
 
             if (isActive === false) {
             //    console.log(mesh.geometry.attributes)
-                ThreeAPI.registerPrerenderCallback(update)
+                //ThreeAPI.registerPrerenderCallback(update)
+                ThreeAPI.registerPrerenderCallback(updateParticles);
             } else {
                 if (emitterObjects.length === 0) {
-                    ThreeAPI.unregisterPrerenderCallback(update)
+                    //ThreeAPI.unregisterPrerenderCallback(update)
                     isActive = false;
                 }
             }
