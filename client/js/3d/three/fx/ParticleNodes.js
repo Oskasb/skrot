@@ -131,7 +131,7 @@ class ParticleNodes {
             const strengthMod = stengthColor.r;
             const intensityColor = vec4(curveColor.r.mul(strengthMod), curveColor.g.mul(strengthMod), curveColor.b.mul(strengthMod), pIntensity.mul(strengthMod))
 
-            return txColor.mul(lifeTimeFraction);
+            return vec4(txColor.r, txColor.g, txColor.b, txColor.a ) //.mul(lifeTimeFraction);
         } )();
 
      //   const computeUpdate_ = Fn( () => {
@@ -221,7 +221,7 @@ class ParticleNodes {
 
                     const offsetTime = emitFraction.mul(tpf)
 
-                    const offsetPos = emitterVel.mul(tpf).sub(emitterDirectionV3.mul(emitFraction.mul(tpf))) // .add(vec3(offsetX, offsetY, offsetZ))
+                    const offsetPos = emitterVel.mul(tpf).sub(emitterDirectionV3.mul(offsetTime)) // .add(vec3(offsetX, offsetY, offsetZ))
                     positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos))
                     velocityBuffer.element(particleIndex).assign(emitterVel)
                     customTimeBuffer.element(particleIndex).assign(vec2(now.sub(offsetTime), particleDuration))
