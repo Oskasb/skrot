@@ -107,7 +107,15 @@ class ParticleNodes {
 
         material.colorNode = Fn( () => {
 
-            const lifeTimeFraction = varyingProperty( 'float', 'p_lifeTimeFraction' );
+
+            const timeValues = customTimeBuffer.element(instanceIndex)
+            const spawnTime     = timeValues.x;
+            const pLifeTime     = timeValues.y;
+
+            const lifeTimeTotal = pLifeTime; // 11 = pLifeTime
+            const age = time.sub(spawnTime); // 12 = pSpawnTime
+
+            const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
 
             const colorCurve    = pCurves.x;
             const alphaCurve    = pCurves.y;
@@ -117,13 +125,13 @@ class ParticleNodes {
             const colorUvRow = colorCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
             const colorStrengthCurveRow = alphaCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
             const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
-            
+
             const curveColor = dataTx.sample(vec2(ltCoordX, ONE.sub(colorUvRow)));
             const stengthColor = dataTx.sample(vec2(ltCoordX, ONE.sub(colorStrengthCurveRow))) ;
             const strengthMod = stengthColor.r;
             const intensityColor = vec4(curveColor.r.mul(strengthMod), curveColor.g.mul(strengthMod), curveColor.b.mul(strengthMod), pIntensity.mul(strengthMod))
 
-            return txColor.mul(curveColor);
+            return txColor.mul(lifeTimeFraction);
         } )();
 
      //   const computeUpdate_ = Fn( () => {
@@ -153,7 +161,7 @@ class ParticleNodes {
                      const lifeTimeTotal = pLifeTime; // 11 = pLifeTime
                      const age = time.sub(spawnTime); // 12 = pSpawnTime
 
-                     const lifeTimeFraction = age.div(lifeTimeTotal);
+                     const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
                      const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
 
                      const colorUvRow = colorCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
@@ -211,10 +219,12 @@ class ParticleNodes {
                     const offsetY = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX)))
                     const offsetZ = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX).add(offsetY)))
 
+                    const offsetTime = emitFraction.mul(tpf)
+
                     const offsetPos = emitterVel.mul(tpf).sub(emitterDirectionV3.mul(emitFraction.mul(tpf))) // .add(vec3(offsetX, offsetY, offsetZ))
                     positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos))
                     velocityBuffer.element(particleIndex).assign(emitterVel)
-                    customTimeBuffer.element(particleIndex).assign(vec2(now, particleDuration))
+                    customTimeBuffer.element(particleIndex).assign(vec2(now.sub(offsetTime), particleDuration))
                     scaleBuffer.element(particleIndex).assign(ONE)
                 } );
 
