@@ -48,11 +48,14 @@ class NodeParticleSpawner {
                 let velToGain = sampleGain['velocity_gain_factor']
                 let velBase = sampleGain['velocity_base']
 
-            //    point.updateDynamicPoint();
+                point.updateDynamicPoint();
 
                 let vel = point.getVel()
 
-                obj3d.up.set(0, 0,velBase+velToGain*gain);
+                obj3d.userData.gain = gain;
+                obj3d.userData.emitForce = velBase+velToGain*gain;
+
+                obj3d.up.set(0, 0, obj3d.userData.emitForce);
                 obj3d.up.applyQuaternion(obj3d.quaternion);
                 obj3d.up.add(vel);
             //    console.log(getFrame().frame)
@@ -60,7 +63,7 @@ class NodeParticleSpawner {
 
             //    }
             }
-            updateEmitterGain(obj3d, gain, particleConfig)
+            updateEmitterGain(obj3d, particleConfig)
 
         }
 

@@ -146,7 +146,7 @@ class AssetInstance {
     }
 
     getAssetBodyVelocity() {
-        let body = this.call.getObj3d().body;
+        let body = this.call.getObj3d().userData.body;
         if (!body) {
             ThreeAPI.tempVec3.set(0, 0, 0)
             return ThreeAPI.tempVec3;
@@ -155,7 +155,7 @@ class AssetInstance {
     }
 
     getAssetBodyAngularVelocity() {
-        let body = this.call.getObj3d().body;
+        let body = this.call.getObj3d().userData.body;
         if (!body) {
             ThreeAPI.tempVec3.set(0, 0, 0)
             return ThreeAPI.tempVec3;

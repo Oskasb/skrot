@@ -125,10 +125,10 @@ class NodeParticleGeometry {
             loadAssetMaterial(matName, applyJson)
         }
 
-        function spawnGeometryParticle(obj3d, gain, config) {
+        function spawnGeometryParticle(obj3d, config) {
             let matName = config['material'];
             if (geoMatEffects[matName]) {
-                geoMatEffects[matName].material.particleNodes.call.setParticleEmitterGain(obj3d, gain, config);
+                geoMatEffects[matName].material.particleNodes.call.setParticleEmitterGain(obj3d, config);
             }
         }
 

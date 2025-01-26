@@ -32,6 +32,7 @@ import {Matrix4} from "../../../../../libs/three/math/Matrix4.js";
 import {DynamicDrawUsage, Float32BufferAttribute} from "three";
 
 let tempObj = new Object3D();
+let tempVec = new Vector3();
 let tempColor = new Color();
 let tempMatrix = new Matrix4();
 let tempVec4 = new Vector4();
@@ -106,8 +107,8 @@ class ParticleNodes {
 
         material.colorNode = Fn( () => {
             const txColor = colorTx.sample(customSpriteUv8x8());
-         //   const color = varyingProperty( 'vec4', 'v_intensityColor' ) // colorBuffer.element(instanceIndex)
-            return txColor // .mul(color.xyz).mul(color.w);
+            const color = varyingProperty( 'vec4', 'v_intensityColor' ) // colorBuffer.element(instanceIndex)
+            return txColor.mul(color.xyz).mul(color.w);
         } )();
 
      //   const computeUpdate_ = Fn( () => {
@@ -134,11 +135,11 @@ class ParticleNodes {
             const pIntensity    = sizeValueUniforms.w;
 
 
-                     const lifeTimeTotal = 1 // pLifeTime; // 11 = pLifeTime
+                     const lifeTimeTotal = pLifeTime; // 11 = pLifeTime
                      const age = time.sub(spawnTime); // 12 = pSpawnTime
 
                      const lifeTimeFraction = age.div(lifeTimeTotal);
-                     const activeOne = max(0, ONE.sub(lifeTimeFraction).sign())
+                     const activeOne = int(max(0, ONE.sub(lifeTimeFraction).sign()));
 
                      const colorUvRow = colorCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
                      const colorStrengthCurveRow = alphaCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
@@ -162,8 +163,8 @@ class ParticleNodes {
 
             //    const testColor = vec4(curveColor.r, curveColor.g, curveColor.b, activeOne) //.mul(activeOne)
 
-            //      varyingProperty( 'vec4', 'v_intensityColor' ).assign(testColor);
-            //     colorBuffer.element(instanceIndex).assign(intensityColor);
+            varyingProperty( 'vec4', 'v_intensityColor' ).assign(intensityColor);
+                //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
                 const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age);
 
@@ -176,28 +177,28 @@ class ParticleNodes {
             const now = time;
 
                 const emitterPositionV4 = emitterPositions.element( instanceIndex );
+                const emitterDirectionV3 = emitterDirections.element( instanceIndex );
                 const emitterVelV4 = emitterVelocities.element( instanceIndex );
                 const emittParamsV4 = emitterParams.element( instanceIndex );
                 const emitterPos = emitterPositionV4.xyz // vec3(1179,    emitterPositionV4.y, startIndex.add(3340))
                 const emitterSize = emitterPositionV4.w;
                 const emitterVel = emitterVelV4.xyz;
                 const velocityStretch = emitterVelV4.w;
+
                 const emitCountOffset = emittParamsV4.x;
                 const emitCount = int(emittParamsV4.y)
-
-                const particleDuration = emittParamsV4.w
+                const particleDuration = emittParamsV4.z
 
                 Loop ( emitCount, ( { i } ) => {
                     const step =  ZERO.add(i);
                     const particleIndex = pIndex.add(emitCountOffset.add(emitCount)).add(i)
-
                     const emitFraction = step.div(emitCount)
 
                     const offsetX = step.pow(0.5).mul(emitterSize.mod(step))
                     const offsetY = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX)))
                     const offsetZ = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX).add(offsetY)))
 
-                    const offsetPos = emitterVel.mul(emitFraction.mul(tpf)) // .add(vec3(offsetX, offsetY, offsetZ))
+                    const offsetPos = emitterVel.mul(tpf).sub(emitterDirectionV3.mul(emitFraction.mul(tpf))) // .add(vec3(offsetX, offsetY, offsetZ))
                     positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos))
                     velocityBuffer.element(particleIndex).assign(emitterVel)
                     customTimeBuffer.element(particleIndex).assign(vec2(now, particleDuration))
@@ -222,9 +223,11 @@ class ParticleNodes {
                 let gain = obj.userData.gain;
                 emitterPositions.array[i].set(obj.position.x, obj.position.y, obj.position.z, gain +1);
                 let emitCount = Math.floor(10 + gain*50)
-
+                tempVec.set(0, 0, obj.userData.emitForce);
+                tempVec.applyQuaternion(obj.quaternion);
+                emitterDirections.array[i].set(tempVec.x, tempVec.y, tempVec.z);
                 emitterVelocities.array[i].set(obj.up.x, obj.up.y, obj.up.z, emitCount);
-                emitterParams.array[i].set(applyCount, emitCount, 0.1 + gain*2+Math.random(), 0)
+                emitterParams.array[i].set(applyCount, emitCount, 0.1, 0)
                 applyCount += emitCount
             }
 
@@ -249,30 +252,29 @@ class ParticleNodes {
 
         let positions = [];
         let velocities = [];
+        let directions = [];
         let params = [];
 
 
         for (let i = 0; i < 20; i++) {
             positions.push(new Vector4());
+            directions.push(new Vector3());
             velocities.push(new Vector4());
             params.push(new Vector4());
         }
 
         const emitterPositions = uniformArray(positions)
+        const emitterDirections = uniformArray(directions)
         const emitterVelocities = uniformArray(velocities)
         const emitterParams = uniformArray(params)
 
         const emittersLength = uniform( 0, 'uint' );
 
-        function setParticleEmitterGain(obj3d, gain, config) {
+        function setParticleEmitterGain(obj3d, config) {
         //    console.log("spawnNodeParticle", pos, vel, config)
-            if (typeof (gain) !== 'number') {
-                console.log("Gain is NaN", gain)
-                gain = 0;
-            }
 
-            obj3d.userData.gain = gain;
-            if (gain === 0) {
+
+            if (obj3d.userData.gain === 0) {
                 MATH.splice(emitterObjects, obj3d)
             } else {
                 if (emitterObjects.indexOf(obj3d) === -1) {

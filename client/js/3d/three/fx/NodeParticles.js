@@ -22,9 +22,9 @@ function activateParticleEffectConfig(config) {
     activateEffectConfig(config['material'], config['geometry'])
 }
 
-function updateEmitterGain(obj3d, gain, config) {
+function updateEmitterGain(obj3d, config) {
     if (particleGeometries[config['geometry']]) {
-        particleGeometries[config['geometry']].call.spawnGeometryParticle(obj3d, gain, config)
+        particleGeometries[config['geometry']].call.spawnGeometryParticle(obj3d, config)
     }
 }
 
