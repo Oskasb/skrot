@@ -4,7 +4,7 @@
   "sprite": 1,
   "spawn_rate_max":50,
   "sample_gain": {
-    "velocity_base": 50,
+    "velocity_base": 150,
     "velocity_gain_factor":50
   },
   "curves":{

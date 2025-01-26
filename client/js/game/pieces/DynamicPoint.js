@@ -46,16 +46,19 @@ class DynamicPoint {
         let timeDelta = 0;
         let lastFrameTime = getFrame().gameTime;
         let lastUpdatePos = new Vector3();
+
+        let updateSteps = 0;
         let updateObj3d = function() {
 
 
 
             let frame = getFrame().frame;
-            if (updateFrame === frame) {
-        //        return false;
-                console.log("Double UPdate Frame")
+            if (updateFrame !== frame) {
+                updateSteps = 0;
             }
+            updateSteps++
 
+            updateFrame = frame;
             obj3d.position.copy(offset);
 
             if (hasBoneParent === true) {
@@ -92,9 +95,10 @@ class DynamicPoint {
             }
 
             obj3d.position.add(tempObj.position)
-            updateVelocity();
+
 
         //    console.log(timeDelta, velocity)
+
             return true;
         }
 
@@ -103,8 +107,6 @@ class DynamicPoint {
         }
 
         let getLocalTransform = function(storeObj) {
-
-            updateObj3d();
 
             let assetNode = assetInstance.getObj3d();
             tempObj.position.copy(assetNode.position);
@@ -118,22 +120,22 @@ class DynamicPoint {
         }
 
         function updateVelocity() {
+            let bodyVelocity = assetInstance.getAssetBodyVelocity()
+            let bodyAngularVelocity = assetInstance.getAssetBodyAngularVelocity()
 
-            let now = getFrame().gameTime;
-            timeDelta = now - lastFrameTime;
-
-            if (timeDelta === 0) {
-                return velocity;
+            let frame = getFrame().frame;
+            if (updateFrame !== frame) {
+                updateObj3d();
             }
 
-            lastFrameTime = now
-            velocity.copy(lastUpdatePos)
-            lastUpdatePos.copy(obj3d.position)
-            velocity.sub(lastUpdatePos)
-            velocity.multiplyScalar(  -1/ timeDelta);
+            velocity.copy(bodyVelocity)
+
+            bodyAngularVelocity.cross(localObj3d.position)
+            velocity.add(bodyAngularVelocity);
         }
 
         let getPointVelocity = function() {
+            updateVelocity();
             return velocity
         }
 

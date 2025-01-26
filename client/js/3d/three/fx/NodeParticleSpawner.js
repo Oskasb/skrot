@@ -48,11 +48,13 @@ class NodeParticleSpawner {
                 let velToGain = sampleGain['velocity_gain_factor']
                 let velBase = sampleGain['velocity_base']
 
-                point.updateDynamicPoint();
+            //    point.updateDynamicPoint();
+
+                let vel = point.getVel()
 
                 obj3d.up.set(0, 0,velBase+velToGain*gain);
                 obj3d.up.applyQuaternion(obj3d.quaternion);
-                obj3d.up.add(point.getVel());
+                obj3d.up.add(vel);
             //    console.log(getFrame().frame)
             //    for (let i = 0; i < 1; i++) {
 

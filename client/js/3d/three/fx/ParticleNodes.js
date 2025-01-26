@@ -239,8 +239,8 @@ class ParticleNodes {
             }
 
             isActive = true;
-            tpf.value = getFrame().tpfAvg;
-            now.value = getFrame().gameTime;
+            tpf.value = getFrame().tpf;
+        //    now.value = getFrame().gameTime;
             ThreeAPI.getRenderer().computeAsync( computeUpdate().compute( emitterObjects.length ) );
         }
 

@@ -6,6 +6,7 @@ import {ControlDynamics} from "../../../game/controls/ControlDynamics.js";
 import {MATH} from "../../../application/MATH.js";
 import {DynamicPoint} from "../../../game/pieces/DynamicPoint.js";
 import {PhysicalModel} from "../../../application/physics/PhysicalModel.js";
+import {getBodyAngularVelocity, getBodyVelocity} from "../../../application/utils/PhysicsUtils.js";
 
 
 class AssetInstance {
@@ -142,6 +143,24 @@ class AssetInstance {
             getPointById:getPointById
         }
 
+    }
+
+    getAssetBodyVelocity() {
+        let body = this.call.getObj3d().body;
+        if (!body) {
+            ThreeAPI.tempVec3.set(0, 0, 0)
+            return ThreeAPI.tempVec3;
+        }
+        return getBodyVelocity(body);
+    }
+
+    getAssetBodyAngularVelocity() {
+        let body = this.call.getObj3d().body;
+        if (!body) {
+            ThreeAPI.tempVec3.set(0, 0, 0)
+            return ThreeAPI.tempVec3;
+        }
+        return getBodyAngularVelocity(body);
     }
 
     registerStatusChangeCallback(statusKey, callback) {
