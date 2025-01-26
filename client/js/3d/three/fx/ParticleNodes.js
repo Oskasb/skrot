@@ -90,13 +90,31 @@ class ParticleNodes {
 */
 
     //    material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
-        material.scaleNode_ = Fn( () => {
+        material.scaleNode = Fn( () => {
 
-            return 1
+            const timeValues = customTimeBuffer.element(instanceIndex)
+            const spawnTime     = timeValues.x;
+            const pLifeTime     = timeValues.y;
+            const sizeCurve     = pCurves.z;
+            const lifeTimeTotal = pLifeTime;
+            const age = time.sub(spawnTime);
+
+            const pSizeFrom     = sizeValueUniforms.x;
+            const pSizeTo       = sizeValueUniforms.y;
+            const sizeModulate  = sizeValueUniforms.z;
+
+            const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
+
+            const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
+
+            const sizeCurveRow = sizeCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
+            const sizeColor = dataTx.sample(vec2(ltCoordX, ONE.sub(sizeCurveRow))) //  lifeTimeFraction));
+            const sizeMod = sizeModulate.mul(sizeColor.r);
+            const lifecycleSize = sizeMod.add(pSizeFrom.mul(ONE.sub(lifeTimeFraction)).add(pSizeTo.mul(lifeTimeFraction)))
+            return lifecycleSize
 
         } )();
         material.colorNode = Fn( () => {
-
 
             const timeValues = customTimeBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
@@ -109,7 +127,6 @@ class ParticleNodes {
 
             const colorCurve    = pCurves.x;
             const alphaCurve    = pCurves.y;
-
 
             const colorUvRow = colorCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
             const colorStrengthCurveRow = alphaCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
@@ -130,21 +147,16 @@ class ParticleNodes {
             const particlePosition = positionBuffer.element(instanceIndex)
             const particlevelocity = velocityBuffer.element(instanceIndex)
             const timeValues = customTimeBuffer.element(instanceIndex)
-            const sizeValues = scaleBuffer.element(instanceIndex)
 
 
-            const colorCurve    = pCurves.x;
-            const alphaCurve    = pCurves.y;
-            const sizeCurve     = pCurves.z;
             const dragrCurve    = pCurves.w;
             const pVelocityX    = particlevelocity.x;
             const pVelocityY    = particlevelocity.y;
             const pVelocityZ    = particlevelocity.z;
             const spawnTime     = timeValues.x;
             const pLifeTime     = timeValues.y;
-            const pSizeFrom     = sizeValueUniforms.x;
-            const pSizeTo       = sizeValueUniforms.y;
-            const sizeModulate  = sizeValueUniforms.z;
+
+
             const pIntensity    = sizeValueUniforms.w;
 
 
@@ -154,24 +166,13 @@ class ParticleNodes {
                      const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
                      const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
 
-                     const colorUvRow = colorCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
-                     const colorStrengthCurveRow = alphaCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
-                     const sizeCurveRow = sizeCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
                      const frictionCurveRow = dragrCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
-
                      const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
-
-
-                     const sizeColor = dataTx.sample(vec2(ltCoordX, ONE.sub(sizeCurveRow))) //  lifeTimeFraction));
                      const frictionColor = dataTx.sample(vec2(ltCoordX, ONE.sub(frictionCurveRow))) //  lifeTimeFraction));
 
 
-                     const sizeMod = sizeModulate.mul(sizeColor.r);
-                     const frictionMod = frictionColor.r;
 
-                     const lifecycleSize = sizeMod.add(pSizeFrom.mul(ONE.sub(lifeTimeFraction)).add(pSizeTo.mul(lifeTimeFraction)))
-
-
+                const frictionMod = frictionColor.r;
             //    varyingProperty( 'float', 'p_lifeTimeFraction' ).assign(lifeTimeFraction);
             //    varyingProperty( 'float', 'v_lifecycleScale' ).assign(lifecycleSize);
 
