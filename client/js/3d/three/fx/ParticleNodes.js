@@ -102,13 +102,28 @@ class ParticleNodes {
 
 
     //    material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
-        material.scaleNode = scaleBuffer.toAttribute();
+        material.scaleNode = varyingProperty( 'float', 'v_lifecycleScale' );
     //    material.normalNode = transformNormalToView(vec3(0, 1, 0));
 
         material.colorNode = Fn( () => {
+
+            const lifeTimeFraction = varyingProperty( 'float', 'p_lifeTimeFraction' );
+
+            const colorCurve    = pCurves.x;
+            const alphaCurve    = pCurves.y;
+
             const txColor = colorTx.sample(customSpriteUv8x8());
-            const color = varyingProperty( 'vec4', 'v_intensityColor' ) // colorBuffer.element(instanceIndex)
-            return txColor.mul(color.xyz).mul(color.w);
+
+            const colorUvRow = colorCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
+            const colorStrengthCurveRow = alphaCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
+            const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
+            
+            const curveColor = dataTx.sample(vec2(ltCoordX, ONE.sub(colorUvRow)));
+            const stengthColor = dataTx.sample(vec2(ltCoordX, ONE.sub(colorStrengthCurveRow))) ;
+            const strengthMod = stengthColor.r;
+            const intensityColor = vec4(curveColor.r.mul(strengthMod), curveColor.g.mul(strengthMod), curveColor.b.mul(strengthMod), pIntensity.mul(strengthMod))
+
+            return txColor.mul(curveColor);
         } )();
 
      //   const computeUpdate_ = Fn( () => {
@@ -146,24 +161,22 @@ class ParticleNodes {
                      const sizeCurveRow = sizeCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
                      const frictionCurveRow = dragrCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
 
-                     const ltCoordX = (lifeTimeFraction.sub(ROW_SELECT_FACTOR)).add(DATA_PX_OFFSET);
+                     const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
 
-                     const curveColor = dataTx.sample(vec2(ltCoordX, ONE.sub(colorUvRow))) //  lifeTimeFraction));
-                     const stengthColor = dataTx.sample(vec2(ltCoordX, ONE.sub(colorStrengthCurveRow))) //  lifeTimeFraction));
+
                      const sizeColor = dataTx.sample(vec2(ltCoordX, ONE.sub(sizeCurveRow))) //  lifeTimeFraction));
                      const frictionColor = dataTx.sample(vec2(ltCoordX, ONE.sub(frictionCurveRow))) //  lifeTimeFraction));
 
-                     const strengthMod = stengthColor.r.mul(activeOne);
+
                      const sizeMod = sizeModulate.mul(sizeColor.r);
                      const frictionMod = frictionColor.r;
 
                      const lifecycleSize = sizeMod.add(pSizeFrom.mul(ONE.sub(lifeTimeFraction)).add(pSizeTo.mul(lifeTimeFraction)))
 
-                    const intensityColor = vec4(curveColor.r.mul(strengthMod), curveColor.g.mul(strengthMod), curveColor.b.mul(strengthMod), pIntensity.mul(strengthMod))
 
-               const testColor = vec4(curveColor.r, curveColor.g, curveColor.b, 1) //.mul(activeOne)
+                varyingProperty( 'float', 'p_lifeTimeFraction' ).assign(lifeTimeFraction);
+                varyingProperty( 'float', 'v_lifecycleScale' ).assign(lifecycleSize);
 
-            varyingProperty( 'vec4', 'v_intensityColor' ).assign(testColor);
                 //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
                 const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age);
