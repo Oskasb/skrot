@@ -106,8 +106,8 @@ class ParticleNodes {
 
         material.colorNode = Fn( () => {
             const txColor = colorTx.sample(customSpriteUv8x8());
-            const color = varyingProperty( 'vec4', 'v_intensityColor' ) // colorBuffer.element(instanceIndex)
-            return txColor.mul(color.xyz).mul(color.w);
+         //   const color = varyingProperty( 'vec4', 'v_intensityColor' ) // colorBuffer.element(instanceIndex)
+            return txColor // .mul(color.xyz).mul(color.w);
         } )();
 
      //   const computeUpdate_ = Fn( () => {
@@ -160,9 +160,9 @@ class ParticleNodes {
 
                     const intensityColor = vec4(curveColor.r.mul(strengthMod), curveColor.g.mul(strengthMod), curveColor.b.mul(strengthMod), pIntensity.mul(strengthMod))
 
-                const testColor = vec4(curveColor.r, curveColor.g, curveColor.b, activeOne) //.mul(activeOne)
+            //    const testColor = vec4(curveColor.r, curveColor.g, curveColor.b, activeOne) //.mul(activeOne)
 
-                  varyingProperty( 'vec4', 'v_intensityColor' ).assign(testColor);
+            //      varyingProperty( 'vec4', 'v_intensityColor' ).assign(testColor);
             //     colorBuffer.element(instanceIndex).assign(intensityColor);
 
                 const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age);
