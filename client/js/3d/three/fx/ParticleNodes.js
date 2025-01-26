@@ -63,6 +63,7 @@ class ParticleNodes {
 
 
         const positionBuffer = instancedArray( maxInstanceCount, 'vec3' );
+        const velocityBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const scaleBuffer = instancedArray( maxInstanceCount, 'float' );
         const customTimeBuffer = instancedArray( maxInstanceCount, 'vec2' );
 
@@ -103,40 +104,38 @@ class ParticleNodes {
         material.scaleNode = scaleBuffer.toAttribute();
     //    material.normalNode = transformNormalToView(vec3(0, 1, 0));
 
-        material.colorNode_ = Fn( () => {
-
-
+        material.colorNode = Fn( () => {
             const txColor = colorTx.sample(customSpriteUv8x8());
-            // const color = varyingProperty( 'vec4', 'v_intensityColor' ) // colorBuffer.element(instanceIndex)
-            return txColor // .mul(color.xyz).mul(color.w);
+            const color = varyingProperty( 'vec4', 'v_intensityColor' ) // colorBuffer.element(instanceIndex)
+            return txColor.mul(color.xyz).mul(color.w);
         } )();
 
-        const computeUpdate_ = Fn( () => {
+     //   const computeUpdate_ = Fn( () => {
+            material.positionNode = Fn( () => {
 
-
-
+            const particlePosition = positionBuffer.element(instanceIndex)
+            const particlevelocity = velocityBuffer.element(instanceIndex)
             const timeValues = customTimeBuffer.element(instanceIndex)
-            const curveValues = customCurveBuffer.element(instanceIndex)
-            const sizeValues = customSizeBuffer.element(instanceIndex)
-            const velocityValues = customVelocityBuffer.element(instanceIndex)
+            const sizeValues = scaleBuffer.element(instanceIndex)
 
-            const colorCurve    = curveValues.x;
-            const alphaCurve    = curveValues.y;
-            const sizeCurve     = curveValues.z;
-            const dragrCurve    = curveValues.w;
-            const pVelocityX    = velocityValues.x;
-            const pVelocityY    = velocityValues.y;
-            const pVelocityZ    = velocityValues.z;
+
+            const colorCurve    = pCurves.x;
+            const alphaCurve    = pCurves.y;
+            const sizeCurve     = pCurves.z;
+            const dragrCurve    = pCurves.w;
+            const pVelocityX    = particlevelocity.x;
+            const pVelocityY    = particlevelocity.y;
+            const pVelocityZ    = particlevelocity.z;
             const spawnTime     = timeValues.x;
             const pLifeTime     = timeValues.y;
-            const pSizeFrom     = sizeValues.x;
-            const pSizeTo       = sizeValues.y;
-            const sizeModulate  = sizeValues.z;
-            const pIntensity    = sizeValues.w;
+            const pSizeFrom     = sizeValueUniforms.x;
+            const pSizeTo       = sizeValueUniforms.y;
+            const sizeModulate  = sizeValueUniforms.z;
+            const pIntensity    = sizeValueUniforms.w;
 
 
-                     const lifeTimeTotal = pLifeTime; // 11 = pLifeTime
-                     const age = now.sub(spawnTime); // 12 = pSpawnTime
+                     const lifeTimeTotal = 1 // pLifeTime; // 11 = pLifeTime
+                     const age = time.sub(spawnTime); // 12 = pSpawnTime
 
                      const lifeTimeFraction = age.div(lifeTimeTotal);
                      const activeOne = max(0, ONE.sub(lifeTimeFraction).sign())
@@ -161,15 +160,16 @@ class ParticleNodes {
 
                     const intensityColor = vec4(curveColor.r.mul(strengthMod), curveColor.g.mul(strengthMod), curveColor.b.mul(strengthMod), pIntensity.mul(strengthMod))
 
-            //    const testColor = vec4(age, age, age, age).mul(activeOne)
+                const testColor = vec4(curveColor.r, curveColor.g, curveColor.b, activeOne) //.mul(activeOne)
 
-                  varyingProperty( 'vec4', 'v_intensityColor' ).assign(intensityColor);
+                  varyingProperty( 'vec4', 'v_intensityColor' ).assign(testColor);
             //     colorBuffer.element(instanceIndex).assign(intensityColor);
 
-                const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(ZERO.sub(age));
+                const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age);
 
+                return particlePosition.add(velocityOffset)
 
-        } );
+            } )();
 
         const computeUpdate = Fn( () => {
 
@@ -181,17 +181,26 @@ class ParticleNodes {
                 const emitterPos = emitterPositionV4.xyz // vec3(1179,    emitterPositionV4.y, startIndex.add(3340))
                 const emitterSize = emitterPositionV4.w;
                 const emitterVel = emitterVelV4.xyz;
+                const velocityStretch = emitterVelV4.w;
                 const emitCountOffset = emittParamsV4.x;
                 const emitCount = int(emittParamsV4.y)
+
+                const particleDuration = emittParamsV4.w
 
                 Loop ( emitCount, ( { i } ) => {
                     const step =  ZERO.add(i);
                     const particleIndex = pIndex.add(emitCountOffset.add(emitCount)).add(i)
+
+                    const emitFraction = step.div(emitCount)
+
                     const offsetX = step.pow(0.5).mul(emitterSize.mod(step))
                     const offsetY = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX)))
                     const offsetZ = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX).add(offsetY)))
-                    const offsetPos = emitterVel.mul(step.mul(tpf)).add(vec3(offsetX, offsetY, offsetZ))
+
+                    const offsetPos = emitterVel.mul(emitFraction.mul(tpf)) // .add(vec3(offsetX, offsetY, offsetZ))
                     positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos))
+                    velocityBuffer.element(particleIndex).assign(emitterVel)
+                    customTimeBuffer.element(particleIndex).assign(vec2(now, particleDuration))
                     scaleBuffer.element(particleIndex).assign(ONE)
                 } );
 
@@ -215,7 +224,7 @@ class ParticleNodes {
                 let emitCount = Math.floor(10 + gain*50)
 
                 emitterVelocities.array[i].set(obj.up.x, obj.up.y, obj.up.z, emitCount);
-                emitterParams.array[i].set(applyCount, emitCount, 0, 0)
+                emitterParams.array[i].set(applyCount, emitCount, 0.1 + gain*2+Math.random(), 0)
                 applyCount += emitCount
             }
 
