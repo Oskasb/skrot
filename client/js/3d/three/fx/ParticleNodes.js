@@ -161,9 +161,9 @@ class ParticleNodes {
 
                     const intensityColor = vec4(curveColor.r.mul(strengthMod), curveColor.g.mul(strengthMod), curveColor.b.mul(strengthMod), pIntensity.mul(strengthMod))
 
-            //    const testColor = vec4(curveColor.r, curveColor.g, curveColor.b, activeOne) //.mul(activeOne)
+               const testColor = vec4(curveColor.r, curveColor.g, curveColor.b, 1) //.mul(activeOne)
 
-            varyingProperty( 'vec4', 'v_intensityColor' ).assign(intensityColor);
+            varyingProperty( 'vec4', 'v_intensityColor' ).assign(testColor);
                 //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
                 const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age);
