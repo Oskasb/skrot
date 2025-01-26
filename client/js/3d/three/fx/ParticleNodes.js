@@ -102,9 +102,11 @@ class ParticleNodes {
 
 
     //    material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
-        material.scaleNode = varyingProperty( 'float', 'v_lifecycleScale' );
-    //    material.normalNode = transformNormalToView(vec3(0, 1, 0));
+        material.scaleNode = Fn( () => {
+            
+            return 1
 
+        } )();
         material.colorNode = Fn( () => {
 
 
@@ -132,7 +134,7 @@ class ParticleNodes {
             const intensityColor = vec4(curveColor.r.mul(strengthMod), curveColor.g.mul(strengthMod), curveColor.b.mul(strengthMod), pIntensity.mul(strengthMod))
 
             const txColor = colorTx.sample(customSpriteUv8x8());
-            return curveColor // txColor // vec4(txColor.r, txColor.g, txColor.b, txColor.a ) //.mul(lifeTimeFraction);
+            return vec4(1, 1, 0, 1 ) // curveColor // txColor // vec4(txColor.r, txColor.g, txColor.b, txColor.a ) //.mul(lifeTimeFraction);
         } )();
 
      //   const computeUpdate_ = Fn( () => {
