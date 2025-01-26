@@ -88,26 +88,14 @@ class ParticleNodes {
             timeBuffer.element(pIndex).assign(vec2(0, pLifeTime));
         } )().compute( 1 );
 */
-        material.positionNode_ = Fn( () => {
-        //    varyingProperty( 'vec4', 'v_intensityColor' ).assign(vec4(positionLocal.x.mod(1), positionLocal.y.mod(1), positionLocal.z.mod(1), 1));
-            return positionLocal;
-        } )();
-
-        material.positionNode = Fn( () => {
-
-            const positionInit = positionBuffer.element(instanceIndex);
-            return positionInit
-
-        } )();
-
 
     //    material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
-        material.scaleNode = Fn( () => {
-            
+        material.scaleNode_ = Fn( () => {
+
             return 1
 
         } )();
-        material.colorNode = Fn( () => {
+        material.colorNode_ = Fn( () => {
 
 
             const timeValues = customTimeBuffer.element(instanceIndex)
