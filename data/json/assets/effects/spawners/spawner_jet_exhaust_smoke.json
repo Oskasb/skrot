@@ -14,12 +14,12 @@
   },
   "params": {
     "pPosSpread": [0, 0.4],
-    "pVelSpread": [0, 0.1],
-    "pVelVariance": [0.0, 0.3],
-    "pLifeTime": [8.2, 0.22],
+    "pVelSpread": [1, 0.1],
+    "pVelVariance": [1.0, 0.3],
+    "pLifeTime": [2.2, 0.22],
     "pSizeFrom": [0.1, 0.8],
     "pSizeTo":   [10.2, 0.9],
-    "pSizeMod":  [28.3, 0.3],
+    "pSizeMod":  [18.3, 4.3],
     "pIntensity": [0.4, 1]
   }
 }

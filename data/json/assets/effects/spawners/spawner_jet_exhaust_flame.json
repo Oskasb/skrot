@@ -16,10 +16,10 @@
     "pPosSpread": [0, 0.4],
     "pVelSpread": [0, 0.1],
     "pVelVariance": [0.0, 0.3],
-    "pLifeTime": [0.2, 0.22],
+    "pLifeTime": [0.1, 0.22],
     "pSizeFrom": [0.8, 0.8],
     "pSizeTo":   [1.2, 0.9],
-    "pSizeMod":  [0.3, 0.3],
+    "pSizeMod":  [0.3, 2],
     "pIntensity": [4, 4]
   }
 }

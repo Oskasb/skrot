@@ -256,7 +256,7 @@ class ParticleNodes {
                 tempVec.applyQuaternion(obj.quaternion);
                 emitterDirections.array[i].set(tempVec.x, tempVec.y, tempVec.z);
                 emitterVelocities.array[i].set(obj.up.x, obj.up.y, obj.up.z, emitCount);
-                emitterParams.array[i].set(applyCount, emitCount, params.pLifeTime[0], intensity)
+                emitterParams.array[i].set(applyCount, emitCount, MATH.randomBetween(params.pLifeTime[0], params.pLifeTime[0]*params.pSizeMod[1]), intensity)
                 applyCount += emitCount
 
                 if (obj.userData.gain === 0) {
