@@ -107,7 +107,7 @@ class ParticleNodes {
 
         material.colorNode = Fn( () => {
 
-/*
+
             const timeValues = customTimeBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
             const pLifeTime     = timeValues.y;
@@ -130,9 +130,9 @@ class ParticleNodes {
             const stengthColor = dataTx.sample(vec2(ltCoordX, ONE.sub(colorStrengthCurveRow))) ;
             const strengthMod = stengthColor.r;
             const intensityColor = vec4(curveColor.r.mul(strengthMod), curveColor.g.mul(strengthMod), curveColor.b.mul(strengthMod), pIntensity.mul(strengthMod))
-      */
+
             const txColor = colorTx.sample(customSpriteUv8x8());
-            return vec4(txColor.r, txColor.g, txColor.b, txColor.a ) //.mul(lifeTimeFraction);
+            return curveColor // txColor // vec4(txColor.r, txColor.g, txColor.b, txColor.a ) //.mul(lifeTimeFraction);
         } )();
 
      //   const computeUpdate_ = Fn( () => {
