@@ -8,9 +8,9 @@
   },
   "curves":{
     "color": "warmFire",
-    "alpha": "quickFadeOut",
+    "alpha": "pulseSlowOut",
     "size": "quickInSlowOut",
-    "drag": "zeroToOne"
+    "drag": "quickIn"
   },
   "params": {
     "pPosSpread": [0, 0.4],

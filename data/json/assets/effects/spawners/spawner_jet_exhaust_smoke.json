@@ -8,7 +8,7 @@
   },
   "curves":{
     "color": "smoke",
-    "alpha": "quickInSlowOut",
+    "alpha": "noiseFadeOut",
     "size": "zeroOneZero",
     "drag": "halfQuickIn"
   },
@@ -20,6 +20,6 @@
     "pSizeFrom": [0.1, 0.8],
     "pSizeTo":   [10.2, 0.9],
     "pSizeMod":  [18.3, 4.3],
-    "pIntensity": [0.4, 1]
+    "pIntensity": [0.3, 1]
   }
 }
