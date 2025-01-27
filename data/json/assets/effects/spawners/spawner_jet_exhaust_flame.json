@@ -3,25 +3,25 @@
   "material": "material_particles_8x8_add",
   "sprite": 1,
   "sample_gain": {
-    "velocity_base": 70,
+    "velocity_base": 90,
     "velocity_gain_factor":80
   },
   "curves":{
     "color": "fire",
-    "alpha": "quickInSlowOut",
+    "alpha": "zeroToOne",
     "spread": "halfSin",
     "drag": "darkBlue"
   },
   "params": {
     "pPosSpread":   [0, 0.4],
     "pVelSpread":   [0, 0.1],
-    "pVelInherit":  [1,   0.9],
+    "pVelInherit":  [1,   1.1],
     "pVelVariance": [0.0, 0.3],
-    "pLifeTime":    [0.08, 0.15],
+    "pLifeTime":    [0.08, 0.11],
     "pSizeFrom":    [0.4, 0.5],
     "pSizeTo":      [0.1, 0.1],
     "pSizeMod":     [4, 0],
     "pIntensity":   [4, 3],
-    "pScaleExp":    [0.3, 0.6]
+    "pScaleExp":    [0.7, 0.6]
   }
 }

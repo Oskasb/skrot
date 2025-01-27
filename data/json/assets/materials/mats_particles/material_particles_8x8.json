@@ -5,13 +5,18 @@
     { "slot":"alphaMap",      "tx": "texture_data_tx"}
   ],
   "settings": {
-    "emissive": {"r": 1, "g": 1,"b": 1},
+    "emissive": {"r": 0, "g": 0,"b": 0},
     "transparent": true,
     "depthWrite": false,
     "depthTest": true,
     "generateMipmaps": false,
     "opacity": 1,
-    "color": {"r": 5, "g": 5, "b": 5},
-    "emissiveIntensity": 1.0
+    "color": {"r": 1, "g": 1, "b": 1},
+    "emissiveIntensity": 0.0,
+    "blending": "CustomBlending",
+    "blendEquation": "AddEquation",
+    "blendSrc": "SrcAlphaFactor",
+    "blendDst": "OneMinusSrcAlphaFactor",
+    "side": "DoubleSide"
   }
 }

@@ -101,11 +101,13 @@ class ParticleNodes {
             const sizeModulate  = pSizeMod.x;
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
+            const forceFade = max(0, ONE.sub(lifeTimeFraction.pow(8)));
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
 
             const sizeMod = sizeModulate.mul(lifeTimeFraction.pow(scaleExp));
-            const lifecycleSize = sizeFrom.add(sizeMod).mul(ONE.sub(lifeTimeFraction).add(sizeTo.mul(lifeTimeFraction)))
-            return max(0.01, lifecycleSize) // lifecycleSize.mul(ONE.sub(lifeTimeFraction))
+            const lifecycleSize = forceFade.mul(sizeFrom.add(sizeMod).mul(ONE.sub(lifeTimeFraction).add(sizeTo.mul(lifeTimeFraction))))
+            const fadedScale = forceFade.mul(lifecycleSize)
+            return fadedScale;// lifecycleSize.mul(ONE.sub(lifeTimeFraction))
 
         } )();
 
@@ -137,7 +139,8 @@ class ParticleNodes {
             const intensityColor = vec4(curveColor.r.mul(colorBoost), curveColor.g.mul(colorBoost), curveColor.b.mul(colorBoost), strengthMod.mul(colorIntensity))
 
             const txColor = colorTx.sample(customSpriteUv8x8());
-            return txColor.mul(intensityColor);
+            const finalColor = txColor.mul(intensityColor);
+            return finalColor;
         } )();
 
         material.positionNode_ = Fn( () => {
