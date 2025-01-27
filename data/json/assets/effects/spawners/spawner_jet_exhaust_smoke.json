@@ -7,8 +7,8 @@
     "velocity_gain_factor":30
   },
   "curves":{
-    "color": "smoke",
-    "alpha": "noiseFadeOut",
+    "color": "darkSmoke",
+    "alpha": "oneToZero",
     "spread": "zeroOneZero",
     "drag": "halfQuickIn"
   },
@@ -16,11 +16,11 @@
     "pPosSpread":   [0,     0.4],
     "pVelSpread":   [1,     0.1],
     "pVelVariance": [1.0,   0.3],
-    "pLifeTime":    [2.2,   0.22],
+    "pLifeTime":    [4.2,   8.22],
     "pSizeFrom":    [0.1,   0.8],
-    "pSizeTo":      [10.2,  0.9],
-    "pSizeMod":     [18.3,  1.3],
+    "pSizeTo":      [10.2,  20.9],
+    "pSizeMod":     [38.3,  41.3],
     "pIntensity":   [0.3,     1],
-    "pScaleExp":    [1.2,   1.4]
+    "pScaleExp":    [0.8,   0.9]
   }
 }

@@ -102,6 +102,8 @@ class ParticleNodes {
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
 
+            return ONE.add(lifeTimeFraction.mul(3))
+
             const fractionSizePower = lifeTimeFraction.pow(scaleExp)
             const sizeMod = sizeModulate.mul(fractionSizePower).mul(ONE.sub(lifeTimeFraction));
 
