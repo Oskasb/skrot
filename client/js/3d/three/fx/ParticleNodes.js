@@ -80,7 +80,7 @@ class ParticleNodes {
             const timeValues = customTimeBuffer.element(instanceIndex)
             const dimensionValues = customDimensionBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
-            const sizeCurve     = customCurveBuffer.element(instanceIndex).z;
+            const sizeCurve     = emitterCurves.z // customCurveBuffer.element(instanceIndex).z;
             const lifeTimeTotal = timeValues.y.add(tpf);
             const age = time.sub(spawnTime);
 
@@ -109,8 +109,8 @@ class ParticleNodes {
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
 
-            const colorCurve    = customCurveBuffer.element(instanceIndex).x;
-            const alphaCurve    = customCurveBuffer.element(instanceIndex).y;
+            const colorCurve    = cemitterCurves.x //ustomCurveBuffer.element(instanceIndex).x;
+            const alphaCurve    = emitterCurves.y // customCurveBuffer.element(instanceIndex).y;
 
             const colorUvRow = colorCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
             const colorStrengthCurveRow = alphaCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
@@ -137,7 +137,7 @@ class ParticleNodes {
             const timeValues = customTimeBuffer.element(instanceIndex)
 
 
-            const dragrCurve    = customCurveBuffer.element(instanceIndex).w;
+            const dragrCurve    = emitterCurves.w // customCurveBuffer.element(instanceIndex).w;
             const pVelocityX    = particlevelocity.x;
             const pVelocityY    = particlevelocity.y;
             const pVelocityZ    = particlevelocity.z;
@@ -178,7 +178,7 @@ class ParticleNodes {
                 const emitterDirectionV3 = emitterDirections.element( instanceIndex );
                 const emitterVelV4 = emitterVelocities.element( instanceIndex );
                 const emittParamsV4 = emitterParams.element( instanceIndex );
-                const emittCurvesV4 = emitterCurves.element( instanceIndex );
+            //    const emittCurvesV4 = emitterCurves.element( instanceIndex );
                 const emittDimensionsV4 = emitterDimensions.element( instanceIndex );
                 const emitterPos = emitterPositionV4.xyz // vec3(1179,    emitterPositionV4.y, startIndex.add(3340))
                 const emitterSize = emitterPositionV4.w;
@@ -204,7 +204,7 @@ class ParticleNodes {
                     positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos))
                     velocityBuffer.element(particleIndex).assign(emitterVel)
                     customTimeBuffer.element(particleIndex).assign(vec3(time.sub(offsetTime), particleDuration, emittParamsV4.w))
-                    customCurveBuffer.element(particleIndex).assign(emittCurvesV4)
+                //    customCurveBuffer.element(particleIndex).assign(emittCurvesV4)
                     customDimensionBuffer.element(particleIndex).assign(emittDimensionsV4)
                 } );
 
