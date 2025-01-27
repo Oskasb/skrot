@@ -87,19 +87,15 @@ class ParticleNodes {
     //    material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
         material.scaleNode = Fn( () => {
 
-
-
-
             const timeValues = customTimeBuffer.element(instanceIndex)
-            const dimensionValues = pDimensions // customDimensionBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
             const sizeCurve     = pCurves.z // customCurveBuffer.element(instanceIndex).z;
             const lifeTimeTotal = timeValues.y.add(tpf);
             const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
-            const pSizeFrom     = dimensionValues.x;
-            const pSizeTo       = dimensionValues.y;
-            const sizeModulate  = dimensionValues.z;
+            const sizeFrom     = pSizeFrom.x;
+            const sizeTo       = pSizeFrom.y;
+            const sizeModulate  = pSizeMod.y;
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
 
@@ -107,11 +103,12 @@ class ParticleNodes {
 
             const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
 
-            const sizeCurveRow = sizeCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
+        //    const sizeCurveRow = sizeCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
         //    const sizeColor = dataTx.sample(vec2(ltCoordX, ONE.sub(sizeCurveRow))) //  lifeTimeFraction));
-            return ONE.add(lifeTimeFraction).mul(activeOne).add(sizeCurveRow);
+            const lifecycleSize = sizeModulate.add(sizeFrom.mul(ONE.sub(lifeTimeFraction)).add(sizeTo.mul(lifeTimeFraction)))
+            return ONE.add(lifeTimeFraction).mul(activeOne).mul(lifecycleSize);
             const sizeMod = sizeModulate.mul(sizeColor.r);
-            const lifecycleSize = sizeMod.add(pSizeFrom.mul(ONE.sub(lifeTimeFraction)).add(pSizeTo.mul(lifeTimeFraction)))
+
             return max(0.01, lifecycleSize) // lifecycleSize.mul(ONE.sub(lifeTimeFraction))
 
         } )();
