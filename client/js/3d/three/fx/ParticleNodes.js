@@ -62,18 +62,16 @@ class ParticleNodes {
         const dataTx = texture(material.dataTexture);
         const colorTx = texture(material.map);
         const pCurves = uniform(new Vector4());
-        const pDimensions = uniform(new Vector4());
-
 
         const pPosSpread = uniform(new Vector2()) // : [0, 0.4],
         const pVelSpread = uniform(new Vector2())// : [1, 0.1],
         const pVelVariance = uniform(new Vector2())// : [1.0, 0.3],
         const pLifeTime = uniform(new Vector2())// : [2.2, 0.22],
         const pSizeFrom = uniform(new Vector2())// : [0.1, 0.8],
-        const pSizeTo = uniform(new Vector2()) //:   [10.2, 0.9],
-        const pSizeMod = uniform(new Vector2()) //:  [18.3, 4.3],
-        const pIntensity = uniform(new Vector2()) //: [0.3, 1]
-        const pScaleExp = uniform(new Vector2()) //: [0.3, 1]
+        const pSizeTo = uniform(new Vector2(1, 1)) //:   [10.2, 0.9],
+        const pSizeMod = uniform(new Vector2(1, 1)) //:  [18.3, 4.3],
+        const pIntensity = uniform(new Vector2(1, 1)) //: [0.3, 1]
+        const pScaleExp = uniform(new Vector2(1, 1)) //: [0.3, 1]
         /*
         const applyParticle = Fn( () => {
             curvesBuffer.element( pIndex ).assign(pCurves);
@@ -301,11 +299,11 @@ class ParticleNodes {
         let curves = [];
         let dimensions = [];
 
-        for (let i = 0; i < 10; i++) {
-            positions.push(new Vector4());
-            directions.push(new Vector3());
-            velocities.push(new Vector4());
-            params.push(new Vector4());
+        for (let i = 0; i < 6; i++) {
+            positions.push(new Vector4(1, 1, 1, 1));
+            directions.push(new Vector3(1, 1, 1));
+            velocities.push(new Vector4(1, 1, 1, 1));
+            params.push(new Vector4(1, 1, 1, 1));
         //    curves.push(new Vector4());
        //     dimensions.push(new Vector4());
         }
@@ -343,12 +341,6 @@ class ParticleNodes {
                     ); // color - alpha - size - drag
 
                     let params = config.params;
-                    pDimensions.value.set(
-                        params.pSizeFrom[0],
-                        params.pSizeTo[0],
-                        params.pSizeMod[0],
-                        params.pSizeMod[1]
-                    );
 
                     pPosSpread.value.set(params.pPosSpread[0], params.pPosSpread[1]) // = uniform(new Vector2()) // : [0, 0.4],
                     pVelSpread.value.set(params.pVelSpread[0], params.pVelSpread[1])
