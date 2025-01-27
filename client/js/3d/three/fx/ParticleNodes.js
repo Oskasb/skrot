@@ -87,6 +87,9 @@ class ParticleNodes {
     //    material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
         material.scaleNode = Fn( () => {
 
+            return 2;
+            
+
             const timeValues = customTimeBuffer.element(instanceIndex)
             const dimensionValues = pDimensions // customDimensionBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
