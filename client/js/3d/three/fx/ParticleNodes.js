@@ -177,7 +177,7 @@ class ParticleNodes {
 
             const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age) // .mul(frictionMod);
 
-            const frictionDrag = ONE.sub(lifeTimeFraction).pow(pVelInherit.y)
+            const frictionDrag = ONE.sub(lifeTimeFraction.pow(pVelInherit.y))
 
              // .mul(tpf).mul(frictionMod);
             //    particlePosition.addAssign(velocityOffset) // .mul(activeOne)
