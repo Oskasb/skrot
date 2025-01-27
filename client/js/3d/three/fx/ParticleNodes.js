@@ -165,7 +165,7 @@ class ParticleNodes {
 
 
             const lifeTimeTotal = timeValues.y.add(tpf);
-            const age = time.sub(spawnTime); // 12 = pSpawnTime
+            const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
@@ -182,7 +182,7 @@ class ParticleNodes {
 
             //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
-            const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age).mul(frictionMod);
+            const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age) // .mul(frictionMod);
 
              // .mul(tpf).mul(frictionMod);
             //    particlePosition.addAssign(velocityOffset) // .mul(activeOne)
@@ -232,7 +232,7 @@ class ParticleNodes {
                 //    customDimensionBuffer.element(particleIndex).assign(emittDimensionsV4)
                 } );
 
-                
+
         } );
 
 
