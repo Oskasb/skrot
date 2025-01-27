@@ -50,7 +50,6 @@ class ParticleNodes {
 
         const positionBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const velocityBuffer = instancedArray( maxInstanceCount, 'vec3' );
-        const scaleBuffer = instancedArray( maxInstanceCount, 'float' );
         const customTimeBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const customCurveBuffer = instancedArray( maxInstanceCount, 'vec4' );
         const customDimensionBuffer = instancedArray( maxInstanceCount, 'vec4' );
@@ -206,7 +205,6 @@ class ParticleNodes {
                     customTimeBuffer.element(particleIndex).assign(vec3(time.sub(offsetTime), particleDuration, emittParamsV4.w))
                     customCurveBuffer.element(particleIndex).assign(emittCurvesV4)
                     customDimensionBuffer.element(particleIndex).assign(emittDimensionsV4)
-                    scaleBuffer.element(particleIndex).assign(ONE)
                 } );
 
         } );
