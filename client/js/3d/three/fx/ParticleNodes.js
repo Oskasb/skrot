@@ -89,7 +89,7 @@ class ParticleNodes {
             const spawnTime     = timeValues.x;
 
             const lifeTimeTotal = timeValues.y.add(tpf);
-            const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
+            const age = max(0.001, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
             const sizeFrom     = pSizeFrom.x;
             const sizeTo       = pSizeFrom.y;
@@ -116,7 +116,7 @@ class ParticleNodes {
             const timeValues = customTimeBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
             const lifeTimeTotal = timeValues.y.add(tpf);
-            const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
+            const age = max(0.001, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
 
@@ -150,7 +150,7 @@ class ParticleNodes {
             const spawnTime     = timeValues.x;
 
             const lifeTimeTotal = timeValues.y.add(tpf);
-            const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
+            const age = max(0.001, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
