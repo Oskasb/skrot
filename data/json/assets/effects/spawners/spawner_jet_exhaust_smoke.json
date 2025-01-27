@@ -8,19 +8,19 @@
   },
   "curves":{
     "color": "darkSmoke",
-    "alpha": "quickInSlowOut",
+    "alpha": "oneToZero",
     "spread": "zeroOneZero",
     "drag": "zeroToOne"
   },
   "params": {
     "pPosSpread":   [1,     2.4],
-    "pVelSpread":   [0.3,   0.7],
-    "pVelInherit":  [0.8,   1.1],
-    "pVelVariance": [1.0,   0.3],
-    "pLifeTime":    [3.2,   15.22],
+    "pVelSpread":   [0.2,   0.5],
+    "pVelInherit":  [0.4,   1.1],
+    "pVelVariance": [-0.3,  0.3],
+    "pLifeTime":    [6.2,   15.22],
     "pSizeFrom":    [0.1,   0.8],
     "pSizeTo":      [0.0,  0.0],
-    "pSizeMod":     [48.3,  291.3],
+    "pSizeMod":     [48.3,  91.3],
     "pIntensity":   [0.4,    1.8],
     "pScaleExp":    [1.5,   1.9]
   }

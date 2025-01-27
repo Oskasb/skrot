@@ -3,25 +3,25 @@
   "material": "material_particles_8x8_add",
   "sprite": 1,
   "sample_gain": {
-    "velocity_base": 250,
-    "velocity_gain_factor":180
+    "velocity_base": 1950,
+    "velocity_gain_factor":2780
   },
   "curves":{
-    "color": "fire",
-    "alpha": "zeroToOne",
+    "color": "hotToCool",
+    "alpha": "earlyFadeOut",
     "spread": "halfSin",
     "drag": "darkBlue"
   },
   "params": {
-    "pPosSpread":   [0.2, 0.3],
-    "pVelSpread":   [0, 0.3],
-    "pVelInherit":  [0.8,   0.1],
-    "pVelVariance": [0.0, 0.3],
-    "pLifeTime":    [0.08, 0.18],
-    "pSizeFrom":    [0.2, 0.5],
-    "pSizeTo":      [1.1, 0.1],
-    "pSizeMod":     [2, 4],
-    "pIntensity":   [4, 15],
+    "pPosSpread":   [0.2, 0.5],
+    "pVelSpread":   [0.0, 0.1],
+    "pVelInherit":  [0.9, 0.2],
+    "pVelVariance": [-0.1, 0.1],
+    "pLifeTime":    [0.18, 0.24],
+    "pSizeFrom":    [0.8, 0.8],
+    "pSizeTo":      [0.3, 2.2],
+    "pSizeMod":     [1, 6],
+    "pIntensity":   [2, 85],
     "pScaleExp":    [1.2, 1.4]
   }
 }

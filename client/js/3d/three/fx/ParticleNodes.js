@@ -199,6 +199,7 @@ class ParticleNodes {
                     const step =  ZERO.add(i);
                     const particleIndex = pIndex.add(emitCountOffset.add(emitCount)).add(i)
                     const emitFraction = step.div(emitCount)
+                    const offsetTime = emitFraction.mul(0.02)
 
                     const spread = emitterPositionV4.y.add(emitFraction.add(emitterPositionV4.x)).mod(1).mul(pPosSpread.y.sub(pPosSpread.x)).add(pPosSpread.x)
                     const posRandom = vec3(
@@ -216,8 +217,10 @@ class ParticleNodes {
                         emitterPositionV4.y.add(emitFraction.add(spreadVelocity)).mod(1)
                     ).sub( 0.5 ).mul( spreadVelocity);
 
-                    const offsetTime = emitFraction.mul(0.02)
 
+                    const varyVelocity = emitterPositionV4.x.add(emitFraction.add(spreadVelocity)).mod(1).mul(pVelVariance.y.sub(pVelVariance.x)).add(pVelVariance.x)
+
+                    const emitterVel = emitterVelV4.xyz.mul(ONE.add(varyVelocity))
 
                     const spreadSizeMod = emitterPositionV4.x.add(emitFraction.add(emitterPositionV4.z)).mod(1).mul(pSizeMod.y.sub(pSizeMod.x)).add(pSizeMod.x)
 
