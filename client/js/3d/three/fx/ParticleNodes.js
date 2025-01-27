@@ -92,7 +92,7 @@ class ParticleNodes {
             const spawnTime     = timeValues.x;
             const sizeCurve     = pCurves.z // customCurveBuffer.element(instanceIndex).z;
             const lifeTimeTotal = timeValues.y.add(tpf);
-            const age = time.sub(spawnTime);
+            const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
             const pSizeFrom     = dimensionValues.x;
             const pSizeTo       = dimensionValues.y;
@@ -162,8 +162,6 @@ class ParticleNodes {
             const pVelocityZ    = particlevelocity.z;
             const spawnTime     = timeValues.x;
 
-
-
             const lifeTimeTotal = timeValues.y.add(tpf);
             const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
@@ -173,8 +171,6 @@ class ParticleNodes {
             const frictionCurveRow = dragrCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
             const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
             const frictionColor = dataTx.sample(vec2(ltCoordX, ONE.sub(frictionCurveRow))) //  lifeTimeFraction));
-
-
 
             const frictionMod = ONE.sub(frictionColor.r);
             //    varyingProperty( 'float', 'p_lifeTimeFraction' ).assign(lifeTimeFraction);
