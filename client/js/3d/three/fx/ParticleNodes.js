@@ -92,7 +92,7 @@ class ParticleNodes {
             const spawnTime     = timeValues.x;
             const sizeCurve     = pCurves.z // customCurveBuffer.element(instanceIndex).z;
             const lifeTimeTotal = timeValues.y.add(tpf);
-            const age = time.sub(spawnTime);
+            const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
             const pSizeFrom     = dimensionValues.x;
             const pSizeTo       = dimensionValues.y;
@@ -115,7 +115,7 @@ class ParticleNodes {
             const timeValues = customTimeBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
             const lifeTimeTotal = timeValues.y.add(tpf);
-            const age = time.sub(spawnTime); // 12 = pSpawnTime
+            const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
 
@@ -139,12 +139,12 @@ class ParticleNodes {
             return positionBuffer.element(instanceIndex);
         } )();
 
-        material.positionNode_ = positionBuffer.toAttribute()
+        material.positionNode = positionBuffer.toAttribute()
 
-        // const computeParticles = Fn( () => {
+        const computeParticles = Fn( () => {
 
 
-        material.positionNode = Fn( () => {
+        //    material.positionNode = Fn( () => {
 
 
 
@@ -189,11 +189,11 @@ class ParticleNodes {
 
             // particlePosition.assign(pPos)
         //    const velocityOffset = vec3(particlePosition.x, particlePosition.y.add(instanceIndex), particlePosition.z)
-            return velocityOffset.add(particlePosition)
+        //    return velocityOffset.add(particlePosition)
+            particlePosition.addAssign(velocityOffset)
+            //    } )();
 
-        } )();
-
-        // } );
+       } );
 
         const computeUpdate = Fn( () => {
 
@@ -303,7 +303,7 @@ class ParticleNodes {
 */
         function updateParticles() {
             update();
-        //    ThreeAPI.getRenderer().computeAsync( computeParticles().compute( maxInstanceCount ) );
+            ThreeAPI.getRenderer().computeAsync( computeParticles().compute( maxInstanceCount ) );
         }
 
         console.log("P Nodes Geo: ", mesh);
