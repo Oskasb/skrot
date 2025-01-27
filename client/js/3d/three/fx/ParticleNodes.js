@@ -168,13 +168,13 @@ class ParticleNodes {
             const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
             const frictionColor = dataTx.sample(vec2(ltCoordX, ONE.sub(frictionCurveRow))) //  lifeTimeFraction));
 
-            const frictionMod = ONE.sub(frictionColor.r);
+            const frictionMod = ONE.sub(frictionColor.r.mul(0.99));
             //    varyingProperty( 'float', 'p_lifeTimeFraction' ).assign(lifeTimeFraction);
             //    varyingProperty( 'float', 'v_lifecycleScale' ).assign(lifecycleSize);
 
             //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
-            const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age).mul(frictionMod);
+            const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age.mul(frictionMod));
 
              // .mul(tpf).mul(frictionMod);
             //    particlePosition.addAssign(velocityOffset) // .mul(activeOne)
