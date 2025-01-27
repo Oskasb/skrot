@@ -89,7 +89,7 @@ class ParticleNodes {
 
             const timeValues = customTimeBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
-            const sizeCurve     = pCurves.z // customCurveBuffer.element(instanceIndex).z;
+
             const lifeTimeTotal = timeValues.y.add(tpf);
             const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
@@ -101,12 +101,8 @@ class ParticleNodes {
 
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
 
-            const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
-
-            const sizeCurveRow = sizeCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
-            const sizeColor = dataTx.sample(vec2(ltCoordX, ONE.sub(sizeCurveRow))) //  lifeTimeFraction));
             const lifecycleSize = sizeModulate.add(sizeFrom.mul(ONE.sub(lifeTimeFraction)).add(sizeTo.mul(lifeTimeFraction)))
-            return ONE.add(lifeTimeFraction).mul(activeOne).mul(lifecycleSize.add(sizeColor.r));
+            return ONE.add(lifeTimeFraction).mul(activeOne).mul(lifecycleSize);
             const sizeMod = sizeModulate.mul(sizeColor.r);
 
             return max(0.01, lifecycleSize) // lifecycleSize.mul(ONE.sub(lifeTimeFraction))
@@ -160,6 +156,7 @@ class ParticleNodes {
 
 
             const dragrCurve    = pCurves.w // customCurveBuffer.element(instanceIndex).w;
+            const spreadCurve     = pCurves.z // customCurveBuffer.element(instanceIndex).z;
             const pVelocityX    = particlevelocity.x;
             const pVelocityY    = particlevelocity.y;
             const pVelocityZ    = particlevelocity.z;
@@ -174,11 +171,14 @@ class ParticleNodes {
             const frictionCurveRow = dragrCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
             const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
             const frictionColor = dataTx.sample(vec2(ltCoordX, ONE.sub(frictionCurveRow))) //  lifeTimeFraction));
-
+/*
+            const spreadCurveRow = spreadCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
+            const spreadColor = dataTx.sample(vec2(ltCoordX, ONE.sub(sizeCurveRow))) //  lifeTimeFraction));
+*/
             const frictionMod = ONE.sub(frictionColor.r);
+
             //    varyingProperty( 'float', 'p_lifeTimeFraction' ).assign(lifeTimeFraction);
             //    varyingProperty( 'float', 'v_lifecycleScale' ).assign(lifecycleSize);
-
             //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
             const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age) // .mul(frictionMod);
@@ -347,13 +347,13 @@ class ParticleNodes {
                     let curves = config.curves;
                     let colorCurve = ENUMS.ColorCurve[curves.color || 'brightMix']
                     let alphaCurve = ENUMS.ColorCurve[curves.alpha || 'oneToZero']
-                    let sizeCurve  = ENUMS.ColorCurve[curves.size  || 'oneToZero']
+                    let spreadCurve= ENUMS.ColorCurve[curves.spread|| 'oneToZero']
                     let dragrCurve = ENUMS.ColorCurve[curves.drag  || 'zeroToOne']
 
                     pCurves.value.set(
                         colorCurve,
                         alphaCurve,
-                        sizeCurve,
+                        spreadCurve,
                         dragrCurve
                     ); // color - alpha - size - drag
 

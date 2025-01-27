@@ -9,7 +9,7 @@
   "curves":{
     "color": "warmFire",
     "alpha": "pulseSlowOut",
-    "size": "halfSin",
+    "spread": "halfSin",
     "drag": "darkBlue"
   },
   "params": {

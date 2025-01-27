@@ -9,7 +9,7 @@
   "curves":{
     "color": "smoke",
     "alpha": "noiseFadeOut",
-    "size": "zeroOneZero",
+    "spread": "zeroOneZero",
     "drag": "halfQuickIn"
   },
   "params": {
