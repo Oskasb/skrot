@@ -73,7 +73,7 @@ class ParticleNodes {
         const pSizeTo = uniform(new Vector2()) //:   [10.2, 0.9],
         const pSizeMod = uniform(new Vector2()) //:  [18.3, 4.3],
         const pIntensity = uniform(new Vector2()) //: [0.3, 1]
-
+        const pScaleExp = uniform(new Vector2()) //: [0.3, 1]
         /*
         const applyParticle = Fn( () => {
             curvesBuffer.element( pIndex ).assign(pCurves);
@@ -95,17 +95,21 @@ class ParticleNodes {
 
             const sizeFrom     = pSizeFrom.x;
             const sizeTo       = pSizeFrom.y;
-            const sizeModulate  = pSizeMod.y;
+            const sizeModulate = pSizeMod.y;
+            const scaleExp     = pScaleExp.x;
+
+
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
-
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
 
-            const lifecycleSize = sizeModulate.add(sizeFrom.mul(ONE.sub(lifeTimeFraction)).add(sizeTo.mul(lifeTimeFraction)))
-            return ONE.add(lifeTimeFraction).mul(activeOne).mul(lifecycleSize);
-            const sizeMod = sizeModulate.mul(sizeColor.r);
+            const fractionSizePower = lifeTimeFraction.pow(scaleExp)
+            const sizeMod = sizeModulate.mul(fractionSizePower);
 
-            return max(0.01, lifecycleSize) // lifecycleSize.mul(ONE.sub(lifeTimeFraction))
+            const lifecycleSize = sizeFrom.add(sizeMod).mul(ONE.sub(lifeTimeFraction)).add(sizeTo.mul(lifeTimeFraction))
+
+            return lifecycleSize.mul(activeOne).mul(lifecycleSize);
+
 
         } )();
 
@@ -145,15 +149,9 @@ class ParticleNodes {
 
         material.positionNode = Fn( () => {
 
-
-
             const particlePosition = positionBuffer.element(instanceIndex)
-
-
-
             const particlevelocity = velocityBuffer.element(instanceIndex)
             const timeValues = customTimeBuffer.element(instanceIndex)
-
 
             const dragrCurve    = pCurves.w // customCurveBuffer.element(instanceIndex).w;
             const spreadCurve     = pCurves.z // customCurveBuffer.element(instanceIndex).z;
@@ -181,7 +179,7 @@ class ParticleNodes {
             //    varyingProperty( 'float', 'v_lifecycleScale' ).assign(lifecycleSize);
             //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
-            const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age) // .mul(frictionMod);
+            const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age).mul(frictionMod);
 
              // .mul(tpf).mul(frictionMod);
             //    particlePosition.addAssign(velocityOffset) // .mul(activeOne)
@@ -222,13 +220,10 @@ class ParticleNodes {
                     const offsetZ = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX).add(offsetY)))
 
                     const offsetTime = emitFraction.mul(0.02)
-
                     const offsetPos = emitterDirectionV3.mul(offsetTime).sub(emitterDirectionV3.mul(0.02))// .mul(-1)).add() // .add(vec3(offsetX, offsetY, offsetZ))
                     positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos))
                     velocityBuffer.element(particleIndex).assign(emitterVel)
                     customTimeBuffer.element(particleIndex).assign(vec3(time.sub(offsetTime), particleDuration, emittParamsV4.w))
-                //    customCurveBuffer.element(particleIndex).assign(emittCurvesV4)
-                //    customDimensionBuffer.element(particleIndex).assign(emittDimensionsV4)
                 } );
 
 
@@ -331,7 +326,6 @@ class ParticleNodes {
     //    const emitterCurves = uniformArray(curves)
      //   const emitterDimensions = uniformArray(dimensions)
 
-
         let applyCfg = null;
 
         const emittersLength = uniform( 0, 'uint' );
@@ -373,14 +367,8 @@ class ParticleNodes {
                     pSizeTo.value.set(params.pSizeTo[0], params.pSizeTo[1])
                     pSizeMod.value.set(params.pSizeMod[0], params.pSizeMod[1])
                     pIntensity.value.set(params.pIntensity[0], params.pIntensity[1])
-
-
+                    pScaleExp.value.set(params.pScaleExp[0], params.pScaleExp[1])
                 }
-
-
-
-
-
 
             activeParticles++;
 

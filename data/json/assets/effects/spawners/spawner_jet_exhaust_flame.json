@@ -13,13 +13,14 @@
     "drag": "darkBlue"
   },
   "params": {
-    "pPosSpread": [0, 0.4],
-    "pVelSpread": [0, 0.1],
+    "pPosSpread":   [0, 0.4],
+    "pVelSpread":   [0, 0.1],
     "pVelVariance": [0.0, 0.3],
-    "pLifeTime": [0.1, 0.22],
-    "pSizeFrom": [0.8, 0.8],
-    "pSizeTo":   [1.2, 0.9],
-    "pSizeMod":  [1.3, 2],
-    "pIntensity": [4, 4]
+    "pLifeTime":    [0.1, 0.22],
+    "pSizeFrom":    [0.6, 0.6],
+    "pSizeTo":      [0.2, 0.3],
+    "pSizeMod":     [2.3, 2.3],
+    "pIntensity":   [4, 4],
+    "pScaleExp":    [0.4, 0.6]
   }
 }
