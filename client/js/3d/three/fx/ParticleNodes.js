@@ -108,8 +108,8 @@ class ParticleNodes {
             const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
 
             const sizeCurveRow = sizeCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
-            const sizeColor = dataTx.sample(vec2(ltCoordX, ONE.sub(sizeCurveRow))) //  lifeTimeFraction));
-            return ONE.add(lifeTimeFraction).mul(activeOne).add(sizeColor.r);
+        //    const sizeColor = dataTx.sample(vec2(ltCoordX, ONE.sub(sizeCurveRow))) //  lifeTimeFraction));
+            return ONE.add(lifeTimeFraction).mul(activeOne).add(sizeCurveRow);
             const sizeMod = sizeModulate.mul(sizeColor.r);
             const lifecycleSize = sizeMod.add(pSizeFrom.mul(ONE.sub(lifeTimeFraction)).add(pSizeTo.mul(lifeTimeFraction)))
             return max(0.01, lifecycleSize) // lifecycleSize.mul(ONE.sub(lifeTimeFraction))
