@@ -182,8 +182,8 @@ class ParticleNodes {
 
             // particlePosition.assign(pPos)
         //    const velocityOffset = vec3(particlePosition.x, particlePosition.y.add(instanceIndex), particlePosition.z)
-            const displaceHidden = vec3(0, ONE.sub(activeOne).mul(-99999), 0);
-            return particlePosition.add(velocityOffset.mul(frictionMod)).add(displaceHidden)
+
+            return particlePosition.add(velocityOffset) //.mul(frictionMod)
 
         } )();
 
