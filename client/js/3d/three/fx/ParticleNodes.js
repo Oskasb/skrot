@@ -269,7 +269,7 @@ class ParticleNodes {
             tpf.value = getFrame().tpf;
         //    now.value = getFrame().gameTime;
             if (emitterObjects.length !== 0) {
-                ThreeAPI.getRenderer().computeAsync( computeUpdate().compute( emitterObjects.length ) );
+                ThreeAPI.getRenderer().compute( computeUpdate().compute( emitterObjects.length ) );
             }
 
             while (clearEmitters.length) {
@@ -290,7 +290,7 @@ class ParticleNodes {
 */
         function updateParticles() {
             update();
-        //    ThreeAPI.getRenderer().computeAsync( computeParticles().compute( maxInstanceCount ) );
+            ThreeAPI.getRenderer().computeAsync( computeParticles().compute( maxInstanceCount ) );
         }
 
         console.log("P Nodes Geo: ", mesh);
