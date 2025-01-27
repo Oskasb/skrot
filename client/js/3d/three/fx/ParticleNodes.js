@@ -8,7 +8,7 @@ import {
     instance,
     vertexColor,
     storage,
-    attribute, uniformArray, ceil
+    attribute, uniformArray, ceil, hash, uint
 } from "three/tsl";
 import {Vector3} from "../../../../../libs/three/math/Vector3.js";
 import {
@@ -97,7 +97,7 @@ class ParticleNodes {
 
             const sizeFrom     = pSizeFrom.x;
             const sizeTo       = pSizeTo.x;
-            const sizeModulate  = pSizeMod.x;
+            const sizeModulate  = timeValues.z;
             const scaleExp = pScaleExp.x;
 
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
@@ -119,7 +119,7 @@ class ParticleNodes {
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
             const forceFade = max(0, ONE.sub(lifeTimeFraction.pow(3)))
 
-            const colorIntensity = timeValues.z;
+            const colorIntensity = pIntensity.x;
             const colorCurve    = pCurves.x //ustomCurveBuffer.element(instanceIndex).x;
             const alphaCurve    = pCurves.y // customCurveBuffer.element(instanceIndex).y;
 
@@ -161,7 +161,7 @@ class ParticleNodes {
 
             const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age) // .mul(frictionMod);
 
-            const frictionDrag = ONE.sub(lifeTimeFraction.pow(pVelInherit.y))
+            const frictionDrag = max(0, ONE.sub(lifeTimeFraction.mul(pVelInherit.y)))
 
              // .mul(tpf).mul(frictionMod);
             //    particlePosition.addAssign(velocityOffset) // .mul(activeOne)
@@ -200,18 +200,33 @@ class ParticleNodes {
                     const particleIndex = pIndex.add(emitCountOffset.add(emitCount)).add(i)
                     const emitFraction = step.div(emitCount)
 
-                    const offsetX = step.pow(0.5).mul(emitterSize.mod(step))
-                    const offsetY = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX)))
-                    const offsetZ = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX).add(offsetY)))
+                    const spread = emitterPositionV4.y.add(emitFraction.add(emitterPositionV4.x)).mod(1).mul(pPosSpread.y.sub(pPosSpread.x)).add(pPosSpread.x)
+                    const posRandom = vec3(
+                        emitterPositionV4.y.add(emitFraction).mod(1),
+                        emitterPositionV4.z.add(emitFraction).mod(1),
+                        emitterPositionV4.x.add(emitFraction).mod(1)
+                    ).sub( 0.5 ).mul( spread);
+
+
+                    const spreadVelocity = emitterPositionV4.z.add(emitFraction.add(emitterPositionV4.y)).mod(1).mul(pVelSpread.y.sub(pVelSpread.x)).add(pVelSpread.x)
+
+                    const velRandom = vec3(
+                        emitterPositionV4.z.add(emitFraction.add(spreadVelocity)).mod(1),
+                        emitterPositionV4.x.add(emitFraction.add(spreadVelocity)).mod(1),
+                        emitterPositionV4.y.add(emitFraction.add(spreadVelocity)).mod(1)
+                    ).sub( 0.5 ).mul( spreadVelocity);
 
                     const offsetTime = emitFraction.mul(0.02)
 
+
+                    const spreadSizeMod = emitterPositionV4.x.add(emitFraction.add(emitterPositionV4.z)).mod(1).mul(pSizeMod.y.sub(pSizeMod.x)).add(pSizeMod.x)
+
+
                     const offsetPos = emitterDirectionV3.mul(offsetTime).sub(emitterDirectionV3.mul(0.02))// .mul(-1)).add() // .add(vec3(offsetX, offsetY, offsetZ))
-                    positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos))
-                    velocityBuffer.element(particleIndex).assign(emitterVel.mul(inheritVelocity))
-                    customTimeBuffer.element(particleIndex).assign(vec3(time.sub(offsetTime), particleDuration, emittParamsV4.w))
-                //    customCurveBuffer.element(particleIndex).assign(emittCurvesV4)
-                //    customDimensionBuffer.element(particleIndex).assign(emittDimensionsV4)
+                    positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos).add(posRandom))
+                    velocityBuffer.element(particleIndex).assign(emitterVel.mul(inheritVelocity).add(emitterVel.mul(velRandom)))
+                    customTimeBuffer.element(particleIndex).assign(vec3(time.sub(offsetTime), particleDuration, spreadSizeMod))
+
                 } );
 
 
@@ -233,12 +248,14 @@ class ParticleNodes {
                 let obj = emitterObjects[i];
 
 
+
+
                 let intensity = pIntensity.value.y;
                 let lifeTime = MATH.randomBetween(pLifeTime.value.x, pLifeTime.value.y)
                 let sizeMod = pSizeMod.value.y;
                 let gain = obj.userData.gain;
                 emitterPositions.array[i].set(obj.position.x, obj.position.y, obj.position.z, gain +1);
-                let emitCount = Math.floor(MATH.curveSqrt(gain*2+Math.random())*intensity*gain*2 + (gain+0.75+Math.random())*intensity*gain*2)
+                let emitCount = Math.floor(MATH.curveSqrt(gain*intensity+Math.random()*intensity*gain*0.5));
                 tempVec.set(0, 0, obj.userData.emitForce);
                 tempVec.applyQuaternion(obj.quaternion);
                 emitterDirections.array[i].set(tempVec.x, tempVec.y, tempVec.z);
