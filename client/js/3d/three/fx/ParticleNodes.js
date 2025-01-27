@@ -150,7 +150,7 @@ class ParticleNodes {
 
             const particlePosition = positionBuffer.element(instanceIndex)
 
-            /*
+
 
             const particlevelocity = velocityBuffer.element(instanceIndex)
             const timeValues = customTimeBuffer.element(instanceIndex)
@@ -182,15 +182,14 @@ class ParticleNodes {
 
             //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
-            const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(tpf).mul(frictionMod);
-*/
+            const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age).mul(frictionMod);
 
              // .mul(tpf).mul(frictionMod);
             //    particlePosition.addAssign(velocityOffset) // .mul(activeOne)
 
             // particlePosition.assign(pPos)
-            const velocityOffset = vec3(particlePosition.x, particlePosition.y.add(instanceIndex), particlePosition.z)
-            return velocityOffset
+        //    const velocityOffset = vec3(particlePosition.x, particlePosition.y.add(instanceIndex), particlePosition.z)
+            return velocityOffset.add(particlePosition)
 
         } )();
 
@@ -227,16 +226,13 @@ class ParticleNodes {
 
                     const offsetPos = emitterDirectionV3.mul(offsetTime).sub(emitterDirectionV3.mul(0.02))// .mul(-1)).add() // .add(vec3(offsetX, offsetY, offsetZ))
                     positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos))
-                //    velocityBuffer.element(particleIndex).assign(emitterVel)
-                //    customTimeBuffer.element(particleIndex).assign(vec3(time.sub(offsetTime), particleDuration, emittParamsV4.w))
+                    velocityBuffer.element(particleIndex).assign(emitterVel)
+                    customTimeBuffer.element(particleIndex).assign(vec3(time.sub(offsetTime), particleDuration, emittParamsV4.w))
                 //    customCurveBuffer.element(particleIndex).assign(emittCurvesV4)
                 //    customDimensionBuffer.element(particleIndex).assign(emittDimensionsV4)
                 } );
 
-
-
-
-
+                
         } );
 
 
