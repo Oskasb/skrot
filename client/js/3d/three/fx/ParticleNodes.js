@@ -87,8 +87,8 @@ class ParticleNodes {
     //    material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
         material.scaleNode = Fn( () => {
 
-            return 2;
-            
+
+
 
             const timeValues = customTimeBuffer.element(instanceIndex)
             const dimensionValues = pDimensions // customDimensionBuffer.element(instanceIndex)
@@ -96,7 +96,7 @@ class ParticleNodes {
             const sizeCurve     = pCurves.z // customCurveBuffer.element(instanceIndex).z;
             const lifeTimeTotal = timeValues.y.add(tpf);
             const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
-
+            return ONE.add(age);
             const pSizeFrom     = dimensionValues.x;
             const pSizeTo       = dimensionValues.y;
             const sizeModulate  = dimensionValues.z;
