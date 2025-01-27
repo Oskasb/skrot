@@ -10,7 +10,7 @@
     "color": "warmFire",
     "alpha": "pulseSlowOut",
     "size": "quickInSlowOut",
-    "drag": "quickIn"
+    "drag": "darkBlue"
   },
   "params": {
     "pPosSpread": [0, 0.4],

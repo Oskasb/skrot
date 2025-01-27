@@ -75,7 +75,7 @@ class ParticleNodes {
 */
 
     //    material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
-        material.scaleNode = Fn( () => {
+        material.scaleNode_ = Fn( () => {
 
             const timeValues = customTimeBuffer.element(instanceIndex)
             const dimensionValues = customDimensionBuffer.element(instanceIndex)
@@ -99,8 +99,8 @@ class ParticleNodes {
             return lifecycleSize // lifecycleSize.mul(ONE.sub(lifeTimeFraction))
 
         } )();
-        /*
-        material.colorNode = Fn( () => {
+
+        material.colorNode__ = Fn( () => {
 
             const timeValues = customTimeBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
@@ -124,7 +124,7 @@ class ParticleNodes {
             const txColor = colorTx.sample(customSpriteUv8x8());
             return txColor.mul(intensityColor);
         } )();
-*/
+
         material.positionNode = Fn( () => {
             return positionBuffer.element(instanceIndex);
         } )();
@@ -146,30 +146,30 @@ class ParticleNodes {
 
 
             const lifeTimeTotal = timeValues.y.add(tpf);
-                     const age = time.sub(spawnTime); // 12 = pSpawnTime
+            const age = time.sub(spawnTime); // 12 = pSpawnTime
 
-                     const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
-                     const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
+            const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
+            const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
 
-                     const frictionCurveRow = dragrCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
-                     const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
-                     const frictionColor = dataTx.sample(vec2(ltCoordX, ONE.sub(frictionCurveRow))) //  lifeTimeFraction));
+            const frictionCurveRow = dragrCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
+            const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
+            const frictionColor = dataTx.sample(vec2(ltCoordX, ONE.sub(frictionCurveRow))) //  lifeTimeFraction));
 
 
 
-                const frictionMod = ONE.sub(frictionColor.r);
+            const frictionMod = ONE.sub(frictionColor.r);
             //    varyingProperty( 'float', 'p_lifeTimeFraction' ).assign(lifeTimeFraction);
             //    varyingProperty( 'float', 'v_lifecycleScale' ).assign(lifecycleSize);
 
-                //          colorBuffer.element(instanceIndex).assign(intensityColor);
+            //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
-                const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(tpf).mul(frictionMod);
+            const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(tpf).mul(frictionMod);
 
-                let pPos = particlePosition.add(velocityOffset) // .mul(activeOne)
+            let pPos = particlePosition.add(velocityOffset) // .mul(activeOne)
 
-                particlePosition.assign(pPos)
+            particlePosition.assign(pPos)
 
-            } );
+        } );
 
         const computeUpdate = Fn( () => {
 
