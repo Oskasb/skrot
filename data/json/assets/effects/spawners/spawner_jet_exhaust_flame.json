@@ -7,7 +7,7 @@
     "velocity_gain_factor":110
   },
   "curves":{
-    "color": "warmFire",
+    "color": "hotToCool",
     "alpha": "oneToZero",
     "spread": "halfSin",
     "drag": "darkBlue"
