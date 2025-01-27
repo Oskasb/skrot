@@ -96,12 +96,13 @@ class ParticleNodes {
             const sizeCurve     = pCurves.z // customCurveBuffer.element(instanceIndex).z;
             const lifeTimeTotal = timeValues.y.add(tpf);
             const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
-            return ONE.add(age);
+
             const pSizeFrom     = dimensionValues.x;
             const pSizeTo       = dimensionValues.y;
             const sizeModulate  = dimensionValues.z;
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
+            return ONE.add(lifeTimeFraction);
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
             const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
 
