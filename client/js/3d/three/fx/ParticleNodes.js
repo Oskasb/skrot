@@ -64,6 +64,7 @@ class ParticleNodes {
         const dataTx = texture(material.dataTexture);
         const colorTx = texture(material.map);
         const pCurves = uniform(new Vector4());
+        const pDimensions = uniform(new Vector4());
         /*
         const applyParticle = Fn( () => {
             curvesBuffer.element( pIndex ).assign(pCurves);
@@ -78,7 +79,7 @@ class ParticleNodes {
         material.scaleNode_ = Fn( () => {
 
             const timeValues = customTimeBuffer.element(instanceIndex)
-            const dimensionValues = customDimensionBuffer.element(instanceIndex)
+            const dimensionValues = pDimensions // customDimensionBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
             const sizeCurve     = pCurves.z // customCurveBuffer.element(instanceIndex).z;
             const lifeTimeTotal = timeValues.y.add(tpf);
@@ -181,7 +182,7 @@ class ParticleNodes {
                 const emitterVelV4 = emitterVelocities.element( instanceIndex );
                 const emittParamsV4 = emitterParams.element( instanceIndex );
             //    const emittCurvesV4 = emitterCurves.element( instanceIndex );
-                const emittDimensionsV4 = emitterDimensions.element( instanceIndex );
+            //    const emittDimensionsV4 = emitterDimensions.element( instanceIndex );
                 const emitterPos = emitterPositionV4.xyz // vec3(1179,    emitterPositionV4.y, startIndex.add(3340))
                 const emitterSize = emitterPositionV4.w;
                 const emitterVel = emitterVelV4.xyz;
@@ -207,7 +208,7 @@ class ParticleNodes {
                     velocityBuffer.element(particleIndex).assign(emitterVel)
                     customTimeBuffer.element(particleIndex).assign(vec3(time.sub(offsetTime), particleDuration, emittParamsV4.w))
                 //    customCurveBuffer.element(particleIndex).assign(emittCurvesV4)
-                    customDimensionBuffer.element(particleIndex).assign(emittDimensionsV4)
+                //    customDimensionBuffer.element(particleIndex).assign(emittDimensionsV4)
                 } );
 
         } );
@@ -242,7 +243,7 @@ class ParticleNodes {
                 ); // color - alpha - size - drag
 
                 let params = config.params;
-                emitterDimensions.array[i].set(
+                pDimensions.value.set(
                     params.pSizeFrom[0],
                     params.pSizeTo[0],
                     params.pSizeMod[0],
@@ -313,7 +314,7 @@ class ParticleNodes {
             velocities.push(new Vector4());
             params.push(new Vector4());
         //    curves.push(new Vector4());
-            dimensions.push(new Vector4());
+       //     dimensions.push(new Vector4());
         }
 
         const emitterPositions = uniformArray(positions)
@@ -321,7 +322,7 @@ class ParticleNodes {
         const emitterVelocities = uniformArray(velocities)
         const emitterParams = uniformArray(params)
     //    const emitterCurves = uniformArray(curves)
-        const emitterDimensions = uniformArray(dimensions)
+     //   const emitterDimensions = uniformArray(dimensions)
 
 
 
