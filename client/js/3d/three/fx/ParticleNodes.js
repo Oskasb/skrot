@@ -49,8 +49,8 @@ class ParticleNodes {
         const positionBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const velocityBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const customTimeBuffer = instancedArray( maxInstanceCount, 'vec3' );
-        const customCurveBuffer = instancedArray( maxInstanceCount, 'vec4' );
-        const customDimensionBuffer = instancedArray( maxInstanceCount, 'vec4' );
+    //    const customCurveBuffer = instancedArray( maxInstanceCount, 'vec4' );
+    //    const customDimensionBuffer = instancedArray( maxInstanceCount, 'vec4' );
 
         const ONE = uniform( 1);
         const ZERO = uniform( 0);
@@ -278,6 +278,15 @@ class ParticleNodes {
             }
 
         }
+
+        const computeInit = Fn( () => {
+            const init = vec3(1, 1, 1)
+            positionBuffer.element(instanceIndex).assign(init)
+            velocityBuffer.element(instanceIndex).assign(init)
+            customTimeBuffer.element(instanceIndex).assign(init)
+        } )().compute( maxInstanceCount );
+
+        ThreeAPI.getRenderer().computeAsync(computeInit)
 
         function updateParticles() {
             update();
