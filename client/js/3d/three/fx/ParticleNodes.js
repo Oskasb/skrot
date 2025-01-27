@@ -125,9 +125,11 @@ class ParticleNodes {
             return txColor.mul(intensityColor);
         } )();
 
-        material.positionNode = Fn( () => {
+        material.positionNode_ = Fn( () => {
             return positionBuffer.element(instanceIndex);
         } )();
+
+        material.positionNode = positionBuffer.toAttribute()
 
         const computeParticles = Fn( () => {
 
