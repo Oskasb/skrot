@@ -214,8 +214,8 @@ class ParticleNodes {
 
                     const offsetPos = emitterDirectionV3.mul(offsetTime).sub(emitterDirectionV3.mul(0.02))// .mul(-1)).add() // .add(vec3(offsetX, offsetY, offsetZ))
                     positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos))
-                    velocityBuffer.element(particleIndex).assign(emitterVel)
-                    customTimeBuffer.element(particleIndex).assign(vec3(time.sub(offsetTime), particleDuration, emittParamsV4.w))
+                //    velocityBuffer.element(particleIndex).assign(emitterVel)
+                //    customTimeBuffer.element(particleIndex).assign(vec3(time.sub(offsetTime), particleDuration, emittParamsV4.w))
                 //    customCurveBuffer.element(particleIndex).assign(emittCurvesV4)
                 //    customDimensionBuffer.element(particleIndex).assign(emittDimensionsV4)
                 } );
@@ -278,7 +278,7 @@ class ParticleNodes {
             }
 
         }
-
+/*
         const computeInit = Fn( () => {
             const init = vec3(1, 2, 3)
             positionBuffer.element(instanceIndex).assign(init)
@@ -287,10 +287,10 @@ class ParticleNodes {
         } )().compute( maxInstanceCount );
 
         ThreeAPI.getRenderer().computeAsync(computeInit)
-
+*/
         function updateParticles() {
             update();
-            ThreeAPI.getRenderer().computeAsync( computeParticles().compute( maxInstanceCount ) );
+        //    ThreeAPI.getRenderer().computeAsync( computeParticles().compute( maxInstanceCount ) );
         }
 
         console.log("P Nodes Geo: ", mesh);
