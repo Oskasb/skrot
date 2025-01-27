@@ -177,9 +177,9 @@ class ParticleNodes {
 
             const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(tpf).mul(frictionMod);
 
-            const pPos = particlePosition.add(velocityOffset) // .mul(activeOne)
+            particlePosition.assignAdd(velocityOffset) // .mul(activeOne)
 
-            particlePosition.assign(pPos)
+            // particlePosition.assign(pPos)
 
         } );
 
