@@ -9,7 +9,7 @@
   "curves":{
     "color": "warmFire",
     "alpha": "pulseSlowOut",
-    "size": "quickInSlowOut",
+    "size": "halfSin",
     "drag": "darkBlue"
   },
   "params": {
@@ -19,7 +19,7 @@
     "pLifeTime": [0.1, 0.22],
     "pSizeFrom": [0.8, 0.8],
     "pSizeTo":   [1.2, 0.9],
-    "pSizeMod":  [0.3, 2],
+    "pSizeMod":  [1.3, 2],
     "pIntensity": [4, 4]
   }
 }

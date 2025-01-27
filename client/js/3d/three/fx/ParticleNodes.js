@@ -106,7 +106,7 @@ class ParticleNodes {
             const sizeColor = dataTx.sample(vec2(ltCoordX, ONE.sub(sizeCurveRow))) //  lifeTimeFraction));
             const sizeMod = sizeModulate.mul(sizeColor.r);
             const lifecycleSize = sizeMod.add(pSizeFrom.mul(ONE.sub(lifeTimeFraction)).add(pSizeTo.mul(lifeTimeFraction)))
-            return lifecycleSize // lifecycleSize.mul(ONE.sub(lifeTimeFraction))
+            return max(0.01, lifecycleSize) // lifecycleSize.mul(ONE.sub(lifeTimeFraction))
 
         } )();
 
