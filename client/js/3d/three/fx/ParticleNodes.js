@@ -174,7 +174,7 @@ class ParticleNodes {
 
             //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
-            const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age.mul(frictionMod));
+            const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age) // .mul(frictionMod));
 
              // .mul(tpf).mul(frictionMod);
             //    particlePosition.addAssign(velocityOffset) // .mul(activeOne)
