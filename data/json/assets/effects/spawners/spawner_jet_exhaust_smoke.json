@@ -15,7 +15,7 @@
   "params": {
     "pPosSpread":   [0,     0.4],
     "pVelSpread":   [1,     0.1],
-    "pVelInherit":  [0.2,   0.4],
+    "pVelInherit":  [0.8,   0.4],
     "pVelVariance": [1.0,   0.3],
     "pLifeTime":    [4.2,   8.22],
     "pSizeFrom":    [0.1,   0.8],

@@ -116,6 +116,8 @@ class ParticleNodes {
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
 
+            const forceFade = ONE.sub(lifeTimeFraction).pow(3);
+
             const colorCurve    = pCurves.x //ustomCurveBuffer.element(instanceIndex).x;
             const alphaCurve    = pCurves.y // customCurveBuffer.element(instanceIndex).y;
 
@@ -125,8 +127,8 @@ class ParticleNodes {
 
             const curveColor = dataTx.sample(vec2(ltCoordX, ONE.sub(colorUvRow)));
             const stengthColor = dataTx.sample(vec2(ltCoordX, ONE.sub(colorStrengthCurveRow))) ;
-            const strengthMod = stengthColor.r;
-            const intensityColor = vec4(curveColor.r.mul(strengthMod), curveColor.g.mul(strengthMod), curveColor.b.mul(strengthMod), strengthMod.mul(timeValues.w))
+            const strengthMod = stengthColor.r.mul(forceFade);
+            const intensityColor = vec4(curveColor.r, curveColor.g, curveColor.b, strengthMod.mul(timeValues.w))
 
             const txColor = colorTx.sample(customSpriteUv8x8());
             return txColor.mul(intensityColor);
@@ -143,11 +145,7 @@ class ParticleNodes {
 
         material.positionNode = Fn( () => {
 
-
-
             const particlePosition = positionBuffer.element(instanceIndex)
-
-
 
             const particlevelocity = velocityBuffer.element(instanceIndex)
             const timeValues = customTimeBuffer.element(instanceIndex)
@@ -163,17 +161,6 @@ class ParticleNodes {
             const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
-        //    const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
-
-        //    const frictionCurveRow = dragrCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
-        //    const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
-        //    const frictionColor = dataTx.sample(vec2(ltCoordX, ONE.sub(frictionCurveRow))) //  lifeTimeFraction));
-
-        //    const frictionMod = ONE.sub(frictionColor.r);
-            //    varyingProperty( 'float', 'p_lifeTimeFraction' ).assign(lifeTimeFraction);
-            //    varyingProperty( 'float', 'v_lifecycleScale' ).assign(lifecycleSize);
-
-            //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
             const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age) // .mul(frictionMod);
 
