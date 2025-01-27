@@ -86,7 +86,7 @@ class ParticleNodes {
 
     //    material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
         material.scaleNode = Fn( () => {
-
+            return ONE;
             const timeValues = customTimeBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
 
@@ -102,7 +102,7 @@ class ParticleNodes {
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
 
-            return ONE.add(lifeTimeFraction.mul(3))
+
 
             const fractionSizePower = lifeTimeFraction.pow(scaleExp)
             const sizeMod = sizeModulate.mul(fractionSizePower).mul(ONE.sub(lifeTimeFraction));
@@ -137,15 +137,6 @@ class ParticleNodes {
             const txColor = colorTx.sample(customSpriteUv8x8());
             return txColor.mul(intensityColor);
         } )();
-
-        material.positionNode_ = Fn( () => {
-            return positionBuffer.element(instanceIndex);
-        } )();
-
-        material.positionNode_ = positionBuffer.toAttribute()
-
-        // const computeParticles = Fn( () => {
-
 
         material.positionNode = Fn( () => {
 
