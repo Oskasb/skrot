@@ -1,8 +1,8 @@
 {
-  "spawners":[
+  "spawners_":[
     "spawner_jet_exhaust_flame"
   ],
-  "spawners_":[
+  "spawners":[
     "spawner_jet_exhaust_flame",
     "spawner_jet_exhaust_smoke"
   ]
