@@ -99,6 +99,7 @@ class ParticleNodes {
             return lifecycleSize // lifecycleSize.mul(ONE.sub(lifeTimeFraction))
 
         } )();
+        /*
         material.colorNode = Fn( () => {
 
             const timeValues = customTimeBuffer.element(instanceIndex)
@@ -123,7 +124,7 @@ class ParticleNodes {
             const txColor = colorTx.sample(customSpriteUv8x8());
             return txColor.mul(intensityColor);
         } )();
-
+*/
         material.positionNode = Fn( () => {
             return positionBuffer.element(instanceIndex);
         } )();
