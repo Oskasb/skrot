@@ -280,7 +280,7 @@ class ParticleNodes {
         }
 
         const computeInit = Fn( () => {
-            const init = vec3(1, 1, 1)
+            const init = vec3(1, 2, 3)
             positionBuffer.element(instanceIndex).assign(init)
             velocityBuffer.element(instanceIndex).assign(init)
             customTimeBuffer.element(instanceIndex).assign(init)
