@@ -8,7 +8,7 @@
   },
   "curves":{
     "color": "warmFire",
-    "alpha": "pulseSlowOut",
+    "alpha": "oneToZero",
     "spread": "halfSin",
     "drag": "darkBlue"
   },
@@ -16,11 +16,11 @@
     "pPosSpread":   [0, 0.4],
     "pVelSpread":   [0, 0.1],
     "pVelVariance": [0.0, 0.3],
-    "pLifeTime":    [0.1, 0.22],
-    "pSizeFrom":    [0.6, 0.6],
-    "pSizeTo":      [0.2, 0.3],
-    "pSizeMod":     [2.3, 2.3],
+    "pLifeTime":    [0.05, 0.07],
+    "pSizeFrom":    [0.4, 0.5],
+    "pSizeTo":      [0.0, 0.1],
+    "pSizeMod":     [3.3, 3.3],
     "pIntensity":   [4, 4],
-    "pScaleExp":    [0.4, 0.6]
+    "pScaleExp":    [0.5, 0.5]
   }
 }

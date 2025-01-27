@@ -99,16 +99,14 @@ class ParticleNodes {
             const scaleExp     = pScaleExp.x;
 
 
-
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
 
             const fractionSizePower = lifeTimeFraction.pow(scaleExp)
-            const sizeMod = sizeModulate.mul(fractionSizePower);
+            const sizeMod = sizeModulate.mul(fractionSizePower).mul(ONE.sub(lifeTimeFraction));
 
             const lifecycleSize = sizeFrom.add(sizeMod).mul(ONE.sub(lifeTimeFraction)).add(sizeTo.mul(lifeTimeFraction))
-
-            return lifecycleSize.mul(activeOne).mul(lifecycleSize);
+            return lifecycleSize.mul(activeOne);
 
 
         } )();
@@ -219,8 +217,8 @@ class ParticleNodes {
                     const offsetY = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX)))
                     const offsetZ = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX).add(offsetY)))
 
-                    const offsetTime = emitFraction.mul(0.02)
-                    const offsetPos = emitterDirectionV3.mul(offsetTime).sub(emitterDirectionV3.mul(0.02))// .mul(-1)).add() // .add(vec3(offsetX, offsetY, offsetZ))
+                    const offsetTime = emitFraction.mul(tpf)
+                    const offsetPos = emitterDirectionV3.mul(offsetTime).sub(emitterVel.mul(offsetTime))// .mul(-1)).add() // .add(vec3(offsetX, offsetY, offsetZ))
                     positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos))
                     velocityBuffer.element(particleIndex).assign(emitterVel)
                     customTimeBuffer.element(particleIndex).assign(vec3(time.sub(offsetTime), particleDuration, emittParamsV4.w))
@@ -246,7 +244,7 @@ class ParticleNodes {
 
 
                 let intensity = pIntensity.value.y;
-                let lifeTime = pLifeTime.value.y;
+                let lifeTime = MATH.randomBetween(pLifeTime.value.x, pLifeTime.value.y);
                 let sizeMod = pSizeMod.value.y;
                 let gain = obj.userData.gain;
                 emitterPositions.array[i].set(obj.position.x, obj.position.y, obj.position.z, gain +1);
