@@ -91,6 +91,8 @@ class ParticleNodes {
             const timeValues = customTimeBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
 
+            const scaleExp = pScaleExp.x;
+
             const lifeTimeTotal = timeValues.y.add(tpf);
             const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
@@ -101,8 +103,8 @@ class ParticleNodes {
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
 
-            const sizeMod = sizeModulate.mul(lifeTimeFraction);
-            const lifecycleSize = sizeMod.add(sizeFrom.mul(ONE.sub(lifeTimeFraction)).add(sizeTo.mul(lifeTimeFraction)))
+            const sizeMod = sizeModulate.mul(lifeTimeFraction.pow(scaleExp));
+            const lifecycleSize = sizeFrom.add(sizeMod).mul(ONE.sub(lifeTimeFraction).add(sizeTo.mul(lifeTimeFraction)))
             return max(0.01, lifecycleSize) // lifecycleSize.mul(ONE.sub(lifeTimeFraction))
 
         } )();
@@ -117,7 +119,7 @@ class ParticleNodes {
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
 
-            const forceFade = ONE.sub(lifeTimeFraction).pow(3);
+            const forceFade = max(0, ONE.sub(lifeTimeFraction.pow(3)));
 
             const colorCurve    = pCurves.x //ustomCurveBuffer.element(instanceIndex).x;
             const alphaCurve    = pCurves.y // customCurveBuffer.element(instanceIndex).y;
@@ -127,8 +129,8 @@ class ParticleNodes {
             const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
 
             const curveColor = dataTx.sample(vec2(ltCoordX, ONE.sub(colorUvRow)));
-            const stengthColor = dataTx.sample(vec2(ltCoordX, ONE.sub(colorStrengthCurveRow))) ;
-            const strengthMod = stengthColor.r.mul(forceFade);
+            const strengthColor = dataTx.sample(vec2(ltCoordX, ONE.sub(colorStrengthCurveRow))) ;
+            const strengthMod = strengthColor.r.mul(forceFade);
 
             const colorBoost = ONE.add(max(0, colorIntensity.sub(1)));
 
