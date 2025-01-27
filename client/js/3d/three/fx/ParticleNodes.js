@@ -62,16 +62,18 @@ class ParticleNodes {
         const dataTx = texture(material.dataTexture);
         const colorTx = texture(material.map);
         const pCurves = uniform(new Vector4());
+        const pDimensions = uniform(new Vector4());
+
 
         const pPosSpread = uniform(new Vector2()) // : [0, 0.4],
         const pVelSpread = uniform(new Vector2())// : [1, 0.1],
         const pVelVariance = uniform(new Vector2())// : [1.0, 0.3],
         const pLifeTime = uniform(new Vector2())// : [2.2, 0.22],
         const pSizeFrom = uniform(new Vector2())// : [0.1, 0.8],
-        const pSizeTo = uniform(new Vector2(1, 1)) //:   [10.2, 0.9],
-        const pSizeMod = uniform(new Vector2(1, 1)) //:  [18.3, 4.3],
-        const pIntensity = uniform(new Vector2(1, 1)) //: [0.3, 1]
-        const pScaleExp = uniform(new Vector2(1, 1)) //: [0.3, 1]
+        const pSizeTo = uniform(new Vector2()) //:   [10.2, 0.9],
+        const pSizeMod = uniform(new Vector2()) //:  [18.3, 4.3],
+        const pIntensity = uniform(new Vector2()) //: [0.3, 1]
+
         /*
         const applyParticle = Fn( () => {
             curvesBuffer.element( pIndex ).assign(pCurves);
@@ -84,30 +86,30 @@ class ParticleNodes {
 
     //    material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
         material.scaleNode = Fn( () => {
-            return ONE;
+
+            return 2;
+            
+
             const timeValues = customTimeBuffer.element(instanceIndex)
+            const dimensionValues = pDimensions // customDimensionBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
-
+            const sizeCurve     = pCurves.z // customCurveBuffer.element(instanceIndex).z;
             const lifeTimeTotal = timeValues.y.add(tpf);
-            const age = max(0.001, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
+            const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
-            const sizeFrom     = pSizeFrom.x;
-            const sizeTo       = pSizeFrom.y;
-            const sizeModulate = pSizeMod.y;
-            const scaleExp     = pScaleExp.x;
-
+            const pSizeFrom     = dimensionValues.x;
+            const pSizeTo       = dimensionValues.y;
+            const sizeModulate  = dimensionValues.z;
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
+            const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
 
-
-
-            const fractionSizePower = lifeTimeFraction.pow(scaleExp)
-            const sizeMod = sizeModulate.mul(fractionSizePower).mul(ONE.sub(lifeTimeFraction));
-
-            const lifecycleSize = sizeFrom.add(sizeMod).mul(ONE.sub(lifeTimeFraction)).add(sizeTo.mul(lifeTimeFraction))
-            return lifecycleSize.mul(activeOne);
-
+            const sizeCurveRow = sizeCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
+            const sizeColor = dataTx.sample(vec2(ltCoordX, ONE.sub(sizeCurveRow))) //  lifeTimeFraction));
+            const sizeMod = sizeModulate.mul(sizeColor.r);
+            const lifecycleSize = sizeMod.add(pSizeFrom.mul(ONE.sub(lifeTimeFraction)).add(pSizeTo.mul(lifeTimeFraction)))
+            return max(0.01, lifecycleSize) // lifecycleSize.mul(ONE.sub(lifeTimeFraction))
 
         } )();
 
@@ -116,7 +118,7 @@ class ParticleNodes {
             const timeValues = customTimeBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
             const lifeTimeTotal = timeValues.y.add(tpf);
-            const age = max(0.001, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
+            const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
 
@@ -136,21 +138,35 @@ class ParticleNodes {
             return txColor.mul(intensityColor);
         } )();
 
+        material.positionNode_ = Fn( () => {
+            return positionBuffer.element(instanceIndex);
+        } )();
+
+        material.positionNode_ = positionBuffer.toAttribute()
+
+        // const computeParticles = Fn( () => {
+
+
         material.positionNode = Fn( () => {
 
+
+
             const particlePosition = positionBuffer.element(instanceIndex)
+
+
+
             const particlevelocity = velocityBuffer.element(instanceIndex)
             const timeValues = customTimeBuffer.element(instanceIndex)
 
+
             const dragrCurve    = pCurves.w // customCurveBuffer.element(instanceIndex).w;
-        //    const spreadCurve     = pCurves.z // customCurveBuffer.element(instanceIndex).z;
             const pVelocityX    = particlevelocity.x;
             const pVelocityY    = particlevelocity.y;
             const pVelocityZ    = particlevelocity.z;
             const spawnTime     = timeValues.x;
 
             const lifeTimeTotal = timeValues.y.add(tpf);
-            const age = max(0.001, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
+            const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
@@ -158,17 +174,14 @@ class ParticleNodes {
             const frictionCurveRow = dragrCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
             const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
             const frictionColor = dataTx.sample(vec2(ltCoordX, ONE.sub(frictionCurveRow))) //  lifeTimeFraction));
-/*
-            const spreadCurveRow = spreadCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
-            const spreadColor = dataTx.sample(vec2(ltCoordX, ONE.sub(sizeCurveRow))) //  lifeTimeFraction));
-*/
-            const frictionMod = ONE.sub(max(0, min(frictionColor.r, 1)));
 
+            const frictionMod = ONE.sub(frictionColor.r);
             //    varyingProperty( 'float', 'p_lifeTimeFraction' ).assign(lifeTimeFraction);
             //    varyingProperty( 'float', 'v_lifecycleScale' ).assign(lifecycleSize);
+
             //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
-            const velocityOffset = vec3(pVelocityX.mul(frictionMod), pVelocityY.mul(frictionMod), pVelocityZ.mul(frictionMod)).mul(age);
+            const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age) // .mul(frictionMod);
 
              // .mul(tpf).mul(frictionMod);
             //    particlePosition.addAssign(velocityOffset) // .mul(activeOne)
@@ -208,11 +221,14 @@ class ParticleNodes {
                     const offsetY = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX)))
                     const offsetZ = step.pow(0.5).mul(emitterSize.mod(step.add(offsetX).add(offsetY)))
 
-                    const offsetTime = emitFraction.mul(tpf)
-                    const offsetPos = emitterDirectionV3.mul(offsetTime).sub(emitterVel.mul(offsetTime))// .mul(-1)).add() // .add(vec3(offsetX, offsetY, offsetZ))
+                    const offsetTime = emitFraction.mul(0.02)
+
+                    const offsetPos = emitterDirectionV3.mul(offsetTime).sub(emitterDirectionV3.mul(0.02))// .mul(-1)).add() // .add(vec3(offsetX, offsetY, offsetZ))
                     positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos))
                     velocityBuffer.element(particleIndex).assign(emitterVel)
                     customTimeBuffer.element(particleIndex).assign(vec3(time.sub(offsetTime), particleDuration, emittParamsV4.w))
+                //    customCurveBuffer.element(particleIndex).assign(emittCurvesV4)
+                //    customDimensionBuffer.element(particleIndex).assign(emittDimensionsV4)
                 } );
 
 
@@ -235,7 +251,7 @@ class ParticleNodes {
 
 
                 let intensity = pIntensity.value.y;
-                let lifeTime = MATH.randomBetween(pLifeTime.value.x, pLifeTime.value.y);
+                let lifeTime = pLifeTime.value.y;
                 let sizeMod = pSizeMod.value.y;
                 let gain = obj.userData.gain;
                 emitterPositions.array[i].set(obj.position.x, obj.position.y, obj.position.z, gain +1);
@@ -299,11 +315,11 @@ class ParticleNodes {
         let curves = [];
         let dimensions = [];
 
-        for (let i = 0; i < 6; i++) {
-            positions.push(new Vector4(1, 1, 1, 1));
-            directions.push(new Vector3(1, 1, 1));
-            velocities.push(new Vector4(1, 1, 1, 1));
-            params.push(new Vector4(1, 1, 1, 1));
+        for (let i = 0; i < 10; i++) {
+            positions.push(new Vector4());
+            directions.push(new Vector3());
+            velocities.push(new Vector4());
+            params.push(new Vector4());
         //    curves.push(new Vector4());
        //     dimensions.push(new Vector4());
         }
@@ -314,6 +330,7 @@ class ParticleNodes {
         const emitterParams = uniformArray(params)
     //    const emitterCurves = uniformArray(curves)
      //   const emitterDimensions = uniformArray(dimensions)
+
 
         let applyCfg = null;
 
@@ -330,17 +347,23 @@ class ParticleNodes {
                     let curves = config.curves;
                     let colorCurve = ENUMS.ColorCurve[curves.color || 'brightMix']
                     let alphaCurve = ENUMS.ColorCurve[curves.alpha || 'oneToZero']
-                    let spreadCurve= ENUMS.ColorCurve[curves.spread|| 'oneToZero']
+                    let sizeCurve  = ENUMS.ColorCurve[curves.size  || 'oneToZero']
                     let dragrCurve = ENUMS.ColorCurve[curves.drag  || 'zeroToOne']
 
                     pCurves.value.set(
                         colorCurve,
                         alphaCurve,
-                        spreadCurve,
+                        sizeCurve,
                         dragrCurve
                     ); // color - alpha - size - drag
 
                     let params = config.params;
+                    pDimensions.value.set(
+                        params.pSizeFrom[0],
+                        params.pSizeTo[0],
+                        params.pSizeMod[0],
+                        params.pSizeMod[1]
+                    );
 
                     pPosSpread.value.set(params.pPosSpread[0], params.pPosSpread[1]) // = uniform(new Vector2()) // : [0, 0.4],
                     pVelSpread.value.set(params.pVelSpread[0], params.pVelSpread[1])
@@ -350,8 +373,14 @@ class ParticleNodes {
                     pSizeTo.value.set(params.pSizeTo[0], params.pSizeTo[1])
                     pSizeMod.value.set(params.pSizeMod[0], params.pSizeMod[1])
                     pIntensity.value.set(params.pIntensity[0], params.pIntensity[1])
-                    pScaleExp.value.set(params.pScaleExp[0], params.pScaleExp[1])
+
+
                 }
+
+
+
+
+
 
             activeParticles++;
 
