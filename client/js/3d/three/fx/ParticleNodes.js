@@ -145,6 +145,9 @@ class ParticleNodes {
 
 
             const particlePosition = positionBuffer.element(instanceIndex)
+
+            /*
+
             const particlevelocity = velocityBuffer.element(instanceIndex)
             const timeValues = customTimeBuffer.element(instanceIndex)
 
@@ -176,7 +179,9 @@ class ParticleNodes {
             //          colorBuffer.element(instanceIndex).assign(intensityColor);
 
             const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(tpf).mul(frictionMod);
+*/
 
+            const velocityOffset = vec3(0, 0.1, 0) // .mul(tpf).mul(frictionMod);
             particlePosition.addAssign(velocityOffset) // .mul(activeOne)
 
             // particlePosition.assign(pPos)
