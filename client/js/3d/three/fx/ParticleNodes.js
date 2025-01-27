@@ -63,7 +63,7 @@ class ParticleNodes {
 
         const dataTx = texture(material.dataTexture);
         const colorTx = texture(material.map);
-
+        const pCurves = uniform(new Vector4());
         /*
         const applyParticle = Fn( () => {
             curvesBuffer.element( pIndex ).assign(pCurves);
@@ -80,7 +80,7 @@ class ParticleNodes {
             const timeValues = customTimeBuffer.element(instanceIndex)
             const dimensionValues = customDimensionBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
-            const sizeCurve     = emitterCurves.z // customCurveBuffer.element(instanceIndex).z;
+            const sizeCurve     = pCurves.z // customCurveBuffer.element(instanceIndex).z;
             const lifeTimeTotal = timeValues.y.add(tpf);
             const age = time.sub(spawnTime);
 
@@ -100,7 +100,7 @@ class ParticleNodes {
 
         } )();
 
-        material.colorNode__ = Fn( () => {
+        material.colorNode = Fn( () => {
 
             const timeValues = customTimeBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
@@ -109,8 +109,8 @@ class ParticleNodes {
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
 
-            const colorCurve    = cemitterCurves.x //ustomCurveBuffer.element(instanceIndex).x;
-            const alphaCurve    = emitterCurves.y // customCurveBuffer.element(instanceIndex).y;
+            const colorCurve    = pCurves.x //ustomCurveBuffer.element(instanceIndex).x;
+            const alphaCurve    = pCurves.y // customCurveBuffer.element(instanceIndex).y;
 
             const colorUvRow = colorCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
             const colorStrengthCurveRow = alphaCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
@@ -137,7 +137,7 @@ class ParticleNodes {
             const timeValues = customTimeBuffer.element(instanceIndex)
 
 
-            const dragrCurve    = emitterCurves.w // customCurveBuffer.element(instanceIndex).w;
+            const dragrCurve    = pCurves.w // customCurveBuffer.element(instanceIndex).w;
             const pVelocityX    = particlevelocity.x;
             const pVelocityY    = particlevelocity.y;
             const pVelocityZ    = particlevelocity.z;
@@ -232,7 +232,7 @@ class ParticleNodes {
                 let sizeCurve  = ENUMS.ColorCurve[curves.size  || 'oneToZero']
                 let dragrCurve = ENUMS.ColorCurve[curves.drag  || 'zeroToOne']
 
-                emitterCurves.array[i].set(
+                pCurves.value.set(
                     colorCurve,
                     alphaCurve,
                     sizeCurve,
@@ -310,7 +310,7 @@ class ParticleNodes {
             directions.push(new Vector3());
             velocities.push(new Vector4());
             params.push(new Vector4());
-            curves.push(new Vector4());
+        //    curves.push(new Vector4());
             dimensions.push(new Vector4());
         }
 
@@ -318,8 +318,9 @@ class ParticleNodes {
         const emitterDirections = uniformArray(directions)
         const emitterVelocities = uniformArray(velocities)
         const emitterParams = uniformArray(params)
-        const emitterCurves = uniformArray(curves)
+    //    const emitterCurves = uniformArray(curves)
         const emitterDimensions = uniformArray(dimensions)
+
 
 
         const emittersLength = uniform( 0, 'uint' );
