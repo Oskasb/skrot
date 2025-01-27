@@ -90,39 +90,36 @@ class ParticleNodes {
 
             const timeValues = customTimeBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
-
-            const scaleExp = pScaleExp.x;
-
-            const lifeTimeTotal = timeValues.y.add(tpf);
+            const lifeTimeTotal = timeValues.y;
             const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
+            const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
+            const forceFade = max(0, ONE.sub(lifeTimeFraction.pow(4.5)));
 
             const sizeFrom     = pSizeFrom.x;
             const sizeTo       = pSizeTo.x;
             const sizeModulate  = pSizeMod.x;
+            const scaleExp = pScaleExp.x;
 
-            const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
-            const forceFade = max(0, ONE.sub(lifeTimeFraction.pow(8)));
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
 
             const sizeMod = sizeModulate.mul(lifeTimeFraction.pow(scaleExp));
-            const lifecycleSize = forceFade.mul(sizeFrom.add(sizeMod).mul(ONE.sub(lifeTimeFraction).add(sizeTo.mul(lifeTimeFraction))))
+            const lifecycleSize = sizeFrom.add(sizeMod).mul(ONE.sub(lifeTimeFraction).add(sizeTo.mul(lifeTimeFraction)))
             const fadedScale = forceFade.mul(lifecycleSize)
-            return fadedScale;// lifecycleSize.mul(ONE.sub(lifeTimeFraction))
+            return fadedScale
 
         } )();
 
         material.colorNode = Fn( () => {
 
+
             const timeValues = customTimeBuffer.element(instanceIndex)
-            const colorIntensity = timeValues.z;
             const spawnTime     = timeValues.x;
-            const lifeTimeTotal = timeValues.y.add(tpf);
+            const lifeTimeTotal = timeValues.y;
             const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
-
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
+            const forceFade = max(0, ONE.sub(lifeTimeFraction.pow(3)))
 
-            const forceFade = max(0, ONE.sub(lifeTimeFraction.pow(3)));
-
+            const colorIntensity = timeValues.z;
             const colorCurve    = pCurves.x //ustomCurveBuffer.element(instanceIndex).x;
             const alphaCurve    = pCurves.y // customCurveBuffer.element(instanceIndex).y;
 
@@ -136,21 +133,12 @@ class ParticleNodes {
 
             const colorBoost = ONE.add(max(0, colorIntensity.sub(1)));
 
-            const intensityColor = vec4(curveColor.r.mul(colorBoost), curveColor.g.mul(colorBoost), curveColor.b.mul(colorBoost), strengthMod.mul(colorIntensity))
+            const intensityColor = vec4(curveColor.r.mul(colorBoost).add(ONE.sub(forceFade)), curveColor.g.mul(colorBoost), curveColor.b.mul(colorBoost), strengthMod.mul(colorIntensity).mul(forceFade))
 
             const txColor = colorTx.sample(customSpriteUv8x8());
             const finalColor = txColor.mul(intensityColor);
             return finalColor;
         } )();
-
-        material.positionNode_ = Fn( () => {
-            return positionBuffer.element(instanceIndex);
-        } )();
-
-        material.positionNode_ = positionBuffer.toAttribute()
-
-        // const computeParticles = Fn( () => {
-
 
         material.positionNode = Fn( () => {
 
@@ -246,7 +234,7 @@ class ParticleNodes {
 
 
                 let intensity = pIntensity.value.y;
-                let lifeTime = pLifeTime.value.y;
+                let lifeTime = MATH.randomBetween(pLifeTime.value.x, pLifeTime.value.y)
                 let sizeMod = pSizeMod.value.y;
                 let gain = obj.userData.gain;
                 emitterPositions.array[i].set(obj.position.x, obj.position.y, obj.position.z, gain +1);
@@ -255,7 +243,7 @@ class ParticleNodes {
                 tempVec.applyQuaternion(obj.quaternion);
                 emitterDirections.array[i].set(tempVec.x, tempVec.y, tempVec.z);
                 emitterVelocities.array[i].set(obj.up.x, obj.up.y, obj.up.z, emitCount);
-                emitterParams.array[i].set(applyCount, emitCount, MATH.randomBetween(lifeTime, lifeTime*sizeMod), intensity)
+                emitterParams.array[i].set(applyCount, emitCount, lifeTime, intensity)
                 applyCount += emitCount
 
                 if (obj.userData.gain === 0) {
