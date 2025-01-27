@@ -10,7 +10,7 @@
     "color": "darkSmoke",
     "alpha": "oneToZero",
     "spread": "zeroOneZero",
-    "drag": "halfQuickIn"
+    "drag": "zeroToOne"
   },
   "params": {
     "pPosSpread":   [0,     0.4],

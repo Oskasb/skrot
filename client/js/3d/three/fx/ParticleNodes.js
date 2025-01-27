@@ -163,13 +163,13 @@ class ParticleNodes {
             const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
 
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
-            const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
+        //    const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
 
-            const frictionCurveRow = dragrCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
-            const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
-            const frictionColor = dataTx.sample(vec2(ltCoordX, ONE.sub(frictionCurveRow))) //  lifeTimeFraction));
+        //    const frictionCurveRow = dragrCurve.mul(ROW_SELECT_FACTOR).sub(DATA_PX_OFFSET)
+        //    const ltCoordX = lifeTimeFraction.sub(ROW_SELECT_FACTOR).add(DATA_PX_OFFSET);
+        //    const frictionColor = dataTx.sample(vec2(ltCoordX, ONE.sub(frictionCurveRow))) //  lifeTimeFraction));
 
-            const frictionMod = ONE.sub(frictionColor.r);
+        //    const frictionMod = ONE.sub(frictionColor.r);
             //    varyingProperty( 'float', 'p_lifeTimeFraction' ).assign(lifeTimeFraction);
             //    varyingProperty( 'float', 'v_lifecycleScale' ).assign(lifecycleSize);
 
@@ -177,13 +177,15 @@ class ParticleNodes {
 
             const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age) // .mul(frictionMod);
 
+            const frictionDrag = ONE.sub(lifeTimeFraction).pow(pVelInherit.y)
+
              // .mul(tpf).mul(frictionMod);
             //    particlePosition.addAssign(velocityOffset) // .mul(activeOne)
 
             // particlePosition.assign(pPos)
         //    const velocityOffset = vec3(particlePosition.x, particlePosition.y.add(instanceIndex), particlePosition.z)
 
-            return particlePosition.add(velocityOffset.mul(frictionMod)) //
+            return particlePosition.add(velocityOffset.mul(frictionDrag)) //
 
         } )();
 
