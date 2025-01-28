@@ -155,23 +155,10 @@ class EnvironmentMaps {
             // 1.0 / ( 4.0 * pi )
             const ONE_OVER_FOURPI = float( 0.07957747154 );
 
-            const getEnvironmentNode = function( reflectNode, positionNode ) {
 
-                const custom1UV = reflectNode.xyz.mul( uniform( rotateY1Matrix ) );
-                const flippedUV1 = vec3(custom1UV.x, mul(custom1UV.y, -1), custom1UV.z);
-                const sky1tx = pmremTexture( cube1Texture, flippedUV1 )
-                const skyShade = add( ambColor, fogColor);
-                const sky1Ambient = mul( sky1tx, skyShade);
-                const sky1AmbTinted = mix( sky1Ambient, ambColor, max(0.0, min(0.75, pow(2, mul(flippedUV1.y, 15)) )));
-                const sky1FogTinted = mix( sky1AmbTinted, fogColor, mul(0.55, pow( cos(mul(flippedUV1.y, 2)), 30) ));
-                const sky1ShadeTinted = mix( sky1FogTinted, spaceColor, max(0.0, min(0.7, pow( 15, sub(flippedUV1.y, 0.15)) )));
-                return vec4( sky1ShadeTinted, 1.0 );
+            const skyColorFunction = function( dirNode, positionNode ) {
 
-            };
-
-            const getBackgroundNode = function( reflectNode, positionNode ) {
-
-                const direction = normalize( positionWorld.sub( cameraPosition ) );
+                const direction = normalize( dirNode.sub( positionNode ) );
 
                 // optical length
                 // cutoff angle at 90 to avoid singularity in next formula.
@@ -198,17 +185,51 @@ class EnvironmentMaps {
                 const skySunShaded = mix( foggedColor, sunColor, max(0.0, mul(0.05, pow( mul(sunAngle, 0.99), 118) )));
                 const haloFactor = max(0.0,pow( mul(sunAngle, 0.99), 2));
                 const skySunBrightened = mix( skySunShaded, add(sunColor, ambColor),  mul(0.06, pow(haloFactor, 1.2) ));
+
                 const skySunHalo = mix( skySunBrightened, add(sunColor, fogColor),  mul(0.53, pow(haloFactor, 15) ));
                 const sunDisc = mix( skySunHalo, add(sunColor.add(sunColor.normalize().mul(70)), fogColor), mul(1.0, max(0.0, min( 1.0, pow( mul(sunAngle, 1.0003), 21000.0) ))));
 
                 const sealevelColor = mix(sunDisc, fogColor,  max(0.0, min(1, belowHorizonFactor)))
-
-                return vec4( sealevelColor, 1.0 );
+                const underwaterlevelColor = mix(sealevelColor, ambColor.mul(0.05),  max(0.0, min(1, angleToDown.sub(0.2).mul(2))))
+                return vec4( underwaterlevelColor, 1.0 );
 
             };
 
 
-            scene.environmentNode = getEnvironmentNode( reflectVector, positionWorld );
+            const getEnvironmentNode_ = function( reflectNode, positionNode ) {
+
+                const custom1UV = reflectNode.xyz.mul( uniform( rotateY1Matrix ) );
+                const flippedUV1 = vec3(custom1UV.x, mul(custom1UV.y, -1), custom1UV.z);
+                const sky1tx = pmremTexture( cube1Texture, flippedUV1 )
+                const skyShade = add( ambColor, fogColor);
+
+                const sky1Ambient = mul( sky1tx, skyShade);
+                const sky1AmbTinted = mix( sky1Ambient, ambColor, max(0.0, min(0.75, pow(2, mul(flippedUV1.y, 15)) )));
+                const sky1FogTinted = mix( sky1AmbTinted, fogColor, mul(0.55, pow( cos(mul(flippedUV1.y, 2)), 30) ));
+                const sky1ShadeTinted = mix( sky1FogTinted, spaceColor, max(0.0, min(0.7, pow( 15, sub(flippedUV1.y, 0.15)) )));
+                return vec4( sky1ShadeTinted, 1.0 );
+
+            };
+
+            const getEnvironmentNode = function( refNode, posNode ) {
+                const custom1UV = refNode.xyz //.mul( uniform( rotateY1Matrix ) );
+                const flippedUV1 = vec3(custom1UV.x, mul(custom1UV.y, -1), custom1UV.z);
+                const sky1tx = pmremTexture( cube1Texture, flippedUV1 )
+                return sky1tx.mul(skyColorFunction(refNode, posNode).mul(1.4));
+            };
+
+
+            const getBackgroundNode = function( dirNode, positionNode ) {
+                const skyColor = skyColorFunction(dirNode, positionNode);
+                return skyColor
+            };
+
+
+            scene.environmentNode = getEnvironmentNode( reflectVector, vec3(0, 0, 0) );
+        //    scene.environmentNode_ = getBackgroundNode( reflectVector, positionWorld );
+        //    scene.backgroundNode = getBackgroundNode( positionWorldDirection, positionLocal );
+
+
             scene.backgroundNode = getBackgroundNode( positionWorldDirection, positionLocal );
 
             scene.getEnvNode = function() {

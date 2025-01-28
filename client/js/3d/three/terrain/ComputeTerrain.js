@@ -200,7 +200,7 @@ function customTerrainVnormal() {
     const globalUv = terrainGlobalUv();
 
     const shift = ONE.div(MAP_TEXELS_SIDE).mul(0.35);
-    const shiftScaled = shift.mul(255);
+    const shiftScaled = shift.mul(255).mul(0.75);
     const nmUv0 = vec2(globalUv.x.add(shift), globalUv.y.add(shift));
     const nmUv1 = vec2(globalUv.x.sub(shift), globalUv.y.add(shift));
     const nmUv2 = vec2(globalUv.x.add(shift), globalUv.y.sub(shift));
@@ -468,8 +468,9 @@ class ComputeTerrain {
 
                 tilesMaterial.normalNode = Fn( () => {
                     const nmSample = nmTx.sample(customTerrainUv())
-                    const txNormal = vec3(nmSample.x.add(-0.5).mul(-1), nmSample.y, nmSample.z.add(-0.5)).normalize() //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
-                    return transformNormalToView(normalLocal).add(transformNormalToView(txNormal).mul(0.8)).normalize() // .add(txNormal).normalize()).mul(cracks).mul(detail);
+                    const txNormal = vec3(nmSample.x, nmSample.y , nmSample.z).mul(2).sub(1)//.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
+                    return txNormal.mul(0.5).add(transformNormalToView(normalLocal)).normalize()  // transformNormalToView(txNormal) // .mul(0.8).normalize()
+                //    return transformNormalToView(normalLocal) // .add(transformNormalToView(txNormal).mul(0.8)).normalize() // .add(txNormal).normalize()).mul(cracks).mul(detail);
                 } )();
 
             //    tilesMaterial.colorNode =  vec3(ZERO.add(instanceIndex).mul(0.02).mod(1),0 , ZERO.add(instanceIndex).mul(0.11).mod(1));

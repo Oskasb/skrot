@@ -46,6 +46,8 @@ class ParticleNodes {
 
         const tpf = uniform(0)
 
+        const emitterCount = 10;
+
         const positionBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const velocityBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const customTimeBuffer = instancedArray( maxInstanceCount, 'vec3' );
@@ -199,7 +201,7 @@ class ParticleNodes {
                     const step =  ZERO.add(i);
                     const particleIndex = pIndex.add(emitCountOffset.add(emitCount)).add(i)
                     const emitFraction = step.div(emitCount)
-                    const offsetTime = emitFraction.mul(0.02)
+                    const offsetTime = emitFraction.mul(tpf)
 
                     const spread = emitterPositionV4.y.add(emitFraction.add(emitterPositionV4.x)).mod(1).mul(pPosSpread.y.sub(pPosSpread.x)).add(pPosSpread.x)
                     const posRandom = vec3(
@@ -225,7 +227,7 @@ class ParticleNodes {
                     const spreadSizeMod = emitterPositionV4.x.add(emitFraction.add(emitterPositionV4.z)).mod(1).mul(pSizeMod.y.sub(pSizeMod.x)).add(pSizeMod.x)
 
 
-                    const offsetPos = emitterDirectionV3.mul(offsetTime).sub(emitterDirectionV3.mul(0.02))// .mul(-1)).add() // .add(vec3(offsetX, offsetY, offsetZ))
+                    const offsetPos = emitterDirectionV3.mul(offsetTime).sub(emitterDirectionV3.mul(tpf))// .mul(-1)).add() // .add(vec3(offsetX, offsetY, offsetZ))
                     positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos).add(posRandom))
                     velocityBuffer.element(particleIndex).assign(emitterVel.mul(inheritVelocity).add(emitterVel.mul(velRandom)))
                     customTimeBuffer.element(particleIndex).assign(vec3(time.sub(offsetTime), particleDuration, spreadSizeMod))
@@ -241,6 +243,9 @@ class ParticleNodes {
         let activeParticles = 0;
         let isActive = false;
         let clearEmitters = [];
+
+        const updateEmitters = computeUpdate().compute( emitterCount )
+
         function update() {
 
             let applyCount = 0;
@@ -284,7 +289,7 @@ class ParticleNodes {
             tpf.value = getFrame().tpf;
         //    now.value = getFrame().gameTime;
             if (emitterObjects.length !== 0) {
-                ThreeAPI.getRenderer().computeAsync( computeUpdate().compute( emitterObjects.length ) );
+                ThreeAPI.getRenderer().computeAsync( updateEmitters );
             }
 
             while (clearEmitters.length) {
@@ -318,7 +323,7 @@ class ParticleNodes {
         let curves = [];
         let dimensions = [];
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < emitterCount; i++) {
             positions.push(new Vector4());
             directions.push(new Vector3());
             velocities.push(new Vector4());

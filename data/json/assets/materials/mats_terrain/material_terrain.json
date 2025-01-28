@@ -6,6 +6,10 @@
     { "slot":"normalMap",     "tx": "texture_ground8x8nm"},
     { "slot":"specularMap",   "tx": "texture_ground8x8metal"}
   ],
+  "textures__": [
+    { "slot":"map",           "tx": "texture_ground8x8"},
+    { "slot":"normalMap",     "tx": "texture_ground8x8nm"}
+  ],
   "textures": [
     { "slot":"map",           "tx": "texture_ground8x8"},
     { "slot":"normalMap",     "tx": "texture_ground8x8nm"},
@@ -15,8 +19,8 @@
   "settings": {
     "color": {"r": 1, "g": 1, "b": 1},
     "specular": {"r": 2, "g": 2, "b": 2},
-    "shininess":20,
-    "metalness": 1.0,
+    "shininess": 1,
+    "metalness":1.0,
     "roughness": 1.0,
     "envMapIntensity": 1,
     "aoMapIntensity": 1.0

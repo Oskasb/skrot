@@ -15,22 +15,22 @@ class ThreeShadows {
             orthographic: false,
             fade: true,
             shadows: true,
-            maxFar: 800,
+            maxFar: 1500,
             mode: 'practical',
             lightX: - 1,
             lightY: - 1,
             lightZ: - 1,
-            margin: 1000,
+            margin: 100,
             shadowNear: 1,
-            shadowFar: 1200,
+            shadowFar: 1400,
             autoUpdateHelper: true
         };
         renderer.shadowMap.enabled = params.shadows;
         renderer.shadowMap.type = PCFSoftShadowMap;
 
         sunDirLight.castShadow = true;
-        sunDirLight.shadow.mapSize.width = 1024;
-        sunDirLight.shadow.mapSize.height = 1024;
+        sunDirLight.shadow.mapSize.width = 512;
+        sunDirLight.shadow.mapSize.height = 512;
         sunDirLight.shadow.camera.near = params.shadowNear;
         sunDirLight.shadow.camera.far = params.shadowFar;
         sunDirLight.shadow.camera.top = 1000;
