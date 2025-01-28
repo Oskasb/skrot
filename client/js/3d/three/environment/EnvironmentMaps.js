@@ -215,7 +215,7 @@ class EnvironmentMaps {
                 const custom1UV = refNode.xyz //.mul( uniform( rotateY1Matrix ) );
                 const flippedUV1 = vec3(custom1UV.x, mul(custom1UV.y, -1), custom1UV.z);
                 const sky1tx = pmremTexture( cube1Texture, flippedUV1 )
-                return sky1tx.mul(skyColorFunction(refNode, posNode).mul(1.4));
+                return sky1tx.mul(skyColorFunction(refNode, posNode).mul(1.2));
             };
 
 

@@ -109,6 +109,7 @@ materials['MeshSpecialPhongTerrainNodeMaterial'] = MeshSpecialPhongTerrainNodeMa
 materials['MeshSpecialBasicOceanNodeMaterial'] = MeshSpecialBasicOceanNodeMaterial;
 materials['MeshParticleLambertNodeMaterial'] = MeshParticleLambertNodeMaterial;
 materials['TiledSpriteNodeMaterial8x8'] = TiledSpriteNodeMaterial8x8;
+materials['SpriteNodeMaterial'] = SpriteNodeMaterial;
 
 class ModelMaterial {
     constructor() {

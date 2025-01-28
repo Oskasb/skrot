@@ -1,7 +1,6 @@
 {
   "geometry": "geometry_particles_smoke",
   "material": "material_particles_8x8",
-  "sprite": 1,
   "sample_gain": {
     "velocity_base": 50,
     "velocity_gain_factor":30
@@ -13,6 +12,7 @@
     "drag": "zeroToOne"
   },
   "params": {
+    "pSprite":      [2,     1],
     "pPosSpread":   [1,     2.4],
     "pVelSpread":   [0.2,   0.5],
     "pVelInherit":  [0.4,   1.1],

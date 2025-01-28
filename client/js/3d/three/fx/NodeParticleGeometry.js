@@ -1,7 +1,7 @@
 import {jsonAsset, loadAssetMaterial, loadAssetTexture} from "../../../application/utils/AssetUtils.js";
 import {DynamicDrawUsage, Float32BufferAttribute, PlaneGeometry, Sprite} from "three";
-import {uniform, vec2} from "three/tsl";
-import {positionGeometry, positionLocal} from "../../../../../libs/three/Three.TSL.js";
+import {uniform, uv, vec2} from "three/tsl";
+import {positionGeometry, positionLocal, varyingProperty} from "../../../../../libs/three/Three.TSL.js";
 import {ParticleNodes} from "./ParticleNodes.js";
 import {Texture} from "../../../../../libs/three/textures/Texture.js";
 import {ClampToEdgeWrapping, SRGBColorSpace} from "../../../../../libs/three/constants.js";
@@ -13,7 +13,12 @@ import {InstancedMesh} from "../../../../../libs/three/objects/InstancedMesh.js"
 const TILES_8 = uniform(8);
 
 function customSpriteUv8x8() {
-    return vec2(positionGeometry.x.add(0.5).div(TILES_8), positionGeometry.y.add(0.5).div(TILES_8));
+
+    const xy = varyingProperty('vec2', 'pSpriteXY')
+
+    const offsetX = xy.x.div(TILES_8);
+    const offsetY = xy.y.div(TILES_8);
+    return vec2(positionGeometry.x.add(0.5).div(TILES_8).add(offsetX), positionGeometry.y.add(0.5).div(TILES_8).add(offsetY));
 }
 
 let quadMesh = new PlaneGeometry(1, 1, 1, 1)

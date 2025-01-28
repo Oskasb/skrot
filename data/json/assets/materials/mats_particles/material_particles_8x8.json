@@ -1,5 +1,5 @@
 {
-  "material": "TiledSpriteNodeMaterial8x8",
+  "material": "SpriteNodeMaterial",
   "textures": [
     { "slot":"map",           "tx": "texture_particles_8x8"},
     { "slot":"alphaMap",      "tx": "texture_data_tx"}

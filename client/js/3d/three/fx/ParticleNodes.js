@@ -30,6 +30,8 @@ import {Object3D} from "../../../../../libs/three/core/Object3D.js";
 import {InstancedBufferAttribute} from "../../../../../libs/three/core/InstancedBufferAttribute.js";
 import {Matrix4} from "../../../../../libs/three/math/Matrix4.js";
 import {DynamicDrawUsage, Float32BufferAttribute} from "three";
+import {varying} from "../../../../../libs/three/nodes/core/VaryingNode.js";
+import {normalLocal} from "../../../../../libs/three/nodes/accessors/Normal.js";
 
 let tempObj = new Object3D();
 let tempVec = new Vector3();
@@ -77,6 +79,8 @@ class ParticleNodes {
         const pSizeMod = uniform(new Vector2()) //:  [18.3, 4.3],
         const pIntensity = uniform(new Vector2()) //: [0.3, 1]
         const pScaleExp = uniform(new Vector2()) //: [0.3, 1]
+        const pSpriteX = uniform(0, 'uint')
+        const pSpriteY = uniform(0, 'uint')
         /*
         const applyParticle = Fn( () => {
             curvesBuffer.element( pIndex ).assign(pCurves);
@@ -137,12 +141,19 @@ class ParticleNodes {
 
             const intensityColor = vec4(curveColor.r.mul(colorBoost).add(ONE.sub(forceFade)), curveColor.g.mul(colorBoost), curveColor.b.mul(colorBoost), strengthMod.mul(colorIntensity).mul(forceFade))
 
+
+
+
+
             const txColor = colorTx.sample(customSpriteUv8x8());
             const finalColor = txColor.mul(intensityColor);
             return finalColor;
         } )();
 
         material.positionNode = Fn( () => {
+            const x = pSpriteX;
+            const y = pSpriteY;
+            varyingProperty('vec2', 'pSpriteXY').assign( vec2(x, y) );
 
             const particlePosition = positionBuffer.element(instanceIndex)
 
@@ -202,6 +213,8 @@ class ParticleNodes {
                     const particleIndex = pIndex.add(emitCountOffset.add(emitCount)).add(i)
                     const emitFraction = step.div(emitCount)
                     const offsetTime = emitFraction.mul(tpf)
+
+
 
                     const spread = emitterPositionV4.y.add(emitFraction.add(emitterPositionV4.x)).mod(1).mul(pPosSpread.y.sub(pPosSpread.x)).add(pPosSpread.x)
                     const posRandom = vec3(
@@ -373,6 +386,8 @@ class ParticleNodes {
                         params.pSizeMod[1]
                     );
 
+                    pSpriteX.value = params.pSprite[0];
+                    pSpriteY.value = params.pSprite[1];
                     pPosSpread.value.set(params.pPosSpread[0], params.pPosSpread[1]) // = uniform(new Vector2()) // : [0, 0.4],
                     pVelSpread.value.set(params.pVelSpread[0], params.pVelSpread[1])
                     pVelInherit.value.set(params.pVelInherit[0], params.pVelInherit[1])

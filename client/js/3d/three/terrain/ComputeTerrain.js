@@ -185,7 +185,7 @@ function customTerrainUv() {
     const vNormal = customTerrainVnormal()
     normalLocal.assign(vNormal);
  //   const modulate = positionLocal.x.add(positionLocal.z.mul(0.8)).mul(0.05).sin().add(1).mul(0.02)
-    const slope = min(0.99, max(0, vNormal.z.abs().mul(3).pow(1))) // .add(modulate)));
+    const slope = min(0.99, max(0, max(vNormal.z.abs(), vNormal.x.abs()).mul(0.8).pow(0.8))) // .add(modulate)));
 
     const slopeIndex = floor(slope.mul(GROUND_TILES)).mul(blockByCiv).mul(blockByVeg);
     const offsetRow = biomeRowIndex.add(vegRowAdd).add(civRowAdd.mul(2));
@@ -469,7 +469,7 @@ class ComputeTerrain {
                 tilesMaterial.normalNode = Fn( () => {
                     const nmSample = nmTx.sample(customTerrainUv())
                     const txNormal = vec3(nmSample.x, nmSample.y , nmSample.z).mul(2).sub(1)//.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
-                    return txNormal.mul(0.5).add(transformNormalToView(normalLocal)).normalize()  // transformNormalToView(txNormal) // .mul(0.8).normalize()
+                    return txNormal.mul(0.6).add(transformNormalToView(normalLocal)).normalize()  // transformNormalToView(txNormal) // .mul(0.8).normalize()
                 //    return transformNormalToView(normalLocal) // .add(transformNormalToView(txNormal).mul(0.8)).normalize() // .add(txNormal).normalize()).mul(cracks).mul(detail);
                 } )();
 

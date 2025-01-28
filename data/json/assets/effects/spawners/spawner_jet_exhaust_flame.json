@@ -1,7 +1,6 @@
 {
   "geometry": "geometry_particles_sprites",
   "material": "material_particles_8x8_add",
-  "sprite": 1,
   "sample_gain": {
     "velocity_base": 1950,
     "velocity_gain_factor":2780
@@ -13,6 +12,7 @@
     "drag": "darkBlue"
   },
   "params": {
+    "pSprite":      [3,     4],
     "pPosSpread":   [0.2, 0.5],
     "pVelSpread":   [0.0, 0.1],
     "pVelInherit":  [0.9, 0.2],

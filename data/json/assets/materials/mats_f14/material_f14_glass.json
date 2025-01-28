@@ -8,11 +8,11 @@
   "settings": {
     "transparent": true,
     "depthWrite": false,
-    "opacity": 1.52,
-    "roughness": 0.11,
-    "metalness": 1.2,
+    "opacity": 1.62,
+    "roughness": 0.08,
+    "metalness": 1.6,
     "normalScale": {"x": 0.2, "y":0.2},
-    "color": {"r": 0.45, "g": 0.4, "b": 0.2},
+    "color": {"r": 0.65, "g": 0.6, "b": 0.4},
     "blendColor": {"r": 0.2, "g": 0.8, "b": 0.4},
     "blendAlpha": 0.5,
     "alphaToCoverage": true,
@@ -21,9 +21,9 @@
     "blendDstAlpha": "SrcAlphaFactor",
     "blendSrc": "SrcAlphaFactor",
     "blendDst": "OneMinusSrcAlphaFactor",
-    "envMapIntensity": 1,
+    "envMapIntensity": 22,
     "specularIntensity": 0.5,
-    "clearcoatRoughness": 0.7,
+    "clearcoatRoughness": 0.81,
     "specularColor": {"r": 2.4, "g": 1.6, "b": 0.1}
   }
 }
