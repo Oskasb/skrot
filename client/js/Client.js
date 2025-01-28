@@ -20,12 +20,21 @@ import {PlayerCamera} from "./game/player/PlayerCamera.js";
 import {DomThumbstick} from "./application/ui/dom/ui/DomThumbstick.js";
 import {DomWorldButtonLayer} from "./application/ui/dom/DomWorldButtonLayer.js";
 import {ThreeShadows} from "./3d/three/fx/ThreeShadows.js";
+import {DomMinimap} from "./application/ui/dom/DomMinimap.js";
 
 
 
 let gameWorld = new GameWorld();
 let player = new GamePlayer();
 let orbitControls;
+
+function getGamePlayer() {
+    return player;
+}
+
+function getCameraControls() {
+    return orbitControls;
+}
 
 function startGameWorld() {
     setGameWorld(gameWorld);
@@ -47,6 +56,8 @@ function startGameWorld() {
         camera:ThreeAPI.getCamera(),
         player:player
     }
+
+    new DomMinimap()
 
     function stickReady() {
 
@@ -189,4 +200,8 @@ class Client{
 
 }
 
-export {Client}
+export {
+    Client,
+    getGamePlayer,
+    getCameraControls
+}

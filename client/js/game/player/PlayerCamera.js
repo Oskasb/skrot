@@ -1,12 +1,8 @@
 import {OrbitControls} from "../../../../libs/jsm/controls/OrbitControls.js";
 import {Vector3} from "../../../../libs/three/Three.Core.js";
-import {isPressed, keyToValue} from "../../application/ui/input/KeyboardState.js";
-import {MATH} from "../../application/MATH.js";
-import {getFrame} from "../../application/utils/DataUtils.js";
-import {terrainAt} from "../../3d/three/terrain/ComputeTerrain.js";
-import {ENUMS} from "../../application/ENUMS.js";
-import {evt} from "../../application/event/evt.js";
-import {debugDrawPhysicalWorld} from "../../application/utils/PhysicsUtils.js";
+
+
+const targetPos = new Vector3();
 
 class PlayerCamera {
     constructor(camera, renderer, player) {
@@ -49,6 +45,10 @@ class PlayerCamera {
         return orbitControls;
     }
 
+
+    getTargetPos() {
+        return targetPos;
+    }
 
 
 }
