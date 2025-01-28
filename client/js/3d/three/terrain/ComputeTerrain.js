@@ -185,7 +185,7 @@ function customTerrainUv() {
     const vNormal = customTerrainVnormal()
     normalLocal.assign(vNormal);
  //   const modulate = positionLocal.x.add(positionLocal.z.mul(0.8)).mul(0.05).sin().add(1).mul(0.02)
-    const slope = min(0.99, max(0, max(vNormal.z.abs(), vNormal.x.abs()).mul(0.8).pow(0.8))) // .add(modulate)));
+    const slope = min(0.99, max(0, ONE.sub(vNormal.y.pow(4)))) // .add(modulate)));
 
     const slopeIndex = floor(slope.mul(GROUND_TILES)).mul(blockByCiv).mul(blockByVeg);
     const offsetRow = biomeRowIndex.add(vegRowAdd).add(civRowAdd.mul(2));
