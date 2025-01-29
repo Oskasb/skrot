@@ -21,6 +21,8 @@ function saveBufferAsPng(buffer, filenmae) {
     link.click();
 }
 
+let activeWorker = null;
+
 function generateActiveWorldMap() {
 
     console.log("generateActiveWorldMap")
@@ -33,6 +35,10 @@ function generateActiveWorldMap() {
 
     let worldLevel =  "20";
 
+    if (activeWorker !== null) {
+        activeWorker.terminate();
+        activeWorker = null;
+    }
 
     mapWorker.onmessage = function(msg) {
         console.log("Map Worker Msg ", msg)
@@ -40,15 +46,16 @@ function generateActiveWorldMap() {
             mapWorker.postMessage({worldLevel: worldLevel, minHeight:tParams.minHeight, maxHeight:tParams.maxHeight, heightData:heightData, groundData:groundData})
         } else {
             console.log("Result: ", msg.data);
-            let buffer = msg.data.buffer;
+            let mapData = msg.data.mapData;
             let worldLevel = msg.data.worldLevel;
 
-            saveBufferAsPng(buffer, 'worldmap_w01_'+worldLevel+'.png')
+            saveBufferAsPng(mapData, 'worldmap_w01_'+worldLevel+'.png')
 
             let groundData = msg.data.groundData;
             saveBufferAsPng(groundData, 'terrainmap_w01_'+worldLevel+'.png')
 
-            mapWorker.terminate();
+            activeWorker = mapWorker;
+        //    mapWorker.terminate();
         }
     }
 }

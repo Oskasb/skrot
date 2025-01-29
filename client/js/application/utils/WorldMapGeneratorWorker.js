@@ -21,14 +21,166 @@ triangle.c.x =  0;
 triangle.c.z =  1;
 
 
-function saveBufferAsPng(worldLevel, groundData, buffer) {
-    postMessage({worldLevel:worldLevel, groundData:groundData, buffer:buffer})
+
+const rgb = {
+    r:0,
+    g:0,
+    b:0
 }
 
+function rgbFromArray(array) {
+    rgb.r = array[0];
+    rgb.g = array[1];
+    rgb.b = array[2];
+    return rgb;
+}
+
+const roadColors =     [
+    [
+        [117, 55,   1],
+        [107, 65,  16],
+        [77,  55,  16],
+        [77,  45,  46],
+        [57,  35,   6],
+        [107, 75,  46],
+        [87,  65,  56],
+        [194, 183, 173]
+    ],
+    [
+        [117, 55,   1],
+        [107, 65,  16],
+        [77,  55,  16],
+        [77,  45,  46],
+        [57,  35,   6],
+        [67,  45,  26],
+        [27,  15,   6],
+        [244, 243, 243]
+    ],
+    [
+        [117, 55,   1],
+        [107, 65,  16],
+        [77,  55,  16],
+        [77,  45,  46],
+        [57,  35,   6],
+        [67,  55,  16],
+        [37,  25,  36],
+        [244, 243, 233]
+    ]
+]
+
+const vegColors =     [
+    [
+        [117, 55,   1],
+        [107, 65,  16],
+        [77,  55,  16],
+        [77,  45,  46],
+        [57,  65,  46],
+        [47,  55,  26],
+        [37,  45,  7],
+        [24,  33,  2]
+    ],
+    [
+        [42,  44,  21],
+        [41,  48,  11],
+        [27,  55,   4],
+        [17,  48,  1],
+        [26,  45,  1],
+        [32,  45,  4],
+        [26,  35,  11],
+        [18,  23,  6]
+    ],
+    [
+        [233, 233,233],
+        [233, 233,233],
+        [77,  55,  16],
+        [77,  45,  46],
+        [57,  95,  46],
+        [27,  85,  26],
+        [27,  45,  26],
+        [14,  53,  13]
+    ]
+]
+
+const slopeColors =     [
+    [
+        [163,139,111],
+        [117, 65,  86],
+        [57,  45,  41],
+        [77,  65,  66],
+        [35, 21,   16],
+        [33, 22,  15],
+        [64, 61, 52],
+        [67, 67, 56]
+    ],
+    [
+        [90, 97,104],
+        [69, 60, 56],
+        [47, 55, 51],
+        [57, 65, 66],
+        [55, 55, 66],
+        [44, 44, 55],
+        [17, 17, 31],
+        [33, 31, 34]
+    ],
+    [
+        [245, 245,245],
+        [233, 233,252],
+        [168, 168, 228],
+        [77,  45,  46],
+        [55, 55, 66],
+        [44, 44, 55],
+        [17, 17, 31],
+        [33, 31, 34]
+    ]
+]
+
+
+function groundPrintRoadToRgb(red, green, blue) {
+    let clrIndex = Math.floor(8 * blue/256)
+    let biomeIndex = Math.floor(2.99 * red/256)
+    let clrArray = roadColors[biomeIndex][clrIndex];
+    return rgbFromArray(clrArray)
+}
+
+function groundPrintSlopeToRgb(red, slope) {
+        let clrIndex = Math.floor(8 * MATH.curveQuad(slope))
+        let biomeIndex = Math.floor(2.99 * red/256)
+        let clrArray = slopeColors[biomeIndex]
+    if (!clrArray) {
+        console.log("OOB", biomeIndex, red, slope);
+    }
+        let colorsArray = clrArray[clrIndex];
+    if (!colorsArray) {
+        console.log("OOB", clrIndex, red, slope);
+    }
+    if (clrIndex === 7) {
+
+    //    console.log("Clr index 7", colorsArray);
+    }
+
+        return rgbFromArray(colorsArray)
+}
+
+function groundPrintGreenToRgb(red, green) {
+    let clrIndex = Math.floor(8 * green / 256)
+    let biomeIndex = Math.floor(2.99 * red/256)
+    let clrArray = vegColors[biomeIndex]
+    if (!clrArray) {
+        console.log("OOB", biomeIndex, red, green);
+    }
+    let colorsArray = clrArray[clrIndex];
+    return rgbFromArray(colorsArray)
+}
+
+function isRoad(blue) {
+    if (blue > 10) {
+        return true;
+    }
+}
 
 function getNormal(pixel, buffer, normStore) {
     let side = Math.sqrt(buffer.length)
-    triangle.a.y = buffer[pixel];
+    triangle.a.y = buffer[pixel] * 0.1;
 
     if (pixel+4 < buffer.length) {
         triangle.b.y = buffer[pixel+1] * 0.1;
@@ -42,7 +194,7 @@ function getNormal(pixel, buffer, normStore) {
         triangle.c.y = buffer[pixel]* 0.1
     }
     triangle.getNormal(normStore)
-
+    normStore.normalize();
 }
 
 function dampenPixel(pixelIndex, groundTextureBuffer) {
@@ -50,75 +202,144 @@ function dampenPixel(pixelIndex, groundTextureBuffer) {
     let indexG = indexR+1;
     let indexB = indexR+2;
     let indexA = indexR+3;
-    groundTextureBuffer[indexR] *=0.9;
+    groundTextureBuffer[indexR] *=0.8;
     groundTextureBuffer[indexG] *=0.8;
-    groundTextureBuffer[indexB] *=0.7;
+    groundTextureBuffer[indexB] *=0.8;
 }
 
-function allNeighborsAreRoad(pixelIndex, groundData, groundTextureBuffer, sideGround) {
+function allNeighborsAreRoad(pixelIndex, groundData, mapTextureBuffer, sideGround) {
     let indexR = pixelIndex*4
     let indexG = indexR+1;
     let indexB = indexR+2;
     let indexA = indexR+3;
 
-    let sideOffset = sideGround*4;
+    let sideOffset = sideGround * 4;
 
-        if (groundData[indexB - 4 ] === 0) {
-            dampenPixel(pixelIndex - 1, groundTextureBuffer)
-            return false;
-        }
-        if (groundData[indexB + 4 ] === 0) {
-            dampenPixel(pixelIndex + 1, groundTextureBuffer)
-            return false;
-        }
+            if (!isRoad(groundData[indexB - 4 ])) {
+                dampenPixel(pixelIndex - 1, mapTextureBuffer)
+                return false;
+            }
 
-        if (groundData[indexB+sideOffset ] === 0) {
-            dampenPixel(pixelIndex + sideGround, groundTextureBuffer)
-            return false;
-        }
-        if (groundData[indexB+sideOffset +4 ] === 0) {
-            dampenPixel(pixelIndex + sideGround +1, groundTextureBuffer)
-            return false;
-        }
+                if (!isRoad(groundData[indexB + 4 ])) {
+                    dampenPixel(pixelIndex + 1, mapTextureBuffer)
+                    return false
+                }
 
-        if (groundData[indexB+sideOffset -4 ] === 0) {
-            dampenPixel(pixelIndex + sideGround -1, groundTextureBuffer)
-            return false;
-        }
+                if (!isRoad(groundData[indexB+sideOffset ] )) {
+                    dampenPixel(pixelIndex + sideGround, mapTextureBuffer)
+                    return false;
+                }
 
-        if (groundData[indexB-sideOffset ] === 0) {
-            dampenPixel(pixelIndex - sideGround, groundTextureBuffer)
-            return false;
-        }
-        if (groundData[indexB-sideOffset +4 ] === 0) {
-            dampenPixel(pixelIndex - sideGround +1, groundTextureBuffer)
-            return false;
-        }
+                if (!isRoad(groundData[indexB+sideOffset +4 ] )) {
+                    dampenPixel(pixelIndex + sideGround +1, mapTextureBuffer)
+                    return false;
+                }
 
-        if (groundData[indexB-sideOffset -4 ] === 0) {
-            dampenPixel(pixelIndex - sideGround -1, groundTextureBuffer)
-            return false;
-        }
+                if (!isRoad(groundData[indexB+sideOffset -4 ] )) {
+                    dampenPixel(pixelIndex + sideGround -1, mapTextureBuffer)
+                    return false;
+                }
+
+                if (!isRoad(groundData[indexB-sideOffset ] )) {
+                    dampenPixel(pixelIndex - sideGround, mapTextureBuffer)
+                    return false;
+                }
+                if (!isRoad(groundData[indexB-sideOffset +4 ])) {
+                    dampenPixel(pixelIndex - sideGround +1, mapTextureBuffer)
+                    return false;
+                }
+
+                if (!isRoad(groundData[indexB-sideOffset -4 ] )) {
+                    dampenPixel(pixelIndex - sideGround -1, mapTextureBuffer)
+                    return false;
+                }
 
     return true;
 }
 
-function markRoads(groundData, groundTextureBuffer, sideGround) {
+function markRoads(groundData, mapTextureBuffer, sideGround) {
 
     for (let i = 0; i < roadPixels.length; i++) {
-        let onlyRoadNeighbors = allNeighborsAreRoad(roadPixels[i], groundData, groundTextureBuffer, sideGround)
+        let onlyRoadNeighbors = allNeighborsAreRoad(roadPixels[i], groundData, mapTextureBuffer, sideGround)
        if (onlyRoadNeighbors === false) {
 
            let indexR = roadPixels[i]*4
            let indexG = indexR+1;
            let indexB = indexR+2;
            let indexA = indexR+3;
-           groundTextureBuffer[indexR] *= 0.55;
-           groundTextureBuffer[indexG] *= 0.64;
-           groundTextureBuffer[indexB] *= 0.83;
+           mapTextureBuffer[indexR] *= 0.55;
+           mapTextureBuffer[indexG] *= 0.54;
+           mapTextureBuffer[indexB] *= 0.73;
        }
 
     }
+
+}
+
+function handleMessage(msg) {
+
+    let worldLevel = msg.data.worldLevel;
+    let heightData = msg.data.heightData;
+    let groundData = msg.data.groundData;
+
+    minHeight =  msg.data.minHeight;
+    maxHeight =  msg.data.maxHeight;
+
+    console.log("Map Msg", msg, minHeight, maxHeight, [heightData], [groundData]);
+
+    processHeightData(worldLevel, minHeight, maxHeight, heightData, groundData);
+
+}
+
+function processHeightData(wLevel, minHeight, maxHeight, heightData, groundData) {
+    worldLevel = wLevel;
+    let sideHeight = Math.sqrt(heightData.length)
+    let sideGround = Math.sqrt(groundData.length/4)
+
+    let groundTextureBuffer = new Uint8ClampedArray(groundData.length)
+    let mapTextureBuffer = new Uint8ClampedArray(groundData.length)
+    heightDiff = maxHeight-minHeight;
+    lastHeight = 0;
+
+    console.log("heightTextureBuffer", sideHeight, sideGround, [heightData, groundTextureBuffer])
+
+    for (let i = 0; i < sideHeight; i++) {
+        for (let j = 0; j < sideHeight; j++) {
+            processHeightPixel(i, j, heightData, sideHeight, groundData, sideGround, mapTextureBuffer, groundTextureBuffer);
+        }
+    }
+
+    markRoads(groundData, mapTextureBuffer, sideGround)
+    saveBufferAsPng(worldLevel, groundTextureBuffer, mapTextureBuffer);
+}
+
+
+function saveBufferAsPng(worldLevel, groundTxData, mapTxData) {
+    postMessage({worldLevel:worldLevel, groundData:groundTxData, mapData:mapTxData})
+}
+
+function processHeightPixel(pxx, pxy, heightData, sideHeight, groundData, sideGround, mapTextureBuffer, groundTextureBuffer) {
+
+    let pixelIndex = pxx + pxy*sideHeight;
+    let height = minHeight + heightData[pixelIndex];
+
+    let diff = (height - lastHeight) * (0.2);
+    getNormal(pixelIndex, heightData, normVec);
+    let slope = MATH.clamp( (Math.abs( normVec.x) + Math.abs(normVec.z)) * 0.5, 0, 0.99);
+
+    let scaledPixelA = pxx*2 + pxy*2*sideGround;
+    let scaledPixelB = pxx*2 + pxy*2*sideGround+1;
+    let scaledPixelC = pxx*2 + (pxy*2+1)*sideGround;
+    let scaledPixelD = pxx*2 + (pxy*2+1)*sideGround+1;
+
+    let shade = 0;
+
+    drawGroundTexturePixel(scaledPixelA, height, slope, diff, shade, groundData, mapTextureBuffer, groundTextureBuffer);
+    drawGroundTexturePixel(scaledPixelB, height, slope, diff, shade, groundData, mapTextureBuffer, groundTextureBuffer);
+    drawGroundTexturePixel(scaledPixelC, height, slope, diff, shade, groundData, mapTextureBuffer, groundTextureBuffer);
+    drawGroundTexturePixel(scaledPixelD, height, slope, diff, shade, groundData, mapTextureBuffer, groundTextureBuffer);
+
+    lastHeight = height;
 
 }
 
@@ -137,105 +358,71 @@ function drawGroundTexturePixel(pixelIndex, height, slope, diff, shade, groundDa
     let seed = indexR * 0.01;
     let scatter = Math.floor(MATH.sillyRandom(seed) * 40)
 
-    let heightDiff = maxHeight-minHeight;
+    if (height > maxHeight*0.65) {
+        red = 255;
+    } else if (height > maxHeight*0.45) {
+        if (MATH.sillyRandom(seed) < 0.75) {
+            red = 255;
+        }
+    } else if (height > maxHeight*0.38) {
+        if (MATH.sillyRandom(seed) < 0.5) {
+            red = 255;
+        }
+    } else if (height > maxHeight*0.35) {
+        if (MATH.sillyRandom(seed) < 0.25) {
+            red = 255;
+        }
+    }
+
+    if (slope > 0.2) {
+    //    console.log(slope)
+        green = 0;
+    }
+
+    groundTextureBuffer[indexR] = red;
+    groundTextureBuffer[indexG] = green;
+    groundTextureBuffer[indexB] = blue;
+    groundTextureBuffer[indexA] = alpha;
+
 
     if (height > 0) {
         // AboveWater
 
-        let markNormal = 1 + (normVec.x + normVec.z) *0.15;
+        let normalFactor =  1 - (normVec.x + normVec.z) *0.1;
+        let markNormal = normalFactor
 
-        if (blue !== 0) { // Roads & Buildings
+        if (isRoad(blue)) { // Roads & Buildings
             roadPixels.push(pixelIndex);
-            groundTextureBuffer[indexR] = (45 + blue * 0.1 + red * 0.1 + diff*10+scatter + slope*30 + 7 );
-            groundTextureBuffer[indexG] = (35 + blue * 0.2 - red * 0.1 + diff*10+scatter + slope*30 + 5 );
-            groundTextureBuffer[indexB] = (55 + blue * 0.1 - red * 0.2 + diff*4 +scatter + slope*30 + 4 );
+            let rgb = groundPrintRoadToRgb(red, green, blue);
+            mapTextureBuffer[indexR] = rgb.r + diff*10+scatter*0.5 + slope*4 + 3;
+            mapTextureBuffer[indexG] = rgb.g + diff*10+scatter*0.5 + slope*4 + 2;
+            mapTextureBuffer[indexB] = rgb.b + diff*4 +scatter*0.5 + slope*4 + 1;
         } else if (green === 0) { //
             let wave = 20 + Math.floor(MATH.curveSqrt(height*(1/heightDiff))) * 8
 
-            if (slope < 0.3) { // flat enough
-
-                if (red > 27) {
-                    if (red > 200) {
-                        groundTextureBuffer[indexR] = (200 + diff*2+scatter*2 + wave + slope*22 - shade*0.05);
-                        groundTextureBuffer[indexG] = (200 + diff*2+scatter*3 + wave + slope*36 - shade*0.05);
-                        groundTextureBuffer[indexB] = (200 + diff*2+scatter*2 + slope*13 - shade*0.05);
-                    } else if (red > 75 ) {
-                        groundTextureBuffer[indexR] = (40 + diff*2+scatter*2 + wave + slope*22 - shade*0.05);
-                        groundTextureBuffer[indexG] = (15 + diff*2+scatter*3 + wave + slope*36 - shade*0.05);
-                        groundTextureBuffer[indexB] = (5  + diff*2+scatter*2 + slope*11 - shade*0.05);
-                    } else {
-                        groundTextureBuffer[indexR] = (40 + diff*2+scatter*1 + wave + slope*32 - shade*0.05);
-
-                        groundTextureBuffer[indexG] = (45 + diff*12+scatter*1 + wave + slope*26 - shade*0.05);
-
-                        groundTextureBuffer[indexB] = (20 + diff*2+scatter*1 + slope*15 - shade*0.05);
-                    }
-
-                } else { // desert
-                    groundTextureBuffer[indexR] = (160 + diff*1+scatter*0.5 + wave + slope*52 - shade*0.05);
-                    groundTextureBuffer[indexG] = (130 + diff*1+scatter*0.5 + wave + slope*45 - shade*0.05);
-                    groundTextureBuffer[indexB] = (115 + diff*1+scatter*0.5  + slope*30 - shade*0.05);
-                }
-
-            } else {
-
-                if (slope > 0.3) {
-                    mapTextureBuffer[indexG] = 0;
-                }
-
-                slope-=0.4;
-                mapTextureBuffer[indexG] = 0;
-                groundTextureBuffer[indexR] = (2 + diff*1+scatter + wave*2 + slope*5 - shade*0.1) - red*0.05;
-                groundTextureBuffer[indexG] = (2 + diff*1+scatter + wave*2 + slope*5 - shade*0.1) - red*0.1;
-                groundTextureBuffer[indexB] = (2 + diff*1+scatter + wave*2 + slope*5 - shade*0.1) - red*0.2;
-            }
-
-            if (height > maxHeight*0.6) {
-                groundTextureBuffer[indexR] = 255;
-            } else if (height > maxHeight*0.95) {
-                if (MATH.sillyRandom(seed) < 0.75) {
-                    groundTextureBuffer[indexR] = 255;
-                }
-            } else if (height > maxHeight*0.8) {
-                if (MATH.sillyRandom(seed) < 0.5) {
-                    groundTextureBuffer[indexR] = 255;
-                }
-            } else if (height > maxHeight*0.6) {
-                if (MATH.sillyRandom(seed) < 0.25) {
-                    groundTextureBuffer[indexR] = 255;
-                }
-            }
+            let rgb = groundPrintSlopeToRgb(red, slope)
+            mapTextureBuffer[indexR] = rgb.r + diff*3+scatter*1 + wave + slope*2;
+            mapTextureBuffer[indexG] = rgb.g + diff*3+scatter*1 + wave + slope*2;
+            mapTextureBuffer[indexB] = rgb.b + diff*1+scatter*1 + slope*2;
 
         } else { // Woods
-            let wave = 20 + Math.floor(MATH.curveSqrt(height*0.25)) * 4
+            let wave = 5 + Math.floor(MATH.curveSqrt(height*0.25)) * 2
 
-            if (slope > 0.4) {
-                mapTextureBuffer[indexG] = 0;
-            }
-
-            if (green > 127) { // Trees
-                groundTextureBuffer[indexR] = (25 + scatter*0.25 + shade*0.01);
-                groundTextureBuffer[indexG] = (35 + scatter*0.25 + scatter*shade*0.001);
-                groundTextureBuffer[indexB] = (2 + scatter*0.25 + shade*0.01);
-                markNormal = MATH.curveSqrt(markNormal);
-            } else {
-                groundTextureBuffer[indexR] = (35 + diff*2+scatter*1.5 + slope*1 - shade*0.1);
-                scatter = Math.floor(MATH.sillyRandom(seed+1) * 40)
-                groundTextureBuffer[indexG] = (60 + diff*2+scatter*0.5 + slope*5 - shade*0.1);
-                scatter = Math.floor(MATH.sillyRandom(seed+2) * 40)
-                groundTextureBuffer[indexB] = (5  + diff*3+scatter*0.4 + slope*1 - shade*0.1);
-            }
+            let rgb = groundPrintGreenToRgb(red, green)
+            mapTextureBuffer[indexR] = rgb.r + diff*10+scatter*2 + wave + slope*2;
+            mapTextureBuffer[indexG] = rgb.g + diff*10+scatter*3 + wave + slope*2;
+            mapTextureBuffer[indexB] = rgb.b + diff*4+scatter*2 + slope*2;
 
         }
 
         if (markNormal < 1) {
-            groundTextureBuffer[indexR] *= (markNormal*markNormal*markNormal);
-            groundTextureBuffer[indexG] *= (markNormal*markNormal*markNormal);
-            groundTextureBuffer[indexB] *= markNormal;
+            mapTextureBuffer[indexR] *= (markNormal*markNormal*markNormal);
+            mapTextureBuffer[indexG] *= (markNormal*markNormal*markNormal);
+            mapTextureBuffer[indexB] *= markNormal;
         } else {
-            groundTextureBuffer[indexR] += (markNormal-1)*200;
-            groundTextureBuffer[indexG] += (markNormal-1)*175;
-            groundTextureBuffer[indexB] += (markNormal-1)*150;
+            mapTextureBuffer[indexR] += (markNormal-1)*200;
+            mapTextureBuffer[indexG] += (markNormal-1)*175;
+            mapTextureBuffer[indexB] += (markNormal-1)*150;
         }
 
 
@@ -249,88 +436,16 @@ function drawGroundTexturePixel(pixelIndex, height, slope, diff, shade, groundDa
 
         let depthFactor = depth*scatter * 0.2 / depthMax
         let slopeFactor = depthFactor*slope
-        mapTextureBuffer[indexG] = 0;
-        groundTextureBuffer[indexR] = 66 + Math.floor(diff * 0.5 + depthFactor*0.3 + slopeFactor * 0.8 ) ;
-        groundTextureBuffer[indexG] = 71 + Math.floor(diff * 0.5 + depthFactor*0.6 + slopeFactor * 1.5 );
-        groundTextureBuffer[indexB] = 98 + Math.floor(diff * 0.5 + depthFactor*0.9 + slopeFactor );
+        groundTextureBuffer[indexG] = 0;
+        mapTextureBuffer[indexR] = 66 + Math.floor(diff * 0.5 + depthFactor*0.3 + slopeFactor * 0.8 ) ;
+        mapTextureBuffer[indexG] = 71 + Math.floor(diff * 0.5 + depthFactor*0.6 + slopeFactor * 1.5 );
+        mapTextureBuffer[indexB] = 98 + Math.floor(diff * 0.5 + depthFactor*0.9 + slopeFactor );
     }
     mapTextureBuffer[indexA] = 255;
     groundTextureBuffer[indexA] = 255;
 }
 
-function processHeightPixel(pxx, pxy, heightData, sideHeight, groundData, sideGround, mapTextureBuffer, groundTextureBuffer) {
 
-    let pixelIndex = pxx + pxy*sideHeight;
-
-
- //   let height = heightData[pixelIndex];
-//    let pixelB = heightData[indexB];
-
- //   let heightFraction = pixelR / 255;
-    let height = minHeight + heightData[pixelIndex];
-
-    let diff = lastHeight - height;
-
-    getNormal(pixelIndex, heightData, normVec);
-
-    let slope = 1 - Math.abs( normVec.y );
-
-    let scaledPixelA = pxx*2 + pxy*2*sideGround;
-    let scaledPixelB = pxx*2 + pxy*2*sideGround+1;
-    let scaledPixelC = pxx*2 + (pxy*2+1)*sideGround;
-    let scaledPixelD = pxx*2 + (pxy*2+1)*sideGround+1;
-
-    let shade = 0;
-
-    drawGroundTexturePixel(scaledPixelA, height, slope, diff, shade, groundData, mapTextureBuffer, groundTextureBuffer);
-    drawGroundTexturePixel(scaledPixelB, height, slope, diff, shade, groundData, mapTextureBuffer, groundTextureBuffer);
-    drawGroundTexturePixel(scaledPixelC, height, slope, diff, shade, groundData, mapTextureBuffer, groundTextureBuffer);
-    drawGroundTexturePixel(scaledPixelD, height, slope, diff, shade, groundData, mapTextureBuffer, groundTextureBuffer);
-
-    lastHeight = height;
-
-}
-
-function processHeightData(wLevel, minHeight, maxHeight, heightData, groundData) {
-    worldLevel = wLevel;
-    let sideHeight = Math.sqrt(heightData.length)
-    let sideGround = Math.sqrt(groundData.length/4)
-
-    let groundTextureBuffer = new Uint8ClampedArray(groundData.length)
-    let mapTextureBuffer = new Uint8ClampedArray(heightData.length * 4)
-    heightDiff = maxHeight-minHeight;
-    lastHeight = 0;
-
-    console.log("heightTextureBuffer", sideHeight, sideGround, [heightData, groundTextureBuffer])
-
-    for (let i = 0; i < sideHeight; i++) {
-        for (let j = 0; j < sideHeight; j++) {
-            processHeightPixel(i, j, heightData, sideHeight, groundData, sideGround, mapTextureBuffer, groundTextureBuffer);
-        }
-    }
-
-    markRoads(groundData, groundTextureBuffer, sideGround)
-    saveBufferAsPng(worldLevel, mapTextureBuffer, groundTextureBuffer);
-}
-
-function handleMessage(msg) {
-
-    let worldLevel = msg.data.worldLevel;
-    let heightData = msg.data.heightData;
-    let groundData = msg.data.groundData;
-
-    minHeight =  msg.data.minHeight;
-    maxHeight =  msg.data.maxHeight;
-
-    console.log("Map Msg", msg, minHeight, maxHeight, [heightData], [groundData]);
-
-
-    processHeightData(worldLevel, minHeight, maxHeight, heightData, groundData);
-
-
-
-
-}
 
 
 onmessage = function (oEvent) {
