@@ -39,6 +39,7 @@ import Color4 from "../../../../../libs/three/renderers/common/Color4.js";
 
 
 let heightCanvas = document.createElement('canvas');
+let groundDataCanvas = document.createElement('canvas');
 let heightmapContext;
 let heightData;
 const terrainParams = {}
@@ -50,6 +51,7 @@ terrainParams.minHeight = 0;
 terrainParams.maxHeight = 1;
 
 let heightArray = null;
+let groundDataArray = null;
 let width;
 let height;
 let terrainGeometry;
@@ -605,6 +607,15 @@ class ComputeTerrain {
                 terrainCanvasTx = tx;
                 tx.generateMipmaps = false;
                 tx.flipY = false;
+                let imgData = tx.source.data
+                let gdwidth = imgData.width;
+                let gdheight = imgData.height;
+                groundDataCanvas.width = gdwidth;
+                groundDataCanvas.height = gdheight;
+                let gdContext = groundDataCanvas.getContext('2d', { willReadFrequently: true } )
+                gdContext.drawImage(imgData, 0, 0, gdwidth, gdheight);
+                groundDataArray = gdContext.getImageData(0, 0, gdwidth, gdheight).data;
+
                 loadAsset('unit_grid_32', 'glb', setupTerrain)
             }
 
@@ -638,6 +649,10 @@ function getHeightmapData() {
     return heightArray;
 }
 
+function getGroundDataArray() {
+    return groundDataArray;
+}
+
 function getTerrainParams() {
     return terrainParams;
 }
@@ -655,6 +670,7 @@ export {
     customTerrainUv,
     customOceanUv,
     getHeightmapData,
+    getGroundDataArray,
     getTerrainParams,
     terrainAt,
     terrainGlobalUv

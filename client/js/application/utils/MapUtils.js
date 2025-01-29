@@ -1,4 +1,5 @@
 import {ENUMS} from "../ENUMS.js";
+import {getGroundDataArray, getHeightmapData, getTerrainParams} from "../../3d/three/terrain/ComputeTerrain.js";
 
 
 function saveBufferAsPng(buffer, filenmae) {
@@ -24,20 +25,19 @@ function generateActiveWorldMap() {
 
     console.log("generateActiveWorldMap")
 
-    let threeTerrain = ThreeAPI.getTerrainSystem().getTerrain();
-    let bigGeo = threeTerrain.call.getTerrainBigGeo();
-    let heightData = bigGeo.getHeightmapData();
-    let groundData = bigGeo.getGroundData();
-    let mapWorker = new Worker("client/js/application/utils/WorldMapGeneratorWorker.js", { type: "module" });
+    let heightData = getHeightmapData();
+    let groundData = getGroundDataArray();
+    let mapWorker = new Worker("/client/js/application/utils/WorldMapGeneratorWorker.js", { type: "module" });
 
-    let worldLevel =  GameAPI.getPlayer().getStatus(ENUMS.PlayerStatus.PLAYER_WORLD_LEVEL)
+    let tParams = getTerrainParams();
 
+    let worldLevel =  "20";
 
 
     mapWorker.onmessage = function(msg) {
         console.log("Map Worker Msg ", msg)
         if (msg.data === "Loaded") {
-            mapWorker.postMessage({worldLevel: worldLevel, minHeight:-3, maxHeight:97, heightData:heightData, groundData:groundData})
+            mapWorker.postMessage({worldLevel: worldLevel, minHeight:tParams.minHeight, maxHeight:tParams.maxHeight, heightData:heightData, groundData:groundData})
         } else {
             console.log("Result: ", msg.data);
             let buffer = msg.data.buffer;
