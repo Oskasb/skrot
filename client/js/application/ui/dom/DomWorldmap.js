@@ -427,7 +427,9 @@ class DomWorldmap {
             addPressStartFunction(mapDiv, mapPressStart)
             addPressEndFunction(mapDiv, mapPressEnd)
             addClickFunction(reloadDiv, generateWorldMap)
+
         //    addClickFunction(generateDiv, generateWorldMap)
+
             addClickFunction(zoomInDiv, zoomIn)
             addClickFunction(zoomOutDiv, zoomOut)
             addClickFunction(teleportDiv, teleport)

@@ -137,6 +137,7 @@ function drawGroundTexturePixel(pixelIndex, height, slope, diff, shade, groundDa
     let seed = indexR * 0.01;
     let scatter = Math.floor(MATH.sillyRandom(seed) * 40)
 
+    let heightDiff = maxHeight-minHeight;
 
     if (height > 0) {
         // AboveWater
@@ -149,7 +150,7 @@ function drawGroundTexturePixel(pixelIndex, height, slope, diff, shade, groundDa
             groundTextureBuffer[indexG] = (35 + blue * 0.2 - red * 0.1 + diff*10+scatter + slope*30 + 5 );
             groundTextureBuffer[indexB] = (55 + blue * 0.1 - red * 0.2 + diff*4 +scatter + slope*30 + 4 );
         } else if (green === 0) { //
-            let wave = 20 + Math.floor(MATH.curveSqrt(height*0.25)) * 8
+            let wave = 20 + Math.floor(MATH.curveSqrt(height*(1/heightDiff))) * 8
 
             if (slope < 0.3) { // flat enough
 
@@ -190,18 +191,18 @@ function drawGroundTexturePixel(pixelIndex, height, slope, diff, shade, groundDa
             }
 
             if (height > maxHeight*0.6) {
-                mapTextureBuffer[indexR] = 255;
-            } else if (height > maxHeight*0.8) {
+                groundTextureBuffer[indexR] = 255;
+            } else if (height > maxHeight*0.95) {
                 if (MATH.sillyRandom(seed) < 0.75) {
-                    mapTextureBuffer[indexR] = 255;
+                    groundTextureBuffer[indexR] = 255;
                 }
-            } else if (height > maxHeight*0.7) {
+            } else if (height > maxHeight*0.8) {
                 if (MATH.sillyRandom(seed) < 0.5) {
-                    mapTextureBuffer[indexR] = 255;
+                    groundTextureBuffer[indexR] = 255;
                 }
             } else if (height > maxHeight*0.6) {
                 if (MATH.sillyRandom(seed) < 0.25) {
-                    mapTextureBuffer[indexR] = 255;
+                    groundTextureBuffer[indexR] = 255;
                 }
             }
 
