@@ -21,6 +21,7 @@ import {DomThumbstick} from "./application/ui/dom/ui/DomThumbstick.js";
 import {DomWorldButtonLayer} from "./application/ui/dom/DomWorldButtonLayer.js";
 import {ThreeShadows} from "./3d/three/fx/ThreeShadows.js";
 import {DomMinimap} from "./application/ui/dom/DomMinimap.js";
+import {GroundBoundLodGrid} from "./application/grids/GroundBoundLodGrid.js";
 
 
 
@@ -118,6 +119,7 @@ function init3d() {
     new ThreeBloom().call.initBloom(scene, camera, renderer)
     new ThreeShadows(store)
     new DebugLines()
+    new GroundBoundLodGrid('ground_lod_grid')
     orbitControls = new PlayerCamera(camera, renderer, player)
 
     setRefDiv(document.body)

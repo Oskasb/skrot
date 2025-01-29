@@ -42,8 +42,8 @@ const roadColors =     [
         [77,  55,  16],
         [77,  45,  46],
         [57,  35,   6],
-        [107, 75,  46],
-        [87,  65,  56],
+        [97,  85,  66],
+        [87,  75,  73],
         [194, 183, 173]
     ],
     [
@@ -80,14 +80,14 @@ const vegColors =     [
         [24,  33,  2]
     ],
     [
-        [42,  44,  21],
-        [41,  48,  11],
-        [27,  55,   4],
-        [17,  48,  1],
-        [26,  45,  1],
-        [32,  45,  4],
-        [26,  35,  11],
-        [18,  23,  6]
+        [32,  71,  31],
+        [46,  52,  11],
+        [62,  76,  14],
+        [47,  85,  11],
+        [26,  55,  1],
+        [22,  45,  4],
+        [16,  35,  11],
+        [8,   23,  6]
     ],
     [
         [233, 233,233],
@@ -103,7 +103,7 @@ const vegColors =     [
 
 const slopeColors =     [
     [
-        [163,139,111],
+        [153,138,121],
         [117, 65,  86],
         [57,  45,  41],
         [77,  65,  66],
@@ -113,14 +113,14 @@ const slopeColors =     [
         [67, 67, 56]
     ],
     [
-        [90, 97,104],
-        [69, 60, 56],
-        [47, 55, 51],
-        [57, 65, 66],
-        [55, 55, 66],
-        [44, 44, 55],
-        [17, 17, 31],
-        [33, 31, 34]
+        [68, 70,100],
+        [55, 63, 86],
+        [43, 55, 51],
+        [57, 65, 56],
+        [55, 55, 46],
+        [44, 44, 35],
+        [17, 17, 27],
+        [33, 31, 24]
     ],
     [
         [245, 245,245],
@@ -397,7 +397,7 @@ function drawGroundTexturePixel(pixelIndex, height, slope, diff, shade, groundDa
             mapTextureBuffer[indexR] = rgb.r + diff*10+scatter*0.5 + slope*4 + 3;
             mapTextureBuffer[indexG] = rgb.g + diff*10+scatter*0.5 + slope*4 + 2;
             mapTextureBuffer[indexB] = rgb.b + diff*4 +scatter*0.5 + slope*4 + 1;
-        } else if (green === 0) { //
+        } else if (green === 0) { // bare flat or hills
             let wave = 20 + Math.floor(MATH.curveSqrt(height*(1/heightDiff))) * 8
 
             let rgb = groundPrintSlopeToRgb(red, slope)
@@ -405,13 +405,13 @@ function drawGroundTexturePixel(pixelIndex, height, slope, diff, shade, groundDa
             mapTextureBuffer[indexG] = rgb.g + diff*3+scatter*1 + wave + slope*2;
             mapTextureBuffer[indexB] = rgb.b + diff*1+scatter*1 + slope*2;
 
-        } else { // Woods
-            let wave = 5 + Math.floor(MATH.curveSqrt(height*0.25)) * 2
+        } else { // vegetation
+            let wave = 5 + Math.floor(MATH.curveSqrt(height*0.25)) * 1
 
             let rgb = groundPrintGreenToRgb(red, green)
-            mapTextureBuffer[indexR] = rgb.r + diff*10+scatter*2 + wave + slope*2;
-            mapTextureBuffer[indexG] = rgb.g + diff*10+scatter*3 + wave + slope*2;
-            mapTextureBuffer[indexB] = rgb.b + diff*4+scatter*2 + slope*2;
+            mapTextureBuffer[indexR] = rgb.r + diff*5+scatter*1 + wave + slope*2;
+            mapTextureBuffer[indexG] = rgb.g + diff*5+scatter*1 + wave + slope*2;
+            mapTextureBuffer[indexB] = rgb.b + diff*3+scatter*1 + slope*2;
 
         }
 
@@ -425,6 +425,13 @@ function drawGroundTexturePixel(pixelIndex, height, slope, diff, shade, groundDa
             mapTextureBuffer[indexB] += (markNormal-1)*150;
         }
 
+// desaturate
+        mapTextureBuffer[indexR] *= 0.75;
+        mapTextureBuffer[indexG] *= 0.7;
+        mapTextureBuffer[indexB] *= 0.65;
+        mapTextureBuffer[indexR] += 45;
+        mapTextureBuffer[indexG] += 35;
+        mapTextureBuffer[indexB] += 25;
 
     } else {
         // Below Water

@@ -12,7 +12,6 @@ class DynamicLodGrid {
         this.dynamicGrid = null;
     }
 
-
     activateLodGrid(cfg) {
         let config = detachConfig(cfg);
         config['tile_range'] += getSetting(ENUMS.Settings.VEGETATION_RANGE);
@@ -25,7 +24,6 @@ class DynamicLodGrid {
         this.maxDistance = config['tile_range'] * config['tile_spacing'];
         this.dynamicGrid.activateDynamicGrid(config)
     }
-
 
     processLodVisibility(lodCenter, tileUpdateCallback, coarseness, margin, centerIsUpdated, preUpdateTime) {
         let tiles = this.dynamicGrid.dynamicGridTiles;

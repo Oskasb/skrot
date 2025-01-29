@@ -277,7 +277,7 @@ function populateTravelPath(minimapDiv) {
         poolReturn(ind.pos);
     }
 
-    while (pathIndicators.length < 12) {
+    while (pathIndicators.length < 16) {
         
         let ind = {
             div: createDivElement(minimapDiv, 'path_'+pathIndicators.length, '', 'indicator_path'),
@@ -308,8 +308,8 @@ function updateTravelPath(pos, statusMap) {
         let x = ind.pos.x - statusMap.x;
         let z = ind.pos.z - statusMap.z;
 
-        let trY = z*zoomFactor * 74;
-        let trX = x*zoomFactor * 74;
+        let trY = z*zoomFactor // * 0.74;
+        let trX = x*zoomFactor // * 0.74;
 
         //   ind.div.style.top  = (50+z*zoomFactor)+'%';
         //   ind.div.style.left = (50+x*zoomFactor)+'%';
@@ -453,7 +453,7 @@ class DomMinimap {
         let travelTime = 0;
         let lastFramePos = new Vector3();
         let lastZoom = statusMap.zoom;
-        let markTime = 0.5;
+        let markTime = 0.05;
         let timeElapsed = 0;
         let mapUpdated = true;
         let update = function() {

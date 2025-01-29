@@ -1017,6 +1017,16 @@ MATH.fitBoxAround = function(box, min, max) {
 
 
 
+MATH.sillyRandomPointInBox = function(box, seed) {
+	calcVec1.copy(box.max)
+	calcVec1.sub(box.min);
+	let rnd = MATH.sillyRandomVector(seed);
+	calcVec1.multiply(rnd);
+	calcVec1.add(box.min);
+	return calcVec1;
+}
+
+
 MATH.planePointsBetweenVectors = function(a, b) {
 	let xDiff = Math.abs(a.x - b.x);
 	let zDiff = Math.abs(a.z - b.z);
