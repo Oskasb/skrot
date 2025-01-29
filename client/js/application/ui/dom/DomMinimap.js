@@ -204,7 +204,7 @@ function indicateGamePlayer(htmlElement, minimapDiv, statusMap, centerPos) {
 
             let top = -25 + mapPctZ * 19 // + '%';
             let left = 50 + mapPctX * 19 // + '%';
-            let angle = -MATH.eulerFromQuaternion(player.getQuat()).y + MATH.HALF_PI * 0.5 // Math.PI //;
+            let angle = -MATH.eulerFromQuaternion(player.getQuat()).y + MATH.HALF_PI * 2.5 // Math.PI //;
 
             transformElement3DPercent(playerIndicator, left, top, 0, angle);
 
