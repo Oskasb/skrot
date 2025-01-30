@@ -25,6 +25,7 @@ import {NodeParticleEmitter} from "../../3d/three/fx/NodeParticleEmitter.js";
 import {NodeParticleSpawner} from "../../3d/three/fx/NodeParticleSpawner.js";
 import {TerrainForestSection} from "../../game/world/woods/TerrainForestSection.js";
 import {ForestTreeLodable} from "../../game/world/woods/ForestTreeLodable.js";
+import {BatchInstance} from "../../3d/three/assets/BatchInstance.js";
 
 let pools = {}
 let stats = {};
@@ -59,6 +60,7 @@ function initPools() {
     registerPool(NodeParticleSpawner);
     registerPool(TerrainForestSection);
     registerPool(ForestTreeLodable);
+    registerPool(BatchInstance)
 }
 
 function registerPool(DataObj) {

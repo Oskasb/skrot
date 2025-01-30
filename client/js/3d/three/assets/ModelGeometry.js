@@ -38,8 +38,13 @@ class ModelGeometry{
         };
         let subscribers = [];
         let hasSkeleton = false;
-        let geometry = null;
+        let mesh = null;
         let scene = null;
+
+
+        function getGeometry() {
+            return mesh.geometry;
+        }
 
         function sendToSubscribers() {
             MATH.callAll(subscribers, settings.modelGeometry)
@@ -47,16 +52,16 @@ class ModelGeometry{
 
         function initGeometry(fileGlb) {
             settings['fileGlb'] = fileGlb;
-            geometry = null;
+            mesh = null;
 
             let assetLoaded = function(model) {
 
                 scene = model.scene;
-                geometry = getGroupMesh(model.scene.children);
-                geometry.frustumCulled = false;
+                mesh = getGroupMesh(model.scene.children);
+                mesh.frustumCulled = false;
 
             //    geometry.boundingBox.setFromObject(geometry, true)
-                if (geometry.computeBoundingBox) {
+                if (mesh.computeBoundingBox) {
                     //       geometry.computeBoundingBox()
                 }
 
@@ -69,7 +74,7 @@ class ModelGeometry{
 
         function subscribe(cb) {
             subscribers.push(cb);
-            if (geometry !== null) {
+            if (mesh !== null) {
                 cb(settings.modelGeometry);
             }
         }
@@ -83,7 +88,7 @@ class ModelGeometry{
             if (hasSkeleton === true) {
                 clone = cloneSkeletonFromSource(scene, obj3d, materialName);
             } else {
-                clone = geometry.clone()
+                clone = mesh.clone()
                 if (typeof (materialName) === "string") {
                     clone.traverse(function (child) {
                         if (child.isSkinnedMesh || child.isMesh) {
@@ -98,6 +103,7 @@ class ModelGeometry{
 
         }
 
+
         function cloneToParent(obj3d, materialName) {
             return cloneGeometry(obj3d, materialName)
         }
@@ -106,9 +112,6 @@ class ModelGeometry{
             hasSkeleton = bool;
         }
 
-        function cloneSkeleton() {
-
-        }
 
         this.call = {
             initGeometry: initGeometry,
@@ -116,7 +119,7 @@ class ModelGeometry{
             getFileName:getFileName,
             cloneToParent: cloneToParent,
             setHasSkeleton: setHasSkeleton,
-            cloneSkeleton:cloneSkeleton
+            getGeometry:getGeometry
         }
 
     }

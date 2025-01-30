@@ -35,12 +35,10 @@ class AssetTexture {
                 sendToSubscribers();
             }
 
-
             function onJson(data) {
                 loadImageAsset(data.file, assetLoaded)
             }
             jsonAsset(txName, onJson);
-
 
         }
 
@@ -76,11 +74,10 @@ class AssetTexture {
     }
 
     subscribe(cb) {
-        his.call.subscribe(cb);
+        this.call.subscribe(cb);
     }
 
 }
-
 
 
 export {AssetTexture};

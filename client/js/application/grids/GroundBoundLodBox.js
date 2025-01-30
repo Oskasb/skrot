@@ -69,9 +69,11 @@ class GroundBoundLodBox {
     }
 
     deactivateLodBox() {
+        /*
         let center = centerByIndexPos(this.indexPos, this.sideSize);
         let from = ThreeAPI.getCameraCursor().getPos();
         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:from, to:center, color:'RED'})
+        */
         this.lodLevel = 0;
         this.callLodUpdate()
         lodGridCalls[this.settings['register_lod_call']](this, true);

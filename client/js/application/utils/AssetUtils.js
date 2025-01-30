@@ -12,6 +12,7 @@ import {ENUMS} from "../ENUMS.js";
 import {evt} from "../event/evt.js";
 import {Object3D} from "../../../../libs/three/Three.Core.js";
 import {JsonAsset} from "../load/JsonAsset.js";
+import {AssetBatchGeometry} from "../../3d/three/assets/AssetBatchGeometry.js";
 
 let loadCalls = {};
 let loadedAssets = {};
@@ -19,7 +20,7 @@ let loadedModels = {};
 let loadedMaterials = {};
 let loadedGeometries = {};
 let loadedTextures = {};
-
+let loadedBatches = {};
 let jsonAssets = {};
 let tempObj = new Object3D()
 
@@ -127,6 +128,17 @@ function loadAssetTexture(textureFileName, callback) {
     loadedTextures[textureFileName].subscribeToTexture(callback);
 }
 
+function loadBatchGeometry(fileName, callback) {
+
+
+    if (!loadedBatches[fileName]) {
+        loadedBatches[fileName] = new AssetBatchGeometry(fileName);
+    }
+
+    loadedBatches[fileName].call.subscribe(callback);
+
+}
+
 function loadAssetInstance(assetName, callback) {
     let instance = poolFetch('AssetInstance')
     instance.call.instantiate(assetName, callback);
@@ -182,6 +194,7 @@ function getBoneWorldTransform(bone, obj3d) {
 }
 
 
+
 export {
     jsonAsset,
     notifyAssetUpdated,
@@ -194,5 +207,6 @@ export {
     applyMaterial,
     getAssetBoneByName,
     debugDrawSkeleton,
-    getBoneWorldTransform
+    getBoneWorldTransform,
+    loadBatchGeometry
 }

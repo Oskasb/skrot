@@ -95,11 +95,12 @@ class TerrainForestSection {
 
         let lodUpdated = function(lodLevel) {
             lodLevelCurrent = lodLevel;
-            for (let i = 0; i < lodTrees.length; i++) {
-                lodTrees[i].call.setLodLevel(lodLevel);
-            }
 
-            debugForestInBox(this.box, lodLevel);
+                for (let i = 0; i < lodTrees.length; i++) {
+                    lodTrees[i].call.setLodLevel(lodLevel);
+                }
+
+         //   debugForestInBox(this.box, lodLevel);
         }.bind(this)
 
         let setConfig = function(json) {
