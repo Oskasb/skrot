@@ -4,8 +4,21 @@ import {terrainAt} from "../../../3d/three/terrain/ComputeTerrain.js";
 import {MATH} from "../../../application/MATH.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {evt} from "../../../application/event/evt.js";
+import {poolReturn} from "../../../application/utils/PoolUtils.js";
+import {jsonAsset} from "../../../application/utils/AssetUtils.js";
 
 const tempVec3 = new Vector3()
+
+const lodLevelDebugColors = [
+    'WHITE',
+    'RED',
+    'BLUE',
+    'ORANGE',
+    'CYAN',
+    'GREEN',
+    'YELLOW',
+    'BLACK'
+]
 
 function debugForestInBox(box, lodLevel) {
     for (let i = 0; i < lodLevel * 3; i++) {
@@ -15,9 +28,10 @@ function debugForestInBox(box, lodLevel) {
         tempVec3.copy(pos)
         tempVec3.y = y;
         pos.y = y+20;
+        let color = lodLevelDebugColors[lodLevel];
         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:pos, to:tempVec3, color:'GREEN'})
         evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:tempVec3, size:5, color:'GREEN'})
-        evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:pos, to:ThreeAPI.getCameraCursor().getPos(), color:'GREEN'})
+        evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:pos, to:ThreeAPI.getCameraCursor().getPos(), color:color})
     }
 }
 
@@ -27,20 +41,33 @@ class TerrainForestSection {
         this.box = new Box3();
         this.lodLevel = 0;
 
+        let lastLodLevel = 0;
+
         let update = function() {
-            debugForestInBox(this.box, this.lodLevel);
+            if (this.lodLevel !== lastLodLevel) {
+                debugForestInBox(this.box, this.lodLevel);
+                lastLodLevel = this.lodLevel;
+            }
+
         }.bind(this);
 
+        function setConfig(json) {
+
+        };
+
         this.call = {
-            update:update
+            update:update,
+            setConfig:setConfig
         }
 
     }
 
-    initTerrainForestSection(lodBox) {
+    initTerrainForestSection(lodBox, configFileName) {
         this.indexPos.copy(lodBox.indexPos);
         this.box.copy(lodBox.box);
-    //    ThreeAPI.registerPrerenderCallback(this.call.update);
+
+        jsonAsset(configFileName, this.call.setConfig)
+
     }
 
     setLodLevel(lodLevel) {
@@ -49,7 +76,9 @@ class TerrainForestSection {
     }
 
     closeForestSection() {
-    //    ThreeAPI.unregisterPrerenderCallback(this.call.update);
+        this.indexPos.set(-0.1, -0.1) // hide from grid call
+        this.setLodLevel(0);
+        poolReturn(this)
     }
 
 }

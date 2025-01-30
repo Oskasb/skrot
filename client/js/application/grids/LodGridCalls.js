@@ -1,4 +1,6 @@
 import {TerrainForestSection} from "../../game/world/woods/TerrainForestSection.js";
+import {poolFetch} from "../utils/PoolUtils.js";
+import {MATH} from "../MATH.js";
 
 const forestSections = [];
 
@@ -9,19 +11,19 @@ function getLodBoxForestSection(lodBox) {
             return section;
         }
     }
-    let section = new TerrainForestSection();
-    section.initTerrainForestSection(lodBox);
+    let section = poolFetch('TerrainForestSection')
+    section.initTerrainForestSection(lodBox, lodBox.settings['config_file']);
     return section;
 }
 
 function terrainLodUpdate(lodBox) {
     let lodLevel = lodBox.lodLevel;
-    let settings = lodBox.settings;
     let section = getLodBoxForestSection(lodBox);
     if (lodLevel !== 0) {
         section.setLodLevel(lodLevel);
     } else {
         section.closeForestSection()
+        MATH.splice(forestSections, section)
     }
 }
 

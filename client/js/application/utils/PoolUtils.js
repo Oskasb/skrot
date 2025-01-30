@@ -23,6 +23,8 @@ import {DomPower} from "../ui/dom/ui/DomPower.js";
 import {OceanSplash} from "../../3d/three/water/OceanSplash.js";
 import {NodeParticleEmitter} from "../../3d/three/fx/NodeParticleEmitter.js";
 import {NodeParticleSpawner} from "../../3d/three/fx/NodeParticleSpawner.js";
+import {TerrainForestSection} from "../../game/world/woods/TerrainForestSection.js";
+import {ForestTreeLodable} from "../../game/world/woods/ForestTreeLodable.js";
 
 let pools = {}
 let stats = {};
@@ -55,6 +57,8 @@ function initPools() {
     registerPool(OceanSplash)
     registerPool(NodeParticleEmitter);
     registerPool(NodeParticleSpawner);
+    registerPool(TerrainForestSection);
+    registerPool(ForestTreeLodable);
 }
 
 function registerPool(DataObj) {
