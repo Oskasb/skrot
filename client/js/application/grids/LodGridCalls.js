@@ -1,10 +1,10 @@
 import {TerrainForestSection} from "../../game/world/woods/TerrainForestSection.js";
-import {poolFetch} from "../utils/PoolUtils.js";
+import {poolFetch, poolReturn} from "../utils/PoolUtils.js";
 import {MATH} from "../MATH.js";
 
 const forestSections = [];
 
-function getLodBoxForestSection(lodBox) {
+function activateLodBoxForestSection(lodBox) {
     for (let i = 0; i < forestSections.length; i++) {
         let section = forestSections[i];
         if (section.indexPos.distanceToSquared(lodBox.indexPos) === 0) {
@@ -16,19 +16,17 @@ function getLodBoxForestSection(lodBox) {
     return section;
 }
 
-function terrainLodUpdate(lodBox) {
-    let lodLevel = lodBox.lodLevel;
-    let section = getLodBoxForestSection(lodBox);
-    if (lodLevel !== 0) {
-        section.setLodLevel(lodLevel);
-    } else {
-        section.closeForestSection()
+function terrainLodForest(lodBox, activate) {
+    let section = activateLodBoxForestSection(lodBox);
+    if (activate === false) {
+        section.call.closeForestSection()
         MATH.splice(forestSections, section)
+        poolReturn(section)
     }
 }
 
 const lodGridCalls = {}
-lodGridCalls['TERRAIN_LOD_BOX_UPDATE'] = terrainLodUpdate
+lodGridCalls['TERRAIN_LOD_FOREST'] = terrainLodForest
 
 
 export {lodGridCalls}

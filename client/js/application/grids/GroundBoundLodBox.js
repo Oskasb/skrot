@@ -8,6 +8,33 @@ import {lodGridCalls} from "./LodGridCalls.js";
 
 const drawBox = {}
 
+const lodIndexCallbacks = []
+const activeLodLevels = [];
+
+function registerIndexPos(indexPos) {
+    if (!lodIndexCallbacks[indexPos.x]) {
+        lodIndexCallbacks[indexPos.x] = [];
+        activeLodLevels[indexPos.x] = [];
+    }
+
+    if (!lodIndexCallbacks[indexPos.x][indexPos.y]) {
+        lodIndexCallbacks[indexPos.x][indexPos.y] = [];
+        activeLodLevels[indexPos.x][indexPos.y] = 0;
+    }
+
+}
+
+function callLodUpdate(indexPos, lodLevel) {
+    if (!lodIndexCallbacks[indexPos.x]) {
+        registerIndexPos(indexPos)
+    }
+
+    let cbs = lodIndexCallbacks[indexPos.x][indexPos.y];
+    activeLodLevels[indexPos.x][indexPos.y] = lodLevel;
+    MATH.callAll(cbs, lodLevel);
+
+}
+
 const lodLevelDebugColors = [
     'WHITE',
     'RED',
@@ -38,15 +65,24 @@ class GroundBoundLodBox {
         let tempCenter = positionBoxAtIndexPos(this.box, this.indexPos, this.size)
         this.center.copy(tempCenter);
         this.lodLevel = 0;
+        lodGridCalls[this.settings['register_lod_call']](this, false);
     }
 
     deactivateLodBox() {
         let center = centerByIndexPos(this.indexPos, this.sideSize);
         let from = ThreeAPI.getCameraCursor().getPos();
         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:from, to:center, color:'RED'})
+        this.lodLevel = 0;
+        this.callLodUpdate()
+        lodGridCalls[this.settings['register_lod_call']](this, true);
+    }
 
-            this.lodLevel = 0;
-            lodGridCalls[this.settings['lod_update_call']](this);
+    callLodUpdate() {
+        if (this.lastLodLevel !== this.lodLevel) {
+            callLodUpdate(this.indexPos, this.lodLevel);
+        }
+
+        this.lastLodLevel = this.lodLevel;
     }
 
     testLodBoxVisibility(camPos) {
@@ -65,11 +101,7 @@ class GroundBoundLodBox {
             this.lodLevel = 0;
         }
 
-        if (this.lastLodLevel !== this.lodLevel) {
-            lodGridCalls[this.settings['lod_update_call']](this);
-        }
-
-        this.lastLodLevel = this.lodLevel;
+        this.callLodUpdate()
 
         return isVisible;
     }
@@ -90,4 +122,25 @@ class GroundBoundLodBox {
 
 }
 
-export { GroundBoundLodBox }
+function registerGroundLodCallback(indexPos, lodCb) {
+    registerIndexPos(indexPos)
+
+    let cbs = lodIndexCallbacks[indexPos.x][indexPos.y];
+    if (cbs.indexOf(lodCb) === -1) {
+        cbs.push(lodCb);
+    }
+
+    lodCb(activeLodLevels[indexPos.x][indexPos.y]);
+
+}
+
+function unregisterGroundLodCallback(indexPos, lodCb) {
+    registerIndexPos(indexPos)
+    MATH.splice(lodIndexCallbacks[indexPos.x][indexPos.y], lodCb);
+}
+
+export {
+    GroundBoundLodBox,
+    registerGroundLodCallback,
+    unregisterGroundLodCallback
+}

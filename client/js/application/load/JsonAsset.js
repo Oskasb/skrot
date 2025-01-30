@@ -32,7 +32,7 @@ class JsonAsset {
     subscribe(callback) {
         this.subscribers.push(callback);
         if (this.json !== null) {
-            console.log("Already loaded", this.json)
+        //    console.log("Already loaded", this.json)
             callback(this.json);
         }
     }

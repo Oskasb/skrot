@@ -61,7 +61,7 @@ function startGameWorld() {
     new DomMinimap()
 
     function stickReady() {
-
+        new GroundBoundLodGrid('ground_lod_grid')
     }
 
     thumbstick.call.initElement(sMap, 'ui/ui_thumb_stick', 'ui_flight_stick', stickReady)
@@ -119,7 +119,7 @@ function init3d() {
     new ThreeBloom().call.initBloom(scene, camera, renderer)
     new ThreeShadows(store)
     new DebugLines()
-    new GroundBoundLodGrid('ground_lod_grid')
+
     orbitControls = new PlayerCamera(camera, renderer, player)
 
     setRefDiv(document.body)

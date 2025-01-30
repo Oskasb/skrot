@@ -1,0 +1,10 @@
+{
+  "size": [40, 60],
+
+  "trunks": [
+    "leafy_trunk_1"
+  ],
+  "branches": [
+    "leafy_branch_1"
+  ]
+}

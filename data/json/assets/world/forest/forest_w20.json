@@ -1,3 +1,13 @@
 {
-
+    "density": 4,
+    "lod_distribution": [0.4, 0.4, 0.2],
+    "lod_selections": [
+      ["lod_tree_large"],
+      ["lod_tree_large"],
+      ["lod_tree_large"]
+    ],
+  "batch": {
+    "geometries":["leafy_trunk_1", "leafy_branch_1"],
+    "material":"material_props_opaque"
+  }
 }

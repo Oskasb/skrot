@@ -66,7 +66,7 @@ let TILES_X;
 let TILES_Y;
 let BOUND_VERTS;
 
-const GEO_SEGS_XY = 32;
+const GEO_SEGS_XY = 64;
 let SECTIONS_XY;
 
 const factorR = 0.1;
@@ -79,8 +79,8 @@ const HEIGHT_DIFF = clrRng*factorR+clrRng*factorG+clrRng*factorB
 const HEIGHT_MAX = HEIGHT_DIFF+HEIGHT_MIN;
 
 
-const centerSize = 30;
-const lodLayers = 5;
+const centerSize = 60;
+const lodLayers = 4;
 const gridOffsets = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
 const layerScale = [1, 3, 9, 27, 81, 243]
 let tempPoint = new Vector3();
@@ -616,7 +616,7 @@ class ComputeTerrain {
                 gdContext.drawImage(imgData, 0, 0, gdwidth, gdheight);
                 groundDataArray = gdContext.getImageData(0, 0, gdwidth, gdheight).data;
 
-                loadAsset('unit_grid_32', 'glb', setupTerrain)
+                loadAsset('unit_grid_64', 'glb', setupTerrain)
             }
 
             loadImageAsset('terrainmap_w01_20', tx2Loaded)

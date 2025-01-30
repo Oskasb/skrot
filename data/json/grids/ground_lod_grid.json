@@ -4,6 +4,6 @@
   "grid_side_tiles": 12,
   "min_height": 100,
   "min_elevation": -10,
-  "lod_update_call": "TERRAIN_LOD_BOX_UPDATE",
+  "register_lod_call": "TERRAIN_LOD_FOREST",
   "config_file": "forest_w20"
 }
