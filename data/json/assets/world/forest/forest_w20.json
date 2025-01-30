@@ -1,5 +1,5 @@
 {
-    "density": 4,
+    "density": 2,
     "lod_distribution": [0.4, 0.4, 0.2],
     "lod_selections": [
       ["lod_tree_large"],
@@ -7,7 +7,13 @@
       ["lod_tree_large"]
     ],
   "batch": {
-    "geometries":["leafy_trunk_1", "leafy_branch_1"],
+    "count": 2000,
+    "trunks": [
+      "leafy_trunk_1"
+    ],
+    "branches": [
+      "leafy_branch_1"
+    ],
     "material":"material_props_opaque"
   }
 }
