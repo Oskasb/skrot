@@ -10,7 +10,8 @@
     "color": [1, 1, 1],
     "metalness": 1.0,
     "roughness": 1.0,
-    "aoMapIntensity": 1.0
+    "aoMapIntensity": 1.0,
+    "alphaTest": 0.5
   },
   "shadows": {
     "cast": true,

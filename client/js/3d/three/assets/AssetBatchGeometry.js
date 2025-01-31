@@ -3,6 +3,7 @@ import {jsonAsset, loadAssetMaterial, loadModelGeometry} from "../../../applicat
 import {BatchedMesh} from "three";
 import {poolFetch, poolReturn} from "../../../application/utils/PoolUtils.js";
 
+
 class AssetBatchGeometry {
     constructor(fileName) {
 
@@ -68,7 +69,7 @@ class AssetBatchGeometry {
 
             }
             console.log("Geo: ", vertexCount, indexCount);
-            batchedMesh = new BatchedMesh(geometryCount, vertexCount+1, indexCount+1, batchMaterial);
+            batchedMesh = new BatchedMesh(geometryCount, vertexCount, indexCount, batchMaterial);
             batchedMesh.frustumCulled = false;
             batchedMesh.sortObjects = false
             batchedMesh.perObjectFrustumCulled = false
@@ -129,7 +130,9 @@ class AssetBatchGeometry {
         }
 
         function deactivateBatchInstance(batchInstance) {
+            batchInstance.call.hide();
             batchedMesh.deleteInstance(batchInstance.call.getId())
+            batchedMesh.needsUpdate = true;
             poolReturn(batchInstance);
         }
 
@@ -139,12 +142,9 @@ class AssetBatchGeometry {
             deactivateBatchInstance:deactivateBatchInstance
         }
 
-
         jsonAsset(fileName, setJson)
 
     }
-
-
 
 }
 

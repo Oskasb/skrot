@@ -31,9 +31,9 @@ const tempObj = new Object3D();
 
 class ForestTreeLodable {
     constructor() {
-        let indexPos = new Vector2();
+        const indexPos = new Vector2();
         let minLodLevel
-        let obj3d = new Object3D();
+        const obj3d = new Object3D();
         let lodLevel = 0;
         let debugDrawing = false;
 
@@ -41,7 +41,6 @@ class ForestTreeLodable {
         let json = null;
 
         const batchInstances = [];
-
 
         function debugUpdate() {
         //    if (debugDrawing === true) {
@@ -52,14 +51,16 @@ class ForestTreeLodable {
         function setLodLevel(lodL) {
             lodLevel = lodL;
 
-            if (assetBatchGeometry === null) {
-                return;
-            }
+            if (lodLevel < minLodLevel) {
 
-            if (lodLevel > minLodLevel) {
+                closeLodTree()
 
+            } else {
+
+                if (assetBatchGeometry === null) {
+                    return;
+                }
                 let height = obj3d.position.y;
-
                 if (height < 2) {
                     return;
                 }
@@ -76,34 +77,22 @@ class ForestTreeLodable {
                     tempObj.scale.copy(obj3d.scale);
                     trunkInstance.call.transformObj(tempObj);
 
-                    tempObj.position.y += obj3d.scale.y*0.5 +5;
+                    tempObj.position.y += obj3d.scale.y*0.5 +55;
                     branchInstance.call.transformObj(tempObj);
                     batchInstances.push(trunkInstance);
                     batchInstances.push(branchInstance);
 
                 }
-
-            //    closeLodTree()
-                if (debugDrawing === false) {
-                //    ThreeAPI.registerPrerenderCallback(debugUpdate);
-                    debugDrawing = true;
-                } else {
-
-                }
-            } else {
-                closeLodTree()
             }
         }
-
 
         function activateBatchGeometries(batchGeo) {
         //    console.log("activateBatchGeometries", batchGeo);
             assetBatchGeometry = batchGeo;
-            if (lodLevel !== 0) {
+        //    if (lodLevel !== 0) {
                 setLodLevel(lodLevel);
-            }
+        //    }
         }
-
 
         function setTreeJson(jsn) {
             json = jsn;
@@ -132,8 +121,6 @@ class ForestTreeLodable {
                 assetBatchGeometry.call.deactivateBatchInstance(batchInstances.pop());
             }
 
-        //    ThreeAPI.unregisterPrerenderCallback(debugUpdate);
-            debugDrawing = false
         }
 
         this.call = {

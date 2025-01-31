@@ -84,7 +84,7 @@ class TerrainForestSection {
                         tempVec3.add(randomVec);
                         tempObj3d.position.add(tempVec3)
 
-                        tree.call.initForestTree(fileName, tempObj3d, indexPos, lodSelection)
+                        tree.call.initForestTree(fileName, tempObj3d, indexPos, lodSelection +1)
                         tree.call.setLodLevel(lodLevelCurrent);
                         lodTrees.push(tree);
                     }

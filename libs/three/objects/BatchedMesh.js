@@ -677,6 +677,7 @@ class BatchedMesh extends Mesh {
 		this.validateInstanceId( instanceId );
 
 		this._instanceInfo[ instanceId ].active = false;
+		this._instanceInfo[ instanceId ].visible = false;
 		this._availableInstanceIds.push( instanceId );
 		this._visibilityChanged = true;
 
