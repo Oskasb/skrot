@@ -39,7 +39,7 @@ class GroundBoundLodGrid {
             }
 
             let box = inactiveLodBoxes.pop();
-            box.setGridIndex(indexPosVec2);
+            box.call.setGridIndex(indexPosVec2);
             let isVisible = box.testLodBoxVisibility(cam.position);
             if (isVisible) {
                 activeLodBoxes.push(box);
@@ -61,7 +61,7 @@ class GroundBoundLodGrid {
             while (deactivateBoxes.length) {
                 let lodBox = deactivateBoxes.pop();
                 MATH.splice(activeLodBoxes, lodBox);
-                lodBox.deactivateLodBox();
+                lodBox.call.deactivateLodBox();
                 inactiveLodBoxes.push(lodBox);
             }
 
@@ -129,8 +129,12 @@ class GroundBoundLodGrid {
             MATH.emptyArray(inactiveLodBoxes);
             MATH.emptyArray(activeLodBoxes);
 
-            for (let i = 0; i < settings['grid_side_tiles']*settings['grid_side_tiles']; i++) {
-                inactiveLodBoxes.push(new GroundBoundLodBox(settings));
+            const sideTiles = settings['grid_side_tiles']
+
+            for (let i = 0; i < sideTiles*sideTiles+1; i++) {
+                let box = new GroundBoundLodBox(settings)
+                inactiveLodBoxes.push(box);
+
             }
 
             console.log("Ground bound grid settings", settings);

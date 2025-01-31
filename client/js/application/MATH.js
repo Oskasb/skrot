@@ -130,8 +130,9 @@ MATH.quickSplice = function(array, removeEntry) {
 	}
 
 	if (!remove) {
+		console.log("Entry not found", array, removeEntry)
 		return false;
-		//		console.log("Entry not found", array, removeEntry)
+
 	} else {
 		//		console.log("Entry found", removeEntry)
 	}
@@ -217,9 +218,13 @@ MATH.getFromArrayByKey = function(array, key, value) {
 };
 
 MATH.callAll = function(array, arg1, arg2, arg3, arg4, arg5) {
-	for (let all = 0; all < array.length; all++) {
-		array[all](arg1, arg2, arg3, arg4, arg5);
+
+	if (array) {
+		for (let all = 0; all < array.length; all++) {
+			array[all](arg1, arg2, arg3, arg4, arg5);
+		}
 	}
+
 };
 
 

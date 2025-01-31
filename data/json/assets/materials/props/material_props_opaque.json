@@ -11,7 +11,8 @@
     "metalness": 1.0,
     "roughness": 1.0,
     "aoMapIntensity": 1.0,
-    "alphaTest": 0.5
+    "alphaTest": 0.95,
+    "generateMipmaps": false
   },
   "shadows": {
     "cast": true,

@@ -36,7 +36,7 @@ function callLodUpdate(indexPos, lodLevel) {
 }
 
 const lodLevelDebugColors = [
-    'WHITE',
+    'BLACK',
     'RED',
     'BLUE',
     'ORANGE',
@@ -58,26 +58,54 @@ class GroundBoundLodBox {
         this.box = new Box3();
         this.lastLodLevel = 0;
         this.lodLevel = 0;
+
+        const lodBox = this;
+
+        let debugDrawLodBox = function() {
+
+            drawBox.min = lodBox.box.min;
+            drawBox.max = lodBox.box.max;
+            drawBox.color = lodLevelDebugColors[lodBox.lodLevel];
+
+            if (!drawBox.color) {
+                console.log("Bad color", lodBox.lodLevel, lodLevelDebugColors);
+            }
+
+            let from = ThreeAPI.getCameraCursor().getPos();
+            evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:from, to:lodBox.center, color:drawBox.color})
+            evt.dispatch(ENUMS.Event.DEBUG_DRAW_AABOX, drawBox)
+        }
+
+        ThreeAPI.registerPrerenderCallback(debugDrawLodBox)
+
+        let deactivateLodBox = function() {
+            let center = centerByIndexPos(lodBox.indexPos, lodBox.sideSize);
+            let from = ThreeAPI.getCameraCursor().getPos();
+            evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:from, to:center, color:'RED'})
+            this.lodLevel = 0;
+            lodBox.callLodUpdate()
+            lodGridCalls[settings['register_lod_call']](lodBox, false);
+        }
+
+        function setGridIndex(gridIndex) {
+
+            lodBox.indexPos.copy(gridIndex);
+            let tempCenter = positionBoxAtIndexPos(lodBox.box, lodBox.indexPos, lodBox.size)
+            lodBox.center.copy(tempCenter);
+            lodBox.lodLevel = 0;
+            lodGridCalls[settings['register_lod_call']](lodBox, true);
+        }
+
+        this.call = {
+            deactivateLodBox:deactivateLodBox,
+            setGridIndex:setGridIndex
+        }
+
     }
 
-    setGridIndex(gridIndex) {
-        this.indexPos.copy(gridIndex);
-        let tempCenter = positionBoxAtIndexPos(this.box, this.indexPos, this.size)
-        this.center.copy(tempCenter);
-        this.lodLevel = 0;
-        lodGridCalls[this.settings['register_lod_call']](this, false);
-    }
 
-    deactivateLodBox() {
-        /*
-        let center = centerByIndexPos(this.indexPos, this.sideSize);
-        let from = ThreeAPI.getCameraCursor().getPos();
-        evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:from, to:center, color:'RED'})
-        */
-        this.lodLevel = 0;
-        this.callLodUpdate()
-        lodGridCalls[this.settings['register_lod_call']](this, true);
-    }
+
+
 
     callLodUpdate() {
         if (this.lastLodLevel !== this.lodLevel) {
@@ -108,19 +136,7 @@ class GroundBoundLodBox {
         return isVisible;
     }
 
-    debugDrawLodBox() {
-        drawBox.min = this.box.min;
-        drawBox.max = this.box.max;
-        drawBox.color = lodLevelDebugColors[this.lodLevel];
 
-        if (!drawBox.color) {
-            console.log("Bad color", this.lodLevel, lodLevelDebugColors);
-        }
-
-        let from = ThreeAPI.getCameraCursor().getPos();
-        evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:from, to:this.center, color:drawBox.color})
-        evt.dispatch(ENUMS.Event.DEBUG_DRAW_AABOX, drawBox)
-    }
 
 }
 
@@ -138,6 +154,7 @@ function registerGroundLodCallback(indexPos, lodCb) {
 
 function unregisterGroundLodCallback(indexPos, lodCb) {
     registerIndexPos(indexPos)
+  //  console.log("unregisterGroundLodCallback", indexPos.x, indexPos.y)
     MATH.splice(lodIndexCallbacks[indexPos.x][indexPos.y], lodCb);
 }
 

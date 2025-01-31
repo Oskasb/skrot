@@ -77,7 +77,7 @@ class ForestTreeLodable {
                     tempObj.scale.copy(obj3d.scale);
                     trunkInstance.call.transformObj(tempObj);
 
-                    tempObj.position.y += obj3d.scale.y*0.5 +55;
+                    tempObj.position.y += obj3d.scale.y*0.5 //+55;
                     branchInstance.call.transformObj(tempObj);
                     batchInstances.push(trunkInstance);
                     batchInstances.push(branchInstance);
@@ -99,7 +99,8 @@ class ForestTreeLodable {
             let size = MATH.randomBetween(json.size[0], json.size[1]);
             obj3d.scale.set(size, size, size)
             obj3d.up.set(0, 1, 0);
-            obj3d.lookAt(obj3d.up);
+            // obj3d.lookAt(obj3d.up);
+            obj3d.quaternion.set(0, 0, 0, 1)
             obj3d.position.y = terrainAt(obj3d.position);
             loadBatchGeometry(json.batch, activateBatchGeometries);
         //    console.log("setTreeJson")

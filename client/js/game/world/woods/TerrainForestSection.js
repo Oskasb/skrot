@@ -13,7 +13,7 @@ const tempVec3 = new Vector3()
 const tempObj3d = new Object3D();
 
 const lodLevelDebugColors = [
-    'WHITE',
+    'BLACK',
     'RED',
     'BLUE',
     'ORANGE',
@@ -24,18 +24,20 @@ const lodLevelDebugColors = [
 ]
 
 function debugForestInBox(box, lodLevel) {
-    for (let i = 0; i < lodLevel * 3; i++) {
+ //   for (let i = 0; i < lodLevel * 3; i++) {
 
-        let pos = MATH.sillyRandomPointInBox(box, i)
-        let y = terrainAt(pos);
+    //    let pos = MATH.sillyRandomPointInBox(box, Math.random())
+    let pos = tempVec3;
+    box.getCenter(pos)
+        let y = terrainAt(pos) + Math.random()*5;
         tempVec3.copy(pos)
         tempVec3.y = y;
         pos.y = y+20;
         let color = lodLevelDebugColors[lodLevel];
-        evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:pos, to:tempVec3, color:'GREEN'})
-        evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:tempVec3, size:5, color:'GREEN'})
+     //   evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:pos, to:tempVec3, color:'GREEN'})
+     //   evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:tempVec3, size:5, color:'GREEN'})
         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:pos, to:ThreeAPI.getCameraCursor().getPos(), color:color})
-    }
+  //  }
 }
 
 
@@ -52,62 +54,99 @@ class TerrainForestSection {
         const indexPos = this.indexPos;
         this.box = new Box3();
         const box = this.box;
-        let lodLevelCurrent = 0;
 
+        let lodLevelCurrent = 0;
         let forestConfig = null;
+
+
+        const sectionInfo = {
+            isActive:false,
+            debugDraw:function() {
+                if (sectionInfo.isActive === true) {
+                    //  if (lodLevelCurrent !== 0) {
+                    debugForestInBox(box, lodLevelCurrent)
+                    //  }
+                }
+            }
+        }
 
         let lodTrees = [];
 
         function processForestConfig() {
+        //    console.log("processForestConfig", indexPos.x, indexPos.y)
 
-            removeTrees()
+            if (sectionInfo.isActive === true) {
+                removeTrees()
+            } else {
+
+                //   ThreeAPI.registerPrerenderCallback(sectionInfo.debugDraw)
+                registerGroundLodCallback(indexPos, lodUpdated)
+                sectionInfo.isActive = true;
+
+              //  if (isActive === false) {
+
+               // }
+            }
 
             let lodDist = forestConfig['lod_distribution'];
-            let sideSize = box.max.x - box.min.x;
-            let subgridSideCount = Math.ceil( (forestConfig.density / sideSize) * sideSize);
+            let sideSize = box.max.x - box.min.x; // 500..
+            let subgridSideCount = Math.ceil( sideSize / (1/forestConfig.density));
             let subgridSideSize = sideSize / subgridSideCount;
 
             for (let i = 0; i < subgridSideCount; i++) {
                 for (let j = 0; j < subgridSideCount; j++) {
                     let seed = box.min.x + box.min.z + i + j;
                     let lodSelection = Math.floor(MATH.sillyRandom(seed+1) * lodDist.length);
+                    seed+=lodSelection;
                     let lodProbability = lodDist[lodSelection];
                     if (lodProbability < MATH.sillyRandom(seed+2)) {
 
                         let fileName = selectFileFromList(forestConfig['lod_selections'], seed)
-                        let tree = poolFetch('ForestTreeLodable');
 
-                        tempObj3d.position.copy(box.min);
-                        let randomVec = MATH.sillyRandomVector(seed+box.max.x);
-                        randomVec.multiplyScalar(subgridSideSize * 0.5);
-                        tempVec3.set(i*subgridSideSize, 0, j*subgridSideSize);
-                        tempVec3.add(randomVec);
-                        tempObj3d.position.add(tempVec3)
+                    //    if (typeof (fileName) === 'string') {
+                            let tree = poolFetch('ForestTreeLodable');
 
-                        tree.call.initForestTree(fileName, tempObj3d, indexPos, lodSelection +1)
-                        tree.call.setLodLevel(lodLevelCurrent);
-                        lodTrees.push(tree);
+                            tempObj3d.position.copy(box.min);
+                            let randomVec = MATH.sillyRandomVector(seed+box.max.x+box.max.y*0.01);
+                            randomVec.multiplyScalar(subgridSideSize * 0.5);
+                            tempVec3.set(i*subgridSideSize, 0, j*subgridSideSize);
+                            tempVec3.add(randomVec);
+                            tempObj3d.position.add(tempVec3)
+
+                            tree.call.initForestTree(fileName, tempObj3d, indexPos, lodSelection +1)
+                            tree.call.setLodLevel(lodLevelCurrent);
+                            lodTrees.push(tree);
+                    //    }
+
                     }
                 }
             }
         }
 
 
-        let lodUpdated = function(lodLevel) {
+        function lodUpdated(lodLevel) {
+        //    console.log("Lod Update", lodLevel)
+            if (sectionInfo.isActive === false) {
+                return;
+            }
             lodLevelCurrent = lodLevel;
 
                 for (let i = 0; i < lodTrees.length; i++) {
                     lodTrees[i].call.setLodLevel(lodLevel);
                 }
 
+                if (lodLevel === 0) {
+                //    closeForestSection();
+                }
          //   debugForestInBox(this.box, lodLevel);
-        }.bind(this)
+        }
 
-        let setConfig = function(json) {
+
+
+        function setConfig(json) {
             forestConfig = json;
             processForestConfig()
-            registerGroundLodCallback(this.indexPos, lodUpdated)
-        }.bind(this);
+        }
 
         function removeTrees() {
             while (lodTrees.length) {
@@ -117,24 +156,30 @@ class TerrainForestSection {
             }
         }
 
-        let closeForestSection = function() {
+
+        function unregisterCallbacks() {
+            console.log("unregisterCallbacks", indexPos.x, indexPos.y)
             removeTrees()
-            unregisterGroundLodCallback(this.indexPos, lodUpdated)
-            this.indexPos.set(-0.1, -0.1) // hide from grid call
-        }.bind(this);
+            unregisterGroundLodCallback(indexPos, lodUpdated)
+        //    ThreeAPI.unregisterPrerenderCallback(sectionInfo.debugDraw)
+            sectionInfo.isActive = false;
+        }
+
+        function activateBox(lodBox, configFileName) {
+            unregisterCallbacks()
+            console.log("activateBox", indexPos.x, indexPos.y, lodBox.indexPos.x, lodBox.indexPos.y)
+            indexPos.copy(lodBox.indexPos);
+            box.copy(lodBox.box);
+            jsonAsset(configFileName, setConfig)
+        }
 
         this.call = {
-            closeForestSection:closeForestSection,
-            setConfig:setConfig
+            unregisterCallbacks:unregisterCallbacks,
+            activateBox:activateBox
         }
 
     }
 
-    initTerrainForestSection(lodBox, configFileName) {
-        this.indexPos.copy(lodBox.indexPos);
-        this.box.copy(lodBox.box);
-        jsonAsset(configFileName, this.call.setConfig)
-    }
 
 }
 

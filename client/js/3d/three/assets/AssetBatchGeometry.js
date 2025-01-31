@@ -58,13 +58,14 @@ class AssetBatchGeometry {
                 let geo = batchGeometries[key].call.getGeometry();
 
                 let geoIndexCount = geo.index.count;
-                if (geoIndexCount > indexCount) {
-                    indexCount = geoIndexCount;
-                }
+              //  if (geoIndexCount > indexCount) {
+                    indexCount += geoIndexCount;
+              //  }
                 let geoVCount = geo.getAttribute( 'position' ).count;
-                if (geoVCount > vertexCount) {
-                    vertexCount = geoVCount;
-                }
+                console.log("geoVCount: ", geoIndexCount, geoVCount);
+              //  if (geoVCount > vertexCount) {
+                    vertexCount += geoVCount;
+              //  }
                 geos.push(geo);
 
             }

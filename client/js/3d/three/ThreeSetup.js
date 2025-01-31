@@ -159,13 +159,6 @@ class ThreeSetup {
         }
     };
 
-    removePrerenderCallback(callback) {
-        if (this.prerenderCallbacks.indexOf(callback) !== -1) {
-            this.prerenderCallbacks.splice(this.prerenderCallbacks.indexOf(callback, 1));
-        }
-
-    };
-
     addPostrenderCallback(callback) {
         if (this.postrenderCallbacks.indexOf(callback) === -1) {
             this.postrenderCallbacks.push(callback);
@@ -343,8 +336,10 @@ class ThreeSetup {
         }
         this.prerenderCallbacks.push(callback);
     };
+
+
     removePrerenderCallback(callback) {
-        MATH.quickSplice(this.prerenderCallbacks, callback);
+        MATH.splice(this.prerenderCallbacks, callback);
     };
 
 
