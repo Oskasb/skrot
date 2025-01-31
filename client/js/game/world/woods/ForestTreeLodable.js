@@ -40,7 +40,11 @@ class ForestTreeLodable {
         let assetBatchGeometry = null;
         let json = null;
 
+        let fileName = null;
+
         const batchInstances = [];
+
+        let treeIsActive = false;
 
         function debugUpdate() {
         //    if (debugDrawing === true) {
@@ -56,6 +60,12 @@ class ForestTreeLodable {
                 closeLodTree()
 
             } else {
+
+                if (treeIsActive === false) {
+                    treeIsActive = true;
+                    activateForestTree()
+                    return;
+                }
 
                 if (assetBatchGeometry === null) {
                     return;
@@ -95,6 +105,7 @@ class ForestTreeLodable {
         }
 
         function setTreeJson(jsn) {
+         //   closeLodTree()
             json = jsn;
             let size = MATH.randomBetween(json.size[0], json.size[1]);
             obj3d.scale.set(size, size, size)
@@ -103,21 +114,25 @@ class ForestTreeLodable {
             obj3d.quaternion.set(0, 0, 0, 1)
             obj3d.position.y = terrainAt(obj3d.position);
             loadBatchGeometry(json.batch, activateBatchGeometries);
-        //    console.log("setTreeJson")
         }
 
-        function initForestTree(fileName, trxObj3d, indPos, minLodLvl) {
+
+        function initForestTree(fName, trxObj3d, indPos, minLodLvl) {
+            fileName = fName;
             indexPos.copy(indPos);
             minLodLevel = minLodLvl;
             obj3d.position.copy(trxObj3d.position);
             obj3d.quaternion.copy(trxObj3d.quaternion);
             obj3d.scale.copy(trxObj3d.scale)
+        }
+
+        function activateForestTree() {
             jsonAsset(fileName, setTreeJson);
         }
 
         function closeLodTree() {
         //    console.log("Close closeLodTree")
-
+            treeIsActive = false;
             while( batchInstances.length) {
                 assetBatchGeometry.call.deactivateBatchInstance(batchInstances.pop());
             }
@@ -126,6 +141,7 @@ class ForestTreeLodable {
 
         this.call = {
             initForestTree:initForestTree,
+            activateForestTree:activateForestTree,
             setLodLevel:setLodLevel
         }
 

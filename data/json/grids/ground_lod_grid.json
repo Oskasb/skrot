@@ -1,7 +1,7 @@
 {
-  "lod_levels": 6,
-  "side_size": 500,
-  "grid_side_tiles": 10,
+  "lod_levels": 4,
+  "side_size": 400,
+  "grid_side_tiles": 18,
   "min_height": 100,
   "min_elevation": -10,
   "register_lod_call": "TERRAIN_LOD_FOREST",

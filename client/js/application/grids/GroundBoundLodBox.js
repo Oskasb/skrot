@@ -76,7 +76,7 @@ class GroundBoundLodBox {
             evt.dispatch(ENUMS.Event.DEBUG_DRAW_AABOX, drawBox)
         }
 
-        ThreeAPI.registerPrerenderCallback(debugDrawLodBox)
+   //     ThreeAPI.registerPrerenderCallback(debugDrawLodBox)
 
         let deactivateLodBox = function() {
             let center = centerByIndexPos(lodBox.indexPos, lodBox.sideSize);

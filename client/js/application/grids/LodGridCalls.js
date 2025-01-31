@@ -33,7 +33,7 @@ function terrainLodForest(lodBox, activate) {
     if (activate === true) {
         activateLodBoxForestSection(lodBox);
     } else {
-        console.log("close lodBox section.. ", lodBox);
+    //    console.log("close lodBox section.. ", lodBox);
         let section = getActiveForestSection(lodBox)
         if (!section) {
             console.log("section for box is not in list.. ", lodBox);

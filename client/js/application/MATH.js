@@ -442,7 +442,7 @@ MATH.safeForceVector = function(vec) {
 };
 
 MATH.remainder = function(float) {
-	return float - (Math.floor(float))
+	return float - Math.floor(float);
 };
 
 MATH.randomBetween = function(min, max) {
@@ -595,8 +595,8 @@ MATH.lineDistance = function(fromX, fromY, toX, toY) {
 };
 
 MATH.sillyRandom = function(seed) {
-//	seed = Math.imul(48271, seed) | 0 % 2147483647
-//	return (seed & 2147483647) / 2147483648
+//	let s = Math.abs((1 / (seed+0.01)) * 99.1123134 + 0.0001 )+0.00000121 //(Math.sin(seed*999)))*999.987654321+0.00012341041234
+//	return MATH.remainder(s)
 	 return MATH.remainder(Math.abs(Math.sin(seed*7.131) * 99.151 + Math.cos(seed*0.0152)));
 };
 
