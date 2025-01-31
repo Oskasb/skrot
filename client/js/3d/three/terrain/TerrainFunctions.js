@@ -254,6 +254,18 @@ let getHeightAt = function(pos, array1d, unitScale, terrainSize, segments, norma
     return getDisplacedHeight(array1d, segments, unitScale, x, z, htP, htN, normalStore, terrainScale, terrainOrigin, groundData);
 };
 
+let getGroundDataAt = function(pos, array1d, unitScale, terrainSize, segments, dataStore) {
+    let htP = segments * unitScale;
+    let htN = 0;
+
+    if (pos.x < htN || pos.z < htN || pos.x > htP  || pos.z > htP) {
+    //    console.log("Terrain!", pos.x, pos.z, htP, htN ,"Is Outside WORKER");
+    //    GuiAPI.printDebugText("Is Outside Terrain at "+pos.x < htN+" "+pos.z < htN)
+        return false;
+    }
+
+    return getDisplacedGround(array1d, segments, pos.x, pos.z, htP, htN, dataStore);
+}
 
 let getRGBAAt = function(array1d, segments, x, y, dataStore) {
 
@@ -291,18 +303,7 @@ let getDisplacedGround = function(array1d, segments, x, z, htP, htN, dataStore) 
     return getGroundTexel(array1d, segments, tx, tz, dataStore);
 };
 
-let getGroundDataAt = function(pos, array1d, unitScale, terrainSize, segments, dataStore) {
-    let htP = segments * unitScale;
-    let htN = 0;
 
-    if (pos.x < htN || pos.z < htN || pos.x > htP  || pos.z > htP) {
-        console.log("Terrain!", pos.x, pos.z, htP, htN ,"Is Outside WORKER");
-        GuiAPI.printDebugText("Is Outside Terrain at "+pos.x < htN+" "+pos.z < htN)
-        return false;
-    }
-
-    return getDisplacedGround(array1d, segments, pos.x, pos.z, htP, htN, dataStore);
-}
 
 let centerRGBA = "rgba(0, 0, 215, 1)";
 let edgeRGA = "rgba(0, 0, 0, 1)";

@@ -1,9 +1,11 @@
 import {OrbitControls} from "../../../../libs/jsm/controls/OrbitControls.js";
 import {Vector3} from "../../../../libs/three/Three.Core.js";
-
+import {groundAt, terrainAt} from "../../3d/three/terrain/ComputeTerrain.js";
+import {ENUMS} from "../../application/ENUMS.js";
+import {evt} from "../../application/event/evt.js";
 
 const targetPos = new Vector3();
-
+const tempVec = new Vector3();
 class PlayerCamera {
     constructor(camera, renderer, player) {
 
@@ -13,6 +15,8 @@ class PlayerCamera {
         let lastCamPos = new Vector3();
         lastCamPos.copy(camera.position);
         let posFrameDelta = new Vector3();
+
+        const colorStore = {};
 
         function updateCamera() {
 
@@ -26,6 +30,15 @@ class PlayerCamera {
 
             lastCamPos.copy(camera.position);
             ThreeAPI.getCameraCursor().getPos().copy(orbitControls.target)
+
+            groundAt(orbitControls.target, colorStore);
+            tempVec.copy(orbitControls.target)
+            tempVec.y = terrainAt(tempVec);
+
+            evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:tempVec, size:2, color:colorStore})
+            tempVec.y += 20;
+            evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:orbitControls.target, to:tempVec, color:colorStore})
+
         }
 
 

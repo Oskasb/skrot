@@ -379,6 +379,21 @@ function drawGroundTexturePixel(pixelIndex, height, slope, diff, shade, groundDa
         green = 0;
     }
 
+    if (blue > 10) {
+        green = 0;
+    }
+
+    let depth = height - minHeight;
+
+    if (height < 0) {
+        green = 0;
+        red = 0;
+    }
+
+    if (height > maxHeight * 0.65) {
+        green = 0;
+    }
+
     groundTextureBuffer[indexR] = red;
     groundTextureBuffer[indexG] = green;
     groundTextureBuffer[indexB] = blue;
@@ -435,7 +450,6 @@ function drawGroundTexturePixel(pixelIndex, height, slope, diff, shade, groundDa
 
     } else {
         // Below Water
-        let depth = height - minHeight;
 
         let depthMax = 0 - minHeight;
 

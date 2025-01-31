@@ -36,6 +36,7 @@ import {
     MeshLambertNodeMaterial, MeshPhongNodeMaterial
 } from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
 import Color4 from "../../../../../libs/three/renderers/common/Color4.js";
+import {getGroundDataAt} from "./TerrainFunctions.js";
 
 
 let heightCanvas = document.createElement('canvas');
@@ -664,6 +665,18 @@ function terrainAt(pos, normalStore) {
     return TerrainFunctions.getHeightAt(pos, heightArray, terrainParams.unitScale, terrainParams.tx_width, terrainParams.tx_width - 1, normalStore, terrainScale, worldBox.min);
 }
 
+function groundAt(pos, dataStore) {
+    if (groundDataArray === null)  {
+        dataStore.x = 0;
+        dataStore.y = 0;
+        dataStore.z = 0;
+        dataStore.w = 0;
+        return dataStore;
+    }
+    TerrainFunctions.getGroundDataAt(pos, groundDataArray, terrainParams.unitScale, terrainParams.tx_width *2, (terrainParams.tx_width * 2) - 1, dataStore);
+    return dataStore;
+}
+
 export {
     ComputeTerrain,
     getWorldBoxMax,
@@ -673,5 +686,6 @@ export {
     getGroundDataArray,
     getTerrainParams,
     terrainAt,
+    groundAt,
     terrainGlobalUv
 }

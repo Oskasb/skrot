@@ -1,11 +1,15 @@
 import {Vector2} from "three/webgpu";
 import {Object3D} from "../../../../../libs/three/core/Object3D.js";
 import {jsonAsset, loadBatchGeometry} from "../../../application/utils/AssetUtils.js";
-import {terrainAt} from "../../../3d/three/terrain/ComputeTerrain.js";
+import {groundAt, terrainAt} from "../../../3d/three/terrain/ComputeTerrain.js";
 import {evt} from "../../../application/event/evt.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {registerGroundLodCallback, unregisterGroundLodCallback} from "../../../application/grids/GroundBoundLodBox.js";
 import {MATH} from "../../../application/MATH.js";
+import {Vector3} from "../../../../../libs/three/math/Vector3.js";
+import {poolReturn} from "../../../application/utils/PoolUtils.js";
+
+const tempVec = new Vector3();
 
 const lodLevelDebugColors = [
     'WHITE',
@@ -27,10 +31,22 @@ function debugDrawTree(obj3d, lodLevel) {
 
 }
 
+const groundData = {};
+
+function positionsuitsTree(pos) {
+    groundAt(pos, groundData)
+
+    if (groundData.y > 0.5) {
+        return true;
+    }
+    return false;
+}
+
 const tempObj = new Object3D();
 
 class ForestTreeLodable {
     constructor() {
+        const forestTree = this;
         const indexPos = new Vector2();
         let minLodLevel
         const obj3d = new Object3D();
@@ -112,8 +128,20 @@ class ForestTreeLodable {
             obj3d.up.set(0, 1, 0);
             // obj3d.lookAt(obj3d.up);
             obj3d.quaternion.set(0, 0, 0, 1)
-            obj3d.position.y = terrainAt(obj3d.position);
-            loadBatchGeometry(json.batch, activateBatchGeometries);
+            obj3d.position.y = terrainAt(obj3d.position, tempVec);
+            if (tempVec.y > 0.7) {
+
+                if (positionsuitsTree(obj3d.position)) {
+                    loadBatchGeometry(json.batch, activateBatchGeometries);
+                    return;
+                }
+            }
+
+                closeLodTree()
+                poolReturn(forestTree);
+
+
+
         }
 
 
