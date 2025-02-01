@@ -14,15 +14,6 @@ let page0 = {
     icon_class:'icon_settings',
     settings:[
         {name:'Environment', key:ENUMS.Settings.ENVIRONMENT_INDEX, type:'range', min:0, max:9, default:0},
-        {name:'3D Pixel Size', key:ENUMS.Settings.RENDER_SCALE, type:'range', min:1, max:8, default:1},
-        {name:'Axis Cam Vertical', key:ENUMS.Settings.CAMERA_VERTICAL, type:'range', min:-100, max:100, default:30},
-        {name:'Axis Cam Horizontal', key:ENUMS.Settings.CAMERA_HORIZONTAL, type:'range', min:-100, max:100, default:30},
-        {name:'Zoom Strength', key:ENUMS.Settings.ZOOM_STRENGTH, type:'range', min:-100, max:100, default:50},
-        {name:'Terrain Range', key:ENUMS.Settings.TERRAIN_RANGE, type:'range', min:0, max:4, default:2},
-        {name:'Instance Multiplier', key:ENUMS.Settings.INSTANCE_MULTIPLIER, type:'range', min:1, max:5, default:1},
-        {name:'View Distance', key:ENUMS.Settings.VIEW_DISTANCE, type:'range', min:0, max:10, default:1},
-        {name:'Vegetation Density', key:ENUMS.Settings.VEGETATION_DENSITY, type:'range', min:1, max:20, default:4},
-        {name:'Vegetation Range', key:ENUMS.Settings.VEGETATION_RANGE, type:'range', min:0, max:5, default:2}
     ]
 }
 
@@ -126,9 +117,6 @@ let page7 = {
         {name:'Minimap pos X',      key:ENUMS.Settings.OFFSET_MINIMAP_X,    type:'range', min:-100, max:100, default:0},
         {name:'Minimap pos Y',      key:ENUMS.Settings.OFFSET_MINIMAP_Y,    type:'range', min:-100, max:100, default:0},
         {name:'Minimap scale',      key:ENUMS.Settings.SCALE_MINIMAP,       type:'range', min:-100, max:100, default:0},
-        {name:'Adventures pos X',   key:ENUMS.Settings.OFFSET_ADVENTURES_X, type:'range', min:-100, max:100, default:0},
-        {name:'Adventures pos Y',   key:ENUMS.Settings.OFFSET_ADVENTURES_Y, type:'range', min:-100, max:100, default:0},
-        {name:'Adventures scale',   key:ENUMS.Settings.SCALE_ADVENTURES,    type:'range', min:-100, max:100, default:0},
         {name:'Right bar pos X',    key:ENUMS.Settings.OFFSET_RBAR_X,       type:'range', min:-100, max:100, default:0},
         {name:'Right bar pos Y',    key:ENUMS.Settings.OFFSET_RBAR_Y,       type:'range', min:-100, max:100, default:0},
         {name:'Right bar scale',    key:ENUMS.Settings.SCALE_RBAR,          type:'range', min:-100, max:100, default:0},
@@ -136,12 +124,6 @@ let page7 = {
 }
 
 pages.push(page0)
-pages.push(page1)
-pages.push(page2)
-pages.push(page3)
-pages.push(page4)
-pages.push(page5)
-pages.push(page6)
 pages.push(page7)
 let settingContainers = [];
 

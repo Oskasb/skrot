@@ -126,8 +126,6 @@ class ForestTreeLodable {
             let size = MATH.randomBetween(json.size[0], json.size[1]);
             obj3d.scale.set(size, size, size)
             obj3d.up.set(0, 1, 0);
-            // obj3d.lookAt(obj3d.up);
-            obj3d.quaternion.set(0, 0, 0, 1)
             obj3d.position.y = terrainAt(obj3d.position, tempVec);
             if (tempVec.y > 0.7) {
 

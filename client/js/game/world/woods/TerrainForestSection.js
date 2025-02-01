@@ -134,6 +134,9 @@ class TerrainForestSection {
                             tempVec3.add(randomVec);
                             tempObj3d.position.add(tempVec3)
 
+                    tempObj3d.quaternion.set(0, 0, 0, 1);
+                    tempObj3d.rotateY(MATH.sillyRandom(seed+2) * MATH.TWO_PI)
+
                             tree.call.initForestTree(fileName, tempObj3d, indexPos, lodSelection +1)
 
                         //    tree.call.activateForestTree();

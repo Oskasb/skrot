@@ -1,11 +1,19 @@
 {
-    "density": 0.01,
+    "density": 0.014,
     "lod_distribution": [1],
     "lod_selections": [
       [
         "lod_tree_large"
       ],[
+        "lod_tree_large"
+      ],[
+        "lod_tree_large"
+      ],[
+        "lod_tree_large"
+      ],[
         "lod_tree_medium"
+      ],[
+        "lod_tree_small"
       ],[
         "lod_tree_small"
       ],[
