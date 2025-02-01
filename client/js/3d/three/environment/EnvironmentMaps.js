@@ -170,7 +170,7 @@ class EnvironmentMaps {
 
                 const daylightFactor = sunColor.r.pow(0.65)
 
-                const belowHorizonFactor = max(0.0, min(1.0, mul(pow( 9999, mul(angleToDown, 10.11)), 0.9  )));
+                const belowHorizonFactor = max(0.0, min(1.0, mul(pow( 98, mul(angleToDown, 8)), 0.9  )));
                 const sunAngle = dot(normalize(sunPosition), direction)
                 const sunFactor = mul(0.55, max(0.0, pow( sunAngle, 0.8 )));
                 const skyShade = add( ambColor, fogColor);
