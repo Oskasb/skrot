@@ -182,12 +182,12 @@ class EnvironmentMaps {
                 const fogHorizonFactor = pow( horizonAngle, 50 );
                 const foggedColor = mix(fogGradient, fogColor, fogHorizonFactor)
 
-                const skySunShaded = mix( foggedColor, sunColor, max(0.0, mul(0.05, pow( mul(sunAngle, 0.99), 118) )));
-                const haloFactor = max(0.0,pow( mul(sunAngle, 0.99), 2));
+                const skySunShaded = mix( foggedColor, sunColor, max(0.0, mul(0.45, pow( mul(sunAngle, 0.999), 58) )));
+                const haloFactor = max(0.0,pow( mul(sunAngle.add(0.75), 0.5), 0.35));
                 const skySunBrightened = mix( skySunShaded, add(sunColor, ambColor),  mul(0.06, pow(haloFactor, 1.2) ));
 
                 const skySunHalo = mix( skySunBrightened, add(sunColor, fogColor),  mul(0.53, pow(haloFactor, 15) ));
-                const sunDisc = mix( skySunHalo, add(sunColor.add(sunColor.normalize().mul(70)), fogColor), mul(1.0, max(0.0, min( 1.0, pow( mul(sunAngle, 1.0003), 21000.0) ))));
+                const sunDisc = mix( skySunHalo, add(sunColor.add(sunColor.normalize().mul(90)), fogColor), mul(1.0, max(0.0, min( 1.0, pow( mul(sunAngle, 1.0003), 21000.0) ))));
 
                 const sealevelColor = mix(sunDisc, fogColor,  max(0.0, min(1, belowHorizonFactor)))
                 const underwaterlevelColor = mix(sealevelColor, ambColor.mul(0.05),  max(0.0, min(1, angleToDown.sub(0.2).mul(2))))
@@ -215,7 +215,7 @@ class EnvironmentMaps {
                 const custom1UV = refNode.xyz //.mul( uniform( rotateY1Matrix ) );
                 const flippedUV1 = vec3(custom1UV.x, mul(custom1UV.y, -1), custom1UV.z);
                 const sky1tx = pmremTexture( cube1Texture, flippedUV1 )
-                return sky1tx.mul(skyColorFunction(refNode, posNode).mul(1.2));
+                return min(1.75, sky1tx.mul(skyColorFunction(refNode, posNode).mul(1.25)));
             };
 
 

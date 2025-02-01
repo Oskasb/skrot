@@ -7,7 +7,6 @@ import {
     Vector2,
     Vector3
 } from "../../../../../libs/three/Three.Core.js";
-import {SimplexNoise} from "../../../../../libs/jsm/math/SimplexNoise.js";
 import {
     clamp,
     length,
@@ -48,7 +47,6 @@ import {
 import {MeshPhongNodeMaterial, SpriteNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
 import {getFrame, loadImageAsset} from "../../../application/utils/DataUtils.js";
 import MeshStandardNodeMaterial from "../../../../../libs/three/materials/nodes/MeshStandardNodeMaterial.js";
-import {StorageTexture} from "../../../../../libs/three/Three.WebGPU.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {evt} from "../../../application/event/evt.js";
 import {MATH} from "../../../application/MATH.js";
@@ -147,21 +145,26 @@ class Ocean {
             waterMaterial.normalNode = Fn( () => {
 
                 const posNode = positionLocal;
-                const posx = posNode.y
-                const posy = posNode.x
+                const posx = posNode.y.add( posNode.y.mul(0.6).add(posNode.x).mul(0.02).sin().mul(20))
+                const posy = posNode.x.add(posNode.y.mul(0.01).cos().mul(20))
 
-                const waveAx = time.add(posx.add(posy.mul(0.832)).div(0.85)).mul(0.53).sin();
-                const waveBx = time.add(posy.add(posx.mul(0.135)).div(0.16)).mul(0.12).cos();
+                const wideWaveA = time.add(posx.add(posy.mul(0.0132)).div(0.15)).mul(0.013).sin();
+                const wideWaveB =  time.mul(0.9).add(posy.add(posx.mul(0.0115)).div(0.11)).mul(0.012).cos();
 
-                const waveAx1 = time.add(waveAx.mul(0.44).add(posy.add(posx.mul(0.16)).mul(0.62)).div(2)).mul(0.23).cos();
+                const waveAx = time.mul(0.9).add(posx.add(posy.mul(0.332)).div(0.45)).mul(0.33).sin().add(wideWaveA.mul(0.5));
+                const waveBx = time.add(posy.add(posx.mul(0.135)).div(0.16)).mul(0.12).cos().add(wideWaveB.mul(0.5));
+
+                const waveAx1 = time.add(waveAx.mul(0.24).add(posy.add(posx.mul(0.16)).mul(0.22)).div(2)).mul(0.23).cos();
                 const waveBx1 = time.mul(2).add(waveBx.mul(0.12).add(posx.add(posy.mul(0.04)).mul(0.45)).div(1.2)).mul(0.7).sin();
-                const waveAx2 = time.mul(5).add(waveAx.mul(0.14).add(posy.add(posx.mul(0.12)).mul(0.42)).div(3.2)).mul(0.13).cos();
-                const waveBx2 = time.mul(3).add(waveBx.mul(0.09).add(posx.add(posy.mul(0.63)).mul(0.55)).div(7.5)).mul(0.7).sin();
+                const waveAx2 = time.mul(5).add(waveAx.mul(0.14).add(posy.add(wideWaveA.mul(0.5)).mul(0.42)).div(3.2)).mul(0.13).cos();
+                const waveBx2 = time.mul(3).add(waveBx.mul(0.09).add(posx.add(wideWaveB.mul(0.5)).mul(0.55)).div(7.5)).mul(0.7).sin();
 
-                const wave0nm = vec3(waveAx1.add(waveAx2.mul(0.6)), waveBx1.add(waveBx2.mul(0.6)), 6).normalize();
 
-                const txNormal = nmTx.sample(customOceanUv())
-                return transformNormalToView(vec3(txNormal.x.add(-0.5), txNormal.y.add(-0.5), txNormal.z.mul(0.5)).add(wave0nm)) //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
+
+                const wave0nm = vec3(waveAx1.add(waveAx2.mul(0.6)).add(wideWaveA.mul(0.8)), waveBx1.add(waveBx2.mul(0.6)).add(wideWaveB.mul(0.8)), 7).normalize();
+
+                const txNormal = nmTx.sample(customOceanUv()).mul(2).sub(1)
+                return transformNormalToView(txNormal.add(wave0nm).mul(0.5)) //.add(txNormal).normalize()); // vec3(txNormal.x, txNormal.z, txNormal.y) // transformNormalToView(vec3(txNormal.x, txNormal.z, txNormal.y));
             } )();
 
 
