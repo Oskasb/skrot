@@ -1,5 +1,5 @@
 {
-  "size": [25, 60],
+  "size": [35, 50],
   "batch": "batch_trees_leafy",
   "trunks": ["leafy_crown_1"],
   "branches": ["leafy_branch_2"]
