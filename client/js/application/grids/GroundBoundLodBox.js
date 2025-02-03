@@ -5,11 +5,14 @@ import {ENUMS} from "../ENUMS.js";
 import {evt} from "../event/evt.js";
 import {MATH} from "../MATH.js";
 import {lodGridCalls} from "./LodGridCalls.js";
+import {getSetting} from "../utils/StatusUtils.js";
 
 const drawBox = {}
 
 const lodIndexCallbacks = []
 const activeLodLevels = [];
+
+const tempIndexVec = new Vector2();
 
 function registerIndexPos(indexPos) {
     if (!lodIndexCallbacks[indexPos.x]) {
@@ -46,10 +49,13 @@ const lodLevelDebugColors = [
     'BLACK'
 ]
 
+let indexSideSize = 0;
+
 class GroundBoundLodBox {
     constructor(settings) {
         this.settings = settings;
         this.sideSize = settings['side_size']
+        indexSideSize = this.sideSize;
         this.maxDistance = settings['grid_side_tiles'] * this.sideSize;
         this.lodLevels = settings['lod_levels'];
         this.indexPos = new Vector2();
@@ -84,7 +90,12 @@ class GroundBoundLodBox {
             evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:from, to:center, color:'RED'})
             this.lodLevel = 0;
             lodBox.callLodUpdate()
-            lodGridCalls[settings['register_lod_call']](lodBox, false);
+
+            let calls = settings['register_lod_calls']
+            for (let i = 0; i < calls.length; i++) {
+                lodGridCalls[calls[i]](lodBox, false);
+            }
+
         }
 
         function setGridIndex(gridIndex) {
@@ -93,7 +104,12 @@ class GroundBoundLodBox {
             let tempCenter = positionBoxAtIndexPos(lodBox.box, lodBox.indexPos, lodBox.size)
             lodBox.center.copy(tempCenter);
             lodBox.lodLevel = 0;
-            lodGridCalls[settings['register_lod_call']](lodBox, true);
+
+            let calls = settings['register_lod_calls']
+            for (let i = 0; i < calls.length; i++) {
+                lodGridCalls[calls[i]](lodBox, false);
+            }
+
         }
 
         this.call = {
@@ -124,7 +140,10 @@ class GroundBoundLodBox {
                 this.lodLevel = 0;
                 isVisible = false;
             } else {
-                this.lodLevel = MATH.clamp(Math.floor(this.lodLevels * (this.maxDistance + this.sideSize*2 - camDistance) / this.maxDistance), 0, this.lodLevels);
+                let distanceFraciton = (this.maxDistance + this.sideSize*2 - camDistance) / this.maxDistance
+                let lodBias = getSetting(ENUMS.Settings.LOD_BIAS); // (50 = neutral)
+                let biasFration = Math.pow(distanceFraciton, MATH.curveQuad(50 / lodBias))
+                this.lodLevel = MATH.clamp(Math.floor(this.lodLevels * biasFration), 0, this.lodLevels);
             }
 
         } else {
@@ -158,8 +177,29 @@ function unregisterGroundLodCallback(indexPos, lodCb) {
     MATH.splice(lodIndexCallbacks[indexPos.x][indexPos.y], lodCb);
 }
 
+function registerPosLodCallback(pos, lodCb) {
+    gridIndexForPos(pos, tempIndexVec, indexSideSize);
+    registerIndexPos(tempIndexVec)
+
+    let cbs = lodIndexCallbacks[tempIndexVec.x][tempIndexVec.y];
+    if (cbs.indexOf(lodCb) === -1) {
+        cbs.push(lodCb);
+    }
+
+    lodCb(activeLodLevels[tempIndexVec.x][tempIndexVec.y]);
+
+}
+
+function unregisterPosLodCallback(pos, lodCb) {
+    gridIndexForPos(pos, tempIndexVec, indexSideSize);
+    registerIndexPos(tempIndexVec)
+    MATH.splice(lodIndexCallbacks[tempIndexVec.x][tempIndexVec.y], lodCb);
+}
+
 export {
     GroundBoundLodBox,
     registerGroundLodCallback,
-    unregisterGroundLodCallback
+    unregisterGroundLodCallback,
+    registerPosLodCallback,
+    unregisterPosLodCallback
 }

@@ -9,21 +9,21 @@ let tempIndexVec2 = new Vector2();
 class GroundBoundLodGrid {
     constructor(fileName) {
 
-        let settings = {};
+        const settings = {};
 
         let lastPos = new Vector3();
-        let indexPos = new Vector2();
+        const indexPos = new Vector2();
 
-        let pointAheadOfCamera = new Vector3();
+        const pointAheadOfCamera = new Vector3();
 
-        let activeLodBoxes = [];
-        let inactiveLodBoxes = [];
+        const activeLodBoxes = [];
+        const inactiveLodBoxes = [];
 
-        let deactivateBoxes = [];
-        let cam = ThreeAPI.getCamera();
+        const deactivateBoxes = [];
+        const cam = ThreeAPI.getCamera();
 
-        let lastLookAt = new Vector3();
-        let lastCamPos = new Vector3();
+        const lastLookAt = new Vector3();
+        const lastCamPos = new Vector3();
 
         function activateBoxAtIndex(indexPosVec2) {
             for (let i = 0; i < activeLodBoxes.length; i++) {

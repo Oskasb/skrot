@@ -358,17 +358,21 @@ function drawGroundTexturePixel(pixelIndex, height, slope, diff, shade, groundDa
     let seed = indexR * 0.01;
     let scatter = Math.floor(MATH.sillyRandom(seed) * 40)
 
-    if (height > maxHeight*0.65) {
+    let vary = Math.floor(MATH.curveSqrt((Math.cos(pixelIndex*1.32) + Math.sin(pixelIndex*2.42))*(Math.abs(heightDiff + 0.5) + (heightDiff + 2)))) * 3
+    // vary += Math.sin()
+
+    let variedHeight = height+vary
+    if (variedHeight > maxHeight*0.50) {
         red = 255;
-    } else if (height > maxHeight*0.45) {
+    } else if (variedHeight > maxHeight*0.43) {
         if (MATH.sillyRandom(seed) < 0.75) {
             red = 255;
         }
-    } else if (height > maxHeight*0.38) {
+    } else if (variedHeight > maxHeight*0.40) {
         if (MATH.sillyRandom(seed) < 0.5) {
             red = 255;
         }
-    } else if (height > maxHeight*0.35) {
+    } else if (variedHeight > maxHeight*0.37) {
         if (MATH.sillyRandom(seed) < 0.25) {
             red = 255;
         }

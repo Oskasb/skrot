@@ -14,8 +14,9 @@ defaultSettings[ENUMS.Settings.RENDER_SCALE] = 1;
 defaultSettings[ENUMS.Settings.TERRAIN_RANGE] = 2;
 defaultSettings[ENUMS.Settings.PHYSICAL_DEBRIS] = 50;
 defaultSettings[ENUMS.Settings.VIEW_DISTANCE] = 2;
-defaultSettings[ENUMS.Settings.VEGETATION_DENSITY] = 4;
-defaultSettings[ENUMS.Settings.VEGETATION_RANGE] = 1;
+defaultSettings[ENUMS.Settings.LOD_BIAS] = 40;
+defaultSettings[ENUMS.Settings.VEGETATION_DENSITY] = 7;
+defaultSettings[ENUMS.Settings.VEGETATION_RANGE] = 15;
 defaultSettings[ENUMS.Settings.ACTOR_INFLUENCE_PROBES] = 3;
 defaultSettings[ENUMS.Settings.PHYSICS_VFX_INTENSITY] = 3;
 

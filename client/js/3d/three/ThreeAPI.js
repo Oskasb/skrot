@@ -19,6 +19,7 @@ import {EnvironmentMaps} from "./environment/EnvironmentMaps.js";
 import {Ocean} from "./water/Ocean.js";
 import {EnvironmentClouds} from "./environment/EnvironmentClouds.js";
 import {ComputeTerrain} from "./terrain/ComputeTerrain.js";
+import {VegetationGrid} from "../../game/world/plants/VegetationGrid.js";
 
 
 let cameraSpatialCursor;
@@ -75,6 +76,7 @@ class ThreeAPI {
         };
 
         function trnLoaded() {
+            new VegetationGrid('vegetation_w20');
             new Ocean(store)
         }
 
