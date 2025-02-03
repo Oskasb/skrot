@@ -47,11 +47,9 @@ const tempObj = new Object3D();
 class BatchedPlant {
     constructor() {
         const batchedPlant = this;
-        const indexPos = new Vector2();
-        let minLodLevel
+
         const obj3d = new Object3D();
-        let lodLevel = 0;
-        let debugDrawing = false;
+
 
         let assetBatchGeometry = null;
         let json = null;
@@ -62,99 +60,55 @@ class BatchedPlant {
 
         let plantIsActive = false;
 
-        function debugUpdate() {
-        //    if (debugDrawing === true) {
-         //       debugDrawTree(obj3d, lodLevel)
-        //    }
-        }
 
-        function setLodLevel(lodL) {
-            lodLevel = lodL;
 
-            if (lodLevel < minLodLevel) {
+        function activateInstance() {
 
-                closeLodTree()
-
-            } else {
-
-                if (plantIsActive === false) {
-                    plantIsActive = true;
-                    activateBatchedPlant()
-                    return;
-                }
-
-                if (assetBatchGeometry === null) {
-                    return;
-                }
-                let height = obj3d.position.y;
-                if (height < 2) {
-                    return;
-                }
+            plantIsActive = true;
 
                 if (batchInstances.length === 0) {
 
-                    let trunkName = MATH.getRandomArrayEntry(json['trunks']);
-                    let branchName = MATH.getRandomArrayEntry(json['branches']);
+                    let modelName = json['model'];
 
-                    let trunkInstance = assetBatchGeometry.call.activateBatchInstance(trunkName);
-                    let branchInstance = assetBatchGeometry.call.activateBatchInstance(branchName);
+                    let modelInstance = assetBatchGeometry.call.activateBatchInstance(modelName);
+
                     tempObj.position.copy(obj3d.position);
                     tempObj.quaternion.copy(obj3d.quaternion);
                     tempObj.scale.copy(obj3d.scale);
-                    trunkInstance.call.transformObj(tempObj);
-
-                    tempObj.position.y += obj3d.scale.y*0.5 //+55;
-                    branchInstance.call.transformObj(tempObj);
-                    batchInstances.push(trunkInstance);
-                    batchInstances.push(branchInstance);
+                    modelInstance.call.transformObj(tempObj);
+                    batchInstances.push(modelInstance);
 
                 }
-            }
+
         }
 
         function activateBatchGeometries(batchGeo) {
-        //    console.log("activateBatchGeometries", batchGeo);
             assetBatchGeometry = batchGeo;
-        //    if (lodLevel !== 0) {
-                setLodLevel(lodLevel);
-        //    }
+            activateInstance();
         }
 
         function setJson(jsn) {
+            if (plantIsActive) {
+                closePlant()
+            }
          //   closeLodTree()
             json = jsn;
             let size = MATH.randomBetween(json.size[0], json.size[1]);
             obj3d.scale.set(size, size, size)
-            obj3d.up.set(0, 1, 0);
-            obj3d.position.y = terrainAt(obj3d.position, tempVec);
-            if (tempVec.y > 0.7) {
 
-                if (positionsuitsTree(obj3d.position)) {
-                    loadBatchGeometry(json.batch, activateBatchGeometries);
-                    return;
-                }
-            }
-
-                closeLodTree()
-                poolReturn(batchedPlant);
-
-
+            loadBatchGeometry(json.batch, activateBatchGeometries);
 
         }
 
 
-        function init(fName, trxObj3d, indPos, minLodLvl) {
+        function init(fName, trxObj3d) {
             fileName = fName;
-            indexPos.copy(indPos);
-            minLodLevel = minLodLvl;
             obj3d.position.copy(trxObj3d.position);
             obj3d.quaternion.copy(trxObj3d.quaternion);
             obj3d.scale.copy(trxObj3d.scale)
-        }
-
-        function activateBatchedPlant() {
             jsonAsset(fileName, setJson);
         }
+
 
         function closePlant() {
             plantIsActive = false;
@@ -166,7 +120,6 @@ class BatchedPlant {
 
         this.call = {
             init:init,
-            activateForestTree:activateBatchedPlant,
             closePlant:closePlant
         }
 

@@ -2,7 +2,7 @@ import {jsonAsset} from "../../../application/utils/AssetUtils.js";
 import {unregisterGroundLodCallback} from "../../../application/grids/GroundBoundLodBox.js";
 import {Box3} from "three";
 import {Vector3} from "../../../../../libs/three/math/Vector3.js";
-import {Vector2} from "three/webgpu";
+import {Object3D, Vector2} from "three/webgpu";
 import {centerByIndexPos, positionBoxAtIndexPos} from "../../../application/utils/GridUtils.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {evt} from "../../../application/event/evt.js";
@@ -13,6 +13,9 @@ import {poolFetch} from "../../../application/utils/PoolUtils.js";
 
 const tempVec = new Vector3();
 const tempVec2 = new Vector3();
+
+const tempObj = new Object3D();
+
 
 class TerrainPlantsSection {
     constructor() {
@@ -43,19 +46,31 @@ class TerrainPlantsSection {
 
         }
 
-        function updateActivePlants() {
-            if (plantTargetCount !== activePlants.length) {
-                updateActivePlants();
-            }
+        function updateActivePlants(plantsJson) {
 
             while (activePlants.length > plantTargetCount) {
                 activePlants.pop().call.closePlant();
             }
 
-            while (activePlants.length > plantTargetCount) {
+            let seed = 1;
+
+            while (activePlants.length !== plantTargetCount) {
+            //    console.log(activePlants.length, plantTargetCount)
+                seed++;
                 let plant = poolFetch('BatchedPlant');
-                plant.call.init()
-                activePlants.pop().call.closePlant();
+                let pos = MATH.sillyRandomPointInBox(box, seed);
+                let height = terrainAt(pos);
+                pos.y = height;
+                tempObj.position.copy(pos);
+
+                let list = plantsJson['plants'];
+                let entry = MATH.getSillyRandomArrayEntry(list, seed)
+
+                evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:center, to:pos, color:'YELLOW'})
+
+
+                plant.call.init(entry, tempObj)
+                activePlants.push(plant);
             }
 
         }
@@ -134,7 +149,7 @@ class TerrainPlantsSection {
             }
 
             if (plantTargetCount !== activePlants.length) {
-                updateActivePlants();
+                updateActivePlants(plantsJson);
             }
 
             return isVisible;
