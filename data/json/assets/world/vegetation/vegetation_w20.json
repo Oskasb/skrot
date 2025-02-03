@@ -1,3 +1,7 @@
 {
-
+  "plants": [
+    "plant_flower_white_1",
+    "plant_flower_red_1",
+    "plant_shrub_leafy_1"
+  ]
 }

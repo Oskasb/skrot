@@ -1,0 +1,17 @@
+{
+  "material": "MeshStandardMaterial",
+  "textures": [
+    { "slot":"map",           "tx": "texture_veg_2k_diff"}
+  ],
+  "settings": {
+    "color": [1, 1, 1],
+    "metalness": 1.0,
+    "roughness": 1.0,
+    "aoMapIntensity": 1.0,
+    "alphaTest": 0.95
+  },
+  "shadows": {
+    "cast": false,
+    "receive": false
+  }
+}

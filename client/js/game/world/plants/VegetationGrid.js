@@ -26,6 +26,7 @@ class VegetationGrid {
         const availableVegTiles = [];
         const activeTiles = [];
 
+        let json = null;
 
         function tileByIndexXY(x, y) {
             for (let i = 0; i < activeTiles.length; i++) {
@@ -56,7 +57,7 @@ class VegetationGrid {
                     let indexY = j + indexPos.y - Math.floor(vegTilesSide * 0.5);
 
                     let tile = tileByIndexXY(indexX, indexY);
-                    let isVis = tile.call.visibilityTestPlantSector(boxSize, sideSize);
+                    let isVis = tile.call.visibilityTestPlantSector(boxSize, sideSize, vegTilesSide, dens, json);
                     if (isVis === false) {
                         availableVegTiles.push(tile);
                     }
@@ -70,8 +71,6 @@ class VegetationGrid {
             let dens = getSetting(ENUMS.Settings.VEGETATION_DENSITY) || 5;
 
             let sideSize = boxSize * vegTilesSide;
-            let gridTileSize = boxSize
-            let gridTotalSize = sideSize * gridTileSize
             let centerDistanceMargined = sideSize * vegTilesSide * 0.45;
 
             pointAheadOfCamera.set(0, 0, -1);
@@ -97,6 +96,7 @@ class VegetationGrid {
         }
 
         function onJson(jsn) {
+            json = jsn;
             ThreeAPI.registerPrerenderCallback(update);
         }
 

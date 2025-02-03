@@ -248,7 +248,7 @@ let getHeightAt = function(pos, array1d, unitScale, terrainSize, segments, norma
         if (normalStore) {
             normalStore.set(0, 1, 0)
         }
-        return -3;
+        return -200;
     }
 
     return getDisplacedHeight(array1d, segments, unitScale, x, z, htP, htN, normalStore, terrainScale, terrainOrigin, groundData);
