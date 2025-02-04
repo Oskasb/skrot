@@ -18,7 +18,7 @@ class BatchInstance {
 
         function transformObj(obj3d) {
 
-            evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:obj3d.position, to:ThreeAPI.getCameraCursor().getPos(), color:"YELLOW"})
+        //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:obj3d.position, to:ThreeAPI.getCameraCursor().getPos(), color:"YELLOW"})
             obj3d.updateMatrix();
             batchedMesh.setMatrixAt(id, obj3d.matrix)
         }

@@ -72,7 +72,7 @@ class VegetationGrid {
 
         function update() {
 
-            let boxSize = 4 * getSetting(ENUMS.Settings.VEGETATION_RANGE) || 15;
+            let boxSize = 2 * getSetting(ENUMS.Settings.VEGETATION_RANGE) || 15;
             let dens = getSetting(ENUMS.Settings.VEGETATION_DENSITY) || 5;
 
             let sideSize = boxSize * vegTilesSide;

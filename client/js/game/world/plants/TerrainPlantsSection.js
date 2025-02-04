@@ -66,7 +66,7 @@ class TerrainPlantsSection {
                 let list = plantsJson['plants'];
                 let entry = MATH.getSillyRandomArrayEntry(list, seed)
 
-                evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:center, to:pos, color:'YELLOW'})
+            //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:center, to:pos, color:'YELLOW'})
 
 
                 plant.call.init(entry, tempObj)
@@ -123,16 +123,16 @@ class TerrainPlantsSection {
             let camDistance = MATH.distanceBetween(cam.position, center);
 
             if (camDistance > maxDistance) {
-                evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:center, to:ThreeAPI.getCameraCursor().getPos(), color:'BLACK'})
+            //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:center, to:ThreeAPI.getCameraCursor().getPos(), color:'BLACK'})
                 removeSector()
                 return false;
             }
 
-            distanceFraciton = 1 - MATH.calcFraction(0, maxDistance, camDistance);
+            distanceFraciton = 1 - MATH.calcFraction(0, maxDistance * 1.2, camDistance);
             let lodBias = getSetting(ENUMS.Settings.LOD_BIAS); // (50 = neutral)
-            let biasFration = Math.pow(distanceFraciton, MATH.curveQuad(50 / lodBias))
+            let biasFration = Math.pow(distanceFraciton, MATH.curveQuad( 2 - (lodBias / 50)))
 
-            plantTargetCount = Math.floor(biasFration * dens * 100)
+            plantTargetCount = Math.floor(biasFration * dens * 50)
 
             box.setFromCenterAndSize(center, tempVec);
             /*
@@ -147,11 +147,11 @@ class TerrainPlantsSection {
             let isVisible = true // ThreeAPI.testBoxIsVisible(box);
 
             if (isVisible) {
-                evt.dispatch(ENUMS.Event.DEBUG_DRAW_AABOX, {min:box.min, max:box.max, color:'GREEN'})
+        //        evt.dispatch(ENUMS.Event.DEBUG_DRAW_AABOX, {min:box.min, max:box.max, color:'GREEN'})
             } else {
                 removeSector()
                 plantTargetCount = 0;
-                evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:center, to:ThreeAPI.getCameraCursor().getPos(), color:'RED'})
+            //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:center, to:ThreeAPI.getCameraCursor().getPos(), color:'RED'})
             }
 
             if (plantTargetCount !== activePlants.length) {

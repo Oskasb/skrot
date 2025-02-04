@@ -743,12 +743,12 @@ let getPreciseHeight = function(array1d, segments, unitScale, x, z, normalStore,
         evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:triangle.b, color:'GREEN', size:0.2});
         evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:triangle.c, color:'GREEN', size:0.2});
 
-*/
+
 
         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:triangle.a, to:triangle.b, color:'AQUA'});
         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:triangle.b, to:triangle.c, color:'AQUA'});
         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:triangle.c, to:triangle.a, color:'AQUA'});
-
+    */
     }
 
     return find.z;
