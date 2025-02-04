@@ -43,20 +43,20 @@ class TerrainPlantsSection {
         }
 
         function removeSector() {
-
+            while (activePlants.length > plantTargetCount) {
+                activePlants.pop().call.closePlant();
+            }
         }
 
         function updateActivePlants(plantsJson) {
 
-            while (activePlants.length > plantTargetCount) {
-                activePlants.pop().call.closePlant();
-            }
+            removeSector()
 
-            let seed = 1;
+
 
             while (activePlants.length !== plantTargetCount) {
             //    console.log(activePlants.length, plantTargetCount)
-                seed++;
+                let seed = activePlants.length;
                 let plant = poolFetch('BatchedPlant');
                 let pos = MATH.sillyRandomPointInBox(box, seed);
                 let height = terrainAt(pos);
@@ -106,7 +106,8 @@ class TerrainPlantsSection {
                             let y = terrainAt(tempVec2)
 
                             if (y < -1 || y > 1000) {
-                                return;
+                                removeSector()
+                                return false;
                             }
                         }
                     }
@@ -118,19 +119,20 @@ class TerrainPlantsSection {
 
             center.y = height;
 
-            let maxDistance = tilesXY*sideSize*0.9
+            let maxDistance = tilesXY*sideSize*0.7
             let camDistance = MATH.distanceBetween(cam.position, center);
 
             if (camDistance > maxDistance) {
                 evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:center, to:ThreeAPI.getCameraCursor().getPos(), color:'BLACK'})
-                return;
+                removeSector()
+                return false;
             }
 
-            distanceFraciton = (maxDistance - camDistance) / maxDistance
+            distanceFraciton = 1 - MATH.calcFraction(0, maxDistance, camDistance);
             let lodBias = getSetting(ENUMS.Settings.LOD_BIAS); // (50 = neutral)
             let biasFration = Math.pow(distanceFraciton, MATH.curveQuad(50 / lodBias))
 
-            plantTargetCount = Math.floor(biasFration * dens)
+            plantTargetCount = Math.floor(biasFration * dens * 100)
 
             box.setFromCenterAndSize(center, tempVec);
             /*
@@ -139,11 +141,15 @@ class TerrainPlantsSection {
             box.max.set(boxSize, boxSize, boxSize);
             center.copy(positionBoxAtIndexPos(box, indexPos, tempVec));
 */
-            let isVisible = ThreeAPI.testBoxIsVisible(box);
+
+
+
+            let isVisible = true // ThreeAPI.testBoxIsVisible(box);
 
             if (isVisible) {
                 evt.dispatch(ENUMS.Event.DEBUG_DRAW_AABOX, {min:box.min, max:box.max, color:'GREEN'})
             } else {
+                removeSector()
                 plantTargetCount = 0;
                 evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:center, to:ThreeAPI.getCameraCursor().getPos(), color:'RED'})
             }
@@ -152,15 +158,27 @@ class TerrainPlantsSection {
                 updateActivePlants(plantsJson);
             }
 
-            return isVisible;
+            if (plantTargetCount === 0) {
+                return false;
+            } else {
+                return true;
+            }
+
         }
 
         function getIndexPos() {
             return indexPos;
         }
 
+        function setIndexPos(x, y) {
+            removeSector()
+            plantTargetCount = 0;
+            indexPos.set(x, y);
+        }
+
         this.call = {
             getIndexPos:getIndexPos,
+            setIndexPos:setIndexPos,
             unregisterCallbacks:unregisterCallbacks,
             visibilityTestPlantSector:visibilityTestPlantSector
         }

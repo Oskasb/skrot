@@ -39,8 +39,9 @@ class VegetationGrid {
             let tile = availableVegTiles.pop();
             if (!tile) {
                 tile = new TerrainPlantsSection();
+                activeTiles.push(tile)
             }
-            tile.call.getIndexPos().set(x, y);
+            tile.call.setIndexPos(x, y);
 
             return tile;
 
@@ -48,30 +49,34 @@ class VegetationGrid {
 
         function updateVegGridSections(boxSize, dens, sideSize) {
 
-
+            for (let i = 0; i < activeTiles.length;i++) {
+                let tile = activeTiles[i];
+                let isVis = tile.call.visibilityTestPlantSector(boxSize, sideSize, vegTilesSide, dens, json);
+                if (isVis === false) {
+                    tile.call.setIndexPos(0.1, 0.1);
+                    availableVegTiles.push(tile);
+                    MATH.splice(activeTiles, tile);
+                    i--;
+                }
+            }
 
             for (let i = 0; i < vegTilesSide; i++) {
                 for (let j = 0; j < vegTilesSide; j++) {
 
                     let indexX = i + indexPos.x - Math.floor(vegTilesSide * 0.5);
                     let indexY = j + indexPos.y - Math.floor(vegTilesSide * 0.5);
-
                     let tile = tileByIndexXY(indexX, indexY);
-                    let isVis = tile.call.visibilityTestPlantSector(boxSize, sideSize, vegTilesSide, dens, json);
-                    if (isVis === false) {
-                        availableVegTiles.push(tile);
-                    }
                 }
             }
         }
 
         function update() {
 
-            let boxSize = 5 * getSetting(ENUMS.Settings.VEGETATION_RANGE) || 15;
+            let boxSize = 4 * getSetting(ENUMS.Settings.VEGETATION_RANGE) || 15;
             let dens = getSetting(ENUMS.Settings.VEGETATION_DENSITY) || 5;
 
             let sideSize = boxSize * vegTilesSide;
-            let centerDistanceMargined = sideSize * vegTilesSide * 0.45;
+            let centerDistanceMargined = sideSize * vegTilesSide * 0.4;
 
             pointAheadOfCamera.set(0, 0, -1);
             pointAheadOfCamera.applyQuaternion(cam.quaternion);
@@ -83,16 +88,17 @@ class VegetationGrid {
             let lookDist = MATH.distanceBetween(pointAheadOfCamera, lastLookAt)
             let camPosDist = MATH.distanceBetween(cam.position, lastCamPos)
 
-            if (lookDist < sideSize * 0.5 && camPosDist < sideSize * 0.5) {
+            if (lookDist < sideSize * 0.01 && camPosDist < sideSize * 0.01) {
                 //    debugDrawActiveBoxes()
-            //    return;
+            //    return;1
             } else {
                 lastLookAt.copy(pointAheadOfCamera);
                 lastCamPos.copy(cam.position)
                 gridIndexForPos(pointAheadOfCamera, indexPos, sideSize);
+                updateVegGridSections(boxSize, dens, sideSize)
             }
 
-            updateVegGridSections(boxSize, dens, sideSize)
+
         }
 
         function onJson(jsn) {
