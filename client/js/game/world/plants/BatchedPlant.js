@@ -72,10 +72,7 @@ class BatchedPlant {
 
                     let modelInstance = assetBatchGeometry.call.activateBatchInstance(modelName);
 
-                    tempObj.position.copy(obj3d.position);
-                    tempObj.quaternion.copy(obj3d.quaternion);
-                    tempObj.scale.copy(obj3d.scale);
-                    modelInstance.call.transformObj(tempObj);
+                    modelInstance.call.transformObj(obj3d);
                     batchInstances.push(modelInstance);
 
                 }

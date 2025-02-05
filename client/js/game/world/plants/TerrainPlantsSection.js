@@ -6,7 +6,7 @@ import {Object3D, Vector2} from "three/webgpu";
 import {centerByIndexPos, positionBoxAtIndexPos} from "../../../application/utils/GridUtils.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {evt} from "../../../application/event/evt.js";
-import {terrainAt} from "../../../3d/three/terrain/ComputeTerrain.js";
+import {groundAt, terrainAt} from "../../../3d/three/terrain/ComputeTerrain.js";
 import {MATH} from "../../../application/MATH.js";
 import {getSetting} from "../../../application/utils/StatusUtils.js";
 import {poolFetch} from "../../../application/utils/PoolUtils.js";
@@ -15,7 +15,7 @@ const tempVec = new Vector3();
 const tempVec2 = new Vector3();
 
 const tempObj = new Object3D();
-
+const groundData = {};
 
 class TerrainPlantsSection {
     constructor() {
@@ -53,24 +53,55 @@ class TerrainPlantsSection {
             removeSector()
 
 
+            let offset = 0;
+
+
 
             while (activePlants.length !== plantTargetCount) {
             //    console.log(activePlants.length, plantTargetCount)
-                let seed = activePlants.length;
+                let seed = activePlants.length + offset;
                 let plant = poolFetch('BatchedPlant');
                 let pos = MATH.sillyRandomPointInBox(box, seed);
-                let height = terrainAt(pos);
-                pos.y = height;
-                tempObj.position.copy(pos);
 
-                let list = plantsJson['plants'];
-                let entry = MATH.getSillyRandomArrayEntry(list, seed)
-
-            //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:center, to:pos, color:'YELLOW'})
+                groundAt(pos, groundData);
+                let height = terrainAt(pos, tempVec);
 
 
-                plant.call.init(entry, tempObj)
-                activePlants.push(plant);
+                if (groundData.z < 0.01 && tempVec.y > 0.59) {
+
+                    pos.y = height;
+
+
+                    let biomeIndex = Math.floor(groundData.x * 2);
+                    let vegIndex = Math.floor(groundData.y * 7);
+
+
+
+                    tempObj.position.copy(pos);
+
+                    tempObj.quaternion.set(0, 0, 0, 1);
+               //     tempObj.rotateX(MATH.sillyRandom(seed)*MATH.TWO_PI);
+                    tempObj.rotateZ(-tempVec.x);
+                    tempObj.rotateX(tempVec.z);
+                    tempObj.rotateY(seed*0.5);
+                //    tempObj.lookAt(tempVec)
+
+                    let biomes = plantsJson['biomes'];
+
+                    let list = biomes[biomeIndex][vegIndex] // plantsJson['plants'];
+                    let entry = MATH.getSillyRandomArrayEntry(list, seed)
+
+                    //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:center, to:pos, color:'YELLOW'})
+
+
+                    plant.call.init(entry, tempObj)
+                    activePlants.push(plant);
+                } else {
+                    plantTargetCount--
+                    offset++;
+                }
+
+
             }
 
         }
