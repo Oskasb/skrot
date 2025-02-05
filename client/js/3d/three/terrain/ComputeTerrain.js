@@ -157,11 +157,15 @@ function customOceanUv() {
 function customTerrainUv() {
 
     const tileSize = ZERO.add(TILE_SIZE);
-    const tileFraction = tileSize.div(GROUND_TILES).mul(4);
 
-    const pxScale = ONE.div(4096).mul(4)
+    const scaleFactor = 4;
 
-    const scalePxInverse = tileFraction.mul(4);
+    const resFactor = 4;
+
+    const tileFraction = tileSize.div(GROUND_TILES).mul(scaleFactor) // .div(resFactor);
+    const pxScale = ONE.div(4096).mul(scaleFactor).div(resFactor)
+    const scalePxInverse = tileFraction.mul(scaleFactor).div(resFactor);
+
     const modBy = tileFraction;
     const scaleDiv = GROUND_TILES.add(2.2)
     const scaleTile = GROUND_TILES.mul(0.55)

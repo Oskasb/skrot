@@ -67,7 +67,7 @@ class TerrainPlantsSection {
                 let height = terrainAt(pos, tempVec);
 
 
-                if (groundData.z < 0.01 && tempVec.y > 0.59) {
+                if (groundData.z < 0.01 && tempVec.y > 0.8) {
 
                     pos.y = height;
 
