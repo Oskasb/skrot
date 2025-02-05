@@ -1,29 +1,27 @@
 {
-  "plants": [
-    "plant_flower_white_1",
-    "plant_flower_red_1",
-    "plant_shrub_leafy_1"
-  ],
+  "side_tiles": 5,
+  "density": 15,
+  "tile_scale": 6,
   "biomes": [
     [
-      ["plant_flower_white_1"],
-      ["plant_flower_white_1"],
-      ["plant_flower_red_1"],
-      ["plant_flower_red_1"],
+      ["plant_shrub_small_1","plant_grass_low_sparse_dry_1"],
+      ["plant_grass_sparse_dry_1", "plant_grass_low_sparse_dry_1"],
+      ["plant_grass_sparse_1", "plant_grass_sparse_2"],
+      ["plant_underbrush_leafy_1"],
+      ["plant_shrub_flowery_1"],
       ["plant_shrub_leafy_1"],
-      ["plant_shrub_leafy_1"],
-      ["plant_shrub_leafy_1"],
-      ["plant_shrub_leafy_1"]
+      ["plant_shrub_leafy_1", "plant_shrub_large_leafy_1"],
+      ["plant_shrub_large_leafy_1"]
     ],
     [
-      ["plant_flower_white_1"],
-      ["plant_flower_white_1"],
-      ["plant_flower_red_1"],
-      ["plant_flower_red_1"],
+      ["plant_shrub_small_1","plant_grass_low_sparse_dry_1"],
+      ["plant_grass_low_sparse_dry_1", "plant_grass_sparse_dry_2"],
+      ["plant_grass_sparse_1", "plant_grass_sparse_2"],
+      ["plant_underbrush_leafy_1"],
+      ["plant_shrub_flowery_1"],
       ["plant_shrub_leafy_1"],
-      ["plant_shrub_leafy_1"],
-      ["plant_shrub_leafy_1"],
-      ["plant_shrub_leafy_1"]
+      ["plant_shrub_leafy_1", "plant_shrub_large_leafy_1"],
+      ["plant_shrub_large_leafy_1"]
     ]
   ]
 }

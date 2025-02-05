@@ -73,7 +73,7 @@ class TerrainPlantsSection {
 
 
                     let biomeIndex = Math.floor(groundData.x * 1.8);
-                    let vegIndex = Math.floor(groundData.y * 7);
+                    let vegIndex = Math.floor(groundData.y * 7.9);
 
 
 
@@ -163,16 +163,9 @@ class TerrainPlantsSection {
             let lodBias = getSetting(ENUMS.Settings.LOD_BIAS); // (50 = neutral)
             let biasFration = Math.pow(distanceFraciton, MATH.curveQuad( 2 - (lodBias / 50)))
 
-            plantTargetCount = Math.floor(biasFration * dens * 50)
+            plantTargetCount = Math.floor(biasFration * dens)
 
             box.setFromCenterAndSize(center, tempVec);
-            /*
-
-            box.min.set(0, 0, 0);
-            box.max.set(boxSize, boxSize, boxSize);
-            center.copy(positionBoxAtIndexPos(box, indexPos, tempVec));
-*/
-
 
 
             let isVisible = true // ThreeAPI.testBoxIsVisible(box);

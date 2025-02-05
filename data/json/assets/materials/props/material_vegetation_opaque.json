@@ -1,18 +1,24 @@
 {
-  "material": "MeshStandardMaterial",
+  "material": "MeshPhongNodeMaterial",
   "textures": [
-    { "slot":"map",           "tx": "texture_veg_2k_diff"}
+    { "slot":"map",           "tx": "texture_veg_2k_diff"},
+    { "slot":"specularMap",   "tx": "texture_veg_2k_diff"}
   ],
   "settings": {
-    "color": [1, 1, 1],
+    "color": {"r": 1, "g": 1, "b": 1},
+    "specular": {"r": 0.8, "g": 0.8, "b": 0.8},
     "metalness": 0.0,
     "roughness": 1.0,
     "aoMapIntensity": 0.0,
     "alphaTest": 0.25,
-    "side": "DoubleSide"
+    "side": "FrontSide"
   },
   "shadows": {
     "cast": false,
     "receive": false
+  },
+  "nodes": {
+    "positionNode": "POSITION_NODE_VEGETATION",
+    "colorNode_": "POSITION_DEBUG"
   }
 }

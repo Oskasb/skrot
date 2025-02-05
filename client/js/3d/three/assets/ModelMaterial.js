@@ -9,6 +9,7 @@ import {customTerrainUv, customOceanUv} from "../terrain/ComputeTerrain.js";
 import {MeshBasicNodeMaterial, MeshPhongNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
 import {MeshBasicMaterial, MeshLambertMaterial} from "three";
 import {customSpriteUv8x8} from "../fx/NodeParticleGeometry.js";
+import {customNodes} from "./MaterialNodes.js";
 
 class MeshSpecialTerrainNodeMaterial extends MeshStandardNodeMaterial {
     setup( builder ) {
@@ -110,6 +111,7 @@ materials['MeshSpecialBasicOceanNodeMaterial'] = MeshSpecialBasicOceanNodeMateri
 materials['MeshParticleLambertNodeMaterial'] = MeshParticleLambertNodeMaterial;
 materials['TiledSpriteNodeMaterial8x8'] = TiledSpriteNodeMaterial8x8;
 materials['SpriteNodeMaterial'] = SpriteNodeMaterial;
+materials['MeshPhongNodeMaterial'] = MeshPhongNodeMaterial;
 
 class ModelMaterial {
     constructor() {
@@ -176,6 +178,13 @@ class ModelMaterial {
                     if (data.shadows) {
                         settings.material.userData.shadows = data.shadows;
                     }
+
+                    if (data.nodes) {
+                        for (let key in data.nodes) {
+                            settings.material[key] = customNodes[data.nodes[key]];
+                        }
+                    }
+
 
                     let mat = settings.material;
                     let matSettings = data.settings

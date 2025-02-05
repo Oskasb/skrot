@@ -1,0 +1,27 @@
+{
+  "side_tiles": 5,
+  "density": 15,
+  "tile_scale": 1.4,
+  "biomes": [
+    [
+      ["plant_grass_low_sparse_dry_1"],
+      ["plant_flower_white_1", "plant_grass_low_sparse_1", "plant_grass_sparse_1"],
+      ["plant_flower_yellow_1", "plant_grass_sparse_1", "plant_grass_sparse_2"],
+      ["plant_flower_red_1", "plant_grass_low_flowery_1", "plant_grass_sparse_1"],
+      ["plant_ferns_1", "plant_shrub_small_1"],
+      ["plant_shrub_small_1", "plant_ferns_1"],
+      ["plant_underbrush_leafy_1", "plant_ferns_1"],
+      ["plant_underbrush_leafy_1", "plant_shrub_small_1"]
+    ],
+    [
+      ["plant_grass_low_sparse_dry_1"],
+      ["plant_flower_white_1", "plant_grass_low_sparse_1", "plant_grass_sparse_1"],
+      ["plant_flower_yellow_1", "plant_grass_sparse_1", "plant_grass_sparse_2"],
+      ["plant_flower_red_1", "plant_grass_low_flowery_1", "plant_grass_sparse_1"],
+      ["plant_ferns_1", "plant_shrub_small_1"],
+      ["plant_shrub_small_1", "plant_ferns_1"],
+      ["plant_underbrush_leafy_1", "plant_ferns_1"],
+      ["plant_underbrush_leafy_1", "plant_shrub_small_1"]
+    ]
+  ]
+}

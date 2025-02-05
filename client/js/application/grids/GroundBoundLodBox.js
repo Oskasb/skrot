@@ -117,9 +117,12 @@ class GroundBoundLodBox {
     }
 
     testLodBoxVisibility(camPos) {
+
         let isVisible = ThreeAPI.testBoxIsVisible(this.box);
 
         if (isVisible) {
+
+
             let camDistance = MATH.distanceBetween(camPos, this.center);
             if (camDistance > this.maxDistance) {
                 this.lodLevel = 0;

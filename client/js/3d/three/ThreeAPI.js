@@ -77,6 +77,7 @@ class ThreeAPI {
 
         function trnLoaded() {
             new VegetationGrid('vegetation_w20');
+            new VegetationGrid('vegetation_w20_near');
             new Ocean(store)
         }
 

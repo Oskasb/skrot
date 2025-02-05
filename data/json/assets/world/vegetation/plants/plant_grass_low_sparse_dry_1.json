@@ -1,0 +1,5 @@
+{
+  "size": [0.45, 0.8],
+  "batch": "batch_vegetation",
+  "model": "grass_low_sparse_dry_1"
+}

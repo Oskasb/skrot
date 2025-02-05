@@ -1,0 +1,5 @@
+{
+  "size": [1, 2],
+  "batch": "batch_vegetation",
+  "model": "shrub_small_1"
+}

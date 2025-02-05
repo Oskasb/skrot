@@ -1,9 +1,23 @@
 {
-  "count": 10000,
+  "count": 20000,
   "geometries": [
+    "ferns_1",
     "flower_red_1",
+    "flower_yellow_1",
     "flower_white_1",
-    "shrub_leafy_1"
+    "grass_low_1",
+    "grass_low_2",
+    "grass_low_flowery_1",
+    "grass_low_sparse_1",
+    "grass_low_sparse_dry_1",
+    "grass_sparse_1",
+    "grass_sparse_2",
+    "grass_sparse_dry_1",
+    "grass_sparse_dry_2",
+    "shrub_flowery_1",
+    "shrub_leafy_1",
+    "shrub_small_1",
+    "underbrush_leafy_1"
   ],
   "material":"material_vegetation_opaque"
 }

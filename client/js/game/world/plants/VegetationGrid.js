@@ -21,7 +21,12 @@ class VegetationGrid {
         const lastLookAt = new Vector3();
         const lastCamPos = new Vector3();
 
-        const vegTilesSide = 7;
+        const settings = {
+            vegTilesSide : 7,
+            densityFactor : 10,
+            tileScale : 2
+        }
+
 
         const availableVegTiles = [];
         const activeTiles = [];
@@ -51,7 +56,7 @@ class VegetationGrid {
 
             for (let i = 0; i < activeTiles.length;i++) {
                 let tile = activeTiles[i];
-                let isVis = tile.call.visibilityTestPlantSector(boxSize, sideSize, vegTilesSide, dens, json);
+                let isVis = tile.call.visibilityTestPlantSector(boxSize, sideSize, settings.vegTilesSide, dens, json);
                 if (isVis === false) {
                     tile.call.setIndexPos(0.1, 0.1);
                     availableVegTiles.push(tile);
@@ -60,11 +65,11 @@ class VegetationGrid {
                 }
             }
 
-            for (let i = 0; i < vegTilesSide; i++) {
-                for (let j = 0; j < vegTilesSide; j++) {
+            for (let i = 0; i < settings.vegTilesSide; i++) {
+                for (let j = 0; j < settings.vegTilesSide; j++) {
 
-                    let indexX = i + indexPos.x - Math.floor(vegTilesSide * 0.5);
-                    let indexY = j + indexPos.y - Math.floor(vegTilesSide * 0.5);
+                    let indexX = i + indexPos.x - Math.floor(settings.vegTilesSide * 0.5);
+                    let indexY = j + indexPos.y - Math.floor(settings.vegTilesSide * 0.5);
                     let tile = tileByIndexXY(indexX, indexY);
                 }
             }
@@ -72,11 +77,11 @@ class VegetationGrid {
 
         function update() {
 
-            let boxSize = 2 * getSetting(ENUMS.Settings.VEGETATION_RANGE) || 15;
+            let boxSize = settings.tileScale * getSetting(ENUMS.Settings.VEGETATION_RANGE) || 15;
             let dens = getSetting(ENUMS.Settings.VEGETATION_DENSITY) || 5;
 
-            let sideSize = boxSize * vegTilesSide;
-            let centerDistanceMargined = sideSize * vegTilesSide * 0.4;
+            let sideSize = boxSize * settings.vegTilesSide;
+            let centerDistanceMargined = sideSize * settings.vegTilesSide * 0.4;
 
             pointAheadOfCamera.set(0, 0, -1);
             pointAheadOfCamera.applyQuaternion(cam.quaternion);
@@ -95,7 +100,7 @@ class VegetationGrid {
                 lastLookAt.copy(pointAheadOfCamera);
                 lastCamPos.copy(cam.position)
                 gridIndexForPos(pointAheadOfCamera, indexPos, sideSize);
-                updateVegGridSections(boxSize, dens, sideSize)
+                updateVegGridSections(boxSize, dens * settings.densityFactor, sideSize)
             }
 
 
@@ -103,6 +108,9 @@ class VegetationGrid {
 
         function onJson(jsn) {
             json = jsn;
+            settings.vegTilesSide = json["side_tiles"]
+            settings.densityFactor  = json["density"]
+            settings.tileScale = json["tile_scale"]
             ThreeAPI.registerPrerenderCallback(update);
         }
 
