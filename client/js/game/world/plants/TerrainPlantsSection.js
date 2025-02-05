@@ -72,7 +72,7 @@ class TerrainPlantsSection {
                     pos.y = height;
 
 
-                    let biomeIndex = Math.floor(groundData.x * 2);
+                    let biomeIndex = Math.floor(groundData.x * 1.8);
                     let vegIndex = Math.floor(groundData.y * 7);
 
 
