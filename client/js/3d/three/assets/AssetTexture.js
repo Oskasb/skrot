@@ -4,6 +4,7 @@ import {MATH} from "../../../application/MATH.js";
 import {CanvasTexture, RepeatWrapping, Texture} from "../../../../../libs/three/Three.Core.js";
 import {JsonAsset} from "../../../application/load/JsonAsset.js";
 import {jsonAsset} from "../../../application/utils/AssetUtils.js";
+import {Source} from "three";
 
 class AssetTexture {
     constructor(textureFileName) {
@@ -24,20 +25,24 @@ class AssetTexture {
         function initTx(txName) {
             settings.txName = txName;
             let assetLoaded = function(image) {
+                settings.texture.source = new Source(image)
                 settings.bitmap = image;
             //    console.log("bitmap assetLoaded", image);
-                settings.texture = new Texture(image);
+
                 settings.texture.wrapS = RepeatWrapping;
                 settings.texture.wrapT = RepeatWrapping;
                 settings.texture.flipY = false;
                 settings.texture.needsUpdate = true;
                 settings.texture.generateMipmaps = false;
-                sendToSubscribers();
+
             }
 
             function onJson(data) {
+                settings.texture = new Texture();
+                sendToSubscribers();
                 loadImageAsset(data.file, assetLoaded)
             }
+
             jsonAsset(txName, onJson);
 
         }

@@ -225,6 +225,7 @@ class ModelMaterial {
                 } else {
                     materialLoaded()
                 }
+
             }
 
             jsonAsset(name, onJsonLoaded)
