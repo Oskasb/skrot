@@ -22,6 +22,7 @@ import {DomWorldButtonLayer} from "./application/ui/dom/DomWorldButtonLayer.js";
 import {ThreeShadows} from "./3d/three/fx/ThreeShadows.js";
 import {DomMinimap} from "./application/ui/dom/DomMinimap.js";
 import {GroundBoundLodGrid} from "./application/grids/GroundBoundLodGrid.js";
+import {VegetationGrid} from "./game/world/plants/VegetationGrid.js";
 
 
 
@@ -58,10 +59,10 @@ function startGameWorld() {
         player:player
     }
 
-    new DomMinimap()
+
 
     function stickReady() {
-        new GroundBoundLodGrid('ground_lod_grid')
+
     }
 
     thumbstick.call.initElement(sMap, 'ui/ui_thumb_stick', 'ui_flight_stick', stickReady)
@@ -83,7 +84,10 @@ function startGameWorld() {
         console.log("CVN ", boat);
         boat.addToScene();
         elementList.push(boat);
-
+        new DomMinimap()
+        new VegetationGrid('vegetation_w20');
+        new VegetationGrid('vegetation_w20_near');
+        new GroundBoundLodGrid('ground_lod_grid')
         function updatePhys() {
             let obj3d = boat.getObj3d();
             let body = obj3d.userData.body;
