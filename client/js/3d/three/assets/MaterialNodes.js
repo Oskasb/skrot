@@ -1,5 +1,5 @@
 import {Fn, transformNormalToView, varyingProperty, vec3} from "../../../../../libs/three/Three.TSL.js";
-import {instanceIndex, normalLocal, positionGeometry, positionLocal, time} from "three/tsl";
+import {instanceIndex, max, normalLocal, positionGeometry, positionLocal, time} from "three/tsl";
 
 let NORMAL_NODE_VEGETATION = Fn( () => {
     const up = positionLocal.z;
@@ -10,7 +10,7 @@ let NORMAL_NODE_VEGETATION = Fn( () => {
 
 
 let POSITION_NODE_VEGETATION = Fn( () => {
-    const upNess = positionGeometry.y;
+    const upNess = max(0, positionGeometry.y);
     const posDir = normalLocal.add(vec3(0, upNess.mul(2).add(0.5), 0)).normalize();
     const sway = time.add(positionGeometry.x).sin().mul(upNess).mul(0.3);
     const swayPos = vec3(positionLocal.x.add(sway.cos()), positionLocal.y, positionLocal.z.add(sway))
