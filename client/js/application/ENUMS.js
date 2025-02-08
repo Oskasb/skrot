@@ -263,7 +263,8 @@ let ENUMS = {}
         SCALE_ADVENTURES:'SCALE_ADVENTURES',
         OFFSET_RBAR_X:'OFFSET_RBAR_X',
         OFFSET_RBAR_Y:'OFFSET_RBAR_Y',
-        SCALE_RBAR:'SCALE_RBAR'
+        SCALE_RBAR:'SCALE_RBAR',
+        TORQUE_BOOST:'TORQUE_BOOST'
     }
 
     ENUMS.StrongholdStatus = {

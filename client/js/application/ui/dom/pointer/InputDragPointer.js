@@ -27,7 +27,7 @@ class InputDragPointer {
 
         let pressOrigin = {};
         const pressMoveSum= {X:null, Y:null};
-        const pressEndMove = {X:0, Y:0};
+        const keyMove = {X:0, Y:0};
 
         function pressStart(e) {
             pressActive = true;
@@ -106,9 +106,9 @@ class InputDragPointer {
                         posY = inputFrac
                     }
 
-                }
+                    translateElement3DPercent(inputElement, posX, posY, 0);
 
-                translateElement3DPercent(inputElement, posX, posY, 0);
+                }
 
             }
 
@@ -199,6 +199,7 @@ class InputDragPointer {
                 let min =  options[i].min;
                 let max =  options[i].max;
                 let origin = options[i].origin;
+                let autoZero = options[i].autoZero;
 
                 let offsetFrac = MATH.calcFraction(min, max, origin);
 
@@ -207,27 +208,34 @@ class InputDragPointer {
 
                     if (keySum !== 0) {
                         hasKeyState = true;
+                        keyMove[axis] += keySum*getFrame().tpf
+
+                        let inputPos = MATH.clamp(keyMove[axis], min, max);
+
+
+                        let inputFrac = (MATH.calcFraction(min, max, inputPos) - offsetFrac) * 100;
+
+                        statusMap['AXIS_'+axis] = inputPos // * getFrame().tpf*3;
+
+                        let invert = options[i].invert;
+                        if (invert === true) {
+                            inputFrac = 100 - inputFrac;
+                        }
+
+                        if (axis === 'X') {
+                            posX = inputFrac
+                        }
+
+                        if (axis === 'Y') {
+                            posY = inputFrac
+                        }
+
+                    } else {
+                        if (autoZero === true) {
+                            keyMove[axis] = 0;
+                        }
                     }
 
-                let inputPos = MATH.clamp(keyToValue(keys.add) - keyToValue(keys.sub), min, max);
-
-                let inputFrac = (MATH.calcFraction(min, max, inputPos) - offsetFrac) * 100;
-
-                let invert = options[i].invert;
-                if (invert === true) {
-                    //   inputFrac = 100-inputFrac;
-                    statusMap['AXIS_'+axis] += (1-inputPos) * getFrame().tpf*3;
-                } else {
-                    statusMap['AXIS_'+axis] += inputPos * getFrame().tpf*3;
-                }
-
-                if (axis === 'X') {
-                    posX = inputFrac
-                }
-
-                if (axis === 'Y') {
-                    posY = inputFrac
-                }
 
             }
 
@@ -236,6 +244,7 @@ class InputDragPointer {
             } else if (hadKeyState) {
                 pressEnd();
             }
+
         }
 
         function activateDragSurface(surfaceElem, inputElem, sMap, opts) {

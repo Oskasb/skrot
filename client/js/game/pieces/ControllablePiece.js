@@ -205,6 +205,13 @@ class ControllablePiece {
         }
     }
 
+    getMass() {
+        if (this.assetInstance) {
+            return this.getObj3d().userData.mass;
+        } else {
+            return 0;
+        }
+    }
 
 }
 

@@ -1,4 +1,3 @@
-import {JsonAsset} from "../load/JsonAsset.js";
 import {
     ammoTranformToObj3d,
     bodyTransformToObj3d,
@@ -263,6 +262,7 @@ get_m_worldTransform
                 }
                 console.log("body added", body);
                 obj3d.userData.body = body;
+                obj3d.userData.mass = mass;
                 AmmoAPI.registerPhysicsStepCallback(updateBodyObj3d)
                 ThreeAPI.addPostrenderCallback(alignVisualModel)
             }
@@ -282,8 +282,11 @@ get_m_worldTransform
                 }
             }
 
+            let mass = 0;
+
             for (let i = 0; i < config.shapes.length; i++) {
                 let conf = config.shapes[i];
+                mass += conf['mass'];
                 AmmoAPI.setupRigidBody(obj3d, conf['shape'], conf['mass'], conf['friction'], conf['pos'], conf['rot'], conf['scale'], conf['asset'], conf['convex'], conf['children'], bodyReadyCB)
             }
         }

@@ -3,6 +3,7 @@ import {bodyTransformToObj3d, getBodyVelocity} from "../../application/utils/Phy
 import {ENUMS} from "../../application/ENUMS.js";
 import {evt} from "../../application/event/evt.js";
 import {MATH} from "../../application/MATH.js";
+import {getSetting} from "../../application/utils/StatusUtils.js";
 
 let tempObj = new Object3D();
 let tempObj2 = new Object3D();
@@ -106,7 +107,12 @@ class ControllableForceProcessor {
             let inputPitch = controllablePiece.getControlStateValue('INPUT_PITCH');
 
             tempVec1.set(0, 0, 0);
-            tempVec2.set(MATH.curveQuad(inputPitch), -MATH.curveQuad(inputYaw), -MATH.curveQuad(inputRoll)).multiplyScalar(1200000000 * stepTime)
+            let torqueBoost = MATH.curveQuad(getSetting(ENUMS.Settings.TORQUE_BOOST));
+            let mass = controllablePiece.getMass();
+            tempVec2.set(MATH.curveQuad(inputPitch), -MATH.curveQuad(inputYaw), -MATH.curveQuad(inputRoll))
+            let cheatTorque = mass * 1000 * torqueBoost * stepTime;
+            let speedTorque = mass * 100 * MATH.curveSqrt(speedSq) * stepTime
+            tempVec2.multiplyScalar(cheatTorque + speedTorque)
             tempVec2.applyQuaternion(tempObj.quaternion)
             AmmoAPI.applyForceAndTorqueToBody(tempVec1, tempVec2, body)
 
