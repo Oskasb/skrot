@@ -8,8 +8,9 @@ class PieceInput {
         let domUiElement = null;
 
         let inputTargets = json['input_targets'];
-
         let feedback = json['feedback'] || [];
+
+
 
         for (let i = 0; i < inputTargets.length; i++) {
             statusMap[inputTargets[i].sample] = inputTargets[i].init || 0;

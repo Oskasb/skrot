@@ -17,7 +17,8 @@ let page0 = {
         {name:'Lod Bias', key:ENUMS.Settings.LOD_BIAS, type:'range', min:1, max:99, default:50},
         {name:'Veg Range', key:ENUMS.Settings.VEGETATION_RANGE, type:'range', min:3, max:25, default:15},
         {name:'Veg Density', key:ENUMS.Settings.VEGETATION_DENSITY, type:'range', min:1, max:9, default:3},
-        {name:'Torque Boost', key:ENUMS.Settings.TORQUE_BOOST, type:'range', min:0, max:9, default:1}
+        {name:'Torque Boost', key:ENUMS.Settings.TORQUE_BOOST, type:'range', min:0, max:9, default:0},
+        {name:'View Wheels', key:ENUMS.Settings.DEBUG_VIEW_WHEELS, type:'range', min:0, max:1, default:0}
     ]
 }
 

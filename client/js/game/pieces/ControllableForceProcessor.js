@@ -111,7 +111,7 @@ class ControllableForceProcessor {
             let mass = controllablePiece.getMass();
             tempVec2.set(MATH.curveQuad(inputPitch), -MATH.curveQuad(inputYaw), -MATH.curveQuad(inputRoll))
             let cheatTorque = mass * 1000 * torqueBoost * stepTime;
-            let speedTorque = mass * 100 * MATH.curveSqrt(speedSq) * stepTime
+            let speedTorque = mass * 1000 * MATH.curveSqrt(speedSq*0.1) * stepTime
             tempVec2.multiplyScalar(cheatTorque + speedTorque)
             tempVec2.applyQuaternion(tempObj.quaternion)
             AmmoAPI.applyForceAndTorqueToBody(tempVec1, tempVec2, body)

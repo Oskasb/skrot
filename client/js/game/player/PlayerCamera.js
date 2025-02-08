@@ -31,6 +31,8 @@ class PlayerCamera {
             lastCamPos.copy(camera.position);
             ThreeAPI.getCameraCursor().getPos().copy(orbitControls.target)
 
+            /*
+
             groundAt(orbitControls.target, colorStore);
             tempVec.copy(orbitControls.target)
             tempVec.y = terrainAt(tempVec);
@@ -38,16 +40,16 @@ class PlayerCamera {
             evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:tempVec, size:2, color:colorStore})
             tempVec.y += 20;
             evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:orbitControls.target, to:tempVec, color:colorStore})
-
+*/
         }
 
 
         function initCamera() {
-            camera.position.set( 1178, 60, 3475 );
+            camera.position.set( 1199, 58, 3495 );
             //    dynamics.addEventListener( 'change', render ); // use if there is no animation loop
             orbitControls.minDistance = 0.5;
             orbitControls.maxDistance = 8000;
-            orbitControls.target.set( 1178, 40 , 3425);
+            orbitControls.target.set( 1202, 52 , 3465);
             ThreeAPI.getCameraCursor().getPos().copy(orbitControls.target)
             player.call.getObj3d().position.copy(orbitControls.target)
             orbitControls.update();

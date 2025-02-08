@@ -15,6 +15,7 @@ import {jsonAsset} from "../utils/AssetUtils.js";
 import {AmmoVehicle} from "./AmmoVehicle.js";
 import {Object3D} from "three/webgpu";
 import {Quaternion} from "three";
+import {getSetting} from "../utils/StatusUtils.js";
 
 let tempVec = new Vector3();
 
@@ -114,13 +115,14 @@ class PhysicalModel {
             acceleration.copy(velocity);
             let ammoVel = obj3d.userData.body.getLinearVelocity();
             velocity.set(ammoVel.x(), ammoVel.y(), ammoVel.z());
+            let speed = velocity.length();
             velocity.applyQuaternion(obj3d.quaternion);
             acceleration.sub(velocity);
             acceleration.y += 9.81;
             lastG = acceleration.y;
-            assetStatus.setStatusKey('SPEED_AIR',velocity.z);
+            assetStatus.setStatusKey('SPEED_AIR', speed);
 
-            if (Math.abs(velocity.z) < 0.5) {
+            if (speed < 0.5 && assetStatus.getStatus(ENUMS.InstanceStatus.WEIGHT_ON_WHEELS) === 1) {
                 assetStatus.setStatusKey('TAXI_SLOW',1);
             } else {
                 assetStatus.setStatusKey('TAXI_SLOW',0);
@@ -139,6 +141,9 @@ class PhysicalModel {
             vehicle.updateWheelTransformsWS();
 
             let wheels = vehicle.getNumWheels();
+
+            let groundContact = false;
+
             for (let i = 0; i < wheels; i++) {
 
                 if (!wheelStates[i]) {
@@ -173,9 +178,7 @@ class PhysicalModel {
                     wheelStates[i].contactNormal.set(contactNormal.x(), contactNormal.y(), contactNormal.z());
                     let compressFraction = MATH.calcFraction(0, maxTravel, suspTotal-currentLength);
                     wheelStates[i].suspensionCompression = compressFraction;
-
-                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:wheelStates[i].contactPoint, size:compressFraction, color:'RED'});
-
+                    groundContact = true;
                 } else {
                     wheelStates[i].suspensionCompression = 0;
                 }
@@ -184,16 +187,31 @@ class PhysicalModel {
 
                 //    console.log("rayInfo ", rayInfo);
 
-                let ammoTrx = vehicle.getWheelTransformWS(i);
-                ammoTranformToObj3d(ammoTrx, wheelStates[i]);
+                if (getSetting(ENUMS.Settings.DEBUG_VIEW_WHEELS)) {
 
-                lineFrom.copy(wheelStates[i].position);
-                lineTo.set(0, 0, currentLength);
-                lineTo.applyQuaternion(wheelStates[i].quaternion)
-                lineTo.add(lineFrom);
-                evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt);
-                evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:lineFrom, size:0.2, color:'GREEN'});
+                    if (isInContact) {
+                        evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:wheelStates[i].contactPoint, size:wheelStates[i].suspensionCompression, color:'RED'});
+                    }
+
+                    let ammoTrx = vehicle.getWheelTransformWS(i);
+                    ammoTranformToObj3d(ammoTrx, wheelStates[i]);
+                    lineFrom.copy(wheelStates[i].position);
+                    lineTo.set(0, 0, currentLength);
+                    lineTo.applyQuaternion(wheelStates[i].quaternion)
+                    lineTo.add(lineFrom);
+                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt);
+                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:lineFrom, size:0.2, color:'GREEN'});
+                }
+
             }
+
+            if (groundContact) {
+                assetStatus.setStatusKey(ENUMS.InstanceStatus.WEIGHT_ON_WHEELS, 1);
+            } else {
+                assetStatus.setStatusKey(ENUMS.InstanceStatus.WEIGHT_ON_WHEELS, 0);
+            }
+
+
         }
 
         function alignVisualModel() {
