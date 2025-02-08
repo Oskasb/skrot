@@ -34,12 +34,11 @@ class AssetTexture {
                 settings.texture.flipY = false;
                 settings.texture.needsUpdate = true;
                 settings.texture.generateMipmaps = false;
-
+                sendToSubscribers();
             }
 
             function onJson(data) {
                 settings.texture = new Texture();
-                sendToSubscribers();
                 loadImageAsset(data.file, assetLoaded)
             }
 

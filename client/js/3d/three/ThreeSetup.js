@@ -323,10 +323,12 @@ class ThreeSetup {
     };
 
     setRenderParams(width, height, aspect, pxRatio) {
-        this.renderer.setSize( width, height);
-        this.renderer.setPixelRatio( pxRatio );
-        this.camera.aspect = aspect;
-        this.camera.updateProjectionMatrix();
+        if (this.renderer) {
+            this.renderer.setSize( width, height);
+            this.renderer.setPixelRatio( pxRatio );
+            this.camera.aspect = aspect;
+            this.camera.updateProjectionMatrix();
+        }
     };
 
     attachPrerenderCallback(callback) {

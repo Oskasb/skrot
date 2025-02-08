@@ -1,7 +1,7 @@
 import {
     addMouseMoveFunction,
     addPressEndFunction,
-    addPressStartFunction, pointerEventToPercentX, pointerEventToPercentY,
+    addPressStartFunction, pointerEventToMoveX, pointerEventToMoveY, pointerEventToPercentX, pointerEventToPercentY,
     translateElement3DPercent
 } from "../DomUtils.js";
 import {getFrame} from "../../../utils/DataUtils.js";
@@ -11,8 +11,8 @@ import {Vector3} from "../../../../../../libs/three/Three.Core.js";
 
 
 let axisPosFunctions = {}
-axisPosFunctions['X'] = pointerEventToPercentX;
-axisPosFunctions['Y'] = pointerEventToPercentY;
+axisPosFunctions['X'] = pointerEventToMoveX;
+axisPosFunctions['Y'] = pointerEventToMoveY;
 
 class InputDragPointer {
     constructor() {
@@ -25,6 +25,9 @@ class InputDragPointer {
         let pressStartTime = 0;
         let isDoubbleTap = false;
 
+        let pressOrigin = {};
+        let pressMoveSum = {};
+
         function pressStart(e) {
             pressActive = true;
 
@@ -34,7 +37,7 @@ class InputDragPointer {
                 isDoubbleTap = true;
             } else {
                 isDoubbleTap = false;
-                pointerMove(e)
+                pointerMove(e, true)
             }
 
             pressStartTime = now;
@@ -52,7 +55,14 @@ class InputDragPointer {
 
                 if (now - pressStartTime < 0.25 || options[i].autoZero === true) {
 
-                    statusMap['AXIS_'+options[i].axis] = options[i].origin;
+                    if (options[i].additive === true) {
+
+                    } else {
+                        statusMap['AXIS_'+options[i].axis] = options[i].origin;
+                    }
+
+
+
                     let min =  options[i].min;
                     let max =  options[i].max;
                     let origin = options[i].origin;
@@ -84,7 +94,7 @@ class InputDragPointer {
 
         }
 
-        function pointerMove(e) {
+        function pointerMove(e, setOrigin) {
             if (pressActive) {
 
                 let posX = 0;
@@ -92,7 +102,7 @@ class InputDragPointer {
 
                 for (let i = 0;i<options.length;i++) {
                     let axis = options[i].axis
-                    let pointerPcnt =    axisPosFunctions[axis](e);
+                //    let pointerPcnt =    axisPosFunctions[axis](e);
                     let min =  options[i].min;
                     let max =  options[i].max;
                     let origin = options[i].origin;
@@ -101,8 +111,19 @@ class InputDragPointer {
                     let margin = options[i].margin * axisLength;
 
                     let offsetFrac = MATH.calcFraction(min, max, origin);
-
                     let centerPcnt = offsetFrac*100;
+                    if (setOrigin === true) {
+                    //    pressOrigin[axis] = pointerPcnt
+                        pressMoveSum[axis] = centerPcnt;
+                    }
+
+                    pressMoveSum[axis] += axisPosFunctions[axis](e);
+                    let pointerPcnt = pressMoveSum[axis];
+                //    pointerPcnt = pressOrigin[axis]
+
+
+
+
 
                     let upscale = 100/(axisLength+margin);
                     let inputPos = MATH.clamp((-centerPcnt + pointerPcnt)/upscale, min, max);
@@ -125,7 +146,10 @@ class InputDragPointer {
                         posY = inputFrac
                     }
 
+
                 }
+
+
 
                 translateElement3DPercent(inputElement, posX, posY, 0);
             }

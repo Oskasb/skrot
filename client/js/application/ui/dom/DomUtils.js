@@ -434,6 +434,23 @@ function pointerEventToPercentY(e) {
     return MATH.percentify(y, height)
 }
 
+function pointerEventToMoveX(e) {
+    let x = e.movementX;
+    if (e.touches) {
+        x = e.touches[0].movementX;
+    }
+    let width = e.target.offsetWidth;
+    return MATH.percentify(x, width)
+}
+
+function pointerEventToMoveY(e) {
+    let y = e.movementY;
+    if (e.touches) {
+        y = e.touches[0].movementY;
+    }
+    let height = e.target.offsetHeight;
+    return MATH.percentify(y, height)
+}
 
 export {
     setRefDiv,
@@ -481,5 +498,7 @@ export {
     buildCssTransform,
     pointerEventToPercentX,
     pointerEventToPercentY,
+    pointerEventToMoveX,
+    pointerEventToMoveY,
     notifyDomResize
 };
