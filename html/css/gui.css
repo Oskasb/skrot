@@ -73,6 +73,10 @@ body.darken {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+body.surface_hint {
+    background-color: rgba(0, 43, 79, 0.22);
+}
+
 body.stretch_right {
     width: fit-content;
     left: auto;
@@ -140,6 +144,8 @@ div.background_create_panel {
 div.darken {
     background: rgba(0, 0, 0, 0.5);
 }
+
+
 
 div.chat_panel {
     width: 100%;
