@@ -31,6 +31,7 @@ class DomYawPedals {
         let dynamicPitchR;
 
         function update() {
+            inputDragPointer.call.updateKeyState();
             translateElement3DPercent(stickElement, statusMap['INPUT_YAW']*50, 0, 0);
 
             let outRoll = statusMap['output_INPUT_YAW']*50+50
@@ -57,7 +58,7 @@ class DomYawPedals {
             dynamicRollR = htmlElement.call.getChildElement('dynamic_yaw_r');
 
             let opts = [
-                {axis:"X", min:-1, max:1, origin: 0, margin:0.25},
+                {axis:"X", min:-1, max:1, origin: 0, margin:0.25, autoZero:false, additive:true, keys:{add:'e', sub:'q'}}
             ]
 
             inputDragPointer.call.activateDragSurface(surface, inputElement, statusMap, opts)

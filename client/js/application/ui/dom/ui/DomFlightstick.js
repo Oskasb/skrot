@@ -38,6 +38,7 @@ class DomFlightstick {
         let moveRange = 40;
 
         function update() {
+            inputDragPointer.call.updateKeyState();
             translateElement3DPercent(stickElement, statusMap['INPUT_ROLL']*moveRange, statusMap['INPUT_PITCH']*moveRange, 0);
 
             let outRoll = statusMap['output_INPUT_ROLL']*moveRange+50
@@ -108,7 +109,7 @@ class DomFlightstick {
             let opts = [
                 {axis:"X", min:-1, max:1, origin: 0, margin:1.5, autoZero:false, additive:true, keys:{add:'d', sub:'a'}},
                 {axis:"Y", min:-1, max:1, origin: 0, margin:1.5, autoZero:false, additive:true, keys:{add:'s', sub:'w'}}
-                ]
+            ]
 
             inputDragPointer.call.activateDragSurface(surface, inputElement, statusMap, opts)
 

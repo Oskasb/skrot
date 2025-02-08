@@ -26,7 +26,8 @@ class InputDragPointer {
         let isDoubbleTap = false;
 
         let pressOrigin = {};
-        let pressMoveSum = {};
+        const pressMoveSum= {X:null, Y:null};
+        const pressEndMove = {X:0, Y:0};
 
         function pressStart(e) {
             pressActive = true;
@@ -47,26 +48,45 @@ class InputDragPointer {
         function pressEnd() {
             pressActive = false;
 
+        //    if (isDoubbleTap !== true) {
+        //          return;
+        //    }
+
             let now = getFrame().systemTime;
             let posX = 0;
             let posY = 0;
 
+
             for (let i = 0;i<options.length;i++) {
+
+                let axis = options[i].axis;
 
                 if (now - pressStartTime < 0.25 || options[i].autoZero === true) {
 
+                    /*
                     if (options[i].additive === true) {
 
+                        if (isDoubbleTap === true) {
+                            pressEndMove[axis] = options[i].origin;
+                        } else {
+                            pressEndMove[axis] = pressMoveSum[axis];
+                            console.log("End Press store state", pressEndMove[axis])
+                            continue;
+                        }
+
                     } else {
-                        statusMap['AXIS_'+options[i].axis] = options[i].origin;
+
                     }
 
+                     */
+
+                    statusMap['AXIS_'+axis] = options[i].origin;
+                    pressMoveSum[axis] = null;
 
 
                     let min =  options[i].min;
                     let max =  options[i].max;
                     let origin = options[i].origin;
-                    let axis = options[i].axis
                     let offsetFrac = MATH.calcFraction(min, max, origin);
 
                     let inputPos = statusMap['AXIS_'+axis];
@@ -114,16 +134,25 @@ class InputDragPointer {
                     let centerPcnt = offsetFrac*100;
                     if (setOrigin === true) {
                     //    pressOrigin[axis] = pointerPcnt
-                        pressMoveSum[axis] = centerPcnt;
+                        if (options[i].additive === true) {
+                        //    pressMoveSum[axis] = pressEndMove[axis];
+                        //    console.log("Start Press stored state", pressMoveSum[axis] || centerPcnt)
+
+                            if (pressMoveSum[axis] === null) {
+                                pressMoveSum[axis] = centerPcnt
+                            }
+
+
+                        } else {
+                    //        console.log("Start Press clear state", options)
+                            pressMoveSum[axis] = centerPcnt;
+                        }
+
                     }
 
                     pressMoveSum[axis] += axisPosFunctions[axis](e);
                     let pointerPcnt = pressMoveSum[axis];
                 //    pointerPcnt = pressOrigin[axis]
-
-
-
-
 
                     let upscale = 100/(axisLength+margin);
                     let inputPos = MATH.clamp((-centerPcnt + pointerPcnt)/upscale, min, max);
@@ -146,10 +175,7 @@ class InputDragPointer {
                         posY = inputFrac
                     }
 
-
                 }
-
-
 
                 translateElement3DPercent(inputElement, posX, posY, 0);
             }

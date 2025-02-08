@@ -28,6 +28,7 @@ class DomPower {
         let dynamicRollR;
 
         function update() {
+            inputDragPointer.call.updateKeyState();
             translateElement3DPercent(stickElement, 0,100 - statusMap['INPUT_POWER']*100,  0);
 
             let outRoll = 100 - statusMap['output_INPUT_POWER']*100
@@ -52,7 +53,7 @@ class DomPower {
             dynamicRollR = htmlElement.call.getChildElement('dynamic_r')
 
             let opts = [
-                {axis:"Y", min:0, max:1, origin: 0, margin:0.25, invert:true},
+                {axis:"Y", min:0, max:1, origin: 0, margin:0.25, invert:true, autoZero:false, additive:true, keys:{add:'f', sub:'r'}}
             ]
 
             inputDragPointer.call.activateDragSurface(surface, inputElement, statusMap, opts)

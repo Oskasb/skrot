@@ -440,7 +440,7 @@ function pointerEventToMoveX(e) {
         x = e.touches[0].movementX;
     }
     let width = e.target.offsetWidth;
-    return MATH.percentify(x, width)
+    return MATH.percentify(x, width, true)
 }
 
 function pointerEventToMoveY(e) {
@@ -449,7 +449,7 @@ function pointerEventToMoveY(e) {
         y = e.touches[0].movementY;
     }
     let height = e.target.offsetHeight;
-    return MATH.percentify(y, height)
+    return MATH.percentify(y, height, true)
 }
 
 export {
