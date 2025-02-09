@@ -322,8 +322,8 @@ let refDiv;
     function addMouseMoveFunction(element, cb) {
         element.style.pointerEvents = "auto";
         element.style.cursor = "pointer";
-        element.addEventListener('mousemove', cb, { passive: true});
-        element.addEventListener('touchmove', cb, { passive: true});
+        element.addEventListener('pointermove', cb, { passive: true});
+    //    element.addEventListener('touchmove', cb, { passive: true});
     }
 
     function addPointerExitFunction(element, cb) {
@@ -336,18 +336,19 @@ let refDiv;
     function addPressStartFunction(element, cb) {
         element.style.pointerEvents = "auto";
         element.style.cursor = "pointer";
-        element.addEventListener('mousedown', cb);
-        element.addEventListener('touchstart', cb);
+        element.addEventListener('pointerdown', cb);
+    //    element.addEventListener('touchstart', cb);
     }
 
     function addPressEndFunction(element, cb) {
         element.style.pointerEvents = "auto";
         element.style.cursor = "pointer";
-        element.addEventListener('mouseup', cb);
-        element.addEventListener('touchend', cb);
-
-        element.offsetParent.addEventListener('mouseout', cb);
-        element.offsetParent.addEventListener('touchcancel', cb);
+        element.addEventListener('pointercancel', cb);
+    //    element.addEventListener('touchend', cb);
+        element.addEventListener('pointerout', cb);
+        element.offsetParent.addEventListener('pointerup', cb);
+        element.offsetParent.addEventListener('pointercancel', cb);
+     //   element.offsetParent.addEventListener('touchcancel', cb);
     }
 
     let recalculate = true;
