@@ -1,0 +1,27 @@
+{
+  "geometry": "geometry_particles_muzzle_fire",
+  "material": "material_particles_8x8_add",
+  "sample_gain": {
+    "velocity_base": 3950,
+    "velocity_gain_factor":800
+  },
+  "curves":{
+    "color": "hotToCool",
+    "alpha": "earlyFadeOut",
+    "spread": "halfSin",
+    "drag": "zeroToOne"
+  },
+  "params": {
+    "pSprite":      [3,     4],
+    "pPosSpread":   [0.0, 0.01],
+    "pVelSpread":   [0.1, 0.01],
+    "pVelInherit":  [1, 1.01],
+    "pVelVariance": [1, 0.001],
+    "pLifeTime":    [0.25, 1.19],
+    "pSizeFrom":    [0.1, 0.1],
+    "pSizeTo":      [0.1, 0.1],
+    "pSizeMod":     [1, 6],
+    "pIntensity":   [2, 85],
+    "pScaleExp":    [1.2, 1.4]
+  }
+}

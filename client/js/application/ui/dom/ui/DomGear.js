@@ -1,16 +1,8 @@
 import {poolFetch} from "../../../utils/PoolUtils.js";
 import {
-    addMouseMoveFunction,
-    addPressEndFunction,
-    addPressStartFunction,
-    pointerEventToPercentX,
-    pointerEventToPercentY,
     translateElement3DPercent
 } from "../DomUtils.js";
-import {MATH} from "../../../MATH.js";
-import {getFrame} from "../../../utils/DataUtils.js";
 import {InputDragPointer} from "../pointer/InputDragPointer.js";
-
 
 class DomGear {
     constructor() {

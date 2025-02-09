@@ -27,6 +27,7 @@ import {TerrainForestSection} from "../../game/world/woods/TerrainForestSection.
 import {ForestTreeLodable} from "../../game/world/woods/ForestTreeLodable.js";
 import {BatchInstance} from "../../3d/three/assets/BatchInstance.js";
 import {BatchedPlant} from "../../game/world/plants/BatchedPlant.js";
+import {DomControlButton} from "../ui/dom/ui/DomControlButton.js";
 
 let pools = {}
 let stats = {};
@@ -63,6 +64,7 @@ function initPools() {
     registerPool(ForestTreeLodable);
     registerPool(BatchInstance);
     registerPool(BatchedPlant);
+    registerPool(DomControlButton)
 }
 
 function registerPool(DataObj) {

@@ -1,0 +1,6 @@
+{
+  "spawners":[
+    "spawner_cannon_muzzle_flame",
+    "spawner_cannon_muzzle_smoke"
+  ]
+}

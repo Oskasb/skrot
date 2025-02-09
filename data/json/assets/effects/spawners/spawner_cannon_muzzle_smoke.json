@@ -1,0 +1,27 @@
+{
+  "geometry": "geometry_particles_muzzle_smoke",
+  "material": "material_particles_8x8",
+  "sample_gain": {
+    "velocity_base": 5,
+    "velocity_gain_factor":0
+  },
+  "curves":{
+    "color": "darkSmoke",
+    "alpha": "oneToZero",
+    "spread": "zeroOneZero",
+    "drag": "zeroToOne"
+  },
+  "params": {
+    "pSprite":      [2,     1],
+    "pPosSpread":   [1,     2.4],
+    "pVelSpread":   [0.2,   0.5],
+    "pVelInherit":  [0.4,   1.1],
+    "pVelVariance": [-0.3,  0.3],
+    "pLifeTime":    [2.2,   5.22],
+    "pSizeFrom":    [0.1,   0.8],
+    "pSizeTo":      [0.0,  0.0],
+    "pSizeMod":     [48.3,  91.3],
+    "pIntensity":   [0.4,    1.8],
+    "pScaleExp":    [1.5,   1.9]
+  }
+}

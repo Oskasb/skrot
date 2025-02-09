@@ -304,6 +304,17 @@ iframe.ui_gear {
     color: #ecffdc;
 }
 
+iframe.ui_cannon {
+    z-index: 100000;
+    bottom: 80em;
+    left: 40em;
+    width: 140em;
+    height: 140em;
+    position: absolute;
+    border: none;
+    color: #ecffdc;
+}
+
 iframe.ui_power {
     z-index: 100000;
     bottom: 60em;

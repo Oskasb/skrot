@@ -15,6 +15,13 @@ class PieceInput {
         for (let i = 0; i < inputTargets.length; i++) {
             statusMap[inputTargets[i].sample] = inputTargets[i].init || 0;
             statusMap[inputTargets[i].target] = inputTargets[i].init || 0;
+            if (inputTargets[i].keyAdd) {
+                statusMap[inputTargets[i].sample+'_add'] = inputTargets[i].keyAdd;
+            }
+            if (inputTargets[i].keySub) {
+                statusMap[inputTargets[i].sample+'_sub'] = inputTargets[i].keySub;
+            }
+
         }
 
         function updateInputStatus(inputToTarget) {

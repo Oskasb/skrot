@@ -61,9 +61,14 @@ class NodeParticleGeometry {
         let key = null;
         let maxInstanceCount = 0;
 
+        let reapply = function() {
+
+        }
+
         function setJson(json) {
             maxInstanceCount = json['max_instance_count']
             key = json['geometry']
+            reapply();
         }
 
         function applyParticleGeoConfig(fileName) {
@@ -75,6 +80,14 @@ class NodeParticleGeometry {
         }
 
         function setEffectMaterial(matName, matSettings) {
+
+            if (key === null) {
+                reapply = function() {
+                    setEffectMaterial(matName, matSettings)
+                }
+                return;
+            }
+
             console.log("setEffectMaterial", matName, matSettings);
             particleMaterials[matName] = matSettings;
 
@@ -125,6 +138,7 @@ class NodeParticleGeometry {
 
         function bindParticleMaterial(matName) {
             function applyJson(matSettings) {
+
                 setEffectMaterial(matName, matSettings)
             }
             loadAssetMaterial(matName, applyJson)
