@@ -1,7 +1,12 @@
 import {
     addMouseMoveFunction,
     addPressEndFunction,
-    addPressStartFunction, pointerEventToMoveX, pointerEventToMoveY, pointerEventToPercentX, pointerEventToPercentY,
+    addPressStartFunction,
+    pointerEventToMoveX,
+    pointerEventToMoveY,
+    pointerEventToPercentX,
+    pointerEventToPercentY,
+    registerPressStart,
     translateElement3DPercent
 } from "../DomUtils.js";
 import {getFrame} from "../../../utils/DataUtils.js";
@@ -30,6 +35,7 @@ class InputDragPointer {
         const keyMove = {X:0, Y:0};
 
         function pressStart(e) {
+            registerPressStart(e);
             pressActive = true;
 
             let now = getFrame().systemTime;
@@ -150,7 +156,7 @@ class InputDragPointer {
 
                     }
 
-                    pressMoveSum[axis] += axisPosFunctions[axis](e);
+                    pressMoveSum[axis] = centerPcnt + axisPosFunctions[axis](e);
                     let pointerPcnt = pressMoveSum[axis];
                 //    pointerPcnt = pressOrigin[axis]
 

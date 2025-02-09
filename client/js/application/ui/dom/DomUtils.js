@@ -1,5 +1,6 @@
 import {MATH} from "../../MATH.js";
 import {getFrame} from "../../utils/DataUtils.js";
+import {Vector2} from "three";
 
 let rect = {
     centerX:0,
@@ -434,22 +435,51 @@ function pointerEventToPercentY(e) {
     return MATH.percentify(y, height)
 }
 
-function pointerEventToMoveX(e) {
-    let x = e.movementX;
-    if (e.touches) {
-        x = e.touches[0].movementX;
+const pointerPositions = {};
+
+
+    function pointerMove(e) {
+        let id = e.pointerId;
+        let position = pointerPositions[id];
+        if ( position === undefined ) {
+            position = new Vector2();
+            pointerPositions[id] = {
+                pressStart:new Vector2(),
+                position:position
+            }
+        }
+        pointerPositions[id].position.set(e.pageX, e.pageY)
     }
+
+
+function pointerEventToMoveX(e) {
+    pointerMove(e)
+    let id = e.pointerId;
+    let x = pointerPositions[id].position.x - pointerPositions[id].pressStart.x
     let width = e.target.offsetWidth;
     return MATH.percentify(x, width, true)
 }
 
 function pointerEventToMoveY(e) {
-    let y = e.movementY;
-    if (e.touches) {
-        y = e.touches[0].movementY;
-    }
+    pointerMove(e)
+    let id = e.pointerId;
+    let y = pointerPositions[id].position.y - pointerPositions[id].pressStart.y
     let height = e.target.offsetHeight;
     return MATH.percentify(y, height, true)
+}
+
+function registerPressStart(e) {
+    let id = e.pointerId;
+    let position = pointerPositions[id];
+    if ( position === undefined ) {
+        position = new Vector2();
+        pointerPositions[id] = {
+            pressStart:new Vector2(),
+            position:position
+        }
+    }
+    pointerPositions[id].pressStart.set(e.pageX, e.pageY)
+    pointerPositions[id].position.set(e.pageX, e.pageY)
 }
 
 export {
@@ -500,5 +530,6 @@ export {
     pointerEventToPercentY,
     pointerEventToMoveX,
     pointerEventToMoveY,
+    registerPressStart,
     notifyDomResize
 };
