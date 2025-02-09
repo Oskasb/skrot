@@ -223,6 +223,10 @@ function debugDrawDynamicPoints(dynamicPoints) {
 
 }
 
+function debugDrawControllable(controllable) {
+    debugDrawDynamicPoints(controllable.getAssetInstance().dynamicPoints)
+}
+
 export {
     createDebugButton,
     getAllSceneNodes,
@@ -234,5 +238,6 @@ export {
     getUrlParam,
     debugDrawActorSkeleton,
     debugDrawDynamicPoints,
-    debugDrawDynamicPoint
+    debugDrawDynamicPoint,
+    debugDrawControllable
 }

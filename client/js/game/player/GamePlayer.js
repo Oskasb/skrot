@@ -36,9 +36,7 @@ class GamePlayer {
             getGameWorld().call.loadGamePiece(controllableId, setControllable)
         }
 
-        function debugDrawControllable() {
-            debugDrawDynamicPoints(playerControllable.getAssetInstance().dynamicPoints)
-        }
+
 
         function updatePlayer() {
             let assetObj3d = playerControllable.getAssetInstance().getObj3d();
@@ -47,7 +45,7 @@ class GamePlayer {
             for (let key in ui) {
                 ui[key].call.update();
             }
-        //    debugDrawControllable()
+        //    debugDrawControllable(playerControllable)
         }
 
         this.call = {

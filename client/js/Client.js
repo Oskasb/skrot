@@ -23,7 +23,8 @@ import {ThreeShadows} from "./3d/three/fx/ThreeShadows.js";
 import {DomMinimap} from "./application/ui/dom/DomMinimap.js";
 import {GroundBoundLodGrid} from "./application/grids/GroundBoundLodGrid.js";
 import {VegetationGrid} from "./game/world/plants/VegetationGrid.js";
-
+import {getSetting} from "./application/utils/StatusUtils.js";
+import {debugDrawControllable} from "./application/utils/DebugUtils.js";
 
 
 let gameWorld = new GameWorld();
@@ -106,6 +107,16 @@ function startGameWorld() {
     setTimeout(function() {
         getGameWorld().call.loadGamePiece('controllable_f14', plane)
     },3000)
+
+    function updateDebug() {
+        if (getSetting(ENUMS.Settings.SHOW_PIECE_POINTS) === 1) {
+            for (let i = 0; i < elementList.length; i++) {
+                debugDrawControllable(elementList[i]);
+            }
+        }
+    }
+
+    ThreeAPI.registerPrerenderCallback(updateDebug)
 
 
 }
