@@ -150,7 +150,7 @@ class GeometryInstance {
 
             info.mesh = null;
             if (info.meshPool !== null) {
-                info.meshPool.releasedIndices.unshift(info.index)
+                info.meshPool.releasedIndices.push(info.index)
             }
             info.meshPool = null;
             info.index = null;

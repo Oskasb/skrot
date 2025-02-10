@@ -26,7 +26,8 @@ class WeaponCannon {
 
         function update(stepTime) {
             debugDrawDynamicPoint(info.dynamicPoint);
-            fireBullet(info.dynamicPoint.getObj3d(),info.dynamicPoint.getVel(), info.velocity, info.bullet)
+            let vel = info.dynamicPoint.getVel()
+            fireBullet(info.dynamicPoint.getObj3d(), vel, info.velocity, info.bullet)
         }
 
         function onAttachmentStateChange(value) {
