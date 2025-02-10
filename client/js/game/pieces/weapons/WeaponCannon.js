@@ -1,4 +1,8 @@
 import {debugDrawDynamicPoint} from "../../../application/utils/DebugUtils.js";
+import {fireBullet} from "./ActiveBullet.js";
+
+
+
 
 class WeaponCannon {
     constructor() {
@@ -8,7 +12,9 @@ class WeaponCannon {
             velocity:100,
             bullet:{mass:0.01},
             dynamicPoint:null,
-            triggerActive:false
+            triggerActive:false,
+            activationDuration:0,
+            cooldownRemaining:0
         }
 
         function applyHardpointOptions(dynPoint, opts) {
@@ -20,6 +26,8 @@ class WeaponCannon {
 
         function update(stepTime) {
             debugDrawDynamicPoint(info.dynamicPoint);
+
+            fireBullet(info.dynamicPoint.getObj3d(),info.dynamicPoint.getVel(), info.velocity, info.bullet)
 
         }
 

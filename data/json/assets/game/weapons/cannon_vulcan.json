@@ -1,5 +1,5 @@
 {
   "attachments": [
-    {"attach": "WeaponCannon", "options": {"rate": 100, "velocity":1030 , "bullet": {"mass": 0.099}}}
+    {"attach": "WeaponCannon", "options": {"rate": 100, "velocity":1030 , "bullet": {"mass": 0.099, "duration": 5}}}
   ]
 }

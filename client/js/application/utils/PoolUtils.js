@@ -29,6 +29,7 @@ import {BatchInstance} from "../../3d/three/assets/BatchInstance.js";
 import {BatchedPlant} from "../../game/world/plants/BatchedPlant.js";
 import {DomControlButton} from "../ui/dom/ui/DomControlButton.js";
 import {WeaponCannon} from "../../game/pieces/weapons/WeaponCannon.js";
+import {ActiveBullet} from "../../game/pieces/weapons/ActiveBullet.js";
 
 let pools = {}
 let stats = {};
@@ -67,6 +68,7 @@ function initPools() {
     registerPool(BatchedPlant);
     registerPool(DomControlButton);
     registerPool(WeaponCannon)
+    registerPool(ActiveBullet)
 }
 
 function registerPool(DataObj) {
