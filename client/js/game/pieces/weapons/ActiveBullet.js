@@ -6,9 +6,9 @@ import {evt} from "../../../application/event/evt.js";
 import {MATH} from "../../../application/MATH.js";
 import {rayTest} from "../../../application/utils/PhysicsUtils.js";
 import {activateWorldEffects} from "../../../3d/three/assets/WorldEffect.js";
+import {createGeometryInstance} from "../../../3d/three/assets/GeometryInstance.js";
 
 const tempVec = new Vector3();
-
 const defaultHitFx = ["particles_hit_cannon"]
 
 class ActiveBullet {
@@ -40,22 +40,21 @@ class ActiveBullet {
             tempVec.add(vel);
             tempVec.multiplyScalar(stepTime);
             vel.multiplyScalar(0.999)
-
+            obj3d.scale.set(0.1, 0.1, tempVec.length())
             tempVec.add(obj3d.position);
             obj3d.lookAt(tempVec);
+
             let rayHit = rayTest(obj3d.position, tempVec, obj3d.position, tempVec);
 
             if (rayHit) {
-                evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:obj3d.position, size:2.5, color:"RED"})
+            //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:obj3d.position, size:2.5, color:"RED"})
 
                 obj3d.up.copy(tempVec);
-                closeBullet()
                 activateWorldEffects(obj3d, info.hit_fx)
-
-             //   obj3d.lookAt(tempVec);
-             //   obj3d.position.copy(tempVec);
+                closeBullet()
             } else {
-                evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:obj3d.position, to:tempVec, color:"YELLOW"})
+                info.geometryInstance.call.applyTrxObj(obj3d);
+            //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:obj3d.position, to:tempVec, color:"YELLOW"})
                 obj3d.position.copy(tempVec);
             }
 
@@ -66,6 +65,8 @@ class ActiveBullet {
             info.mass = bulletData.mass;
             info.duration = bulletData.duration;
             info.hit_fx = bulletData.hit_fx || defaultHitFx;
+            info.geometryInstance = createGeometryInstance("bullet", 'material_instances_8x8_add');
+
             vel.set(0, 0, exitVelMPS);
             vel.applyQuaternion(sourceObj3d.quaternion);
             vel.add(sourceVelV3)
@@ -83,6 +84,7 @@ class ActiveBullet {
 
         function closeBullet() {
             AmmoAPI.unregisterPhysicsStepCallback(update);
+            info.geometryInstance.call.closeGeoInstance();
             poolReturn(bullet)
         }
 

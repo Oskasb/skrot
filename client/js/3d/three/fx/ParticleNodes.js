@@ -263,6 +263,10 @@ class ParticleNodes {
 
             let applyCount = 0;
 
+            while (emitterObjects.length > emitterCount) {
+                clearEmitters.push(emitterObjects.shift());
+            }
+
             emittersLength.value = emitterObjects.length;
 
             for (let i = 0; i < emitterObjects.length; ++i) {
@@ -304,7 +308,8 @@ class ParticleNodes {
 
             while (clearEmitters.length) {
                 let obj = clearEmitters.pop();
-                MATH.splice(emitterObjects, clearEmitters.pop())
+                obj.userData.gain = 0;
+                MATH.splice(emitterObjects, obj)
             }
 
         }
@@ -358,10 +363,6 @@ class ParticleNodes {
 
                 if (emitterObjects.indexOf(obj3d) === -1) {
                     emitterObjects.push(obj3d)
-                }
-
-                while (emitterObjects.length > emitterCount) {
-                    emitterObjects.shift();
                 }
 
                 if (applyCfg === null) {

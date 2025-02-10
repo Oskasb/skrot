@@ -1,17 +1,20 @@
-import {poolFetch} from "../../../application/utils/PoolUtils.js";
+import {poolFetch, poolReturn} from "../../../application/utils/PoolUtils.js";
 import {Object3D} from "../../../../../libs/three/Three.Core.js";
 
 class WorldEffect {
     constructor() {
 
         let activeEmitter = null;
-        let obj3d = new Object3D();
+        const obj3d = new Object3D();
+        const worldEffect = this;
 
         function update() {
-            obj3d.userData.gain -= 0.2;
+            obj3d.userData.gain = -1;
             if (obj3d.userData.gain < 0) {
+                obj3d.userData.gain = 0;
                 activeEmitter.detachNodeParticleEmitter();
                 ThreeAPI.unregisterPrerenderCallback(update);
+                poolReturn(worldEffect);
             }
         }
 

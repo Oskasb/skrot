@@ -99,6 +99,8 @@ class TiledSpriteNodeMaterial8x8 extends SpriteNodeMaterial {
 let mats = 0;
 const materials = {};
 materials['MeshBasicMaterial'] = MeshBasicMaterial;
+materials['MeshBasicNodeMaterial'] = MeshBasicNodeMaterial;
+materials['MeshLambertNodeMaterial'] = MeshLambertNodeMaterial;
 materials['MeshLambertMaterial'] = MeshLambertMaterial;
 materials['MeshStandardMaterial'] = MeshStandardMaterial;
 materials['MeshStandardNodeMaterial'] = MeshStandardNodeMaterial;

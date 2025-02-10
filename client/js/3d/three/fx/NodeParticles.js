@@ -18,7 +18,7 @@ function activateEffectConfig(matName, geoName) {
 }
 
 function activateParticleEffectConfig(config) {
-    console.log('activateParticleEffect', config['material'], config['geometry'])
+  //  console.log('activateParticleEffect', config['material'], config['geometry'])
     activateEffectConfig(config['material'], config['geometry'])
 }
 

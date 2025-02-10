@@ -31,6 +31,7 @@ import {DomControlButton} from "../ui/dom/ui/DomControlButton.js";
 import {WeaponCannon} from "../../game/pieces/weapons/WeaponCannon.js";
 import {ActiveBullet} from "../../game/pieces/weapons/ActiveBullet.js";
 import {WorldEffect} from "../../3d/three/assets/WorldEffect.js";
+import {GeometryInstance} from "../../3d/three/assets/GeometryInstance.js";
 
 
 let pools = {}
@@ -72,6 +73,7 @@ function initPools() {
     registerPool(WeaponCannon)
     registerPool(ActiveBullet)
     registerPool(WorldEffect)
+    registerPool(GeometryInstance)
 }
 
 function registerPool(DataObj) {
