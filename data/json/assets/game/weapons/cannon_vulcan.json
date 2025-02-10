@@ -1,0 +1,5 @@
+{
+  "attachments": [
+    {"attach": "WeaponCannon", "options": {"rate": 100, "velocity":1030 , "bullet": {"mass": 0.099}}}
+  ]
+}

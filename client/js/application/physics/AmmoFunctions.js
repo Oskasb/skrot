@@ -963,12 +963,12 @@ class AmmoFunctions {
 
         MODEL.TotalRenderTime += dt;
 
-        let maxCleanSteps = 3;
+        let maxCleanSteps = 8;
         let step = 0;
 
         while (MODEL.PhysicsTotalTime < MODEL.TotalRenderTime + MODEL.PhysicsStepTime) {
             MODEL.PhysicsTotalTime += MODEL.PhysicsStepTime;
-            MATH.callAll(physicsStepCallbacks);
+            MATH.callAll(physicsStepCallbacks, MODEL.PhysicsStepTime);
             world.stepSimulation(MODEL.PhysicsStepTime, MODEL.PhysicsMaxSubSteps, MODEL.PhysicsStepTime);
             step++;
             if (step > maxCleanSteps) {

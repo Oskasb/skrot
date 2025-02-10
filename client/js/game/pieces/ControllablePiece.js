@@ -1,15 +1,13 @@
-import {JsonAsset} from "../../application/load/JsonAsset.js";
-import {poolFetch} from "../../application/utils/PoolUtils.js";
 import {jsonAsset, loadAssetInstance} from "../../application/utils/AssetUtils.js";
 import {SimpleStatus} from "../../application/setup/SimpleStatus.js";
 import {PieceControl} from "../controls/PieceControl.js";
 import {PieceInput} from "../controls/PieceInput.js";
-import {MATH} from "../../application/MATH.js";
 import {ControlState} from "../controls/ControlState.js";
 import {PiecePropulsion} from "../controls/PiecePropulsion.js";
 import {ControllableForceProcessor} from "./ControllableForceProcessor.js";
 import {PieceSurface} from "../controls/PieceSurface.js";
 import {ControllableStatusProcessor} from "./ControllableStatusProcessor.js";
+import {PieceHardpoint} from "../controls/PieceHardpoint.js";
 
 let tempArray = [];
 
@@ -23,6 +21,8 @@ class ControllablePiece {
         this.controlStates = {};
         this.surfaces = {};
         this.propulsion = {};
+        this.hardpoints = {};
+
         new ControllableForceProcessor(this);
     }
 
@@ -57,6 +57,7 @@ class ControllablePiece {
         if (this.assetInstance) {
             return this.assetInstance.call.getPointById(id);
         }
+        return null;
     }
 
     getControlByName(name) {
@@ -82,6 +83,7 @@ class ControllablePiece {
         let controlStates = this.controlStates;
         let props = this.propulsion;
         let surfs = this.surfaces;
+        let hps = this.hardpoints;
 
         function attachInput(input) {
             inputs[input.id] = new PieceControl(_this, input.id, input.state);
@@ -122,6 +124,10 @@ class ControllablePiece {
             jsonAsset(fileName, attachProp)
         }
 
+        function attachHardpoint(point, fileName) {
+            hps[point] = new PieceHardpoint(point, _this)
+            hps[point].call.setHardpointAttachment(fileName);
+        }
 
         function onData(json) {
             _this.json = json;
@@ -160,6 +166,13 @@ class ControllablePiece {
                         attachSurface(surfaces[i].point, surfaces[i].file);
                     }
                 }
+
+            let hardpoints = json['hardpoints']
+            if (hardpoints) {
+                for (let i = 0; i < hardpoints.length; i++) {
+                    attachHardpoint(hardpoints[i].point, hardpoints[i].file);
+                }
+            }
 
             loadAssetInstance(json['controllable'], controllableLoaded)
         }

@@ -10,6 +10,13 @@ class DynamicPoint {
     constructor(assetInstance, config, groupName) {
         this.id = config.id;
         this.groupName = groupName;
+        const stateInfo = {
+            value:0
+        };
+
+        const onStateChangeCallbacks = [];
+
+
         const obj3d = new Object3D();
         const offset = new Vector3();
 
@@ -139,11 +146,31 @@ class DynamicPoint {
             return velocity
         }
 
+        function addPointStateChangeCallback(cb) {
+            if (onStateChangeCallbacks.indexOf(cb) === -1) {
+                onStateChangeCallbacks.push(cb)
+            }
+        }
+
+        function removePointStateChangeCallback(cb) {
+            MATH.splice(onStateChangeCallbacks, cb)
+        }
+
+        function setPointStateValue(value) {
+            if (stateInfo.value !== value) {
+                stateInfo.value = value;
+                MATH.callAll(onStateChangeCallbacks, value);
+            }
+        }
+
         this.call = {
             getObj3d:getObj3d,
             updateObj3d:updateObj3d,
             getLocalTransform:getLocalTransform,
-            getPointVelocity:getPointVelocity
+            getPointVelocity:getPointVelocity,
+            addPointStateChangeCallback:addPointStateChangeCallback,
+            removePointStateChangeCallback:removePointStateChangeCallback,
+            setPointStateValue:setPointStateValue
         }
 
     }

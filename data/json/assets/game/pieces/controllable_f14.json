@@ -16,7 +16,7 @@
     {"id": "INPUT_SWEEP",   "state": {"min": 0, "max": 1, "value": 0.5, "speed": 2}},
     {"id": "INPUT_GEAR",    "state": {"min": 0, "max": 1, "value": 0, "speed": 0.5}},
     {"id": "INPUT_POWER",   "state": {"min":-1, "max": 1, "value": 0, "speed": 0.25}},
-    {"id": "INPUT_CANNON",  "state": {"min":0,  "max": 1, "value": 0, "speed": 2}}
+    {"id": "INPUT_CANNON",  "state": {"min":0,  "max": 1, "value": 0, "speed": 40}}
   ],
   "controls": [
     {"id": "CONTROLS_FLIGHT",       "file": "controls_f14_flight"},
@@ -35,5 +35,8 @@
     {"point": "WING_L",     "file": "surface_f14_wing"},
     {"point": "WING_R",     "file": "surface_f14_wing"},
     {"point": "FUSELAGE",   "file": "surface_f14_fuselage"}
+  ],
+  "hardpoints": [
+    {"point": "HARDPOINT_CANNON", "file": "cannon_vulcan"}
   ]
 }

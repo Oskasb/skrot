@@ -48,7 +48,6 @@
     {"id": "DYNAMIC_DOORS_NOSE",    "file": "dynamic_f14_doors_nose"},
     {"id": "DYNAMIC_DOORS_L",       "file": "dynamic_f14_doors_l"},
     {"id": "DYNAMIC_DOORS_R",       "file": "dynamic_f14_doors_r"},
-
     {"id": "DYNAMIC_CANNON",        "file": "dynamic_f14_cannon"}
   ]
 }

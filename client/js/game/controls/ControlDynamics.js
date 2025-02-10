@@ -8,6 +8,7 @@ import {ControlTransition} from "./ControlTransition.js";
 import {DynamicBone} from "../../3d/three/assets/DynamicBone.js";
 import {getFrame} from "../../application/utils/DataUtils.js";
 import {DynamicEffect} from "../../3d/three/assets/DynamicEffect.js";
+import {debugDrawDynamicPoint} from "../../application/utils/DebugUtils.js";
 
 
 class ControlDynamics {
@@ -74,6 +75,21 @@ class ControlDynamics {
                 }
             }
 
+            if (targets['points']) {
+                let points = targets['points']
+                for (let i = 0; i < points.length; i++) {
+                    let pointKey = points[i];
+
+                    function applyPointCall() {
+
+                        let dynPoint = assetInstance.call.getPointById(pointKey);
+
+
+                        dynPoint.call.setPointStateValue(state.value);
+                    }
+                    applyCalls.push(applyPointCall);
+                }
+            }
         }
 
 
