@@ -48,7 +48,7 @@ class ParticleNodes {
 
         const tpf = uniform(0)
 
-        const emitterCount = 10;
+        const emitterCount = 20;
 
         const positionBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const velocityBuffer = instancedArray( maxInstanceCount, 'vec3' );
@@ -268,9 +268,6 @@ class ParticleNodes {
             for (let i = 0; i < emitterObjects.length; ++i) {
                 let obj = emitterObjects[i];
 
-
-
-
                 let intensity = pIntensity.value.y;
                 let lifeTime = MATH.randomBetween(pLifeTime.value.x, pLifeTime.value.y)
                 let sizeMod = pSizeMod.value.y;
@@ -363,6 +360,10 @@ class ParticleNodes {
                     emitterObjects.push(obj3d)
                 }
 
+                while (emitterObjects.length > emitterCount) {
+                    emitterObjects.shift();
+                }
+
                 if (applyCfg === null) {
                     applyCfg = config;
                     let curves = config.curves;
@@ -400,11 +401,6 @@ class ParticleNodes {
                     pScaleExp.value.set(params.pScaleExp[0], params.pScaleExp[1])
 
                 }
-
-
-
-
-
 
             activeParticles++;
 

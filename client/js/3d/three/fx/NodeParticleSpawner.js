@@ -22,6 +22,13 @@ class NodeParticleSpawner {
         function setSpawnerConfig(config) {
             activateParticleEffectConfig(config);
             particleConfig = config;
+
+            if (point.isObject3D === true) {
+                point.userData.gain = 1;
+                point.userData.emitForce = 1;
+                updateEmitterGain(point, particleConfig)
+            }
+
         }
 
 
@@ -54,7 +61,7 @@ class NodeParticleSpawner {
                 return;
             }
 
-            if (gain === 0) {
+            if (gain > 0) {
                 ThreeAPI.registerPrerenderCallback(update);
             } else if (value === 0) {
                 ThreeAPI.unregisterPrerenderCallback(update);

@@ -30,6 +30,8 @@ import {BatchedPlant} from "../../game/world/plants/BatchedPlant.js";
 import {DomControlButton} from "../ui/dom/ui/DomControlButton.js";
 import {WeaponCannon} from "../../game/pieces/weapons/WeaponCannon.js";
 import {ActiveBullet} from "../../game/pieces/weapons/ActiveBullet.js";
+import {WorldEffect} from "../../3d/three/assets/WorldEffect.js";
+
 
 let pools = {}
 let stats = {};
@@ -69,6 +71,7 @@ function initPools() {
     registerPool(DomControlButton);
     registerPool(WeaponCannon)
     registerPool(ActiveBullet)
+    registerPool(WorldEffect)
 }
 
 function registerPool(DataObj) {

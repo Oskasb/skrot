@@ -1,19 +1,13 @@
-import {Object3D, Vector3} from "three/webgpu";
-import {debugDrawDynamicPoint} from "../../../application/utils/DebugUtils.js";
 import {poolFetch} from "../../../application/utils/PoolUtils.js";
 
 class DynamicEffect {
     constructor(assetInstance, pointKey, particleList) {
 
-        let obj3d = new Object3D()
         let activeEmitter = null;
 
         function applyStateValue(stateValue) {
-         //   console.log("Apply State Value Dyn Fx ", stateValue);
-            let point = assetInstance.call.getPointById(pointKey);
-        //    point.getTransformWS(obj3d);
 
-        //    debugDrawDynamicPoint(point)
+            let point = assetInstance.call.getPointById(pointKey);
 
             if (stateValue !== 0) {
                 if (activeEmitter === null) {
@@ -27,7 +21,6 @@ class DynamicEffect {
                     activeEmitter = null;
                 }
             }
-
         }
 
         this.call = {
@@ -35,8 +28,6 @@ class DynamicEffect {
         }
 
     }
-
-
 
 }
 

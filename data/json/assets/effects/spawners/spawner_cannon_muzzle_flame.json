@@ -2,8 +2,8 @@
   "geometry": "geometry_particles_muzzle_fire",
   "material": "material_particles_8x8_add",
   "sample_gain": {
-    "velocity_base": 3950,
-    "velocity_gain_factor":800
+    "velocity_base": 250,
+    "velocity_gain_factor":100
   },
   "curves":{
     "color": "hotToCool",
