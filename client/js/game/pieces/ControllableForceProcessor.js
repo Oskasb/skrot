@@ -173,7 +173,7 @@ class ControllableForceProcessor {
                         let aoaX = MATH.aoaXFromVelAndRot(tempForwardVec3, tempAoAVec3)
 
                         let surfaceArea = surface.scale.x * surface.scale.z;
-                        let lift = MATH.curveSin(aoaX) * speedSq * surfaceArea * 0.1;
+                        let lift = Math.sin(-aoaX * 3.14) * speedSq * surfaceArea * 0.6;
                         localLift.set(0, (lift + addUpForce), 0);
                     //    localLift.multiplyScalar(lift + addUpForce);
                     //    inducedDrag+=Math.sqrt(Math.abs(lift));
@@ -200,7 +200,7 @@ class ControllableForceProcessor {
 
                 //    AmmoAPI.applyForceAndTorqueToBody(tempVec1, tempVec2, body)
 
-                //    if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 0) {
+                    if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {
                         let globalPoint = point.getObj3d();
                         tempVec2.copy(localUp);
                         tempVec2.applyQuaternion(frameTransform.quaternion);
@@ -214,7 +214,7 @@ class ControllableForceProcessor {
                     tempVec2.add(globalPoint.position)
                     evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:globalPoint.position, to:tempVec2, color:'YELLOW'});
 
-                //    }
+                    }
 
                 }
             }

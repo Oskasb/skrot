@@ -2,10 +2,11 @@ import {Object3D} from "../../../../libs/three/Three.Core.js";
 import {getGameWorld} from "../../application/utils/GameUtils.js";
 import {ENUMS} from "../../application/ENUMS.js";
 import {SimpleStatus} from "../../application/setup/SimpleStatus.js";
-import {debugDrawDynamicPoints} from "../../application/utils/DebugUtils.js";
+import {debugDrawControllable, debugDrawDynamicPoints} from "../../application/utils/DebugUtils.js";
 import {evt} from "../../application/event/evt.js";
 import {MATH} from "../../application/MATH.js";
 import {bodyTransformToObj3d} from "../../application/utils/PhysicsUtils.js";
+import {getSetting} from "../../application/utils/StatusUtils.js";
 
 class GamePlayer {
     constructor() {
@@ -45,6 +46,11 @@ class GamePlayer {
             for (let key in ui) {
                 ui[key].call.update();
             }
+
+            if (getSetting(ENUMS.Settings.SHOW_PIECE_POINTS) === 1) {
+                debugDrawControllable(playerControllable);
+            }
+
         //    debugDrawControllable(playerControllable)
         }
 
