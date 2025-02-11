@@ -51,28 +51,29 @@ function attachInstanceMesh(matName, geoName) {
 
 }
 
-function registerInstanceGeometry(info, cb) {
+function registerInstanceGeometry(geoName, matName, cb) {
 
     function geoLoaded(geo) {
-        geometries[info.geoName] = geo.scene.children[0].geometry;
-        attachInstanceMesh(info.matName, info.geoName)
+        geometries[geoName] = geo.scene.children[0].geometry;
+        attachInstanceMesh(matName, geoName)
         cb()
     }
 
-    loadAsset(info.geoName, 'glb', geoLoaded)
+    loadAsset(geoName, 'glb', geoLoaded)
 
 }
 
 
-function registerInstanceMaterial(info, cb) {
-    instancePools[info.matName] = {}
+function registerInstanceMaterial(geoName, matName, cb) {
+
+    instancePools[matName] = {}
 
     function matLoaded(matSettings) {
-        materials[info.matName] = matSettings.material;
-        registerInstanceGeometry(info, cb)
+        materials[matName] = matSettings.material;
+        registerInstanceGeometry(geoName, matName, cb)
     }
 
-    loadAssetMaterial(info.matName, matLoaded)
+    loadAssetMaterial(matName, matLoaded)
 }
 
 function instantiateByInfo(info) {
@@ -128,9 +129,9 @@ class GeometryInstance {
             info.matName = materialName;
 
             if (!materials[materialName]) {
-                registerInstanceMaterial(info, instanceMeshReady)
+                registerInstanceMaterial(geometryName, materialName, instanceMeshReady)
             } else if (!geometries[geometryName]) {
-                registerInstanceGeometry(info, instanceMeshReady)
+                registerInstanceGeometry(geometryName, materialName, instanceMeshReady)
             } else {
                 instanceMeshReady()
             }
