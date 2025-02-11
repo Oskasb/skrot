@@ -19,7 +19,8 @@ let page0 = {
         {name:'Veg Density', key:ENUMS.Settings.VEGETATION_DENSITY, type:'range', min:1, max:9, default:3},
         {name:'Torque Boost', key:ENUMS.Settings.TORQUE_BOOST, type:'range', min:0, max:9, default:0},
         {name:'Show Points', key:ENUMS.Settings.SHOW_PIECE_POINTS, type:'range', min:0, max:1, default:0},
-        {name:'View Wheels', key:ENUMS.Settings.DEBUG_VIEW_WHEELS, type:'range', min:0, max:1, default:0}
+        {name:'View Wheels', key:ENUMS.Settings.DEBUG_VIEW_WHEELS, type:'range', min:0, max:1, default:0},
+        {name:'Show Flight Forces', key:ENUMS.Settings.SHOW_FLIGHT_FORCES, type:'range', min:0, max:1, default:0},
     ]
 }
 
