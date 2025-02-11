@@ -1075,4 +1075,16 @@ MATH.jsonCopy = function(obj) {
 	return JSON.parse(JSON.stringify(obj))
 }
 
+MATH.aoaXFromVelAndRot = function(vel, rot) {
+	let velAngX = MATH.vectorYZToAngleAxisX(vel)
+	let rotAngX = MATH.vectorYZToAngleAxisX(rot)
+	return MATH.angleInsideCircle(MATH.subAngles(velAngX, rotAngX) + Math.PI);
+}
+
+MATH.aoaYFromVelAndRot = function(vel, rot) {
+	let velAngY = MATH.vectorXZToAngleAxisY(vel)
+	let rotAngY = MATH.vectorXZToAngleAxisY(rot)
+	return MATH.angleInsideCircle(MATH.subAngles(velAngY , rotAngY ) +Math.PI);
+}
+
 export { MATH }

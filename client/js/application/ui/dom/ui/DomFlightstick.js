@@ -79,6 +79,9 @@ class DomFlightstick {
             statusMap['fps_avg'] = txt;
             statusMap['elevation'] = 'ALT: '+MATH.numberToDigits(statusMap['STATUS_ELEVATION'], 0, 0);
         //    surface.innerHTML = txt
+
+            statusMap['aoa_x'] = statusMap['STATUS_AOA_X'];
+            statusMap['aoa_y'] = statusMap['STATUS_AOA_Y'];
         }
 
 

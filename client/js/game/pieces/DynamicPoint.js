@@ -207,6 +207,10 @@ class DynamicPoint {
         return this.call.getObj3d().position;
     }
 
+    getQuat() {
+        return this.call.getObj3d().quaternion;
+    }
+
     getVel() {
         return this.call.getPointVelocity()
     }
