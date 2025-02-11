@@ -207,10 +207,13 @@ class AmmoAPI {
     };
 
     setBodyPosition = function(body, posVec) {
-
         ammoFunctions.setBodyPosition(body, posVec);
-
     };
+
+    setBodyDamping(body, velFactor, angFactor) {
+
+        ammoFunctions.applyBodyDamping(body, velFactor, angFactor);
+    }
 
     setBodyTransform = function(body, posVec, quat) {
 

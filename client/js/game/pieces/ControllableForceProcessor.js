@@ -35,7 +35,7 @@ class ControllableForceProcessor {
         let speedSq = 0;
 
         function applyEngineForce(point, prop, stateValue, body) {
-            let force = stateValue * prop.force * stepTime * 10
+            let force = stateValue * prop.force * stepTime * 3
             tempVec1.set(0, 0, -force);
             point.call.getLocalTransform(tempObj2);
             tempObj2.quaternion.multiply(tempObj.quaternion);
@@ -100,7 +100,7 @@ class ControllableForceProcessor {
 
             stepTime = AmmoAPI.getStepTime();
             speedSq = velocity.lengthSq();
-
+            let speed = MATH.curveSqrt(speedSq)
 
             let inputYaw = controllablePiece.getControlStateValue('INPUT_YAW');
             let inputRoll = controllablePiece.getControlStateValue('INPUT_ROLL');
@@ -109,12 +109,14 @@ class ControllableForceProcessor {
             tempVec1.set(0, 0, 0);
             let torqueBoost = MATH.curveQuad(getSetting(ENUMS.Settings.TORQUE_BOOST));
             let mass = controllablePiece.getMass();
-            tempVec2.set(MATH.curveQuad(inputPitch), -MATH.curveQuad(inputYaw), -MATH.curveQuad(inputRoll))
+            tempVec2.set(inputPitch, -inputYaw, -inputRoll)
             let cheatTorque = mass * 1000 * torqueBoost * stepTime;
-            let speedTorque = mass * 1000 * MATH.curveSqrt(speedSq*0.1) * stepTime
+            let speedTorque = mass * 200 * MATH.curveSqrt(speedSq*0.5) * stepTime
             tempVec2.multiplyScalar(cheatTorque + speedTorque)
             tempVec2.applyQuaternion(tempObj.quaternion)
             AmmoAPI.applyForceAndTorqueToBody(tempVec1, tempVec2, body)
+            AmmoAPI.setBodyDamping(body, 0.01  + speed*0.001, 0.01 + MATH.curveSqrt(speed*0.1) * 0.2);
+
 
             for (let key in surfaces) {
                 let surface = surfaces[key];

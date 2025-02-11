@@ -132,6 +132,9 @@ class PhysicalModel {
             assetStatus.setStatusKey('FORCE_G',acceleration.y * 0.1);
             assetStatus.setStatusKey('LIFT_L', 0.05 * (acceleration.y + lastG) * 0.5);
             assetStatus.setStatusKey('LIFT_R',0.05 * (acceleration.y + lastG) * 0.5);
+
+
+
             updateFloatation()
         }
 
@@ -215,7 +218,7 @@ class PhysicalModel {
         }
 
         function alignVisualModel() {
-            let body = obj3d.userData.body;
+            const body = obj3d.userData.body;
             bodyTransformToObj3d(body, obj3d);
 
             if (ammoVehicle !== null) {
