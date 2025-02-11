@@ -13,6 +13,7 @@ class NodeParticleSpawner {
         let point = null;
         let gain = 0;
         let particleConfig = null;
+        let isActive = false;
 
 
         function closeParticleSpawner() {
@@ -61,10 +62,14 @@ class NodeParticleSpawner {
                 return;
             }
 
-            if (gain > 0) {
-                ThreeAPI.registerPrerenderCallback(update);
-            } else if (value === 0) {
+            if (value !== 0) {
+                if (isActive === false) {
+                    ThreeAPI.registerPrerenderCallback(update);
+                    isActive = true
+                }
+            } else if (isActive === true) {
                 ThreeAPI.unregisterPrerenderCallback(update);
+                isActive = false;
             }
             gain = value;
         }

@@ -114,8 +114,11 @@ class ControllableForceProcessor {
             let speedTorque = mass * 200 * MATH.curveSqrt(speedSq*0.5) * stepTime
             tempVec2.multiplyScalar(cheatTorque + speedTorque)
             tempVec2.applyQuaternion(tempObj.quaternion)
+
+            let waterContact = controllablePiece.getAssetInstanceStatus(ENUMS.InstanceStatus.WEIGHT_ON_WATER) || 0;
+
             AmmoAPI.applyForceAndTorqueToBody(tempVec1, tempVec2, body)
-            AmmoAPI.setBodyDamping(body, 0.01  + speed*0.001, 0.01 + MATH.curveSqrt(speed*0.1) * 0.2);
+            AmmoAPI.setBodyDamping(body, 0.01  + speed*0.001 + waterContact*0.2 +waterContact*speed*0.05, 0.01 + MATH.curveSqrt(speed*0.1) * 0.2 + waterContact*0.1);
 
 
             for (let key in surfaces) {

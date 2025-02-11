@@ -226,6 +226,14 @@ class ControllablePiece {
         }
     }
 
+    getAssetInstanceStatus(key) {
+        if (this.assetInstance) {
+            return this.assetInstance.status.getStatus(key);
+        } else {
+            return 0;
+        }
+    }
+
 }
 
 export {ControllablePiece}

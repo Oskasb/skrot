@@ -53,27 +53,40 @@ function attachInstanceMesh(matName, geoName) {
 
 function registerInstanceGeometry(geoName, matName, cb) {
 
-    function geoLoaded(geo) {
-        geometries[geoName] = geo.scene.children[0].geometry;
-        attachInstanceMesh(matName, geoName)
-        cb()
-    }
+    if (!cbQueues[geoName]) {
+        cbQueues[geoName] = [cb];
 
-    loadAsset(geoName, 'glb', geoLoaded)
+        function geoLoaded(geo) {
+            geometries[geoName] = geo.scene.children[0].geometry;
+            attachInstanceMesh(matName, geoName)
+            while (cbQueues[geoName].length) {
+                cbQueues[geoName].pop()()
+            }
+        }
+        loadAsset(geoName, 'glb', geoLoaded)
+    } else {
+        cbQueues[geoName].push(cb);
+    }
 
 }
 
 
+const cbQueues = {};
+
 function registerInstanceMaterial(geoName, matName, cb) {
 
-    instancePools[matName] = {}
-
-    function matLoaded(matSettings) {
-        materials[matName] = matSettings.material;
-        registerInstanceGeometry(geoName, matName, cb)
+    if (!cbQueues[matName]) {
+        cbQueues[matName] = [cb];
+        function matLoaded(matSettings) {
+            materials[matName] = matSettings.material;
+            while (cbQueues[matName].length) {
+                registerInstanceGeometry(geoName, matName, cbQueues[matName].pop())
+            }
+        }
+        loadAssetMaterial(matName, matLoaded)
+    } else {
+        cbQueues[matName].push(cb);
     }
-
-    loadAssetMaterial(matName, matLoaded)
 }
 
 function instantiateByInfo(info) {

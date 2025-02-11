@@ -52,8 +52,10 @@ class PhysicalModel {
         let acceleration = new Vector3();
         let forceG = 1;
 
+
         function updateFloatation() {
             splashEvt.velocity.copy(getBodyVelocity(obj3d.userData.body));
+            let isFloating = 0;
             let time = getFrame().gameTime
             for (let i = 0; i < buoyancy.length; i++) {
                 tempVec.x = buoyancy[i].pos.x;
@@ -73,6 +75,7 @@ class PhysicalModel {
                 let submersion = calcBoxSubmersion(tempVec.y  + waveHeight, size)
 
                 if (submersion > 0) {
+                    isFloating = 1;
                     tempVec2.y = submersion * 100000 * AmmoAPI.getStepTime();
                     AmmoAPI.applyForceAtPointToBody(tempVec2, tempVec3, obj3d.userData.body)
 
@@ -106,6 +109,7 @@ class PhysicalModel {
                     }
                 }
             }
+            assetStatus.setStatusKey(ENUMS.InstanceStatus.WEIGHT_ON_WATER, isFloating);
         }
 
 
