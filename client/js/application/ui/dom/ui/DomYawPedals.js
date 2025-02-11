@@ -58,7 +58,7 @@ class DomYawPedals {
             dynamicRollR = htmlElement.call.getChildElement('dynamic_yaw_r');
 
             let opts = [
-                {axis:"X", min:-1, max:1, origin: 0, margin:0.25, autoZero:false, additive:true, keys:{add:'e', sub:'q'}}
+                {axis:"X", min:-1, max:1, origin: 0, margin:0.25, autoZero:true, additive:true, keys:{add:'e', sub:'q'}}
             ]
 
             inputDragPointer.call.activateDragSurface(surface, inputElement, statusMap, opts)
