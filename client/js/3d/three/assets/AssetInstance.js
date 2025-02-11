@@ -167,6 +167,11 @@ class AssetInstance {
         this.status.addStatusKeyCallback(statusKey, callback);
     }
 
+    registerPointStatusChangeCallback(pointId, statusKey, callback) {
+        let point = this.call.getPointById(pointId);
+        point.status.addStatusKeyCallback(statusKey, callback);
+    }
+
     setPos(pos) {
         this.call.setPos(pos);
     }

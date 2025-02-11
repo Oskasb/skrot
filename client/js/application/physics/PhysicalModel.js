@@ -134,10 +134,6 @@ class PhysicalModel {
 
             assetStatus.setStatusKey('FLAP_ENGAGE', 1 - MATH.clamp(Math.abs(Math.round(velocity.z) * 0.003), 0, 1));
             assetStatus.setStatusKey('FORCE_G',acceleration.y * 0.1);
-            assetStatus.setStatusKey('LIFT_L', 0.05 * (acceleration.y + lastG) * 0.5);
-            assetStatus.setStatusKey('LIFT_R',0.05 * (acceleration.y + lastG) * 0.5);
-
-
 
             updateFloatation()
         }

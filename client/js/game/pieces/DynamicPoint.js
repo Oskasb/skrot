@@ -2,8 +2,12 @@ import {Object3D, Vector3} from "../../../../libs/three/Three.Core.js";
 import {getAssetBoneByName, getBoneWorldTransform} from "../../application/utils/AssetUtils.js";
 import {MATH} from "../../application/MATH.js";
 import {getFrame} from "../../application/utils/DataUtils.js";
+import {SimpleStatus} from "../../application/setup/SimpleStatus.js";
+import {ENUMS} from "../../application/ENUMS.js";
+import {evt} from "../../application/event/evt.js";
 
 let tempObj = new Object3D();
+let tempObj2 = new Object3D();
 let tempVec = new Vector3();
 
 class DynamicPoint {
@@ -14,12 +18,12 @@ class DynamicPoint {
             value:0
         };
 
+        const status = new SimpleStatus();
+        this.status = status;
         const onStateChangeCallbacks = [];
-
 
         const obj3d = new Object3D();
         const offset = new Vector3();
-
         const velocity = new Vector3();
         const localObj3d = new Object3D();
 
@@ -70,22 +74,36 @@ class DynamicPoint {
 
             if (hasBoneParent === true) {
                 getBoneWorldTransform(parentNode, tempObj);
+
                 if (axisFactors !== false) {
-                    let lng = obj3d.position.length();
-                    obj3d.position.normalize();
                     MATH.vec3FromArray(tempVec, axisFactors);
-                    obj3d.position.x *= tempVec.x;
-                    obj3d.position.y *= tempVec.y;
-                    obj3d.position.z *= tempVec.z;
-                    obj3d.position.normalize();
-                    obj3d.position.multiplyScalar(lng);
+                    tempObj2.quaternion.set(0, 0, 0, 1);
+                    tempObj2.rotation.set(
+                        tempObj.rotation.x * tempVec.x,
+                        tempObj.rotation.y * tempVec.y,
+                        tempObj.rotation.z * tempVec.z,
+                        'XYZ'
+                    )
+                    obj3d.position.applyQuaternion(tempObj2.quaternion);
+
+                    /*
+                    tempVec.copy(tempObj.position);
+                    tempVec.add(obj3d.position);
+                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempObj.position, to:tempVec, color:"GREEN"})
+               */
+                    localObj3d.quaternion.copy(obj3d.quaternion);
+                    localObj3d.position.copy(obj3d.position)
+                    obj3d.quaternion.copy(tempObj.quaternion);
+                } else {
+                    localObj3d.quaternion.copy(obj3d.quaternion);
+                    obj3d.position.applyQuaternion(tempObj.quaternion);
+                    localObj3d.position.copy(obj3d.position)
+                    obj3d.quaternion.copy(tempObj.quaternion);
                 }
 
-                localObj3d.quaternion.copy(obj3d.quaternion);
-                obj3d.position.applyQuaternion(tempObj.quaternion);
-                localObj3d.position.copy(obj3d.position)
-                obj3d.quaternion.copy(tempObj.quaternion);
 
+
+            //    obj3d.position.add(parentNode.position)
             } else {
                 tempObj.position.copy(parentNode.position);
                 tempObj.quaternion.copy(parentNode.quaternion);
@@ -97,11 +115,12 @@ class DynamicPoint {
                 localObj3d.position.copy(obj3d.position)
             }
 
+            obj3d.position.add(tempObj.position)
+
             if (hasRotarion === true) {
                 MATH.rotateObj(obj3d, config.rot);
             }
 
-            obj3d.position.add(tempObj.position)
 
 
         //    console.log(timeDelta, velocity)
@@ -163,6 +182,12 @@ class DynamicPoint {
             }
         }
 
+        function setAppliedForce(vec3) {
+            status.setStatusKey(ENUMS.PointStatus.FORCE_X, vec3.x * 0.000001);
+            status.setStatusKey(ENUMS.PointStatus.FORCE_Y, MATH.clamp(vec3.y * 0.00001, -0.5, 0.5));
+            status.setStatusKey(ENUMS.PointStatus.FORCE_Z, vec3.z * 0.000001);
+        }
+
         this.call = {
             getObj3d:getObj3d,
             updateObj3d:updateObj3d,
@@ -170,10 +195,13 @@ class DynamicPoint {
             getPointVelocity:getPointVelocity,
             addPointStateChangeCallback:addPointStateChangeCallback,
             removePointStateChangeCallback:removePointStateChangeCallback,
-            setPointStateValue:setPointStateValue
+            setPointStateValue:setPointStateValue,
+            setAppliedForce:setAppliedForce
         }
 
     }
+
+
 
     getPos() {
         return this.call.getObj3d().position;

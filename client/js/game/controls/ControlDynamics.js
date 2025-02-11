@@ -111,7 +111,16 @@ class ControlDynamics {
             if (json.sample) {
                 sample = json.sample;
                 console.log("Register sampled status dynamic", sample)
-                assetInstance.registerStatusChangeCallback(sample['status'], applyTargetStateChange)
+
+                if (typeof (sample['status']) === 'string') {
+                    assetInstance.registerStatusChangeCallback(sample['status'], applyTargetStateChange)
+                } else if (typeof (sample['point_status']) === 'object') {
+                    let pointId = sample['point_status'].point;
+                    let status = sample['point_status'].status;
+                    assetInstance.registerPointStatusChangeCallback(pointId, status, applyTargetStateChange)
+                }
+
+
             }
 
             this.targets = MATH.jsonCopy(json.targets);

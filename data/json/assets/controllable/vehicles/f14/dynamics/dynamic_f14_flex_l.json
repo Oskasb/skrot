@@ -1,11 +1,11 @@
 {
   "dynamic": "WING_FLEX_L",
   "state": {"min": -1, "max": 1, "value": 0, "speed": 100},
-  "sample": {"status": "LIFT_L"},
+  "sample": {"point_status": {"point":"WING_L", "status": "FORCE_Y"}},
   "targets": [
     {
       "joints": [
-        {"bone": "wing_flex_l", "call": "setBoneRotation", "args": ["rotateY"], "factor": 0.7}
+        {"bone": "wing_flex_l", "call": "setBoneRotation", "args": ["rotateY"], "factor": -0.7}
       ]
     }
   ]

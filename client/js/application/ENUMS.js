@@ -267,6 +267,7 @@ let ENUMS = {}
         TORQUE_BOOST:'TORQUE_BOOST',
         SHOW_PIECE_POINTS:'SHOW_PIECE_POINTS',
         SHOW_FLIGHT_FORCES:'SHOW_FLIGHT_FORCES',
+        ADD_SURFACE_UP_FORCE:'ADD_SURFACE_UP_FORCE'
     }
 
     ENUMS.StrongholdStatus = {
@@ -439,9 +440,13 @@ let ENUMS = {}
         TAXI_SLOW:'TAXI_SLOW',
         SPEED_AIR:'SPEED_AIR',
         FLAP_ENGAGE:'FLAP_ENGAGE',
-        FORCE_G:'FORCE_G',
-        LIFT_L:'LIFT_L',
-        LIFT_R:'LIFT_R',
+        FORCE_G:'FORCE_G'
+    }
+
+    ENUMS.PointStatus = {
+        FORCE_X:'FORCE_X',
+        FORCE_Y:'FORCE_Y',
+        FORCE_Z:'FORCE_Z'
     }
 
 ENUMS.CombatStatus = {
