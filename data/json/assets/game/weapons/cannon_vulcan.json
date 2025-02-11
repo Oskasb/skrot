@@ -6,7 +6,8 @@
         "velocity":1030,
         "bullet": {
           "mass": 0.099,
-          "duration": 5,
+          "duration": 12,
+          "caliber": 0.02,
           "spread":8,
           "hit_fx": ["particles_hit_cannon"]
         }

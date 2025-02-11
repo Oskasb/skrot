@@ -11,6 +11,8 @@ import {createGeometryInstance} from "../../../3d/three/assets/GeometryInstance.
 const tempVec = new Vector3();
 const defaultHitFx = ["particles_hit_cannon"]
 
+let bulletIndex = 0;
+
 class ActiveBullet {
 
     constructor() {
@@ -24,10 +26,21 @@ class ActiveBullet {
             age:0,
             mass:0.1,
             duration:1,
-            hit_fx:defaultHitFx
+            hit_fx:defaultHitFx,
+            geometryInstance: null,
+            bulletIndex:bulletIndex
+        }
+        bulletIndex++;
+
+        function updateVisualBullet() {
+            if (info.geometryInstance !== null) {
+                obj3d.scale.multiplyScalar(3);
+                info.geometryInstance.call.applyTrxObj(obj3d);
+            }
+
         }
 
-        function update(stepTime) {
+        function updatePhysicalBullet(stepTime) {
 
             info.age += stepTime;
 
@@ -36,11 +49,11 @@ class ActiveBullet {
                 return;
             }
 
-            tempVec.set(0, -9, 0);
+            tempVec.set(0, -9.8  , 0);
             tempVec.add(vel);
             tempVec.multiplyScalar(stepTime);
             vel.multiplyScalar(0.999)
-            obj3d.scale.set(0.1, 0.1, tempVec.length())
+            obj3d.scale.set(info.caliber, info.caliber, tempVec.length())
             tempVec.add(obj3d.position);
             obj3d.lookAt(tempVec);
 
@@ -53,7 +66,7 @@ class ActiveBullet {
                 activateWorldEffects(obj3d, info.hit_fx)
                 closeBullet()
             } else {
-                info.geometryInstance.call.applyTrxObj(obj3d);
+
             //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:obj3d.position, to:tempVec, color:"YELLOW"})
                 obj3d.position.copy(tempVec);
             }
@@ -64,8 +77,16 @@ class ActiveBullet {
             info.age = 0;
             info.mass = bulletData.mass;
             info.duration = bulletData.duration;
+            info.caliber = bulletData.caliber || 0.1;
             info.hit_fx = bulletData.hit_fx || defaultHitFx;
-            info.geometryInstance = createGeometryInstance("bullet", 'material_instances_8x8_add');
+
+            if (info.bulletIndex % 3 === 1) {
+                info.geometryInstance = createGeometryInstance("bullet", 'material_instances_8x8_add');
+            } else {
+                info.geometryInstance = null;
+            }
+
+
 
             vel.set(0, 0, exitVelMPS);
             vel.applyQuaternion(sourceObj3d.quaternion);
@@ -77,14 +98,17 @@ class ActiveBullet {
                vel.add(rndV);
             };
 
-
             obj3d.position.copy(sourceObj3d.position);
-            AmmoAPI.registerPhysicsStepCallback(update);
+            AmmoAPI.registerPhysicsStepCallback(updatePhysicalBullet);
+            ThreeAPI.registerPrerenderCallback(updateVisualBullet);
         }
 
         function closeBullet() {
-            AmmoAPI.unregisterPhysicsStepCallback(update);
-            info.geometryInstance.call.closeGeoInstance();
+            AmmoAPI.unregisterPhysicsStepCallback(updatePhysicalBullet);
+            ThreeAPI.unregisterPrerenderCallback(updateVisualBullet);
+            if (info.geometryInstance !== null) {
+                info.geometryInstance.call.closeGeoInstance();
+            }
             poolReturn(bullet)
         }
 

@@ -6,7 +6,7 @@ import {Object3D} from "../../../../../libs/three/core/Object3D.js";
 const instancePools = {}
 const materials = {};
 const geometries = {};
-const instanceCount = 500;
+const instanceCount = 900;
 
 const hideObj = new Object3D();
 
@@ -105,7 +105,7 @@ function instantiateByInfo(info) {
                 info.index = releasedIndices.pop();
             } else {
                 info.index = instanceInfos.length;
-                mesh.count = info.index;
+            //    mesh.count = info.index;
             }
             info.mesh = mesh;
             info.meshPool = instanceMeshPool[i];
@@ -161,10 +161,12 @@ class GeometryInstance {
         }
 
         function closeGeoInstance() {
-
+            if (info.mesh !== null && info.index !== null) {
+                info.mesh.setMatrixAt(info.index, hideObj.matrix);
+            }
             info.mesh = null;
             if (info.meshPool !== null) {
-                info.meshPool.releasedIndices.push(info.index)
+                info.meshPool.releasedIndices.unshift(info.index)
             }
             info.meshPool = null;
             info.index = null;
