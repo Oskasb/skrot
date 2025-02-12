@@ -64,7 +64,8 @@ class DynamicPoint {
         originalTrxObj.position.copy(localObj3d.position);
         originalTrxObj.quaternion.copy(localObj3d.quaternion);
 
-
+        frameModifiedTrxObj.position.copy(localObj3d.position);
+        frameModifiedTrxObj.quaternion.copy(localObj3d.quaternion);
 
         let updateSteps = 0;
         let updateObj3d = function() {
@@ -115,33 +116,19 @@ class DynamicPoint {
 
                 let assetNode = assetInstance.getObj3d();
 
-            //    tempObj2.position.copy(assetNode.position);
-            //    tempObj2.quaternion.copy(assetNode.quaternion).invert();
-
-
-
                 frameModifiedTrxObj.position.copy(obj3d.position);
                 frameModifiedTrxObj.position.sub(assetNode.position);
                 frameModifiedTrxObj.position.add(originalTrxObj.position)
                 frameModifiedTrxObj.quaternion.copy(assetNode.quaternion).invert()
                 frameModifiedTrxObj.quaternion.multiply(obj3d.quaternion);
                 frameModifiedTrxObj.quaternion.multiply(originalTrxObj.quaternion);
-                 /*
-                      frameModifiedTrxObj.position.subVectors(obj3d.position, originalTrxObj.position)
-                      frameModifiedTrxObj.quaternion.copy(obj3d.quaternion).invert();
-                      localObj3d.quaternion.copy(frameModifiedTrxObj.quaternion)
-                      localObj3d.quaternion.premultiply(originalTrxObj.quaternion);
 
-                      localObj3d.position.copy(originalTrxObj.position)
-                      localObj3d.position.add(frameModifiedTrxObj.position)
-                   */
-                if (hasRotarion === true) {
-                //    MATH.rotateObj(localObj3d, config.rot);
-                }
+
+
             } else {
 
-                frameModifiedTrxObj.position.copy(localObj3d.position);
-                frameModifiedTrxObj.quaternion.copy(localObj3d.quaternion)
+                frameModifiedTrxObj.position.copy(originalTrxObj.position);
+                frameModifiedTrxObj.quaternion.copy(originalTrxObj.quaternion)
 
                 tempObj.position.copy(parentNode.position);
                 tempObj.quaternion.copy(parentNode.quaternion);
@@ -180,7 +167,8 @@ class DynamicPoint {
             localObj3d.quaternion.copy(tempObj.quaternion)
             localObj3d.quaternion.premultiply(obj3d.quaternion);
   */
-
+       //     localObj3d.position.copy(frameModifiedTrxObj.position)
+       //     localObj3d.quaternion.copy(frameModifiedTrxObj.quaternion)
             storeObj.position.copy(frameModifiedTrxObj.position);
             storeObj.quaternion.copy(frameModifiedTrxObj.quaternion);
         return;

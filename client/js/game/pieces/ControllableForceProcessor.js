@@ -30,30 +30,30 @@ let localUp = new Vector3();
 class ControllableForceProcessor {
     constructor(controllablePiece) {
 
-
-
         let stepTime = 0;
         let speedSq = 0;
 
         function applyEngineForce(point, prop, stateValue, body) {
+
             let force = stateValue * prop.force * stepTime * 3
             tempVec1.set(0, 0, -force);
-        //    point.updateDynamicPoint();
+
+            point.updateDynamicPoint();
             point.call.getLocalTransform(pointTransform);
-            pointTransform.quaternion.multiply(frameTransform.quaternion);
             tempVec1.applyQuaternion(pointTransform.quaternion)
             AmmoAPI.applyForceAtPointToBody(tempVec1, pointTransform.position, body);
 
             if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) !== 0) {
+                pointTransform.position.applyQuaternion(frameTransform.quaternion);
                 pointTransform.position.add(frameTransform.position);
                 evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:pointTransform.position, size:0.4, color:'YELLOW'});
                 tempVec1.multiplyScalar(0.01);
+                tempVec1.applyQuaternion(frameTransform.quaternion)
                 tempVec1.add(pointTransform.position);
                 evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:pointTransform.position, to:tempVec1, color:'YELLOW'});
             }
 
         }
-
 
         function updatePropulsion(body) {
             let propulsion = controllablePiece.propulsion;
@@ -239,7 +239,7 @@ class ControllableForceProcessor {
                 //    tempVec1.add(localDrag);
                     tempVec1.multiplyScalar(stepTime);
 
-                    AmmoAPI.applyForceAtPointToBody(tempVec1, pointTransform.position, body)
+                //    AmmoAPI.applyForceAtPointToBody(tempVec1, pointTransform.position, body)
 
                 //    AmmoAPI.applyForceAndTorqueToBody(tempVec1, tempVec2, body)
 
