@@ -11,9 +11,10 @@ let tempObj = new Object3D();
 let tempObj2 = new Object3D();
 let tempVec1 = new Vector3();
 let tempVec2 = new Vector3();
+let surfaceUp = new Vector3();
 let localQuat = new Quaternion();
 
-let localForwardVec3 = new Vector3();
+let surfaceForwardVec3 = new Vector3();
 let localOrientationVec3 = new Vector3();
 let tempAoAVec3 = new Vector3();
 let tempForwardVec3 = new Vector3();
@@ -84,6 +85,9 @@ class ControllableForceProcessor {
                 return;
             }
 
+            let airDensity = MATH.valueFromCurve(controllablePiece.getStatus(ENUMS.ControllableStatus.STATUS_ELEVATION), MATH.curves["densityByAlt"]);
+            let liftCoeff = 1;
+
             let mass = controllablePiece.getMass();
 
             let surfaces = controllablePiece.surfaces;
@@ -98,12 +102,12 @@ class ControllableForceProcessor {
 
             localQuat.copy(frameTransform.quaternion).invert()
             localUp.set(0, 1, 0);
-
+            localUp.applyQuaternion(frameTransform.quaternion)
             tempAoAVec3.set(0, 0, 1);
             tempAoAVec3.applyQuaternion(frameTransform.quaternion)
 
-            let aoaX = MATH.aoaXFromVelAndRot(tempForwardVec3, tempAoAVec3)
-            let aoaY = MATH.aoaYFromVelAndRot(tempForwardVec3, tempAoAVec3)
+            let aoaX = MATH.aoaXFromVelAndUp(tempForwardVec3, localUp)
+            let aoaY = MATH.aoaYFromVelAndUp(tempForwardVec3, localUp)
             tempAoAVec3.set(aoaX, aoaY, 0);
 
             controllablePiece.setStatusKey(ENUMS.ControllableStatus.STATUS_AOA_X, aoaX);
@@ -137,7 +141,9 @@ class ControllableForceProcessor {
             AmmoAPI.setBodyDamping(body, 0.01  + speed*0.001 + waterContact*0.2 +waterContact*speed*0.05, 0.01 + MATH.curveSqrt(speed*0.1) * 0.2 + waterContact*0.1);
 
 
-            let addUpForce = mass*MATH.curveQuad(getSetting(ENUMS.Settings.ADD_SURFACE_UP_FORCE) * 0.1);
+            let addUpForce = mass*MATH.curveQuad(getSetting(ENUMS.Settings.ADD_SURFACE_UP_FORCE) * 0.01);
+
+
 
             for (let key in surfaces) {
 
@@ -147,11 +153,13 @@ class ControllableForceProcessor {
 
                     point.updateDynamicPoint();
 
-
+                    surfaceUp.set(0, 1, 0);
                     tempAoAVec3.set(0, 0, 1);
                     tempAoAVec3.applyQuaternion(point.getQuat())
-
-
+                    surfaceUp.applyQuaternion(point.getQuat())
+                    surfaceForwardVec3.copy(point.getVel());
+                    speedSq = surfaceForwardVec3.lengthSq();
+                    surfaceForwardVec3.normalize();
 
                     tempSurfaceShape.copy(surface.scale);
                     localLift.set(0, 0, 0);
@@ -164,21 +172,32 @@ class ControllableForceProcessor {
                     localOrientationVec3.applyQuaternion(pointTransform.quaternion)
 
 
-                    tempAngleOfIncidence.copy(localOrientationVec3).sub(tempForwardVec3);
+                    tempAngleOfIncidence.copy(localOrientationVec3).sub(surfaceForwardVec3);
                 //    tempAngleOfIncidence.applyQuaternion(tempObj.quaternion)
                     let inducedDrag = 0;
 
                     if (surface.scale.x !== 0) {
 
-                        let aoaX = MATH.aoaXFromVelAndRot(tempForwardVec3, tempAoAVec3)
+                        let rotY = point.getObj3d().rotation.y;
+
+
+
+                        //    let aoaX = point.getObj3d().rotation.y - tempObj.rotation.y;
+                        let aoaX = MATH.aoaXFromVelAndUp(surfaceForwardVec3, surfaceUp)
 
                         let surfaceArea = surface.scale.x * surface.scale.z;
-                        let lift = Math.sin(-aoaX * 3.14) * speedSq * surfaceArea * 0.6;
-                        localLift.set(0, (lift + addUpForce), 0);
+                        let lift = aoaX * speedSq * surfaceArea * airDensity;
+                        localLift.set(0, (lift + addUpForce*surfaceArea), 0);
                     //    localLift.multiplyScalar(lift + addUpForce);
                     //    inducedDrag+=Math.sqrt(Math.abs(lift));
                         point.call.setAppliedForce(localLift);
                         localLift.applyQuaternion(frameTransform.quaternion)
+                    //    localLift.crossVectors(tempAoAVec3, tempForwardVec3);
+                    //    localLift.multiplyScalar(speedSq * surfaceArea * 3.6)
+
+
+
+
                     }
 
                     if (surface.scale.y === -1) {
@@ -197,22 +216,26 @@ class ControllableForceProcessor {
 
                     AmmoAPI.applyForceAtPointToBody(tempVec1, pointTransform.position, body)
 
-
                 //    AmmoAPI.applyForceAndTorqueToBody(tempVec1, tempVec2, body)
 
                     if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {
                         let globalPoint = point.getObj3d();
-                        tempVec2.copy(localUp);
-                        tempVec2.applyQuaternion(frameTransform.quaternion);
-                        tempVec2.add(globalPoint.position)
                         evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:globalPoint.position, size:0.2, color:'RED'});
-                        evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:globalPoint.position, to:tempVec2, color:'ORANGE'});
 
-                    tempVec2.copy(localLift);
-                    tempVec2.multiplyScalar(0.001)
-                //    tempVec2.applyQuaternion(frameTransform.quaternion);
-                    tempVec2.add(globalPoint.position)
-                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:globalPoint.position, to:tempVec2, color:'YELLOW'});
+                        tempVec2.copy(localLift);
+                        tempVec2.multiplyScalar(0.001)
+                        tempVec2.add(globalPoint.position)
+                        evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:globalPoint.position, to:tempVec2, color:'YELLOW'});
+
+                        tempVec2.copy(point.getVel())
+                        tempVec2.multiplyScalar(0.1);
+                        tempVec2.add(globalPoint.position)
+                        evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:globalPoint.position, to:tempVec2, color:'PURPLE'});
+
+                        tempVec2.copy(surfaceUp)
+                        tempVec2.multiplyScalar(1);
+                        tempVec2.add(globalPoint.position)
+                        evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:globalPoint.position, to:tempVec2, color:'BLUE'});
 
                     }
 

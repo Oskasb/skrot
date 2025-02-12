@@ -73,7 +73,7 @@ let	curves = {
 	"growShrink":   [[0, 1], [0.5,0], [1, -2]],
 	"shrink":   	[[0, -0.3], [0.3, -1]],
 	"machByAlt":    [[0, 1], [12200, 0.867], [12200, 0.867], [20000, 0.867], [32000, 0.88]],
-	"densityByAlt": [[0.1, 2.0], [1, 1.6], [4, 1.55], [15, 1.4], [100, 0.6],  [300, 0.5], [120000, 0]]
+	"densityByAlt": [[0.1, 2.0], [1, 1.6], [4, 1.3], [15, 1.2], [1000, 0.9],  [2000, 0.8], [10000, 0.2], [100000, 0]]
 };
 
 if (!Math.sign) {
@@ -617,8 +617,11 @@ MATH.rotateObj = function(obj3d, rotArray) {
 }
 
 MATH.angleInsideCircle = function(angle) {
-	if (angle < -Math.PI) angle+= MATH.TWO_PI;
-	if (angle > Math.PI) angle-= MATH.TWO_PI;
+	if (angle < -Math.PI) {
+		angle+= MATH.TWO_PI;
+	} else if (angle > Math.PI) {
+		angle-= MATH.TWO_PI;
+	}
 	return angle;
 };
 
@@ -1075,16 +1078,18 @@ MATH.jsonCopy = function(obj) {
 	return JSON.parse(JSON.stringify(obj))
 }
 
-MATH.aoaXFromVelAndRot = function(vel, rot) {
+MATH.aoaXFromVelAndUp = function(vel, rot) {
 	let velAngX = MATH.vectorYZToAngleAxisX(vel)
 	let rotAngX = MATH.vectorYZToAngleAxisX(rot)
-	return MATH.angleInsideCircle(MATH.subAngles(velAngX, rotAngX) + Math.PI);
+	calcVec.crossVectors(vel, rot);
+	return calcVec.x;
+	return MATH.angleInsideCircle(MATH.subAngles(rotAngX, velAngX) + Math.PI);
 }
 
-MATH.aoaYFromVelAndRot = function(vel, rot) {
+MATH.aoaYFromVelAndUp = function(vel, rot) {
 	let velAngY = MATH.vectorXZToAngleAxisY(vel)
 	let rotAngY = MATH.vectorXZToAngleAxisY(rot)
-	return MATH.angleInsideCircle(MATH.subAngles(velAngY , rotAngY ) +Math.PI);
+	return MATH.angleInsideCircle(MATH.subAngles(rotAngY, velAngY ) +Math.PI);
 }
 
 export { MATH }

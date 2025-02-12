@@ -1,0 +1,29 @@
+div.inspect_surface {
+    background-color: rgba(116, 10, 203, 0.22);
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+div.surface_inspect_box {
+    background-color: rgba(116, 10, 203, 0.22);
+    margin: 0.5em;
+    border: 0.2em solid white;
+}
+
+div.surface_label {
+    background-color: rgba(116, 10, 203, 0.22);
+}
+
+div.surface_aoa_box {
+    width: 21em;
+    height: 12em;
+    margin: 0.5em;
+    border: 0.2em solid white;
+}
+
+div.surface_label h2 {
+    color: white;
+}

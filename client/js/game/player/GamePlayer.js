@@ -7,6 +7,9 @@ import {evt} from "../../application/event/evt.js";
 import {MATH} from "../../application/MATH.js";
 import {bodyTransformToObj3d} from "../../application/utils/PhysicsUtils.js";
 import {getSetting} from "../../application/utils/StatusUtils.js";
+import {DomInspectAerodynamics} from "../../application/ui/dom/inspect/DomInspectAerodynamics.js";
+
+let viewAerodynamics = false;
 
 class GamePlayer {
     constructor() {
@@ -49,6 +52,17 @@ class GamePlayer {
 
             if (getSetting(ENUMS.Settings.SHOW_PIECE_POINTS) === 1) {
                 debugDrawControllable(playerControllable);
+            }
+
+            if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) !== 0) {
+                if (viewAerodynamics === false) {
+                    new DomInspectAerodynamics(playerControllable)
+                    viewAerodynamics = true;
+                }
+            } else {
+                if (viewAerodynamics === true) {
+                    viewAerodynamics = false
+                }
             }
 
         //    debugDrawControllable(playerControllable)
