@@ -66,7 +66,7 @@ div.airflow_root {
 
 div.airflow_line {
     width: 20em;
-    height: 0.05em;
+    height: 0.1em;
     background-color: rgba(139, 255, 255, 0.85);
     margin: 0.6em;
 }

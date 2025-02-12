@@ -24,6 +24,7 @@ class DomInspectAerodynamics {
 
         const surfaces = controllable.surfaces;
 
+        const rootObj = controllable.getObj3d();
 
         function alignAirfoil(key, surface) {
 
@@ -57,8 +58,8 @@ class DomInspectAerodynamics {
             );
             tempObj.lookAt(tempVec);
 
-            divFlowX.style.rotate = tempObj.rotation.x +'rad' ;
-            divFlowY.style.rotate = tempObj.rotation.y +'rad';
+            divFlowX.style.rotate = MATH.angleInsideCircle( tempObj.rotation.x - rootObj.rotation.x + Math.PI) +'rad';
+            divFlowY.style.rotate = -MATH.angleInsideCircle( tempObj.rotation.y - rootObj.rotation.y - MATH.HALF_PI) +'rad';
 
         }
 

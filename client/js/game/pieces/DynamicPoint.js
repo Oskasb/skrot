@@ -114,11 +114,17 @@ class DynamicPoint {
 
                 }
 
-                let assetNode = assetInstance.getObj3d();
+                obj3d.position.add(tempObj.position)
 
-                frameModifiedTrxObj.position.copy(obj3d.position);
-                frameModifiedTrxObj.position.sub(assetNode.position);
+                let assetNode = assetInstance.getObj3d();
+                evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:assetNode.position, size:1.2, color:'CYAN'});
+                evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:obj3d.position, size:0.6, color:'CYAN'});
+
+                frameModifiedTrxObj.position.subVectors(obj3d.position, assetNode.position);
                 frameModifiedTrxObj.position.add(originalTrxObj.position)
+             //   frameModifiedTrxObj.position.add(assetNode.position);
+
+
                 frameModifiedTrxObj.quaternion.copy(assetNode.quaternion).invert()
                 frameModifiedTrxObj.quaternion.multiply(obj3d.quaternion);
                 frameModifiedTrxObj.quaternion.multiply(originalTrxObj.quaternion);
@@ -136,11 +142,11 @@ class DynamicPoint {
 
                 obj3d.position.applyQuaternion(tempObj.quaternion);
                 obj3d.quaternion.copy(tempObj.quaternion);
-
+                obj3d.position.add(tempObj.position)
             }
 
 
-            obj3d.position.add(tempObj.position)
+
 
             if (hasRotarion === true) {
                 MATH.rotateObj(obj3d, config.rot);

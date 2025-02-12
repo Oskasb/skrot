@@ -41,6 +41,7 @@ class ControllableForceProcessor {
             point.updateDynamicPoint();
             point.call.getLocalTransform(pointTransform);
             tempVec1.applyQuaternion(pointTransform.quaternion)
+            tempVec1.applyQuaternion(frameTransform.quaternion)
             AmmoAPI.applyForceAtPointToBody(tempVec1, pointTransform.position, body);
 
             if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) !== 0) {
@@ -48,7 +49,7 @@ class ControllableForceProcessor {
                 pointTransform.position.add(frameTransform.position);
                 evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:pointTransform.position, size:0.4, color:'YELLOW'});
                 tempVec1.multiplyScalar(0.01);
-                tempVec1.applyQuaternion(frameTransform.quaternion)
+
                 tempVec1.add(pointTransform.position);
                 evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:pointTransform.position, to:tempVec1, color:'YELLOW'});
             }
@@ -239,7 +240,7 @@ class ControllableForceProcessor {
                 //    tempVec1.add(localDrag);
                     tempVec1.multiplyScalar(stepTime);
 
-                //    AmmoAPI.applyForceAtPointToBody(tempVec1, pointTransform.position, body)
+                //r    AmmoAPI.applyForceAtPointToBody(tempVec1, pointTransform.position, body)
 
                 //    AmmoAPI.applyForceAndTorqueToBody(tempVec1, tempVec2, body)
 
