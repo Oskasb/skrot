@@ -449,6 +449,29 @@ let ENUMS = {}
         FORCE_Z:'FORCE_Z'
     }
 
+    ENUMS.SurfaceStatus = {
+        AOA_X:'AOA_X',
+        AOA_Y:'AOA_Y',
+        LIFT_N:'LIFT_N',
+        DRAG_N:'DRAG_N',
+        POS_X:'POS_X',
+        POS_Y:'POS_Y',
+        POS_Z:'POS_Z',
+        SCALE_X:'SCALE_X',
+        SCALE_Y:'SCALE_Y',
+        SCALE_Z:'SCALE_Z',
+        VEL_X:'VEL_X',
+        VEL_Y:'VEL_Y',
+        VEL_Z:'VEL_Z',
+        QUAT_X:'QUAT_X',
+        QUAT_Y:'QUAT_Y',
+        QUAT_Z:'QUAT_Z',
+        QUAT_W:'QUAT_W',
+        NORMAL_X:'NORMAL_X',
+        NORMAL_Y:'NORMAL_Y',
+        NORMAL_Z:'NORMAL_Z'
+    }
+
 ENUMS.CombatStatus = {
     LEAPING:1,
     RUSHGIN:2,

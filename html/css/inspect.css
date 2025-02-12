@@ -18,6 +18,7 @@ div.surface_label {
 }
 
 div.surface_aoa_box {
+    overflow: hidden;
     width: 21em;
     height: 12em;
     margin: 0.5em;
@@ -26,4 +27,78 @@ div.surface_aoa_box {
 
 div.surface_label h2 {
     color: white;
+}
+
+div.origin {
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    top: 40%;
+    width: 0;
+    height: 0;
+    border: 0.2em solid white;
+    overflow: visible;
+}
+
+div.transform_root {
+    position: relative;
+    display: inline-block;
+    left: 0;
+    top: 0;
+    width: 0;
+    border: 0.2em solid white;
+    overflow: visible;
+}
+
+div.airflow_root {
+    pointer-events: auto;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    left: auto;
+    top: -6em;
+    width: 20em;
+    height: 20em;
+    border-radius: 50%;
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.1) 100%);
+}
+
+div.airflow_line {
+    width: 20em;
+    height: 0.05em;
+    background-color: rgba(139, 255, 255, 0.85);
+    margin: 0.6em;
+}
+
+div.airfoil_line {
+    position: absolute;
+    width: 10em;
+    height: 0.06em;
+    background-color: rgb(161, 232, 171);
+    padding: 0.2em;
+    top:-0.2em;
+    left: -5em;
+}
+
+div.plane_node {
+    position: absolute;
+    background-repeat: no-repeat;;
+    width: 44em;
+    height: 44em;
+    top: -22em;
+    left:-22em;
+
+    background-position: 8px 20px;
+    opacity: 0.3;
+}
+
+div.plane_top {
+    background-image: url("/skrot/images/icons/icon_f14_top.png");
+    background-size: 98% 98%;
+}
+
+div.plane_left {
+    background-image: url("/skrot/images/icons/icon_f14_left.png");
+    background-size: 100% 100%;
 }

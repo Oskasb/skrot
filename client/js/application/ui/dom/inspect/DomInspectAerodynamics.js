@@ -1,8 +1,18 @@
 import {poolFetch} from "../../../utils/PoolUtils.js";
 import {getSetting} from "../../../utils/StatusUtils.js";
 import {ENUMS} from "../../../ENUMS.js";
-import {createDivElement} from "../DomUtils.js";
+import {createDivElement, transformElement3DPercent} from "../DomUtils.js";
+import {Object3D} from "../../../../../../libs/three/core/Object3D.js";
+import {Vector3} from "../../../../../../libs/three/math/Vector3.js";
+import {MATH} from "../../../MATH.js";
+import {Quaternion} from "../../../../../../libs/three/math/Quaternion.js";
 
+// ref:  https://www.mecaflux.com/en/portance.htm
+
+let tempObj = new Object3D();
+let tempVec = new Vector3();
+
+let tempQuat = new Quaternion();
 
 class DomInspectAerodynamics {
     constructor(controllable) {
@@ -14,8 +24,48 @@ class DomInspectAerodynamics {
 
         const surfaces = controllable.surfaces;
 
+
+        function alignAirfoil(key, surface) {
+
+            const divFoilX = elements[key+'_FOIL_X'];
+            const divFoilY = elements[key+'_FOIL_Y'];
+
+            tempObj.quaternion.set(
+                surface.getStatus(ENUMS.SurfaceStatus.QUAT_X),
+                surface.getStatus(ENUMS.SurfaceStatus.QUAT_Y),
+                surface.getStatus(ENUMS.SurfaceStatus.QUAT_Z),
+                surface.getStatus(ENUMS.SurfaceStatus.QUAT_W)
+            );
+
+            divFoilX.style.rotate = tempObj.rotation.x +'rad' ;
+            divFoilY.style.rotate = tempObj.rotation.y +'rad';
+
+        }
+
+        function alignSurfaceAirflow(key, surface) {
+
+            const divFlowX = elements[key+'_FLOW_X'];
+            const divFlowY = elements[key+'_FLOW_Y'];
+
+            tempObj.position.set(0, 0, 0);
+            tempVec.set(
+                surface.getStatus(ENUMS.SurfaceStatus.VEL_X),
+                surface.getStatus(ENUMS.SurfaceStatus.VEL_Y),
+                surface.getStatus(ENUMS.SurfaceStatus.VEL_Z)
+            );
+            tempObj.lookAt(tempVec);
+
+            divFlowX.style.rotate = tempObj.rotation.x +'rad' ;
+            divFlowY.style.rotate = tempObj.rotation.y +'rad';
+
+        }
+
         function update() {
 
+            for (let key in surfaces) {
+                alignSurfaceAirflow(key, surfaces[key]);
+                alignAirfoil(key, surfaces[key])
+            }
 
 
             if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 0) {
@@ -25,18 +75,80 @@ class DomInspectAerodynamics {
         }
 
 
+        function addAirflowLines(key, parentX, parentY) {
+
+            elements[key+'_FLOW_X'] = createDivElement(parentX, key+'_FLOW_X', '', 'airflow_root')
+            elements[key+'_FLOW_Y'] = createDivElement(parentY, key+'_FLOW_Y', '', 'airflow_root')
+
+            for (let i = 0; i < 30; i++) {
+                createDivElement(elements[key+'_FLOW_X'], key+'_FLOW_X_'+i, '', 'airflow_line')
+                createDivElement(elements[key+'_FLOW_Y'], key+'_FLOW_Y_'+i, '', 'airflow_line')
+            }
+        }
+
+        const trxScaleFactor = 4.8
+
+        function addAirfoils(key, parentX, parentY) {
+
+            const surface = surfaces[key];
+            const sizeX = surface.getStatus(ENUMS.SurfaceStatus.SCALE_X);
+            const sizeY = surface.getStatus(ENUMS.SurfaceStatus.SCALE_Y);
+            const sizeZ = surface.getStatus(ENUMS.SurfaceStatus.SCALE_Z)
+
+            elements[key+'_FOIL_X'] = createDivElement(parentX, key+'_FOIL_X', '', 'airfoil_line')
+            elements[key+'_FOIL_X'].style.width = 0.1+sizeZ * 2+'em';
+            elements[key+'_FOIL_X'].style.height = 0.1+sizeY * 2+'em';
+            elements[key+'_FOIL_X'].style.left =  -sizeZ+'em';
+            elements[key+'_FOIL_X'].style.top = -sizeY+'em';
+            elements[key+'_FOIL_Y'] = createDivElement(parentY, key+'_FOIL_Y', '', 'airfoil_line')
+            elements[key+'_FOIL_Y'].style.width = 0.1+sizeX*2+'em';
+            elements[key+'_FOIL_Y'].style.height = 0.1+sizeZ*2+'em';
+            elements[key+'_FOIL_Y'].style.left =  -sizeX+'em';
+            elements[key+'_FOIL_Y'].style.top = -sizeZ+'em';
+        }
+
+
         function elemReady() {
             elements['surface_container'] = htmlElement.call.getChildElement('surface_container')
 
+
+
             for (let key in surfaces) {
+
+                const surface = surfaces[key];
+                const posX = surface.getStatus(ENUMS.SurfaceStatus.POS_X);
+                const posY = surface.getStatus(ENUMS.SurfaceStatus.POS_Y);
+                const posZ = surface.getStatus(ENUMS.SurfaceStatus.POS_Z)
+
                 let boxKey =  'box_'+key
                 elements[boxKey] = createDivElement(elements['surface_container'], boxKey, null, 'surface_inspect_box')
                 let labelKey = 'label_'+key;
                 elements[labelKey] = createDivElement(elements[boxKey], labelKey, '<h2>'+key+'</h2>', 'surface_label')
                 let aoaXKey = 'aoax_'+key;
-                elements[aoaXKey] = createDivElement(elements[boxKey], aoaXKey, 'aoax', 'surface_aoa_box')
+                elements[aoaXKey] = createDivElement(elements[boxKey], aoaXKey, '', 'surface_aoa_box')
+
+
+
+                let xKey = 'x_'+key;
+                elements[xKey] = createDivElement(elements[aoaXKey], xKey, '<h2>X</h2>', 'surface_label')
+                let origXKey = 'origx_'+key;
+                elements[origXKey] = createDivElement(elements[aoaXKey], origXKey, '', 'origin')
+                const planeX = createDivElement(elements[origXKey], key+'_img_x', '', 'plane_node plane_left')
+
+                transformElement3DPercent(planeX, 2 -posZ * trxScaleFactor, posY * trxScaleFactor -5, 0);
+
                 let aoaYKey = 'aoay_'+key;
-                elements[aoaYKey] = createDivElement(elements[boxKey], aoaYKey, 'aoay', 'surface_aoa_box')
+                elements[aoaYKey] = createDivElement(elements[boxKey], aoaYKey, '', 'surface_aoa_box')
+
+                let yKey = 'y_'+key;
+                elements[xKey] = createDivElement(elements[aoaYKey], yKey, '<h2>Y</h2>', 'surface_label')
+                let origYKey = 'origy_'+key;
+                elements[origYKey] = createDivElement(elements[aoaYKey], origYKey, '', 'origin')
+
+                const planeY = createDivElement(elements[origYKey], key+'_img_y', '', 'plane_node plane_top')
+                transformElement3DPercent(planeY, -posX*3.6, -10 -posZ * trxScaleFactor, 0);
+                addAirflowLines(key, elements[aoaXKey], elements[aoaYKey])
+                addAirfoils(key, elements[origXKey], elements[origYKey])
             }
 
             ThreeAPI.registerPrerenderCallback(update);

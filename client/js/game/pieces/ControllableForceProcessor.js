@@ -152,20 +152,41 @@ class ControllableForceProcessor {
                 if (point) {
 
                     point.updateDynamicPoint();
+                    point.call.getLocalTransform(pointTransform);
+                    const pos = pointTransform.position;
+                    const quat = pointTransform.quaternion;
 
                     surfaceUp.set(0, 1, 0);
                     tempAoAVec3.set(0, 0, 1);
-                    tempAoAVec3.applyQuaternion(point.getQuat())
-                    surfaceUp.applyQuaternion(point.getQuat())
+                    tempAoAVec3.applyQuaternion(quat)
+                    surfaceUp.applyQuaternion(quat)
                     surfaceForwardVec3.copy(point.getVel());
                     speedSq = surfaceForwardVec3.lengthSq();
                     surfaceForwardVec3.normalize();
-
                     tempSurfaceShape.copy(surface.scale);
+
+
+                    surface.setStatusKey(ENUMS.SurfaceStatus.POS_X, pos.x);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.POS_Y, pos.y);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.POS_Z, pos.z);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.SCALE_X, surface.scale.x);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.SCALE_Y, surface.scale.y);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.SCALE_Z, surface.scale.z);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.VEL_X, surfaceForwardVec3.x);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.VEL_Y, surfaceForwardVec3.y);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.VEL_Z, surfaceForwardVec3.z);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.QUAT_X, quat.x);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.QUAT_Y, quat.y);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.QUAT_Z, quat.z);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.QUAT_W, quat.w);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.NORMAL_X, surfaceUp.x);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Y, surfaceUp.y);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Z, surfaceUp.z);
+
                     localLift.set(0, 0, 0);
                     localSlip.set(0, 0, 0);
                     localDrag.copy(velocity).normalize();
-                    point.call.getLocalTransform(pointTransform);
+
                     pointTransform.quaternion.multiply(frameTransform.quaternion);
 
                     localOrientationVec3.set(0, 0, 1);
