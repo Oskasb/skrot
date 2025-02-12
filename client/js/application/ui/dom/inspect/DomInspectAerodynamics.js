@@ -37,6 +37,8 @@ class DomInspectAerodynamics {
                 surface.getStatus(ENUMS.SurfaceStatus.QUAT_W)
             );
 
+        //    let rootTrx = controllable.getObj3d();
+
             divFoilX.style.rotate = tempObj.rotation.x +'rad' ;
             divFoilY.style.rotate = tempObj.rotation.y +'rad';
 

@@ -137,7 +137,11 @@ class ControllableForceProcessor {
 
             let waterContact = controllablePiece.getAssetInstanceStatus(ENUMS.InstanceStatus.WEIGHT_ON_WATER) || 0;
 
-        //    AmmoAPI.applyForceAndTorqueToBody(tempVec1, tempVec2, body)
+            if (cheatTorque !== 0) {
+                AmmoAPI.applyForceAndTorqueToBody(tempVec1, tempVec2, body)
+            }
+
+        //
             AmmoAPI.setBodyDamping(body, 0.01  + speed*0.001 + waterContact*0.2 +waterContact*speed*0.05, 0.01 + MATH.curveSqrt(speed*0.1) * 0.2 + waterContact*0.1);
 
 
