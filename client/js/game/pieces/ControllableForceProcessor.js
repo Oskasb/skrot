@@ -35,7 +35,7 @@ class ControllableForceProcessor {
 
         function applyEngineForce(point, prop, stateValue, body) {
 
-            let force = stateValue * prop.force * stepTime * 3
+            let force = stateValue * prop.force * stepTime * 10
             tempVec1.set(0, 0, -force);
 
             point.updateDynamicPoint();
@@ -191,7 +191,7 @@ class ControllableForceProcessor {
                     tempObj.position.set(0, 0, 0);
                     tempObj.lookAt(surfaceForwardVec3);
                 //    tempObj.rotateX(-MATH.HALF_PI)
-                    surface.setStatusKey(ENUMS.SurfaceStatus.AOA_X, MATH.angleInsideCircle( tempObj.rotation.x - frameTransform.rotation.x + pointTransform.rotation.x));
+                    surface.setStatusKey(ENUMS.SurfaceStatus.AOA_X, MATH.angleInsideCircle( tempObj.rotation.x - frameTransform.rotation.x - pointTransform.rotation.x+Math.PI));
                     surface.setStatusKey(ENUMS.SurfaceStatus.AOA_Y, MATH.angleInsideCircle( tempObj.rotation.y - frameTransform.rotation.y + pointTransform.rotation.y));
 
                     localLift.set(0, 0, 0);
@@ -216,7 +216,7 @@ class ControllableForceProcessor {
 
                         let aoaX = surface.getStatus(ENUMS.SurfaceStatus.AOA_X)
                         let surfaceArea = surface.scale.x * surface.scale.z;
-                        liftY = Math.sin(aoaX) * speedSq * surfaceArea * airDensity *0.5;
+                        liftY = MATH.curveLift(aoaX) * speedSq * surfaceArea * airDensity + addUpForce * surfaceArea * 0.1 // *0.5;
 
 
                         let inducedForcesSQ = liftY*liftY;
@@ -225,28 +225,28 @@ class ControllableForceProcessor {
 
                     }
 
-                    if (surface.scale.y === -1) {
+                    if (surface.scale.y !== 0) {
                         let aoaY = surface.getStatus(ENUMS.SurfaceStatus.AOA_Y)
                         let surfaceArea = surface.scale.y * surface.scale.z;
-                        liftX = Math.sin(aoaY) * speedSq * surfaceArea * airDensity *0.5;
+                        liftX = liftY = MATH.curveLift(aoaY) * speedSq * surfaceArea * airDensity // *0.5;
 
                         let inducedForcesSQ = liftX*liftX;
                         inducedDrag += inducedForcesSQ / (0.5 * airDensity * speedSq * surface.scale.y * 3.14)
                     }
 
-                    localLift.set(liftX, liftY, inducedDrag);
+                    localLift.set(liftX, -liftY , inducedDrag);
 
 
 
 
-                    surface.setStatusKey(ENUMS.SurfaceStatus.LIFT_X, liftX);
-                    surface.setStatusKey(ENUMS.SurfaceStatus.LIFT_Y, liftY);
-                    surface.setStatusKey(ENUMS.SurfaceStatus.DRAG_N, inducedDrag);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.LIFT_X, 0*liftX);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.LIFT_Y, localLift.y);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.DRAG_N, 0*inducedDrag);
 
                 //    tempVec1.add(localDrag);
-                    tempVec1.multiplyScalar(stepTime);
+                    localLift.multiplyScalar(stepTime);
 
-                //r    AmmoAPI.applyForceAtPointToBody(tempVec1, pointTransform.position, body)
+                    AmmoAPI.applyForceAtPointToBody(localLift, pointTransform.position, body)
 
 
                     if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {

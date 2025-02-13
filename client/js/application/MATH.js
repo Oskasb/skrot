@@ -304,7 +304,7 @@ MATH.curveSigmoid = function(t) {
 };
 
 MATH.curveSigmoidInverted = function(t) {
-	return 1/MATH.curveSigmoid(t);
+	return 1-MATH.curveSigmoidMirrored(t);
 }
 
 MATH.curveEdge = function(t) {
@@ -1090,6 +1090,12 @@ MATH.aoaYFromVelAndUp = function(vel, rot) {
 	let velAngY = MATH.vectorXZToAngleAxisY(vel)
 	let rotAngY = MATH.vectorXZToAngleAxisY(rot)
 	return MATH.angleInsideCircle(MATH.subAngles(rotAngY, velAngY ) +Math.PI);
+}
+
+MATH.curveLift = function(AoA) {
+	const nonStallFactor = MATH.curveSqrt(Math.sin(AoA )) * Math.abs(Math.cos(AoA*0.5))
+//	const stallFactor = MATH.curveSigmoidMirrored(AoA / 3.142)
+	return nonStallFactor // + stallFactor;
 }
 
 export { MATH }

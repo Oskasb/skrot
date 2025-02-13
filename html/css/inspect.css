@@ -15,8 +15,10 @@ div.surface_inspect_box {
 }
 
 div.surface_aoa_box {
+    display: inline-block;
     overflow: hidden;
     height: 15em;
+    width: 96%;
     margin: 0.2em;
     border: 0.2em solid rgba(76, 180, 253, 0.62);
     border-radius: 1em;
@@ -61,12 +63,14 @@ div.airflow_root {
     position: relative;
     margin: 0;
     padding: 0;
-    left: auto;
-    top: -8em;
-    width: 100%;
+    left: -10em;
+    top: -10em;
+    width: 20em;
     height: 20em;
     border-radius: 50%;
     overflow: hidden;
+
+    transform-origin: 50% 50%;
     mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 15%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.1) 100%);
 }
 
@@ -82,12 +86,13 @@ div.airfoil_line {
     position: absolute;
     width: 10em;
     height: 0.06em;
-    background-color: rgba(179, 222, 229, 0.71);
-    padding: 0.2em;
+    background-image: linear-gradient(rgba(111, 255, 251, 0.89) 0%, rgba(0, 61, 100, 0.59) 100%);
+    padding: 0.5em;
     top:-0.2em;
     left: -5em;
-    border: 0.2em solid #b4f6ff;
-    border-radius: 1em;
+    border: 0.2em solid rgba(0, 126, 194, 0.48);
+    border-radius: 50% 50% 1em 1em;
+    transform-origin: 50% 50%;
 }
 
 div.plane_node {
@@ -153,4 +158,58 @@ div.line_up_x {
 div.line_up_y {
     background-image: linear-gradient(rgb(45, 255, 255) 0%, rgb(0, 2, 145) 100%);
     height: 3em;
+}
+
+div.plot_container {
+    display: block;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-170%);
+}
+
+div.line_node {
+    pointer-events: auto;
+    position: relative;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    top: auto;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    border-radius: 0;
+    transform-origin: 50% 50%;
+    overflow: visible;
+}
+
+div.line_segment {
+    pointer-events: auto;
+    position: relative;
+    display: inline-block;
+    width: 0.2em;
+    height: 0.2em;
+    background-color: rgb(255, 187, 97);
+    top: auto;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    border-radius: 0;
+    box-shadow: 0 0 0.5em white;
+    transform-origin: 50% 10%;
+}
+
+div.line_sampled {
+    pointer-events: auto;
+    position: relative;
+    display: inline-block;
+    width: 0.5em;
+    height: 0.5em;
+    background-color: rgb(255, 187, 97);
+    top: auto;
+    padding: 0;
+    margin: 0;
+    left: 0;
+    border-radius: 0;
+    box-shadow: 0 0 0.5em white;
+    transform-origin: 50% 50%;
 }

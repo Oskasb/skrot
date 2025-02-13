@@ -1,7 +1,7 @@
 import {poolFetch} from "../../../utils/PoolUtils.js";
 import {getSetting} from "../../../utils/StatusUtils.js";
 import {ENUMS} from "../../../ENUMS.js";
-import {createDivElement, transformElement3DPercent} from "../DomUtils.js";
+import {createDivElement, transformElement3DPercent, translateElement3DPercent} from "../DomUtils.js";
 import {Object3D} from "../../../../../../libs/three/core/Object3D.js";
 import {Vector3} from "../../../../../../libs/three/math/Vector3.js";
 import {MATH} from "../../../MATH.js";
@@ -83,10 +83,18 @@ class DomInspectAerodynamics {
         const liftY = surface.getStatus(ENUMS.SurfaceStatus.LIFT_Y);
         const dragN = surface.getStatus(ENUMS.SurfaceStatus.DRAG_N);
 
-            elements[key+'_LIFT_X'].style.transform = "scale3d("+(MATH.curveSqrt(Math.abs(liftX))*0.005 + 0.2)+", "+MATH.curveSqrt(liftX)*0.01+", 1)";
+            elements[key+'_LIFT_X'].style.transform = "scale3d("+(MATH.curveSqrt(Math.abs(liftX))*0.02 + 0.5)+", "+MATH.curveSqrt(liftX)*0.1+", 1)";
             elements[key+'_FORCE_G'].style.rotate = -rootObj.rotation.x+'rad';
             elements[key+'_DRAG_N'].style.transform = "scale3d("+(MATH.curveSqrt(dragN)*0.005 + 0.2)+", "+MATH.curveSqrt(dragN)*0.01+", 1)";
-            elements[key+'_LIFT_Y'].style.transform = "scale3d("+(MATH.curveSqrt(Math.abs(liftY))*0.005 + 0.2)+", "+MATH.curveSqrt(liftY)*0.01+", 1)";
+            elements[key+'_LIFT_Y'].style.transform = "scale3d("+(MATH.curveSqrt(Math.abs(liftY))*0.002 + 0.5)+", "+MATH.curveSqrt(liftY)*0.01+", 1)";
+
+            curvePointFromAngle(surface.getStatus(ENUMS.SurfaceStatus.AOA_X))
+            elements[key+'_SAMPLE_X'].style.left = bottomLeft.left;
+            elements[key+'_SAMPLE_X'].style.bottom = bottomLeft.bottom;
+
+            curvePointFromAngle(surface.getStatus(ENUMS.SurfaceStatus.AOA_Y))
+            elements[key+'_SAMPLE_Y'].style.left = bottomLeft.left;
+            elements[key+'_SAMPLE_Y'].style.bottom = bottomLeft.bottom;
 
         }
 
@@ -116,6 +124,49 @@ class DomInspectAerodynamics {
                 createDivElement(elements[key+'_FLOW_X'], key+'_FLOW_X_'+i, '', 'airflow_line')
                 createDivElement(elements[key+'_FLOW_Y'], key+'_FLOW_Y_'+i, '', 'airflow_line')
             }
+        }
+
+        const bottomLeft = {
+            bottom:"",
+            left:""
+        }
+
+        function curvePointFromAngle(incidence) {
+
+            const frac = MATH.calcFraction(-Math.PI, Math.PI, incidence);
+            const lift = MATH.curveLift(incidence);
+            bottomLeft.left = frac*100+'%';
+            bottomLeft.bottom = -45+ lift*45+'%';
+            return bottomLeft;
+        }
+
+        function addLiftCurvePlot(key, parentX, parentY) {
+
+            const count = 100;
+
+            for (let i = 0; i < count; i++) {
+                let frac = MATH.calcFraction(0, count, i);
+                let curveAngle = frac*MATH.TWO_PI - Math.PI;
+                let px = createDivElement(parentX, key+'_curve_plot_x_'+i, '', 'line_node')
+                let py = createDivElement(parentY, key+'_curve_plot_y_'+i, '', 'line_node')
+
+                const bl = curvePointFromAngle(curveAngle);
+
+                px.style.left = bl.left;
+                py.style.left = bl.left;
+                px.style.bottom = bl.bottom;
+                py.style.bottom = bl.bottom;
+
+                createDivElement(px, key+'_curve_line_x_'+i, '', 'line_segment')
+                createDivElement(py, key+'_curve_line_y_'+i, '', 'line_segment')
+            }
+
+            elements[key+'_SAMPLE_X'] = createDivElement(parentX, key+'_curve_sample_x', '', 'line_node')
+            createDivElement(elements[key+'_SAMPLE_X'], key+'_curve_sample_x_dot', '', 'line_sampled')
+
+            elements[key+'_SAMPLE_Y'] = createDivElement(parentY, key+'_curve_sample_y', '', 'line_node')
+            createDivElement(elements[key+'_SAMPLE_Y'], key+'_curve_sample_y_dot', '', 'line_sampled')
+
         }
 
         const trxScaleFactor = 4.8
@@ -199,7 +250,11 @@ class DomInspectAerodynamics {
 
                 const planeY = createDivElement(elements[origYKey], key+'_img_y', '', 'plane_node plane_top')
                 transformElement3DPercent(planeY, -posX*3.6, -10 -posZ * trxScaleFactor, 0);
-                addAirflowLines(key, elements[aoaXKey], elements[aoaYKey])
+                addAirflowLines(key, elements[origXKey], elements[origYKey])
+
+                const plotBoxX = createDivElement(elements[aoaXKey], key+'_plot_x', '', 'plot_container')
+                const plotBoxY = createDivElement(elements[aoaYKey], key+'_plot_x', '', 'plot_container')
+                addLiftCurvePlot(key, plotBoxX, plotBoxY)
                 addAirfoils(key, elements[origXKey], elements[origYKey])
                 addForceLines(key, elements[origXKey], elements[origYKey])
             }
