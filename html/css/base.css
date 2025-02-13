@@ -259,10 +259,10 @@ iframe.tool_selector {
 iframe.inspect_aerodynamics {
     position: absolute;
     z-index: 100;
-    top: 15%;
-    left: 10%;
-    height: 65%;
-    width: 80%;
+    top: 2%;
+    left: 2%;
+    height: 40%;
+    width: 96%;
     border: none;
 }
 

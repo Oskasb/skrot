@@ -188,6 +188,12 @@ class ControllableForceProcessor {
                     surface.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Y, surfaceUp.y);
                     surface.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Z, surfaceUp.z);
 
+                    tempObj.position.set(0, 0, 0);
+                    tempObj.lookAt(surfaceForwardVec3);
+                //    tempObj.rotateX(-MATH.HALF_PI)
+                    surface.setStatusKey(ENUMS.SurfaceStatus.AOA_X, MATH.angleInsideCircle( tempObj.rotation.x - frameTransform.rotation.x + pointTransform.rotation.x));
+                    surface.setStatusKey(ENUMS.SurfaceStatus.AOA_Y, MATH.angleInsideCircle( tempObj.rotation.y - frameTransform.rotation.y + pointTransform.rotation.y));
+
                     localLift.set(0, 0, 0);
                     localSlip.set(0, 0, 0);
                     localDrag.copy(velocity).normalize();
@@ -200,49 +206,48 @@ class ControllableForceProcessor {
 
                     tempAngleOfIncidence.copy(localOrientationVec3).sub(surfaceForwardVec3);
                 //    tempAngleOfIncidence.applyQuaternion(tempObj.quaternion)
+
+
+                    let liftX = 0;
+                    let liftY = 0;
                     let inducedDrag = 0;
 
                     if (surface.scale.x !== 0) {
 
-                        let rotY = point.getObj3d().rotation.y;
-
-
-
-                        //    let aoaX = point.getObj3d().rotation.y - tempObj.rotation.y;
-                        let aoaX = MATH.aoaXFromVelAndUp(surfaceForwardVec3, surfaceUp)
-
+                        let aoaX = surface.getStatus(ENUMS.SurfaceStatus.AOA_X)
                         let surfaceArea = surface.scale.x * surface.scale.z;
-                        let lift = aoaX * speedSq * surfaceArea * airDensity;
-                        localLift.set(0, (lift + addUpForce*surfaceArea), 0);
-                    //    localLift.multiplyScalar(lift + addUpForce);
-                    //    inducedDrag+=Math.sqrt(Math.abs(lift));
-                        point.call.setAppliedForce(localLift);
-                        localLift.applyQuaternion(frameTransform.quaternion)
-                    //    localLift.crossVectors(tempAoAVec3, tempForwardVec3);
-                    //    localLift.multiplyScalar(speedSq * surfaceArea * 3.6)
+                        liftY = Math.sin(aoaX) * speedSq * surfaceArea * airDensity *0.5;
 
 
+                        let inducedForcesSQ = liftY*liftY;
+                        inducedDrag += inducedForcesSQ / (0.5 * airDensity * speedSq * surface.scale.x * 3.14)
 
 
                     }
 
                     if (surface.scale.y === -1) {
+                        let aoaY = surface.getStatus(ENUMS.SurfaceStatus.AOA_Y)
                         let surfaceArea = surface.scale.y * surface.scale.z;
-                        localSlip.x = MATH.curveSin(tempAngleOfIncidence.x) * speedSq * surfaceArea;
-                        inducedDrag+=Math.sqrt(Math.abs(localSlip.x));
-                        localSlip.applyQuaternion(frameTransform.quaternion)
+                        liftX = Math.sin(aoaY) * speedSq * surfaceArea * airDensity *0.5;
+
+                        let inducedForcesSQ = liftX*liftX;
+                        inducedDrag += inducedForcesSQ / (0.5 * airDensity * speedSq * surface.scale.y * 3.14)
                     }
 
+                    localLift.set(liftX, liftY, inducedDrag);
 
-                //    localDrag.multiplyScalar(-inducedDrag)
-                    tempVec1.addVectors(localSlip, localLift);
+
+
+
+                    surface.setStatusKey(ENUMS.SurfaceStatus.LIFT_X, liftX);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.LIFT_Y, liftY);
+                    surface.setStatusKey(ENUMS.SurfaceStatus.DRAG_N, inducedDrag);
 
                 //    tempVec1.add(localDrag);
                     tempVec1.multiplyScalar(stepTime);
 
                 //r    AmmoAPI.applyForceAtPointToBody(tempVec1, pointTransform.position, body)
 
-                //    AmmoAPI.applyForceAndTorqueToBody(tempVec1, tempVec2, body)
 
                     if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {
                         let globalPoint = point.getObj3d();

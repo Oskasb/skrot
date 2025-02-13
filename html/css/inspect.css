@@ -1,5 +1,4 @@
 div.inspect_surface {
-    background-color: rgba(116, 10, 203, 0.22);
     display: flex;
     justify-content: space-evenly;
     align-content: center;
@@ -8,32 +7,40 @@ div.inspect_surface {
 }
 
 div.surface_inspect_box {
-    background-color: rgba(116, 10, 203, 0.22);
-    margin: 0.5em;
-    border: 0.2em solid white;
-}
-
-div.surface_label {
-    background-color: rgba(116, 10, 203, 0.22);
+    background-color: rgba(18, 189, 220, 0.25);
+    margin: 0;
+    border: 0.2em solid rgba(9, 199, 222, 0.74);
+    border-radius: 1.3em;
+    padding: 0.2em;
 }
 
 div.surface_aoa_box {
     overflow: hidden;
-    width: 21em;
-    height: 12em;
-    margin: 0.5em;
-    border: 0.2em solid white;
+    height: 15em;
+    margin: 0.2em;
+    border: 0.2em solid rgba(76, 180, 253, 0.62);
+    border-radius: 1em;
+    background-color: rgba(2, 13, 31, 0.32);
+}
+
+div.surface_label {
+
 }
 
 div.surface_label h2 {
-    color: white;
+    color: #ffb837;
+}
+
+div.surface_label h3 {
+    font-size: 2.2em;
+    color: #beffec;
 }
 
 div.origin {
     position: relative;
     display: inline-block;
     left: 50%;
-    top: 40%;
+    top: 12%;
     width: 0;
     height: 0;
     border: 0.2em solid white;
@@ -51,13 +58,12 @@ div.transform_root {
 }
 
 div.airflow_root {
-    pointer-events: auto;
     position: relative;
     margin: 0;
     padding: 0;
     left: auto;
-    top: -6em;
-    width: 20em;
+    top: -8em;
+    width: 100%;
     height: 20em;
     border-radius: 50%;
     overflow: hidden;
@@ -72,6 +78,7 @@ div.airflow_line {
 }
 
 div.airfoil_line {
+    pointer-events: auto;
     position: absolute;
     width: 10em;
     height: 0.06em;
@@ -103,4 +110,47 @@ div.plane_top {
 div.plane_left {
     background-image: url("/skrot/images/icons/icon_f14_left.png");
     background-size: 100% 100%;
+}
+
+div.force_line {
+    pointer-events: auto;
+    position: absolute;
+    width: 0.4em;
+    height: 1em;
+    background-color: rgba(255, 245, 39, 1);
+    top: 0;
+    padding: 0;
+    margin: 0;
+    left: 0.2em;
+    border: none;
+    border-radius: 0;
+    transform-origin: 50% 102%;
+}
+
+div.line_lift_x {
+    rotate: 90deg;
+    background-image: linear-gradient(rgb(235, 0, 255) 0%, rgb(255, 190, 232) 100%);
+}
+div.line_lift_y {
+    transform-origin: 50% 0%;
+    background-image: linear-gradient(rgb(222, 255, 137) 0%, rgb(94, 255, 0) 100%);
+}
+div.line_drag_n {
+    rotate: 180deg;
+    background-image: linear-gradient(rgb(122, 0, 0) 0%, rgb(255, 0, 0) 100%);
+}
+div.line_force_g {
+    transform-origin: 50% 0%;
+    background-image: linear-gradient(rgb(57, 255, 45) 0%, rgb(0, 89, 4) 100%);
+    height: 8em;
+}
+
+div.line_up_x {
+    background-image: linear-gradient(rgb(45, 255, 255) 0%, rgb(0, 2, 145) 100%);
+    height: 3em;
+}
+
+div.line_up_y {
+    background-image: linear-gradient(rgb(45, 255, 255) 0%, rgb(0, 2, 145) 100%);
+    height: 3em;
 }

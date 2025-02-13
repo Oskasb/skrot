@@ -63,11 +63,40 @@ class DomInspectAerodynamics {
 
         }
 
+        function indicateAoA(key, surface) {
+            const aoaxKey = key+'_AOA_X';
+            const aoayKey = key+'_AOA_Y';
+
+            const aoaX = surface.getStatus(ENUMS.SurfaceStatus.AOA_X);
+            const aoaY = surface.getStatus(ENUMS.SurfaceStatus.AOA_Y);
+
+            const txX = '<h3>α '+MATH.numberToDigits(aoaX, 3)+'</h3>'
+            const txY = '<h3>α '+MATH.numberToDigits(aoaY, 3)+'</h3>'
+
+            elements[aoaxKey].innerHTML = txX
+            elements[aoayKey].innerHTML = txY
+        }
+
+        function updateForceLines(key, surface) {
+
+        const liftX = surface.getStatus(ENUMS.SurfaceStatus.LIFT_X);
+        const liftY = surface.getStatus(ENUMS.SurfaceStatus.LIFT_Y);
+        const dragN = surface.getStatus(ENUMS.SurfaceStatus.DRAG_N);
+
+            elements[key+'_LIFT_X'].style.transform = "scale3d("+(MATH.curveSqrt(Math.abs(liftX))*0.005 + 0.2)+", "+MATH.curveSqrt(liftX)*0.01+", 1)";
+            elements[key+'_FORCE_G'].style.rotate = -rootObj.rotation.x+'rad';
+            elements[key+'_DRAG_N'].style.transform = "scale3d("+(MATH.curveSqrt(dragN)*0.005 + 0.2)+", "+MATH.curveSqrt(dragN)*0.01+", 1)";
+            elements[key+'_LIFT_Y'].style.transform = "scale3d("+(MATH.curveSqrt(Math.abs(liftY))*0.005 + 0.2)+", "+MATH.curveSqrt(liftY)*0.01+", 1)";
+
+        }
+
         function update() {
 
             for (let key in surfaces) {
                 alignSurfaceAirflow(key, surfaces[key]);
                 alignAirfoil(key, surfaces[key])
+                indicateAoA(key, surfaces[key])
+                updateForceLines(key, surfaces[key])
             }
 
 
@@ -110,11 +139,22 @@ class DomInspectAerodynamics {
             elements[key+'_FOIL_Y'].style.top = -sizeZ+'em';
         }
 
+        function addForceLines(key, parentX, parentY) {
+            elements[key+'_LIFT_X']  = createDivElement(parentY, key+'_LIFT_X', '', 'force_line line_lift_x');
+            elements[key+'_FORCE_G'] = createDivElement(parentX, key+'_FORCE_G', '', 'force_line line_force_g');
+            elements[key+'_DRAG_N']  = createDivElement(parentY, key+'_DRAG_N', '', 'force_line line_drag_n');
+            elements[key+'_LIFT_Y']  = createDivElement(parentX, key+'_LIFT_Y', '', 'force_line line_lift_y');
+        //    elements[key+'_UP_X']  = createDivElement(parentX, key+'_UP_X', '', 'force_line line_up_x');
+        //    elements[key+'_UP_Y']  = createDivElement(parentY, key+'_UP_Y', '', 'force_line line_up_y');
+        }
 
         function elemReady() {
             elements['surface_container'] = htmlElement.call.getChildElement('surface_container')
 
 
+            let count = Object.keys(surfaces).length;
+
+            let width = MATH.percentify(1, count + 0.5);
 
             for (let key in surfaces) {
 
@@ -125,6 +165,7 @@ class DomInspectAerodynamics {
 
                 let boxKey =  'box_'+key
                 elements[boxKey] = createDivElement(elements['surface_container'], boxKey, null, 'surface_inspect_box')
+                elements[boxKey].style.width = width+'%';
                 let labelKey = 'label_'+key;
                 elements[labelKey] = createDivElement(elements[boxKey], labelKey, '<h2>'+key+'</h2>', 'surface_label')
                 let aoaXKey = 'aoax_'+key;
@@ -134,6 +175,10 @@ class DomInspectAerodynamics {
 
                 let xKey = 'x_'+key;
                 elements[xKey] = createDivElement(elements[aoaXKey], xKey, '<h2>X</h2>', 'surface_label')
+
+                let aoaxKey = key+'_AOA_X';
+                elements[aoaxKey] = createDivElement(elements[aoaXKey], aoaxKey, '<h3>AOA X:</h3>', 'surface_label')
+
                 let origXKey = 'origx_'+key;
                 elements[origXKey] = createDivElement(elements[aoaXKey], origXKey, '', 'origin')
                 const planeX = createDivElement(elements[origXKey], key+'_img_x', '', 'plane_node plane_left')
@@ -145,6 +190,10 @@ class DomInspectAerodynamics {
 
                 let yKey = 'y_'+key;
                 elements[xKey] = createDivElement(elements[aoaYKey], yKey, '<h2>Y</h2>', 'surface_label')
+
+                let aoayKey = key+'_AOA_Y';
+                elements[aoayKey] = createDivElement(elements[aoaYKey], aoayKey, '<h3>AOA Y:</h3>', 'surface_label')
+
                 let origYKey = 'origy_'+key;
                 elements[origYKey] = createDivElement(elements[aoaYKey], origYKey, '', 'origin')
 
@@ -152,6 +201,7 @@ class DomInspectAerodynamics {
                 transformElement3DPercent(planeY, -posX*3.6, -10 -posZ * trxScaleFactor, 0);
                 addAirflowLines(key, elements[aoaXKey], elements[aoaYKey])
                 addAirfoils(key, elements[origXKey], elements[origYKey])
+                addForceLines(key, elements[origXKey], elements[origYKey])
             }
 
             ThreeAPI.registerPrerenderCallback(update);

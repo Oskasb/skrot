@@ -452,7 +452,8 @@ let ENUMS = {}
     ENUMS.SurfaceStatus = {
         AOA_X:'AOA_X',
         AOA_Y:'AOA_Y',
-        LIFT_N:'LIFT_N',
+        LIFT_X:'LIFT_X',
+        LIFT_Y:'LIFT_Y',
         DRAG_N:'DRAG_N',
         POS_X:'POS_X',
         POS_Y:'POS_Y',
