@@ -84,7 +84,10 @@ class DomInspectAerodynamics {
         const dragN = surface.getStatus(ENUMS.SurfaceStatus.DRAG_N);
 
             elements[key+'_LIFT_X'].style.transform = "scale3d("+(MATH.curveSqrt(Math.abs(liftX))*0.02 + 0.5)+", "+MATH.curveSqrt(liftX)*0.1+", 1)";
-            elements[key+'_FORCE_G'].style.rotate = -rootObj.rotation.x+'rad';
+
+            let attitudeHz = MATH.gAttitudeFromQuaternion(rootObj.quaternion)
+
+            elements[key+'_FORCE_G'].style.rotate = attitudeHz+'rad';
             elements[key+'_DRAG_N'].style.transform = "scale3d("+(MATH.curveSqrt(dragN)*0.005 + 0.2)+", "+MATH.curveSqrt(dragN)*0.01+", 1)";
             elements[key+'_LIFT_Y'].style.transform = "scale3d("+(MATH.curveSqrt(Math.abs(liftY))*0.002 + 0.5)+", "+MATH.curveSqrt(liftY)*0.01+", 1)";
 
