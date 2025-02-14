@@ -1,6 +1,6 @@
 {
   "dynamic": "WING_FLEX_L",
-  "state": {"min": -1, "max": 1, "value": 0, "speed": 100},
+  "state": {"min": -1, "max": 1, "value": 0, "speed": 1},
   "sample": {"point_status": {"point":"WING_L", "status": "FORCE_Y"}},
   "targets": [
     {

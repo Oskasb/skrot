@@ -171,7 +171,7 @@ class ControllableForceProcessor {
             }
 
         //
-            AmmoAPI.setBodyDamping(body, 0.00001  + speed*0.000001 + waterContact*0.2 +waterContact*speed*0.05, 0.02 + MATH.curveSqrt(speed*0.03) * 0.2 + waterContact*0.1);
+            AmmoAPI.setBodyDamping(body, 0.00001  + speed*0.000001 + waterContact*0.2 +waterContact*speed*0.05, 0.03 + MATH.curveSqrt(speed*0.026) * 0.3 + waterContact*0.1);
 
 
             let addUpForce = mass*MATH.curveQuad(getSetting(ENUMS.Settings.ADD_SURFACE_UP_FORCE) * 0.01);
@@ -275,7 +275,7 @@ class ControllableForceProcessor {
                     surface.setStatusKey(ENUMS.SurfaceStatus.LIFT_X, liftX);
                     surface.setStatusKey(ENUMS.SurfaceStatus.LIFT_Y, localLift.y);
                     surface.setStatusKey(ENUMS.SurfaceStatus.DRAG_N, inducedDrag);
-
+                    point.status.setStatusKey(ENUMS.PointStatus.FORCE_Y, localLift.y / (mass*60))
 
                     localLift.applyQuaternion(frameTransform.quaternion)
                     localLift.add(localDrag);
