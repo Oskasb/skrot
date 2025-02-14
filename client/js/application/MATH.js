@@ -1099,9 +1099,22 @@ MATH.aoaYFromVelAndUp = function(vel, rot) {
 }
 
 MATH.curveLift = function(AoA) {
-	const nonStallFactor = MATH.curveSqrt(Math.sin(AoA )) * Math.abs(Math.cos(AoA*0.5))
+	let sinVal = Math.sin(AoA )
+	const nonStallFactor = MATH.curveSqrt(sinVal) * Math.abs(Math.cos(AoA*0.5))
 //	const stallFactor = MATH.curveSigmoidMirrored(AoA / 3.142)
-	return nonStallFactor // + stallFactor;
+	return sinVal // + stallFactor;
 }
+
+MATH.transformToLocalSpace = function(trx, rootTrx, store) {
+	store.position.copy(trx.position);
+	store.position.sub(rootTrx.position);
+	tempObj.quaternion.copy(rootTrx.quaternion);
+	tempObj.quaternion.invert();
+	store.quaternion.copy(trx.quaternion);
+	store.quaternion.premultiply(tempObj.quaternion);
+
+
+}
+
 
 export { MATH }

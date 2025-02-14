@@ -42,7 +42,8 @@ class ControllableForceProcessor {
             tempVec1.set(0, 0, -force);
 
             point.updateDynamicPoint();
-            point.call.getLocalTransform(pointTransform);
+            // point.call.getLocalTransform(pointTransform);
+            MATH.transformToLocalSpace(point.getObj3d(), frameTransform, pointTransform)
             tempVec1.applyQuaternion(pointTransform.quaternion)
             tempVec1.applyQuaternion(frameTransform.quaternion)
             AmmoAPI.applyForceAtPointToBody(tempVec1, pointTransform.position, body);
@@ -163,7 +164,10 @@ class ControllableForceProcessor {
                 if (point) {
 
                     point.updateDynamicPoint();
-                    point.call.getLocalTransform(pointTransform);
+                    let globalPoint = point.getObj3d();
+
+                    MATH.transformToLocalSpace(globalPoint, frameTransform, pointTransform)
+
                     const pos = pointTransform.position;
                     const quat = pointTransform.quaternion;
 
@@ -273,7 +277,6 @@ class ControllableForceProcessor {
 
 
                     if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {
-                        let globalPoint = point.getObj3d();
                         evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:globalPoint.position, size:0.2, color:'RED'});
                    //     localLift.applyQuaternion(frameTransform.quaternion)
                         tempVec2.copy(localLift);
