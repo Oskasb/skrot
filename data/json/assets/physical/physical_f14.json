@@ -17,7 +17,7 @@
     }
   ],
   "tuning": {
-    "front": {"max_sus_force": 510000, "sus_length": 2.1, "radius": 0.3},
+    "front": {"max_sus_force": 710000, "sus_length": 2.2, "radius": 0.3},
     "main":  {"max_sus_force": 7950000, "sus_length": 2.3, "radius": 0.5}
   },
   "shapes": [

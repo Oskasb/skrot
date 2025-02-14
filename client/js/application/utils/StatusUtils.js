@@ -19,7 +19,7 @@ defaultSettings[ENUMS.Settings.VEGETATION_DENSITY] = 7;
 defaultSettings[ENUMS.Settings.VEGETATION_RANGE] = 5;
 defaultSettings[ENUMS.Settings.ACTOR_INFLUENCE_PROBES] = 3;
 defaultSettings[ENUMS.Settings.PHYSICS_VFX_INTENSITY] = 3;
-defaultSettings[ENUMS.Settings.TORQUE_BOOST] = 0;
+defaultSettings[ENUMS.Settings.TORQUE_BOOST] = 2;
 
 if (getUrlParam('low')) {
     for (let key in defaultSettings) {

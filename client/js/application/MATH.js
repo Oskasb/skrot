@@ -1107,11 +1107,17 @@ MATH.aoaYFromVelAndUp = function(vel, rot) {
 	return MATH.angleInsideCircle(MATH.subAngles(rotAngY, velAngY ) +Math.PI);
 }
 
+MATH.curvePow = function(value, power) {
+	const sign = Math.sign(value);
+	return Math.pow(Math.abs(value), power)*sign;
+
+}
+
 MATH.curveLift = function(AoA) {
 	let sinVal = Math.sin(AoA )
-	const nonStallFactor = MATH.curveSqrt(sinVal) * Math.abs(Math.cos(AoA*0.5))
+	const nonStallFactor = MATH.curvePow(sinVal, 0.95)  // * 0.5s + sinVal * Math.abs(Math.cos(AoA*0.5)) * 0.5
 //	const stallFactor = MATH.curveSigmoidMirrored(AoA / 3.142)
-	return sinVal // + stallFactor;
+	return nonStallFactor * 22 - MATH.curvePow(sinVal, 1.04)*22 + MATH.curvePow(sinVal, 4.2) * 1.0;
 }
 
 MATH.transformToLocalSpace = function(trx, rootTrx, store) {

@@ -117,8 +117,8 @@ class DynamicPoint {
                 obj3d.position.add(tempObj.position)
 
                 let assetNode = assetInstance.getObj3d();
-                evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:assetNode.position, size:1.2, color:'CYAN'});
-                evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:obj3d.position, size:0.6, color:'CYAN'});
+            //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:assetNode.position, size:1.2, color:'CYAN'});
+            //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:obj3d.position, size:0.6, color:'CYAN'});
 
                 frameModifiedTrxObj.position.subVectors(obj3d.position, assetNode.position);
                 frameModifiedTrxObj.position.add(originalTrxObj.position)

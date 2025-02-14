@@ -42,7 +42,7 @@ class DomInspectAerodynamics {
         //    let rootTrx = controllable.getObj3d();
 
             divFoilX.style.rotate = tempObj.rotation.x +'rad' ;
-            divFoilY.style.rotate = tempObj.rotation.y +'rad';
+            divFoilY.style.rotate = -tempObj.rotation.y +'rad';
 
         }
 
