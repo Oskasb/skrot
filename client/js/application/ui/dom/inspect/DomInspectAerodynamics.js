@@ -11,6 +11,7 @@ import {Quaternion} from "../../../../../../libs/three/math/Quaternion.js";
 
 let tempObj = new Object3D();
 let tempVec = new Vector3();
+let tempVec2 = new Vector3();
 
 let tempQuat = new Quaternion();
 
@@ -50,16 +51,21 @@ class DomInspectAerodynamics {
             const divFlowX = elements[key+'_FLOW_X'];
             const divFlowY = elements[key+'_FLOW_Y'];
 
-            tempObj.position.set(0, 0, 0);
             tempVec.set(
                 surface.getStatus(ENUMS.SurfaceStatus.VEL_X),
                 surface.getStatus(ENUMS.SurfaceStatus.VEL_Y),
                 surface.getStatus(ENUMS.SurfaceStatus.VEL_Z)
             );
-            tempObj.lookAt(tempVec);
 
-            divFlowX.style.rotate = MATH.angleInsideCircle( tempObj.rotation.x - rootObj.rotation.x + Math.PI) +'rad';
-            divFlowY.style.rotate = -MATH.angleInsideCircle( tempObj.rotation.y - rootObj.rotation.y - MATH.HALF_PI) +'rad';
+            tempQuat.copy(rootObj.quaternion)
+            tempQuat.conjugate();
+            tempObj.position.set(0, 0, 0);
+            tempVec.applyQuaternion(tempQuat);
+            tempObj.lookAt(tempVec);
+            const angles = MATH.eulerFromQuaternion(tempObj.quaternion, 'XYZ')
+            divFlowX.style.rotate = angles.x + Math.PI +'rad';
+            const anglesY = MATH.eulerFromQuaternion(tempObj.quaternion, 'YXZ')
+            divFlowY.style.rotate = -anglesY.y - MATH.HALF_PI  +'rad';
 
         }
 

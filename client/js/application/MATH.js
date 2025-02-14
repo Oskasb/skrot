@@ -12,6 +12,8 @@ function cosWave(time, speed, amplitude) {
 	return Math.cos(time * speed) * amplitude;
 }
 
+let euler = new Euler()
+
 let calcVec = new Vector3();
 let calcVec1 = new Vector3();
 let tempObj = new Object3D()
@@ -30,7 +32,6 @@ let setTri = function(tri, x, y, z) {
 let origin = new Vector3(0, 0, 0);
 let points = [];
 let mag;
-let euler = null;
 let progString = ''
 
 let blend = 0;
@@ -748,6 +749,15 @@ MATH.vectorXYToAngleAxisZ = function(vec) {
 	return -Math.atan2(vec.x, vec.y);
 };
 
+MATH.angleXFromVectorToVector = function(fromVec, toVec) {
+	return Math.atan2(toVec.z-fromVec.z, toVec.y-fromVec.y) // + Math.PI*0.5;
+};
+
+
+MATH.angleYFromVectorToVector = function(fromVec, toVec) {
+	return Math.atan2(toVec.z-fromVec.z, toVec.x-fromVec.x) // + Math.PI*0.5;
+};
+
 MATH.angleZFromVectorToVector = function(fromVec, toVec) {
 	return Math.atan2(toVec.y-fromVec.y, toVec.x-fromVec.x) // + Math.PI*0.5;
 };
@@ -855,7 +865,6 @@ MATH.rollAttitudeFromQuaternion = function(q) {
 };
 
 MATH.eulerFromQuaternion = function(q, order) {
-	if (!euler) euler = new Euler()
 	return euler.setFromQuaternion(q, order);
 }
 
@@ -1106,15 +1115,25 @@ MATH.curveLift = function(AoA) {
 }
 
 MATH.transformToLocalSpace = function(trx, rootTrx, store) {
-	store.position.copy(trx.position);
-	store.position.sub(rootTrx.position);
 	tempObj.quaternion.copy(rootTrx.quaternion);
 	tempObj.quaternion.invert();
-	store.quaternion.copy(trx.quaternion);
-	store.quaternion.premultiply(tempObj.quaternion);
+	store.position.copy(trx.position);
+	store.position.sub(rootTrx.position);
+	store.position.applyQuaternion(tempObj.quaternion);
 
+	store.quaternion.copy(tempObj.quaternion);
+	store.quaternion.multiply(trx.quaternion);
 
 }
 
+MATH.addToTorqueVec = function(forceVec3, posOffset, torque) {
+	calcVec.crossVectors(forceVec3, posOffset);
+	torque.add(calcVec);
+}
+
+MATH.subQuaternions = function(quatA, quatB, store) {
+	tempObj.quaternion.copy(quatA);
+	store.multiplyQuaternions(quatB, tempObj.quaternion.conjugate());
+}
 
 export { MATH }
