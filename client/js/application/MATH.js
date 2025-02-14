@@ -847,10 +847,8 @@ MATH.horizonAttitudeFromQuaternion = function(q) {
 	return calcVec.y * Math.PI // Math.atan2(calcVec.x, calcVec.y);
 };
 
-MATH.gAttitudeFromQuaternion = function(q) {
-	calcVec.set(0, 0, 1);
-	calcVec.applyQuaternion(q);
-	return MATH.vectorYZToAngleAxisX(calcVec)
+MATH.gAttitudeFromQuaternion = function(quaternion) {
+	return MATH.eulerFromQuaternion(quaternion, 'YZX').x;
 };
 
 MATH.compassAttitudeFromQuaternion = function(q) {

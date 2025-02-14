@@ -40,7 +40,7 @@ class ControllableForceProcessor {
 
         function applyEngineForce(point, prop, stateValue, body) {
 
-            let force = stateValue * prop.force * stepTime * 4
+            let force = MATH.curveQuad(stateValue) * prop.force * stepTime * 10
             tempVec1.set(0, 0, -force);
 
             point.updateDynamicPoint();

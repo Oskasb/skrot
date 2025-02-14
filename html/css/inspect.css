@@ -137,7 +137,7 @@ div.line_lift_x {
     background-image: linear-gradient(rgb(235, 0, 255) 0%, rgb(255, 190, 232) 100%);
 }
 div.line_lift_y {
-    transform-origin: 50% 0%;
+    transform-origin: 50% 100%;
     background-image: linear-gradient(rgb(185, 255, 237) 0%, rgb(0, 234, 255) 100%);
 }
 div.line_drag_n {
