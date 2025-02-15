@@ -593,7 +593,8 @@ iframe.loot_notice {
 }
 
 iframe.asynch_queue_feedback {
-    z-index: 99999999;
+    pointer-events: none;
+    z-index: 110;
     opacity: 1;
     bottom: 0;
     top: auto;
@@ -606,7 +607,8 @@ iframe.asynch_queue_feedback {
 }
 
 iframe.asynch_list_feedback {
-    z-index: 99999999;
+    pointer-events: none;
+    z-index: 110;
     opacity: 1;
     bottom: 2.5%;
     top: auto;
