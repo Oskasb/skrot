@@ -605,6 +605,19 @@ iframe.asynch_queue_feedback {
     background-color: rgba(0, 0, 0, 0);
 }
 
+iframe.asynch_list_feedback {
+    z-index: 99999999;
+    opacity: 1;
+    bottom: 2.5%;
+    top: auto;
+    left: 0;
+    height: 97.5%;
+    width: 300em;
+    border: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0);
+}
+
 iframe.adventure_note {
     top: 150em;
     right: 30em;

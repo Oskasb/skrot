@@ -1,13 +1,33 @@
 div.load_bar {
-    display: inline-flex;
+    pointer-events: none;
+    display: flex;
     margin: 0;
     height: 100%;
     width: 100%;
     align-items: stretch;
     justify-content: flex-start;
     flex-wrap: nowrap;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0);
 }
+
+div.load_list {
+    pointer-events: none;
+    display: flex;
+    margin: 0;
+    font-size: 1.5em;
+    height: 100%;
+    width: 100%;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    background-color: rgba(0, 0, 0, 0);
+    flex-direction: column-reverse;
+}
+
+div.load_list p {
+
+}
+
 
 div.entry {
     width: 2px;
