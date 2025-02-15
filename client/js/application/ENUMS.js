@@ -119,7 +119,8 @@ let ENUMS = {}
         TERRAIN_APPLY_EDIT:         91,
         KEYBOARD_UPDATE:            92,
         CHAT_MESSAGE:               93,
-        SPLASH_OCEAN:               94
+        SPLASH_OCEAN:               94,
+        CAMERA_SELECTION:           95
     };
 
     ENUMS.Protocol = {

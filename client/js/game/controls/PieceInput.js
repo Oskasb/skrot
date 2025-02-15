@@ -10,7 +10,11 @@ class PieceInput {
         let inputTargets = json['input_targets'];
         let feedback = json['feedback'] || [];
 
+        let selections = json['selections'] || [];
 
+        if (selections.length) {
+            statusMap['selections'] = selections;
+        }
 
         for (let i = 0; i < inputTargets.length; i++) {
             statusMap[inputTargets[i].sample] = inputTargets[i].init || 0;
@@ -21,7 +25,6 @@ class PieceInput {
             if (inputTargets[i].keySub) {
                 statusMap[inputTargets[i].sample+'_sub'] = inputTargets[i].keySub;
             }
-
         }
 
         function updateInputStatus(inputToTarget) {

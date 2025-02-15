@@ -68,10 +68,15 @@ class GamePlayer {
         //    debugDrawControllable(playerControllable)
         }
 
+        function getPlayerControllable() {
+            return playerControllable;
+        }
+
         this.call = {
             getObj3d:getObj3d,
             activateControllable:activateControllable,
-            setPlayerActiveControllable:setPlayerActiveControllable
+            setPlayerActiveControllable:setPlayerActiveControllable,
+            getPlayerControllable:getPlayerControllable
         }
 
     }

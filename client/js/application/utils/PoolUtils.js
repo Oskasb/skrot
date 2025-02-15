@@ -28,6 +28,7 @@ import {ForestTreeLodable} from "../../game/world/woods/ForestTreeLodable.js";
 import {BatchInstance} from "../../3d/three/assets/BatchInstance.js";
 import {BatchedPlant} from "../../game/world/plants/BatchedPlant.js";
 import {DomControlButton} from "../ui/dom/ui/DomControlButton.js";
+import {DomControlButtonRow} from "../ui/dom/ui/DomControlButtonRow.js";
 import {WeaponCannon} from "../../game/pieces/weapons/WeaponCannon.js";
 import {ActiveBullet} from "../../game/pieces/weapons/ActiveBullet.js";
 import {WorldEffect} from "../../3d/three/assets/WorldEffect.js";
@@ -70,6 +71,7 @@ function initPools() {
     registerPool(BatchInstance);
     registerPool(BatchedPlant);
     registerPool(DomControlButton);
+    registerPool(DomControlButtonRow);
     registerPool(WeaponCannon)
     registerPool(ActiveBullet)
     registerPool(WorldEffect)

@@ -294,10 +294,10 @@ iframe.ui_yaw_pedals {
 
 iframe.ui_sweep_wings {
     z-index: 100000;
-    top: 160em;
+    top: 130em;
     left: 40em;
     width: 60em;
-    height: 90em;
+    height: 120em;
     position: absolute;
     border: none;
     color: #ecffdc;
@@ -320,6 +320,17 @@ iframe.ui_cannon {
     left: 40em;
     width: 140em;
     height: 140em;
+    position: absolute;
+    border: none;
+    color: #ecffdc;
+}
+
+iframe.ui_cam_controls {
+    z-index: 100000;
+    top: 20em;
+    left: 20em;
+    width: 300em;
+    height: 74em;
     position: absolute;
     border: none;
     color: #ecffdc;

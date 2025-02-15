@@ -22,6 +22,7 @@ class DomGear {
 
 
         function update() {
+            inputDragPointer.call.updateKeyState();
             translateElement3DPercent(stickElement, 0,statusMap['INPUT_GEAR']*100,  0);
 
             let outRoll = statusMap['output_INPUT_GEAR']*100
@@ -47,7 +48,7 @@ class DomGear {
             dynamicR = htmlElement.call.getChildElement('dynamic_r')
             dynamicMid = htmlElement.call.getChildElement('dynamic_mid')
             let opts = [
-                {axis:"Y", min:0, max:1, origin: 0, margin:0.5},
+                {axis:"Y", min:0, max:1, origin: 0, margin:0.5, keys:{add:'g', sub:'h'}},
             ]
 
             inputDragPointer.call.activateDragSurface(surface, inputElement, statusMap, opts)

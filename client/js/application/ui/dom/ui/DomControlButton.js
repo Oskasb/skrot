@@ -1,7 +1,6 @@
 import {poolFetch} from "../../../utils/PoolUtils.js";
 import {
-    addElementClass, removeElementClass,
-    translateElement3DPercent
+    addElementClass, removeElementClass
 } from "../DomUtils.js";
 import {InputDragPointer} from "../pointer/InputDragPointer.js";
 

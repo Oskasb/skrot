@@ -5,7 +5,7 @@
     "html": "ui_control_gear",
     "class": "ui_gear",
     "input_targets": [
-      {"sample":"AXIS_Y", "target":"INPUT_GEAR", "init": 1}
+      {"sample":"AXIS_Y", "target":"INPUT_GEAR", "init": 1, "keyAdd": "g", "keySub": "h"}
     ]
   }
 ]

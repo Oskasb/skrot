@@ -1,12 +1,11 @@
 
-import {notifyCameraStatus} from "./CameraFunctions.js";
 import { CameraControls} from "./CameraControls.js";
 import {ENUMS} from "../../application/ENUMS.js";
 import {Object3D, Vector3} from "../../../../libs/three/Three.Core.js";
 import {evt} from "../../application/event/evt.js";
 import {getFrame} from "../../application/utils/DataUtils.js";
 
-let cameraControls = new CameraControls()
+
 let cameraStatus = {}
 
 let calcVec = new Vector3()
@@ -205,7 +204,6 @@ class CameraSpatialCursor {
             setFocusObj3d:setFocusObj3d
         }
 
-        evt.on(ENUMS.Event.SET_CAMERA_STATUS, cameraControls.call.onCamStatusEvent)
 
     }
 

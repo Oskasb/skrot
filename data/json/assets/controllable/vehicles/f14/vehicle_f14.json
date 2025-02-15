@@ -2,6 +2,7 @@
   "model": "model_f14",
   "physical": "physical_f14",
   "points": [
+    {"id": "CREW",            "file": "points_f14_crew"},
     {"id": "HARDPOINTS",      "file": "points_f14_hardpoints"},
     {"id": "LIGHTS",          "file": "points_f14_lights"},
     {"id": "ENGINES",         "file": "points_f14_engines"},

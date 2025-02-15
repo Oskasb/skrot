@@ -314,10 +314,20 @@ class InputDragPointer {
             addPressEndFunction(surfaceElement, pressEnd)
         }
 
+        function getActive() {
+            return pressActive;
+        }
+
+        function setActive(bool) {
+            pressActive = bool;
+        }
+
         this.call = {
             activateDragSurface:activateDragSurface,
             activatePressSurface:activatePressSurface,
-            updateKeyState:updateKeyState
+            updateKeyState:updateKeyState,
+            getActive:getActive,
+            setActive:setActive
         }
     }
 }
