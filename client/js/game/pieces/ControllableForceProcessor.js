@@ -232,9 +232,9 @@ class ControllableForceProcessor {
                     tempVec.applyQuaternion(tempQuat);
                     tempObj.lookAt(tempVec);
                     const angles = MATH.eulerFromQuaternion(tempObj.quaternion, 'XYZ')
-                    let aoaX = MATH.angleInsideCircle(-angles.x + Math.PI);
+                    let aoaX = MATH.angleInsideCircle(-angles.x);
                     const anglesY = MATH.eulerFromQuaternion(tempObj.quaternion, 'YXZ')
-                    let aoaY = MATH.angleInsideCircle(-anglesY.y + Math.PI);
+                    let aoaY = MATH.angleInsideCircle(-anglesY.y);
 
                     surface.setStatusKey(ENUMS.SurfaceStatus.AOA_X, aoaX);
                     surface.setStatusKey(ENUMS.SurfaceStatus.AOA_Y, aoaY);

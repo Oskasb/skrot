@@ -1095,14 +1095,14 @@ MATH.aoaXFromVelAndUp = function(vel, rot) {
 	let velAngX = MATH.vectorYZToAngleAxisX(vel)
 	let rotAngX = MATH.vectorYZToAngleAxisX(rot)
 	calcVec.crossVectors(vel, rot);
-	return calcVec.x;
+	return calcVec.x*Math.PI + Math.PI;
 	return MATH.angleInsideCircle(MATH.subAngles(rotAngX, velAngX) + Math.PI);
 }
 
 MATH.aoaYFromVelAndUp = function(vel, rot) {
 	let velAngY = MATH.vectorXZToAngleAxisY(vel)
 	let rotAngY = MATH.vectorXZToAngleAxisY(rot)
-	return MATH.angleInsideCircle(MATH.subAngles(rotAngY, velAngY ) +Math.PI);
+	return MATH.angleInsideCircle(MATH.subAngles(rotAngY, velAngY ));
 }
 
 MATH.curvePow = function(value, power) {
