@@ -8,7 +8,8 @@ import {getSetting} from "../../application/utils/StatusUtils.js";
 const tempObj = new Object3D();
 const tempVec = new Vector3();
 const tempQuat = new Quaternion();
-
+const tempQuat2 = new Quaternion();
+const tempQuat3 = new Quaternion();
 class PieceSurface {
     constructor(pointName, json) {
         this.status = new SimpleStatus()
@@ -23,11 +24,10 @@ class PieceSurface {
     }
 
     updateSurfacePointStatus(point, frameTransform) {
-        point.updateDynamicPoint();
-        MATH.transformToLocalSpace(point.getObj3d(), frameTransform, this.trxLocalObj)
         tempVec.set(0, 1, 0);
         tempVec.applyQuaternion(frameTransform.quaternion);
-    //    point.getObj3d().up.copy(tempVec)
+        point.updateDynamicPoint();
+        MATH.transformToLocalSpace(point.getObj3d(), frameTransform, this.trxLocalObj)
         const pos = this.trxLocalObj.position;
         const quat = this.trxLocalObj.quaternion;
 
@@ -51,15 +51,15 @@ class PieceSurface {
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_X,  this.normal.x);
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Y,  this.normal.y);
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Z,  this.normal.z);
-    //    tempObj.up.copy(this.normal)
+    //    tempObj.up.copy(point.getObj3d().up)
         tempObj.lookAt(this.velocity);
-
-        tempObj.rotateX(-point.getObj3d().rotation.x)
-        tempObj.rotateY(-point.getObj3d().rotation.y)
-    //    tempObj.rotateZ(-point.getObj3d().rotation.z)
-
+        tempObj.rotateX(-this.trxLocalObj.rotation.x)
         this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_X,  tempObj.rotation.x);
+        
+        tempObj.lookAt(this.velocity);
+        tempObj.rotateY(-this.trxLocalObj.rotation.y)
         this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_Y,  tempObj.rotation.y);
+
 
         if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {
 

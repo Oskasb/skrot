@@ -1112,11 +1112,17 @@ MATH.curvePow = function(value, power) {
 }
 
 MATH.curveLift = function(AoA) {
-	const sinVal = Math.sin(AoA )
-	const sin2 = Math.sin(AoA * 2)
-	const nonStallFactor = MATH.curvePow(sinVal, 0.95)  // * 0.5s + sinVal * Math.abs(Math.cos(AoA*0.5)) * 0.5
+
+	if (Math.abs(AoA) < 0.3) {
+		return AoA * 3.14
+	} else {
+		const sinVal = Math.sin(AoA )
+		const sin2 = Math.sin(AoA * 2)
+		const nonStallFactor = MATH.curvePow(sinVal, 0.98)  // * 0.5s + sinVal * Math.abs(Math.cos(AoA*0.5)) * 0.5
 //	const stallFactor = MATH.curveSigmoidMirrored(AoA / 3.142)
-	return nonStallFactor * 22 - MATH.curvePow(sinVal, 1.04)*22 // + MATH.curvePow(sin2, 4.2) * 1.0;
+		return nonStallFactor * 22 - MATH.curvePow(sinVal, 1.08)*22 // + MATH.curvePow(sin2, 4.2) * 1.0;
+	}
+
 }
 
 MATH.transformToLocalSpace = function(trx, rootTrx, store) {
