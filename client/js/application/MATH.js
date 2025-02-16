@@ -1091,18 +1091,18 @@ MATH.jsonCopy = function(obj) {
 	return JSON.parse(JSON.stringify(obj))
 }
 
-MATH.aoaXFromVelAndUp = function(vel, rot) {
+MATH.aoaXFromVelAndUp = function(vel, surfaceUp) {
 	let velAngX = MATH.vectorYZToAngleAxisX(vel)
-	let rotAngX = MATH.vectorYZToAngleAxisX(rot)
-	calcVec.crossVectors(vel, rot);
-	return calcVec.x*Math.PI + Math.PI;
+	let rotAngX = MATH.vectorYZToAngleAxisX(surfaceUp)
+//	calcVec.crossVectors(vel, rot);
+//	return calcVec.x;
 	return MATH.angleInsideCircle(MATH.subAngles(rotAngX, velAngX) + Math.PI);
 }
 
-MATH.aoaYFromVelAndUp = function(vel, rot) {
+MATH.aoaYFromVelAndUp = function(vel, surfaceUp) {
 	let velAngY = MATH.vectorXZToAngleAxisY(vel)
-	let rotAngY = MATH.vectorXZToAngleAxisY(rot)
-	return MATH.angleInsideCircle(MATH.subAngles(rotAngY, velAngY ));
+	let rotAngY = MATH.vectorXZToAngleAxisY(surfaceUp)
+	return MATH.angleInsideCircle(MATH.subAngles(rotAngY, velAngY ) +Math.PI);
 }
 
 MATH.curvePow = function(value, power) {
@@ -1112,10 +1112,11 @@ MATH.curvePow = function(value, power) {
 }
 
 MATH.curveLift = function(AoA) {
-	let sinVal = Math.sin(AoA )
+	const sinVal = Math.sin(AoA )
+	const sin2 = Math.sin(AoA * 2)
 	const nonStallFactor = MATH.curvePow(sinVal, 0.95)  // * 0.5s + sinVal * Math.abs(Math.cos(AoA*0.5)) * 0.5
 //	const stallFactor = MATH.curveSigmoidMirrored(AoA / 3.142)
-	return nonStallFactor * 22 - MATH.curvePow(sinVal, 1.04)*22 + MATH.curvePow(sinVal, 4.2) * 1.0;
+	return nonStallFactor * 22 - MATH.curvePow(sinVal, 1.04)*22 // + MATH.curvePow(sin2, 4.2) * 1.0;
 }
 
 MATH.transformToLocalSpace = function(trx, rootTrx, store) {

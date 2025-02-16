@@ -34,7 +34,7 @@ function CAM_FOLLOW(controllable, orbitControls) {
     const pointName = 'CREW_VIEW_PILOT';
     const point = controllable.getDynamicPoint(pointName);
     point.updateDynamicPoint()
-    tempVec.set(0, -1, 0);
+    tempVec.set(0, 1, 0);
     tempVec.applyQuaternion(point.getQuat())
     tempObj.lookAt(tempVec);
 
@@ -57,7 +57,7 @@ function CAM_PILOT(controllable, orbitControls) {
     const pointName = 'CREW_VIEW_PILOT';
     const point = controllable.getDynamicPoint(pointName);
     point.updateDynamicPoint()
-    tempVec.set(0, -1, 0);
+    tempVec.set(0, 1, 0);
     tempVec.applyQuaternion(point.getQuat())
     tempObj.lookAt(tempVec);
     orbitControls.target.copy(point.getPos());
