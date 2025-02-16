@@ -232,9 +232,9 @@ class ControllableForceProcessor {
                     tempVec.applyQuaternion(tempQuat);
                     tempObj.lookAt(tempVec);
                     const angles = MATH.eulerFromQuaternion(tempObj.quaternion, 'XYZ')
-                    let aoaX = MATH.angleInsideCircle(-angles.x);
-                    const anglesY = MATH.eulerFromQuaternion(tempObj.quaternion, 'YXZ')
-                    let aoaY = MATH.angleInsideCircle(-anglesY.y);
+                    let aoaX = MATH.angleInsideCircle(angles.x);
+                    const anglesY = MATH.eulerFromQuaternion(tempObj.quaternion, 'XYZ')
+                    let aoaY = MATH.angleInsideCircle(anglesY.y);
 
                     surface.setStatusKey(ENUMS.SurfaceStatus.AOA_X, aoaX);
                     surface.setStatusKey(ENUMS.SurfaceStatus.AOA_Y, aoaY);
@@ -304,7 +304,9 @@ class ControllableForceProcessor {
                         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:globalPoint.position, to:tempVec2, color:'RED'});
 
                         tempVec2.copy(point.getVel())
-                        tempVec2.multiplyScalar(0.1);
+                        const spd = tempVec2.length()
+                        tempVec2.normalize();
+                        tempVec2.multiplyScalar(MATH.curvePow(spd, 0.2)*2);
                         tempVec2.add(globalPoint.position)
                         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:globalPoint.position, to:tempVec2, color:'CYAN'});
 
