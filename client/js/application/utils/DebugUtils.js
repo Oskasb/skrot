@@ -197,22 +197,36 @@ function debugDrawActorSkeleton(actor) {
     }
 }
 
-let lineEvt = {color:"CYAN"};
-let xEvt = {color:"ORANGE", size:0.2};
+let lineEvt = {
+    color:"CYAN",
+    to:new Vector3(),
+    from:new Vector3()
+};
+let xEvt = {pos:new Vector3(), color:"ORANGE", size:0.1};
 
 
 function debugDrawDynamicPoint(dynamicPoint) {
     dynamicPoint.updateDynamicPoint();
     let obj3d = dynamicPoint.getObj3d();
-    ThreeAPI.tempVec3.set(0, 0, 1);
-    ThreeAPI.tempVec3.applyQuaternion(obj3d.quaternion);
-    ThreeAPI.tempVec3.add(obj3d.position);
-    lineEvt.from = obj3d.position;
-    lineEvt.to = ThreeAPI.tempVec3;
-    xEvt.pos = obj3d.position;
-
-    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt)
+    xEvt.pos.copy(obj3d.position);
     evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS,xEvt)
+
+    lineEvt.to.set(0, 0, 1);
+    lineEvt.to.applyQuaternion(obj3d.quaternion);
+    lineEvt.to.add(obj3d.position);
+    lineEvt.from.copy(obj3d.position);
+    lineEvt.color = 'CYAN';
+    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt);
+    lineEvt.to.set(0, 0.5, 0);
+    lineEvt.to.applyQuaternion(obj3d.quaternion);
+    lineEvt.to.add(obj3d.position);
+    lineEvt.color = 'GREEN';
+    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt)
+    lineEvt.to.set(0.5, 0, 0);
+    lineEvt.to.applyQuaternion(obj3d.quaternion);
+    lineEvt.to.add(obj3d.position);
+    lineEvt.color = 'RED';
+    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineEvt)
 }
 
 function debugDrawDynamicPoints(dynamicPoints) {
