@@ -144,11 +144,12 @@ class ControllableForceProcessor {
             let inputPitch = controllablePiece.getControlStateValue('INPUT_PITCH');
 
 
-
-
+            forceSum.set(0, 0, 0);
+            torqueSum.set(0, 0, 0)
             tempVec1.set(0, 0, 0);
             let torqueBoost = MATH.curveQuad(getSetting(ENUMS.Settings.TORQUE_BOOST));
             tempVec2.set(inputPitch, -inputYaw, -inputRoll)
+            const inputAmount = tempVec2.lengthSq();
             let cheatTorque = mass * 1000 * torqueBoost * stepTime;
             let speedTorque = mass * 200 * MATH.curveSqrt(speedSq*0.5) * stepTime
             tempVec2.multiplyScalar(cheatTorque + speedTorque)
@@ -156,16 +157,25 @@ class ControllableForceProcessor {
 
             let waterContact = controllablePiece.getAssetInstanceStatus(ENUMS.InstanceStatus.WEIGHT_ON_WATER) || 0;
 
-            if (cheatTorque !== 0) {
+            if (cheatTorque !== 0 && inputAmount > 0.01) {
                 AmmoAPI.applyForceAndTorqueToBody(tempVec1, tempVec2, body)
+            //    tempVec1.set(1, 1, 1);
+            //    MATH.addToTorqueVec(tempVec2, tempVec1, torqueSum)
+                if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {
+                 //   tempVec2.copy(torqueSum);
+                    tempVec2.multiplyScalar(0.0001)
+                //    tempVec2.applyQuaternion(frameTransform.quaternion)
+                    tempVec2.add(frameTransform.position)
+                    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:frameTransform.position, to:tempVec2, color:'GREEN'});
+                }
+
             }
 
-            AmmoAPI.setBodyDamping(body, 0.00001  + speed*0.000001 + waterContact*0.2 +waterContact*speed*0.05, 0.03 + MATH.curveSqrt(speed*0.026) * 0.3 + waterContact*0.1);
+            AmmoAPI.setBodyDamping(body, 0.00001  + speed*0.000001 + waterContact*0.2 +waterContact*speed*0.05, 0.03 + MATH.curveSqrt(speed*0.026) * 0.2 + waterContact*0.1);
 
             let addUpForce = mass*MATH.curveQuad(getSetting(ENUMS.Settings.ADD_SURFACE_UP_FORCE) * 0.01);
 
-            forceSum.set(0, 0, 0);
-            torqueSum.set(0, 0, 0)
+
 
             for (let key in surfaces) {
 
@@ -214,23 +224,23 @@ class ControllableForceProcessor {
                     surface.setStatusKey(ENUMS.SurfaceStatus.DRAG_N, inducedDrag);
                     point.status.setStatusKey(ENUMS.PointStatus.FORCE_Y, localLift.y / (mass*60))
 
-
-                //    localLift.applyQuaternion(frameTransform.quaternion)
-
-
-                //
-
-                //    tempVec1.copy(localLift).multiplyScalar(-1);
-
-                    //
-                    localLift.multiplyScalar(stepTime);
                     MATH.addToTorqueVec(localLift, surface.trxLocalObj.position, torqueSum)
-                    localLift.applyQuaternion(frameTransform.quaternion)
 
                     localDrag.multiplyScalar(stepTime);
-                    MATH.addToTorqueVec(localDrag, surface.trxLocalObj.position, torqueSum)
+                    localLift.multiplyScalar(stepTime);
 
+                    localLift.applyQuaternion(frameTransform.quaternion)
                     localLift.add(localDrag);
+
+
+                //    localDrag.applyQuaternion(frameTransform.quaternion)
+                //    tempVec.copy(surface.trxLocalObj.position);
+                //    tempVec.set(0, 0, 1)
+                //    tempVec.applyQuaternion(frameTransform.quaternion)
+                //    MATH.addToTorqueVec(localDrag, tempVec, torqueSum)
+                //    localDrag.multiplyScalar(stepTime);
+
+
                     forceSum.add(localLift);
 
                     if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {
@@ -266,20 +276,25 @@ class ControllableForceProcessor {
                 }
             }
 
-         //   forceSum.applyQuaternion(frameTransform.quaternion)
-         //   torqueSum.applyQuaternion(frameTransform.quaternion)
-          //  torqueSum.multiplyScalar(0.5)
-          AmmoAPI.applyForceAndTorqueToBody(forceSum, torqueSum, body)
-            //     AmmoAPI.applyForceAtPointToBody(forceSum, torqueSum, body)
+        //    forceSum.applyQuaternion(frameTransform.quaternion)
 
+            torqueSum.y = 0;
+            torqueSum.x = 0;
+
+            torqueSum.applyQuaternion(frameTransform.quaternion)
+        //    torqueSum.multiplyScalar(-1)
+
+            //     AmmoAPI.applyForceAtPointToBody(forceSum, torqueSum, body)
 
             if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {
                 tempVec2.copy(torqueSum);
-                tempVec2.multiplyScalar(0.01)
+                tempVec2.multiplyScalar(0.0001)
+            //    tempVec2.applyQuaternion(frameTransform.quaternion)
                 tempVec2.add(frameTransform.position)
-                evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:tempVec2, size:2.2, color:'RED'});
+                evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:frameTransform.position, to:tempVec2, color:'RED'});
             }
-
+            torqueSum.multiplyScalar(0)
+            AmmoAPI.applyForceAndTorqueToBody(forceSum, torqueSum, body)
         }
 
         AmmoAPI.registerPhysicsStepCallback(update);

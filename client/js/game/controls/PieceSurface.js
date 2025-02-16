@@ -4,9 +4,11 @@ import {SimpleStatus} from "../../application/setup/SimpleStatus.js";
 import {Object3D} from "three/webgpu";
 import {ENUMS} from "../../application/ENUMS.js";
 import {getSetting} from "../../application/utils/StatusUtils.js";
+import {evt} from "../../application/event/evt.js";
 
 const tempObj = new Object3D();
 const tempVec = new Vector3();
+const tempVec2 = new Vector3();
 const tempQuat = new Quaternion();
 const tempQuat2 = new Quaternion();
 const tempQuat3 = new Quaternion();
@@ -52,19 +54,35 @@ class PieceSurface {
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Y,  this.normal.y);
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Z,  this.normal.z);
     //    tempObj.up.copy(point.getObj3d().up)
-        tempObj.lookAt(this.velocity);
-        tempObj.rotateX(-this.trxLocalObj.rotation.x)
-        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_X,  tempObj.rotation.x);
-        
-        tempObj.lookAt(this.velocity);
-        tempObj.rotateY(-this.trxLocalObj.rotation.y)
-        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_Y,  tempObj.rotation.y);
+        tempVec.copy(this.velocity).normalize();
+
+        tempVec2.set(0, 0, 1);
+        tempVec2.applyQuaternion(point.getQuat());
+        tempVec2.sub(tempVec);
+
+    //    tempObj.lookAt(this.velocity);
+    //    tempObj.rotateY(-point.getObj3d().rotation.y)
+    //    tempObj.rotateX(-point.getObj3d().rotation.x)
+        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_X,  tempVec2.y * 3.14);
+
+    //    tempObj.lookAt(this.velocity);
+    //    tempObj.rotateX(-point.getObj3d().rotation.x)
+    //    tempObj.rotateY(-point.getObj3d().rotation.y)
+        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_Y,  tempVec2.x * 3.14);
 
 
         if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {
-
-
-
+            tempVec.set(0, 0, 1);
+            tempVec.applyQuaternion(point.getQuat());
+            tempVec.add(point.getPos());
+            tempVec2.set( 0,this.status.getStatus(ENUMS.SurfaceStatus.AOA_X), 0)
+            tempVec2.applyQuaternion(frameTransform.quaternion)
+            tempVec2.add(tempVec)
+            evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempVec, to:tempVec2, color:'GREEN'});
+            tempVec2.set( this.status.getStatus(ENUMS.SurfaceStatus.AOA_Y), 0,  0)
+            tempVec2.applyQuaternion(frameTransform.quaternion)
+            tempVec2.add(tempVec)
+            evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempVec, to:tempVec2, color:'RED'});
         }
 
     }
