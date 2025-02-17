@@ -1138,7 +1138,7 @@ MATH.transformToLocalSpace = function(trx, rootTrx, store) {
 }
 
 MATH.addToTorqueVec = function(forceVec3, posOffset, torque) {
-	calcVec.crossVectors(posOffset, forceVec3);
+	calcVec.crossVectors(posOffset, forceVec3 );
 	torque.add(calcVec);
 }
 

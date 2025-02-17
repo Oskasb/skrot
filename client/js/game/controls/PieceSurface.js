@@ -28,7 +28,6 @@ class PieceSurface {
     updateSurfacePointStatus(point, frameTransform) {
         tempVec.set(0, 1, 0);
         tempVec.applyQuaternion(frameTransform.quaternion);
-        point.updateDynamicPoint();
         MATH.transformToLocalSpace(point.getObj3d(), frameTransform, this.trxLocalObj)
         const pos = this.trxLocalObj.position;
         const quat = this.trxLocalObj.quaternion;
@@ -63,12 +62,12 @@ class PieceSurface {
     //    tempObj.lookAt(this.velocity);
     //    tempObj.rotateY(-point.getObj3d().rotation.y)
     //    tempObj.rotateX(-point.getObj3d().rotation.x)
-        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_X,  tempVec2.y * 3.14);
+        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_X,  MATH.angleInsideCircle(tempVec2.y * 3.14));
 
     //    tempObj.lookAt(this.velocity);
     //    tempObj.rotateX(-point.getObj3d().rotation.x)
     //    tempObj.rotateY(-point.getObj3d().rotation.y)
-        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_Y,  tempVec2.x * 3.14);
+        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_Y,  MATH.angleInsideCircle(tempVec2.x * 3.14));
 
 
         if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {

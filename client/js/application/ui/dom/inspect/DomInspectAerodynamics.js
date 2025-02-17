@@ -39,10 +39,16 @@ class DomInspectAerodynamics {
                 surface.getStatus(ENUMS.SurfaceStatus.QUAT_W)
             );
 
+            tempObj.position.set(
+                surface.getStatus(ENUMS.SurfaceStatus.POS_X),
+                surface.getStatus(ENUMS.SurfaceStatus.POS_Y),
+                surface.getStatus(ENUMS.SurfaceStatus.POS_Z)
+            );
+
         //    let rootTrx = controllable.getObj3d();
 
-            divFoilX.style.rotate = tempObj.rotation.x+Math.PI +'rad' ;
-            divFoilY.style.rotate = tempObj.rotation.y +'rad';
+            divFoilX.style.rotate = -tempObj.rotation.x +'rad' ;
+            divFoilY.style.rotate = -tempObj.rotation.y +'rad';
 
         }
 
@@ -243,7 +249,7 @@ class DomInspectAerodynamics {
                 elements[origXKey] = createDivElement(elements[aoaXKey], origXKey, '', 'origin')
                 const planeX = createDivElement(elements[origXKey], key+'_img_x', '', 'plane_node plane_left')
 
-                transformElement3DPercent(planeX, 2 -posZ * trxScaleFactor, posY * trxScaleFactor -5, 0);
+                transformElement3DPercent(planeX, 2 +posZ * trxScaleFactor, posY * trxScaleFactor -5, 0);
 
                 let aoaYKey = 'aoay_'+key;
                 elements[aoaYKey] = createDivElement(elements[boxKey], aoaYKey, '', 'surface_aoa_box')
@@ -258,7 +264,7 @@ class DomInspectAerodynamics {
                 elements[origYKey] = createDivElement(elements[aoaYKey], origYKey, '', 'origin')
 
                 const planeY = createDivElement(elements[origYKey], key+'_img_y', '', 'plane_node plane_top')
-                transformElement3DPercent(planeY, -posX*3.6, -10 -posZ * trxScaleFactor, 0);
+                transformElement3DPercent(planeY, posX*3.6, -10 +posZ * trxScaleFactor, 0);
                 addAirflowLines(key, elements[origXKey], elements[origYKey])
 
                 const plotBoxX = createDivElement(elements[aoaXKey], key+'_plot_x', '', 'plot_container')
