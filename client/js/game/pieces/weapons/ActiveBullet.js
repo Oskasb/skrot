@@ -1,8 +1,6 @@
 import {poolFetch, poolReturn} from "../../../application/utils/PoolUtils.js";
 import {Vector3} from "../../../../../libs/three/math/Vector3.js";
 import {Object3D} from "three/webgpu";
-import {ENUMS} from "../../../application/ENUMS.js";
-import {evt} from "../../../application/event/evt.js";
 import {MATH} from "../../../application/MATH.js";
 import {rayTest} from "../../../application/utils/PhysicsUtils.js";
 import {activateWorldEffects} from "../../../3d/three/assets/WorldEffect.js";

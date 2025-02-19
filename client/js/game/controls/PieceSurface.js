@@ -5,6 +5,7 @@ import {Object3D} from "three/webgpu";
 import {ENUMS} from "../../application/ENUMS.js";
 import {getSetting} from "../../application/utils/StatusUtils.js";
 import {evt} from "../../application/event/evt.js";
+import {createGeometryInstance} from "../../3d/three/assets/GeometryInstance.js";
 
 const tempObj = new Object3D();
 const tempVec = new Vector3();
@@ -22,6 +23,9 @@ class PieceSurface {
         this.scale = new Vector3();
         this.velocity = new Vector3();
         this.normal = new Vector3();
+
+        this.geometryInstance = createGeometryInstance("box", 'material_instances_8x8_add');
+
         MATH.vec3FromArray(this.scale, this.size);
     }
 
@@ -52,6 +56,13 @@ class PieceSurface {
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_X,  this.normal.x);
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Y,  this.normal.y);
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Z,  this.normal.z);
+
+        tempObj.position.copy(point.getPos())
+        tempObj.scale.copy(this.scale)
+        tempObj.quaternion.copy(point.getQuat())
+
+        this.geometryInstance.call.applyTrxObj(tempObj);
+
     //    tempObj.up.copy(point.getObj3d().up)
         tempVec.copy(this.velocity).normalize();
 
