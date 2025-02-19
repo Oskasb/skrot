@@ -150,13 +150,14 @@ class ControllableForceProcessor {
         //    let fuselage = null;
 
             for (let key in surfaces) {
+            //    let surface = surfaces[key];
                 let point = controllablePiece.getDynamicPoint(key);
                 if (point) {
                     if (key === 'FUSELAGE') {
                         point.updateDynamicPoint();
                         let surface = surfaces[key];
                         surface.updateSurfacePointStatus(point, frameTransform);
-                        rootTransform.quaternion.copy(point.getQuat())
+                        rootTransform.quaternion.copy(frameTransform.quaternion)
                         rootTransform.position.copy(frameTransform.position);
                     }
                 }

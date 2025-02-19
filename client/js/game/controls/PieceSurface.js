@@ -24,7 +24,7 @@ class PieceSurface {
         this.velocity = new Vector3();
         this.normal = new Vector3();
 
-        this.geometryInstance = createGeometryInstance("box", 'material_instances_8x8_add');
+   //     this.geometryInstance = createGeometryInstance("box", 'material_instances_8x8_add');
 
         MATH.vec3FromArray(this.scale, this.size);
     }
@@ -61,12 +61,12 @@ class PieceSurface {
         tempObj.scale.copy(this.scale)
         tempObj.quaternion.copy(point.getQuat())
 
-        this.geometryInstance.call.applyTrxObj(tempObj);
+    //    this.geometryInstance.call.applyTrxObj(tempObj);
 
     //    tempObj.up.copy(point.getObj3d().up)
         tempVec.copy(this.velocity).normalize();
 
-        tempVec2.set(0, 0, 1);
+        tempVec2.set(0, 0, -1);
         tempVec2.applyQuaternion(point.getQuat());
         tempVec2.sub(tempVec);
 
@@ -82,7 +82,7 @@ class PieceSurface {
 
 
         if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {
-            tempVec.set(0, 0, 1);
+            tempVec.set(0, 0, -1);
             tempVec.applyQuaternion(point.getQuat());
             tempVec.add(point.getPos());
             tempVec2.set( 0,this.status.getStatus(ENUMS.SurfaceStatus.AOA_X), 0)
