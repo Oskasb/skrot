@@ -209,13 +209,13 @@ class ControllableForceProcessor {
                     if (surface.scale.y > 0) {
                         let aoaY = surface.getStatus(ENUMS.SurfaceStatus.AOA_Y)
                         let surfaceArea = surface.scale.y * surface.scale.z;
-                        liftX = MATH.curveLift(aoaY) * speedSq * surfaceArea * airDensity // *0.5;
+                        liftX = MATH.curveYaw(aoaY) * speedSq * surfaceArea * airDensity // *0.5;
 
                         let inducedForcesSQ = liftX*liftX;
                         inducedDrag += inducedForcesSQ / (1.5 * airDensity * speedSq * surface.scale.y * 3.14)
                     }
 
-                    localLift.set(liftX*0, liftY , 0);
+                    localLift.set(liftX, liftY, 0);
                     localDrag.multiplyScalar(-(inducedDrag*0 +speedSq*0.5));
 
                     surface.setStatusKey(ENUMS.SurfaceStatus.LIFT_X, liftX);
@@ -223,21 +223,21 @@ class ControllableForceProcessor {
                     surface.setStatusKey(ENUMS.SurfaceStatus.DRAG_N, inducedDrag);
                     point.status.setStatusKey(ENUMS.PointStatus.FORCE_Y, localLift.y / (mass*60))
 
-                    tempVec.set(surface.trxLocalObj.position.x, surface.trxLocalObj.position.y, surface.trxLocalObj.position.z);
+                    tempVec2.set(surface.trxLocalObj.position.x, surface.trxLocalObj.position.y, surface.trxLocalObj.position.z);
 
-
+                    MATH.addToTorqueVec(localLift, tempVec2, torqueSum)
                     localDrag.multiplyScalar(stepTime);
                     localLift.multiplyScalar(stepTime);
-                //    MATH.addToTorqueVec(localLift, tempVec, torqueSum)
-                    tempVec.applyQuaternion(rootTransform.quaternion)
+
+                //    tempVec2.applyQuaternion(rootTransform.quaternion)
 
                     tempVec.set(
-                        -surface.trxLocalObj.position.z * liftY,
-                        surface.trxLocalObj.position.z  * liftX,
-                        0*surface.trxLocalObj.position.x * liftY,
+                        -tempVec2.z * liftY,
+                         tempVec2.z * liftX,
+                         tempVec2.x * liftY,
                     )
 
-                    torqueSum.add(tempVec);
+                    //    torqueSum.add(tempVec);
 
                 //    MATH.addToTorqueVec(localDrag, tempVec, dragTorqueSum)
 
@@ -266,11 +266,17 @@ class ControllableForceProcessor {
                         tempVec.add(rootTransform.position)
                         evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:tempVec, size:0.1, color:'RED'});
                    //
-                        tempVec2.set(0, localLift.y, 0);
-                        tempVec2.multiplyScalar(0.01)
+                        tempVec2.set(0, liftY, 0);
+                        tempVec2.multiplyScalar(0.0001)
                         tempVec2.applyQuaternion(rootTransform.quaternion)
                         tempVec2.add(tempVec)
                         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempVec, to:tempVec2, color:'YELLOW'});
+
+                        tempVec2.set(liftX,0,  0);
+                        tempVec2.multiplyScalar(0.0001)
+                        tempVec2.applyQuaternion(rootTransform.quaternion)
+                        tempVec2.add(tempVec)
+                        evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempVec, to:tempVec2, color:'GREEN'});
 
                         tempVec2.copy(localDrag);
                         tempVec2.multiplyScalar(0.1)

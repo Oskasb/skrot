@@ -57,9 +57,7 @@ class DynamicPoint {
         }
 
         let updateFrame = getFrame().frame;
-        let timeDelta = 0;
-        let lastFrameTime = getFrame().gameTime;
-        let lastUpdatePos = new Vector3();
+
 
         originalTrxObj.position.copy(localObj3d.position);
         originalTrxObj.quaternion.copy(localObj3d.quaternion);
@@ -68,9 +66,14 @@ class DynamicPoint {
         frameModifiedTrxObj.quaternion.copy(localObj3d.quaternion);
 
         let updateSteps = 0;
-        let updateObj3d = function() {
 
 
+        let updateObj3d = function(stepTime) {
+
+
+            if (stepTime) {
+
+            }
 
             let frame = getFrame().frame;
             if (updateFrame !== frame) {
@@ -146,15 +149,10 @@ class DynamicPoint {
             }
 
 
-
-
             if (hasRotarion === true) {
                 MATH.rotateObj(obj3d, config.rot);
             }
 
-
-
-        //    console.log(timeDelta, velocity)
 
             return true;
         }
@@ -164,26 +162,18 @@ class DynamicPoint {
         }
 
         let getLocalTransform = function(storeObj) {
-/*
-            let assetNode = assetInstance.getObj3d();
-            tempObj.position.copy(assetNode.position);
-            tempObj.quaternion.copy(assetNode.quaternion).invert();
-            localObj3d.position.copy(obj3d.position);
-            localObj3d.position.sub(tempObj.position);
-            localObj3d.quaternion.copy(tempObj.quaternion)
-            localObj3d.quaternion.premultiply(obj3d.quaternion);
-  */
-       //     localObj3d.position.copy(frameModifiedTrxObj.position)
-       //     localObj3d.quaternion.copy(frameModifiedTrxObj.quaternion)
+
             storeObj.position.copy(frameModifiedTrxObj.position);
             storeObj.quaternion.copy(frameModifiedTrxObj.quaternion);
-        return;
-            storeObj.position.copy(localObj3d.position);
-            storeObj.quaternion.copy(localObj3d.quaternion);
+
         }
+
+
 
         function updateVelocity() {
             let bodyVelocity = assetInstance.getAssetBodyVelocity()
+            velocity.copy(bodyVelocity)
+            return;
             let bodyAngularVelocity = assetInstance.getAssetBodyAngularVelocity()
 
             let frame = getFrame().frame;
@@ -191,10 +181,8 @@ class DynamicPoint {
                 updateObj3d();
             }
 
-            velocity.copy(bodyVelocity)
 
-            bodyAngularVelocity.cross(localObj3d.position)
-            velocity.add(bodyAngularVelocity);
+
         }
 
         let getPointVelocity = function() {
@@ -264,8 +252,8 @@ class DynamicPoint {
         return this.call.getObj3d();
     }
 
-    updateDynamicPoint() {
-        this.call.updateObj3d()
+    updateDynamicPoint(stepTime) {
+        this.call.updateObj3d(stepTime)
     }
 
 

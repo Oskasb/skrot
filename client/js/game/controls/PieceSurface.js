@@ -8,6 +8,7 @@ import {evt} from "../../application/event/evt.js";
 import {createGeometryInstance} from "../../3d/three/assets/GeometryInstance.js";
 
 const tempObj = new Object3D();
+const tempObj2 = new Object3D();
 const tempVec = new Vector3();
 const tempVec2 = new Vector3();
 const tempQuat = new Quaternion();
@@ -24,8 +25,6 @@ class PieceSurface {
         this.velocity = new Vector3();
         this.normal = new Vector3();
 
-   //     this.geometryInstance = createGeometryInstance("box", 'material_instances_8x8_add');
-
         MATH.vec3FromArray(this.scale, this.size);
     }
 
@@ -37,7 +36,7 @@ class PieceSurface {
         const quat = this.trxLocalObj.quaternion;
 
         this.normal.set(0, 1, 0);
-        this.normal.applyQuaternion(point.getQuat())
+        this.normal.applyQuaternion(frameTransform.quaternion)
         this.velocity.copy(point.getVel());
 
         this.status.setStatusKey(ENUMS.SurfaceStatus.POS_X, pos.x);
@@ -57,35 +56,43 @@ class PieceSurface {
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Y,  this.normal.y);
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Z,  this.normal.z);
 
-        tempObj.position.copy(point.getPos())
-        tempObj.scale.copy(this.scale)
-        tempObj.quaternion.copy(point.getQuat())
+        tempVec2.set(0, 0, 1);
+        tempVec2.applyQuaternion(frameTransform.quaternion);
 
-    //    this.geometryInstance.call.applyTrxObj(tempObj);
+        let southness = tempVec.set(0, 0, -1).dot(tempVec2);
 
-    //    tempObj.up.copy(point.getObj3d().up)
+        //    tempObj.up.copy(point.getObj3d().up)
         tempVec.copy(this.velocity).normalize();
+    //    tempObj2.up.copy(this.normal);
+    //    tempObj2.lookAt(this.velocity)
 
-        tempVec2.set(0, 0, -1);
-        tempVec2.applyQuaternion(point.getQuat());
-        tempVec2.sub(tempVec);
 
-    //    tempObj.lookAt(this.velocity);
-    //    tempObj.rotateY(-point.getObj3d().rotation.y)
-    //    tempObj.rotateX(-point.getObj3d().rotation.x)
-        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_X,  MATH.angleInsideCircle(tempVec2.y * 3.14));
 
-    //    tempObj.lookAt(this.velocity);
-    //    tempObj.rotateX(-point.getObj3d().rotation.x)
-    //    tempObj.rotateY(-point.getObj3d().rotation.y)
-        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_Y,  MATH.angleInsideCircle(tempVec2.x * 3.14));
+        let forwardness = tempVec.dot(tempVec2);
+        let upness = tempVec.dot(this.normal) * -1 //Math.sign(southness);
+        tempVec2.set(1, 0, 0);
+        tempVec2.applyQuaternion(frameTransform.quaternion);
+        let rightness = tempVec.dot(tempVec2) * - 1 // forwardness;
 
+        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_X,  upness*3.14);
+
+        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_Y,   rightness*3.14);
 
         if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {
-            tempVec.set(0, 0, -1);
+
+            if (!this.geometryInstance) {
+                this.geometryInstance = createGeometryInstance("box", 'material_props_opaque');
+            }
+            tempObj.position.copy(point.getPos())
+            tempObj.scale.copy(this.scale)
+            tempObj.quaternion.copy(point.getQuat())
+
+            this.geometryInstance.call.applyTrxObj(tempObj);
+
+            tempVec.set(0, 0, 1);
             tempVec.applyQuaternion(point.getQuat());
             tempVec.add(point.getPos());
-            tempVec2.set( 0,this.status.getStatus(ENUMS.SurfaceStatus.AOA_X), 0)
+            tempVec2.set( 0, this.status.getStatus(ENUMS.SurfaceStatus.AOA_X), 0)
             tempVec2.applyQuaternion(frameTransform.quaternion)
             tempVec2.add(tempVec)
             evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempVec, to:tempVec2, color:'GREEN'});
@@ -93,6 +100,11 @@ class PieceSurface {
             tempVec2.applyQuaternion(frameTransform.quaternion)
             tempVec2.add(tempVec)
             evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempVec, to:tempVec2, color:'RED'});
+        } else {
+            if (this.geometryInstance) {
+                this.geometryInstance.call.closeGeoInstance();
+                this.geometryInstance = null;
+            }
         }
 
     }

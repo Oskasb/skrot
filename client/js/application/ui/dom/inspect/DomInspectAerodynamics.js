@@ -107,7 +107,7 @@ class DomInspectAerodynamics {
             elements[key+'_SAMPLE_X'].style.left = bottomLeft.left;
             elements[key+'_SAMPLE_X'].style.bottom = bottomLeft.bottom;
 
-            curvePointFromAngle(surface.getStatus(ENUMS.SurfaceStatus.AOA_Y))
+            curvePointFromAngleYaw(surface.getStatus(ENUMS.SurfaceStatus.AOA_Y))
             elements[key+'_SAMPLE_Y'].style.left = bottomLeft.left;
             elements[key+'_SAMPLE_Y'].style.bottom = bottomLeft.bottom;
 
@@ -155,6 +155,15 @@ class DomInspectAerodynamics {
             return bottomLeft;
         }
 
+        function curvePointFromAngleYaw(incidence) {
+
+            const frac = MATH.calcFraction(-Math.PI, Math.PI, incidence);
+            const lift = MATH.curveYaw(incidence);
+            bottomLeft.left = frac*100+'%';
+            bottomLeft.bottom = -45+ lift*45+'%';
+            return bottomLeft;
+        }
+
         function addLiftCurvePlot(key, parentX, parentY) {
 
             const count = 100;
@@ -168,8 +177,10 @@ class DomInspectAerodynamics {
                 const bl = curvePointFromAngle(curveAngle);
 
                 px.style.left = bl.left;
-                py.style.left = bl.left;
                 px.style.bottom = bl.bottom;
+
+                curvePointFromAngleYaw(curveAngle);
+                py.style.left = bl.left;
                 py.style.bottom = bl.bottom;
 
                 createDivElement(px, key+'_curve_line_x_'+i, '', 'line_segment')

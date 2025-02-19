@@ -185,7 +185,7 @@ function bodyTransformToObj3d(body, obj3d, debugDraw) {
 
     obj3d.position.set(p.x(), p.y(), p.z());
     obj3d.quaternion.set(q.x(), q.y(), q.z(), q.w());
-
+ //   obj3d.rotateY(Math.PI)
  //   if (debugDraw) {
 //       evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:ThreeAPI.getCameraCursor().getPos(), to:obj3d.position, color:'YELLOW'});
  //   }
