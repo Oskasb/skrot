@@ -1117,7 +1117,8 @@ MATH.curveLift = function(AoA) {
 		return AoA * 3.14
 	} else {
 		const sinVal = Math.sin(AoA )
-		const sin2 = Math.sin(AoA * 2)
+		return sinVal * 0.5 * Math.cos(AoA * 0.5);
+		const sin2 = Math.sin(AoA * 0.5)
 		const nonStallFactor = MATH.curvePow(sinVal, 0.98)  // * 0.5s + sinVal * Math.abs(Math.cos(AoA*0.5)) * 0.5
 //	const stallFactor = MATH.curveSigmoidMirrored(AoA / 3.142)
 		return nonStallFactor * 22 - MATH.curvePow(sinVal, 1.08)*22 // + MATH.curvePow(sin2, 4.2) * 1.0;
@@ -1139,7 +1140,11 @@ MATH.transformToLocalSpace = function(trx, rootTrx, store) {
 
 MATH.addToTorqueVec = function(forceVec3, posOffset, torque) {
 	calcVec.crossVectors(posOffset, forceVec3 );
-	torque.add(calcVec);
+
+	torque.x += calcVec.x;
+	torque.y += calcVec.y;
+	torque.z += calcVec.z;
+
 }
 
 MATH.subQuaternions = function(quatA, quatB, store) {

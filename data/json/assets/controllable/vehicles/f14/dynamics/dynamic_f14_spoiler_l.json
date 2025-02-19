@@ -1,11 +1,11 @@
 {
   "dynamic": "SURFACE_SPOILER_L",
-  "state": {"min": 0, "max": 1, "value": 0, "speed": 2},
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 5},
   "condition": {"dynamic": "DYNAMIC_SWEEP_L", "range": {"min":0.0, "max": 0.7}, "value": 0},
   "targets": [
     {
       "joints": [
-        {"bone": "spoiler_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": 1.15}
+        {"bone": "spoiler_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": 1.25}
       ]
     }
   ]
