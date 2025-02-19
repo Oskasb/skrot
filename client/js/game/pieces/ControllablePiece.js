@@ -119,7 +119,7 @@ class ControllablePiece {
 
         function attachSurface(point, fileName) {
             function attachProp(data) {
-                surfs[point] = new PieceSurface(point, data);
+                surfs[point] = new PieceSurface(_this, point, data);
             }
             jsonAsset(fileName, attachProp)
         }

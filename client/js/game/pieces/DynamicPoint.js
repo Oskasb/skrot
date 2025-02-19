@@ -13,6 +13,7 @@ let tempVec = new Vector3();
 class DynamicPoint {
     constructor(assetInstance, config, groupName) {
         this.id = config.id;
+        this.json = config;
         this.groupName = groupName;
         const stateInfo = {
             value:0

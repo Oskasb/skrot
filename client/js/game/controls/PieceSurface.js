@@ -15,7 +15,8 @@ const tempQuat = new Quaternion();
 const tempQuat2 = new Quaternion();
 const tempQuat3 = new Quaternion();
 class PieceSurface {
-    constructor(pointName, json) {
+    constructor(controllablePiece, pointName, json) {
+        this.controllablePiece = controllablePiece;
         this.status = new SimpleStatus()
         this.id = pointName;
         this.trxLocalObj = new Object3D();
@@ -24,7 +25,7 @@ class PieceSurface {
         this.scale = new Vector3();
         this.velocity = new Vector3();
         this.normal = new Vector3();
-
+        this.quat = new Quaternion();
         MATH.vec3FromArray(this.scale, this.size);
     }
 
@@ -33,10 +34,27 @@ class PieceSurface {
         tempVec.applyQuaternion(frameTransform.quaternion);
         MATH.transformToLocalSpace(point.getObj3d(), frameTransform, this.trxLocalObj)
         const pos = this.trxLocalObj.position;
-        const quat = this.trxLocalObj.quaternion;
+    //    this.quat.copy(this.trxLocalObj.quaternion);
+        this.quat.copy(this.trxLocalObj.quaternion)
 
-        this.normal.set(0, 1, 0);
-        this.normal.applyQuaternion(frameTransform.quaternion)
+
+        if (point.json['sample']) {
+            tempObj2.quaternion.copy(this.quat);
+            for (let i = 0; i <point.json.sample.length; i++) {
+                const sample = point.json.sample[i];
+                let value = 0;
+                if (sample['dynamic']) {
+                    const dynamic = this.controllablePiece.assetInstance.getControlDynamicByName(sample['dynamic'])
+                    value = dynamic.getControlValue()
+                }
+                if (sample['axis']) {
+                    tempObj2[sample['axis']](sample['factor'] * value);
+                }
+            }
+
+            this.quat.copy(tempObj2.quaternion)
+        }
+
         this.velocity.copy(point.getVel());
 
         this.status.setStatusKey(ENUMS.SurfaceStatus.POS_X, pos.x);
@@ -48,30 +66,32 @@ class PieceSurface {
         this.status.setStatusKey(ENUMS.SurfaceStatus.VEL_X, this.velocity.x);
         this.status.setStatusKey(ENUMS.SurfaceStatus.VEL_Y, this.velocity.y);
         this.status.setStatusKey(ENUMS.SurfaceStatus.VEL_Z, this.velocity.z);
-        this.status.setStatusKey(ENUMS.SurfaceStatus.QUAT_X, quat.x);
-        this.status.setStatusKey(ENUMS.SurfaceStatus.QUAT_Y, quat.y);
-        this.status.setStatusKey(ENUMS.SurfaceStatus.QUAT_Z, quat.z);
-        this.status.setStatusKey(ENUMS.SurfaceStatus.QUAT_W, quat.w);
+        this.status.setStatusKey(ENUMS.SurfaceStatus.QUAT_X, this.quat.x);
+        this.status.setStatusKey(ENUMS.SurfaceStatus.QUAT_Y, this.quat.y);
+        this.status.setStatusKey(ENUMS.SurfaceStatus.QUAT_Z, this.quat.z);
+        this.status.setStatusKey(ENUMS.SurfaceStatus.QUAT_W, this.quat.w);
+
+
+        this.normal.set(0, 1, 0);
+        tempQuat.copy(this.quat);
+
+        tempQuat.multiply(frameTransform.quaternion)
+        this.normal.applyQuaternion(tempQuat)
+
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_X,  this.normal.x);
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Y,  this.normal.y);
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Z,  this.normal.z);
 
-        tempVec2.set(0, 0, 1);
-        tempVec2.applyQuaternion(frameTransform.quaternion);
 
-        let southness = tempVec.set(0, 0, -1).dot(tempVec2);
 
-        //    tempObj.up.copy(point.getObj3d().up)
+    //    tempVec2.set(0, 0, 1);
+    //    tempVec2.applyQuaternion(frameTransform.quaternion);
+
         tempVec.copy(this.velocity).normalize();
-    //    tempObj2.up.copy(this.normal);
-    //    tempObj2.lookAt(this.velocity)
 
-
-
-        let forwardness = tempVec.dot(tempVec2);
         let upness = tempVec.dot(this.normal) * -1 //Math.sign(southness);
         tempVec2.set(1, 0, 0);
-        tempVec2.applyQuaternion(frameTransform.quaternion);
+        tempVec2.applyQuaternion(tempQuat);
         let rightness = tempVec.dot(tempVec2) * - 1 // forwardness;
 
         this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_X,  upness*3.14);
@@ -85,8 +105,8 @@ class PieceSurface {
             }
             tempObj.position.copy(point.getPos())
             tempObj.scale.copy(this.scale)
-            tempObj.quaternion.copy(point.getQuat())
-
+            tempObj.quaternion.copy(frameTransform.quaternion)
+            tempObj.quaternion.multiply(this.quat);
             this.geometryInstance.call.applyTrxObj(tempObj);
 
             tempVec.set(0, 0, 1);

@@ -226,36 +226,13 @@ class ControllableForceProcessor {
                     tempVec2.set(surface.trxLocalObj.position.x, surface.trxLocalObj.position.y, surface.trxLocalObj.position.z);
 
                     MATH.addToTorqueVec(localLift, tempVec2, torqueSum)
+                //    MATH.addToTorqueVec(localDrag, tempVec2, torqueSum)
                     localDrag.multiplyScalar(stepTime);
                     localLift.multiplyScalar(stepTime);
 
-                //    tempVec2.applyQuaternion(rootTransform.quaternion)
-
-                    tempVec.set(
-                        -tempVec2.z * liftY,
-                         tempVec2.z * liftX,
-                         tempVec2.x * liftY,
-                    )
-
-                    //    torqueSum.add(tempVec);
-
-                //    MATH.addToTorqueVec(localDrag, tempVec, dragTorqueSum)
-
-
                     localLift.applyQuaternion(rootTransform.quaternion)
 
-                //
                     localLift.add(localDrag);
-                //    localDrag.applyQuaternion(frameTransform.quaternion)
-                //    tempVec.copy(surface.trxLocalObj.position);
-                //    tempVec.set(0, 0, 1)
-                //    tempVec.applyQuaternion(frameTransform.quaternion)
-                //    MATH.addToTorqueVec(localDrag, tempVec, torqueSum)
-                //    localDrag.multiplyScalar(stepTime);
-                //    tempVec.set(0, 0, 0);
-                 //   tempVec.applyQuaternion(frameTransform.quaternion);
-
-                //    AmmoAPI.applyForceAtPointToBody(localLift, tempVec, body)
 
                     forceSum.add(localLift);
 
