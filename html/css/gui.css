@@ -921,6 +921,16 @@ div.string_edit h4 {
     margin: 0 0 0 0.4em;
 }
 
+div.center_box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    transform-origin: 50% 50%;
+    width: 20em;
+    height: 20em;
+}
+
 div.status_container_left {
     position: absolute;
     top: 2em;

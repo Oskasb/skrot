@@ -14,9 +14,7 @@ class DomStatusFlight {
         let htmlElement;
         let _this = this;
         let statusMap;
-        let surface;
-     //   let inputElement;
-        let stickElement;
+
         let controlLineX;
         let controlLineY;
         let dynamicRollL;
@@ -39,7 +37,7 @@ class DomStatusFlight {
         function update() {
 
         //d    translateElement3DPercent(stickElement, statusMap['INPUT_ROLL']*moveRange, statusMap['INPUT_PITCH']*moveRange, 0);
-
+/*
             let outRoll = statusMap['output_INPUT_ROLL']*moveRange+50
             let outPitch = statusMap['output_INPUT_PITCH']*moveRange+50
 
@@ -55,7 +53,7 @@ class DomStatusFlight {
             translateElement3DPercent(dynamicRollR, dynRollR,60,  0);
             translateElement3DPercent(dynamicPitchL, 12, dynPitchL,  0);
             translateElement3DPercent(dynamicPitchR, -12, dynPitchR,  0);
-
+*/
             let pitch = statusMap['STATUS_PITCH']*50 / 3.15 + 50
             let roll = statusMap['STATUS_ROLL'] // *50 / 3.15 + 50
             let yaw = statusMap['STATUS_YAW']*50 / 3.15 + 50
@@ -79,10 +77,10 @@ class DomStatusFlight {
 
 
         function setupListeners() {
-            surface = htmlElement.call.getChildElement('stick_sampler')
-            controlLineX = htmlElement.call.getChildElement('actuator_x')
-            controlLineY = htmlElement.call.getChildElement('actuator_y')
-            stickElement = htmlElement.call.getChildElement('stick_state')
+        //    surface = htmlElement.call.getChildElement('stick_sampler')
+        //    controlLineX = htmlElement.call.getChildElement('actuator_x')
+        //    controlLineY = htmlElement.call.getChildElement('actuator_y')
+        //    stickElement = htmlElement.call.getChildElement('stick_state')
 
             dynamicRollL = htmlElement.call.getChildElement('dynamic_roll_l');
             dynamicRollR = htmlElement.call.getChildElement('dynamic_roll_r');
@@ -100,7 +98,6 @@ class DomStatusFlight {
             eState = htmlElement.call.getChildElement('w_state');
             sState = htmlElement.call.getChildElement('s_state');
             wState = htmlElement.call.getChildElement('e_state');
-
 
         }
 

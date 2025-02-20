@@ -197,7 +197,7 @@ class DynamicPoint {
             }
 
 
-            angularVelocity.multiplyScalar(1/0.05);
+            angularVelocity.multiplyScalar(60);
             tempVec.copy(offset)
         //    angularVelocity.applyQuaternion(tempObj.quaternion)
         //    const bodyAngularVelocity = assetInstance.getAssetBodyAngularVelocity()
