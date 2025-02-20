@@ -5,6 +5,7 @@ import {getFrame} from "../../application/utils/DataUtils.js";
 import {SimpleStatus} from "../../application/setup/SimpleStatus.js";
 import {ENUMS} from "../../application/ENUMS.js";
 import {evt} from "../../application/event/evt.js";
+import {bodyTransformToObj3d} from "../../application/utils/PhysicsUtils.js";
 
 let tempObj = new Object3D();
 let tempObj2 = new Object3D();
@@ -26,6 +27,8 @@ class DynamicPoint {
         const obj3d = new Object3D();
         const offset = new Vector3();
         const velocity = new Vector3();
+        const angularVelocity = new Vector3();
+        const frameAngles = new Vector3();
         const localObj3d = new Object3D();
         const originalTrxObj = new Object3D();
 
@@ -172,17 +175,44 @@ class DynamicPoint {
 
 
         function updateVelocity() {
-            let bodyVelocity = assetInstance.getAssetBodyVelocity()
+            const bodyVelocity = assetInstance.getAssetBodyVelocity()
             velocity.copy(bodyVelocity)
-            return;
-            let bodyAngularVelocity = assetInstance.getAssetBodyAngularVelocity()
+            assetInstance.getBodyTransform(tempObj);
 
+            tempVec.copy(frameAngles);
+            let pitch = -MATH.pitchAttitudeFromQuaternion(tempObj.quaternion) //  + MATH.HALF_PI // MATH.pitchFromQuaternion(rootNode.quaternion);
+            let roll = MATH.rollAttitudeFromQuaternion(tempObj.quaternion);
+            let yaw = MATH.yawFromQuaternion(tempObj.quaternion);
+            frameAngles.set(pitch , yaw, roll);
+
+
+            if (tempVec.lengthSq() === 0) {
+                angularVelocity.set(0, 0, 0)
+            } else {
+                angularVelocity.set(
+                    MATH.subAngles(tempVec.x, frameAngles.x),
+                    MATH.subAngles(tempVec.y, frameAngles.y),
+                    MATH.subAngles(tempVec.z, frameAngles.z)
+                )
+            }
+
+
+            angularVelocity.multiplyScalar(1/0.05);
+            tempVec.copy(offset)
+        //    angularVelocity.applyQuaternion(tempObj.quaternion)
+        //    const bodyAngularVelocity = assetInstance.getAssetBodyAngularVelocity()
+/*
             let frame = getFrame().frame;
             if (updateFrame !== frame) {
                 updateObj3d();
             }
+*/
 
-
+            tempVec.crossVectors(angularVelocity, tempVec) // .multiplyScalar(1.5);
+        //    tempObj.quaternion.conjugate()
+            tempVec.applyQuaternion(tempObj.quaternion)
+        //
+            velocity.add(tempVec)
 
         }
 

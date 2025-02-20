@@ -6,7 +6,11 @@ import {ControlDynamics} from "../../../game/controls/ControlDynamics.js";
 import {MATH} from "../../../application/MATH.js";
 import {DynamicPoint} from "../../../game/pieces/DynamicPoint.js";
 import {PhysicalModel} from "../../../application/physics/PhysicalModel.js";
-import {getBodyAngularVelocity, getBodyVelocity} from "../../../application/utils/PhysicsUtils.js";
+import {
+    bodyTransformToObj3d,
+    getBodyAngularVelocity,
+    getBodyVelocity
+} from "../../../application/utils/PhysicsUtils.js";
 
 
 class AssetInstance {
@@ -152,6 +156,13 @@ class AssetInstance {
             return ThreeAPI.tempVec3;
         }
         return getBodyVelocity(body);
+    }
+
+    getBodyTransform(store) {
+        let body = this.call.getObj3d().userData.body;
+        if (body) {
+            bodyTransformToObj3d(body, store);
+        }
     }
 
     getAssetBodyAngularVelocity() {

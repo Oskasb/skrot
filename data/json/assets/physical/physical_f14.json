@@ -25,7 +25,7 @@
       "shape": "compound",
       "scale": [6.0, 1.1, 20.0],
       "rot": [0, 0, 0],
-      "pos": [1210, 70, 3455],
+      "pos": [1210, 44, 3455],
       "convex": false,
       "mass": 20000,
       "friction": 2.9,

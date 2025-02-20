@@ -824,8 +824,9 @@ MATH.pitchFromQuaternion3 = function(q) {
 };
 
 MATH.yawFromQuaternion = function(q) {
-	mag = Math.sqrt(q.w*q.w + q.y*q.y);
-	return 2*Math.acos(q.y / mag)-Math.PI;
+	calcVec.set(1, 0, 0);
+	calcVec.applyQuaternion(q);
+	return MATH.vectorXZToAngleAxisY(calcVec)
 };
 
 MATH.pitchFromBodyObj3d = function(obj3d) {
@@ -860,6 +861,12 @@ MATH.compassAttitudeFromQuaternion = function(q) {
 MATH.rollAttitudeFromQuaternion = function(q) {
 	let rotation = MATH.eulerFromQuaternion(q, "YXZ");
 	return -rotation.z
+};
+
+MATH.pitchAttitudeFromQuaternion = function(q) {
+	calcVec.set(0, 1, 0);
+	calcVec.applyQuaternion(q);
+	return MATH.vectorXZToAngleAxisY(calcVec)
 };
 
 MATH.eulerFromQuaternion = function(q, order) {
@@ -1113,7 +1120,7 @@ MATH.curvePow = function(value, power) {
 
 MATH.curveLift = function(AoA) {
 
-	if (Math.abs(AoA) < 0.3) {
+	if (Math.abs(AoA) < 0.35) {
 		return AoA * 3.14
 	} else {
 		const sinVal = Math.sin(AoA )

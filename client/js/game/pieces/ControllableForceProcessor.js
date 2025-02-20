@@ -37,7 +37,7 @@ class ControllableForceProcessor {
 
         function applyEngineForce(point, prop, stateValue, body) {
 
-            let force = MATH.curveQuad(stateValue) * prop.force * stepTime * 10
+            let force = MATH.curveQuad(stateValue) * prop.force * stepTime * 1.1
             tempVec1.set(0, 0, -force);
 
             point.updateDynamicPoint();
@@ -244,19 +244,19 @@ class ControllableForceProcessor {
                         evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:tempVec, size:0.1, color:'RED'});
                    //
                         tempVec2.set(0, liftY, 0);
-                        tempVec2.multiplyScalar(0.0001)
+                        tempVec2.multiplyScalar(0.00002)
                         tempVec2.applyQuaternion(rootTransform.quaternion)
                         tempVec2.add(tempVec)
                         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempVec, to:tempVec2, color:'YELLOW'});
 
                         tempVec2.set(liftX,0,  0);
-                        tempVec2.multiplyScalar(0.0001)
+                        tempVec2.multiplyScalar(0.00005)
                         tempVec2.applyQuaternion(rootTransform.quaternion)
                         tempVec2.add(tempVec)
                         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempVec, to:tempVec2, color:'GREEN'});
 
                         tempVec2.copy(localDrag);
-                        tempVec2.multiplyScalar(0.1)
+                        tempVec2.multiplyScalar(0.01)
                     //    tempVec2.applyQuaternion(frameTransform.quaternion)
                         tempVec2.add(tempVec)
                         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempVec, to:tempVec2, color:'RED'});
@@ -268,11 +268,6 @@ class ControllableForceProcessor {
                         tempVec2.add(tempVec)
                         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempVec, to:tempVec2, color:'CYAN'});
 
-                        tempVec2.copy(surfaceUp)
-                        tempVec2.applyQuaternion(rootTransform.quaternion)
-                        tempVec2.multiplyScalar(1);
-                        tempVec2.add(tempVec)
-                        evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempVec, to:tempVec2, color:'BLUE'});
 
                     }
 
@@ -316,7 +311,7 @@ class ControllableForceProcessor {
 
             let waterContact = controllablePiece.getAssetInstanceStatus(ENUMS.InstanceStatus.WEIGHT_ON_WATER) || 0;
 
-            AmmoAPI.setBodyDamping(body, 0.00001  + speed*0.000001 + waterContact*0.2 +waterContact*speed*0.05, 0.1 + MATH.curveSqrt(speed*0.06) * 0.1 + waterContact*0.1);
+            AmmoAPI.setBodyDamping(body, 0.00001  + speed*0.000001 + waterContact*0.2 +waterContact*speed*0.05, 0.01 + MATH.curveSqrt(speed*0.02) * 0.05 + waterContact*0.2);
 
             torqueSum.applyQuaternion(frameTransform.quaternion)
             torqueSum.multiplyScalar(1)
@@ -327,7 +322,7 @@ class ControllableForceProcessor {
             //    tempVec2.add(dragTorqueSum);
 
             AmmoAPI.applyForceAndTorqueToBody(forceSum, tempVec2, body)
-        //
+        /*
             if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {
 
                 tempVec2.multiplyScalar(0.01)
@@ -335,7 +330,8 @@ class ControllableForceProcessor {
                 tempVec2.add(frameTransform.position)
                 evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:frameTransform.position, to:tempVec2, color:'YELLOW'});
             }
-        //    torqueSum.multiplyScalar(0)
+
+         */
 
 
 

@@ -30,8 +30,7 @@ class PieceSurface {
     }
 
     updateSurfacePointStatus(point, frameTransform) {
-        tempVec.set(0, 1, 0);
-        tempVec.applyQuaternion(frameTransform.quaternion);
+
         MATH.transformToLocalSpace(point.getObj3d(), frameTransform, this.trxLocalObj)
         const pos = this.trxLocalObj.position;
     //    this.quat.copy(this.trxLocalObj.quaternion);
@@ -71,14 +70,9 @@ class PieceSurface {
         this.status.setStatusKey(ENUMS.SurfaceStatus.QUAT_Z, this.quat.z);
         this.status.setStatusKey(ENUMS.SurfaceStatus.QUAT_W, this.quat.w);
 
-
         this.normal.set(0, 1, 0);
-        tempQuat.copy(this.quat);
 
-        tempQuat.multiply(frameTransform.quaternion)
-        this.normal.applyQuaternion(tempQuat)
-
-
+        this.normal.applyQuaternion(this.quat)
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_X,  this.normal.x);
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Y,  this.normal.y);
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Z,  this.normal.z);
@@ -90,29 +84,44 @@ class PieceSurface {
 
         tempVec.copy(this.velocity).normalize();
 
+        tempQuat.copy(frameTransform.quaternion)
+        tempQuat.multiply(this.quat);
+        tempQuat.conjugate()
+
+        tempVec.applyQuaternion(tempQuat);
+
+    /*
         let upness = tempVec.dot(this.normal) * -1 //Math.sign(southness);
         tempVec2.set(1, 0, 0);
         tempVec2.applyQuaternion(tempQuat);
         let rightness = tempVec.dot(tempVec2) * - 1 // forwardness;
+*/
+        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_X,  -tempVec.y*3.14);
 
-        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_X,  upness*3.14);
-
-        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_Y,   rightness*3.14);
+        this.status.setStatusKey(ENUMS.SurfaceStatus.AOA_Y,   -tempVec.x*3.14);
 
         if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {
-
-            if (!this.geometryInstance) {
-                this.geometryInstance = createGeometryInstance("box", 'material_props_opaque');
-            }
             tempObj.position.copy(point.getPos())
             tempObj.scale.copy(this.scale)
             tempObj.quaternion.copy(frameTransform.quaternion)
             tempObj.quaternion.multiply(this.quat);
-            this.geometryInstance.call.applyTrxObj(tempObj);
+
+            /*
+            if (!this.geometryInstance) {
+                this.geometryInstance = createGeometryInstance("box", 'material_props_opaque');
+                this.geometryInstance.call.applyTrxObj(tempObj);
+            }
+             */
 
             tempVec.set(0, 0, 1);
             tempVec.applyQuaternion(point.getQuat());
             tempVec.add(point.getPos());
+
+            tempVec2.copy(this.normal)
+            tempVec2.applyQuaternion(frameTransform.quaternion)
+            tempVec2.add(tempVec)
+            evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempVec, to:tempVec2, color:'BLUE'});
+
             tempVec2.set( 0, this.status.getStatus(ENUMS.SurfaceStatus.AOA_X), 0)
             tempVec2.applyQuaternion(frameTransform.quaternion)
             tempVec2.add(tempVec)
