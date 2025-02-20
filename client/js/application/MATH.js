@@ -1112,10 +1112,10 @@ MATH.aoaYFromVelAndUp = function(vel, surfaceUp) {
 	return MATH.angleInsideCircle(MATH.subAngles(rotAngY, velAngY ) +Math.PI);
 }
 
+
 MATH.curvePow = function(value, power) {
 	const sign = Math.sign(value);
 	return Math.pow(Math.abs(value), power)*sign;
-
 }
 
 MATH.curveLift = function(AoA) {
@@ -1124,11 +1124,8 @@ MATH.curveLift = function(AoA) {
 		return AoA * 3.14
 	} else {
 		const sinVal = Math.sin(AoA )
-		return MATH.curvePow(sinVal, 0.1) * 0.75 * Math.cos(AoA * 0.5);
-		const sin2 = Math.sin(AoA * 0.5)
-		const nonStallFactor = MATH.curvePow(sinVal, 0.98)  // * 0.5s + sinVal * Math.abs(Math.cos(AoA*0.5)) * 0.5
-//	const stallFactor = MATH.curveSigmoidMirrored(AoA / 3.142)
-		return nonStallFactor * 22 - MATH.curvePow(sinVal, 1.08)*22 // + MATH.curvePow(sin2, 4.2) * 1.0;
+		const l1 = Math.pow(Math.abs(sinVal), 0.1)*Math.sign(sinVal);
+		return l1 * Math.cos(AoA * 0.5);
 	}
 
 }
