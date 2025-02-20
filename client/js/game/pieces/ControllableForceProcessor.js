@@ -95,13 +95,13 @@ class ControllableForceProcessor {
 
         }
 
-        function update(stepTime) {
+        function update() {
 
             let body = controllablePiece.getAmmoBody();
             if (!body) {
                 return;
             }
-
+            stepTime = AmmoAPI.getStepTime();
             let airDensity = MATH.valueFromCurve(controllablePiece.getStatus(ENUMS.ControllableStatus.STATUS_ELEVATION), MATH.curves["densityByAlt"]);
             let liftCoeff = 1;
 
@@ -124,7 +124,7 @@ class ControllableForceProcessor {
 
 
 
-            stepTime = AmmoAPI.getStepTime();
+
             speedSq = velocity.lengthSq();
             let speed = MATH.curveSqrt(speedSq)
 
@@ -162,7 +162,7 @@ class ControllableForceProcessor {
 
                         controllablePiece.setStatusKey(ENUMS.ControllableStatus.STATUS_AOA_X, MATH.numberToDigits(radToDeg(aoaX), 1, 1));
                         controllablePiece.setStatusKey(ENUMS.ControllableStatus.STATUS_AOA_Y, MATH.numberToDigits(radToDeg(aoaY), 1, 1));
-                        controllablePiece.setStatusKey(ENUMS.ControllableStatus.STATUS_FORCE_G, MATH.numberToDigits(surface.acc.y/stepTime  + 1, 1, 1));
+                        controllablePiece.setStatusKey(ENUMS.ControllableStatus.STATUS_FORCE_G, MATH.numberToDigits(surface.acc.length()  + 1, 1, 1));
                     }
                 }
             }
@@ -308,17 +308,6 @@ class ControllableForceProcessor {
             //    tempVec2.add(dragTorqueSum);
 
             AmmoAPI.applyForceAndTorqueToBody(forceSum, tempVec2, body)
-        /*
-            if (getSetting(ENUMS.Settings.SHOW_FLIGHT_FORCES) === 1) {
-
-                tempVec2.multiplyScalar(0.01)
-
-                tempVec2.add(frameTransform.position)
-                evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:frameTransform.position, to:tempVec2, color:'YELLOW'});
-            }
-
-         */
-
 
 
         }

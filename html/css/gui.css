@@ -939,16 +939,19 @@ div.status_row h1 {
     font-size: 1.7em;
     margin: 0;
     padding: 0.1em;
-    width: 2.3em;
+    min-width: 2.5em;
+    width: 2.5em;
     color:#a9fff6;
 }
 
 div.status_row h2 {
     font-size: 1.6em;
+    min-width: 2.4em;
 }
 
 div.status_row h3 {
     font-size: 1.6em;
+    text-align: left;
     color: #99ff8d;
 }
 
@@ -1616,23 +1619,6 @@ div.sync_dot_on {
     transition: border-color 0.0s;
 }
 
-div.actor_sync_status {
-    position: relative;
-    width: auto;
-    margin:0.05em;
-    height: -webkit-fill-available;
-    left: auto;
-    background-color: rgba(134, 134, 134, 0.7);
-    border: 0.15em solid;
-    border-color: #8f8f8f;
-    border-radius: 0.2em;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: space-around;
-    align-items: stretch;
-    transition: border-color 0.5s, background-color 0.5s;
-}
 
 div.sync_dot_off {
 
