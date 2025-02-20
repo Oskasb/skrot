@@ -4,6 +4,7 @@ import {ENUMS} from "../../application/ENUMS.js";
 import {evt} from "../../application/event/evt.js";
 import {MATH} from "../../application/MATH.js";
 import {getSetting} from "../../application/utils/StatusUtils.js";
+import {radToDeg} from "../../../../libs/three/math/MathUtils.js";
 
 let frameTransform = new Object3D();
 let pointTransform = new Object3D();
@@ -37,7 +38,7 @@ class ControllableForceProcessor {
 
         function applyEngineForce(point, prop, stateValue, body) {
 
-            let force = MATH.curveQuad(stateValue) * prop.force * stepTime * 1.1
+            let force = MATH.curveQuad(stateValue) * prop.force * stepTime * 1.01
             tempVec1.set(0, 0, -force);
 
             point.updateDynamicPoint();
@@ -94,7 +95,7 @@ class ControllableForceProcessor {
 
         }
 
-        function update() {
+        function update(stepTime) {
 
             let body = controllablePiece.getAmmoBody();
             if (!body) {
@@ -120,11 +121,7 @@ class ControllableForceProcessor {
             localUp.set(0, 1, 0);
             localUp.applyQuaternion(frameTransform.quaternion)
 
-            let aoaX = MATH.aoaXFromVelAndUp(tempForwardVec3, localUp)
-            let aoaY = MATH.aoaYFromVelAndUp(tempForwardVec3, localUp)
 
-            controllablePiece.setStatusKey(ENUMS.ControllableStatus.STATUS_AOA_X, aoaX);
-            controllablePiece.setStatusKey(ENUMS.ControllableStatus.STATUS_AOA_Y, aoaY);
 
 
             stepTime = AmmoAPI.getStepTime();
@@ -160,6 +157,12 @@ class ControllableForceProcessor {
                         surface.updateSurfacePointStatus(point, frameTransform);
                         rootTransform.quaternion.copy(frameTransform.quaternion)
                         rootTransform.position.copy(frameTransform.position);
+                        let aoaX = surface.getStatus(ENUMS.SurfaceStatus.AOA_X)
+                        let aoaY = surface.getStatus(ENUMS.SurfaceStatus.AOA_Y)
+
+                        controllablePiece.setStatusKey(ENUMS.ControllableStatus.STATUS_AOA_X, MATH.numberToDigits(radToDeg(aoaX), 1, 1));
+                        controllablePiece.setStatusKey(ENUMS.ControllableStatus.STATUS_AOA_Y, MATH.numberToDigits(radToDeg(aoaY), 1, 1));
+                        controllablePiece.setStatusKey(ENUMS.ControllableStatus.STATUS_FORCE_G, MATH.numberToDigits(surface.acc.y/stepTime  + 1, 1, 1));
                     }
                 }
             }
@@ -178,9 +181,6 @@ class ControllableForceProcessor {
                         point.updateDynamicPoint();
                         let surface = surfaces[key];
                         surface.updateSurfacePointStatus(point, rootTransform);
-                        aoaX = surface.getStatus(ENUMS.SurfaceStatus.AOA_X)
-                    //    rootTransform.quaternion.copy(point.getQuat())
-                    //    rootTransform.position.copy(frameTransform.position);
                     }
 
                     let globalPoint = point.getObj3d();
@@ -202,7 +202,7 @@ class ControllableForceProcessor {
                         liftY = 1.2 * MATH.curveLift(aoaX) * speedSq * surfaceArea * airDensity + addUpForce * 5 //*  surfaceArea * 0.1 // * surfaceArea // *0.5;
 
                         let inducedForcesSQ = liftY*liftY;
-                        inducedDrag += inducedForcesSQ / (1.5 * airDensity * speedSq * surface.scale.x * 3.14)
+                        inducedDrag += inducedForcesSQ / (0.5 * airDensity * speedSq * surface.scale.x * 3.14)
 
                     }
 
@@ -212,7 +212,7 @@ class ControllableForceProcessor {
                         liftX = MATH.curveYaw(aoaY) * speedSq * surfaceArea * airDensity // *0.5;
 
                         let inducedForcesSQ = liftX*liftX;
-                        inducedDrag += inducedForcesSQ / (1.5 * airDensity * speedSq * surface.scale.y * 3.14)
+                        inducedDrag += inducedForcesSQ / (0.5 * airDensity * speedSq * surface.scale.y * 3.14)
                     }
 
                     localLift.set(liftX, liftY, 0);
@@ -268,24 +268,10 @@ class ControllableForceProcessor {
                         tempVec2.add(tempVec)
                         evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:tempVec, to:tempVec2, color:'CYAN'});
 
-
                     }
-
                 }
             }
 
-        //    forceSum.applyQuaternion(frameTransform.quaternion)
-        //    tempObj.lookAt(velocity) //.copy(rootTransform.quaternion)
-        //    tempObj.rotateZ(3.14)
-            tempVec2.set( -MATH.curveLift(aoaX) * frameSpeed, aoaX * frameSpeed*0, 0);
-            tempVec2.applyQuaternion(frameTransform.quaternion)
-            tempVec2.multiplyScalar(mass * stepTime * 100);
-
-        //    tempVec2.applyQuaternion(frameTransform.quaternion)
-        //    torqueSum.multiplyScalar(-1)
-
-            //     AmmoAPI.applyForceAtPointToBody(forceSum, torqueSum, body)
-        //    tempVec.set(0, 0, 0);
 
             let torqueBoost = MATH.curveQuad(getSetting(ENUMS.Settings.TORQUE_BOOST));
             if (torqueBoost !== 0) {

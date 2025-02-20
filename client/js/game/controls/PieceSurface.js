@@ -27,6 +27,7 @@ class PieceSurface {
         this.normal = new Vector3();
         this.quat = new Quaternion();
         MATH.vec3FromArray(this.scale, this.size);
+        this.acc = new Vector3();
     }
 
     updateSurfacePointStatus(point, frameTransform) {
@@ -36,7 +37,7 @@ class PieceSurface {
     //    this.quat.copy(this.trxLocalObj.quaternion);
         this.quat.copy(this.trxLocalObj.quaternion)
 
-
+        this.acc.copy(this.velocity);
         if (point.json['sample']) {
             tempObj2.quaternion.copy(this.quat);
             for (let i = 0; i <point.json.sample.length; i++) {
@@ -55,6 +56,8 @@ class PieceSurface {
         }
 
         this.velocity.copy(point.getVel());
+        this.acc.sub(this.velocity);
+        this.acc.applyQuaternion(frameTransform.quaternion);
 
         this.status.setStatusKey(ENUMS.SurfaceStatus.POS_X, pos.x);
         this.status.setStatusKey(ENUMS.SurfaceStatus.POS_Y, pos.y);

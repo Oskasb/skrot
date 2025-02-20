@@ -1,8 +1,9 @@
 import {ENUMS} from "../../application/ENUMS.js";
 import {MATH} from "../../application/MATH.js";
-import {Quaternion} from "../../../../libs/three/Three.Core.js";
+import {Quaternion, Vector3} from "../../../../libs/three/Three.Core.js";
 
 let tempQuat = new Quaternion();
+let tempVec = new Vector3();
 
 function sampleSpatialState(controllable) {
     let rootNode = controllable.getObj3d();
@@ -17,11 +18,19 @@ function sampleSpatialState(controllable) {
     controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_PITCH, pitch);
     controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_ROLL, roll);
     controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_YAW, yaw);
-    controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_ELEVATION, rootNode.position.y);
+    controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_ELEVATION, Math.round(rootNode.position.y));
     controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_ANGLE_NORTH, yaw);
     controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_ANGLE_EAST, MATH.angleInsideCircle(yaw+MATH.HALF_PI));
     controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_ANGLE_SOUTH, MATH.angleInsideCircle(yaw+MATH.HALF_PI*2));
     controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_ANGLE_WEST, MATH.angleInsideCircle(yaw-MATH.HALF_PI));
+
+    if (controllable.assetInstance) {
+        const ammoVel = controllable.assetInstance.getObj3d().userData.body.getLinearVelocity();
+        const assetStatus = controllable.assetInstance.status;
+        tempVec.set(ammoVel.x(), ammoVel.y(), ammoVel.z());
+        controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_SPEED, MATH.numberToDigits(assetStatus.getStatus(ENUMS.InstanceStatus.SPEED_AIR), 0));
+        controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_CLIMB_RATE, MATH.numberToDigits(ammoVel.y(), 1, 1));
+    }
 
 }
 

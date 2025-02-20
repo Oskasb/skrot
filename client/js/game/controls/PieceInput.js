@@ -46,13 +46,7 @@ class PieceInput {
                 }
             }
 
-            for (let i = 0; i < feedback.length; i++) {
-                let statusKey = feedback[i].status;
-                statusMap[statusKey] = controllablePiece.getStatus(statusKey);
-            }
-
         }
-
 
         function update() {
             if (isActive === false) {
@@ -67,6 +61,11 @@ class PieceInput {
                 updateInputStatus(inputTargets[i]);
             }
 
+            for (let i = 0; i < feedback.length; i++) {
+                let statusKey = feedback[i].status;
+                statusMap[statusKey] = controllablePiece.getStatus(statusKey);
+            }
+
             domUiElement.call.update();
 
         }
@@ -74,7 +73,6 @@ class PieceInput {
         function elemReady() {
             isActive = true;
         }
-
 
         function activate() {
             domUiElement= poolFetch(json['ui']);

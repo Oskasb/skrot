@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="../../../html/css/base.css">
+<link rel="stylesheet" type="text/css" href="../../../html/css/gui.css" />
+<link rel="stylesheet" type="text/css" href="../../../html/css/controls.css" />
+
+<body id="container" class="overlay_page">
+<div class="status_container_left">
+    <div class="status_row"><h1>FPS:</h1><h2 id="fps_avg"></h2></div>
+    <div class="status_row"><h1>ALT:</h1><h2 id="STATUS_ELEVATION"><h3>m</h3></h2></div>
+    <div class="status_row"><h1>IAS:</h1><h2 id="STATUS_SPEED"></h2><h3>m/s</h3></div>
+    <div class="status_row"><h1>CLB:</h1><h2 id="STATUS_CLIMB_RATE"></h2><h3>m/s</h3></div>
+    <div class="status_row"><h1>AOA:</h1><h2 id="STATUS_AOA_X"></h2><h3>deg</h3></div>
+    <div class="status_row"><h1>G:</h1><h2 id="STATUS_FORCE_G">G</h2><h3>m/ss</h3></div>
+</div>
+
+<div id ="actuator_x" class="control_line line_x"></div>
+<div id ="actuator_y" class="control_line"></div>
+<div id ="dynamic_roll_l" class="dynamic_line line_roll"></div>
+<div id ="dynamic_roll_r" class="dynamic_line line_roll"></div>
+<div id ="dynamic_pitch_l" class="dynamic_line"></div>
+<div id ="dynamic_pitch_r" class="dynamic_line line_r"></div>
+<div id="stick_input" class="stick_input">
+    <div id="stick_input_feedback" class="stick_input_feedback"></div>
+</div>
+<div id="stick_state" class="stick_state">
+    <div id="stick_state_feedback" class="stick_state_feedback">
+        <div id="pitch_state" class="control_line">
+            <div id="roll_state" class="control_line"></div>
+        </div>
+    </div>
+</div>
+<div id="stick_sampler" class="stick_sampler"></div>
+<div id="pitch_surface" class="pitch_surface">
+    <div id="pitch_state_line" class="control_line"></div>
+    <div id="aoa_x_state" class="aoa_x_state"></div>
+</div>
+<div id="yaw_surface" class="yaw_surface">
+    <div id="yaw_state" class="control_line line_x"></div>
+    <div id="n_state" class="control_line line_x">N</div>
+    <div id="w_state" class="control_line line_x">E</div>
+    <div id="s_state" class="control_line line_x">S</div>
+    <div id="e_state" class="control_line line_x">W</div>
+</div>
+</body>

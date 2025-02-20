@@ -921,6 +921,36 @@ div.string_edit h4 {
     margin: 0 0 0 0.4em;
 }
 
+div.status_container_left {
+    position: absolute;
+    top: 2em;
+    left: 6em;
+    width: 12em;
+}
+
+div.status_row {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+}
+
+div.status_row h1 {
+    font-size: 1.7em;
+    margin: 0;
+    padding: 0.1em;
+    width: 2.3em;
+    color:#a9fff6;
+}
+
+div.status_row h2 {
+    font-size: 1.6em;
+}
+
+div.status_row h3 {
+    font-size: 1.6em;
+    color: #99ff8d;
+}
 
 div.settings_panel {
     z-index: 10000;

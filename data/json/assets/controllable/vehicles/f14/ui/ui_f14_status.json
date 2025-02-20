@@ -1,13 +1,10 @@
 [
   {
-    "id": "UI_STICK",
-    "ui": "DomFlightstick",
-    "html": "ui_flight_stick",
-    "class": "ui_flight_stick",
-    "input_targets": [
-      {"sample":"AXIS_X", "target":"INPUT_ROLL", "init": 0},
-      {"sample":"AXIS_Y", "target":"INPUT_PITCH", "init": 0}
-    ],
+    "id": "UI_STATUS",
+    "ui": "DomStatusFlight",
+    "html": "ui_status_flight",
+    "class": "ui_status_flight",
+    "input_targets": [],
     "feedback": [
       {"status": "STATUS_PITCH"},
       {"status": "STATUS_ROLL"},
@@ -25,7 +22,8 @@
       {"status": "STATUS_CLIMB_2"},
       {"status": "STATUS_CLIMB_3"},
       {"status": "STATUS_CLIMB_4"},
-      {"status": "SPEED_AIR"}
+      {"status": "STATUS_SPEED"},
+      {"status": "STATUS_FORCE_G"}
     ]
   }
 ]

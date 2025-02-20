@@ -33,6 +33,7 @@ import {WeaponCannon} from "../../game/pieces/weapons/WeaponCannon.js";
 import {ActiveBullet} from "../../game/pieces/weapons/ActiveBullet.js";
 import {WorldEffect} from "../../3d/three/assets/WorldEffect.js";
 import {GeometryInstance} from "../../3d/three/assets/GeometryInstance.js";
+import {DomStatusFlight} from "../ui/dom/ui/DomStatusFlight.js";
 
 
 let pools = {}
@@ -59,6 +60,7 @@ function initPools() {
     registerPool(AssetTexture);
     registerPool(ControllablePiece)
     registerPool(DomFlightstick)
+    registerPool(DomStatusFlight)
     registerPool(DomYawPedals)
     registerPool(DomSweep)
     registerPool(DomGear)
