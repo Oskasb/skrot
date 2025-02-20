@@ -78,6 +78,7 @@ class PieceSurface {
         tempQuat.multiply(frameTransform.quaternion)
         this.normal.applyQuaternion(tempQuat)
 
+
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_X,  this.normal.x);
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Y,  this.normal.y);
         this.status.setStatusKey(ENUMS.SurfaceStatus.NORMAL_Z,  this.normal.z);
