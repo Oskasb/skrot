@@ -1,0 +1,10 @@
+        {
+          "assets": [
+            {"file":"b52_fuselage",         "material": "material_plane_opaque"}
+          ],
+          "skeleton_file": "b52_fuselage",
+          "rotation": [0, 0, 0],
+          "scale": [1, 1, 1]
+        }
+
+

@@ -1,0 +1,21 @@
+{
+  "material": "MeshStandardMaterial",
+  "textures": [
+    { "slot":"map",           "tx": "texture_plane_atlas"},
+    { "slot":"normalMap",     "tx": "texture_plane_atlas_normal"},
+    { "slot":"metalnessMap",  "tx": "texture_plane_atlas_metalness"},
+    { "slot":"roughnessMap",  "tx": "texture_plane_atlas_roughness"},
+    { "slot":"aoMap",         "tx": "texture_j29_main_ao"}
+  ],
+  "settings": {
+    "color": [1, 1, 1],
+    "metalness": 1.2,
+    "roughness": 0.9,
+    "aoMapIntensity": 1.0,
+    "envMapIntensity": 2.0
+  },
+  "shadows": {
+    "cast": true,
+    "receive": true
+  }
+}

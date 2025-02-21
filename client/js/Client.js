@@ -81,15 +81,7 @@ function startGameWorld() {
     thumbstick.call.initElement(sMap, 'ui/ui_thumb_stick', 'ui_flight_stick', stickReady)
 
 
-    function plane(plane) {
-        console.log("plane ", plane);
-        plane.addToScene();
-        elementList.push(plane);
 
-        setTimeout(function() {
-            getGameWorld().call.loadGamePiece('controllable_enterprise', cvn)
-        },2000)
-    }
 
  //   player.enterWorld('controllable_f14')
     function cvn(boat) {
@@ -115,10 +107,26 @@ function startGameWorld() {
         AmmoAPI.registerPhysicsStepCallback(updatePhys)
     }
 
-    setTimeout(function() {
 
-        getGameWorld().call.loadGamePiece('controllable_f14', plane)
-    },100)
+    function loadPiece(ctrlPiece) {
+        console.log("plane ", ctrlPiece);
+        ctrlPiece.addToScene();
+        elementList.push(ctrlPiece);
+    }
+
+    const loadPlanes = ['controllable_f14', 'controllable_j29', 'controllable_b52']
+
+    getGameWorld().call.loadGamePiece('controllable_f14', loadPiece)
+    setTimeout(function() {
+        getGameWorld().call.loadGamePiece('controllable_j29', loadPiece)
+    }, 2000)
+    setTimeout(function() {
+        getGameWorld().call.loadGamePiece('controllable_b52', loadPiece)
+    }, 4000)
+    setTimeout(function() {
+        getGameWorld().call.loadGamePiece('controllable_enterprise', cvn)
+    }, 6000)
+
 
     function updateDebug() {
         if (getSetting(ENUMS.Settings.SHOW_PIECE_POINTS) === 1) {

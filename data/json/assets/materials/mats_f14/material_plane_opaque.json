@@ -7,6 +7,9 @@
     { "slot":"roughnessMap",  "tx": "texture_plane_atlas_roughness"}
   ],
   "settings": {
-
+    "color": [1, 1, 1],
+    "metalness": 1.0,
+    "roughness": 1.0,
+    "envMapIntensity": 1.0
   }
 }

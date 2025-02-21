@@ -1,0 +1,22 @@
+{
+  "label": "B52",
+  "controllable": "vehicle_b52",
+  "ui": [
+
+  ],
+  "inputs": [
+
+  ],
+  "controls": [
+
+  ],
+  "propulsion": [
+
+  ],
+  "surfaces": [
+
+  ],
+  "hardpoints": [
+
+  ]
+}
