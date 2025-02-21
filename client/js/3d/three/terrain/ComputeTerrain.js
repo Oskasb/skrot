@@ -571,6 +571,7 @@ class ComputeTerrain {
                     ThreeAPI.addToScene(shadowMesh);
 
                     ThreeAPI.addPostrenderCallback(update);
+
                     onReadyCB();
                 }
 

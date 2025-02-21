@@ -1,5 +1,5 @@
 
-import {notifyDomResize, setRefDiv} from "./application/ui/dom/DomUtils.js";
+import {createDivElement, notifyDomResize, removeDivElement, setRefDiv} from "./application/ui/dom/DomUtils.js";
 import {evt} from "./application/event/evt.js";
 import {
     Clock
@@ -39,7 +39,19 @@ function getCameraControls() {
     return orbitControls;
 }
 
+let time = 0;
+function loadTick() {
+    time++
+    document.getElementById('load_tick').innerHTML = time;
+    tickTO = setTimeout(loadTick, 1000);
+}
+
+let tickTO;
+
 function startGameWorld() {
+    removeDivElement(document.getElementById('load_splash'));
+    clearTimeout(tickTO);
+    new DomWorldHud();
     setGameWorld(gameWorld);
     gameWorld.initGameWorld();
 
@@ -91,9 +103,9 @@ function startGameWorld() {
         function updatePhys() {
             let obj3d = boat.getObj3d();
             let body = obj3d.userData.body;
-            ThreeAPI.tempVec3.set(0, 0, -5999999);
+            ThreeAPI.tempVec3.set(0, 0, -2999999);
             ThreeAPI.tempVec3.applyQuaternion(obj3d.quaternion);
-            ThreeAPI.tempVec3b.set(2, 3, -100);
+            ThreeAPI.tempVec3b.set(-0.1, -4, -100);
             ThreeAPI.tempVec3b.applyQuaternion(obj3d.quaternion);
         //    ThreeAPI.tempVec3b.add(obj3d.position)
             AmmoAPI.applyForceAtPointToBody(ThreeAPI.tempVec3, ThreeAPI.tempVec3b, body)
@@ -104,6 +116,7 @@ function startGameWorld() {
     }
 
     setTimeout(function() {
+
         getGameWorld().call.loadGamePiece('controllable_f14', plane)
     },100)
 
@@ -151,6 +164,8 @@ function init3d(onReady) {
     let frame = getFrame();
 
     function triggerFrame() {
+
+
         frame.frame ++;
         window.AmmoAPI.updatePhysicsSimulation(frame.tpf);
 
@@ -186,15 +201,17 @@ function init3d(onReady) {
 
 
 }
-
+let loadDiv;
 
 class Client{
     constructor() {
         evt.setEventKeys(ENUMS.Event)
         initPools()
+        loadTick()
     }
 
     loadDataIndex(loadCB) {
+
         loadEditIndex("data/json/setup/index.json" ,loadCB)
     }
 
@@ -202,7 +219,7 @@ class Client{
         if (window.islocal) {
             setupSocket()
         }
-        new DomWorldHud();
+
         init3d(startGameWorld);
     }
 

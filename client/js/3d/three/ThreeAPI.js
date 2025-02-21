@@ -77,7 +77,7 @@ class ThreeAPI {
 
         function trnLoaded() {
             new Ocean(store)
-            onReady();
+            setTimeout(onReady, 100)
         }
 
         let onLoaded = function() {

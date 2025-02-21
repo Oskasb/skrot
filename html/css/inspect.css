@@ -25,6 +25,14 @@ div.surface_aoa_box {
     background-color: rgba(2, 13, 31, 0.32);
 }
 
+div.box_curve_view {
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background: black;
+}
+
 div.surface_label {
 
 }

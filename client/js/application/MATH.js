@@ -1120,12 +1120,15 @@ MATH.curvePow = function(value, power) {
 
 MATH.curveLift = function(AoA) {
 
-	if (Math.abs(AoA) < 0.35) {
-		return AoA * 3.14
+	const preSeparationAngle = 0.41;
+
+	if (Math.abs(AoA) < preSeparationAngle) {
+		const preStallFraction = MATH.calcFraction(0, preSeparationAngle, Math.abs(AoA))
+		return AoA*3.14*(1-preStallFraction) + (Math.sin(AoA * 3.14*2)*1.2)*preStallFraction;
 	} else {
 		const sinVal = Math.sin(AoA )
-		const l1 = Math.pow(Math.abs(sinVal), 0.1)*Math.sign(sinVal);
-		return l1 * Math.cos(AoA * 0.5);
+		const l1 = Math.pow(Math.abs(sinVal), 0.5)*Math.sign(sinVal);
+		return l1 * MATH.curveSqrt(Math.cos(AoA * 0.5));
 	}
 
 }

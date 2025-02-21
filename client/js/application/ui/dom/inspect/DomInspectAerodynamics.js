@@ -1,7 +1,7 @@
 import {poolFetch} from "../../../utils/PoolUtils.js";
 import {getSetting} from "../../../utils/StatusUtils.js";
 import {ENUMS} from "../../../ENUMS.js";
-import {createDivElement, transformElement3DPercent, translateElement3DPercent} from "../DomUtils.js";
+import {addClickFunction, createDivElement, transformElement3DPercent, translateElement3DPercent} from "../DomUtils.js";
 import {Object3D} from "../../../../../../libs/three/core/Object3D.js";
 import {Vector3} from "../../../../../../libs/three/math/Vector3.js";
 import {MATH} from "../../../MATH.js";
@@ -166,7 +166,7 @@ class DomInspectAerodynamics {
 
         function addLiftCurvePlot(key, parentX, parentY) {
 
-            const count = 100;
+            const count = 200;
 
             for (let i = 0; i < count; i++) {
                 let frac = MATH.calcFraction(0, count, i);
@@ -225,9 +225,33 @@ class DomInspectAerodynamics {
         //    elements[key+'_UP_Y']  = createDivElement(parentY, key+'_UP_Y', '', 'force_line line_up_y');
         }
 
+        function viewCurveLift() {
+
+            elements['curve_box'] = createDivElement(elements['surface_container'], 'curve_box', null, 'box_curve_view')
+
+            const count = 1000;
+
+            for (let i = 0; i < count; i++) {
+                let frac = MATH.calcFraction(0, count, i);
+                let curveAngle = frac*MATH.TWO_PI - Math.PI;
+                let px = createDivElement(elements['curve_box'], 'view_curve_plot_x_'+i, '', 'line_node')
+
+                const bl = curvePointFromAngle(curveAngle);
+
+                px.style.left = bl.left;
+                px.style.bottom = bl.bottom;
+
+                createDivElement(px, 'view_curve_line_x_'+i, '', 'line_segment')
+            }
+
+
+
+        }
+
         function elemReady() {
             elements['surface_container'] = htmlElement.call.getChildElement('surface_container')
-
+            elements['button_curve'] = htmlElement.call.getChildElement('button_curve')
+            addClickFunction(elements['button_curve'], viewCurveLift)
 
             let count = Object.keys(surfaces).length;
 

@@ -203,44 +203,6 @@ div.map_button {
     text-shadow: 0 0 0.4em rgb(255, 255, 255);
 }
 
-div.button_labels {
-    background: radial-gradient(circle, rgba(245,202,255,1) 0%, rgb(208, 190, 171) 47%, rgb(145, 136, 85) 83%, rgb(61, 46, 26) 99%);
-    top: 32%;
-}
-
-div.button_locations {
-    background: radial-gradient(circle, rgba(245,202,255,1) 0%, rgba(255,45,215,1) 47%, rgba(125,0,42,1) 83%, rgba(55,1,0,1) 99%);
-    top: 38%;
-}
-div.button_spawns {
-    background: radial-gradient(circle, rgba(255,198,118,1) 0%, rgba(255,89,0,1) 42%, rgba(107,25,0,1) 83%, rgba(55,1,0,1) 99%);
-    top: 44%;
-}
-div.button_veg {
-    background: radial-gradient(circle, rgb(226, 255, 202) 0%, rgb(115, 255, 45) 47%, rgb(8, 125, 0) 83%, rgb(0, 55, 17) 99%);
-    top: 50%;
-}
-
-div.button_phys {
-    background: radial-gradient(circle, rgb(255, 245, 178) 0%, rgb(255, 224, 69) 42%, rgb(178, 144, 0) 83%, rgb(55, 38, 0) 99%);
-    top: 56%;
-}
-
-div.button_lod {
-    background: radial-gradient(circle, rgb(163, 228, 255) 0%, rgb(69, 143, 255) 42%, rgb(1, 4, 169) 83%, rgb(25, 0, 55) 99%);
-    top: 62%;
-}
-
-div.button_adv {
-    background: radial-gradient(circle, rgb(163, 255, 241) 0%, rgb(69, 233, 255) 42%, rgb(1, 110, 169) 83%, rgb(0, 55, 45) 99%);
-    top: 68%;
-}
-
-div.button_estates {
-    background: radial-gradient(circle, rgb(255, 209, 163) 0%, rgb(255, 153, 69) 42%, rgb(169, 77, 1) 83%, rgb(55, 28, 0) 99%);
-    bottom: -2.1em;
-}
-
 div.worldmap_frame {
     top: -42em;
     left: -41em;
