@@ -3,7 +3,6 @@ import {
     transformElement3DPercent,
     translateElement3DPercent
 } from "../DomUtils.js";
-import {InputDragPointer} from "../pointer/InputDragPointer.js";
 import {MATH} from "../../../MATH.js";
 import {getFrame} from "../../../utils/DataUtils.js";
 
@@ -15,6 +14,7 @@ class DomStatusFlight {
         let _this = this;
         let statusMap;
 
+        let horizonGrad;
         let controlLineX;
         let controlLineY;
         let dynamicRollL;
@@ -54,6 +54,10 @@ class DomStatusFlight {
             translateElement3DPercent(dynamicPitchL, 12, dynPitchL,  0);
             translateElement3DPercent(dynamicPitchR, -12, dynPitchR,  0);
 */
+
+            let camRoll = -MATH.rollAttitudeFromQuaternion(ThreeAPI.getCamera().quaternion);
+            horizonGrad.style.rotate = camRoll+'rad';
+
             let pitch = statusMap['STATUS_PITCH']*50 / 3.15 + 50
             let roll = statusMap['STATUS_ROLL'] // *50 / 3.15 + 50
             let yaw = statusMap['STATUS_YAW']*50 / 3.15 + 50
@@ -81,7 +85,7 @@ class DomStatusFlight {
         //    controlLineX = htmlElement.call.getChildElement('actuator_x')
         //    controlLineY = htmlElement.call.getChildElement('actuator_y')
         //    stickElement = htmlElement.call.getChildElement('stick_state')
-
+            horizonGrad = htmlElement.call.getChildElement('horizon_gradient');
             dynamicRollL = htmlElement.call.getChildElement('dynamic_roll_l');
             dynamicRollR = htmlElement.call.getChildElement('dynamic_roll_r');
             dynamicPitchL = htmlElement.call.getChildElement('dynamic_pitch_l');

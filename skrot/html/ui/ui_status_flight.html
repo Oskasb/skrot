@@ -4,13 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../../../html/css/controls.css" />
 
 <body id="container" class="overlay_page">
-<div class="status_container_left">
-    <div class="status_row"><h1>FPS:</h1><h2 id="fps_avg"></h2></div>
-    <div class="status_row"><h1>ALT:</h1><h2 id="STATUS_ELEVATION"><h3>m</h3></h2></div>
-    <div class="status_row"><h1>IAS:</h1><h2 id="STATUS_SPEED"></h2><h3>m/s</h3></div>
-    <div class="status_row"><h1>CLB:</h1><h2 id="STATUS_CLIMB_RATE"></h2><h3>m/s</h3></div>
-    <div class="status_row"><h1>AOA:</h1><h2 id="STATUS_AOA_X"></h2><h3>deg</h3></div>
-</div>
+
 
 <div id ="actuator_x" class="control_line line_x"></div>
 <div id ="actuator_y" class="control_line"></div>
@@ -21,16 +15,24 @@
 
 
 <div class="center_box">
-    <div class="horizon_gradient">
+
+    <div class="status_container_left">
+        <div class="status_row"><h1>FPS:</h1><h2 id="fps_avg"></h2></div>
+        <div class="status_row"><h1>ALT:</h1><h2 id="STATUS_ELEVATION"><h3>m</h3></h2></div>
+        <div class="status_row"><h1>IAS:</h1><h2 id="STATUS_SPEED"></h2><h3>m/s</h3></div>
+        <div class="status_row"><h1>CLB:</h1><h2 id="STATUS_CLIMB_RATE"></h2><h3>m/s</h3></div>
+        <div class="status_row"><h1>AOA:</h1><h2 id="STATUS_AOA_X"></h2><h3>deg</h3></div>
+    </div>
+
+    <div id="horizon_gradient" class="horizon_gradient">
         <div id="pitch_state" class="control_line">
             <div id="roll_state" class="control_line"></div>
         </div>
     </div>
-</div>
-
-<div id="pitch_surface" class="pitch_surface">
-    <div id="pitch_state_line" class="control_line"></div>
-    <div id="aoa_x_state" class="aoa_x_state"></div>
+    <div id="pitch_surface" class="pitch_surface">
+        <div id="pitch_state_line" class="control_line"></div>
+        <div id="aoa_x_state" class="aoa_x_state"></div>
+    </div>
 </div>
 
 <div id="yaw_surface" class="yaw_surface">
