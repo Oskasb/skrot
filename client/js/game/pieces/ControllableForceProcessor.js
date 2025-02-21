@@ -38,7 +38,7 @@ class ControllableForceProcessor {
 
         function applyEngineForce(point, prop, stateValue, body) {
 
-            let force = MATH.curveQuad(stateValue) * prop.force * stepTime * 1.01
+            let force = stateValue * prop.force * stepTime
             tempVec1.set(0, 0, -force);
 
             point.updateDynamicPoint();
@@ -195,6 +195,8 @@ class ControllableForceProcessor {
                     let liftY = 0;
                     let inducedDrag = 0;
 
+                    let baseDrag = 0;
+
                     if (surface.scale.x > 0) {
 
                         let aoaX = surface.getStatus(ENUMS.SurfaceStatus.AOA_X)
@@ -203,7 +205,7 @@ class ControllableForceProcessor {
 
                         let inducedForcesSQ = liftY*liftY;
                         inducedDrag += inducedForcesSQ / (0.5 * airDensity * speedSq * surface.scale.x * 3.14)
-
+                        baseDrag += surface.scale.x*surface.scale.y * speedSq * airDensity * 0.3;
                     }
 
                     if (surface.scale.y > 0) {
@@ -213,10 +215,11 @@ class ControllableForceProcessor {
 
                         let inducedForcesSQ = liftX*liftX;
                         inducedDrag += inducedForcesSQ / (0.5 * airDensity * speedSq * surface.scale.y * 3.14)
+                        baseDrag += surface.scale.x*surface.scale.y * speedSq * airDensity * 0.3;
                     }
 
                     localLift.set(liftX, liftY, 0);
-                    localDrag.multiplyScalar(-(inducedDrag*0 +speedSq*0.5));
+                    localDrag.multiplyScalar(-(inducedDrag + baseDrag));
 
                     surface.setStatusKey(ENUMS.SurfaceStatus.LIFT_X, liftX);
                     surface.setStatusKey(ENUMS.SurfaceStatus.LIFT_Y, localLift.y);
