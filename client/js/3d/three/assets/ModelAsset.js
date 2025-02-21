@@ -114,15 +114,19 @@ class ModelAsset {
                 }
 
                 function matLoaded(matSettings) {
-                    //   console.log("matLoaded", matSettings);
+                       console.log("matLoaded", materialList, matSettings);
                     MATH.splice(materialList, matSettings.fileName);
                     if (materialList.length === 0) {
                         loadGeometries();
+                    } else {
+                        loadAssetMaterial(materialList.pop(), matLoaded);
                     }
                 }
 
-                for (let i = 0; i< materialList.length; i++) {
-                    loadAssetMaterial(materialList[i], matLoaded);
+                if (materialList.length === 0) {
+                    loadGeometries();
+                } else {
+                    loadAssetMaterial(materialList.pop(), matLoaded);
                 }
 
             }

@@ -180,7 +180,13 @@ class AssetInstance {
 
     registerPointStatusChangeCallback(pointId, statusKey, callback) {
         let point = this.call.getPointById(pointId);
-        point.status.addStatusKeyCallback(statusKey, callback);
+        if (!point) {
+            console.log("No point at assetInstance", pointId, this)
+            callback(0);
+        } else {
+            point.status.addStatusKeyCallback(statusKey, callback);
+        }
+
     }
 
     setPos(pos) {

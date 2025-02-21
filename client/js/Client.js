@@ -112,20 +112,22 @@ function startGameWorld() {
         console.log("plane ", ctrlPiece);
         ctrlPiece.addToScene();
         elementList.push(ctrlPiece);
+        if (loadPlanes.length) {
+            loadNext()
+        } else {
+            getGameWorld().call.loadGamePiece('controllable_enterprise', cvn)
+        }
     }
 
-    const loadPlanes = ['controllable_f14', 'controllable_j29', 'controllable_b52']
+    const loadPlanes = ['controllable_f14', 'controllable_j29', 'controllable_j35', 'controllable_b52']
 
-    getGameWorld().call.loadGamePiece('controllable_f14', loadPiece)
-    setTimeout(function() {
-        getGameWorld().call.loadGamePiece('controllable_j29', loadPiece)
-    }, 2000)
-    setTimeout(function() {
-        getGameWorld().call.loadGamePiece('controllable_b52', loadPiece)
-    }, 4000)
-    setTimeout(function() {
-        getGameWorld().call.loadGamePiece('controllable_enterprise', cvn)
-    }, 6000)
+    function loadNext() {
+        setTimeout(function() {
+            getGameWorld().call.loadGamePiece(loadPlanes.shift(), loadPiece)
+        }, 200)
+    }
+
+    loadNext()
 
 
     function updateDebug() {

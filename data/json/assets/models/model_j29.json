@@ -1,14 +1,12 @@
-        {
-          "assets": [
-            {"file":"j29_fuselage",         "material": "material_j29_main"},
-            {"file":"j29_decals",           "material": "material_j29_decals"},
-            {"file":"j29_cockpit",          "material": "material_j29_cockpit"},
-            {"file":"j29_canopy",           "material": "material_f14_glass"},
-            {"file":"j29_inst_glass",       "material": "material_f14_instrument_glass"}
-          ],
-          "skeleton_file": "j29_fuselage",
-          "rotation": [0, 0, 0],
-          "scale": [1, 1, 1]
-        }
-
-
+{
+  "assets": [
+    {"file":"j29_fuselage",         "material": "material_j29_main"},
+    {"file":"j29_decals",           "material": "material_j29_decals"},
+    {"file":"j29_cockpit",          "material": "material_j29_cockpit"},
+    {"file":"j29_canopy",           "material": "material_f14_glass"},
+    {"file":"j29_inst_glass",       "material": "material_f14_instrument_glass"}
+  ],
+  "skeleton_file": "j29_fuselage",
+  "rotation": [0, 0, 0],
+  "scale": [1, 1, 1]
+}

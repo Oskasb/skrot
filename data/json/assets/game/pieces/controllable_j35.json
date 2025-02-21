@@ -1,0 +1,22 @@
+{
+  "label": "J35",
+  "controllable": "vehicle_j35",
+  "ui": [
+
+  ],
+  "inputs": [
+
+  ],
+  "controls": [
+
+  ],
+  "propulsion": [
+
+  ],
+  "surfaces": [
+
+  ],
+  "hardpoints": [
+
+  ]
+}
