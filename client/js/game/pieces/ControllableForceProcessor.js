@@ -204,7 +204,7 @@ class ControllableForceProcessor {
                         liftY = 1.2 * MATH.curveLift(aoaX) * speedSq * surfaceArea * airDensity + addUpForce * 5 //*  surfaceArea * 0.1 // * surfaceArea // *0.5;
 
                         let inducedForcesSQ = liftY*liftY;
-                        inducedDrag += inducedForcesSQ / (0.5 * airDensity * speedSq * surface.scale.x * 3.14)
+                        inducedDrag += inducedForcesSQ / (1.5 * airDensity * speedSq * surface.scale.x * 3.14)
                         baseDrag += surface.scale.x*surface.scale.y * speedSq * airDensity * 0.3;
                     }
 
@@ -214,8 +214,8 @@ class ControllableForceProcessor {
                         liftX = MATH.curveYaw(aoaY) * speedSq * surfaceArea * airDensity // *0.5;
 
                         let inducedForcesSQ = liftX*liftX;
-                        inducedDrag += inducedForcesSQ / (0.5 * airDensity * speedSq * surface.scale.y * 3.14)
-                        baseDrag += surface.scale.x*surface.scale.y * speedSq * airDensity * 0.3;
+                        inducedDrag += inducedForcesSQ / (1.5 * airDensity * speedSq * surface.scale.y * 3.14)
+                        baseDrag += surface.scale.x*surface.scale.y * speedSq * airDensity * 0.2;
                     }
 
                     localLift.set(liftX, liftY, 0);
