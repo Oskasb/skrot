@@ -1,0 +1,11 @@
+{
+  "dynamic": "ENGINE_G",
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.1},
+  "targets": [
+    {
+      "emitters": [
+        {"point": "ENGINE_G", "particles": ["particles_jet_exhaust"]}
+      ]
+    }
+  ]
+}

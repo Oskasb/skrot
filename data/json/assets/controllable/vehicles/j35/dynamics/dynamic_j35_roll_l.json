@@ -1,0 +1,11 @@
+{
+  "dynamic": "SURFACE_ROLL_L",
+  "state": {"min": -1, "max": 1, "value": 0, "speed": 0.6},
+  "targets": [
+    {
+      "joints": [
+        {"bone": "aeilron_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": -0.5}
+      ]
+    }
+  ]
+}

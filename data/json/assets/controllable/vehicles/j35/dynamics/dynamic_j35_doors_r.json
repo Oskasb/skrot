@@ -1,0 +1,13 @@
+{
+  "dynamic": "DOORS_R",
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.5},
+  "condition": {"dynamic": "DYNAMIC_GEAR_R", "range": {"min":0, "max": 0.3}, "value": 1},
+  "targets": [
+    {
+      "joints": [
+        {"bone": "door_r", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.4},
+        {"bone": "door_r_inner", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.4}
+      ]
+    }
+  ]
+}

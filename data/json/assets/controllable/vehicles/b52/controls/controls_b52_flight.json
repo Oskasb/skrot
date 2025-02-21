@@ -1,0 +1,22 @@
+[
+  {"id": "INPUT_YAW",     "targets": [
+    {"dynamic": "DYNAMIC_RUDDER", "factor": 1}
+  ]},
+  {"id": "INPUT_PITCH",   "targets": [
+    {"dynamic": "DYNAMIC_PITCH", "factor": 1}
+  ]},
+  {"id": "INPUT_ROLL",   "targets": [
+    {"dynamic": "DYNAMIC_ROLL_L", "factor": 1},
+    {"dynamic": "DYNAMIC_ROLL_R", "factor": -1}
+  ]},
+  {"id": "INPUT_POWER",   "targets": [
+    {"dynamic": "DYNAMIC_ENGINE_A", "factor": 1},
+    {"dynamic": "DYNAMIC_ENGINE_B", "factor": 1},
+    {"dynamic": "DYNAMIC_ENGINE_C", "factor": 1},
+    {"dynamic": "DYNAMIC_ENGINE_D", "factor": 1},
+    {"dynamic": "DYNAMIC_ENGINE_E", "factor": 1},
+    {"dynamic": "DYNAMIC_ENGINE_F", "factor": 1},
+    {"dynamic": "DYNAMIC_ENGINE_G", "factor": 1},
+    {"dynamic": "DYNAMIC_ENGINE_H", "factor": 1}
+  ]}
+]

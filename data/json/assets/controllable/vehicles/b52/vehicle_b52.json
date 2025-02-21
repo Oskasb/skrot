@@ -2,9 +2,26 @@
   "model": "model_b52",
   "physical": "physical_b52",
   "points": [
-
+    {"id": "VIEWS",           "file": "points_b52_views"},
+    {"id": "LIGHTS",          "file": "points_b52_lights"},
+    {"id": "ENGINES",         "file": "points_b52_engines"},
+    {"id": "SURFACES",        "file": "points_b52_surfaces"}
   ],
   "control_dynamics": [
+    {"id": "DYNAMIC_RUDDER",         "file": "dynamic_b52_rudder"},
+    {"id": "DYNAMIC_PITCH",          "file": "dynamic_b52_pitch"},
+    {"id": "DYNAMIC_ROLL_L",         "file": "dynamic_b52_roll_l"},
+    {"id": "DYNAMIC_ROLL_R",         "file": "dynamic_b52_roll_r"},
+    {"id": "DYNAMIC_FLAP_L",         "file": "dynamic_b52_flap_l"},
+    {"id": "DYNAMIC_FLAP_R",         "file": "dynamic_b52_flap_r"},
+    {"id": "DYNAMIC_ENGINE_A",         "file": "dynamic_b52_engine_a"},
+    {"id": "DYNAMIC_ENGINE_B",         "file": "dynamic_b52_engine_b"},
+    {"id": "DYNAMIC_ENGINE_C",         "file": "dynamic_b52_engine_c"},
+    {"id": "DYNAMIC_ENGINE_D",         "file": "dynamic_b52_engine_d"},
+    {"id": "DYNAMIC_ENGINE_E",         "file": "dynamic_b52_engine_e"},
+    {"id": "DYNAMIC_ENGINE_F",         "file": "dynamic_b52_engine_f"},
+    {"id": "DYNAMIC_ENGINE_G",         "file": "dynamic_b52_engine_g"},
+    {"id": "DYNAMIC_ENGINE_H",         "file": "dynamic_b52_engine_h"}
 
   ]
 }

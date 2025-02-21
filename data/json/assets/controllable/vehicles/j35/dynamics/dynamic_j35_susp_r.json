@@ -1,0 +1,13 @@
+{
+  "dynamic": "SUSP_R",
+  "sample": {"status": "SUSP_COMP_WHEEL_2"},
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 50},
+  "condition": {"dynamic": "DYNAMIC_GEAR_R", "range": {"min":0.5, "max": 1.3}, "value": 1},
+  "targets": [
+    {
+      "joints": [
+        {"bone": "susp_r", "call": "setBonePosition", "args": ["z"], "factor":  10, "offset": -1}
+      ]
+    }
+  ]
+}

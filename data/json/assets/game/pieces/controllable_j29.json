@@ -27,8 +27,9 @@
     {"point": "ENGINE_A",     "file": "propulsion_jet_engine"}
   ],
   "surfaces": [
-    {"point": "TAIL_L",     "file": "surface_tail"},
-    {"point": "TAIL_R",     "file": "surface_tail"},
+    {"point": "STABILISER", "file": "surface_wing"},
+    {"point": "AEILRON_L",  "file": "surface_tail"},
+    {"point": "AEILRON_R",  "file": "surface_tail"},
     {"point": "RUDDER",     "file": "surface_rudder"},
     {"point": "WING_L",     "file": "surface_wing"},
     {"point": "WING_R",     "file": "surface_wing"},

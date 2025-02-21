@@ -7,82 +7,43 @@
   ],
   "wheels": [
     {"front": true,
-      "pos": [-0.0, 0, -6]
+      "pos": [-3.0, 0, 6]
+    },
+    {"front": true,
+      "pos": [ 3.0, 0, 6]
     },
     {
-      "pos": [-2.7, 0, 1.4]
+      "pos": [-3.0, 0, -6]
     },
     {
-      "pos": [ 2.7, 0, 1.4]
+      "pos": [ 3.0, 0, -6]
     }
   ],
   "tuning": {
-    "front": {"max_sus_force": 710000, "sus_length": 2.2, "radius": 0.3},
-    "main":  {"max_sus_force": 7950000, "sus_length": 2.3, "radius": 0.5}
+    "front": {"max_sus_force": 7950000, "sus_length": 4.2, "radius": 0.7},
+    "main":  {"max_sus_force": 7950000, "sus_length": 4.2, "radius": 0.7}
   },
   "shapes": [
     {
       "shape": "compound",
-      "scale": [6.0, 1.1, 20.0],
-      "rot": [0, 1.57, 0],
-      "pos": [1679, 44, 2345],
+      "scale": [55.0, 12.4, 48.0],
+      "rot": [0, -1.57, 0],
+      "pos": [810, 46, 1643],
       "convex": false,
-      "mass": 20000,
+      "mass": 100000,
       "friction": 2.9,
       "children": [
         {
           "shape": "box",
-          "scale": [0.7, 0.6, 2],
+          "scale": [4, 4, 45],
           "rot": [0, 0, 0],
-          "pos": [0, 0.65, -10.5]
+          "pos": [0, 3, -2]
         },
         {
           "shape": "box",
-          "scale": [1.2, 1.2, 5],
+          "scale": [46, 1, 8],
           "rot": [0, 0, 0],
-          "pos": [0, 1.4, -7]
-        },
-        {
-          "shape": "box",
-          "scale": [3.2, 0.5, 2],
-          "rot": [0, 0, 0],
-          "pos": [5.1, 0, 1]
-        },
-        {
-          "shape": "box",
-          "scale": [3.2, 0.5, 2],
-          "rot": [0, 0, 0],
-          "pos": [-5.1, 0, 1]
-        },
-        {
-          "shape": "box",
-          "scale": [4, 1.0, 12],
-          "rot": [0, 0, 0],
-          "pos": [0, 0.8, 2]
-        },
-        {
-          "shape": "box",
-          "scale": [0.4, 2.0, 2],
-          "rot": [0, 0, 0],
-          "pos": [2.0, 3, 7]
-        },
-        {
-          "shape": "box",
-          "scale": [0.4, 2.0, 2],
-          "rot": [0, 0, 0],
-          "pos": [-2.0, 3, 7]
-        },
-        {
-          "shape": "box",
-          "scale": [2.2, 0.2, 2],
-          "rot": [0, 0, 0],
-          "pos": [4.1, 0.5, 7]
-        },
-        {
-          "shape": "box",
-          "scale": [2.2, 0.2, 2],
-          "rot": [0, 0, 0],
-          "pos": [-4.1, 0.5, 7]
+          "pos": [0, 3, -5]
         }
       ]
     }

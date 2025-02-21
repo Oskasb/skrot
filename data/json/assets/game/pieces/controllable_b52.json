@@ -2,19 +2,44 @@
   "label": "B52",
   "controllable": "vehicle_b52",
   "ui": [
-
+    {"id": "FLIGHT_STICK",          "file": "ui_stick"},
+    {"id": "YAW_PEDALS",            "file": "ui_pedals"},
+    {"id": "GEAR",                  "file": "ui_gear"  },
+    {"id": "POWER",                 "file": "ui_power" },
+    {"id": "CAMERA",                "file": "ui_camera"},
+    {"id": "STATUS",                "file": "ui_status"}
   ],
   "inputs": [
-
+    {"id": "INPUT_ROLL",    "state": {"min":-1, "max": 1, "value": 0, "speed": 1.7}},
+    {"id": "INPUT_PITCH",   "state": {"min":-1, "max": 1, "value": 0, "speed": 1.7}},
+    {"id": "INPUT_YAW",     "state": {"min":-1, "max": 1, "value": 0, "speed": 0.8}},
+    {"id": "INPUT_GEAR",    "state": {"min": 0, "max": 1, "value": 0, "speed": 0.5}},
+    {"id": "INPUT_POWER",   "state": {"min":-1, "max": 1, "value": 0, "speed": 0.25}}
   ],
   "controls": [
-
+    {"id": "CONTROLS_FLIGHT",       "file": "controls_b52_flight"},
+    {"id": "CONTROLS_GEAR",         "file": "controls_gear"},
+    {"id": "CONTROLS_WEAPONS",      "file": "controls_weapons"}
   ],
   "propulsion": [
+    {"point": "ENGINE_A",     "file": "propulsion_b52_engine"},
+    {"point": "ENGINE_B",     "file": "propulsion_b52_engine"},
+    {"point": "ENGINE_C",     "file": "propulsion_b52_engine"},
+    {"point": "ENGINE_D",     "file": "propulsion_b52_engine"},
+    {"point": "ENGINE_E",     "file": "propulsion_b52_engine"},
+    {"point": "ENGINE_F",     "file": "propulsion_b52_engine"},
+    {"point": "ENGINE_G",     "file": "propulsion_b52_engine"},
+    {"point": "ENGINE_H",     "file": "propulsion_b52_engine"}
 
   ],
   "surfaces": [
-
+    {"point": "STABILISER", "file": "surface_b52_wing"},
+    {"point": "AEILRON_L",  "file": "surface_b52_tail"},
+    {"point": "AEILRON_R",  "file": "surface_b52_tail"},
+    {"point": "RUDDER",     "file": "surface_b52_rudder"},
+    {"point": "WING_L",     "file": "surface_b52_wing"},
+    {"point": "WING_R",     "file": "surface_b52_wing"},
+    {"point": "FUSELAGE",   "file": "surface_b52_fuselage"}
   ],
   "hardpoints": [
 

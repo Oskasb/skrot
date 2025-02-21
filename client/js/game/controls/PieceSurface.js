@@ -47,8 +47,9 @@ class PieceSurface {
                     const dynamic = this.controllablePiece.assetInstance.getControlDynamicByName(sample['dynamic'])
                     if (!dynamic) {
                         console.log("No dynamic to sample:", sample['dynamic'], point)
+                    } else {
+                        value = dynamic.getControlValue()
                     }
-                    value = dynamic.getControlValue()
                 }
                 if (sample['axis']) {
                     tempObj2[sample['axis']](sample['factor'] * value);
@@ -112,12 +113,14 @@ class PieceSurface {
             tempObj.quaternion.copy(frameTransform.quaternion)
             tempObj.quaternion.multiply(this.quat);
 
-            /*
+
             if (!this.geometryInstance) {
                 this.geometryInstance = createGeometryInstance("box", 'material_props_opaque');
+            }
+            if (this.geometryInstance) {
                 this.geometryInstance.call.applyTrxObj(tempObj);
             }
-             */
+
 
             tempVec.set(0, 0, 1);
             tempVec.applyQuaternion(point.getQuat());

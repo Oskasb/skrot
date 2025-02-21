@@ -190,7 +190,9 @@ function debugDrawSkeleton(assetInstance) {
 }
 
 function getBoneWorldTransform(bone, obj3d) {
-    bone.matrixWorld.decompose(obj3d.position, obj3d.quaternion, obj3d.scale);
+    if (bone) {
+        bone.matrixWorld.decompose(obj3d.position, obj3d.quaternion, obj3d.scale);
+    }
 }
 
 

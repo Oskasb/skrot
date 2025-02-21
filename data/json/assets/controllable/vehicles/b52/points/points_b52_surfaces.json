@@ -1,0 +1,10 @@
+[
+
+  {"id": "AEILRON_L",    "pos": [-11.0, 0.45,  1.95], "rot": [ 0.0,  0,  0], "sample": [{"dynamic": "SURFACE_ROLL_L", "axis": "rotateX", "factor": 0.42}  ]  },
+  {"id": "AEILRON_R",    "pos": [ 11.0, 0.45,  1.95], "rot": [ 0.0,  0,  0], "sample": [{"dynamic": "SURFACE_ROLL_R", "axis": "rotateX", "factor": 0.42}  ]  },
+  {"id": "RUDDER",    "pos": [ 0,   1.5, 20],  "rot": [0,  0,  0],        "sample": [{"dynamic": "SURFACE_RUDDER", "axis": "rotateY", "factor": 0.2} ]   },
+  {"id": "STABILISER","pos": [ 0,   0.5, 20],  "rot": [ -0.002,  0,  0],     "sample": [{"dynamic": "SURFACE_PITCH",  "axis": "rotateX", "factor": -0.2} ]  },
+  {"id": "WING_L"  ,  "pos": [-14.5, 0.6,-0.5],  "rot": [0.002,  0,  0]  },
+  {"id": "WING_R"  ,  "pos": [ 14.5, 0.6,-0.5],  "rot": [0.002,  0,  0]  },
+  {"id": "FUSELAGE",  "pos": [0,    0.4, 5.2],   "rot": [0.002,  0,  0]}
+]
