@@ -177,43 +177,11 @@ class DynamicPoint {
         function updateVelocity() {
             const bodyVelocity = assetInstance.getAssetBodyVelocity()
             velocity.copy(bodyVelocity)
-            assetInstance.getBodyTransform(tempObj);
-
-            tempVec.copy(frameAngles);
-            let pitch = -MATH.pitchAttitudeFromQuaternion(tempObj.quaternion) //  + MATH.HALF_PI // MATH.pitchFromQuaternion(rootNode.quaternion);
-            let roll = MATH.rollAttitudeFromQuaternion(tempObj.quaternion);
-            let yaw = MATH.yawFromQuaternion(tempObj.quaternion);
-            frameAngles.set(pitch , yaw, roll);
-
-
-            if (tempVec.lengthSq() === 0) {
-                angularVelocity.set(0, 0, 0)
-            } else {
-                angularVelocity.set(
-                    MATH.subAngles(tempVec.x, frameAngles.x),
-                    MATH.subAngles(tempVec.y, frameAngles.y),
-                    MATH.subAngles(tempVec.z, frameAngles.z)
-                )
-            }
-
-
-            angularVelocity.multiplyScalar(60);
             tempVec.copy(offset)
-        //    angularVelocity.applyQuaternion(tempObj.quaternion)
-        //    const bodyAngularVelocity = assetInstance.getAssetBodyAngularVelocity()
-/*
-            let frame = getFrame().frame;
-            if (updateFrame !== frame) {
-                updateObj3d();
-            }
-*/
-
-            tempVec.crossVectors(angularVelocity, tempVec) // .multiplyScalar(1.5);
-        //    tempObj.quaternion.conjugate()
+            const bodyAngularVelocity = assetInstance.getAssetBodyAngularVelocity()
             tempVec.applyQuaternion(tempObj.quaternion)
-        //
+            tempVec.crossVectors(bodyAngularVelocity, tempVec) // .multiplyScalar(1.5);
             velocity.add(tempVec)
-
         }
 
         let getPointVelocity = function() {
