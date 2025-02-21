@@ -65,7 +65,7 @@ class ThreeAPI {
         this.assetLoader = assetLoader;
     };
 
-    initEnvironment(store) {
+    initEnvironment(store, onReady) {
 
 
         let _this = this;
@@ -77,6 +77,7 @@ class ThreeAPI {
 
         function trnLoaded() {
             new Ocean(store)
+            onReady();
         }
 
         let onLoaded = function() {

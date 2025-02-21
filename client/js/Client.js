@@ -47,7 +47,7 @@ function startGameWorld() {
     function worldElementClick(e) {
         console.log("Click Controllable Button", e.target.value);
         player.call.setPlayerActiveControllable(e.target.value);
-        MATH.splice(elementList, e.target.value);
+        MATH.emptyArray(elementList);
         thumbstick.call.close()
     }
     let buttonLayer = new DomWorldButtonLayer();
@@ -77,7 +77,6 @@ function startGameWorld() {
         setTimeout(function() {
             getGameWorld().call.loadGamePiece('controllable_enterprise', cvn)
         },2000)
-
     }
 
  //   player.enterWorld('controllable_f14')
@@ -106,7 +105,7 @@ function startGameWorld() {
 
     setTimeout(function() {
         getGameWorld().call.loadGamePiece('controllable_f14', plane)
-    },3000)
+    },100)
 
     function updateDebug() {
         if (getSetting(ENUMS.Settings.SHOW_PIECE_POINTS) === 1) {
@@ -121,10 +120,10 @@ function startGameWorld() {
 
 }
 
-function init3d() {
+function init3d(onReady) {
 
     let store = window.ThreeAPI.initThreeScene(document.body, 1, false)
-    window.ThreeAPI.initEnvironment(store);
+    window.ThreeAPI.initEnvironment(store, onReady);
 
     let camera, scene, renderer;
     camera = store.camera;
@@ -181,12 +180,6 @@ function init3d() {
         window.ThreeAPI.updateSceneMatrixWorld();
         window.ThreeAPI.applyPostrenderUpdates()
 
-
-
-    //    EffectAPI.updateEffectAPI();
-    //    pipelineAPI.tickPipelineAPI(frame.tpf)
-
-     //   console.log("Trigger Frame ", frame)
     }
 
     triggerFrame();
@@ -209,10 +202,8 @@ class Client{
         if (window.islocal) {
             setupSocket()
         }
-        let worldHud = new DomWorldHud();
-        init3d();
-        setTimeout(startGameWorld, 1)
-        //startGameWorld()
+        new DomWorldHud();
+        init3d(startGameWorld);
     }
 
 }
