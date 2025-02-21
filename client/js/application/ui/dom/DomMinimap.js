@@ -33,8 +33,8 @@ let defaultWorldLevel = "20";
 let activeWorldLevel = null;
 
 function calcMapBackgroundOffset(zoom, axisCenter, worldSize) {
-    let zoomOffset = 1 + (1 / zoom);
-    return MATH.percentify(zoomOffset*MATH.decimalify(axisCenter, 5)-0.5*worldSize/zoom, worldSize, true);
+    let zoomOffset = 1 + (1 / (zoom+1));
+    return MATH.percentify(zoomOffset*MATH.decimalify(axisCenter, 5)-0.5*worldSize/(zoom-1), worldSize, true);
 }
 
 function calcMapMeterToDivPercent(zoom, worldSize) {
@@ -339,7 +339,7 @@ class DomMinimap {
             z :0,
             posX : 0,
             posZ : 0,
-            zoom : 60
+            zoom : 10
         }
 
         let closeMapCb = function() {
@@ -348,11 +348,11 @@ class DomMinimap {
         }
 
         let zoomIn = function() {
-            statusMap.zoom = MATH.clamp(statusMap.zoom * 1.2, 10, 200);
+            statusMap.zoom = MATH.clamp(statusMap.zoom * 1.3, 6, 200);
         }
 
         let zoomOut = function() {
-            statusMap.zoom = MATH.clamp(statusMap.zoom * 0.8, 10, 200);
+            statusMap.zoom = MATH.clamp(statusMap.zoom * 0.7, 6, 200);
         }
 
         let openWorldMap = function() {
