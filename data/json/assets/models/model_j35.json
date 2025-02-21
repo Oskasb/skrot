@@ -1,6 +1,6 @@
 {
   "assets": [
-    {"file":"j35_fuselage",         "material": "material_plane_opaque"},
+    {"file":"j35_fuselage",         "material": "material_plane_opaque_shadow"},
     {"file":"j35_surfaces",         "material": "material_plane_opaque"},
     {"file":"j35_cockpit",          "material": "material_plane_opaque"},
     {"file":"j35_canopy",           "material": "material_f14_glass"}

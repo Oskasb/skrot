@@ -1,0 +1,11 @@
+{
+  "dynamic": "SURFACE_BRAKE_LEFT",
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.5},
+  "targets": [
+    {
+      "joints": [
+        {"bone": "airbreak_left",    "call": "setBoneRotation", "args": ["rotateX"], "factor": -1.1}
+      ]
+    }
+  ]
+}

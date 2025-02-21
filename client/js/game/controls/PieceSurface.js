@@ -45,6 +45,9 @@ class PieceSurface {
                 let value = 0;
                 if (sample['dynamic']) {
                     const dynamic = this.controllablePiece.assetInstance.getControlDynamicByName(sample['dynamic'])
+                    if (!dynamic) {
+                        console.log("No dynamic to sample:", sample['dynamic'], point)
+                    }
                     value = dynamic.getControlValue()
                 }
                 if (sample['axis']) {

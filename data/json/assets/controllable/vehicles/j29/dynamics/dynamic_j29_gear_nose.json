@@ -1,0 +1,12 @@
+{
+  "dynamic": "GEAR_NOSE",
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.6},
+  "condition": {"dynamic": "DYNAMIC_DOORS_NOSE", "range": {"min":0.8, "max": 1.0}, "value": 0},
+  "targets": [
+    {
+      "joints": [
+        {"bone": "nose_gear", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.8, "offset": -1}
+      ]
+    }
+  ]
+}

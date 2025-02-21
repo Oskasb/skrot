@@ -2,9 +2,35 @@
   "model": "model_j29",
   "physical": "physical_j29",
   "points": [
-
+    {"id": "VIEWS",           "file": "points_j29_views"},
+    {"id": "HARDPOINTS",      "file": "points_j29_hardpoints"},
+    {"id": "LIGHTS",          "file": "points_j29_lights"},
+    {"id": "ENGINES",         "file": "points_j29_engine"},
+    {"id": "SURFACES",        "file": "points_j29_surfaces"}
   ],
   "control_dynamics": [
-
+    {"id": "DYNAMIC_RUDDER",         "file": "dynamic_j29_rudder"},
+    {"id": "DYNAMIC_BRAKE_LEFT",     "file": "dynamic_j29_brake_l"},
+    {"id": "DYNAMIC_BRAKE_RIGHT",    "file": "dynamic_j29_brake_r"},
+    {"id": "DYNAMIC_PITCH",          "file": "dynamic_j29_pitch"},
+    {"id": "DYNAMIC_ROLL_L",         "file": "dynamic_j29_roll_l"},
+    {"id": "DYNAMIC_ROLL_R",         "file": "dynamic_j29_roll_r"},
+    {"id": "DYNAMIC_FLAP_L",         "file": "dynamic_j29_flap_l"},
+    {"id": "DYNAMIC_FLAP_R",         "file": "dynamic_j29_flap_r"},
+    {"id": "DYNAMIC_ENGINE",         "file": "dynamic_j29_engine"},
+    {"id": "DYNAMIC_CANOPY",         "file": "dynamic_j29_canopy"},
+    {"id": "DYNAMIC_WHEEL_NOSE",     "file": "dynamic_j29_wheel_nose"},
+    {"id": "DYNAMIC_WHEEL_L",        "file": "dynamic_j29_wheel_l"},
+    {"id": "DYNAMIC_WHEEL_R",        "file": "dynamic_j29_wheel_r"},
+    {"id": "DYNAMIC_SUSP_NOSE",      "file": "dynamic_j29_susp_nose"},
+    {"id": "DYNAMIC_SUSP_L",         "file": "dynamic_j29_susp_l"},
+    {"id": "DYNAMIC_SUSP_R",         "file": "dynamic_j29_susp_r"},
+    {"id": "DYNAMIC_GEAR_NOSE",      "file": "dynamic_j29_gear_nose"},
+    {"id": "DYNAMIC_GEAR_L",         "file": "dynamic_j29_gear_l"},
+    {"id": "DYNAMIC_GEAR_R",         "file": "dynamic_j29_gear_r"},
+    {"id": "DYNAMIC_DOORS_NOSE",     "file": "dynamic_j29_doors_nose"},
+    {"id": "DYNAMIC_DOORS_L",        "file": "dynamic_j29_doors_l"},
+    {"id": "DYNAMIC_DOORS_R",        "file": "dynamic_j29_doors_r"},
+    {"id": "DYNAMIC_CANNON",         "file": "dynamic_j29_cannon"}
   ]
 }

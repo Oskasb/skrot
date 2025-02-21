@@ -1,0 +1,11 @@
+[
+  {
+    "id": "UI_CANNON",
+    "ui": "DomControlButton",
+    "html": "ui_control_cannon",
+    "class": "ui_cannon",
+    "input_targets": [
+      {"sample":"PRESS", "target":"INPUT_CANNON", "init": 0, "keyAdd":" "}
+    ]
+  }
+]

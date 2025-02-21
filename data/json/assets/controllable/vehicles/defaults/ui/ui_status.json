@@ -1,0 +1,29 @@
+[
+  {
+    "id": "UI_STATUS",
+    "ui": "DomStatusFlight",
+    "html": "ui_status_flight",
+    "class": "ui_status_flight",
+    "input_targets": [],
+    "feedback": [
+      {"status": "STATUS_PITCH"},
+      {"status": "STATUS_ROLL"},
+      {"status": "STATUS_YAW"},
+      {"status": "STATUS_AOA_Y"},
+      {"status": "STATUS_AOA_X"},
+      {"status": "STATUS_ELEVATION"},
+      {"status": "STATUS_CLIMB_RATE"},
+      {"status": "STATUS_ANGLE_NORTH"},
+      {"status": "STATUS_ANGLE_EAST"},
+      {"status": "STATUS_ANGLE_SOUTH"},
+      {"status": "STATUS_ANGLE_WEST"},
+      {"status": "STATUS_CLIMB_0"},
+      {"status": "STATUS_CLIMB_1"},
+      {"status": "STATUS_CLIMB_2"},
+      {"status": "STATUS_CLIMB_3"},
+      {"status": "STATUS_CLIMB_4"},
+      {"status": "STATUS_SPEED"},
+      {"status": "STATUS_FORCE_G"}
+    ]
+  }
+]

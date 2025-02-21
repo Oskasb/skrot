@@ -2,21 +2,39 @@
   "label": "J29",
   "controllable": "vehicle_j29",
   "ui": [
-
+    {"id": "FLIGHT_STICK",          "file": "ui_stick"},
+    {"id": "YAW_PEDALS",            "file": "ui_pedals"},
+    {"id": "GEAR",                  "file": "ui_gear"  },
+    {"id": "POWER",                 "file": "ui_power" },
+    {"id": "CANNON",                "file": "ui_cannon"},
+    {"id": "CAMERA",                "file": "ui_camera"},
+    {"id": "STATUS",                "file": "ui_status"}
   ],
   "inputs": [
-
+    {"id": "INPUT_ROLL",    "state": {"min":-1, "max": 1, "value": 0, "speed": 1.7}},
+    {"id": "INPUT_PITCH",   "state": {"min":-1, "max": 1, "value": 0, "speed": 1.7}},
+    {"id": "INPUT_YAW",     "state": {"min":-1, "max": 1, "value": 0, "speed": 0.8}},
+    {"id": "INPUT_GEAR",    "state": {"min": 0, "max": 1, "value": 0, "speed": 0.5}},
+    {"id": "INPUT_POWER",   "state": {"min":-1, "max": 1, "value": 0, "speed": 0.25}},
+    {"id": "INPUT_CANNON",  "state": {"min":0,  "max": 1, "value": 0, "speed": 40}}
   ],
   "controls": [
-
+    {"id": "CONTROLS_FLIGHT",       "file": "controls_flight"},
+    {"id": "CONTROLS_GEAR",         "file": "controls_gear"},
+    {"id": "CONTROLS_WEAPONS",      "file": "controls_weapons"}
   ],
   "propulsion": [
-
+    {"point": "ENGINE_A",     "file": "propulsion_jet_engine"}
   ],
   "surfaces": [
-
+    {"point": "TAIL_L",     "file": "surface_tail"},
+    {"point": "TAIL_R",     "file": "surface_tail"},
+    {"point": "RUDDER",     "file": "surface_rudder"},
+    {"point": "WING_L",     "file": "surface_wing"},
+    {"point": "WING_R",     "file": "surface_wing"},
+    {"point": "FUSELAGE",   "file": "surface_fuselage"}
   ],
   "hardpoints": [
-
+    {"point": "HARDPOINT_CANNON", "file": "cannon_vulcan"}
   ]
 }

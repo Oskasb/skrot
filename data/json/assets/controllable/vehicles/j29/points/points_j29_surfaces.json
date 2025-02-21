@@ -1,0 +1,9 @@
+[
+
+  {"id": "TAIL_L",    "pos": [-4.0, 0.45, 6.95], "rot": [-0.02,  0,  0], "sample": [{"dynamic": "SURFACE_ROLL_L", "axis": "rotateX", "factor": 0.12}  ]  },
+  {"id": "TAIL_R",    "pos": [ 4.0, 0.45, 6.95], "rot": [-0.02,  0,  0], "sample": [{"dynamic": "SURFACE_ROLL_R", "axis": "rotateX", "factor": 0.12}  ]  },
+  {"id": "RUDDER",    "pos": [ 0,   2.5,-4.05],  "rot": [0,  0,  0],     "sample": [{"dynamic": "SURFACE_RUDDER", "axis": "rotateY", "factor": 0.2} ]   },
+  {"id": "WING_L"  ,  "pos": [-6.5, 0.6, 0.5],   "rot": [0.002,  0,  0]  },
+  {"id": "WING_R"  ,  "pos": [6.5,  0.6, 0.5],   "rot": [0.002,  0,  0]  },
+  {"id": "FUSELAGE",  "pos": [0,    0.4, 0.2],   "rot": [0.002,  0,  0]}
+]

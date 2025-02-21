@@ -1,0 +1,13 @@
+{
+  "dynamic": "GEAR_R",
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.5},
+  "condition": {"dynamic": "DYNAMIC_DOORS_R", "range": {"min":0.8, "max": 1.0}, "value": 0},
+  "targets": [
+    {
+      "joints": [
+        {"bone": "gear_right", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.65 , "offset": -1},
+        {"bone": "right_suspend", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.4, "offset": -1}
+      ]
+    }
+  ]
+}

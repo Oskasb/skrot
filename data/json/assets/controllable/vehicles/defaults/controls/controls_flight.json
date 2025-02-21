@@ -1,0 +1,15 @@
+[
+  {"id": "INPUT_YAW",     "targets": [
+    {"dynamic": "DYNAMIC_RUDDER", "factor": 1}
+  ]},
+  {"id": "INPUT_PITCH",   "targets": [
+    {"dynamic": "DYNAMIC_PITCH", "factor": 1}
+  ]},
+  {"id": "INPUT_ROLL",   "targets": [
+    {"dynamic": "DYNAMIC_ROLL_L", "factor": 1},
+    {"dynamic": "DYNAMIC_ROLL_R", "factor": -1}
+  ]},
+  {"id": "INPUT_POWER",   "targets": [
+    {"dynamic": "DYNAMIC_ENGINE", "factor": 1}
+  ]}
+]
