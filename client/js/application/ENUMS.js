@@ -433,6 +433,7 @@ let ENUMS = {}
     }
 
     ENUMS.InstanceStatus = {
+        STEERING_YAW:'STEERING_YAW',
         SUSP_COMP_WHEEL_0:'SUSP_COMP_WHEEL_0',
         SUSP_COMP_WHEEL_1:'SUSP_COMP_WHEEL_1',
         SUSP_COMP_WHEEL_2:'SUSP_COMP_WHEEL_2',

@@ -1,10 +1,11 @@
 {
   "dynamic": "WHEEL_NOSE",
   "state": {"min": 0, "max": 1, "value": 0, "speed": 10},
+  "sample": {"status": "ROTATION_WHEEL_0"},
   "targets": [
     {
       "joints": [
-        {"bone": "wheel_nose", "call": "setBoneRotation", "args": ["rotateZ"], "factor":  2}
+        {"bone": "wheel_nose", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1}
       ]
     }
   ]

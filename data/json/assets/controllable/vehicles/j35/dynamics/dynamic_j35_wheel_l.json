@@ -1,11 +1,11 @@
 {
   "dynamic": "WHEEL_L",
   "state": {"min": 0, "max": 1, "value": 0, "speed": 10},
-  "sample": {"status": "SPEED_AIR"},
+  "sample": {"status": "ROTATION_WHEEL_2"},
   "targets": [
     {
       "joints": [
-        {"bone": "wheel_l", "call": "setBoneRotation", "args": ["rotateZ"], "factor":  2}
+        {"bone": "wheel_l", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1}
       ]
     }
   ]
