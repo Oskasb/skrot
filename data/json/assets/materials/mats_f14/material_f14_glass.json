@@ -6,6 +6,7 @@
     { "slot":"normalMap",     "tx": "texture_canopy_normals"}
   ],
   "settings": {
+    "side": "DoubleSide",
     "transparent": true,
     "depthWrite": false,
     "opacity": 1.62,
