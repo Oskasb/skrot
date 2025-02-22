@@ -118,6 +118,10 @@ class ControlDynamics {
                     let pointId = sample['point_status'].point;
                     let status = sample['point_status'].status;
                     assetInstance.registerPointStatusChangeCallback(pointId, status, applyTargetStateChange)
+                } else if (typeof (sample['physical_piece']) === 'object') {
+                    let pointId = sample['point_status'].point;
+                    let status = sample['point_status'].status;
+                    assetInstance.registerPointStatusChangeCallback(pointId, status, applyTargetStateChange)
                 }
 
 

@@ -7,18 +7,18 @@
   ],
   "wheels": [
     {"front": true,
-      "pos": [-0.0, 0, -6]
+      "pos": [-0.0, -0.2, -6]
     },
     {
-      "pos": [-2.7, 0, 1.4]
+      "pos": [-2.7, -0.2, 1.4]
     },
     {
-      "pos": [ 2.7, 0, 1.4]
+      "pos": [ 2.7, -0.2, 1.4]
     }
   ],
   "tuning": {
-    "front": {"max_sus_force": 710000, "sus_length": 2.4, "radius": 0.3},
-    "main":  {"max_sus_force": 7950000, "sus_length": 2.3, "radius": 0.5}
+    "front": {"sus_stiffness": 70, "max_sus_force": 710000, "sus_length": 1.5, "radius": 0.3},
+    "main":  {"sus_stiffness": 90,"max_sus_force": 7950000, "sus_length": 1.4, "radius": 0.5}
   },
   "shapes": [
     {

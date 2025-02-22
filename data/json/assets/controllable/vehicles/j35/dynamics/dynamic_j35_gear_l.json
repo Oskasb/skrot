@@ -5,8 +5,9 @@
   "targets": [
     {
       "joints": [
-        {"bone": "gear_l", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.68 , "offset": -1},
-        {"bone": "susp_l", "call": "setBoneRotation", "args": ["rotateX"], "factor":  1.4, "offset": -1}
+        {"bone": "gear_l", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.25 , "offset": 0},
+        {"bone": "susp_l", "call": "setBoneRotation", "args": ["rotateX"], "factor":  0.1, "offset": 0},
+        {"bone": "susp_l", "call": "setBonePosition", "args": ["y"], "factor":  -0.5, "offset": 0}
       ]
     }
   ]

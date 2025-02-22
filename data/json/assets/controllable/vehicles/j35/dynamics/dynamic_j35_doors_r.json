@@ -6,7 +6,7 @@
     {
       "joints": [
         {"bone": "door_r", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.4},
-        {"bone": "door_r_inner", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.4}
+        {"bone": "door_r_inner", "call": "setBoneRotation", "args": ["rotateX"], "factor":  1.4}
       ]
     }
   ]

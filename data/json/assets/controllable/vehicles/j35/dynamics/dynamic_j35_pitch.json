@@ -4,8 +4,10 @@
   "targets": [
     {
       "joints": [
-        {"bone": "flap_r", "call": "setBoneRotation", "args": ["rotateX"], "factor": 0.5},
-        {"bone": "flap_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": 0.5}
+        {"bone": "flap_r", "call": "setBoneRotation", "args": ["rotateX"], "factor":-0.5},
+        {"bone": "flap_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": 0.5},
+        {"bone": "aeilron_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": 0.5},
+        {"bone": "aeilron_r", "call": "setBoneRotation", "args": ["rotateX"], "factor":-0.5}
       ]
     }
   ]

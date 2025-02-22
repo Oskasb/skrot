@@ -176,7 +176,7 @@ class PhysicalModel {
 
                 let isInContact = rayInfo.get_m_isInContact();
                 wheelStates[i].wheelContact = isInContact;
-                wheelStates[i].wheelRotation = wInfo.get_m_rotation();
+                wheelStates[i].wheelRotation = -wInfo.get_m_rotation();
                 if (isInContact) {
                     let contactPoint = rayInfo.get_m_contactPointWS();
                     let contactNormal = rayInfo.get_m_contactNormalWS();
@@ -190,7 +190,7 @@ class PhysicalModel {
                 }
 
                 assetStatus.setStatusKey('SUSP_COMP_WHEEL_'+i, wheelStates[i].suspensionCompression);
-
+                assetStatus.setStatusKey('ROTATION_WHEEL_'+i, wheelStates[i].wheelRotation);
                 //    console.log("rayInfo ", rayInfo);
 
                 if (getSetting(ENUMS.Settings.DEBUG_VIEW_WHEELS)) {
