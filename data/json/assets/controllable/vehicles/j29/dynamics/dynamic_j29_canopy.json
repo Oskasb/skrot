@@ -6,7 +6,7 @@
   "targets": [
     {
       "joints": [
-        {"bone": "canopy", "call": "setBoneRotation", "args": ["rotateX"], "factor":  0.7}
+        {"bone": "canopy", "call": "setBonePosition", "args": ["x", "z"], "factor":  [0.8, 0.15]}
       ]
     }
   ]

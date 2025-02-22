@@ -287,6 +287,10 @@ MATH.mpsToKnots = function(mps) {
 	return 0.514444 * mps;
 };
 
+MATH.mpsToKmph = function(mps) {
+	return 3.6 * mps;
+};
+
 MATH.mpsToMachAtSeaLevel = function(mps) {
 	return mps/340.3;
 };

@@ -7,25 +7,25 @@
   ],
   "wheels": [
     {"front": true,
-      "pos": [-0.0, 0, 2]
+      "pos": [-0.0, -0.75, 3.3]
     },
     {
-      "pos": [-1.5, 0, -0.7]
+      "pos": [-0.8, -0.75, -0.5]
     },
     {
-      "pos": [ 1.5, 0, -0.7]
+      "pos": [ 0.8, -0.75, -0.5]
     }
   ],
   "tuning": {
-    "front": {"max_sus_force": 310000,  "sus_length": 2.4, "radius": 0.3},
-    "main":  {"max_sus_force": 950000,  "sus_length": 2.3, "radius": 0.4}
+    "front": {"sus_stiffness": 50, "max_sus_force": 72410000,  "sus_length": 0.9, "radius": 0.3},
+    "main":  {"sus_stiffness": 80, "max_sus_force": 285950000,  "sus_length": 0.8, "radius": 0.4}
   },
   "shapes": [
     {
       "shape": "compound",
       "scale": [6.0, 1.1, 20.0],
       "rot": [0, 3.14, 0],
-      "pos": [1229, 44, 3455],
+      "pos": [1229, 47, 3455],
       "convex": false,
       "mass": 6000,
       "friction": 2.9,

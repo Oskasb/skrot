@@ -23,10 +23,10 @@ class AmmoVehicle {
         let wheelMatrix =  wheelsMat;
 
         let maxSusForce = (mass * 10 / wheelsCfg.length) * 10;
-        let susStiffness = 15; // wheelMatrix.length;
+        let susStiffness = 25; // wheelMatrix.length;
 
         let frictionSlip = wOpts.frictionSlip || 2;
-        let suspensionStiffness = susStiffness;
+        let suspensionStiffness =  susStiffness;
         let suspensionDamping = wOpts.suspensionDamping || 2.7;
         let dampingRelaxation = wOpts.dampingRelaxation || 6;
         let dampingCompression = wOpts.dampingCompression || 2.7;
@@ -65,8 +65,10 @@ class AmmoVehicle {
         let suspensionCompression = wOpts.suspensionCompression || 4.4;
         let suspensionRestLength = mainTuning['sus_length'] || 2.6;
 
+
         maxSusForce = mainTuning['max_sus_force'] || maxSusForce
         let suspLength = mainTuning['sus_length'] || 2.6;
+        susStiffness = mainTuning['sus_stiffness'] || susStiffness
         let suspensionTravelCm = suspLength * 50;
         let wheelTuning = new Ammo.btVehicleTuning();
         wheelTuning.set_m_maxSuspensionTravelCm(suspensionTravelCm);
@@ -123,7 +125,7 @@ class AmmoVehicle {
                 isFront);
 
             wheelInfo.set_m_maxSuspensionForce(maxSusForce);
-            wheelInfo.set_m_suspensionStiffness(suspensionStiffness);
+            wheelInfo.set_m_suspensionStiffness(susStiffness);
             wheelInfo.set_m_wheelsDampingRelaxation(dampingRelaxation);
             wheelInfo.set_m_wheelsDampingCompression(dampingCompression);
             wheelInfo.set_m_frictionSlip(frictionSlip);

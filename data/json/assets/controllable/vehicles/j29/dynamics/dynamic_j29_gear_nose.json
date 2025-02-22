@@ -5,7 +5,7 @@
   "targets": [
     {
       "joints": [
-        {"bone": "nose_gear", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.8, "offset": -1}
+        {"bone": "nose_gear", "call": "setBoneRotation", "args": ["rotateX"], "factor":  -1.57, "offset": 0}
       ]
     }
   ]

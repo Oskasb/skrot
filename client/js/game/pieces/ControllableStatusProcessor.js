@@ -28,7 +28,7 @@ function sampleSpatialState(controllable) {
         const ammoVel = controllable.assetInstance.getObj3d().userData.body.getLinearVelocity();
         const assetStatus = controllable.assetInstance.status;
         tempVec.set(ammoVel.x(), ammoVel.y(), ammoVel.z());
-        controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_SPEED, MATH.numberToDigits(assetStatus.getStatus(ENUMS.InstanceStatus.SPEED_AIR), 0));
+        controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_SPEED, MATH.numberToDigits(MATH.mpsToKmph(assetStatus.getStatus(ENUMS.InstanceStatus.SPEED_AIR)), 0));
         controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_CLIMB_RATE, MATH.numberToDigits(ammoVel.y(), 1, 1));
     }
 

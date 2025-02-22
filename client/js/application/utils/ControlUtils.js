@@ -22,7 +22,7 @@ function setObjAxisRotation(value, obj3d, axis) {
 function setObjAxisPosition(value, obj3d, axis) {
  //   console.log("setObjAxisPosition", axis, obj3d, value)
     obj3d.position[axis] = value;
-    obj3d.updateMatrixWorld();
+
 }
 
 
@@ -68,9 +68,14 @@ jointCalls["setBonePosition"] = function(bone, args, value, factor) {
     } else {
         for (let i = 0; i < args.length; i++) {
             let axis = args[i];
-            setObjAxisPosition(value*factor, bone, axis)
+            let amount = factor;
+            if (factor.length) {
+                amount = factor[i];
+            }
+            setObjAxisPosition(value*amount, bone, axis)
         }
     }
+    bone.updateMatrixWorld();
 }
 
 
