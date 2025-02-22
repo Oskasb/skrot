@@ -1,19 +1,9 @@
 {
   "material": "MeshSpecialTerrainNodeMaterial",
-  "material_": "MeshSpecialPhongTerrainNodeMaterial",
-  "textures_": [
-    { "slot":"map",           "tx": "texture_ground8x8"},
-    { "slot":"normalMap",     "tx": "texture_ground8x8nm"},
-    { "slot":"specularMap",   "tx": "texture_ground8x8metal"}
-  ],
-  "textures__": [
-    { "slot":"map",           "tx": "texture_ground8x8"},
-    { "slot":"normalMap",     "tx": "texture_ground8x8nm"}
-  ],
   "textures": [
     { "slot":"map",           "tx": "texture_ground8x8"},
     { "slot":"normalMap",     "tx": "texture_ground8x8nm"},
-    { "slot":"metalnessMap",  "tx": "texture_ground8x8metal"},
+    { "slot":"metalnessMap",  "tx": "texture_ground8x8physical"},
     { "slot":"roughnessMap",  "tx": "texture_ground8x8rough"}
   ],
   "settings": {

@@ -144,7 +144,7 @@ class ModelMaterial {
 
             function loadSlotTx(slotTx) {
                 function txCB(assetTx) {
-                 //   console.log("assetTx:", assetTx, assetTx.texture);
+                    console.log("assetTx:", assetTx, assetTx.texture);
 
                     if (slotTx.slot === 'aoMap') {
                         assetTx.texture.channel = 1;
@@ -161,7 +161,7 @@ class ModelMaterial {
                 loadAssetTexture(slotTx.tx, txCB);
             }
 
-                loadSlotTx(txLoads.pop());
+            loadSlotTx(txLoads.pop());
 
         }
 
