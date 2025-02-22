@@ -1,9 +1,9 @@
 [
-  {"id": "TAIL_L",    "pos": [-4.0, 0.45, 6.95], "rot": [-0.02,  0,  0], "sample": [{"dynamic": "SURFACE_ROLL_L", "axis": "rotateX", "factor": 0.12} , {"dynamic": "SURFACE_PITCH_L", "axis": "rotateX", "factor": -0.23}   ]  },
-  {"id": "TAIL_R",    "pos": [ 4.0, 0.45, 6.95], "rot": [-0.02,  0,  0], "sample": [{"dynamic": "SURFACE_ROLL_R", "axis": "rotateX", "factor": 0.12} , {"dynamic": "SURFACE_PITCH_R", "axis": "rotateX", "factor": -0.23}   ]  },
+  {"id": "TAIL_L",    "pos": [-4.0, 0.45, 6.95], "rot": [-0.005,  0,  0], "sample": [{"dynamic": "SURFACE_ROLL_L", "axis": "rotateX", "factor": 0.12} , {"dynamic": "SURFACE_PITCH_L", "axis": "rotateX", "factor": -0.23}   ]  },
+  {"id": "TAIL_R",    "pos": [ 4.0, 0.45, 6.95], "rot": [-0.005,  0,  0], "sample": [{"dynamic": "SURFACE_ROLL_R", "axis": "rotateX", "factor": 0.12} , {"dynamic": "SURFACE_PITCH_R", "axis": "rotateX", "factor": -0.23}   ]  },
   {"id": "RUDDER_L",  "pos": [-1.7,   2.5, 7.05], "rot": [0,  0,  0],    "sample": [{"dynamic": "SURFACE_RUDDER_L", "axis": "rotateY", "factor": 0.2} ]   },
   {"id": "RUDDER_R",  "pos": [ 1.7,   2.5, 7.05], "rot": [0,  0,  0],    "sample": [{"dynamic": "SURFACE_RUDDER_R", "axis": "rotateY", "factor": 0.2} ]  },
-  {"id": "WING_L"  ,  "pos": [-6.5, 0.6, 0.5],   "rot": [0.002,  0,  0],     "sample": [{"dynamic": "WING_SWEEP_L", "axis": "rotateY", "factor": 0.6}     ]  },
-  {"id": "WING_R"  ,  "pos": [6.5,  0.6, 0.5],   "rot": [0.002,  0,  0],     "sample": [{"dynamic": "WING_SWEEP_R", "axis": "rotateY", "factor":-0.6}     ]  },
-  {"id": "FUSELAGE",  "pos": [0,    0.4, 0.2],   "rot": [0.002,  0,  0]}
+  {"id": "WING_L"  ,  "pos": [-6.5, 0.6, 0.5],   "rot": [0.003,  0,  0],     "sample": [{"dynamic": "WING_SWEEP_L", "axis": "rotateY", "factor": 0.6}     ]  },
+  {"id": "WING_R"  ,  "pos": [6.5,  0.6, 0.5],   "rot": [0.003,  0,  0],     "sample": [{"dynamic": "WING_SWEEP_R", "axis": "rotateY", "factor":-0.6}     ]  },
+  {"id": "FUSELAGE",  "pos": [0,    0.4, 0.2],   "rot": [0.0,  0,  0]}
 ]

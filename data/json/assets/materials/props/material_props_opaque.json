@@ -1,10 +1,10 @@
 {
   "material": "MeshStandardMaterial",
   "textures": [
-    { "slot":"map",           "tx": "texture_atlas_2k_diff"},
-    { "slot":"normalMap",     "tx": "texture_atlas_2k_norm"},
-    { "slot":"metalnessMap",  "tx": "texture_atlas_2k_metal"},
-    { "slot":"roughnessMap",  "tx": "texture_atlas_2k_rough"}
+    { "slot":"map",           "tx": "texture_plane_atlas"},
+    { "slot":"normalMap",     "tx": "texture_plane_atlas_normal"},
+    { "slot":"metalnessMap",  "tx": "texture_plane_atlas_metalness"},
+    { "slot":"roughnessMap",  "tx": "texture_plane_atlas_roughness"}
   ],
   "settings": {
     "color": [1, 1, 1],
