@@ -57,7 +57,7 @@ class ModelAsset {
                 }
             }
 
-        //    console.log("Asset obj3d:", obj3d)
+            console.log("modelJson instantiated", obj3d.userData );
             return obj3d;
         }
 
@@ -92,6 +92,7 @@ class ModelAsset {
                         settings.skeletonGeometry = geo;
                     }
                     if (loadCalls.length === 0) {
+
                         sendToSubscribers()
                     }
                 }
@@ -103,8 +104,8 @@ class ModelAsset {
                         if (materialList.indexOf(assets[i].material) === -1) {
                             materialList.push(assets[i].material);
                         }
-                        loadCalls.push(assets[i].file);
                     }
+                    loadCalls.push(assets[i].file);
                 }
 
                 function loadGeometries() {
