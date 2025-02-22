@@ -52,8 +52,10 @@ class PhysicalModel {
         let acceleration = new Vector3();
         let forceG = 1;
 
+        MATH.testVec3ForNaN (obj3d.position)
 
         function updateFloatation() {
+            MATH.testVec3ForNaN (obj3d.position)
             splashEvt.velocity.copy(getBodyVelocity(obj3d.userData.body));
             let isFloating = 0;
             let time = getFrame().gameTime
@@ -118,6 +120,7 @@ class PhysicalModel {
         function updateBodyObj3d() {
             acceleration.copy(velocity);
             let ammoVel = obj3d.userData.body.getLinearVelocity();
+            MATH.testVec3ForNaN (obj3d.position)
             velocity.set(ammoVel.x(), ammoVel.y(), ammoVel.z());
             let speed = velocity.length();
             velocity.applyQuaternion(obj3d.quaternion);
@@ -219,12 +222,13 @@ class PhysicalModel {
 
         function alignVisualModel() {
             const body = obj3d.userData.body;
+
             bodyTransformToObj3d(body, obj3d);
 
             if (ammoVehicle !== null) {
                 updateWheeledVehicle();
             }
-
+            MATH.testVec3ForNaN (obj3d.position)
         }
 
         /*

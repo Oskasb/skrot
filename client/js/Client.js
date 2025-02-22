@@ -109,9 +109,12 @@ function startGameWorld() {
 
 
     function loadPiece(ctrlPiece) {
-        console.log("plane ", ctrlPiece);
-        ctrlPiece.addToScene();
-        elementList.push(ctrlPiece);
+        console.log("loadPiece ", ctrlPiece);
+        setTimeout(function() {
+            ctrlPiece.addToScene();
+            elementList.push(ctrlPiece);
+        }, 100)
+
         if (loadPlanes.length) {
             loadNext()
         } else {

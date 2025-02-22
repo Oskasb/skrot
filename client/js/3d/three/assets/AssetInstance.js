@@ -100,10 +100,11 @@ class AssetInstance {
                 }
 
                 loadAssetModel(modelName, modelLoaded, obj3d);
-
+                MATH.testVec3ForNaN (obj3d.position)
                 if (settings.json['physical']) {
                     console.log("Load Physical Model", settings.json['physical']);
                     new PhysicalModel(obj3d, settings.json['physical'], status)
+                    MATH.testVec3ForNaN (obj3d.position)
                 }
 
             }
@@ -114,6 +115,7 @@ class AssetInstance {
 
         function setPos(pos) {
             obj3d.position.copy(pos);
+            MATH.testVec3ForNaN (obj3d.position)
         }
 
         function setQuat(quat) {
@@ -121,6 +123,7 @@ class AssetInstance {
         }
 
         function getObj3d() {
+            MATH.testVec3ForNaN (obj3d.position)
             return obj3d;
         }
 
@@ -129,6 +132,7 @@ class AssetInstance {
         }
 
         function addToScene() {
+            MATH.testVec3ForNaN (obj3d.position)
             ThreeAPI.addToScene(obj3d);
         }
 
