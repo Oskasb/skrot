@@ -69,9 +69,20 @@ class ControlDynamics {
                     function applyFxCall() {
                         dynEffect.call.applyStateValue(state.value);
                     }
-
                     applyCalls.push(applyFxCall);
+                }
+            }
 
+            if (targets['status']) {
+
+                let statuses = targets['status']
+                for (let i = 0; i < statuses.length; i++) {
+                    let key = statuses[i]['key'];
+                    let factor = statuses[i]['factor'];
+                    function applyFxCall() {
+                        assetInstance.status.setStatusKey(key, state.value*factor)
+                    }
+                    applyCalls.push(applyFxCall);
                 }
             }
 
@@ -81,10 +92,7 @@ class ControlDynamics {
                     let pointKey = points[i];
 
                     function applyPointCall() {
-
                         let dynPoint = assetInstance.call.getPointById(pointKey);
-
-
                         dynPoint.call.setPointStateValue(state.value);
                     }
                     applyCalls.push(applyPointCall);

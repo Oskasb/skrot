@@ -1,10 +1,11 @@
 {
   "dynamic": "SURFACE_CANARD_L",
-  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.2},
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 10},
+  "sample": {"status": "CANARD_ENGAGE"},
   "targets": [
     {
       "joints": [
-        {"bone": "canard_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": -0.25}
+        {"bone": "canard_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": -0.13}
       ]
     }
   ]

@@ -1,10 +1,13 @@
 {
   "dynamic": "SURFACE_PITCH_L",
-  "state": {"min": -1, "max": 1, "value": 0, "speed": 0.5},
+  "state": {"min": -1, "max": 1, "value": 0, "speed": 1.5},
   "targets": [
     {
       "joints": [
         {"bone": "stab_pitch_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": 0.5}
+      ],
+      "status": [
+        {"key": "STATUS_PITCH_INPUT", "factor": 1}
       ]
     }
   ]

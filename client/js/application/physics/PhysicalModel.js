@@ -135,7 +135,6 @@ class PhysicalModel {
                 assetStatus.setStatusKey('TAXI_SLOW',0);
             }
 
-            assetStatus.setStatusKey('FLAP_ENGAGE', 1 - MATH.clamp(Math.abs(Math.round(velocity.z) * 0.003), 0, 1));
             assetStatus.setStatusKey('FORCE_G',acceleration.y * 0.1);
 
             updateFloatation()
@@ -146,11 +145,17 @@ class PhysicalModel {
             //    console.log(vehicle);
             vehicle.updateWheelTransformsWS();
 
-            let wheels = vehicle.getNumWheels();
+            const inputYaw = assetStatus.getStatus(ENUMS.InstanceStatus.STEERING_YAW) || 0;
+            const inputBrake = assetStatus.getStatus(ENUMS.InstanceStatus.STATUS_BRAKE) || 0;
+            const mass = assetStatus.getStatus(ENUMS.InstanceStatus.STATUS_MASS) || 1000;
+
+            const wheels = vehicle.getNumWheels();
 
             let groundContact = false;
 
             for (let i = 0; i < wheels; i++) {
+
+
 
                 if (!wheelStates[i]) {
                     wheelStates[i] = {
@@ -158,14 +163,21 @@ class PhysicalModel {
                         wheelRotation:0,
                         quaternion:new Quaternion(),
                         position:new Vector3(),
-                        wheelYaw:0,
+                        wheelYaw:inputYaw,
                         wheelContact:false,
                         contactPoint: new Vector3(),
                         contactNormal: new Vector3()
                     }
                 }
-
                 let wInfo = vehicle.getWheelInfo(i);
+
+                if (wInfo.m_bIsFrontWheel) {
+                //    console.log(wInfo)
+                    vehicle.setSteeringValue(inputYaw, i);
+                }
+
+                vehicle.setBrake(inputBrake * mass* 0.01, i)
+
                 //    wInfo.updateWheel()
                 let rayInfo = wInfo.get_m_raycastInfo();
                 let maxTravel = wInfo.get_m_maxSuspensionTravelCm()*0.01;
@@ -288,6 +300,7 @@ get_m_worldTransform
                 console.log("body added", body);
                 obj3d.userData.body = body;
                 obj3d.userData.mass = mass;
+                assetStatus.setStatusKey(ENUMS.InstanceStatus.STATUS_MASS, mass);
                 AmmoAPI.registerPhysicsStepCallback(updateBodyObj3d)
                 ThreeAPI.addPostrenderCallback(alignVisualModel)
             }

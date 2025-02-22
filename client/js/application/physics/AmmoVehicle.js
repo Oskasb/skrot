@@ -25,8 +25,8 @@ class AmmoVehicle {
         let maxSusForce = (mass * 10 / wheelsCfg.length) * 10;
         let susStiffness = 25; // wheelMatrix.length;
 
-        let frictionSlip = wOpts.frictionSlip || 2;
-        let suspensionStiffness =  susStiffness;
+        let frictionSlip = 3;
+
         let suspensionDamping = wOpts.suspensionDamping || 2.7;
         let dampingRelaxation = wOpts.dampingRelaxation || 6;
         let dampingCompression = wOpts.dampingCompression || 2.7;
@@ -36,24 +36,6 @@ class AmmoVehicle {
 
         let wheelY = -height / 2 + radius - clearance;
 
-
-        // Chassis
-/*
-        let geometry = new Ammo.btBoxShape(new Ammo.btVector3(width * .5, height * .5, length * .5));
-        let transform = new Ammo.btTransform();
-        transform.setIdentity();
-        transform.setOrigin(new Ammo.btVector3(1213, 102 + height + radius + clearance, 2540));
-        transform.setRotation(new Ammo.btQuaternion(0, 0, 0, 1));
-        let motionState = new Ammo.btDefaultMotionState(transform);
-        let localInertia = new Ammo.btVector3(0, 1, 0);
-        geometry.calculateLocalInertia(mass, localInertia);
-
-        let rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, geometry, localInertia)
-        rbInfo.set_m_linearSleepingThreshold(0.0);
-        rbInfo.set_m_angularSleepingThreshold(0.0);
-
-        body = new Ammo.btRigidBody(rbInfo);
-*/
 
         body.setActivationState(DISABLE_DEACTIVATION);
 

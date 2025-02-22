@@ -1,10 +1,9 @@
 {
   "dynamic": "WHEEL_L",
   "state": {"min": 0, "max": 1, "value": 0, "speed": 10},
-  "sample": {"status": "ROTATION_WHEEL_2"},
+  "sample": {"status": "ROTATION_WHEEL_1"},
   "targets": [
     {
-
       "joints": [
         {"bone": "wheel_l", "call": "setBoneRotation", "args": ["rotateZ"], "factor":  1}
       ]

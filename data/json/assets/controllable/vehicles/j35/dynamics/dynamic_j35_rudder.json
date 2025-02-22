@@ -5,6 +5,9 @@
     {
       "joints": [
         {"bone": "rudder", "call": "setBoneRotation", "args": ["rotateX"], "factor": 0.5}
+      ],
+      "status": [
+        {"key": "STEERING_YAW", "factor": 1}
       ]
     }
   ]

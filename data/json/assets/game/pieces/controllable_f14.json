@@ -4,7 +4,6 @@
   "ui": [
     {"id": "FLIGHT_STICK",          "file": "ui_f14_stick"},
     {"id": "YAW_PEDALS",            "file": "ui_f14_pedals"},
-    {"id": "WINGS_SWEEP",           "file": "ui_f14_sweep" },
     {"id": "GEAR",                  "file": "ui_f14_gear"  },
     {"id": "POWER",                 "file": "ui_f14_power" },
     {"id": "CANNON",                "file": "ui_f14_cannon"},

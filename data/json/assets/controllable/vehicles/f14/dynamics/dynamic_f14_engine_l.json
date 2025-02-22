@@ -8,6 +8,9 @@
       ],
       "emitters": [
         {"point": "ENGINE_L", "particles": ["particles_jet_exhaust"]}
+      ],
+      "status": [
+        {"key": "STATUS_THROTTLE", "factor": 1}
       ]
     }
   ]

@@ -23,6 +23,8 @@ class SimpleStatus {
     getStatus(key) {
         if (!key) {
             return this.statusMap;
+        } if (!this.statusMap[key]) {
+            this.setStatusKey(key, 0);
         }
         return this.statusMap[key];
     }

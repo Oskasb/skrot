@@ -28,8 +28,52 @@ function sampleSpatialState(controllable) {
         const ammoVel = controllable.assetInstance.getObj3d().userData.body.getLinearVelocity();
         const assetStatus = controllable.assetInstance.status;
         tempVec.set(ammoVel.x(), ammoVel.y(), ammoVel.z());
+        const mach = MATH.mpsAtAltToMach(assetStatus.getStatus(ENUMS.InstanceStatus.SPEED_AIR))
+        controllable.setStatusKey(ENUMS.ControllableStatus.SPEED_MACH, MATH.numberToDigits(mach, 2, 2), rootNode.position.y);
         controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_SPEED, MATH.numberToDigits(MATH.mpsToKmph(assetStatus.getStatus(ENUMS.InstanceStatus.SPEED_AIR)), 0));
         controllable.setStatusKey(ENUMS.ControllableStatus.STATUS_CLIMB_RATE, MATH.numberToDigits(ammoVel.y(), 1, 1));
+
+        const throttle = assetStatus.getStatus(ENUMS.InstanceStatus.STATUS_THROTTLE);
+        if (throttle < 0.4) {
+            assetStatus.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 0.4 + (0.4 - throttle)*2);
+        } else {
+            assetStatus.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 0);
+        }
+        const pitchInput = assetStatus.getStatus(ENUMS.InstanceStatus.STATUS_PITCH_INPUT);
+
+        if (pitchInput > 0.1) {
+            if (mach < 0.6) {
+                assetStatus.setStatusKey(ENUMS.InstanceStatus.SLAT_ENGAGE, 1);
+            } else {
+                assetStatus.setStatusKey(ENUMS.InstanceStatus.SLAT_ENGAGE, 0);
+            }
+        } else {
+            assetStatus.setStatusKey(ENUMS.InstanceStatus.SLAT_ENGAGE, 0);
+        }
+
+        if (MATH.valueIsBetween(mach, 0.6, 1.5)) {
+            assetStatus.setStatusKey(ENUMS.InstanceStatus.CANARD_ENGAGE, MATH.clamp(Math.abs(pitchInput)*2), 0, 1);
+        }
+
+        if (mach > 0.65) {
+            const sweep = MATH.clamp(MATH.calcFraction(0.65, 0.99, mach), 0, 1);
+            assetStatus.setStatusKey(ENUMS.InstanceStatus.SWEEP_ENGAGE, sweep);
+        } else {
+            assetStatus.setStatusKey(ENUMS.InstanceStatus.SWEEP_ENGAGE, 0);
+        }
+
+        if (mach < 0.001) {
+            assetStatus.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1);
+        } else if (mach < 0.02) {
+            assetStatus.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1.1);
+        } else if (mach < 0.22) {
+            assetStatus.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1.0);
+        } else if (mach < 0.35) {
+            assetStatus.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 0.5);
+        } else {
+            assetStatus.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 0);
+        }
+
     }
 
 }
