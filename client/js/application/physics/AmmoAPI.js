@@ -126,7 +126,7 @@ class AmmoAPI {
                     console.log("physics buffer model", model.scene);
                     let mesh = model.scene.children[0];
                     window.AmmoAPI.registerGeoBuffer(assetId, mesh.geometry.attributes.position.array)
-                    ammoFunctions.createRigidBody(obj3d, shapeName, mass, friction, pos, rot, scale, assetId, convex, children, onReady);
+                    ammoFunctions.createRigidBody(obj3d, shapeName, mass, 50, pos, rot, scale, assetId, convex, children, onReady);
                 }
                 loadModelAsset(assetId, onModel)
             }

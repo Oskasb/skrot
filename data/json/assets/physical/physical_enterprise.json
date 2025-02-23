@@ -22,7 +22,7 @@
       "pos": [350, 0, 600],
       "convex": false,
       "mass": 95000000,
-      "friction": 2.9,
+      "friction": 600,
       "children": [
         {
           "shape": "box",

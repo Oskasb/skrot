@@ -3,8 +3,10 @@ import {MATH} from "../../../application/MATH.js";
 import {DomWorldButtonLayer} from "../../../application/ui/dom/DomWorldButtonLayer.js";
 import {getGamePlayer} from "../../../Client.js";
 import {getGameWorld} from "../../../application/utils/GameUtils.js";
+import {DomMinimap} from "../../../application/ui/dom/DomMinimap.js";
+import {ENUMS} from "../../../application/ENUMS.js";
 
-
+let minimap = null;
 
 class GameScenario {
     constructor(fileName) {
@@ -16,6 +18,7 @@ class GameScenario {
         const hostControllable = getGamePlayer().call.getPlayerControllable();
 
         function worldElementClick(e) {
+
             hostControllable.detachUi();
             console.log("Click Controllable Button", e.target.value);
             getGamePlayer().call.setPlayerActiveControllable(e.target.value);
@@ -28,6 +31,7 @@ class GameScenario {
         function scenarioPieceLoaded(ctrlPiece) {
             ctrlPiece.addToScene();
             pieces.push(ctrlPiece);
+            ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 10);
             if (json['controllables'].length) {
                 loadControllable(json['controllables'].pop())
             }
@@ -46,6 +50,7 @@ class GameScenario {
         }
 
         function worldLoaded() {
+
             if (json['controllables'].length) {
                 loadControllable(json['controllables'].pop())
             }
@@ -54,6 +59,10 @@ class GameScenario {
         function onJson(jsn) {
             json = jsn;
             if (json['terrain']) {
+
+                if (minimap === null) {
+                    minimap = new DomMinimap();
+                }
                 ThreeAPI.initComputeTerrain(worldLoaded)
             } else {
                 worldLoaded();

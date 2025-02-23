@@ -1,5 +1,8 @@
 {
   "controllables": [
-    {"id": "controllable_f14", "point": "CAT_3_READY"}
+    {"id": "controllable_b52", "point": "CAT_4_READY"},
+    {"id": "controllable_f14", "point": "CAT_3_READY"},
+    {"id": "controllable_j29", "point": "CAT_2_READY"},
+    {"id": "controllable_j35", "point": "CAT_1_READY"}
   ]
 }
