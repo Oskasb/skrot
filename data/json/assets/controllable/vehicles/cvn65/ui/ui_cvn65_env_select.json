@@ -1,0 +1,75 @@
+[
+  {
+    "id": "UI_ENV_SELECT",
+    "ui": "DomControlButtonRow",
+    "html": "ui_cam_controls",
+    "class": "ui_env_select_cvn65",
+    "selections": [
+      {
+        "sample": "PRESS",
+        "select": "1",
+        "label": "Sunrise",
+        "call": "APPLY_ENV_SELECTION",
+        "init": true,
+        "keyAdd": "1"
+      },
+      {
+        "sample": "PRESS",
+        "select": "2",
+        "label": "Morning",
+        "call": "APPLY_ENV_SELECTION",
+        "init": false,
+        "keyAdd": "2"
+      },
+      {
+        "sample": "PRESS",
+        "select": "3",
+        "label": "Early Day",
+        "call": "APPLY_ENV_SELECTION",
+        "init": false,
+        "keyAdd": "3"
+      },
+      {
+        "sample": "PRESS",
+        "select": "4",
+        "label": "Day",
+        "call": "APPLY_ENV_SELECTION",
+        "init": false,
+        "keyAdd": "3"
+      },
+      {
+        "sample": "PRESS",
+        "select": "5",
+        "label": "Noon",
+        "call": "APPLY_ENV_SELECTION",
+        "init": false,
+        "keyAdd": "4"
+      },
+      {
+        "sample": "PRESS",
+        "select": "6",
+        "label": "Evening",
+        "call": "APPLY_ENV_SELECTION",
+        "init": false,
+        "keyAdd": "5"
+      },
+      {
+        "sample": "PRESS",
+        "select": "7",
+        "label": "Sunset",
+        "call": "APPLY_ENV_SELECTION",
+        "init": false,
+        "keyAdd": "5"
+      },
+      {
+        "sample": "PRESS",
+        "select": "8",
+        "label": "Night",
+        "call": "APPLY_ENV_SELECTION",
+        "init": false,
+        "keyAdd": "5"
+      }
+    ],
+    "input_targets": []
+  }
+]

@@ -352,6 +352,7 @@ class ThreeEnvironment {
         let force = false;
 
         if (statusMap.envIndex !== listIndex) {
+            console.log("statusMap.envIndex", listIndex)
             statusMap.envIndex = listIndex;
             this.setEnvConfigId(statusMap.configIds[listIndex]);
         }
@@ -386,10 +387,13 @@ class ThreeEnvironment {
     //    this.sky.mesh.position.copy(this.worldCenter);
         this.worldCenter.y = 0;
 
-        this.sunSphere.position.x = 0.00001 * useSky.distance * Math.cos( this.phi );
-        this.sunSphere.position.y = 0.00001 * useSky.distance * Math.sin( this.phi ) * Math.sin( this.theta );
-        this.sunSphere.position.z = 0.00001 * useSky.distance * Math.sin( this.phi ) * Math.cos( this.theta );
-
+        this.sunSphere.quaternion.set(0, 0, 0, 1);
+        this.sunSphere.rotateY(useSky.azimuth)
+        this.sunSphere.rotateX(useSky.inclination)
+        this.sunSphere.position.x = 0
+        this.sunSphere.position.y = 0
+        this.sunSphere.position.z = 0.01 * useSky.distance;
+        this.sunSphere.position.applyQuaternion(this.sunSphere.quaternion)
         this.calcVec.set(0, 0, 0);
 
         //   calcVec.sub(camera.position);
@@ -445,7 +449,7 @@ class ThreeEnvironment {
         let _this = this;
 
         let setEnvConfigId = function(envConfId, time) {
-            this.transitionTime = time || 1;
+            this.transitionTime = time || 8;
             statusMap.transitionProgress = 0;
             this.currentEnvId = envConfId;
             statusMap.write = false;

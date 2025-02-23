@@ -3,7 +3,7 @@
     "id": "UI_CAMERA",
     "ui": "DomControlButtonRow",
     "html": "ui_cam_controls",
-    "class": "ui_cam_controls",
+    "class": "ui_cam_controls_cvn65",
     "selections": [
       {
         "sample": "PRESS",
@@ -23,19 +23,27 @@
       },
       {
         "sample": "PRESS",
-        "select": {"point": "CAT_2_READY", "min":  3.5, "max": 40, "init": 20},
-        "label": "Cat 2",
+        "select": {"point": "CAT_1_READY", "min":  3.5, "max": 40, "init": 20},
+        "label": "Cat 1",
         "call": "APPLY_CAMERA_SELECTION",
         "init": false,
         "keyAdd": "3"
       },
       {
         "sample": "PRESS",
-        "select": {"point": "CAT_1_READY", "min":  3.5, "max": 40, "init": 20},
-        "label": "Cat 1",
+        "select": {"point": "CAT_2_READY", "min":  3.5, "max": 40, "init": 20},
+        "label": "Cat 2",
         "call": "APPLY_CAMERA_SELECTION",
         "init": false,
         "keyAdd": "4"
+      },
+      {
+        "sample": "PRESS",
+        "select": {"point": "CAT_3_READY", "min":  3.5, "max": 40, "init": 20},
+        "label": "Cat 3",
+        "call": "APPLY_CAMERA_SELECTION",
+        "init": false,
+        "keyAdd": "5"
       }
     ],
     "input_targets": []

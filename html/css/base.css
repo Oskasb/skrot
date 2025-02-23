@@ -350,6 +350,28 @@ iframe.ui_cam_controls {
     color: #ecffdc;
 }
 
+iframe.ui_cam_controls_cvn65 {
+    z-index: 100000;
+    top: 20em;
+    left: 20em;
+    width: 500em;
+    height: 74em;
+    position: absolute;
+    border: none;
+    color: #ecffdc;
+}
+
+iframe.ui_env_select_cvn65 {
+    z-index: 100000;
+    top: 150em;
+    left: 20em;
+    width: 600em;
+    height: 74em;
+    position: absolute;
+    border: none;
+    color: #ecffdc;
+}
+
 iframe.ui_power {
     z-index: 100000;
     bottom: 60em;
