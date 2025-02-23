@@ -14,9 +14,14 @@ class PlayerCamera {
 
         let selectedPoint = null;
 
+        let params = null;
+
         function updateCamera() {
             if (camFunction !== null) {
-                cameraFunctions[camFunction](player.call.getPlayerControllable(), orbitControls, selectedPoint)
+
+
+
+                cameraFunctions[camFunction](player.call.getPlayerControllable(), orbitControls, selectedPoint, params)
             } else {
                 cameraFunctions['CAM_WORLD'](player.call.getObj3d().position, orbitControls)
             }
@@ -39,7 +44,11 @@ class PlayerCamera {
             } else {
                 if (mode.select['point']) {
                     selectedPoint = mode.select['point'];
+                    params = mode.select
                     camFunction = 'CAM_POINT'
+                    orbitControls.minDistance = params.init || 25;
+                    orbitControls.maxDistance = params.init || 25;
+                    orbitControls.update();
                 }
             }
 

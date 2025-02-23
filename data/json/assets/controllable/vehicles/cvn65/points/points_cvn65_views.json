@@ -1,4 +1,5 @@
 [
   {"id": "CREW_VIEW_PILOT",    "pos": [5, 49, 24],  "rot": [0, 0, 0]},
+  {"id": "CREW_VIEW_TOWER",    "pos": [12, 75, 24],  "rot": [0, 0, 0]},
   {"id": "VIEW_CAMERA_1",      "pos": [-1.7, 3.55 ,  6.95], "rot": [0, 3.14159, 0]}
 ]

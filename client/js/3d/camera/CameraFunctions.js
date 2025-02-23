@@ -80,7 +80,7 @@ function CAM_WORLD(targetPos, orbitControls) {
     lastCamPos.copy(orbitControls.camera.position);
 }
 
-function CAM_POINT(controllable, orbitControls, pointName) {
+function CAM_POINT(controllable, orbitControls, pointName, params) {
     const tpf = getFrame().tpf;
     const point = controllable.getDynamicPoint(pointName);
     point.updateDynamicPoint()
@@ -90,9 +90,12 @@ function CAM_POINT(controllable, orbitControls, pointName) {
     posFrameDelta.subVectors(orbitControls.target, lastCamPos)
     orbitControls.camera.position.add(posFrameDelta);
     orbitControls.camera.up.copy(tempVec)
-    orbitControls.minDistance = 0.5;
-    orbitControls.maxDistance = 8000;
-    orbitControls.update();
+
+        orbitControls.minDistance = params.min || 0.5;
+        orbitControls.maxDistance = params.max || 8000;
+        orbitControls.update();
+
+
     lastCamPos.copy(orbitControls.camera.position);
 }
 

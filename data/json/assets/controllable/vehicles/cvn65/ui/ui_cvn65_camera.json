@@ -7,15 +7,15 @@
     "selections": [
       {
         "sample": "PRESS",
-        "select": "CAM_ORBIT",
-        "label": "Orbit",
+        "select": {"point": "CREW_VIEW_TOWER", "min":  2, "max": 2000, "init": 400},
+        "label": "Tower",
         "call": "APPLY_CAMERA_SELECTION",
         "init": true,
         "keyAdd": "1"
       },
       {
         "sample": "PRESS",
-        "select": {"point": "CREW_VIEW_PILOT"},
+        "select": {"point": "CREW_VIEW_PILOT", "min":  0.5, "max": 2, "init": 1},
         "label": "Boss",
         "call": "APPLY_CAMERA_SELECTION",
         "init": false,
@@ -23,7 +23,7 @@
       },
       {
         "sample": "PRESS",
-        "select": {"point": "CAT_2_READY"},
+        "select": {"point": "CAT_2_READY", "min":  3.5, "max": 40, "init": 20},
         "label": "Cat 2",
         "call": "APPLY_CAMERA_SELECTION",
         "init": false,
@@ -31,7 +31,7 @@
       },
       {
         "sample": "PRESS",
-        "select": {"point": "CAT_1_READY"},
+        "select": {"point": "CAT_1_READY", "min":  3.5, "max": 40, "init": 20},
         "label": "Cat 1",
         "call": "APPLY_CAMERA_SELECTION",
         "init": false,
