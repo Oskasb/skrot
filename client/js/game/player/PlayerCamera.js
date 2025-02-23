@@ -12,9 +12,11 @@ class PlayerCamera {
 
         let camFunction = null;
 
+        let selectedPoint = null;
+
         function updateCamera() {
             if (camFunction !== null) {
-                cameraFunctions[camFunction](player.call.getPlayerControllable(), orbitControls)
+                cameraFunctions[camFunction](player.call.getPlayerControllable(), orbitControls, selectedPoint)
             } else {
                 cameraFunctions['CAM_WORLD'](player.call.getObj3d().position, orbitControls)
             }
@@ -22,8 +24,8 @@ class PlayerCamera {
         }
 
         function initCamera() {
-            camera.position.set( 1199, 52, 3495 );
-            orbitControls.target.set( 1202, 44 , 3465);
+            camera.position.set( 1199, 62, 3495 );
+            orbitControls.target.set( 1402, 1 , 3565);
             ThreeAPI.getCameraCursor().getPos().copy(orbitControls.target)
             player.call.getObj3d().position.copy(orbitControls.target)
             orbitControls.update();
@@ -32,7 +34,15 @@ class PlayerCamera {
 
         function setCameraSelection(mode) {
             console.log("setCameraSelection", mode)
-            camFunction = mode.select;
+            if (typeof (mode.select) === 'string') {
+                camFunction = mode.select;
+            } else {
+                if (mode.select['point']) {
+                    selectedPoint = mode.select['point'];
+                    camFunction = 'CAM_POINT'
+                }
+            }
+
         }
 
         evt.on(ENUMS.Event.CAMERA_SELECTION, setCameraSelection);

@@ -6,7 +6,7 @@ import {
     getPhysicalWorld,
     rayTest
 } from "../utils/PhysicsUtils.js";
-import {Vector3, Vector4} from "../../../../libs/three/Three.Core.js";
+import {Vector3} from "../../../../libs/three/Three.Core.js";
 import {MATH} from "../MATH.js";
 import {ENUMS} from "../ENUMS.js";
 import {evt} from "../event/evt.js";
@@ -17,23 +17,26 @@ import {Object3D} from "three/webgpu";
 import {Quaternion} from "three";
 import {getSetting} from "../utils/StatusUtils.js";
 
-let tempVec = new Vector3();
+const tempVec = new Vector3();
 
-let tempVec2 = new Vector3();
-let tempVec3 = new Vector3();
+const tempVec2 = new Vector3();
+const tempVec3 = new Vector3();
 
-let lineFrom = new Vector3();
-let lineTo = new Vector3();
+const lineFrom = new Vector3();
+const lineTo = new Vector3();
 
-let tempObj = new Object3D();
+const tempObj = new Object3D();
 
-let lineEvt = {
+const posArray = [];
+const rotArray = [];
+
+const lineEvt = {
     from:lineFrom,
     to:lineTo,
     color:"YELLOW"
 }
 
-let splashEvt ={
+const splashEvt ={
     pos:new Vector3(),
     normal:new Vector3(),
     velocity: new Vector3(),
@@ -73,7 +76,7 @@ class PhysicalModel {
 
                 tempVec2.set(0, 0, 0);
 
-                let waveHeight = Math.cos(time*0.8+(tempVec.x+tempVec.z*0.2)*0.04)*2
+                let waveHeight = Math.cos(time*0.8+(tempVec.x+tempVec.z*0.2)*0.04)
                 let submersion = calcBoxSubmersion(tempVec.y  + waveHeight, size)
 
                 if (submersion > 0) {
@@ -325,7 +328,10 @@ get_m_worldTransform
             for (let i = 0; i < config.shapes.length; i++) {
                 let conf = config.shapes[i];
                 mass += conf['mass'];
-                AmmoAPI.setupRigidBody(obj3d, conf['shape'], conf['mass'], conf['friction'], conf['pos'], conf['rot'], conf['scale'], conf['asset'], conf['convex'], conf['children'], bodyReadyCB)
+
+                MATH.vec3ToArray(obj3d.position, posArray);
+                MATH.rotObj3dToArray(obj3d, rotArray)
+                AmmoAPI.setupRigidBody(obj3d, conf['shape'], conf['mass'], conf['friction'], posArray, rotArray, conf['scale'], conf['asset'], conf['convex'], conf['children'], bodyReadyCB)
             }
         }
 

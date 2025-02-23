@@ -1,18 +1,17 @@
 {
   "buoyancy": [
-    {"pos": [4,  -2, 152], "size": 10, "splash": 1},
-    {"pos": [-4, -2, 152], "size": 10, "splash": 1},
-    {"pos": [0,  -4, 50], "size": 13},
-
+    {"pos": [4,   2, 152], "size": 11, "splash": 1},
+    {"pos": [-4,  2, 152], "size": 11, "splash": 1},
+    {"pos": [0,  -4,  50], "size": 13},
     {"pos": [0,  -2,-151], "size": 8,  "splash": 1},
-    {"pos": [0,   4,-112], "size": 12, "splash": 0.2},
-    {"pos": [11,  4, -71], "size": 11, "splash": 0.21},
-    {"pos": [-11, 4, -71], "size": 11, "splash": 0.21},
-    {"pos": [ 15, 4, -41], "size": 11, "splash": 0.1},
-    {"pos": [-15, 4, -41], "size": 11, "splash": 0.1},
-    {"pos": [0,   4,-132], "size": 10, "splash": 0.5},
-    {"pos": [7,   4, -91], "size": 10, "splash": 0.31},
-    {"pos": [-7,  4, -91], "size": 10, "splash": 0.31}
+    {"pos": [0,   2,-112], "size": 12, "splash": 0.2},
+    {"pos": [11,  2, -71], "size": 11, "splash": 0.21},
+    {"pos": [-11, 2, -71], "size": 11, "splash": 0.21},
+    {"pos": [ 15, 2, -41], "size": 11, "splash": 0.1},
+    {"pos": [-15, 2, -41], "size": 11, "splash": 0.1},
+    {"pos": [0,   2,-132], "size": 10, "splash": 0.5},
+    {"pos": [7,   2, -91], "size": 10, "splash": 0.31},
+    {"pos": [-7,  2, -91], "size": 10, "splash": 0.31}
   ],
   "shapes": [
     {

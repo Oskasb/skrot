@@ -20,12 +20,15 @@ import {Ocean} from "./water/Ocean.js";
 import {EnvironmentClouds} from "./environment/EnvironmentClouds.js";
 import {ComputeTerrain} from "./terrain/ComputeTerrain.js";
 import {VegetationGrid} from "../../game/world/plants/VegetationGrid.js";
+import {GroundBoundLodGrid} from "../../application/grids/GroundBoundLodGrid.js";
 
 
 let cameraSpatialCursor;
 let terrainSystem = new TerrainSystem();
 let tempVec = null;
 let groundHeightData = [0, 0, 0, 0];
+
+let envStore = null;
 
 window.InstanceAPI = new InstanceAPI()
 class ThreeAPI {
@@ -66,7 +69,7 @@ class ThreeAPI {
     };
 
     initEnvironment(store, onReady) {
-
+        envStore = store;
 
         let _this = this;
 
@@ -85,14 +88,23 @@ class ThreeAPI {
             let env = new EnvironmentMaps(store);
             new EnvironmentClouds(store);
             env.call.activateEnvMaps()
+            trnLoaded();
 
-            new ComputeTerrain(store, trnLoaded);
         };
 
         this.threeEnvironment.loadEnvironmentData(onLoaded);
 
-
     };
+
+    initComputeTerrain(onReady) {
+        function trnLoaded() {
+            new VegetationGrid('vegetation_w20');
+            new VegetationGrid('vegetation_w20_near');
+            new GroundBoundLodGrid('ground_lod_grid')
+            setTimeout(onReady, 100)
+        }
+        new ComputeTerrain(envStore, trnLoaded);
+    }
 
     initThreeScene(containerElement, pxRatio, antialias) {
         //

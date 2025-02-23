@@ -1,0 +1,43 @@
+[
+  {
+    "id": "UI_CAMERA",
+    "ui": "DomControlButtonRow",
+    "html": "ui_cam_controls",
+    "class": "ui_cam_controls",
+    "selections": [
+      {
+        "sample": "PRESS",
+        "select": "CAM_ORBIT",
+        "label": "Orbit",
+        "call": "APPLY_CAMERA_SELECTION",
+        "init": true,
+        "keyAdd": "1"
+      },
+      {
+        "sample": "PRESS",
+        "select": {"point": "CREW_VIEW_PILOT"},
+        "label": "Boss",
+        "call": "APPLY_CAMERA_SELECTION",
+        "init": false,
+        "keyAdd": "2"
+      },
+      {
+        "sample": "PRESS",
+        "select": {"point": "CAT_2_READY"},
+        "label": "Cat 2",
+        "call": "APPLY_CAMERA_SELECTION",
+        "init": false,
+        "keyAdd": "3"
+      },
+      {
+        "sample": "PRESS",
+        "select": {"point": "CAT_1_READY"},
+        "label": "Cat 1",
+        "call": "APPLY_CAMERA_SELECTION",
+        "init": false,
+        "keyAdd": "4"
+      }
+    ],
+    "input_targets": []
+  }
+]

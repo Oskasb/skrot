@@ -2,7 +2,8 @@
   "model": "model_enterprise",
   "physical": "physical_enterprise",
   "points": [
-
+    {"id": "VIEWS",           "file": "points_cvn65_views"},
+    {"id": "HARDPOINTS",      "file": "points_cvn65_hardpoints"}
   ],
   "control_dynamics": [
 

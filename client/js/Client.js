@@ -25,6 +25,7 @@ import {GroundBoundLodGrid} from "./application/grids/GroundBoundLodGrid.js";
 import {VegetationGrid} from "./game/world/plants/VegetationGrid.js";
 import {getSetting} from "./application/utils/StatusUtils.js";
 import {debugDrawControllable} from "./application/utils/DebugUtils.js";
+import {Vector3} from "three/webgpu";
 
 
 let gameWorld = new GameWorld();
@@ -87,17 +88,15 @@ function startGameWorld() {
     function cvn(boat) {
         console.log("CVN ", boat);
         boat.addToScene();
-        elementList.push(boat);
-        new DomMinimap()
-        new VegetationGrid('vegetation_w20');
-        new VegetationGrid('vegetation_w20_near');
-        new GroundBoundLodGrid('ground_lod_grid')
+        player.call.setPlayerActiveControllable(boat);
+    //    new DomMinimap()
+
         function updatePhys() {
             let obj3d = boat.getObj3d();
             let body = obj3d.userData.body;
             ThreeAPI.tempVec3.set(0, 0, -2999999);
             ThreeAPI.tempVec3.applyQuaternion(obj3d.quaternion);
-            ThreeAPI.tempVec3b.set(-0.1, -4, -100);
+            ThreeAPI.tempVec3b.set(-0, -4, -100);
             ThreeAPI.tempVec3b.applyQuaternion(obj3d.quaternion);
         //    ThreeAPI.tempVec3b.add(obj3d.position)
             AmmoAPI.applyForceAtPointToBody(ThreeAPI.tempVec3, ThreeAPI.tempVec3b, body)
@@ -118,10 +117,18 @@ function startGameWorld() {
         if (loadPlanes.length) {
             loadNext()
         } else {
-            getGameWorld().call.loadGamePiece('controllable_enterprise', cvn)
+
         }
     }
 
+ //   function onReady() {
+        getGameWorld().call.loadGamePiece('controllable_enterprise', cvn, [-5000, 0, -100], [0, -1.572, 0])
+ //   }
+
+
+ //   window.ThreeAPI.initComputeTerrain(onReady);
+
+    /*
     const loadPlanes = ['controllable_f14', 'controllable_j29', 'controllable_j35', 'controllable_b52']
 
     function loadNext() {
@@ -131,7 +138,7 @@ function startGameWorld() {
     }
 
     loadNext()
-
+*/
 
     function updateDebug() {
         if (getSetting(ENUMS.Settings.SHOW_PIECE_POINTS) === 1) {

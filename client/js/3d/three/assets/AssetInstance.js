@@ -69,15 +69,13 @@ class AssetInstance {
 
         }
 
-        function instantiate(assetFileName, callback) {
+        function instantiate(assetFileName, pos, rot, callback) {
 
             function onJsonLoaded(data) {
                 settings.json = data;
                 let modelName = settings.json.model;
 
                 function modelLoaded(modelObj3d) {
-
-
 
                     let points = data['points'];
 
@@ -100,6 +98,9 @@ class AssetInstance {
                 }
 
                 loadAssetModel(modelName, modelLoaded, obj3d);
+
+                MATH.rotXYZFromArray(obj3d, rot);
+                MATH.vec3FromArray(obj3d.position, pos)
                 MATH.testVec3ForNaN (obj3d.position)
                 if (settings.json['physical']) {
                     console.log("Load Physical Model", settings.json['physical']);

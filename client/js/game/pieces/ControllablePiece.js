@@ -67,7 +67,7 @@ class ControllablePiece {
         }
     }
 
-    initControllable(id, callback) {
+    initControllable(id, callback, pos, rot) {
 
         let _this = this;
 
@@ -175,7 +175,7 @@ class ControllablePiece {
                 }
             }
 
-            loadAssetInstance(json['controllable'], controllableLoaded)
+            loadAssetInstance(json['controllable'], pos, rot, controllableLoaded)
         }
 
         jsonAsset(id, onData)

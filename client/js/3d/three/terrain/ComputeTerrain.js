@@ -3,7 +3,7 @@ import {loadImageAsset} from "../../../application/utils/DataUtils.js";
 import {
     CanvasTexture,
     Mesh,
-    Object3D,
+    Object3D, Texture,
     Vector3
 } from "../../../../../libs/three/Three.Core.js";
 
@@ -27,7 +27,6 @@ import {evt} from "../../../application/event/evt.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {aaBoxTestVisibility, borrowBox} from "../../../application/utils/ModelUtils.js";
 import * as TerrainFunctions from "./TerrainFunctions.js";
-import {setHeightTxOcean} from "../water/Ocean.js";
 import {
     MeshBasicNodeMaterial,
     MeshLambertNodeMaterial, MeshPhongNodeMaterial
@@ -101,7 +100,7 @@ const WORLD_BOX_MAX = uniform(worldBox.max).label('WORLD_BOX_MAX');
 
 const GROUND_TILES = uniform(8);
 
-let heightTx;
+let heightTx = texture(new Texture());
 let terrainTx;
 
 function getWorldBoxMax() {
@@ -383,8 +382,8 @@ class ComputeTerrain {
 
         function setupTerrain(tiles32geo) {
 
-            heightTx = texture(heightCanvasTx);
-            setHeightTxOcean(heightTx)
+            heightTx.value = heightCanvasTx;
+            heightTx.needsUpdate = true;
             terrainTx = texture(terrainCanvasTx);
 
             BOUND_VERTS = heightData.length / 4;

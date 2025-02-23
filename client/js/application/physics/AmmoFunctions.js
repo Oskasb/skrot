@@ -1199,6 +1199,7 @@ class AmmoFunctions {
             }
             rigidBody.forceActivationState(STATE.ACTIVE);
             rigidBody.dataKey = dataKey;
+            MATH.vec3FromArray(position, pos);
             setBodyTransform(rigidBody, position, quaternion);
             onReady(rigidBody)
             return;

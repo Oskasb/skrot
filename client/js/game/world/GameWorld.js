@@ -5,9 +5,9 @@ let pieces = []
 class GameWorld {
     constructor() {
 
-        function loadGamePiece(name, callback) {
+        function loadGamePiece(name, callback, pos, rot) {
             let controllable = poolFetch('ControllablePiece');
-            controllable.initControllable(name, callback);
+            controllable.initControllable(name, callback, pos, rot);
         }
 
         function update() {

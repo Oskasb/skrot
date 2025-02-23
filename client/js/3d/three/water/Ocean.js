@@ -59,10 +59,9 @@ import {loadAssetMaterial} from "../../../application/utils/AssetUtils.js";
 let heightTx;
 
 
-
-
 class Ocean {
     constructor(store) {
+
 
         const WORLD_BOX_MAX = getWorldBoxMax();
 
@@ -259,7 +258,7 @@ class Ocean {
 
                 const centerNess = max(0, cX.mul(cZ));
 
-                const gain = 4;
+                const gain = 2;
 
                 const height = time.add(pX.sub(camOffsetPos.x).mul(bnd.z.mul(3))).sin().add(pZ.sub(camOffsetPos.z).mul(bnd.z.mul(2))).cos().mul(gain);
                 varyingProperty( 'vec3', 'v_normalView' ).assign(transformNormalToView( vec3(0.5, 0.5, height.mul(centerNess).div(gain)).normalize())  );
@@ -434,11 +433,7 @@ class Ocean {
 
 }
 
-function setHeightTxOcean(tx) {
-    heightTx = tx;
-}
 
 export {
-    Ocean,
-    setHeightTxOcean
+    Ocean
 }

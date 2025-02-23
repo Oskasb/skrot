@@ -20,6 +20,11 @@ class DomControlButtonRow {
             for (let i =0; i < statusMap['selections'].length; i++) {
                 let selection = statusMap['selections'][i];
                 let select = selection['select'];
+                if (typeof (selection['select']) !== 'string') {
+                    select = select['point'];
+                }
+
+
                 let inputDragPointer =  statusMap[select].pointer
                 inputDragPointer.call.updateKeyState();
                 let surface = statusMap[select].surface
@@ -34,7 +39,7 @@ class DomControlButtonRow {
                         addElementClass(inputElement, 'button_input_pressed');
                         currentSelection = select;
                         statusMap[select].active = pressActive;
-                        selectCalls[selection.call](select);
+                        selectCalls[selection.call](selection['select']);
                     }
                 }
 
@@ -57,6 +62,9 @@ class DomControlButtonRow {
                 let selection = statusMap['selections'][i];
                 let label = selection['label'] || "Label";
                 let select = selection['select'];
+                if (typeof (selection['select']) !== 'string') {
+                    select = select['point'];
+                }
                 let surface = createDivElement(container, "surface_"+i, null, 'row_button_surface')
                 let inputElement =createDivElement(surface, "btn_"+i, label, 'button_input_feedback')
                 let opts = [

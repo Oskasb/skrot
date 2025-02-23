@@ -139,9 +139,9 @@ function loadBatchGeometry(fileName, callback) {
 
 }
 
-function loadAssetInstance(assetName, callback) {
+function loadAssetInstance(assetName, pos, rot, callback) {
     let instance = poolFetch('AssetInstance')
-    instance.call.instantiate(assetName, callback);
+    instance.call.instantiate(assetName,pos, rot, callback);
 }
 
 function applyMaterial(mesh, materialName) {
