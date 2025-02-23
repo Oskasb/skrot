@@ -133,7 +133,7 @@ function loadEditIndex(cb) {
         }
 
         edit_index = data;
-        server.writeFile(rootPath+"/"+editsFolder+"/json/setup/index.json", JSON.stringify(data), writeCB)
+        server.writeFile(rootPath+"/"+editsFolder+"/json/index.json", JSON.stringify(data), writeCB)
     }
 
     setEditIndex({});

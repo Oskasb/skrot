@@ -225,7 +225,7 @@ class Client{
 
     loadDataIndex(loadCB) {
 
-        loadEditIndex("data/json/setup/index.json" ,loadCB)
+        loadEditIndex("data/json/index.json" ,loadCB)
     }
 
     initClient() {
