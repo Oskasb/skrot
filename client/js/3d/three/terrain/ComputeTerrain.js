@@ -1,15 +1,12 @@
 
-import {getFrame, loadImageAsset, loadModelAsset} from "../../../application/utils/DataUtils.js";
+import {loadImageAsset} from "../../../application/utils/DataUtils.js";
 import {
-    AddOperation,
-    CanvasTexture, CustomBlending, DstAlphaFactor, DstColorFactor,
-    Mesh, MultiplyOperation,
-    Object3D, OneFactor, OneMinusDstAlphaFactor, OneMinusDstColorFactor, OneMinusSrcAlphaFactor,
-    PlaneGeometry, SrcAlphaFactor, SrcColorFactor, SubtractEquation,
-    SubtractiveBlending,
+    CanvasTexture,
+    Mesh,
+    Object3D,
     Vector3
 } from "../../../../../libs/three/Three.Core.js";
-import MeshStandardNodeMaterial from "../../../../../libs/three/materials/nodes/MeshStandardNodeMaterial.js";
+
 import {
     add, cross, Discard,
     floor,
@@ -130,6 +127,16 @@ function customOceanUv() {
     const scaleDiv = GROUND_TILES.add(2.2)
     const scaleTile = GROUND_TILES.mul(0.55)
     const vPosition = varyingProperty( 'vec3', 'v_positionFinal' );
+    const vFoam = varyingProperty( 'float', 'foam' );
+
+    const posx = vPosition.x //.sub(positionWorld.x)
+    const posy = vPosition.y //.sub(positionWorld.z)
+    const offsetX = time.mul(0.3).add(posx.add(posy.mul(0.01)).mul(0.02)).sin().sub(0.5)
+    const offsetY = time.mul(0.5).add(posy.add(posx.mul(0.01)).mul(0.02)).cos().sub(0.5)
+    const timeSin = offsetX.add(offsetY).mul(0.5);
+
+    const foam = vFoam.add(timeSin);
+
     const posXLoc = vPosition.x;
     const posZLoc = vPosition.y.mul(-1);
 
@@ -142,7 +149,7 @@ function customOceanUv() {
     const heightSample = heightTx.sample(globalUv);
     const rgbSum = heightSample.r.mul(0.01).add(heightSample.g.mul(0.1)).add(heightSample.b)
   //  const shoreline =  max(0, min(1, height.pow(4)));
-    const shoreline = floor(rgbSum.mul(99));
+    const shoreline = max(0, floor(rgbSum.mul(99).add(foam)));
 //
 //    const terrainRGBA = terrainTx.sample(globalUV);
 

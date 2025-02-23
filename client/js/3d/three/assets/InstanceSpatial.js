@@ -2,7 +2,7 @@ import {Vector3} from "../../../../../libs/three/math/Vector3.js";
 
 let testVec3ForNaN = function(vec3) {
     if (isNaN(vec3.x) || isNaN(vec3.y) || isNaN(vec3.z)) {
-        console.log("Spatial Vec3 is NaN.. investigate!")
+    //    console.log("Spatial Vec3 is NaN.. investigate!")
         vec3.x = 0;
         vec3.y = 0;
         vec3.z = 0

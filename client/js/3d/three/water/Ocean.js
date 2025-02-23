@@ -26,6 +26,8 @@ import {
     transformNormalToView,
     uniform,
     varyingProperty,
+    positionWorld,
+    positionView,
     vec2,
     vec3,
     vertexIndex,
@@ -168,20 +170,41 @@ class Ocean {
             } )();
 
 
-            function oceanShoreness() {
+            function oceanFoam() {
 
-                const posx = positionLocal.x
-                const posy = positionLocal.y
-                const timeSin = time.add(posx.mul(0.01), posy.mul(0.012)).sin();
-                const waveA = cos(add(add(mul(timeSin, 65), add(posx, posy)), posx).mul(0.011));
-                const waveB = sin(add(add(mul(timeSin, 75), mul(add(posx, posy), 1.1)), posy).mul(0.012));
+                //const localPos = instancePosition //Local;
+                //const camPos = positionWorld;
+                const vPosition = varyingProperty( 'vec3', 'v_positionFinal' );
+                const posx = vPosition.x //.sub(positionWorld.x)
+                const posy = vPosition.y //.sub(positionWorld.z)
+                const offset = posx.mul(0.3).add(posy.mul(0.3))
+                const timeSin = time.mul(0.2).sin();
+                return timeSin.mul(0.2);
 
-                const boxMaxX = WORLD_BOX_MAX.x;
-                const boxMaxY = WORLD_BOX_MAX.z;
-                const globalUV = vec2(waveA.mul(10).add(posx).div(boxMaxX), waveB.mul(10).add(posy).div(boxMaxY).mul(-1));
-                const heightSample = heightTx.sample(globalUV);
-                const height = heightSample.r.mul(0.01).add(heightSample.g.mul(0.1)).add(heightSample.b);
-                return max(0, min(1, height.mul(add(waveA.add(1).add(waveB.add(1)).mul(0.5), 2)).mul(4)));
+                const waveA = cos(add(add(mul(timeSin, 4), add(posx, posy)), posx).mul(0.5));
+                const waveB = sin(add(add(mul(timeSin, 4), mul(add(posx, posy), 1.1)), posy).mul(0.5));
+
+                const waveAx = posx.add(time.add(posy.mul(0.1)).cos().mul(0.05));
+                const waveBx = posy.add(time.add(posx.mul(0.1)).sin().mul(0.05));
+
+                const waveSum = timeSin.mul(1.0).sub(0.5) // waveA.add(waveB) // .add(waveAx).add(waveBx);
+
+                const indexX = min(BOUNDS, max(0, waveAx.mod(BOUNDS_TILES).div(TILE_SIZE)));
+                const indexY = min(BOUNDS, max(0, waveBx.mod(BOUNDS_TILES).div(TILE_SIZE)));
+                const indXFloor = floor(indexX)
+                const indYFloor = floor(indexY)
+                const tileDx = indexX.sub(indXFloor);
+                const tileDy = indexY.sub(indYFloor);
+                const uvIndex = indXFloor.mul(indYFloor)
+                const foamMax = foamStorage.element( uvIndex );
+                return waveSum;
+                const foamFade = max(0, foamMax.mul(tileDx.mul(3.14).sin().mul(tileDy.mul(3.14).sin())));
+                const modulate = foamFade.mul(time.mul(0.8).sin().add(posx.mul(2.6).sin().add(posy.mul(2.6).sin())).abs());
+                const bubbleMod = time.mul(0.4).sin().add(1).mul(0.5).mul(22)
+
+                const foam = max(0, foamFade.mul(tileDx.mul(bubbleMod).add(posx).sin().mul(tileDy.mul(bubbleMod).add(posy).sin()))).add(modulate);
+                return foam;
+                // return max(foam, min(1, height.mul(add(waveA.add(1).add(waveB.add(1)).mul(0.5), 2)).mul(4)));
             }
 
                 waterMaterial.lights = true
@@ -208,65 +231,11 @@ class Ocean {
                     const bubbleMod = time.mul(0.4).sin().add(1).mul(0.5).mul(22)
 
                     const foam = max(0, foamFade.mul(tileDx.mul(bubbleMod).add(posx).sin().mul(tileDy.mul(bubbleMod).add(posy).sin()))).add(modulate).add(shoreness);
-                //    varyingProperty( 'float', 'foam' ).assign(foam);
 
-                    const white = vec3(1, foam, ONE.sub(foam));
                     return foam;
 
                 } )();
 
-                waterMaterial.colorNode_ = Fn( () => {
-
-
-                    const shoreness = oceanShoreness();
-
-                    const posNode = positionLocal;
-                    const posx = posNode.y
-                    const posy = posNode.x
-
-                    const waveAx = posx.add(time.add(posy.mul(0.1)).cos().mul(5));
-                    const waveBx = posy.add(time.add(posx.mul(0.1)).sin().mul(5));
-
-                    const indexX = min(BOUNDS, max(0, waveAx.mod(BOUNDS_TILES).div(TILE_SIZE)));
-                    const indexY = min(BOUNDS, max(0, waveBx.mod(BOUNDS_TILES).div(TILE_SIZE)));
-
-                    const indXFloor = floor(indexX)
-                    const indYFloor = floor(indexY)
-
-                    const tileDx = indexX.sub(indXFloor);
-                    const tileDy = indexY.sub(indYFloor);
-
-                    const uvIndex = indXFloor.mul(indYFloor)
-
-                    const foamMax = foamStorage.element( uvIndex );
-                //    foamStorage.element( uvIndex ).assign(1)
-
-                    const foamFade = max(0, foamMax.mul(tileDx.mul(3.14).sin().mul(tileDy.mul(3.14).sin())));
-                    const modulate = foamFade.mul(time.mul(0.8).sin().add(posx.mul(2.6).sin().add(posy.mul(2.6).sin())).abs());
-
-                    const bubbleMod = time.mul(0.4).sin().add(1).mul(0.5).mul(22)
-                    const foam = max(0, foamFade.mul(tileDx.mul(bubbleMod).add(posx).sin().mul(tileDy.mul(bubbleMod).add(posy).sin()))).add(modulate).add(shoreness);
-
-                    const waveA = cos(add(add(1, add(posx, posy)), posx).mul(0.0005));
-                    const waveB = sin(add(add(1, mul(add(posx, posy), 0.9)), posy).mul(0.0003));
-
-                    const waveAp = waveA.add(cos(posy.mul(0.0003)));
-                    const waveBp = waveB.add(sin(posx.mul(0.0005)));
-                    const bigWaveNm = vec3(waveAp, 1, waveBp).normalize();
-
-                    const sunColor = uniform( envUnifs.sun );
-                    const fogColor = uniform( envUnifs.fog );
-                    const ambColor = uniform( envUnifs.ambient );
-
-                    const white = vec3(1, 1, 1);
-                    const waterColor = vec3(0.4, 0.7, 0.99).mul(sunColor);
-                    const blendColor = mix(waterColor, ambColor.mul(0.7), bigWaveNm.x.mul(0.3));
-                    const blend2Color = mix(blendColor, fogColor, bigWaveNm.z.mul(0.3));
-
-                 //   return heightSample.mul(10);
-                    return mix(blendColor, white, foam.add(shoreness.pow(12)));
-
-                } )();
 
             waterMaterial.positionNode = Fn( () => {
                 const { camPos } = effectController;
@@ -294,47 +263,14 @@ class Ocean {
 
                 const height = time.add(pX.sub(camOffsetPos.x).mul(bnd.z.mul(3))).sin().add(pZ.sub(camOffsetPos.z).mul(bnd.z.mul(2))).cos().mul(gain);
                 varyingProperty( 'vec3', 'v_normalView' ).assign(transformNormalToView( vec3(0.5, 0.5, height.mul(centerNess).div(gain)).normalize())  );
-                varyingProperty( 'float', 'foam' ).assign(0);
+
 
                 const vPosition = vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
-
                 varyingProperty( 'vec3', 'v_positionFinal' ).assign(vPosition);
+                varyingProperty( 'float', 'foam' ).assign(oceanFoam());
                 return vPosition;
 
-
             } )()
-
-            waterMaterial.positionNode_ = Fn( () => {
-                const { camPos } = effectController;
-
-                const index = vertexIndex // .toVar();
-                const xIndex = floor(index.div(WIDTH));
-                const yIndex = floor(index.sub(xIndex.mul(WIDTH)));
-                const uvX = xIndex.div(WIDTH).sub(0.5)
-                const uvY = yIndex.div(WIDTH).sub(0.5)
-                const pX = uvX.mul(BOUNDS)
-                const pZ = uvY.mul(BOUNDS)
-                const camOffsetPos = vec3(floor(camPos.x.div(TILE_SIZE)).mul(TILE_SIZE), 0 , floor(camPos.z.div(TILE_SIZE)).mul(TILE_SIZE));
-                const globalPos = vec3(pX, 0, pZ).add(camOffsetPos);
-
-                const bnd = vec3(BOUNDS, 1, TILE_SIZE);
-
-                const cX = bnd.y.sub(uvX.mul(2.2).abs()); // ;
-                const cZ = bnd.y.sub(uvY.mul(2.2).abs());
-
-                const edgeX = uvX.mul(uvX.abs().mul(2.2).pow(100).mul(100));
-                const edgeZ = uvY.mul(uvY.abs().mul(2.2).pow(100).mul(100));
-
-                const centerNess = max(0, cX.mul(cZ));
-
-                const height = time.add(pX.sub(camOffsetPos.x).mul(bnd.z.mul(3))).sin().add(pZ.sub(camOffsetPos.z).mul(bnd.z.mul(2))).cos().mul(2.3);
-                varyingProperty( 'vec3', 'v_normalView' ).assign(transformNormalToView( vec3(1, 1, height.mul(centerNess)).normalize())  );
-                //       varyingProperty( 'vec3', 'v_normalView' ).assign( vec3(1, 1, 0).normalize()  );
-                const finalPosition = vec3( globalPos.x.add(edgeX), globalPos.z.add(edgeZ), height.mul(centerNess));
-
-                return finalPosition;
-
-                } )();
 
                 waterMesh = new Mesh( waterGeometry, waterMaterial );
                 waterMesh.rotation.x = - Math.PI / 2;
