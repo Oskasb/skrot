@@ -10,7 +10,7 @@
             {"file":"f14_instrument_glass", "material": "material_f14_instrument_glass"}
           ],
           "skeleton_file": "f14_fuselage_rig",
-          "rotation": [0, 0, 0],
+          "rotation": [3.14159,  3.14159,  0],
           "scale": [0.1, 0.1, 0.1]
         }
 

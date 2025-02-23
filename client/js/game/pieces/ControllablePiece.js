@@ -67,6 +67,12 @@ class ControllablePiece {
         }
     }
 
+    detachUi() {
+        for (let key in this.ui) {
+            this.ui[key].call.close()
+        }
+    }
+
     initControllable(id, callback, pos, rot) {
 
         let _this = this;
@@ -234,6 +240,11 @@ class ControllablePiece {
             return 0;
         }
     }
+
+    closeControllablePiece() {
+        this.assetInstance.call.closeInstance();
+    }
+
 
 }
 

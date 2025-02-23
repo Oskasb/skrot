@@ -44,9 +44,10 @@ class ModelAsset {
             for (let i = 0; i < geometries.length; i++) {
                 let clone = geometries[i].call.cloneToParent(obj3d, getAssetMaterialName(geometries[i].call.getFileName()))
                 MATH.vec3FromArray(clone.scale, settings.scale);
-                MATH.rotateObj(clone, settings.rotation);
+            //    MATH.rotateObj(clone, settings.rotation);
                 if (settings.skeletonGeometry === geometries[i]) {
                     skeleton = clone.skeleton;
+                    MATH.rotateObj(skeleton.bones[0], settings.rotation);
                 }
             }
 

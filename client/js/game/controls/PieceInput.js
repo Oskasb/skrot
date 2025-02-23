@@ -79,8 +79,13 @@ class PieceInput {
             domUiElement.call.initElement(statusMap, 'ui/'+json['html'], json['class'], elemReady)
         }
 
+        function close() {
+            domUiElement.call.closeElement();
+        }
+
         this.call = {
-            update:update
+            update:update,
+            close:close
         }
 
     }

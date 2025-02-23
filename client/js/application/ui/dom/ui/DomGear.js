@@ -66,11 +66,16 @@ class DomGear {
             element.initHtmlElement(url, null, statusMap, styleClass, elemReady);
         }
 
-        this.call = {
-            update:update,
-            initElement:initElement
+        function closeElement() {
+            htmlElement.closeHtmlElement()
+            ThreeAPI.unregisterPrerenderCallback(update);
         }
 
+        this.call = {
+            update:update,
+            initElement:initElement,
+            closeElement:closeElement
+        }
     }
 }
 

@@ -76,15 +76,16 @@ class DomThumbstick {
             element.initHtmlElement(url, null, statusMap, styleClass, elemReady);
         }
 
-        function close() {
-            htmlElement.closeHtmlElement();
+
+        function closeElement() {
+            htmlElement.closeHtmlElement()
             ThreeAPI.unregisterPrerenderCallback(update);
         }
 
         this.call = {
             update:update,
             initElement:initElement,
-            close:close
+            closeElement:closeElement
         }
 
     }

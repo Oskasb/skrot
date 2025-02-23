@@ -30,6 +30,8 @@ let groundHeightData = [0, 0, 0, 0];
 
 let envStore = null;
 
+let loadedTerrain = null;
+
 window.InstanceAPI = new InstanceAPI()
 class ThreeAPI {
 
@@ -97,13 +99,19 @@ class ThreeAPI {
     };
 
     initComputeTerrain(onReady) {
+
+        if (loadedTerrain !== null) {
+            onReady();
+            return;
+        }
+
         function trnLoaded() {
             new VegetationGrid('vegetation_w20');
             new VegetationGrid('vegetation_w20_near');
             new GroundBoundLodGrid('ground_lod_grid')
             setTimeout(onReady, 100)
         }
-        new ComputeTerrain(envStore, trnLoaded);
+        loadedTerrain = new ComputeTerrain(envStore, trnLoaded);
     }
 
     initThreeScene(containerElement, pxRatio, antialias) {

@@ -16,12 +16,19 @@ class PlayerCamera {
 
         let params = null;
 
+        let currentControllable = null;
+
         function updateCamera() {
+
+
             if (camFunction !== null) {
-
-
-
-                cameraFunctions[camFunction](player.call.getPlayerControllable(), orbitControls, selectedPoint, params)
+                const target = player.call.getPlayerControllable()
+                if (currentControllable !== target) {
+                    camFunction = 'CAM_ORBIT';
+                    currentControllable = target;
+                    return;
+                }
+                cameraFunctions[camFunction](target, orbitControls, selectedPoint, params)
             } else {
                 cameraFunctions['CAM_WORLD'](player.call.getObj3d().position, orbitControls)
             }
@@ -29,8 +36,8 @@ class PlayerCamera {
         }
 
         function initCamera() {
-            camera.position.set( 1199, 62, 3495 );
-            orbitControls.target.set( 1402, 1 , 3565);
+            camera.position.set( 1369, 52, 3525 );
+            orbitControls.target.set( 1402, 41 , 3565);
             ThreeAPI.getCameraCursor().getPos().copy(orbitControls.target)
             player.call.getObj3d().position.copy(orbitControls.target)
             orbitControls.update();

@@ -141,8 +141,14 @@ class AssetInstance {
             ThreeAPI.removeFromScene(obj3d);
         }
 
+        function closeInstance() {
+            removeFromScene();
+            closeAsset();
+        }
+
         this.call = {
             instantiate:instantiate,
+            closeInstance:closeInstance,
             setPos:setPos,
             setQuat:setQuat,
             getObj3d:getObj3d,

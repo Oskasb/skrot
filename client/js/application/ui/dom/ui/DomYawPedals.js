@@ -76,9 +76,15 @@ class DomYawPedals {
             element.initHtmlElement(url, null, statusMap, styleClass, elemReady);
         }
 
+        function closeElement() {
+            htmlElement.closeHtmlElement()
+            ThreeAPI.unregisterPrerenderCallback(update);
+        }
+
         this.call = {
             update:update,
-            initElement:initElement
+            initElement:initElement,
+            closeElement:closeElement
         }
 
     }

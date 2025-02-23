@@ -1,0 +1,39 @@
+[
+  {
+    "id": "UI_SCENARIO",
+    "ui": "DomControlButtonRow",
+    "html": "ui_cam_controls",
+    "class": "ui_scenario_cvn65",
+    "selections": [
+      {
+        "sample": "PRESS",
+        "select": "scenario_idle",
+        "label": "Idle",
+        "call": "APPLY_SCENARIO",
+        "init": true
+      },
+      {
+        "sample": "PRESS",
+        "select": "scenario_launch",
+        "label": "Launch",
+        "call": "APPLY_SCENARIO",
+        "init": false
+      },
+      {
+        "sample": "PRESS",
+        "select": "scenario_land",
+        "label": "Land",
+        "call": "APPLY_SCENARIO",
+        "init": false
+      },
+      {
+        "sample": "PRESS",
+        "select": "scenario_island",
+        "label": "Island",
+        "call": "APPLY_SCENARIO",
+        "init": false
+      }
+    ],
+    "input_targets": []
+  }
+]

@@ -55,7 +55,7 @@ function startGameWorld() {
     new DomWorldHud();
     setGameWorld(gameWorld);
     gameWorld.initGameWorld();
-
+/*
     let elementList = [];
     function worldElementClick(e) {
         console.log("Click Controllable Button", e.target.value);
@@ -65,24 +65,19 @@ function startGameWorld() {
     }
     let buttonLayer = new DomWorldButtonLayer();
     buttonLayer.initWorldButtonLayer(elementList, 'PICK', worldElementClick);
+    */
+    /*
+        let thumbstick = new DomThumbstick();
+        let sMap = {
+            controls:orbitControls,
+            camera:ThreeAPI.getCamera(),
+            playeplayer
+        }
 
-    let thumbstick = new DomThumbstick();
-    let sMap = {
-        controls:orbitControls,
-        camera:ThreeAPI.getCamera(),
-        player:player
-    }
-
-
-
-    function stickReady() {
-
-    }
-
-    thumbstick.call.initElement(sMap, 'ui/ui_thumb_stick', 'ui_flight_stick', stickReady)
-
-
-
+    /*
+        function stickReady() {}
+        thumbstick.call.initElement(sMap, 'ui/ui_thumb_stick', 'ui_flight_stick', stickReady)
+    */
 
  //   player.enterWorld('controllable_f14')
     function cvn(boat) {
@@ -140,15 +135,7 @@ function startGameWorld() {
     loadNext()
 */
 
-    function updateDebug() {
-        if (getSetting(ENUMS.Settings.SHOW_PIECE_POINTS) === 1) {
-            for (let i = 0; i < elementList.length; i++) {
-                debugDrawControllable(elementList[i]);
-            }
-        }
-    }
 
-    ThreeAPI.registerPrerenderCallback(updateDebug)
 
 
 }

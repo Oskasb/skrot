@@ -10,64 +10,56 @@
         "select": "1",
         "label": "Sunrise",
         "call": "APPLY_ENV_SELECTION",
-        "init": true,
-        "keyAdd": "1"
+        "init": false
       },
       {
         "sample": "PRESS",
         "select": "2",
         "label": "Morning",
         "call": "APPLY_ENV_SELECTION",
-        "init": false,
-        "keyAdd": "2"
+        "init": false
       },
       {
         "sample": "PRESS",
         "select": "3",
         "label": "Early Day",
         "call": "APPLY_ENV_SELECTION",
-        "init": false,
-        "keyAdd": "3"
+        "init": true
       },
       {
         "sample": "PRESS",
         "select": "4",
         "label": "Day",
         "call": "APPLY_ENV_SELECTION",
-        "init": false,
-        "keyAdd": "3"
+        "init": false
       },
       {
         "sample": "PRESS",
         "select": "5",
         "label": "Noon",
         "call": "APPLY_ENV_SELECTION",
-        "init": false,
-        "keyAdd": "4"
+        "init": false
       },
       {
         "sample": "PRESS",
         "select": "6",
         "label": "Evening",
         "call": "APPLY_ENV_SELECTION",
-        "init": false,
-        "keyAdd": "5"
+        "init": false
       },
       {
         "sample": "PRESS",
         "select": "7",
         "label": "Sunset",
         "call": "APPLY_ENV_SELECTION",
-        "init": false,
-        "keyAdd": "5"
+        "init": false
       },
       {
         "sample": "PRESS",
         "select": "8",
         "label": "Night",
         "call": "APPLY_ENV_SELECTION",
-        "init": false,
-        "keyAdd": "5"
+        "init": false
       }
     ],
     "input_targets": []

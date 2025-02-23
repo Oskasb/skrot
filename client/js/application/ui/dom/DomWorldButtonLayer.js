@@ -107,12 +107,13 @@ class DomWorldButtonLayer {
 
         }
 
+        const btnLayer = this;
+
         let close = function() {
             ThreeAPI.unregisterPrerenderCallback(update)
             while (buttonDivs.length) {
                 removeDivElement(buttonDivs.pop());
             }
-            poolReturn(this);
         }.bind(this);
 
         this.call = {

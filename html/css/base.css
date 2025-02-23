@@ -372,6 +372,17 @@ iframe.ui_env_select_cvn65 {
     color: #ecffdc;
 }
 
+iframe.ui_scenario_cvn65 {
+    z-index: 100000;
+    top: 250em;
+    left: 20em;
+    width: 600em;
+    height: 74em;
+    position: absolute;
+    border: none;
+    color: #ecffdc;
+}
+
 iframe.ui_power {
     z-index: 100000;
     bottom: 60em;
