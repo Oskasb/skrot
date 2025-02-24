@@ -6,10 +6,12 @@ import {SimpleStatus} from "../../application/setup/SimpleStatus.js";
 import {ENUMS} from "../../application/ENUMS.js";
 import {evt} from "../../application/event/evt.js";
 import {bodyTransformToObj3d} from "../../application/utils/PhysicsUtils.js";
+import {poolFetch, poolReturn} from "../../application/utils/PoolUtils.js";
 
 let tempObj = new Object3D();
 let tempObj2 = new Object3D();
 let tempVec = new Vector3();
+let tempVec2 = new Vector3();
 
 class DynamicPoint {
     constructor(assetInstance, config, groupName) {
@@ -17,7 +19,9 @@ class DynamicPoint {
         this.json = config;
         this.groupName = groupName;
         const stateInfo = {
-            value:0
+            value:0,
+            forwardOffset:0,
+            offsetVel:new Vector3()
         };
 
         const status = new SimpleStatus();
@@ -157,9 +161,23 @@ class DynamicPoint {
                 MATH.rotateObj(obj3d, config.rot);
             }
 
+            if (stateInfo.forwardOffset !== 0) {
+                tempVec2.copy(stateInfo.offsetVel)
+                tempVec.set(0, 0, stateInfo.forwardOffset);
+                tempVec.applyQuaternion(obj3d.quaternion);
+                stateInfo.offsetVel.copy(tempVec);
+                stateInfo.offsetVel.sub(tempVec2);
+            //    stateInfo.offsetVel.multiplyScalar(100)
+                obj3d.position.add(tempVec);
+            } else {
+                stateInfo.offsetVel.set(0, 0, 0);
+            }
+
 
             return true;
         }
+
+
 
         function getObj3d() {
             return obj3d;
@@ -182,6 +200,7 @@ class DynamicPoint {
             tempVec.applyQuaternion(tempObj.quaternion)
             tempVec.crossVectors(bodyAngularVelocity, tempVec) // .multiplyScalar(1.5);
             velocity.add(tempVec)
+            velocity.add(stateInfo.offsetVel)
         }
 
         let getPointVelocity = function() {
@@ -212,6 +231,27 @@ class DynamicPoint {
             status.setStatusKey(ENUMS.PointStatus.FORCE_Z, vec3.z * 0.000001);
         }
 
+
+        const trsCompletedCBs = [];
+
+        function transitionEnded(offset, trs) {
+            while (trsCompletedCBs.length) {
+                trsCompletedCBs.pop()()
+            }
+            poolReturn(trs);
+            stateInfo.forwardOffset = 0;
+        }
+
+        function setForwardOffset(offset) {
+            stateInfo.forwardOffset = offset;
+        }
+
+        function transitionPosForward(distance, time, onCompletedCB) {
+            trsCompletedCBs.push(onCompletedCB);
+            const trs = poolFetch('ScalarTransition')
+            trs.initScalarTransition(0, distance, time, transitionEnded, 'curveQuad', setForwardOffset)
+        }
+
         this.call = {
             getObj3d:getObj3d,
             updateObj3d:updateObj3d,
@@ -220,7 +260,8 @@ class DynamicPoint {
             addPointStateChangeCallback:addPointStateChangeCallback,
             removePointStateChangeCallback:removePointStateChangeCallback,
             setPointStateValue:setPointStateValue,
-            setAppliedForce:setAppliedForce
+            setAppliedForce:setAppliedForce,
+            transitionPosForward:transitionPosForward
         }
 
     }

@@ -14,22 +14,22 @@
       },
       {
         "sample": "PRESS",
-        "select": "scenario_launch",
-        "label": "Launch",
+        "select": "scenario_launch_f14",
+        "label": "F14",
         "call": "APPLY_SCENARIO",
         "init": false
       },
       {
         "sample": "PRESS",
-        "select": "scenario_land",
-        "label": "Land",
+        "select": "scenario_launch_j29",
+        "label": "J29",
         "call": "APPLY_SCENARIO",
         "init": false
       },
       {
         "sample": "PRESS",
-        "select": "scenario_island",
-        "label": "Island",
+        "select": "scenario_fill",
+        "label": "MAX",
         "call": "APPLY_SCENARIO",
         "init": false
       }

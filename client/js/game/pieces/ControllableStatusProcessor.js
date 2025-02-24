@@ -51,12 +51,12 @@ function sampleSpatialState(controllable) {
             assetStatus.setStatusKey(ENUMS.InstanceStatus.SLAT_ENGAGE, 0);
         }
 
-        if (MATH.valueIsBetween(mach, 0.6, 1.5)) {
+        if (MATH.valueIsBetween(mach, 0.6, 1.7)) {
             assetStatus.setStatusKey(ENUMS.InstanceStatus.CANARD_ENGAGE, MATH.clamp(Math.abs(pitchInput)*2), 0, 1);
         }
 
-        if (mach > 0.65) {
-            const sweep = MATH.clamp(MATH.calcFraction(0.65, 0.99, mach), 0, 1);
+        if (mach > 0.5) {
+            const sweep = MATH.clamp(MATH.calcFraction(0.5, 0.95, mach), 0, 1);
             assetStatus.setStatusKey(ENUMS.InstanceStatus.SWEEP_ENGAGE, sweep);
         } else {
             assetStatus.setStatusKey(ENUMS.InstanceStatus.SWEEP_ENGAGE, 0);

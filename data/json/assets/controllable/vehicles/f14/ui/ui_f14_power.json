@@ -5,7 +5,7 @@
     "html": "ui_power",
     "class": "ui_power",
     "input_targets": [
-      {"sample":"AXIS_Y", "target":"INPUT_POWER", "init": 0}
+      {"sample":"AXIS_Y", "target":"INPUT_POWER", "init": 1}
     ]
   }
 ]

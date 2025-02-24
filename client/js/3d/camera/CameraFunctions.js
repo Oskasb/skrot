@@ -16,6 +16,9 @@ let tempObj = new Object3D();
 function CAM_ORBIT(controllable, orbitControls) {
     const pointName = 'CREW_VIEW_PILOT';
     const point = controllable.getDynamicPoint(pointName);
+    if (!point) {
+        return;
+    }
     point.updateDynamicPoint()
     tempVec.set(0, 1, 0);
     lastCamPos.copy(orbitControls.target);

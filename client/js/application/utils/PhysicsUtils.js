@@ -197,10 +197,13 @@ function transformBody(objd3, body) {
 }
 
 function setBodyVelocity(body, vel) {
-    const ammoVel = body.getLinearVelocity();
-    ammoVel.setX(vel.x);
-    ammoVel.setY(vel.y);
-    ammoVel.setZ(vel.z);
+  //  const ammoVel = body.getLinearVelocity();
+    const VECTOR_AUX = AmmoAPI.getAuxVector3();
+    VECTOR_AUX.setX(vel.x*2);
+    VECTOR_AUX.setY(vel.y*2);
+    VECTOR_AUX.setZ(vel.z*2);
+    body.activate();
+    body.setLinearVelocity(VECTOR_AUX)
 }
 
 function physicalIntersection(pos, insideVec3) {

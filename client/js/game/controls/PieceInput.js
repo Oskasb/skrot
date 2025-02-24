@@ -44,6 +44,10 @@ class PieceInput {
             for (let i = 0; i < dynamicTargets.length; i++) {
                 let dynamicId = dynamicTargets[i].dynamic;
                 let dynamic = controllablePiece.assetInstance.getControlDynamic(dynamicId)
+                if (typeof (setValue) === 'number') {
+                    dynamic.setTargetState(setValue);
+                    dynamic.state.value = setValue;
+                }
                 if (!dynamic) {
                     statusMap[dynamicId] = 0;
                 } else {
@@ -90,7 +94,7 @@ class PieceInput {
 
         function setInputValue(value) {
             for (let i = 0; i < inputTargets.length; i++) {
-            //    updateInputStatus(inputTargets[i], value);
+                updateInputStatus(inputTargets[i], value);
             }
         }
 

@@ -26,9 +26,20 @@ class CarrierControl {
             cvn.assetInstance.status.setStatusKey(key, value);
         }
 
+        function activateCatapultPoint(point, ctrlPiece) {
+
+            function onEnded() {
+                ctrlPiece.assetInstance.call.detachFromPoint();
+            }
+
+            point.call.transitionPosForward(114, 2, onEnded)
+
+        }
+
         this.call = {
             playerControl:playerControl,
-            setInstanceStatus:setInstanceStatus
+            setInstanceStatus:setInstanceStatus,
+            activateCatapultPoint:activateCatapultPoint
         }
 
         function updatePhys() {

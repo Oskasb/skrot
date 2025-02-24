@@ -64,7 +64,7 @@ function startGameWorld() {
         ctrl.call.playerControl(true)
     }
 
-    getGameWorld().call.loadGamePiece('controllable_enterprise', cvn, [-100, 0, 15000], [0, 0, 0])
+    getGameWorld().call.loadGamePiece('controllable_enterprise', cvn, [-300, 0, 15000], [0, 0, 0])
 
 }
 

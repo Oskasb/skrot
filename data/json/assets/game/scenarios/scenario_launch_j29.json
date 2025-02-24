@@ -1,0 +1,5 @@
+{
+  "controllables": [
+    {"id": "controllable_j29", "point": "CAT_2_READY", "auto_launch": true, "status": [{"key": "SHIELD_2", "value": 1}]}
+  ]
+}

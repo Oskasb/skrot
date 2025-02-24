@@ -259,7 +259,7 @@ class AmmoAPI {
     }
 
     getAuxVector3() {
-        return ammoFunctions.getAuxVector3();
+        return ammoFunctions.getAuxVector();
     }
 
     getAmmoStatus() {

@@ -9,7 +9,7 @@ import {PhysicalModel} from "../../../application/physics/PhysicalModel.js";
 import {
     bodyTransformToObj3d,
     getBodyAngularVelocity,
-    getBodyVelocity
+    getBodyVelocity, setBodyVelocity
 } from "../../../application/utils/PhysicsUtils.js";
 
 
@@ -152,6 +152,9 @@ class AssetInstance {
         }
 
         function detachFromPoint() {
+        //    console.log("detachFromPoint", obj3d.userData.attachedToPoint.getVel())
+
+            setBodyVelocity(obj3d.userData.body, obj3d.userData.attachedToPoint.getVel())
             obj3d.userData.attachedToPoint = null;
         }
 

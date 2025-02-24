@@ -19,11 +19,18 @@ class GameScenario {
         const hostControllable = getGamePlayer().call.getPlayerControllable();
 
         function worldElementClick(e) {
-
+            const ctrlPiece = e.target.value
             hostControllable.detachUi();
-            console.log("Click Controllable Button", e.target.value);
-            getGamePlayer().call.setPlayerActiveControllable(e.target.value);
+            console.log("Click Controllable Button", ctrlPiece);
+            getGamePlayer().call.setPlayerActiveControllable(ctrlPiece);
             buttonLayer.call.close(buttonLayer);
+
+            const ctrl = getCarrierControl();
+            setTimeout(function() {
+                const point = ctrlPiece.assetInstance.call.getObj3d().userData.attachedToPoint;
+                ctrl.call.activateCatapultPoint(point, ctrlPiece)
+            }, 5000)
+
         }
         const buttonLayer = new DomWorldButtonLayer();
         buttonLayer.initWorldButtonLayer(pieces, 'PICK', worldElementClick);
@@ -50,10 +57,8 @@ class GameScenario {
                 ctrlPiece.addToScene();
                 ctrlPiece.attachPieceToDynamicPoint(point);
 
-                if (cfg['_auto_launch']) {
+                if (cfg['auto_launch']) {
                     hostControllable.detachUi();
-                    ctrlPiece.setInputTargetState('INPUT_POWER', 0.5)
-                    ctrlPiece.applyControlState('INPUT_POWER', 0.5)
                     getGamePlayer().call.setPlayerActiveControllable(ctrlPiece);
                     ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 0.01);
                     ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1.01);
@@ -61,14 +66,8 @@ class GameScenario {
                     buttonLayer.call.close(buttonLayer);
 
                     setTimeout(function() {
-                    //    ctrlPiece.applyControlState('INPUT_POWER', 1)
-                    //    ctrlPiece.setInputTargetState('INPUT_POWER', 1)
-                    //    ctrlPiece.ui['UI_POWER'].call.setInputValue(1);
-                    }, 4000)
-
-                    setTimeout(function() {
-                        ctrlPiece.assetInstance.call.detachFromPoint();
-                    }, 15000)
+                        ctrl.call.activateCatapultPoint(point, ctrlPiece)
+                    }, 5000)
 
                 } else {
                     pieces.push(ctrlPiece);
@@ -79,7 +78,6 @@ class GameScenario {
                         loadControllable(json['controllables'].pop())
                     }
                 }
-
 
             }
 
@@ -94,7 +92,7 @@ class GameScenario {
         function worldLoaded() {
 
             if (json['controllables'].length) {
-                loadControllable(json['controllables'].pop())
+                loadControllable(json['controllables'].shift())
             }
         }
 
