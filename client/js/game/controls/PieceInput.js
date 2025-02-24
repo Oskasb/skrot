@@ -27,11 +27,16 @@ class PieceInput {
             }
         }
 
-        function updateInputStatus(inputToTarget) {
+        function updateInputStatus(inputToTarget, setValue) {
             let sample = inputToTarget.sample;
             let target = inputToTarget.target;
             statusMap[target] = controllablePiece.getInputState(target);
-            controllablePiece.setInputTargetState(target, statusMap[sample]);
+            if (typeof (setValue === 'number')) {
+                controllablePiece.setInputTargetState(target, setValue);
+            } else {
+                controllablePiece.setInputTargetState(target, statusMap[sample]);
+            }
+
             statusMap['output_'+target] = controllablePiece.getControlStateValue(target);
 
             let dynamicTargets = controllablePiece.getControlStateTargets(target);
@@ -83,7 +88,14 @@ class PieceInput {
             domUiElement.call.closeElement();
         }
 
+        function setInputValue(value) {
+            for (let i = 0; i < inputTargets.length; i++) {
+            //    updateInputStatus(inputTargets[i], value);
+            }
+        }
+
         this.call = {
+            setInputValue:setInputValue,
             update:update,
             close:close
         }

@@ -49,13 +49,38 @@ class GameScenario {
             function scenarioPieceLoaded(ctrlPiece) {
                 ctrlPiece.addToScene();
                 ctrlPiece.attachPieceToDynamicPoint(point);
-                pieces.push(ctrlPiece);
-                ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 0.01);
-                ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1.01);
-                ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.SLAT_ENGAGE, 1.01);
-                if (json['controllables'].length) {
-                    loadControllable(json['controllables'].pop())
+
+                if (cfg['_auto_launch']) {
+                    hostControllable.detachUi();
+                    ctrlPiece.setInputTargetState('INPUT_POWER', 0.5)
+                    ctrlPiece.applyControlState('INPUT_POWER', 0.5)
+                    getGamePlayer().call.setPlayerActiveControllable(ctrlPiece);
+                    ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 0.01);
+                    ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1.01);
+                    ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.SLAT_ENGAGE, 1.01);
+                    buttonLayer.call.close(buttonLayer);
+
+                    setTimeout(function() {
+                    //    ctrlPiece.applyControlState('INPUT_POWER', 1)
+                    //    ctrlPiece.setInputTargetState('INPUT_POWER', 1)
+                    //    ctrlPiece.ui['UI_POWER'].call.setInputValue(1);
+                    }, 4000)
+
+                    setTimeout(function() {
+                        ctrlPiece.assetInstance.call.detachFromPoint();
+                    }, 15000)
+
+                } else {
+                    pieces.push(ctrlPiece);
+                    ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 0.01);
+                    ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1.01);
+                    ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.SLAT_ENGAGE, 1.01);
+                    if (json['controllables'].length) {
+                        loadControllable(json['controllables'].pop())
+                    }
                 }
+
+
             }
 
             point.updateDynamicPoint(0.05)
