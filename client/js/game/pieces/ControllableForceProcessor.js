@@ -300,7 +300,7 @@ class ControllableForceProcessor {
 
             let waterContact = controllablePiece.getAssetInstanceStatus(ENUMS.InstanceStatus.WEIGHT_ON_WATER) || 0;
 
-            AmmoAPI.setBodyDamping(body, 0.00001  + speed*0.000001 + waterContact*0.2 +waterContact*speed*0.05, 0.01 + MATH.curveSqrt(speed*0.02) * 0.05 + waterContact*0.2);
+            AmmoAPI.setBodyDamping(body,   waterContact*0.1+waterContact*speed*0.04, 0.0001 + speed*0.0002 + waterContact*0.3);
 
             torqueSum.applyQuaternion(frameTransform.quaternion)
             torqueSum.multiplyScalar(1)

@@ -2,9 +2,9 @@
 
   {"id": "AEILRON_L",    "pos": [-11.0, 1.45,  1.95], "rot": [ 0.0,  0,  0], "sample": [{"dynamic": "SURFACE_ROLL_L", "axis": "rotateX", "factor": 0.32}  ]  },
   {"id": "AEILRON_R",    "pos": [ 11.0, 1.45,  1.95], "rot": [ 0.0,  0,  0], "sample": [{"dynamic": "SURFACE_ROLL_R", "axis": "rotateX", "factor": 0.32}  ]  },
-  {"id": "RUDDER",    "pos": [ 0,   3.5, 20],  "rot": [0,  0,  0],           "sample": [{"dynamic": "SURFACE_RUDDER", "axis": "rotateY", "factor": 0.1} ]   },
-  {"id": "STABILISER","pos": [ 0,   0.5, 20],  "rot": [ -0.004,  0,  0],     "sample": [{"dynamic": "SURFACE_PITCH",  "axis": "rotateX", "factor": -0.1} ]  },
-  {"id": "WING_L"  ,  "pos": [-14.5, 1.6,-0.5],  "rot": [0.002,  0,  0]  },
-  {"id": "WING_R"  ,  "pos": [ 14.5, 1.6,-0.5],  "rot": [0.002,  0,  0]  },
-  {"id": "FUSELAGE",  "pos": [0,    0.4, 0.2],   "rot": [0.002,  0,  0]}
+  {"id": "RUDDER",       "pos": [ 0,   3.5, 20],  "rot": [0,  0,  0],        "sample": [{"dynamic": "SURFACE_RUDDER", "axis": "rotateY", "factor": 0.1} ]   },
+  {"id": "STABILISER",    "pos": [ 0,   0.5, 20],  "rot": [ -0.004,  0,  0], "sample": [{"dynamic": "SURFACE_PITCH",  "axis": "rotateX", "factor": -0.1} ]  },
+  {"id": "WING_L"  ,      "pos": [-14.5, 1.6,-0.5],  "rot": [0.002,  0,  0]  },
+  {"id": "WING_R"  ,      "pos": [ 14.5, 1.6,-0.5],  "rot": [0.002,  0,  0]  },
+  {"id": "FUSELAGE",      "pos": [0,    0.4, 0.2],   "rot": [0.002,  0,  0]}
 ]

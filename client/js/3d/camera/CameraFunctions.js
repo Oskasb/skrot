@@ -12,6 +12,7 @@ let tempVec2 = new Vector3()
 let tempQuat = new Quaternion();
 let tempObj = new Object3D();
 
+
 function CAM_ORBIT(controllable, orbitControls) {
     const pointName = 'CREW_VIEW_PILOT';
     const point = controllable.getDynamicPoint(pointName);
@@ -53,20 +54,33 @@ function CAM_FOLLOW(controllable, orbitControls) {
 }
 
 function CAM_PILOT(controllable, orbitControls) {
+
     const tpf = getFrame().tpf;
     const pointName = 'CREW_VIEW_PILOT';
     const point = controllable.getDynamicPoint(pointName);
     point.updateDynamicPoint()
     tempVec.set(0, 1, 0);
-    tempVec.applyQuaternion(point.getQuat())
-    tempObj.lookAt(tempVec);
-    orbitControls.target.copy(point.getPos());
-    orbitControls.camera.up.copy(tempVec)
-  //  orbitControls.camera.quaternion.slerp(tempObj.quaternion, MATH.clamp(tpf * 2, 0, 0.5) )
-    orbitControls.minDistance = 0.25;
-    orbitControls.maxDistance = 0.25;
-    orbitControls.update();
-    lastCamPos.copy(orbitControls.camera.position);
+
+    if (orbitControls._pointers.length !== 0) {
+        lastCamPos.copy(orbitControls.target);
+        orbitControls.target.copy(point.getPos());
+        posFrameDelta.subVectors(orbitControls.target, lastCamPos)
+        orbitControls.camera.position.add(posFrameDelta);
+        tempVec.applyQuaternion(point.getQuat())
+        orbitControls.camera.up.copy(tempVec)
+        orbitControls.update();
+    } else {
+        tempVec.applyQuaternion(point.getQuat())
+        orbitControls.target.copy(point.getPos());
+        orbitControls.camera.up.copy(tempVec)
+        //  orbitControls.camera.quaternion.slerp(tempObj.quaternion, MATH.clamp(tpf * 2, 0, 0.5) )
+        orbitControls.minDistance = 0.35;
+        orbitControls.maxDistance = 0.35;
+        orbitControls.update();
+        lastCamPos.copy(orbitControls.camera.position);
+    }
+
+
 }
 
 function CAM_WORLD(targetPos, orbitControls) {
@@ -85,16 +99,28 @@ function CAM_POINT(controllable, orbitControls, pointName, params) {
     const point = controllable.getDynamicPoint(pointName);
     point.updateDynamicPoint()
     tempVec.set(0, 1, 0);
-    lastCamPos.copy(orbitControls.target);
+    lastTargetPos.copy(orbitControls.target);
     orbitControls.target.copy(point.getPos());
-    posFrameDelta.subVectors(orbitControls.target, lastCamPos)
+    posFrameDelta.subVectors(orbitControls.target, lastTargetPos)
     orbitControls.camera.position.add(posFrameDelta);
+
+
+    if (params['local_up']) {
+        tempVec.applyQuaternion(point.getQuat())
+    }
+
     orbitControls.camera.up.copy(tempVec)
+    orbitControls.minDistance = params.min || 0.5;
+    orbitControls.maxDistance = params.max || 8000;
 
-        orbitControls.minDistance = params.min || 0.5;
-        orbitControls.maxDistance = params.max || 8000;
-        orbitControls.update();
+    orbitControls.update();
 
+    if (params['is_local']) {
+        if (Math.abs(posFrameDelta.y) > 2) {
+            posFrameDelta.y = 0;
+        }
+        orbitControls.camera.position.y += posFrameDelta.y;
+    }
 
     lastCamPos.copy(orbitControls.camera.position);
 }

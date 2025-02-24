@@ -26,6 +26,7 @@ import {VegetationGrid} from "./game/world/plants/VegetationGrid.js";
 import {getSetting} from "./application/utils/StatusUtils.js";
 import {debugDrawControllable} from "./application/utils/DebugUtils.js";
 import {Vector3} from "three/webgpu";
+import {CarrierControl} from "./game/player/CarrierControl.js";
 
 
 let gameWorld = new GameWorld();
@@ -55,90 +56,15 @@ function startGameWorld() {
     new DomWorldHud();
     setGameWorld(gameWorld);
     gameWorld.initGameWorld();
-/*
-    let elementList = [];
-    function worldElementClick(e) {
-        console.log("Click Controllable Button", e.target.value);
-        player.call.setPlayerActiveControllable(e.target.value);
-        MATH.emptyArray(elementList);
-        thumbstick.call.close()
-    }
-    let buttonLayer = new DomWorldButtonLayer();
-    buttonLayer.initWorldButtonLayer(elementList, 'PICK', worldElementClick);
-    */
-    /*
-        let thumbstick = new DomThumbstick();
-        let sMap = {
-            controls:orbitControls,
-            camera:ThreeAPI.getCamera(),
-            playeplayer
-        }
 
-    /*
-        function stickReady() {}
-        thumbstick.call.initElement(sMap, 'ui/ui_thumb_stick', 'ui_flight_stick', stickReady)
-    */
-
- //   player.enterWorld('controllable_f14')
     function cvn(boat) {
         console.log("CVN ", boat);
         boat.addToScene();
-        player.call.setPlayerActiveControllable(boat);
-    //    new DomMinimap()
-
-
-        function updatePhys() {
-            boat.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.RADAR_SPIN, getFrame().gameTime)
-            let obj3d = boat.getObj3d();
-            let body = obj3d.userData.body;
-            ThreeAPI.tempVec3.set(0, 0, -5999999);
-            ThreeAPI.tempVec3.applyQuaternion(obj3d.quaternion);
-            ThreeAPI.tempVec3b.set(-0, -4, -100);
-            ThreeAPI.tempVec3b.applyQuaternion(obj3d.quaternion);
-        //    ThreeAPI.tempVec3b.add(obj3d.position)
-            AmmoAPI.applyForceAtPointToBody(ThreeAPI.tempVec3, ThreeAPI.tempVec3b, body)
-
-        }
-
-        AmmoAPI.registerPhysicsStepCallback(updatePhys)
+        let ctrl = new CarrierControl(boat);
+        ctrl.call.playerControl(true)
     }
 
-
-    function loadPiece(ctrlPiece) {
-        console.log("loadPiece ", ctrlPiece);
-        setTimeout(function() {
-            ctrlPiece.addToScene();
-            elementList.push(ctrlPiece);
-        }, 100)
-
-        if (loadPlanes.length) {
-            loadNext()
-        } else {
-
-        }
-    }
-
- //   function onReady() {
-        getGameWorld().call.loadGamePiece('controllable_enterprise', cvn, [-5000, 0, -100], [0, -1.572, 0])
- //   }
-
-
- //   window.ThreeAPI.initComputeTerrain(onReady);
-
-    /*
-    const loadPlanes = ['controllable_f14', 'controllable_j29', 'controllable_j35', 'controllable_b52']
-
-    function loadNext() {
-        setTimeout(function() {
-            getGameWorld().call.loadGamePiece(loadPlanes.shift(), loadPiece)
-        }, 200)
-    }
-
-    loadNext()
-*/
-
-
-
+    getGameWorld().call.loadGamePiece('controllable_enterprise', cvn, [-5000, 0, -100], [0, -1.572, 0])
 
 }
 

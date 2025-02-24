@@ -7,7 +7,7 @@
       "joints": [
         {"bone": "radar_main",            "call": "setBoneRotation", "args": ["rotateX"], "factor":  1.6},
         {"bone": "radar_square",          "call": "setBoneRotation", "args": ["rotateX"], "factor": -1.2},
-        {"bone": "radar_square_small",    "call": "setBoneRotation", "args": ["rotateX"], "factor": -2.9},
+        {"bone": "radar_square_small",    "call": "setBoneRotation", "args": ["rotateX"], "factor": -4.9},
         {"bone": "radar_mast_1",          "call": "setBoneRotation", "args": ["rotateX"], "factor": -2.4},
         {"bone": "radar_mast_flat",       "call": "setBoneRotation", "args": ["rotateX"], "factor":  4.4},
         {"bone": "radar_mast_2",          "call": "setBoneRotation", "args": ["rotateX"], "factor": -5.4}

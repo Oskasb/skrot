@@ -17,6 +17,7 @@ class AssetInstance {
     constructor () {
 
         let obj3d = new Object3D();
+        obj3d.userData.attachedToPoint = null;
         let settings = {
             assetInstance:this
         };
@@ -146,6 +147,14 @@ class AssetInstance {
             closeAsset();
         }
 
+        function attachToPoint(dynPoint) {
+            obj3d.userData.attachedToPoint = dynPoint;
+        }
+
+        function detachFromPoint() {
+            obj3d.userData.attachedToPoint = null;
+        }
+
         this.call = {
             instantiate:instantiate,
             closeInstance:closeInstance,
@@ -155,7 +164,9 @@ class AssetInstance {
             addToScene:addToScene,
             closeAsset:closeAsset,
             removeFromScene:removeFromScene,
-            getPointById:getPointById
+            getPointById:getPointById,
+            attachToPoint:attachToPoint,
+            detachFromPoint:detachFromPoint
         }
 
     }

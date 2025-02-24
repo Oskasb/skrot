@@ -216,8 +216,12 @@ class AmmoAPI {
     }
 
     setBodyTransform = function(body, posVec, quat) {
+        ammoFunctions.applyBodyTransform(body, posVec, quat);
+    };
 
-        ammoFunctions.setBodyTransform(body, posVec, quat);
+    setBodyVelocity = function(body, velVec) {
+
+        ammoFunctions.setBodyVel(body, velVec);
 
     };
 

@@ -15,7 +15,7 @@
       },
       {
         "sample": "PRESS",
-        "select": {"point": "CREW_VIEW_PILOT", "min":  0.5, "max": 2, "init": 1},
+        "select": {"point": "CREW_VIEW_PILOT", "min":  0.15, "max": 0.15, "init": 0.15, "local_up": true},
         "label": "Boss",
         "call": "APPLY_CAMERA_SELECTION",
         "init": false,
@@ -23,7 +23,7 @@
       },
       {
         "sample": "PRESS",
-        "select": {"point": "CAT_1_READY", "min":  3.5, "max": 40, "init": 20},
+        "select": {"point": "CAT_1_READY", "min":  3.5, "max": 40, "init": 20, "local_up": true, "is_local": true},
         "label": "Cat 1",
         "call": "APPLY_CAMERA_SELECTION",
         "init": false,
@@ -31,7 +31,7 @@
       },
       {
         "sample": "PRESS",
-        "select": {"point": "CAT_2_READY", "min":  3.5, "max": 40, "init": 20},
+        "select": {"point": "CAT_2_READY", "min":  3.5, "max": 40, "init": 20, "local_up": true, "is_local": true},
         "label": "Cat 2",
         "call": "APPLY_CAMERA_SELECTION",
         "init": false,
@@ -39,7 +39,7 @@
       },
       {
         "sample": "PRESS",
-        "select": {"point": "CAT_3_READY", "min":  3.5, "max": 40, "init": 20},
+        "select": {"point": "CAT_3_READY", "min":  3.5, "max": 40, "init": 20, "local_up": true, "is_local": true},
         "label": "Cat 3",
         "call": "APPLY_CAMERA_SELECTION",
         "init": false,

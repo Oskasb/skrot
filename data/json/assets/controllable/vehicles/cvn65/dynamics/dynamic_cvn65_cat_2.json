@@ -1,0 +1,9 @@
+{
+  "dynamic": "CAT_2",
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 100},
+  "targets": [
+    {
+      "points": ["CAT_2_READY"]
+    }
+  ]
+}

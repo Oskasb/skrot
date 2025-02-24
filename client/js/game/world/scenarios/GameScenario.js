@@ -5,6 +5,7 @@ import {getGamePlayer} from "../../../Client.js";
 import {getGameWorld} from "../../../application/utils/GameUtils.js";
 import {DomMinimap} from "../../../application/ui/dom/DomMinimap.js";
 import {ENUMS} from "../../../application/ENUMS.js";
+import {getCarrierControl} from "../../player/CarrierControl.js";
 
 let minimap = null;
 
@@ -28,19 +29,33 @@ class GameScenario {
         buttonLayer.initWorldButtonLayer(pieces, 'PICK', worldElementClick);
 
 
-        function scenarioPieceLoaded(ctrlPiece) {
-            ctrlPiece.addToScene();
-            pieces.push(ctrlPiece);
-            ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 10);
-            if (json['controllables'].length) {
-                loadControllable(json['controllables'].pop())
-            }
-        }
 
         function loadControllable(cfg) {
+
             const id = cfg['id'];
             const pointId = cfg['point'];
             const point = hostControllable.getDynamicPoint(pointId);
+
+            const status = cfg['status'];
+
+            const ctrl = getCarrierControl();
+
+            if (status.length) {
+                for (let i = 0; i < status.length; i++) {
+                    ctrl.call.setInstanceStatus(status[i].key, status[i].value);
+                }
+            }
+
+            function scenarioPieceLoaded(ctrlPiece) {
+                ctrlPiece.addToScene();
+                ctrlPiece.attachPieceToDynamicPoint(point);
+                pieces.push(ctrlPiece);
+                ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 10);
+                if (json['controllables'].length) {
+                    loadControllable(json['controllables'].pop())
+                }
+            }
+
             point.updateDynamicPoint(0.05)
             const posArray = [];
             const rotArray = [];

@@ -6,6 +6,14 @@
     {"id": "HARDPOINTS",      "file": "points_cvn65_hardpoints"}
   ],
   "control_dynamics": [
-    {"id": "DYNAMIC_RADARS",  "file": "dynamic_cvn65_radars"}
+    {"id": "DYNAMIC_RADARS",     "file": "dynamic_cvn65_radars"  },
+    {"id": "DYNAMIC_CAT_1",      "file": "dynamic_cvn65_cat_1"   },
+    {"id": "DYNAMIC_CAT_2",      "file": "dynamic_cvn65_cat_2"   },
+    {"id": "DYNAMIC_CAT_3",      "file": "dynamic_cvn65_cat_3"   },
+    {"id": "DYNAMIC_CAT_4",      "file": "dynamic_cvn65_cat_4"   },
+    {"id": "DYNAMIC_SHIELD_1",   "file": "dynamic_cvn65_shield_1"},
+    {"id": "DYNAMIC_SHIELD_2",   "file": "dynamic_cvn65_shield_2"},
+    {"id": "DYNAMIC_SHIELD_3",   "file": "dynamic_cvn65_shield_3"},
+    {"id": "DYNAMIC_SHIELD_4",   "file": "dynamic_cvn65_shield_4"}
   ]
 }

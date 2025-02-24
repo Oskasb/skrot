@@ -1,0 +1,14 @@
+[
+  {"id": "INPUT_CAT_1_LAUNCH",     "targets": [
+    {"dynamic": "DYNAMIC_CAT_1", "factor": 1}
+  ]},
+  {"id": "INPUT_CAT_2_LAUNCH",     "targets": [
+    {"dynamic": "DYNAMIC_CAT_2", "factor": 1}
+  ]},
+  {"id": "INPUT_CAT_3_LAUNCH",     "targets": [
+    {"dynamic": "DYNAMIC_CAT_3", "factor": 1}
+  ]},
+  {"id": "INPUT_CAT_4_LAUNCH",     "targets": [
+    {"dynamic": "DYNAMIC_CAT_4", "factor": 1}
+  ]}
+]

@@ -9,8 +9,11 @@ import {PieceSurface} from "../controls/PieceSurface.js";
 import {ControllableStatusProcessor} from "./ControllableStatusProcessor.js";
 import {PieceHardpoint} from "../controls/PieceHardpoint.js";
 import {MATH} from "../../application/MATH.js";
+import {ENUMS} from "../../application/ENUMS.js";
 
 let tempArray = [];
+
+let index = 0;
 
 class ControllablePiece {
     constructor() {
@@ -74,6 +77,9 @@ class ControllablePiece {
     }
 
     initControllable(id, callback, pos, rot) {
+
+        index++;
+        this.setStatusKey(ENUMS.ControllableStatus.CONTROLLABLE_ID, id+'_'+index);
 
         let _this = this;
 
@@ -243,6 +249,10 @@ class ControllablePiece {
 
     closeControllablePiece() {
         this.assetInstance.call.closeInstance();
+    }
+
+    attachPieceToDynamicPoint(point) {
+        this.assetInstance.call.attachToPoint(point);
     }
 
 

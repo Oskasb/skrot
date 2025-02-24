@@ -1,5 +1,5 @@
 {
   "controllables": [
-    {"id": "controllable_f14", "point": "CAT_1_READY"}
+    {"id": "controllable_f14", "point": "CAT_1_READY", "status": [{"key": "SHIELD_1", "value": 1}]}
   ]
 }

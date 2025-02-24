@@ -535,14 +535,13 @@ function setBodyTransform(body, position, quaternion) {
 
 
 
-    let ms = body.getMotionState();
+//    let ms = body.getMotionState();
 
     //    ms.getWorldTransform(TRANSFORM_AUX);
 
     //    body.clearForces();
 
     TRANSFORM_AUX.setIdentity();
-
     TRANSFORM_AUX.getOrigin().setX(position.x);
     TRANSFORM_AUX.getOrigin().setY(position.y);
     TRANSFORM_AUX.getOrigin().setZ(position.z);
@@ -1073,28 +1072,26 @@ class AmmoFunctions {
 
     };
 
-    setBodyTransform(body, posVec, quat) {
-        let ms = body.getMotionState();
-
-        ms.getWorldTransform(TRANSFORM_AUX);
-
-        //    body.clearForces();
-
+    applyBodyTransform(body, position, quaternion) {
         TRANSFORM_AUX.setIdentity();
+        TRANSFORM_AUX.getOrigin().setX(position.x);
+        TRANSFORM_AUX.getOrigin().setY(position.y);
+        TRANSFORM_AUX.getOrigin().setZ(position.z);
 
-        TRANSFORM_AUX.getOrigin().setX(posVec.x);
-        TRANSFORM_AUX.getOrigin().setY(posVec.y);
-        TRANSFORM_AUX.getOrigin().setZ(posVec.z);
-     //   console.log(TRANSFORM_AUX.getRotation())
+        QUAT_AUX.setX(quaternion.x);
+        QUAT_AUX.setY(quaternion.y);
+        QUAT_AUX.setZ(quaternion.z);
+        QUAT_AUX.setW(quaternion.w);
 
-        TRANSFORM_AUX.getRotation().setX(quat.x);
-        TRANSFORM_AUX.getRotation().setY(quat.y);
-        TRANSFORM_AUX.getRotation().setZ(quat.z);
-        TRANSFORM_AUX.getRotation().setW(quat.w);
+        TRANSFORM_AUX.setRotation(QUAT_AUX);
 
         body.setWorldTransform(TRANSFORM_AUX);
 
         body.getMotionState().setWorldTransform(TRANSFORM_AUX);
+    }
+
+    setBodyVel(body, vel) {
+
     }
 
     setGeometryBuffer(id, buffer) {

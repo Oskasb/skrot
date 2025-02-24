@@ -196,6 +196,13 @@ function transformBody(objd3, body) {
      AmmoAPI.setBodyTransform(body, objd3.position, objd3.quaternion);
 }
 
+function setBodyVelocity(body, vel) {
+    const ammoVel = body.getLinearVelocity();
+    ammoVel.setX(vel.x);
+    ammoVel.setY(vel.y);
+    ammoVel.setZ(vel.z);
+}
+
 function physicalIntersection(pos, insideVec3) {
     if (!insideVec3) {
         insideVec3 = tempVec;
@@ -612,6 +619,7 @@ export {
     debugDrawPhysicalAABBs,
     debugDrawPhysicalWorld,
     transformBody,
+    setBodyVelocity,
     physicalIntersection,
     getBodyPointer,
     getBodyByPointer,

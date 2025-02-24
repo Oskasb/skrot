@@ -4,7 +4,7 @@ import {
     calcBoxSubmersion,
     getBodyVelocity,
     getPhysicalWorld,
-    rayTest
+    rayTest, setBodyVelocity, transformBody
 } from "../utils/PhysicsUtils.js";
 import {Vector3} from "../../../../libs/three/Three.Core.js";
 import {MATH} from "../MATH.js";
@@ -121,6 +121,15 @@ class PhysicalModel {
         let lastG = 0;
 
         function updateBodyObj3d() {
+
+            const attachedToPoint = obj3d.userData.attachedToPoint;
+
+            if (attachedToPoint !== null) {
+                attachedToPoint.getTransformWS(tempObj);
+                transformBody(tempObj, obj3d.userData.body)
+                setBodyVelocity(obj3d.userData.body, attachedToPoint.getVel())
+            }
+
             acceleration.copy(velocity);
             let ammoVel = obj3d.userData.body.getLinearVelocity();
             MATH.testVec3ForNaN (obj3d.position)
@@ -155,6 +164,8 @@ class PhysicalModel {
             const wheels = vehicle.getNumWheels();
 
             let groundContact = false;
+
+            const isAttached = obj3d.userData.attachedToPoint
 
             for (let i = 0; i < wheels; i++) {
 
@@ -191,14 +202,23 @@ class PhysicalModel {
 
                 let isInContact = rayInfo.get_m_isInContact();
                 wheelStates[i].wheelContact = isInContact;
-                wheelStates[i].wheelRotation = -wInfo.get_m_rotation();
+                if (isAttached === null) {
+                    wheelStates[i].wheelRotation = -wInfo.get_m_rotation();
+                }
+
                 if (isInContact) {
                     let contactPoint = rayInfo.get_m_contactPointWS();
                     let contactNormal = rayInfo.get_m_contactNormalWS();
                     wheelStates[i].contactPoint.set(contactPoint.x(), contactPoint.y(), contactPoint.z());
                     wheelStates[i].contactNormal.set(contactNormal.x(), contactNormal.y(), contactNormal.z());
                     let compressFraction = MATH.calcFraction(0, maxTravel, suspTotal-currentLength);
-                    wheelStates[i].suspensionCompression = compressFraction;
+
+                    if (isAttached === null) {
+                        wheelStates[i].suspensionCompression = compressFraction*0.5 + wheelStates[i].suspensionCompression * 0.5;
+                    } else {
+                        wheelStates[i].suspensionCompression = compressFraction*0.05 + wheelStates[i].suspensionCompression * 0.95;
+                    }
+
                     groundContact = true;
                 } else {
                     wheelStates[i].suspensionCompression = 0;
@@ -240,9 +260,10 @@ class PhysicalModel {
 
             bodyTransformToObj3d(body, obj3d);
 
-            if (ammoVehicle !== null) {
-                updateWheeledVehicle();
-            }
+                if (ammoVehicle !== null) {
+                    updateWheeledVehicle();
+                }
+
             MATH.testVec3ForNaN (obj3d.position)
         }
 

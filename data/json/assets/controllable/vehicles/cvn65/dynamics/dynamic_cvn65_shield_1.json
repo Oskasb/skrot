@@ -1,0 +1,14 @@
+{
+  "dynamic": "SHIELD_1",
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 0.2},
+  "sample": {"status": "SHIELD_1"},
+  "targets": [
+    {
+      "joints": [
+        {
+          "bone": "catapult_1", "call": "setBoneRotation", "args": ["rotateX"], "factor": -1
+        }
+      ]
+    }
+  ]
+}
