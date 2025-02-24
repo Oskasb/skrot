@@ -31,7 +31,7 @@ class PieceInput {
             let sample = inputToTarget.sample;
             let target = inputToTarget.target;
             statusMap[target] = controllablePiece.getInputState(target);
-            if (typeof (setValue === 'number')) {
+            if (typeof (setValue) === 'number') {
                 controllablePiece.setInputTargetState(target, setValue);
             } else {
                 controllablePiece.setInputTargetState(target, statusMap[sample]);
