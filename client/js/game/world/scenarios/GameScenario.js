@@ -40,7 +40,7 @@ class GameScenario {
 
             const ctrl = getCarrierControl();
 
-            if (status.length) {
+            if (status) {
                 for (let i = 0; i < status.length; i++) {
                     ctrl.call.setInstanceStatus(status[i].key, status[i].value);
                 }
@@ -50,7 +50,9 @@ class GameScenario {
                 ctrlPiece.addToScene();
                 ctrlPiece.attachPieceToDynamicPoint(point);
                 pieces.push(ctrlPiece);
-                ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 10);
+                ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 0.01);
+                ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1.01);
+                ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.SLAT_ENGAGE, 1.01);
                 if (json['controllables'].length) {
                     loadControllable(json['controllables'].pop())
                 }

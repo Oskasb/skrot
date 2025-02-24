@@ -26,6 +26,7 @@ const lineFrom = new Vector3();
 const lineTo = new Vector3();
 
 const tempObj = new Object3D();
+const tempObj2 = new Object3D();
 
 const posArray = [];
 const rotArray = [];
@@ -126,6 +127,8 @@ class PhysicalModel {
 
             if (attachedToPoint !== null) {
                 attachedToPoint.getTransformWS(tempObj);
+                bodyTransformToObj3d(obj3d.userData.body, tempObj2)
+                tempObj.position.lerp(tempObj2.position, 0.01);
                 transformBody(tempObj, obj3d.userData.body)
                 setBodyVelocity(obj3d.userData.body, attachedToPoint.getVel())
             }
