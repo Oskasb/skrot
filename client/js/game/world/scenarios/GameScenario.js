@@ -47,6 +47,9 @@ class GameScenario {
 
             const ctrl = getCarrierControl();
 
+
+
+
             if (status) {
                 for (let i = 0; i < status.length; i++) {
                     ctrl.call.setInstanceStatus(status[i].key, status[i].value);
@@ -98,6 +101,11 @@ class GameScenario {
 
         function onJson(jsn) {
             json = jsn;
+
+            if (json['keep_ui'] !== true) {
+                hostControllable.detachUi();
+            }
+
             if (json['terrain']) {
 
                 if (minimap === null) {

@@ -79,7 +79,7 @@ class ActiveBullet {
             info.hit_fx = bulletData.hit_fx || defaultHitFx;
 
             if (info.bulletIndex % 3 === 1) {
-                info.geometryInstance = createGeometryInstance("bullet", 'material_instances_8x8_add');
+                info.geometryInstance = createGeometryInstance("bullet_tracer", 'material_instances_8x8_add');
             } else {
                 info.geometryInstance = null;
             }
