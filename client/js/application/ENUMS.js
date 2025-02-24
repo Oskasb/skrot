@@ -459,7 +459,8 @@ let ENUMS = {}
         SLAT_ENGAGE:'SLAT_ENGAGE',
         CANARD_ENGAGE:'CANARD_ENGAGE',
         SWEEP_ENGAGE:'SWEEP_ENGAGE',
-        FORCE_G:'FORCE_G'
+        FORCE_G:'FORCE_G',
+        RADAR_SPIN:'RADAR_SPIN'
     }
 
     ENUMS.PointStatus = {

@@ -6,6 +6,6 @@
     {"id": "HARDPOINTS",      "file": "points_cvn65_hardpoints"}
   ],
   "control_dynamics": [
-
+    {"id": "DYNAMIC_RADARS",  "file": "dynamic_cvn65_radars"}
   ]
 }

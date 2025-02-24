@@ -86,10 +86,12 @@ function startGameWorld() {
         player.call.setPlayerActiveControllable(boat);
     //    new DomMinimap()
 
+
         function updatePhys() {
+            boat.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.RADAR_SPIN, getFrame().gameTime)
             let obj3d = boat.getObj3d();
             let body = obj3d.userData.body;
-            ThreeAPI.tempVec3.set(0, 0, -2999999);
+            ThreeAPI.tempVec3.set(0, 0, -5999999);
             ThreeAPI.tempVec3.applyQuaternion(obj3d.quaternion);
             ThreeAPI.tempVec3b.set(-0, -4, -100);
             ThreeAPI.tempVec3b.applyQuaternion(obj3d.quaternion);
