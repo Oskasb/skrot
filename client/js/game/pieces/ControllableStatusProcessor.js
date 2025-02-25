@@ -35,7 +35,7 @@ function sampleSpatialState(controllable) {
 
         const throttle = assetStatus.getStatus(ENUMS.InstanceStatus.STATUS_THROTTLE);
         if (throttle < 0.4) {
-            assetStatus.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 0.4 + (0.4 - throttle)*2);
+            assetStatus.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, (0.4 - throttle)*2);
         } else {
             assetStatus.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 0);
         }

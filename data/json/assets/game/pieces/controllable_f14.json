@@ -35,7 +35,9 @@
     {"point": "RUDDER_R",   "file": "surface_f14_rudder"},
     {"point": "WING_L",     "file": "surface_f14_wing"},
     {"point": "WING_R",     "file": "surface_f14_wing"},
-    {"point": "FUSELAGE",   "file": "surface_f14_fuselage"}
+    {"point": "FUSELAGE",   "file": "surface_f14_fuselage"},
+    {"point": "BRAKE_TOP",   "file": "surface_2x2"},
+    {"point": "BRAKE_BOTTOM", "file": "surface_2x2"}
   ],
   "hardpoints": [
     {"point": "HARDPOINT_CANNON", "file": "cannon_vulcan"}
