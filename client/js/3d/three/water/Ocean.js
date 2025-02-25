@@ -1,7 +1,7 @@
 import {
     BufferAttribute,
     DoubleSide, FrontSide, InstancedBufferAttribute,
-    Mesh,
+    Mesh, Object3D,
     PlaneGeometry,
     Raycaster, Sprite, SRGBColorSpace, Texture,
     Vector2,
@@ -55,9 +55,11 @@ import {MATH} from "../../../application/MATH.js";
 import {poolFetch} from "../../../application/utils/PoolUtils.js";
 import {customOceanUv, customTerrainUv, getWorldBoxMax, terrainGlobalUv} from "../terrain/ComputeTerrain.js";
 import {loadAssetMaterial} from "../../../application/utils/AssetUtils.js";
+import {activateWorldEffects} from "../assets/WorldEffect.js";
 
 let heightTx;
 
+const tempObj = new Object3D()
 
 class Ocean {
     constructor(store) {
@@ -391,6 +393,7 @@ class Ocean {
             let lastIndex = 0;
 
             function splashWater(e) {
+                /*
                 splashPosition.value.copy( e.pos );
                 splashVelocity.value.copy( e.velocity );
                 splashNormal.value.copy( e.normal )
@@ -401,8 +404,18 @@ class Ocean {
                     lastIndex = 0;
                 }
                 renderer.computeAsync( applySplash );
-            }
+*/
 
+                tempObj.up.copy(e.normal).multiplyScalar(2.6);
+                tempObj.position.set(0, 0, 0);
+                tempObj.lookAt(e.velocity);
+                tempObj.position.copy(e.pos);
+                tempObj.position.add(e.normal)
+                tempObj.userData.emitForce = 50 * e.hitDot;
+                activateWorldEffects(tempObj, splashList)
+
+            }
+            const splashList = ['particles_splash_water']
             evt.on(ENUMS.Event.SPLASH_OCEAN, splashWater)
 
             function update(){

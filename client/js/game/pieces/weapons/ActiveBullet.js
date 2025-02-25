@@ -5,9 +5,20 @@ import {MATH} from "../../../application/MATH.js";
 import {rayTest} from "../../../application/utils/PhysicsUtils.js";
 import {activateWorldEffects} from "../../../3d/three/assets/WorldEffect.js";
 import {createGeometryInstance} from "../../../3d/three/assets/GeometryInstance.js";
+import {evt} from "../../../application/event/evt.js";
+import {ENUMS} from "../../../application/ENUMS.js";
 
 const tempVec = new Vector3();
 const defaultHitFx = ["particles_hit_cannon"]
+
+const splashEvt ={
+    pos:new Vector3(),
+    normal:new Vector3(),
+    velocity: new Vector3(),
+    hitDot:0
+}
+
+
 
 let bulletIndex = 0;
 
@@ -68,6 +79,17 @@ class ActiveBullet {
             //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:obj3d.position, to:tempVec, color:"YELLOW"})
                 obj3d.position.copy(tempVec);
             }
+
+            if (obj3d.position.y < 0) {
+                splashEvt.hitDot = 1;
+                splashEvt.pos.copy(obj3d.position);
+                splashEvt.pos.y = 0.5;
+                splashEvt.velocity.set(0, 1,0);
+                splashEvt.normal.set(0, 1,0);
+                evt.dispatch(ENUMS.Event.SPLASH_OCEAN, splashEvt)
+                closeBullet()
+            }
+
 
         }
 

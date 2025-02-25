@@ -1,0 +1,27 @@
+{
+  "geometry": "geometry_particles_splash_fast",
+  "material": "material_particles_8x8",
+  "sample_gain": {
+    "velocity_base": 60,
+    "velocity_gain_factor":30
+  },
+  "curves":{
+    "color": "flatCyan",
+    "alpha": "oneToZero",
+    "spread": "zeroOneZero",
+    "drag": "nearBlack"
+  },
+  "params": {
+    "pSprite":      [1,     0],
+    "pPosSpread":   [0,     1.4],
+    "pVelSpread":   [0.1,   1.5],
+    "pVelInherit":  [0.98,  1.25],
+    "pVelVariance": [-0.2,  0.4],
+    "pLifeTime":    [2.4,   2.62],
+    "pSizeFrom":    [1.5,   2.8],
+    "pSizeTo":      [1.0,   7.0],
+    "pSizeMod":     [8.3,   21.3],
+    "pIntensity":   [0.4,    0.8],
+    "pScaleExp":    [0.3,   0.6]
+  }
+}
