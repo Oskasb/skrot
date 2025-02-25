@@ -32,7 +32,7 @@ class CarrierControl {
                 ctrlPiece.assetInstance.call.detachFromPoint();
             }
 
-            point.call.transitionPosForward(90, 3.3, onEnded)
+            point.call.transitionPosForward(95, 3.0, onEnded)
 
         }
 
