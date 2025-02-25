@@ -66,9 +66,9 @@ function sampleSpatialState(controllable) {
             assetStatus.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1);
         } else if (mach < 0.02) {
             assetStatus.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1.1);
-        } else if (mach < 0.22) {
+        } else if (mach < 0.17) {
             assetStatus.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1.0);
-        } else if (mach < 0.35) {
+        } else if (mach < 0.25) {
             assetStatus.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 0.5);
         } else {
             assetStatus.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 0);
