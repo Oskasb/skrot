@@ -79,13 +79,13 @@ class AssetInstance {
                 function modelLoaded(modelObj3d) {
 
                     let points = data['points'];
+                    callback(settings.assetInstance)
 
                     if (points.length) {
                         for (let i = 0; i < points.length; i++) {
                             attachPoints(points[i].id, points[i].file)
                         }
                     }
-
 
                     let ctrDyns = data['control_dynamics'];
 
@@ -95,7 +95,6 @@ class AssetInstance {
                         }
                     }
 
-                    callback(settings.assetInstance)
                 }
 
                 loadAssetModel(modelName, modelLoaded, obj3d);

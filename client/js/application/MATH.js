@@ -847,7 +847,7 @@ MATH.rollFromQuaternion = function(q) {
 
 
 MATH.horizonAttitudeFromQuaternion = function(q) {
-	calcVec.set(0, 0, 1);
+	calcVec.set(0, 0, -1);
 	calcVec.applyQuaternion(q);
 	return calcVec.y * Math.PI // Math.atan2(calcVec.x, calcVec.y);
 };
@@ -857,14 +857,14 @@ MATH.gAttitudeFromQuaternion = function(quaternion) {
 };
 
 MATH.compassAttitudeFromQuaternion = function(q) {
-	calcVec.set(0, 0, 1);
+	calcVec.set(0, 0, -1);
 	calcVec.applyQuaternion(q);
 	return MATH.vectorXZToAngleAxisY(calcVec)
 };
 
 MATH.rollAttitudeFromQuaternion = function(q) {
 	let rotation = MATH.eulerFromQuaternion(q, "YXZ");
-	return -rotation.z
+	return rotation.z
 };
 
 MATH.pitchAttitudeFromQuaternion = function(q) {

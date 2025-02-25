@@ -193,7 +193,7 @@ class PhysicalModel {
                     vehicle.setSteeringValue(inputYaw, i);
                 }
 
-                vehicle.setBrake(inputBrake * mass* 0.05, i)
+                vehicle.setBrake(inputBrake * mass* 0.01, i)
 
                 //    wInfo.updateWheel()
                 let rayInfo = wInfo.get_m_raycastInfo();

@@ -373,7 +373,7 @@ let settings = {
 let remaining = 0;
 let MODEL = {};
 
-MODEL.PhysicsStepTime = 0.005;
+MODEL.PhysicsStepTime = 0.01;
 MODEL.PhysicsMaxSubSteps = 1;
 MODEL.SpatialTolerance = 1;
 MODEL.AngularVelocityTolerance = 1;
@@ -962,7 +962,7 @@ class AmmoFunctions {
 
         MODEL.TotalRenderTime += dt;
 
-        let maxCleanSteps = 8;
+        let maxCleanSteps = 5;
         let step = 0;
 
         while (MODEL.PhysicsTotalTime < MODEL.TotalRenderTime + MODEL.PhysicsStepTime) {
@@ -971,7 +971,7 @@ class AmmoFunctions {
             world.stepSimulation(MODEL.PhysicsStepTime, MODEL.PhysicsMaxSubSteps, MODEL.PhysicsStepTime);
             step++;
             if (step > maxCleanSteps) {
-                MODEL.PhysicsTotalTime += MODEL.PhysicsStepTime
+                MODEL.PhysicsTotalTime = MODEL.TotalRenderTime + MODEL.PhysicsStepTime
             }
         }
 

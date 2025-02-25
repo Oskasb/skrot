@@ -70,7 +70,7 @@ class GameScenario {
 
                     setTimeout(function() {
                         ctrl.call.activateCatapultPoint(point, ctrlPiece)
-                    }, 5000)
+                    }, 8000)
 
                 } else {
                     pieces.push(ctrlPiece);
@@ -78,10 +78,13 @@ class GameScenario {
                     ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1.01);
                     ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.SLAT_ENGAGE, 1.01);
                     if (json['controllables'].length) {
-                        loadControllable(json['controllables'].pop())
+                     //   setTimeout(function() {
+                            if (json['controllables'].length) {
+                                loadControllable(json['controllables'].shift())
+                            }
+                     //   }, 1000)
                     }
                 }
-
             }
 
             point.updateDynamicPoint(0.05)
@@ -93,10 +96,11 @@ class GameScenario {
         }
 
         function worldLoaded() {
-
-            if (json['controllables'].length) {
-                loadControllable(json['controllables'].shift())
-            }
+            setTimeout(function() {
+                if (json['controllables'].length) {
+                    loadControllable(json['controllables'].shift())
+                }
+            }, 2000)
         }
 
         function onJson(jsn) {
@@ -107,9 +111,10 @@ class GameScenario {
             }
 
             if (json['terrain']) {
-
                 if (minimap === null) {
-                    minimap = new DomMinimap();
+                    setTimeout(function () {
+                        minimap = new DomMinimap();
+                    }, 5000)
                 }
                 ThreeAPI.initComputeTerrain(worldLoaded)
             } else {
