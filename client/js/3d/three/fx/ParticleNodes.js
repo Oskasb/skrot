@@ -40,7 +40,13 @@ let tempMatrix = new Matrix4();
 let tempVec4 = new Vector4();
 
 class ParticleNodes {
-    constructor(material, maxInstanceCount, mesh) {
+    constructor(material, maxInstanceCount, mesh, sharedUniforms) {
+
+
+
+        const gravity = uniform( sharedUniforms['gravity'] || 0, 'float')
+
+
 
         const emitterObjects = []
 
@@ -48,7 +54,7 @@ class ParticleNodes {
 
         const tpf = uniform(0)
 
-        const emitterCount = 20;
+        const emitterCount = 10;
 
         const positionBuffer = instancedArray( maxInstanceCount, 'vec3' );
         const velocityBuffer = instancedArray( maxInstanceCount, 'vec3' );
@@ -163,7 +169,7 @@ class ParticleNodes {
 
             const dragrCurve    = pCurves.w // customCurveBuffer.element(instanceIndex).w;
             const pVelocityX    = particlevelocity.x;
-            const pVelocityY    = particlevelocity.y;
+            const pVelocityY    = gravity.add(particlevelocity.y);
             const pVelocityZ    = particlevelocity.z;
             const spawnTime     = timeValues.x;
 
@@ -277,7 +283,7 @@ class ParticleNodes {
                 let sizeMod = pSizeMod.value.y;
                 let gain = obj.userData.gain;
                 emitterPositions.array[i].set(obj.position.x, obj.position.y, obj.position.z, gain +1);
-                let emitCount = Math.floor(MATH.curveSqrt(gain*intensity+Math.random()*intensity*gain*0.5));
+                let emitCount = Math.ceil(MATH.curveSqrt(gain*intensity+Math.random()*intensity*gain*0.5));
                 tempVec.set(0, 0, obj.userData.emitForce);
                 tempVec.applyQuaternion(obj.quaternion);
                 emitterDirections.array[i].set(tempVec.x, tempVec.y, tempVec.z);

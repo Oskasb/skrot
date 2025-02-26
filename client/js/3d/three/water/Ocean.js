@@ -392,6 +392,8 @@ class Ocean {
 
             let lastIndex = 0;
 
+            let lingerChance = 0;
+
             function splashWater(e) {
                 /*
                 splashPosition.value.copy( e.pos );
@@ -406,16 +408,27 @@ class Ocean {
                 renderer.computeAsync( applySplash );
 */
 
-                tempObj.up.copy(e.normal).multiplyScalar(2.6);
+                tempObj.up.copy(e.normal).multiplyScalar(8.6);
                 tempObj.position.set(0, 0, 0);
                 tempObj.lookAt(e.velocity);
                 tempObj.position.copy(e.pos);
                 tempObj.position.add(e.normal)
-                tempObj.userData.emitForce = 50 * e.hitDot;
+
                 activateWorldEffects(tempObj, splashList)
+
+                if (Math.random() < lingerChance * e.hitDot) {
+                    tempObj.up.y = 0;
+                    e.velocity.y = 0;
+                    tempObj.lookAt(e.velocity);
+                    activateWorldEffects(tempObj, splashLingerList)
+                    lingerChance = 0.005
+                } else {
+                    lingerChance += 0.001
+                }
 
             }
             const splashList = ['particles_splash_water']
+            const splashLingerList = ['particles_splash_water_linger']
             evt.on(ENUMS.Event.SPLASH_OCEAN, splashWater)
 
             function update(){

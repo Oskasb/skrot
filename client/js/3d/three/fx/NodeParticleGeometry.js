@@ -61,12 +61,16 @@ class NodeParticleGeometry {
         let key = null;
         let maxInstanceCount = 0;
 
+        let geoSharedUnifs = {};
+
         let reapply = function() {
 
         }
 
         function setJson(json) {
             maxInstanceCount = json['max_instance_count']
+            geoSharedUnifs = json['shared_uniforms'] || geoSharedUnifs;
+
             key = json['geometry']
             reapply();
         }
@@ -129,7 +133,7 @@ class NodeParticleGeometry {
                 ThreeAPI.addToScene(geoMatEffects[matName])
             }
 
-            geoMatEffects[matName].material.particleNodes = new ParticleNodes(material, maxInstanceCount, geoMatEffects[matName])
+            geoMatEffects[matName].material.particleNodes = new ParticleNodes(material, maxInstanceCount, geoMatEffects[matName], geoSharedUnifs)
             geoMatEffects[matName].count = maxInstanceCount;
             geoMatEffects[matName].frustumCulled = false;
             geoMatEffects[matName].castShadow = false;
