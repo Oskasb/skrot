@@ -17,7 +17,7 @@
     "pVelSpread":   [0.1,   0.3],
     "pVelInherit":  [1.4,   0.55],
     "pVelVariance": [-0.2,  0.4],
-    "pLifeTime":    [1.4,   2.12],
+    "pLifeTime":    [1.2,   1.6],
     "pSizeFrom":    [1.5,   2.8],
     "pSizeTo":      [2.0,   3.0],
     "pSizeMod":     [3.3,   11.3],

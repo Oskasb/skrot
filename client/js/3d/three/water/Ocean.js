@@ -422,9 +422,9 @@ class Ocean {
                     tempObj.position.y+=0.25+Math.random();
                     tempObj.lookAt(e.velocity);
                     activateWorldEffects(tempObj, splashLingerList)
-                    lingerChance = 0.005
+                    lingerChance = 0.002
                 } else {
-                    lingerChance += 0.001
+                    lingerChance += 0.0002
                 }
 
             }
