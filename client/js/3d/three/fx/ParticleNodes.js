@@ -8,7 +8,7 @@ import {
     instance,
     vertexColor,
     storage,
-    attribute, uniformArray, ceil, hash, uint
+    attribute, uniformArray, ceil, hash, uint, transformDirection
 } from "three/tsl";
 import {Vector3} from "../../../../../libs/three/math/Vector3.js";
 import {
@@ -19,7 +19,7 @@ import {
     max,
     positionLocal,
     vec3,
-    time, uv, If, modelViewMatrix, varyingProperty, Loop, int
+    time, uv, If, modelViewMatrix, varyingProperty, Loop, int, transformedTangentWorld
 } from "../../../../../libs/three/Three.TSL.js";
 import {Color, StorageBufferAttribute, Vector2, Vector4} from "three/webgpu";
 import {getFrame} from "../../../application/utils/DataUtils.js";
@@ -96,9 +96,7 @@ class ParticleNodes {
             timeBuffer.element(pIndex).assign(vec2(0, pLifeTime));
         } )().compute( 1 );
 */
-
-    //    material.rotationNode = sizeBuffer.toAttribute().mul(99).add(time.sin().mul(0.1));
-        material.scaleNode = Fn( () => {
+        const computeScale = Fn( () => {
 
             const timeValues = customTimeBuffer.element(instanceIndex)
             const spawnTime     = timeValues.x;
@@ -106,19 +104,21 @@ class ParticleNodes {
             const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
             const forceFade = max(0, ONE.sub(lifeTimeFraction.pow(4.5)));
-
             const sizeFrom     = pSizeFrom.x;
             const sizeTo       = pSizeTo.x;
             const sizeModulate  = timeValues.z;
             const scaleExp = pScaleExp.x;
-
             const activeOne = max(0, ceil(ONE.sub(lifeTimeFraction)));
-
             const sizeMod = sizeModulate.mul(lifeTimeFraction.pow(scaleExp));
             const lifecycleSize = sizeFrom.add(sizeMod).mul(ONE.sub(lifeTimeFraction).add(sizeTo.mul(lifeTimeFraction)))
             const fadedScale = forceFade.mul(lifecycleSize)
             return fadedScale
 
+        } );
+
+
+        material.scaleNode = Fn( () => {
+            return computeScale()
         } )();
 
         material.colorNode = Fn( () => {
@@ -147,55 +147,48 @@ class ParticleNodes {
 
             const intensityColor = vec4(curveColor.r.mul(colorBoost).add(ONE.sub(forceFade)), curveColor.g.mul(colorBoost), curveColor.b.mul(colorBoost), strengthMod.mul(colorIntensity).mul(forceFade))
 
-
-
-
-
             const txColor = colorTx.sample(customSpriteUv8x8());
             const finalColor = txColor.mul(intensityColor);
             return finalColor;
         } )();
 
-        material.positionNode = Fn( () => {
+        const computePosition = Fn( () => {
             const x = pSpriteX;
             const y = pSpriteY;
             varyingProperty('vec2', 'pSpriteXY').assign( vec2(x, y) );
 
             const particlePosition = positionBuffer.element(instanceIndex)
-
             const particlevelocity = velocityBuffer.element(instanceIndex)
             const timeValues = customTimeBuffer.element(instanceIndex)
-
 
             const dragrCurve    = pCurves.w // customCurveBuffer.element(instanceIndex).w;
             const pVelocityX    = particlevelocity.x;
             const pVelocityY    = gravity.add(particlevelocity.y);
             const pVelocityZ    = particlevelocity.z;
             const spawnTime     = timeValues.x;
-
             const lifeTimeTotal = timeValues.y.add(tpf);
             const age = max(0, min(time.sub(spawnTime), lifeTimeTotal)); // 12 = pSpawnTime
-
             const lifeTimeFraction = min(age.div(lifeTimeTotal), 1);
-
             const velocityOffset = vec3(pVelocityX, pVelocityY, pVelocityZ).mul(age) // .mul(frictionMod);
-
             const frictionDrag = max(0, ONE.sub(lifeTimeFraction.mul(pVelInherit.y)))
-
-             // .mul(tpf).mul(frictionMod);
-            //    particlePosition.addAssign(velocityOffset) // .mul(activeOne)
-
-            // particlePosition.assign(pPos)
-        //    const velocityOffset = vec3(particlePosition.x, particlePosition.y.add(instanceIndex), particlePosition.z)
 
             return particlePosition.add(velocityOffset.mul(frictionDrag)) //
 
-        } )();
+        } );
 
-        // } );
+        if (material.isSpriteNodeMaterial) {
+            material.positionNode = Fn( () => {
+                return computePosition()
+
+            } )();
+        } else {
+            material.positionNode = Fn( () => {
+                const posLoc = vec3(positionLocal.x, positionLocal.z, positionLocal.y);
+                return posLoc.mul(computeScale()).add(computePosition())
+            } )();
+        }
 
         const computeUpdate = Fn( () => {
-
 
                 const emitterPositionV4 = emitterPositions.element( instanceIndex );
                 const emitterDirectionV3 = emitterDirections.element( instanceIndex );
@@ -220,15 +213,12 @@ class ParticleNodes {
                     const emitFraction = step.div(emitCount)
                     const offsetTime = emitFraction.mul(tpf)
 
-
-
                     const spread = emitterPositionV4.y.add(emitFraction.add(emitterPositionV4.x)).mod(1).mul(pPosSpread.y.sub(pPosSpread.x)).add(pPosSpread.x)
                     const posRandom = vec3(
                         emitterPositionV4.y.add(emitFraction).mod(1),
                         emitterPositionV4.z.add(emitFraction).mod(1),
                         emitterPositionV4.x.add(emitFraction).mod(1)
                     ).sub( 0.5 ).mul( spread);
-
 
                     const spreadVelocity = emitterPositionV4.z.add(emitFraction.add(emitterPositionV4.y)).mod(1).mul(pVelSpread.y.sub(pVelSpread.x)).add(pVelSpread.x)
 
@@ -238,13 +228,9 @@ class ParticleNodes {
                         emitterPositionV4.y.add(emitFraction.add(spreadVelocity)).mod(1)
                     ).sub( 0.5 ).mul( spreadVelocity);
 
-
                     const varyVelocity = emitterPositionV4.x.add(emitFraction.add(spreadVelocity)).mod(1).mul(pVelVariance.y.sub(pVelVariance.x)).add(pVelVariance.x)
-
                     const emitterVel = emitterVelV4.xyz.mul(ONE.add(varyVelocity))
-
                     const spreadSizeMod = emitterPositionV4.x.add(emitFraction.add(emitterPositionV4.z)).mod(1).mul(pSizeMod.y.sub(pSizeMod.x)).add(pSizeMod.x)
-
 
                     const offsetPos = emitterDirectionV3.mul(offsetTime).sub(emitterDirectionV3.mul(tpf))// .mul(-1)).add() // .add(vec3(offsetX, offsetY, offsetZ))
                     positionBuffer.element(particleIndex).assign(emitterPos.add(offsetPos).add(posRandom))
@@ -253,9 +239,7 @@ class ParticleNodes {
 
                 } );
 
-
         } );
-
 
         let lastIndex = 0;
 
@@ -283,7 +267,7 @@ class ParticleNodes {
                 let sizeMod = pSizeMod.value.y;
                 let gain = obj.userData.gain;
                 emitterPositions.array[i].set(obj.position.x, obj.position.y, obj.position.z, gain +1);
-                let emitCount = Math.ceil(MATH.curveSqrt(gain*intensity+Math.random()*intensity*gain*0.5));
+                let emitCount = 1 //Math.ceil(MATH.curveSqrt(gain*intensity+Math.random()*intensity*gain*0.5));
                 tempVec.set(0, 0, obj.userData.emitForce);
                 tempVec.applyQuaternion(obj.quaternion);
                 emitterDirections.array[i].set(tempVec.x, tempVec.y, tempVec.z);
@@ -294,9 +278,7 @@ class ParticleNodes {
                 if (obj.userData.gain === 0) {
                     clearEmitters.push(obj)
                 }
-
             }
-
 
             pIndex.value = lastIndex;
             lastIndex += applyCount;
@@ -319,19 +301,9 @@ class ParticleNodes {
             }
 
         }
-/*
-        const computeInit = Fn( () => {
-            const init = vec3(1, 2, 3)
-            positionBuffer.element(instanceIndex).assign(init)
-            velocityBuffer.element(instanceIndex).assign(init)
-            customTimeBuffer.element(instanceIndex).assign(init)
-        } )().compute( maxInstanceCount );
 
-        ThreeAPI.getRenderer().computeAsync(computeInit)
-*/
         function updateParticles() {
             update();
-        //    ThreeAPI.getRenderer().computeAsync( computeParticles().compute( maxInstanceCount ) );
         }
 
         console.log("P Nodes Geo: ", mesh);
@@ -357,8 +329,6 @@ class ParticleNodes {
         const emitterDirections = uniformArray(directions)
         const emitterVelocities = uniformArray(velocities)
         const emitterParams = uniformArray(params)
-    //    const emitterCurves = uniformArray(curves)
-     //   const emitterDimensions = uniformArray(dimensions)
 
 
         let applyCfg = null;

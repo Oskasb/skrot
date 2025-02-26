@@ -96,6 +96,17 @@ class TiledSpriteNodeMaterial8x8 extends SpriteNodeMaterial {
     }
 }
 
+class TiledLambertNodeMaterial8x8 extends MeshLambertNodeMaterial {
+    setup( builder ) {
+        builder.setContext( { ...builder.context,
+            getUV: ( /*reqNode*/ ) => {
+                return customSpriteUv8x8(); // return a custom uv
+            },
+        } );
+        return super.setup( builder );
+    }
+}
+
 let mats = 0;
 const materials = {};
 materials['MeshBasicMaterial'] = MeshBasicMaterial;
@@ -114,6 +125,7 @@ materials['MeshParticleLambertNodeMaterial'] = MeshParticleLambertNodeMaterial;
 materials['TiledSpriteNodeMaterial8x8'] = TiledSpriteNodeMaterial8x8;
 materials['SpriteNodeMaterial'] = SpriteNodeMaterial;
 materials['MeshPhongNodeMaterial'] = MeshPhongNodeMaterial;
+materials['TiledLambertNodeMaterial8x8'] = TiledLambertNodeMaterial8x8;
 
 class ModelMaterial {
     constructor() {
@@ -264,5 +276,6 @@ class ModelMaterial {
 export {
     ModelMaterial,
     MeshSpecialTerrainNodeMaterial,
-    TiledSpriteNodeMaterial8x8
+    TiledSpriteNodeMaterial8x8,
+    TiledLambertNodeMaterial8x8
 };

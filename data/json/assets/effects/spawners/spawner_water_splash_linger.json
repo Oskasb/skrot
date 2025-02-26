@@ -1,6 +1,6 @@
 {
   "geometry": "geometry_particles_splash_slow",
-  "material": "material_particles_8x8",
+  "material": "material_particles_8x8_quad",
   "sample_gain": {
     "velocity_base": 60,
     "velocity_gain_factor":30
@@ -13,15 +13,15 @@
   },
   "params": {
     "pSprite":      [5,     1],
-    "pPosSpread":   [0.1,     0.2],
-    "pVelSpread":   [0.001,   0.001],
-    "pVelInherit":  [0.01,  0.8],
-    "pVelVariance": [-0.001,  0.001],
+    "pPosSpread":   [0.01,   0.02],
+    "pVelSpread":   [0.001,  0.001],
+    "pVelInherit":  [0.03,   0.8],
+    "pVelVariance": [-0.001, 0.001],
     "pLifeTime":    [188,   188],
-    "pSizeFrom":    [3.5,   8.8],
+    "pSizeFrom":    [5.5,   8.8],
     "pSizeTo":      [3.0,   10.0],
-    "pSizeMod":     [0.0,   22.3],
+    "pSizeMod":     [9.0,   22.3],
     "pIntensity":   [0.7,    0.1],
-    "pScaleExp":    [0.3,   0.6]
+    "pScaleExp":    [0.03,   0.6]
   }
 }

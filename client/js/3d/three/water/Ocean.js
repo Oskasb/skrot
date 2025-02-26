@@ -419,6 +419,7 @@ class Ocean {
                 if (Math.random() < lingerChance * e.hitDot) {
                     tempObj.up.y = 0;
                     e.velocity.y = 0;
+                    tempObj.position.y+=0.25+Math.random();
                     tempObj.lookAt(e.velocity);
                     activateWorldEffects(tempObj, splashLingerList)
                     lingerChance = 0.005

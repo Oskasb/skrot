@@ -1,4 +1,7 @@
 {
   "max_instance_count": 800,
-  "geometry": "Sprite"
+  "geometry": "Quad",
+  "shared_uniforms": {
+    "gravity": 0
+  }
 }

@@ -7,7 +7,7 @@ import {Texture} from "../../../../../libs/three/textures/Texture.js";
 import {ClampToEdgeWrapping, SRGBColorSpace} from "../../../../../libs/three/constants.js";
 import {loadImageAsset} from "../../../application/utils/DataUtils.js";
 import {SpriteNodeMaterial} from "../../../../../libs/three/materials/nodes/NodeMaterials.js";
-import {TiledSpriteNodeMaterial8x8} from "../assets/ModelMaterial.js";
+import {TiledLambertNodeMaterial8x8, TiledSpriteNodeMaterial8x8} from "../assets/ModelMaterial.js";
 import {InstancedMesh} from "../../../../../libs/three/objects/InstancedMesh.js";
 
 const TILES_8 = uniform(8);
@@ -22,22 +22,7 @@ function customSpriteUv8x8() {
 }
 
 let quadMesh = new PlaneGeometry(1, 1, 1, 1)
-/*
-const curveData     = new Float32BufferAttribute( new Float32Array( 4 ), 4 );
-const velocityData  = new Float32BufferAttribute( new Float32Array( 4 ), 4 );
-const timeData      = new Float32BufferAttribute( new Float32Array( 4 ), 4 );
-const sizeData      = new Float32BufferAttribute( new Float32Array( 4 ), 4 );
 
-curveData.setUsage(DynamicDrawUsage)
-velocityData.setUsage(DynamicDrawUsage)
-timeData.setUsage(DynamicDrawUsage)
-sizeData.setUsage(DynamicDrawUsage)
-
-quadMesh.setAttribute('curveData', curveData)
-quadMesh.setAttribute('velocityData', velocityData)
-quadMesh.setAttribute('timeData', timeData)
-quadMesh.setAttribute('sizeData', sizeData)
-*/
 function quad(mat, count) {
     let mesh = new InstancedMesh(quadMesh, mat, count)
     console.log("Make Quad for count", count)
@@ -50,6 +35,7 @@ function quad(mat, count) {
 
 const geometries = {};
 geometries['Sprite'] = Sprite;
+geometries['Quad'] = quad;
 
 class NodeParticleGeometry {
     constructor() {
@@ -105,7 +91,13 @@ class NodeParticleGeometry {
             dTx.wrapS = ClampToEdgeWrapping;
             dTx.wrapT = ClampToEdgeWrapping;
 
-            const material = new TiledSpriteNodeMaterial8x8();
+            let material;
+            if (key === 'Sprite') {
+                material = new TiledSpriteNodeMaterial8x8();
+            } else {
+                material = new TiledLambertNodeMaterial8x8();
+            }
+
 
             material.map = tx;
             material.dataTexture = dTx;

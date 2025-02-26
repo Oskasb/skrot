@@ -109,7 +109,7 @@ class PhysicalModel {
                             splashEvt.normal.y = 0.8;
                             splashEvt.velocity.y += splashEvt.velocity.length()*splashEvt.hitDot;
                             splashEvt.hitDot = (tempVec.dot(splashEvt.normal)+1)/2
-                            if (splashEvt.hitDot > Math.random() * 0.9) {
+                            if (splashEvt.hitDot > Math.random() * 0.5) {
                                 evt.dispatch(ENUMS.Event.SPLASH_OCEAN, splashEvt)
                             }
                         }
