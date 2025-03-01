@@ -1,8 +1,9 @@
         {
           "assets": [
-            {"file":"cvn_65_rig",     "material": "material_cvn_65_animated"},
+            {"file":"cvn_65_rig",      "material": "material_cvn_65_animated"},
             {"file":"cvn_65_hull",     "material": "material_cvn_65_main"},
-            {"file":"cvn_65_lights",     "material": "material_cvn_65_lights"}
+            {"file":"cvn_65_lights",   "material": "material_cvn_65_lights"},
+            {"file":"cvn_65_interior", "material": "material_cvn_65_main"}
           ],
           "skeleton_file": "cvn_65_rig",
           "rotation": [0, 0, 0],
