@@ -280,6 +280,11 @@ class ParticleNodes {
                 }
             }
 
+            for (let i = emitterObjects.length; i < emitterCount; i++) {
+                emitterVelocities.array[i].set(0, 0, 0, 0);
+                emitterParams.array[i].set(applyCount, 0, 0, 0)
+            }
+
             pIndex.value = lastIndex;
             lastIndex += applyCount;
 

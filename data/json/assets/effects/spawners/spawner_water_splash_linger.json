@@ -7,7 +7,7 @@
   },
   "curves":{
     "color": "flatCyan",
-    "alpha": "zeroOneZero",
+    "alpha": "oneToZero",
     "spread": "zeroOneZero",
     "drag": "zeroToOne"
   },
@@ -17,11 +17,11 @@
     "pVelSpread":   [0.001,  0.001],
     "pVelInherit":  [0.03,   0.8],
     "pVelVariance": [-0.001, 0.001],
-    "pLifeTime":    [188,   188],
-    "pSizeFrom":    [5.5,   8.8],
-    "pSizeTo":      [1.0,   2.0],
+    "pLifeTime":    [118,   118],
+    "pSizeFrom":    [0.0,   0.0],
+    "pSizeTo":      [0.0,   55.0],
     "pSizeMod":     [29.0, 142.3],
-    "pIntensity":   [0.1,    0.1],
-    "pScaleExp":    [0.13,   0.6]
+    "pIntensity":   [0.1,    0.7],
+    "pScaleExp":    [0.18,   0.8]
   }
 }
