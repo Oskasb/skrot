@@ -7,6 +7,7 @@ import {Vector3} from "three/webgpu";
 const tempVec = new Vector3();
 const tempVec2 = new Vector3()
 
+
 class NodeParticleSpawner {
     constructor() {
 
@@ -51,8 +52,9 @@ class NodeParticleSpawner {
                 obj3d.up.set(0, 0, obj3d.userData.emitForce);
                 obj3d.up.applyQuaternion(obj3d.quaternion);
                 obj3d.up.add(vel);
+                updateEmitterGain(obj3d, particleConfig)
             }
-            updateEmitterGain(obj3d, particleConfig)
+
 
         }
 

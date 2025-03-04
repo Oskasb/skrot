@@ -33,6 +33,8 @@ import {DynamicDrawUsage, Float32BufferAttribute} from "three";
 import {varying} from "../../../../../libs/three/nodes/core/VaryingNode.js";
 import {normalLocal} from "../../../../../libs/three/nodes/accessors/Normal.js";
 
+import {evt} from "../../../application/event/evt.js";
+
 let tempObj = new Object3D();
 let tempVec = new Vector3();
 let tempColor = new Color();
@@ -267,13 +269,21 @@ class ParticleNodes {
                 let sizeMod = pSizeMod.value.y;
                 let gain = obj.userData.gain;
                 emitterPositions.array[i].set(obj.position.x, obj.position.y, obj.position.z, gain +1);
-                let emitCount = 1 //Math.ceil(MATH.curveSqrt(gain*intensity+Math.random()*intensity*gain*0.5));
-                tempVec.set(0, 0, obj.userData.emitForce);
-                tempVec.applyQuaternion(obj.quaternion);
-                emitterDirections.array[i].set(tempVec.x, tempVec.y, tempVec.z);
-                emitterVelocities.array[i].set(obj.up.x, obj.up.y, obj.up.z, emitCount);
-                emitterParams.array[i].set(applyCount, emitCount, lifeTime, intensity)
-                applyCount += emitCount
+
+                if (obj.position.lengthSq() < 100000) { //something isnt cleaning up right...
+                //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:ThreeAPI.getCameraCursor().getPos(), to:obj.position, color:'RED'})
+                    obj.userData.gain = 0;
+                } else {
+                //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:ThreeAPI.getCameraCursor().getPos(), to:obj.position, color:'GREEN'})
+                    let emitCount = 1 //Math.ceil(MATH.curveSqrt(gain*intensity+Math.random()*intensity*gain*0.5));
+                    tempVec.set(0, 0, obj.userData.emitForce);
+                    tempVec.applyQuaternion(obj.quaternion);
+                    emitterDirections.array[i].set(tempVec.x, tempVec.y, tempVec.z);
+                    emitterVelocities.array[i].set(obj.up.x, obj.up.y, obj.up.z, emitCount);
+                    emitterParams.array[i].set(applyCount, emitCount, lifeTime, intensity)
+                    applyCount += emitCount
+                }
+
 
                 if (obj.userData.gain === 0) {
                     clearEmitters.push(obj)
@@ -282,7 +292,7 @@ class ParticleNodes {
 
             for (let i = emitterObjects.length; i < emitterCount; i++) {
                 emitterVelocities.array[i].set(0, 0, 0, 0);
-                emitterParams.array[i].set(applyCount, 0, 0, 0)
+                emitterParams.array[i].set(0, 0, 0, 0)
             }
 
             pIndex.value = lastIndex;
