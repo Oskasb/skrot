@@ -1,5 +1,10 @@
 [
   {"id": "CREW_VIEW_PILOT",    "pos": [10, 45.7, 25],  "rot": [0, 0, 0]},
+  {"id": "CREW_VIEW_BRIDGE",   "pos": [24, 41.7, 22],  "rot": [0, 0, 0]},
+  {"id": "CREW_VIEW_ADMIRAL",  "pos": [14, 38.7, 22],  "rot": [0, 0, 0]},
+  {"id": "CREW_VIEW_BALC_SB",  "pos": [42, 36.2, 27],  "rot": [0, 0, 0]},
+  {"id": "CREW_VIEW_BALC_PORT","pos": [9, 39.6, 44],  "rot": [0, 0, 0]},
+  {"id": "CREW_VIEW_MAST",     "pos": [7.7, 74.2, 32.5],  "rot": [0, 0, 0]},
   {"id": "CREW_VIEW_TOWER",    "pos": [12, 75, 24],  "rot": [0, 0, 0]},
   {"id": "VIEW_CAMERA_1",      "pos": [-1.7, 3.55 ,  6.95], "rot": [0, 3.14159, 0]}
 ]

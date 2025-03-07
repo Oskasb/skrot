@@ -719,8 +719,8 @@ div.load_screen {
     position: absolute;
     border: none;
     z-index: 100;
-    background-image: linear-gradient(rgb(2, 5, 42) 0, rgb(42,  75, 185) 42%, rgb(82, 155, 255) 69.5%, rgb(24, 44, 10) 70%, rgb(31, 134, 20) 99%);
-    color: #0f1938;
+    background-image: linear-gradient(rgb(92, 190, 255) 0, rgb(111, 209, 244) 42%, rgb(202, 225, 255) 65.5%,  rgb(182, 235, 255) 70.0% ,rgb(10, 86, 117) 73%, rgb(2, 24, 40) 89%);
+    color: #031f35;
 }
 
 div.load_screen h1 {

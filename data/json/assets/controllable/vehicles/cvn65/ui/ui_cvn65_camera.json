@@ -23,27 +23,52 @@
       },
       {
         "sample": "PRESS",
-        "select": {"point": "CAT_1_READY", "min":  3.5, "max": 40, "init": 20, "local_up": true, "is_local": true},
-        "label": "Cat 1",
+        "select": {"point": "CREW_VIEW_BRIDGE",  "min":  0.15, "max": 0.15, "init": 0.15, "local_up": true},
+        "label": "Bridge",
         "call": "APPLY_CAMERA_SELECTION",
         "init": false,
         "keyAdd": "3"
       },
       {
         "sample": "PRESS",
-        "select": {"point": "CAT_2_READY", "min":  3.5, "max": 40, "init": 20, "local_up": true, "is_local": true},
-        "label": "Cat 2",
+        "select": {"point": "CREW_VIEW_ADMIRAL",  "min":  0.15, "max": 0.15, "init": 0.15, "local_up": true},
+        "label": "Admiral",
         "call": "APPLY_CAMERA_SELECTION",
         "init": false,
         "keyAdd": "4"
       },
       {
         "sample": "PRESS",
+        "select": {"point": "CREW_VIEW_BALC_SB",  "min":  0.15, "max": 0.15, "init": 0.15, "local_up": true},
+        "label": "SB Balcony",
+        "call": "APPLY_CAMERA_SELECTION",
+        "init": false,
+        "keyAdd": "4"
+      },
+      {
+        "sample": "PRESS",
+        "select": {"point": "CREW_VIEW_BALC_PORT",  "min":  0.15, "max": 0.15, "init": 0.15, "local_up": true},
+        "label": "Port Balcony",
+        "call": "APPLY_CAMERA_SELECTION",
+        "init": false,
+        "keyAdd": "4"
+      },
+      {
+        "sample": "PRESS",
+        "select": {"point": "CREW_VIEW_MAST",  "min":  0.15, "max": 0.15, "init": 0.15, "local_up": true},
+        "label": "Mast",
+        "call": "APPLY_CAMERA_SELECTION",
+        "init": false,
+        "keyAdd": "5"
+      },
+
+      {
+        "sample": "PRESS",
         "select": {"point": "CAT_3_READY", "min":  3.5, "max": 40, "init": 20, "local_up": true, "is_local": true},
         "label": "Cat 3",
         "call": "APPLY_CAMERA_SELECTION",
         "init": false,
-        "keyAdd": "5"
+        "keyAdd": "6"
       }
     ],
     "input_targets": []

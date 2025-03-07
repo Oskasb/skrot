@@ -12,7 +12,7 @@
     "roughness": 1.0,
     "aoMapIntensity": 1.0,
     "side": "DoubleSide",
-    "alphaTest": 0.3
+    "alphaTest": 0.75
   },
   "shadows": {
     "cast": true,
