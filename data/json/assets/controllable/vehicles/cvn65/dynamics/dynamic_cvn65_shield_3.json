@@ -6,7 +6,7 @@
     {
       "joints": [
         {
-          "bone": "catapult_3", "call": "setBoneRotation", "args": ["rotateX"], "factor": -1
+          "bone": "catapult_3", "call": "setBoneRotation", "args": ["rotateY"], "factor": 1
         }
       ]
     }

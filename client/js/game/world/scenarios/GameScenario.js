@@ -37,18 +37,13 @@ class GameScenario {
 
 
 
-        function loadControllable(cfg) {
+        function loadCarrierControllable(cfg) {
 
             const id = cfg['id'];
             const pointId = cfg['point'];
             const point = hostControllable.getDynamicPoint(pointId);
-
             const status = cfg['status'];
-
             const ctrl = getCarrierControl();
-
-
-
 
             if (status) {
                 for (let i = 0; i < status.length; i++) {
@@ -78,11 +73,7 @@ class GameScenario {
                     ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1.01);
                     ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.SLAT_ENGAGE, 1.01);
                     if (json['controllables'].length) {
-                     //   setTimeout(function() {
-                            if (json['controllables'].length) {
-                                loadControllable(json['controllables'].shift())
-                            }
-                     //   }, 1000)
+                        loadControlable(json)
                     }
                 }
             }
@@ -95,12 +86,52 @@ class GameScenario {
             getGameWorld().call.loadGamePiece(id, scenarioPieceLoaded, posArray, rotArray)
         }
 
+        function loadWorldControllable(cfg) {
+            const id = cfg['id'];
+
+            function scenarioPieceLoaded(ctrlPiece) {
+                ctrlPiece.addToScene();
+
+                if (cfg['auto_launch']) {
+                    hostControllable.detachUi();
+                    getGamePlayer().call.setPlayerActiveControllable(ctrlPiece);
+                    ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 0.01);
+                    ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1.01);
+                    ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.SLAT_ENGAGE, 1.01);
+                    buttonLayer.call.close(buttonLayer);
+                } else {
+                    pieces.push(ctrlPiece);
+                    ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.STATUS_BRAKE, 0.01);
+                    ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.FLAP_ENGAGE, 1.01);
+                    ctrlPiece.assetInstance.status.setStatusKey(ENUMS.InstanceStatus.SLAT_ENGAGE, 1.01);
+                    if (json['controllables'].length) {
+                        if (json['controllables'].length) {
+                            loadControlable(json)
+                        }
+                    }
+                }
+            }
+
+            const posArray = cfg['pos'];
+            const rotArray = cfg['rot'];
+            getGameWorld().call.loadGamePiece(id, scenarioPieceLoaded, posArray, rotArray)
+        }
+
+        function loadControlable(json) {
+            if (json['controllables'].length) {
+                const cfg = json['controllables'].shift()
+                if (cfg['point']) {
+                    loadCarrierControllable(cfg)
+                } else if (cfg['pos']) {
+                    loadWorldControllable(cfg)
+                }
+            }
+        }
+
         function worldLoaded() {
             setTimeout(function() {
-                if (json['controllables'].length) {
-                    loadControllable(json['controllables'].shift())
-                }
-            }, 2000)
+                loadControlable(json)
+            }, 500)
         }
 
         function onJson(jsn) {

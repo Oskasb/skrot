@@ -35,6 +35,13 @@
       },
       {
         "sample": "PRESS",
+        "select": "scenario_launch_b52",
+        "label": "B52 ISLAND",
+        "call": "APPLY_SCENARIO",
+        "init": false
+      },
+      {
+        "sample": "PRESS",
         "select": "scenario_fill",
         "label": "MAX",
         "call": "APPLY_SCENARIO",

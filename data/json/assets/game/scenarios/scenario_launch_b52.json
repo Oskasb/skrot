@@ -1,0 +1,6 @@
+{
+  "controllables": [
+    {"id": "controllable_b52", "pos": [828, 48, 1648], "rot": [0, -1.67, 0], "auto_launch": true}
+  ],
+  "terrain": true
+}
