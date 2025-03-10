@@ -55,7 +55,7 @@ class DomStatusFlight {
             translateElement3DPercent(dynamicPitchR, -12, dynPitchR,  0);
 */
 
-            let camRoll = -MATH.rollAttitudeFromQuaternion(ThreeAPI.getCamera().quaternion);
+            let camRoll = MATH.rollAttitudeFromQuaternion(ThreeAPI.getCamera().quaternion);
             horizonGrad.style.rotate = camRoll+'rad';
 
             let pitch = statusMap['STATUS_PITCH']*50 / 3.15 + 50

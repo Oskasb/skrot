@@ -1,6 +1,6 @@
 {
   "controllables": [
-    {"id": "controllable_j29", "pos": [1220, 44, 3475], "rot": [0, 3.145, 0], "auto_launch": true}
+    {"id": "controllable_j29", "pos": [1220, 40.5, 3475], "rot": [0, 3.145, 0], "auto_launch": true}
   ],
   "terrain": true
 }
