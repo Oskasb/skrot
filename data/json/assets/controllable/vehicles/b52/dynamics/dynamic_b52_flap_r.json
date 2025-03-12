@@ -5,8 +5,10 @@
   "targets": [
     {
       "joints": [
-        {"bone": "flap_r_in", "call": "setBoneRotation", "args": ["rotateY"], "factor": 0.7},
-        {"bone": "flap_r_out", "call": "setBoneRotation", "args": ["rotateY"], "factor": 0.7}
+        {"bone": "flap_r_in", "call": "setBonePosition", "args": ["x", "y" ,"z"], "factor": [0.25, -1.15,  -0.7]},
+        {"bone": "flap_r_in", "call": "setBoneRotation", "args": ["rotateY"], "factor": 0.6},
+        {"bone": "flap_r_out", "call": "setBonePosition", "args": ["x", "y" ,"z"], "factor": [0.45, -1.15,  -0.7]},
+        {"bone": "flap_r_out", "call": "setBoneRotation", "args": ["rotateY"], "factor": 0.6}
       ]
     }
   ]

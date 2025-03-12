@@ -7,7 +7,7 @@
         {"bone": "rudder", "call": "setBoneRotation", "args": ["rotateY"], "factor": 0.5}
       ],
       "status": [
-        {"key": "STEERING_YAW", "factor": 1}
+        {"key": "STEERING_YAW", "factor": -1}
       ]
     }
   ]
