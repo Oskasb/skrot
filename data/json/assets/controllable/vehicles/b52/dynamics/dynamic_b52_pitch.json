@@ -4,8 +4,8 @@
   "targets": [
     {
       "joints": [
-        {"bone": "elevator_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": 0.5},
-        {"bone": "elevator_r", "call": "setBoneRotation", "args": ["rotateX"], "factor":-0.5}
+        {"bone": "elevator_l", "call": "setBoneRotation", "args": ["rotateY"], "factor": 0.5},
+        {"bone": "elevator_r", "call": "setBoneRotation", "args": ["rotateY"], "factor":-0.5}
       ]
     }
   ]

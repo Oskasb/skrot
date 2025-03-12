@@ -5,8 +5,8 @@
   "targets": [
     {
       "joints": [
-        {"bone": "flap_l_in", "call": "setBoneRotation", "args": ["rotateX"], "factor": -0.7},
-        {"bone": "flap_l_out", "call": "setBoneRotation", "args": ["rotateX"], "factor": -0.7}
+        {"bone": "flap_l_in", "call": "setBoneRotation", "args": ["rotateY"], "factor": -0.7},
+        {"bone": "flap_l_out", "call": "setBoneRotation", "args": ["rotateY"], "factor": -0.7}
       ]
     }
   ]

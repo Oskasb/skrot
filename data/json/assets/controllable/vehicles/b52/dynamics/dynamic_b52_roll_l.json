@@ -4,7 +4,7 @@
   "targets": [
     {
       "joints": [
-        {"bone": "aeilron_l", "call": "setBoneRotation", "args": ["rotateX"], "factor": -0.5}
+        {"bone": "aeilron_l", "call": "setBoneRotation", "args": ["rotateY"], "factor": -0.5}
       ]
     }
   ]
