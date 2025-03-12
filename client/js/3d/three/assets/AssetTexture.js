@@ -48,7 +48,8 @@ class AssetTexture {
 
         function subscribe(cb) {
             subscribers.push(cb);
-            if (settings.bitmap !== null) {
+            if (ready === true) {
+                console.log("sub to loaded tx", settings)
                 cb(settings);
             }
         }

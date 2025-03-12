@@ -77,7 +77,10 @@ function loadAsset(fileName, fileType, callback) {
  //   console.log("load url:", url);
 
     if (loadedAssets[url]) {
-
+        console.log("load url: loadedAssets[url", loadedAssets[url]);
+        pipeMsgCB('load Ok', fileType,fileName+'.'+fileType);
+        callback(loadedAssets[url])
+        return;
     }
 
     if (loadCalls[url]) {
@@ -87,6 +90,7 @@ function loadAsset(fileName, fileType, callback) {
     }
 
     function onLoad(asset) {
+        loadedAssets[url] = asset;
         pipeMsgCB('load Ok', fileType,fileName+'.'+fileType);
         callback(asset)
     }

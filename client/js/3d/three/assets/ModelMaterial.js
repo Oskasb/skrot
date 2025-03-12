@@ -141,11 +141,12 @@ class ModelMaterial {
 
         function materialLoaded() {
             if (callFrame !== getFrame().frame) {
-                settings.material.needsUpdate = true;
                 MATH.callAll(subscribers, settings);
                 ready = true;
                 callFrame = getFrame().frame
+                console.log("materialLoaded:", settings, getFrame().frame, callFrame, settings.material);
             }
+            settings.material.needsUpdate = true;
         }
 
         function addSlotTexture(slot, tx) {
@@ -161,7 +162,7 @@ class ModelMaterial {
                     if (slotTx.slot === 'aoMap') {
                         assetTx.texture.channel = 1;
                     }
-
+                    assetTx.texture.needsUpdate = true;
                     settings.material[slotTx.slot] = assetTx.texture;
                     if (txLoads.length === 0) {
                         materialLoaded()
@@ -199,7 +200,6 @@ class ModelMaterial {
                         }
                     }
 
-
                     let mat = settings.material;
                     let matSettings = data.settings
                     for (let key in matSettings) {
@@ -207,6 +207,7 @@ class ModelMaterial {
 
                         if (typeof (values) === "string") {
                             mat[key] = constants[values];
+                            console.log("Apply constant mat[key] ", key, values)
                         } else {
                             if (typeof mat[key] === 'object') {
                                 for (let element in values) {
@@ -214,13 +215,14 @@ class ModelMaterial {
 
                                     }
                                     if (typeof (mat[key][element]) === 'undefined') {
-                                    //    console.log("No element for", mat[key], key, element)
+                                        console.log("No element for", mat[key], key, element)
                                     } else {
                                     //    console.log("Apply values ", key, values, element)
                                         mat[key][element] = values[element];
                                     }
                                 }
                             } else {
+                                console.log("Apply mat[key] ", key, values)
                                 mat[key] = values;
                             }
                         }

@@ -1,0 +1,19 @@
+{
+  "material": "MeshStandardMaterial",
+  "textures": [
+    { "slot":"map",           "tx": "texture_skrot_atlas"},
+    { "slot":"normalMap",     "tx": "texture_skrot_atlas_normal"},
+    { "slot":"metalnessMap",  "tx": "texture_skrot_atlas_metalness"},
+    { "slot":"roughnessMap",  "tx": "texture_skrot_atlas_roughness"}
+  ],
+  "settings": {
+    "color": [1, 1, 1],
+    "metalness": 1.0,
+    "roughness": 1.0,
+    "envMapIntensity": 1.0
+  },
+  "shadows": {
+    "cast": true,
+    "receive": false
+  }
+}
