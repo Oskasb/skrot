@@ -1,0 +1,12 @@
+{
+  "dynamic": "SUSP_FL",
+  "sample": {"status": "SUSP_COMP_WHEEL_0"},
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 80},
+  "targets": [
+    {
+      "joints": [
+        {"bone": "left_f_susp", "call": "setBonePosition", "args": ["z"], "factor":   0.3, "offset": -0.7}
+      ]
+    }
+  ]
+}

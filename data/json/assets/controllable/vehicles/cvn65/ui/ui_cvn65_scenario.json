@@ -42,6 +42,13 @@
       },
       {
         "sample": "PRESS",
+        "select": "scenario_drive_pv9031",
+        "label": "CAR",
+        "call": "APPLY_SCENARIO",
+        "init": false
+      },
+      {
+        "sample": "PRESS",
         "select": "scenario_fill",
         "label": "MAX",
         "call": "APPLY_SCENARIO",

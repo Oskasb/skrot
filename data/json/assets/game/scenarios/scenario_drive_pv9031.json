@@ -1,0 +1,6 @@
+{
+  "controllables": [
+    {"id": "controllable_pv9031", "pos": [828, 42, 1648], "rot": [0, 1.57, 0], "auto_launch": true}
+  ],
+  "terrain": true
+}

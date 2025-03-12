@@ -1,0 +1,43 @@
+{
+  "buoyancy": [
+    {"pos": [0, 0, 4], "size": 1.4},
+    {"pos": [0, 0, -4], "size": 1.4},
+    {"pos": [3, 0, 0], "size": 1.4},
+    {"pos": [-3, 0, 0], "size": 1.4}
+  ],
+  "wheels": [
+    {"front": true,
+      "pos": [ 0.8, 0, 1.1]
+    },
+    {"front": true,
+      "pos": [-0.8, 0, 1.1]
+    },
+    {
+      "pos": [-0.8, 0, -1.1]
+    },
+    {
+      "pos": [ 0.8, 0, -1.1]
+    }
+  ],
+  "tuning": {
+    "front": {"max_sus_force": 180000, "sus_length": 0.65, "radius": 0.45},
+    "main":  {"max_sus_force": 180000, "sus_length": 0.65, "radius": 0.45}
+  },
+  "shapes": [
+    {
+      "shape": "compound",
+      "scale": [3.0, 2.4, 5.0],
+      "convex": false,
+      "mass": 1000,
+      "friction": 2.9,
+      "children": [
+        {
+          "shape": "box",
+          "scale": [2, 0.5, 3],
+          "rot": [0, 0, 0],
+          "pos": [0, 0.4, 0]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "label": "9031",
+  "controllable": "vehicle_pv9031",
+  "ui": [
+    {"id": "FLIGHT_STICK",          "file": "ui_stick"},
+    {"id": "YAW_PEDALS",            "file": "ui_pedals"},
+    {"id": "POWER",                 "file": "ui_power" },
+    {"id": "CAMERA",                "file": "ui_camera"},
+    {"id": "STATUS",                "file": "ui_status"}
+  ],
+  "inputs": [
+    {"id": "INPUT_ROLL",    "state": {"min":-1, "max": 1, "value": 0, "speed": 1.7}},
+    {"id": "INPUT_PITCH",   "state": {"min":-1, "max": 1, "value": 0, "speed": 1.7}},
+    {"id": "INPUT_YAW",     "state": {"min":-1, "max": 1, "value": 0, "speed": 0.8}},
+    {"id": "INPUT_POWER",   "state": {"min":-1, "max": 1, "value": 0, "speed": 0.25}}
+  ],
+  "controls": [
+    {"id": "CONTROLS_FLIGHT",       "file": "controls_pv9031_flight"},
+    {"id": "CONTROLS_WEAPONS",      "file": "controls_weapons"}
+  ],
+  "propulsion": [
+    {"point": "ENGINE_A",     "file": "propulsion_car_engine"}
+  ],
+  "surfaces": [
+    {"point": "FUSELAGE",   "file": "surface_pv9031_fuselage"}
+  ],
+  "hardpoints": [
+
+  ]
+}

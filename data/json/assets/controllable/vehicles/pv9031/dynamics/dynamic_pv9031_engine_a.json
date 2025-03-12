@@ -1,0 +1,11 @@
+{
+  "dynamic": "ENGINE_A",
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 3.5},
+  "targets": [
+    {
+      "status": [
+        {"key": "STATUS_THROTTLE", "factor": 1}
+      ]
+    }
+  ]
+}

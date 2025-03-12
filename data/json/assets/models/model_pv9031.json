@@ -1,0 +1,11 @@
+        {
+          "assets": [
+            {"file":"car_pv_rig",         "material": "material_plane_opaque_shadow"},
+            {"file":"car_pv_glass",       "material": "material_props_glass"}
+          ],
+          "skeleton_file": "car_pv_rig",
+          "rotation": [0, 0, 0],
+          "scale": [1, 1, 1]
+        }
+
+

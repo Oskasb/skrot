@@ -1,0 +1,22 @@
+{
+  "model": "model_pv9031",
+  "physical": "physical_pv_9031",
+  "points": [
+    {"id": "VIEWS",           "file": "points_pv9031_views"},
+    {"id": "LIGHTS",          "file": "points_pv9031_lights"},
+    {"id": "ENGINES",         "file": "points_pv9031_engines"},
+    {"id": "SURFACES",        "file": "points_pv9031_surfaces"}
+  ],
+  "control_dynamics": [
+    {"id": "DYNAMIC_RUDDER",          "file": "dynamic_pv9031_rudder"},
+    {"id": "DYNAMIC_ENGINE_A",        "file": "dynamic_pv9031_engine_a"},
+    {"id": "DYNAMIC_WHEEL_FL",        "file": "dynamic_pv9031_wheel_fl"},
+    {"id": "DYNAMIC_WHEEL_FR",        "file": "dynamic_pv9031_wheel_fr"},
+    {"id": "DYNAMIC_WHEEL_RL",        "file": "dynamic_pv9031_wheel_l"},
+    {"id": "DYNAMIC_WHEEL_RR",        "file": "dynamic_pv9031_wheel_r"},
+    {"id": "DYNAMIC_SUSP_FL",         "file": "dynamic_pv9031_susp_fl"},
+    {"id": "DYNAMIC_SUSP_FR",         "file": "dynamic_pv9031_susp_fr"},
+    {"id": "DYNAMIC_SUSP_RL",         "file": "dynamic_pv9031_susp_l"},
+    {"id": "DYNAMIC_SUSP_RR",         "file": "dynamic_pv9031_susp_r"}
+  ]
+}

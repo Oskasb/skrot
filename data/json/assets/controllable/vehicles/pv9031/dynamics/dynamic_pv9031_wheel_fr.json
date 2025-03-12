@@ -1,0 +1,12 @@
+{
+  "dynamic": "WHEEL_FR",
+  "state": {"min": 0, "max": 1, "value": 0, "speed": 10},
+  "sample": {"status": "ROTATION_WHEEL_1"},
+  "targets": [
+    {
+      "joints": [
+        {"bone": "right_f_wheel", "call": "setBoneRotation", "args": ["rotateY"], "factor":  -1}
+      ]
+    }
+  ]
+}

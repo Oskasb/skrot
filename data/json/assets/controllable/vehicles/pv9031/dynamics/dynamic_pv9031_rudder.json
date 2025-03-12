@@ -1,0 +1,16 @@
+{
+  "dynamic": "STEERING_WHEEL",
+  "state": {"min": -1, "max": 1, "value": 0, "speed": 2.8},
+  "targets": [
+    {
+      "joints": [
+        {"bone": "steer", "call": "setBoneRotation", "args": ["rotateY"], "factor": -3},
+        {"bone": "left_f_susp", "call": "setBoneRotation", "args": ["rotateY"], "factor":  0.9, "offset": 0},
+        {"bone": "right_f_susp", "call": "setBoneRotation", "args": ["rotateY"], "factor":  0.9, "offset": 0}
+      ],
+      "status": [
+        {"key": "STEERING_YAW", "factor": -1}
+      ]
+    }
+  ]
+}
