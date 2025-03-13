@@ -30,6 +30,12 @@ class GamePlayer {
             ThreeAPI.threeSetup.addPrerenderCallback(updatePlayer)
         }
 
+        function releasePlayerActiveControllable() {
+            status.setStatusKey(ENUMS.PlayerStatus.CONTROLLABLE_ID, "");
+            playerControllable = null;
+            ThreeAPI.threeSetup.removePrerenderCallback(updatePlayer);
+        }
+
         function setControllable(ctrlPiece) {
             ctrlPiece.getAssetInstance().call.addToScene();
             setPlayerActiveControllable(ctrlPiece);
@@ -76,6 +82,7 @@ class GamePlayer {
             getObj3d:getObj3d,
             activateControllable:activateControllable,
             setPlayerActiveControllable:setPlayerActiveControllable,
+            releasePlayerActiveControllable:releasePlayerActiveControllable,
             getPlayerControllable:getPlayerControllable
         }
 

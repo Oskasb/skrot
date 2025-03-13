@@ -3,6 +3,7 @@ import {getFrame} from "../../application/utils/DataUtils.js";
 import {MATH} from "../../application/MATH.js";
 import {Quaternion} from "../../../../libs/three/math/Quaternion.js";
 import {Object3D} from "../../../../libs/three/core/Object3D.js";
+import {getGamePlayer} from "../../Client.js";
 
 let lastTargetPos = new Vector3();
 let lastCamPos = new Vector3();
@@ -15,22 +16,29 @@ let tempObj = new Object3D();
 
 function CAM_ORBIT(controllable, orbitControls) {
     const pointName = 'CREW_VIEW_PILOT';
-    const point = controllable.getDynamicPoint(pointName);
-    if (!point) {
-        return;
-    }
-    point.updateDynamicPoint()
-    tempVec.set(0, 1, 0);
     lastCamPos.copy(orbitControls.target);
-    orbitControls.target.copy(point.getPos());
-    posFrameDelta.subVectors(orbitControls.target, lastCamPos)
-    orbitControls.camera.position.add(posFrameDelta);
+    if (controllable !== null) {
+        const point = controllable.getDynamicPoint(pointName);
+        if (!point) {
+            return;
+        }
+        point.updateDynamicPoint()
+        tempVec.set(0, 1, 0);
+        orbitControls.target.copy(point.getPos());
+    } else {
+        orbitControls.target.copy(getGamePlayer().getPos())
+    }
 
-    orbitControls.camera.up.copy(tempVec)
-    orbitControls.minDistance = 0.5;
-    orbitControls.maxDistance = 8000;
-    orbitControls.update();
-    lastCamPos.copy(orbitControls.camera.position);
+        posFrameDelta.subVectors(orbitControls.target, lastCamPos)
+        orbitControls.camera.position.add(posFrameDelta);
+
+        orbitControls.camera.up.copy(tempVec)
+        orbitControls.minDistance = 0.5;
+        orbitControls.maxDistance = 8000;
+        orbitControls.update();
+        lastCamPos.copy(orbitControls.camera.position);
+
+
 }
 
 function CAM_FOLLOW(controllable, orbitControls) {

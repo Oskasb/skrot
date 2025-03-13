@@ -53,6 +53,13 @@
         "label": "MAX",
         "call": "APPLY_SCENARIO",
         "init": false
+      },
+      {
+        "sample": "PRESS",
+        "select": "scenario_edit",
+        "label": "EDIT WORLD",
+        "call": "APPLY_SCENARIO",
+        "init": false
       }
     ],
     "input_targets": []

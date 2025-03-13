@@ -1,11 +1,12 @@
 import {jsonAsset} from "../../../application/utils/AssetUtils.js";
 import {MATH} from "../../../application/MATH.js";
 import {DomWorldButtonLayer} from "../../../application/ui/dom/DomWorldButtonLayer.js";
-import {getGamePlayer} from "../../../Client.js";
+import {getCameraControls, getGamePlayer} from "../../../Client.js";
 import {getGameWorld} from "../../../application/utils/GameUtils.js";
 import {DomMinimap} from "../../../application/ui/dom/DomMinimap.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {getCarrierControl} from "../../player/CarrierControl.js";
+import {DomThumbstick} from "../../../application/ui/dom/ui/DomThumbstick.js";
 
 let minimap = null;
 
@@ -15,7 +16,7 @@ class GameScenario {
         let json = null;
         this.json = json;
         const pieces = [];
-
+        const scenarioUi = {};
         const hostControllable = getGamePlayer().call.getPlayerControllable();
 
         function worldElementClick(e) {
@@ -139,6 +140,22 @@ class GameScenario {
 
             if (json['keep_ui'] !== true) {
                 hostControllable.detachUi();
+            }
+
+            if (json['edit_mode'] === true) {
+                scenarioUi.thumbstick = new DomThumbstick();
+
+                function stickReady() {
+                    getGamePlayer().call.releasePlayerActiveControllable();
+                }
+
+                const sMap = {
+                    camera:ThreeAPI.getCamera(),
+                    controls:getCameraControls(),
+                    player:getGamePlayer()
+                };
+
+                scenarioUi.thumbstick.call.initElement(sMap, 'ui/ui_thumb_stick', 'ui_flight_stick', stickReady)
             }
 
             if (json['terrain']) {
