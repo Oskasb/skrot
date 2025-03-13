@@ -147,6 +147,19 @@ function getJsonUrlByFileName(fileName) {
     return './data/'+file.url;
 }
 
+function listJsonFilesByFirstSubstring(substr, splitBy, store, ext) {
+    let files = configs.files[ext]
+    for (let key in files) {
+        if (!substr) {
+            store.push(key);
+        } else {
+            let sub1 = key.split(splitBy)[0];
+            if (sub1 === substr) {
+                store.push(key);
+            }
+        }
+    }
+}
 
 export {
     pipeMsgCB,
@@ -164,5 +177,6 @@ export {
     loadModelAsset,
     getConfigs,
     getJsonByFileName,
-    getJsonUrlByFileName
+    getJsonUrlByFileName,
+    listJsonFilesByFirstSubstring
 }

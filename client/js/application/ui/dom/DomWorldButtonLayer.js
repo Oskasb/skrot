@@ -4,6 +4,7 @@ import {poolReturn} from "../../utils/PoolUtils.js";
 import {isDev} from "../../utils/DebugUtils.js";
 import {MATH} from "../../MATH.js";
 import {addClickFunction, createIframeElement, removeDivElement, rootFontSize} from "./DomUtils.js";
+import {getSetting} from "../../utils/StatusUtils.js";
 
 let tempVec = new Vector3();
 let frustumFactor = 0.828;
@@ -16,6 +17,11 @@ class DomWorldButtonLayer {
         let buttonDivs = [];
         let label = "init";
         let onClick = null;
+
+
+        const settings = {
+            maxDistance:2500
+        }
 
         function init(wElements, lbl, clickFunc) {
             label = lbl;
@@ -47,7 +53,7 @@ class DomWorldButtonLayer {
             for (let i = 0; i < worldElements.length; i++) {
                     let pos = worldElements[i].getPos();
                     let distance = MATH.distanceBetween(ThreeAPI.getCameraCursor().getPos(), pos)
-                    if (distance < 2500 + camCursorDist * 0.5) {
+                    if (distance < settings.maxDistance + camCursorDist * 0.5) {
                         if (ThreeAPI.testPosIsVisible(pos)) {
                             visibleElements.push(worldElements[i]);
                         }
@@ -116,13 +122,19 @@ class DomWorldButtonLayer {
             }
         }.bind(this);
 
+        function getSettings() {
+            return settings;
+        }
+
         this.call = {
+            getSettings:getSettings,
             init:init,
             update:update,
             close:close
         }
 
     }
+
 
     initWorldButtonLayer(elementList, label, onClick) {
         this.call.init(elementList, label, onClick);

@@ -7,6 +7,7 @@ import {DomMinimap} from "../../../application/ui/dom/DomMinimap.js";
 import {ENUMS} from "../../../application/ENUMS.js";
 import {getCarrierControl} from "../../player/CarrierControl.js";
 import {DomThumbstick} from "../../../application/ui/dom/ui/DomThumbstick.js";
+import {activateSites, editSites} from "../sites/SiteSystem.js";
 
 let minimap = null;
 
@@ -147,6 +148,7 @@ class GameScenario {
 
                 function stickReady() {
                     getGamePlayer().call.releasePlayerActiveControllable();
+                    editSites()
                 }
 
                 const sMap = {
@@ -159,12 +161,18 @@ class GameScenario {
             }
 
             if (json['terrain']) {
-                if (minimap === null) {
-                    setTimeout(function () {
-                        minimap = new DomMinimap();
-                    }, 5000)
+
+                function terrainReady() {
+                    if (minimap === null) {
+                        setTimeout(function () {
+                            minimap = new DomMinimap();
+                        }, 2000)
+                    }
+                    activateSites()
+                    worldLoaded()
                 }
-                ThreeAPI.initComputeTerrain(worldLoaded)
+
+                ThreeAPI.initComputeTerrain(terrainReady)
             } else {
                 worldLoaded();
             }
