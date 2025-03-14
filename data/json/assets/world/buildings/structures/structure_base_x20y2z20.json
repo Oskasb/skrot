@@ -1,0 +1,9 @@
+{
+  "shapes": [
+    {"id": "shape_box_static_stone_1", "pos": [0, -2.0,  0], "rot": [0, 0, 0],   "scale": [40, 5, 40]},
+    {"id": "shape_box_static_wood_1", "pos": [23.5,-2.0,  0], "rot": [0, 0, -0.4], "scale": [8.5,  2, 40]},
+    {"id": "shape_box_static_wood_1", "pos": [0, -2.0, 23.5], "rot": [0.4, 0, 0],   "scale": [40, 2, 9]},
+    {"id": "shape_box_static_wood_1", "pos": [-23.5,-2.0, 0], "rot": [0, 0, 0.4],   "scale": [8.5,  2, 40]},
+    {"id": "shape_box_static_wood_1", "pos": [0, -2.0,-23.5], "rot": [-0.4, 0, 0],   "scale": [40, 2, 8.5]}
+  ]
+}

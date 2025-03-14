@@ -1,0 +1,13 @@
+{
+  "count": 4000,
+  "geometries": [
+    "box_metal",
+    "box_wood",
+    "box_stone",
+    "box_window_grey",
+    "box_window_metal",
+    "box_window_wood",
+    "box_wood_borders"
+  ],
+  "material":"material_props_opaque"
+}

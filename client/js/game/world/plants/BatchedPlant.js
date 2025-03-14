@@ -88,11 +88,9 @@ class BatchedPlant {
             if (plantIsActive) {
                 closePlant()
             }
-         //   closeLodTree()
             json = jsn;
             let size = MATH.randomBetween(json.size[0], json.size[1]);
             obj3d.scale.set(size, size, size)
-
             loadBatchGeometry(json.batch, activateBatchGeometries);
 
         }

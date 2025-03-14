@@ -741,6 +741,16 @@ MATH.rotObj3dToArray = function(obj3d, array, scale) {
 	array[2] = this.decimalify(obj3d.rotation.z, scale || 10000);
 }
 
+MATH.obj3dFromConfig = function(obj3d, cfg) {
+	const pos = cfg['pos'];
+	const rot = cfg['rot'];
+	const scale = cfg['scale'];
+	MATH.vec3FromArray(obj3d.position, pos);
+	MATH.vec3FromArray(obj3d.scale, scale);
+	obj3d.quaternion.set(0, 0, 0, 1)
+	MATH.rotateObj(obj3d, rot);
+}
+
 MATH.vectorYZToAngleAxisX = function(vec) {
 	return Math.atan2(vec.y, vec.z);
 };

@@ -1,0 +1,5 @@
+{
+  "size": [1, 1, 1],
+  "batch": "batch_structure_shapes",
+  "model": "box_window_wood"
+}

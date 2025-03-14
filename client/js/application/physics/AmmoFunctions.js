@@ -563,7 +563,15 @@ function setBodyTransform(body, position, quaternion) {
     VECTOR_AUX.setX(0);
     VECTOR_AUX.setY(0);
     VECTOR_AUX.setZ(0);
+    clearBodyVelocity(body)
 
+
+    applyBodyParams(body);
+
+};
+
+
+function clearBodyVelocity(body) {
     body.getLinearVelocity().setX(0);
     body.getLinearVelocity().setY(0);
     body.getLinearVelocity().setZ(0);
@@ -571,11 +579,7 @@ function setBodyTransform(body, position, quaternion) {
     body.getAngularVelocity().setX(0);
     body.getAngularVelocity().setY(0);
     body.getAngularVelocity().setZ(0);
-
-    applyBodyParams(body);
-
-};
-
+}
 
 function clearBodyState(body) {
     tempVec.set(1000, 0, 1000);
@@ -585,6 +589,7 @@ function clearBodyState(body) {
     TRANSFORM_AUX.getOrigin().setZ(tempVec.z);
     body.setWorldTransform(TRANSFORM_AUX);
     body.getMotionState().setWorldTransform(TRANSFORM_AUX);
+    clearBodyVelocity(body)
     body.clearForces();
 }
 

@@ -1,0 +1,7 @@
+    {
+      "shape": "box",
+      "scale": [1.0, 1.0, 1.0],
+      "convex": false,
+      "mass": 0,
+      "friction": 2.9
+    }

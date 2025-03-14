@@ -34,6 +34,10 @@ import {ActiveBullet} from "../../game/pieces/weapons/ActiveBullet.js";
 import {WorldEffect} from "../../3d/three/assets/WorldEffect.js";
 import {GeometryInstance} from "../../3d/three/assets/GeometryInstance.js";
 import {DomStatusFlight} from "../ui/dom/ui/DomStatusFlight.js";
+import {BatchedShape} from "../../game/world/sites/BatchedShape.js";
+import {SiteBuilding} from "../../game/world/sites/SiteBuilding.js";
+import {BuildingStructure} from "../../game/world/sites/BuildingStructure.js";
+import {StructureShape} from "../../game/world/sites/StructureShape.js";
 
 
 let pools = {}
@@ -78,6 +82,10 @@ function initPools() {
     registerPool(ActiveBullet)
     registerPool(WorldEffect)
     registerPool(GeometryInstance)
+    registerPool(BatchedShape)
+    registerPool(SiteBuilding)
+    registerPool(BuildingStructure)
+    registerPool(StructureShape)
 }
 
 function registerPool(DataObj) {

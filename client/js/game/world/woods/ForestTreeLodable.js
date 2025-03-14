@@ -138,8 +138,6 @@ class ForestTreeLodable {
                 closeLodTree()
                 poolReturn(forestTree);
 
-
-
         }
 
 
