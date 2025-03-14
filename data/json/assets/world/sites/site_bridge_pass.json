@@ -1,4 +1,7 @@
 {
   "label": "Bridge Pass",
-  "pos": [10190, 30, 7810]
+  "pos": [10250, 30, 7790],
+  "buildings": [
+    {"id": "building_bridge_160", "pos": [0, 0, 0], "rot": [0, 1.92, 0], "scale": [1.0, 1.0, 1.0]}
+  ]
 }
