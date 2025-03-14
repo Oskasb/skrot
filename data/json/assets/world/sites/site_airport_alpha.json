@@ -1,4 +1,7 @@
 {
   "label": "Airport Alpha",
-  "pos": [2250, 40, 2550]
+  "pos": [2250, 40, 2550],
+  "buildings": [
+    {"id": "building_tower_alpha", "pos": [2050, 39, 2220], "rot": [0, 0, 0], "scale": [1, 1, 1]}
+  ]
 }
