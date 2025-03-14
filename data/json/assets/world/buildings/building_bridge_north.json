@@ -1,0 +1,9 @@
+{
+  "structures": [
+    {"id": "structure_base_bridge_160",    "pos": [0, 0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_stands_bridge_160",  "pos": [9, 0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_stands_bridge_160",  "pos": [-9,0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_uphold_bridge_160",  "pos": [0, 0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_core_bridge_160",    "pos": [0, 0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]}
+  ]
+}

@@ -1,4 +1,7 @@
 {
   "label": "Bridge North",
-  "pos": [9250, 120, 4620]
+  "pos": [9292, 120, 4654],
+  "buildings": [
+    {"id": "building_bridge_north", "pos": [0, 0, 0], "rot": [0, 1.22, 0], "scale": [1, 1, 1]}
+  ]
 }

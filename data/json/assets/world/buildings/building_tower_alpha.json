@@ -4,11 +4,11 @@
     {"id": "structure_floor_x11y05z11","pos": [0, 1.5, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
     {"id": "structure_walls_x11y4z11", "pos": [0, 2, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
 
-    {"id": "structure_floor_x11y05z11","pos": [0, 8.25, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
-    {"id": "structure_walls_x11y4z11", "pos": [0, 8.75, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_floor_x11y05z11","pos": [0, 8.0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_walls_x11y4z11", "pos": [0, 8.5, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
 
     {"id": "structure_floor_x11y05z11","pos": [0, 14.5, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
     {"id": "structure_walls_x11y4z11", "pos": [0, 15.0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
-    {"id": "structure_floor_x11y05z11","pos": [0, 21.25, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]}
+    {"id": "structure_floor_x11y05z11","pos": [0, 21.0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]}
   ]
 }

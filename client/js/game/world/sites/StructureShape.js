@@ -35,6 +35,7 @@ class StructureShape{
         }
 
         function attachBody(body) {
+          //  AmmoAPI.requestBodyDeactivation(body)
             info.body = body
             ThreeAPI.registerPrerenderCallback(update);
         }

@@ -1,0 +1,11 @@
+{
+  "shapes": [
+    {"id": "shape_box_static_stone_1", "pos": [0, 1.0,  0],   "rot": [0, 0, 0],   "scale": [20, 2, 20]},
+    {"id": "shape_box_static_stone_1", "pos": [0, 1.0,  160], "rot": [0, 0, 0],   "scale": [20, 2, 20]},
+
+    {"id": "shape_box_static_stone_1", "pos": [0, -42.5,  30],   "rot": [0, 0, 0],   "scale": [20, 5,  30]},
+    {"id": "shape_box_static_stone_1", "pos": [0, -42.5,  130],  "rot": [0, 0, 0],   "scale": [20, 5,  30]},
+    {"id": "shape_box_static_stone_1", "pos": [0, -30.0,  20],   "rot": [0, 0, 0],   "scale": [20, 20, 10]},
+    {"id": "shape_box_static_stone_1", "pos": [0, -30.0,  140],  "rot": [0, 0, 0],   "scale": [20, 20, 10]}
+  ]
+}
