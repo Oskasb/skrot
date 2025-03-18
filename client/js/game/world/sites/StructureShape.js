@@ -48,8 +48,13 @@ class StructureShape{
         }
 
         function attachBody(body) {
+            if (info.body !== null) {
+                if (info.body !== body) {
+                    AmmoAPI.excludeBody(info.body);
+                }
+            }
             info.body = body
-            deactivatePhysicsSimulation()
+            activatePhysicsSimulation()
         }
 
         function detachBody() {
