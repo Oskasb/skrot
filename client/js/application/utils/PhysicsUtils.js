@@ -9,23 +9,24 @@ import {evt} from "../event/evt.js";
 import {MATH} from "../MATH.js";
 import {terrainAt} from "../../3d/three/terrain/ComputeTerrain.js";
 
+const zero = [0, 0, 0];
+const tempRot = [];
+const tempObj = new Object3D();
+const tempVec = new Vector3();
+const tempPos = new Vector3()
+const tempVec2 = new Vector3();
+const tempVec3 = new Vector3();
+const tempVec4 = new Vector3();
+const tempVec5 = new Vector3();
+const tempContactPoint = new Vector3()
+const normalStore = new Vector3();
+const tempNormal = new Vector3()
+const tempFrom = new Vector3();
+const tempTo = new Vector3();
+const tempVel = new Vector3();
+const tempAngVel = new Vector3();
 
-let tempObj = new Object3D();
-let tempVec = new Vector3();
-let tempPos = new Vector3()
-let tempVec2 = new Vector3();
-let tempVec3 = new Vector3();
-let tempVec4 = new Vector3();
-let tempVec5 = new Vector3();
-let tempContactPoint = new Vector3()
-let normalStore = new Vector3();
-let tempNormal = new Vector3()
-let tempFrom = new Vector3();
-let tempTo = new Vector3();
-let tempVel = new Vector3();
-let tempAngVel = new Vector3();
-
-let probeResult = {
+const probeResult = {
     halted:false,
     blocked:false,
     requiresLeap:false,
@@ -608,6 +609,10 @@ function calcBoxSubmersion(height, size) {
 
 }
 
+function bodyForObj3dByParams(obj3d, params, bodyCb) {
+    MATH.rotObj3dToArray(obj3d, tempRot)
+    AmmoAPI.setupRigidBody(obj3d, params.shape, params.mass, params.friction, zero, tempRot, params.scale, params.assetId, params.convex, params.children, bodyCb)
+}
 
 export {
     setPhysicalWorld,
@@ -636,5 +641,6 @@ export {
     applyPhysicalInfluenceRayProbe,
     activatePhysicalShockwave,
     calcBoxSubmersion,
-    ammoTranformToObj3d
+    ammoTranformToObj3d,
+    bodyForObj3dByParams
 }

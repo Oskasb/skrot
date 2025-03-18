@@ -2,11 +2,10 @@ import {poolFetch, poolReturn} from "../../../application/utils/PoolUtils.js";
 import {Object3D} from "../../../../../libs/three/core/Object3D.js";
 import {jsonAsset} from "../../../application/utils/AssetUtils.js";
 import {initBatchedShape} from "./BatchedShape.js";
-import {transformBody} from "../../../application/utils/PhysicsUtils.js";
+import {bodyForObj3dByParams, transformBody} from "../../../application/utils/PhysicsUtils.js";
 import {MATH} from "../../../application/MATH.js";
 
-const zero = [0, 0, 0];
-const tempRot = [];
+
 class StructureShape{
     constructor() {
 
@@ -19,6 +18,7 @@ class StructureShape{
             body:null
         }
 
+        const bodyParams = {}
         this.info = info;
 
         function applyTrx(trxObj) {
@@ -27,29 +27,39 @@ class StructureShape{
             obj3d.scale.copy(trxObj.scale)
         }
 
-
         function update() {
             if (info.visual && info.body) {
                 info.visual.call.stickToBody(info.body)
             }
         }
 
-        function attachBody(body) {
-          //  AmmoAPI.requestBodyDeactivation(body)
-            info.body = body
+        function activatePhysicsSimulation() {
+            AmmoAPI.requestBodyActivation(info.body);
             ThreeAPI.registerPrerenderCallback(update);
         }
 
-        function detachBody() {
+        function deactivatePhysicsSimulation() {
             ThreeAPI.unregisterPostrenderCallback(update);
+            AmmoAPI.requestBodyDeactivation(info.body);
+        }
+
+        function attachBody(body) {
+            info.body = body
+            deactivatePhysicsSimulation()
+        }
+
+        function detachBody() {
             AmmoAPI.excludeBody(info.body);
+        }
+
+        function activatePhysics() {
+            bodyForObj3dByParams(obj3d, bodyParams, attachBody)
         }
 
         function setJson(jsn) {
 
             const batched = jsn['batched'];
             const physicalId = jsn['physical'];
-
 
             if (typeof (batched) === 'string') {
                 info.visual = initBatchedShape(batched, obj3d)
@@ -59,8 +69,14 @@ class StructureShape{
 
                 function onJson(cfg) {
                     const volume = obj3d.scale.x*obj3d.scale.y*obj3d.scale.z;
-                    MATH.rotObj3dToArray(obj3d, tempRot)
-                    AmmoAPI.setupRigidBody(obj3d, cfg['shape'], volume*cfg['mass'], cfg['friction'], zero, tempRot, cfg['scale'], null, false, false, attachBody)
+                    bodyParams.shape = cfg['shape'];
+                    bodyParams.mass = cfg['mass']*volume;
+                    bodyParams.friction = cfg['friction'];
+                    bodyParams.scale = cfg['scale'];
+                    bodyParams.assetId = null;
+                    bodyParams.convex = false;
+                    bodyParams.children = false;
+                    activatePhysics()
                 }
                 jsonAsset(physicalId, onJson)
 
@@ -69,6 +85,7 @@ class StructureShape{
         }
 
         this.call = {
+            activatePhysics:activatePhysics,
             detachBody:detachBody,
             setJson:setJson,
             applyTrx:applyTrx

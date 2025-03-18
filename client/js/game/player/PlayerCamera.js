@@ -2,21 +2,26 @@ import {OrbitControls} from "../../../../libs/jsm/controls/OrbitControls.js";
 import {ENUMS} from "../../application/ENUMS.js";
 import {evt} from "../../application/event/evt.js";
 import {cameraFunctions} from "../../3d/camera/CameraFunctions.js";
+import {Vector3} from "three/webgpu";
+import {MATH} from "../../application/MATH.js";
+
+
+const lowFreqSpatialCallbacks = [];
+const lowResPoint = [0, 0, 0];
+
 
 class PlayerCamera {
     constructor(camera, renderer, player) {
 
-        let orbitControls = new OrbitControls( camera, renderer.domElement );
+        const orbitControls = new OrbitControls( camera, renderer.domElement );
 
         orbitControls.camera = camera;
-
         let camFunction = null;
-
         let selectedPoint = null;
-
         let params = null;
-
         let currentControllable = null;
+
+        const distanceTraveledTestVec3 = new Vector3();
 
         function updateCamera() {
 
@@ -33,6 +38,13 @@ class PlayerCamera {
                 cameraFunctions['CAM_WORLD'](player.call.getObj3d().position, orbitControls)
             }
             ThreeAPI.getCameraCursor().getPos().copy(orbitControls.target)
+
+            if (MATH.distanceBetween(camera.position, distanceTraveledTestVec3) > 100) {
+                distanceTraveledTestVec3.copy(camera.position)
+                MATH.posToLowResPoint(camera.position, lowResPoint)
+                MATH.callAll(lowFreqSpatialCallbacks, lowResPoint)
+            }
+
         }
 
         function initCamera() {
@@ -69,4 +81,13 @@ class PlayerCamera {
 
 }
 
-export { PlayerCamera };
+function registerLowFrequencySpatialCallback(cb) {
+    if (lowFreqSpatialCallbacks.indexOf(cb) === -1) {
+        lowFreqSpatialCallbacks.push(cb);
+    }
+}
+
+export {
+    PlayerCamera,
+    registerLowFrequencySpatialCallback
+};

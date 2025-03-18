@@ -80,7 +80,7 @@ class AssetBatchGeometry {
                 let geoId = batchedMesh.addGeometry(geo, geo.getAttribute( 'position' ).count, geo.index.count)
                 geoIdMap[key] = geoId;
             }
-
+        //    batchedMesh.optimize()
             ThreeAPI.addToScene(batchedMesh);
             sendToSubscribers()
         }

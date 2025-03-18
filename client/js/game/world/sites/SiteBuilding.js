@@ -16,7 +16,8 @@ class SiteBuilding{
         const info = {
             obj3d:obj3d,
             pos:obj3d.position,
-            structures:[]
+            structures:[],
+            json:null
         }
 
         this.info = info;
@@ -49,6 +50,7 @@ class SiteBuilding{
 
         this.call = {
             setJson:setJson,
+            clearBuilding:clearBuilding,
             applyTrx:applyTrx
         }
 

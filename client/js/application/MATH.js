@@ -1180,4 +1180,17 @@ MATH.subQuaternions = function(quatA, quatB, store) {
 	store.multiplyQuaternions(quatB, tempObj.quaternion.conjugate());
 }
 
+MATH.posToLowResPoint = function(pos, lrPoint) {
+	lrPoint[0] = Math.floor(pos.x * 0.01)
+	lrPoint[1] = Math.floor(pos.y * 0.01)
+	lrPoint[2] = Math.floor(pos.z * 0.01)
+}
+
+MATH.lowResMaxDistance = function(lrP1, lrP2) {
+	const dx = Math.abs(lrP1[0] - lrP2[0]);
+	const dy = Math.abs(lrP1[1] - lrP2[1]);
+	const dz = Math.abs(lrP1[2] - lrP2[2]);
+	return Math.max(dx, dy, dz)
+}
+
 export { MATH }
