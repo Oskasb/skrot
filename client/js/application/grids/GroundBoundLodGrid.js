@@ -6,6 +6,9 @@ import {gridIndexForPos} from "../utils/GridUtils.js";
 
 let tempIndexVec2 = new Vector2();
 
+let baseGridSize = 350;
+let lodLevels = 8;
+
 class GroundBoundLodGrid {
     constructor(fileName) {
 
@@ -92,6 +95,8 @@ class GroundBoundLodGrid {
 
 
             let sideSize = settings['side_size']
+            baseGridSize = sideSize;
+            lodLevels = settings['lod_levels'];
             let gridTileSize = settings['grid_side_tiles']
             let gridTotalSize = sideSize * gridTileSize
             let centerDistanceMargined = (gridTotalSize - gridTileSize) * 0.5;
@@ -144,7 +149,22 @@ class GroundBoundLodGrid {
         jsonAsset(fileName, gridData)
 
     }
+}
+
+function getBaseGridSize() {
+    return baseGridSize;
+}
+
+function minLodLevelByBoxSize(sizeVec) {
+    const lsQ = Math.sqrt(sizeVec.lengthSq());
+    const min = MATH.clamp(50 / lsQ, 0, lodLevels);
+    return min;
 
 }
 
-export { GroundBoundLodGrid }
+
+export {
+    GroundBoundLodGrid,
+    getBaseGridSize,
+    minLodLevelByBoxSize
+}

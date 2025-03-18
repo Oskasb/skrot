@@ -4,6 +4,7 @@ import {jsonAsset} from "../../../application/utils/AssetUtils.js";
 import {initBatchedShape} from "./BatchedShape.js";
 import {bodyForObj3dByParams, transformBody} from "../../../application/utils/PhysicsUtils.js";
 import {MATH} from "../../../application/MATH.js";
+import {Box3} from "three";
 
 
 class StructureShape{
@@ -14,8 +15,10 @@ class StructureShape{
         const info = {
             obj3d:obj3d,
             pos:obj3d.position,
+            box:new Box3(),
             visual:null,
-            body:null
+            body:null,
+            json:null
         }
 
         const bodyParams = {}
@@ -25,6 +28,7 @@ class StructureShape{
             obj3d.position.copy(trxObj.position);
             obj3d.quaternion.copy(trxObj.quaternion);
             obj3d.scale.copy(trxObj.scale)
+            info.box.setFromCenterAndSize(obj3d.position, obj3d.scale)
         }
 
         function update() {
@@ -56,14 +60,24 @@ class StructureShape{
             bodyForObj3dByParams(obj3d, bodyParams, attachBody)
         }
 
-        function setJson(jsn) {
+        function activateVisualStructure() {
 
-            const batched = jsn['batched'];
-            const physicalId = jsn['physical'];
-
+            const batched = info.json['batched'];
             if (typeof (batched) === 'string') {
                 info.visual = initBatchedShape(batched, obj3d)
             }
+        }
+
+        function deactivateVisualStructure() {
+            if (info.visual !== null) {
+                info.visual.call.closeShape();
+            }
+        }
+
+        function setJson(jsn) {
+
+            info.json = jsn;
+            const physicalId = jsn['physical'];
 
             if (typeof (physicalId) === 'string') {
 
@@ -85,6 +99,8 @@ class StructureShape{
         }
 
         this.call = {
+            activateVisualStructure:activateVisualStructure,
+            deactivateVisualStructure:deactivateVisualStructure,
             activatePhysics:activatePhysics,
             detachBody:detachBody,
             setJson:setJson,
@@ -94,7 +110,7 @@ class StructureShape{
     }
 
     removeShape() {
-        this.info.visual.call.closeShape();
+        this.call.deactivateVisualStructure()
         if (this.info.body) {
             this.call.detachBody();
             this.info.body = null;
