@@ -1,0 +1,28 @@
+{
+  "shapes": [
+
+    {"id": "shape_box_dynamic_window_metal_1",         "pos": [ 5.5, 3, -3],  "rot": [0, 0, 0], "scale":  [0.5, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1",         "pos": [ 5.5, 3,  0],  "rot": [0, 0, 0], "scale":  [0.5, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1",         "pos": [ 5.5, 3,  3],  "rot": [0, 0, 0], "scale":  [0.5, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1",         "pos": [-5.5, 3, -3],  "rot": [0, 0, 0], "scale":  [0.5, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1",         "pos": [-5.5, 3,  0],  "rot": [0, 0, 0], "scale":  [0.5, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1",         "pos": [-5.5, 3,  3],  "rot": [0, 0, 0], "scale":  [0.5, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1",         "pos": [ -3,  3, 5.5], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.5]},
+    {"id": "shape_box_dynamic_window_metal_1",         "pos": [  0,  3, 5.5], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.5]},
+    {"id": "shape_box_dynamic_window_metal_1",         "pos": [  3,  3, 5.5], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.5]},
+    {"id": "shape_box_dynamic_window_metal_1",         "pos": [ -3,  3,-5.5], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.5]},
+    {"id": "shape_box_dynamic_window_metal_1",         "pos": [  0,  3,-5.5], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.5]},
+    {"id": "shape_box_dynamic_window_metal_1",         "pos": [  3,  3,-5.5], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.5]},
+
+
+
+
+
+    {"id": "shape_box_dynamic_metal_1",  "pos": [  5    , 3,  -5], "rot": [0, 0, 0], "scale": [1.5, 6, 1.5]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [ -5    , 3,  -5], "rot": [0, 0, 0], "scale": [1.5, 6, 1.5]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [  5    , 3,   5], "rot": [0, 0, 0], "scale": [1.5, 6, 1.5]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [ -5    , 3,   5], "rot": [0, 0, 0], "scale": [1.5, 6, 1.5]},
+    {"id": "shape_box_dynamic_wood_1",   "pos": [  0    , 3,   0], "rot": [0, 0, 0], "scale": [1.0, 6, 1.0]}
+
+  ]
+}

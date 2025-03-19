@@ -1,0 +1,9 @@
+{
+  "shapes": [
+    {"id": "shape_box_dynamic_metal_1",  "pos": [  0    , 3,  -0], "rot": [0, 0.785398, 0], "scale": [2.5, 6, 2.5]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [ -0    , 12,  -0], "rot": [0, 0, 0], "scale": [2.0, 10, 2.0]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [  0    , 15.25,   0], "rot": [0, 0.785398, 0], "scale": [6.5, 0.25, 6.5]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [ -0    , 20.5,    0], "rot": [0, 0, 0], "scale": [1.2, 10, 1.2]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [ -0    , 30.5,    0], "rot": [0, 0, 0], "scale": [0.8, 10, 0.8]}
+  ]
+}

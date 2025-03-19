@@ -1,0 +1,8 @@
+{
+  "shapes": [
+    {"id": "shape_box_dynamic_wood_borders_1", "pos": [  3, 0.25,  3], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
+    {"id": "shape_box_dynamic_wood_borders_1", "pos": [ -3, 0.25,  3], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
+    {"id": "shape_box_dynamic_wood_borders_1", "pos": [  3, 0.25, -3], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
+    {"id": "shape_box_dynamic_wood_borders_1", "pos": [ -3, 0.25, -3], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]}
+  ]
+}

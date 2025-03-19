@@ -8,8 +8,11 @@ import {MATH} from "../../application/MATH.js";
 import {bodyTransformToObj3d} from "../../application/utils/PhysicsUtils.js";
 import {getSetting} from "../../application/utils/StatusUtils.js";
 import {DomInspectAerodynamics} from "../../application/ui/dom/inspect/DomInspectAerodynamics.js";
+import {getGamePlayer} from "../../Client.js";
+import {Vector3} from "three/webgpu";
 
 let viewAerodynamics = false;
+const tempVec = new Vector3();
 
 class GamePlayer {
     constructor() {
@@ -86,6 +89,13 @@ class GamePlayer {
             getPlayerControllable:getPlayerControllable
         }
 
+    }
+
+    getObj3d() {
+        return this.call.getObj3d()
+    }
+    getVel() {
+        return tempVec
     }
 
     getPos() {

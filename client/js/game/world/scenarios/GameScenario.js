@@ -8,6 +8,11 @@ import {ENUMS} from "../../../application/ENUMS.js";
 import {getCarrierControl} from "../../player/CarrierControl.js";
 import {DomThumbstick} from "../../../application/ui/dom/ui/DomThumbstick.js";
 import {activateSites, editSites} from "../sites/SiteSystem.js";
+import {DynamicPoint} from "../../pieces/DynamicPoint.js";
+import {WeaponCannon} from "../../pieces/weapons/WeaponCannon.js";
+import {DomControlButton} from "../../../application/ui/dom/ui/DomControlButton.js";
+import {CameraDynamicPoint} from "../../player/CameraDynamicPoint.js";
+import {getKeyStates, isPressed, keyToValue} from "../../../application/ui/input/KeyboardState.js";
 
 let minimap = null;
 
@@ -145,11 +150,61 @@ class GameScenario {
 
             if (json['edit_mode'] === true) {
                 scenarioUi.thumbstick = new DomThumbstick();
+                scenarioUi.trigger    = new DomControlButton();
+
+                const editCannon = new WeaponCannon();
+                editCannon.call.applyHardpointOptions(
+                    new CameraDynamicPoint(),
+                    {
+                        "rate": 100,
+                        "velocity":1030,
+                        "bullet": {
+                            "mass": 0.099,
+                            "duration": 12,
+                            "caliber": 0.02,
+                            "spread":8,
+                            "hit_fx": ["particles_hit_cannon"]
+                        }
+                    }
+                )
+
+
+
+
+                    const csMap = {};
+
+                    function cannonUiReady() {
+                        let keydown = false;
+                        function update() {
+
+                            if (isPressed(' ')) {
+                                keydown = true;
+                                csMap['PRESS'] = 1;
+                            } else {
+                                if (keydown) {
+                                    csMap['PRESS'] = 0;
+                                    keydown = false;
+                                }
+                            }
+
+                            const active = csMap['PRESS'];
+                            scenarioUi.trigger.call.update();
+                            editCannon.call.onAttachmentStateChange(active);
+
+                        }
+                        ThreeAPI.registerPrerenderCallback(update);
+                    }
+
+                    scenarioUi.trigger.call.initElement(csMap, 'ui/ui_control_cannon', 'ui_cannon', cannonUiReady)
+
+
 
                 function stickReady() {
                     getGamePlayer().call.releasePlayerActiveControllable();
                     editSites()
                 }
+
+
 
                 const sMap = {
                     camera:ThreeAPI.getCamera(),

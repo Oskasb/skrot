@@ -1,0 +1,7 @@
+{
+  "shapes": [
+    {"id": "shape_box_static_stone_1","pos": [0,    -2.0, 0], "rot": [0, 0, 0],       "scale": [25, 5, 25]},
+    {"id": "shape_box_static_stone_1", "pos": [-14.5,  -2, 0], "rot": [0, 0, 0],    "scale": [4,  5, 8]},
+    {"id": "shape_box_static_stone_1", "pos": [-20,-2.1, 0], "rot": [0, 0, 0.4],   "scale": [8.5,  2, 8]}
+  ]
+}

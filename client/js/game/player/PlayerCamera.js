@@ -4,11 +4,12 @@ import {evt} from "../../application/event/evt.js";
 import {cameraFunctions} from "../../3d/camera/CameraFunctions.js";
 import {Vector3} from "three/webgpu";
 import {MATH} from "../../application/MATH.js";
+import {getGamePlayer} from "../../Client.js";
 
 
 const lowFreqSpatialCallbacks = [];
 const lowResPoint = [0, 0, 0];
-
+const tempVec = new Vector3()
 
 class PlayerCamera {
     constructor(camera, renderer, player) {
@@ -78,6 +79,8 @@ class PlayerCamera {
         initCamera();
         return orbitControls;
     }
+
+
 
 }
 

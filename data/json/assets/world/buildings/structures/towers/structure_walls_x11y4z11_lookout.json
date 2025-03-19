@@ -1,0 +1,48 @@
+{
+  "shapes": [
+
+
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [ 11.0, 3,   -9], "rot": [0, 0, 0], "scale":  [0.25, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [ 11.0, 3,   -6], "rot": [0, 0, 0], "scale":  [0.25, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [ 11.0, 3,   -3], "rot": [0, 0, 0], "scale":  [0.25, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [ 11.0, 3,    0], "rot": [0, 0, 0], "scale":  [0.25, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [ 11.0, 3,    3], "rot": [0, 0, 0], "scale":  [0.25, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [ 11.0, 3,    6], "rot": [0, 0, 0], "scale":  [0.25, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [ 11.0, 3,    9], "rot": [0, 0, 0], "scale":  [0.25, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [-11.0, 3,   -9], "rot": [0, 0, 0], "scale":  [0.25, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [-11.0, 3,   -6], "rot": [0, 0, 0], "scale":  [0.25, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [-11.0, 3,   -3], "rot": [0, 0, 0], "scale":  [0.25, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [-11.0, 3,    0], "rot": [0, 0, 0], "scale":  [0.25, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [-11.0, 3,    3], "rot": [0, 0, 0], "scale":  [0.25, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [-11.0, 3,    6], "rot": [0, 0, 0], "scale":  [0.25, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [-11.0, 3,    9], "rot": [0, 0, 0], "scale":  [0.25, 6, 3]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [ -9,   3, 11.0], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.25]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [ -6,   3, 11.0], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.25]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [ -3,   3, 11.0], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.25]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [  0,   3, 11.0], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.25]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [  3,   3, 11.0], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.25]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [  6,   3, 11.0], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.25]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [  9,   3, 11.0], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.25]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [ -9,   3,-11.0], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.25]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [ -6,   3,-11.0], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.25]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [ -3,   3,-11.0], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.25]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [  0,   3,-11.0], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.25]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [  3,   3,-11.0], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.25]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [  6,   3,-11.0], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.25]},
+    {"id": "shape_box_dynamic_window_metal_1", "pos": [  9,   3,-11.0], "rot": [0, 0, 0], "scale":  [ 3,  6, 0.25]},
+
+    {"id": "shape_box_dynamic_metal_1", "pos": [  10.75   , 3, -10.75], "rot": [0, 0, 0], "scale": [0.5, 6, 0.5]},
+    {"id": "shape_box_dynamic_metal_1", "pos": [ -10.75   , 3, -10.75], "rot": [0, 0, 0], "scale": [0.5, 6, 0.5]},
+    {"id": "shape_box_dynamic_metal_1", "pos": [  10.75   , 3,  10.75], "rot": [0, 0, 0], "scale": [0.5, 6, 0.5]},
+    {"id": "shape_box_dynamic_metal_1", "pos": [ -10.75   , 3,  10.75], "rot": [0, 0, 0], "scale": [0.5, 6, 0.5]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [  6    , 3,  -6], "rot": [0, 0, 0], "scale": [3.0, 6, 3.0]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [ -6    , 3,  -6], "rot": [0, 0, 0], "scale": [3.0, 6, 3.0]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [  6    , 3,   6], "rot": [0, 0, 0], "scale": [3.0, 6, 3.0]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [ -6    , 3,   6], "rot": [0, 0, 0], "scale": [3.0, 6, 3.0]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [  0    , 3,  -6], "rot": [0, 0, 0], "scale": [3.0, 6, 3.0]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [  0    , 3,   6], "rot": [0, 0, 0], "scale": [3.0, 6, 3.0]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [  6    , 3,   0], "rot": [0, 0, 0], "scale": [3.0, 6, 3.0]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [ -6    , 3,   0], "rot": [0, 0, 0], "scale": [3.0, 6, 3.0]},
+    {"id": "shape_box_dynamic_metal_1",  "pos": [  0    , 3,   0], "rot": [0, 0, 0], "scale": [3.0, 6, 3.0]}
+  ]
+}
