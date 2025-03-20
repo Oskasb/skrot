@@ -5,6 +5,7 @@ import {evt} from "../../application/event/evt.js";
 import {MATH} from "../../application/MATH.js";
 import {getSetting} from "../../application/utils/StatusUtils.js";
 import {radToDeg} from "../../../../libs/three/math/MathUtils.js";
+import {activatePhysicsProbe} from "../../application/physics/PhysicsLodGrid.js";
 
 let frameTransform = new Object3D();
 let pointTransform = new Object3D();
@@ -146,6 +147,7 @@ class ControllableForceProcessor {
                         surface.updateSurfacePointStatus(point, frameTransform);
                         rootTransform.quaternion.copy(frameTransform.quaternion)
                         rootTransform.position.copy(frameTransform.position);
+                        activatePhysicsProbe(frameTransform.position)
                         let aoaX = surface.getStatus(ENUMS.SurfaceStatus.AOA_X)
                         let aoaY = surface.getStatus(ENUMS.SurfaceStatus.AOA_Y)
 
