@@ -170,8 +170,6 @@ class GameScenario {
                 )
 
 
-
-
                     const csMap = {};
 
                     function cannonUiReady() {
@@ -191,9 +189,9 @@ class GameScenario {
                             const active = csMap['PRESS'];
                             scenarioUi.trigger.call.update();
                             editCannon.call.onAttachmentStateChange(active);
-
                             activatePhysicsProbe(getGamePlayer().getPos())
-                            debugDrawPhysLodGrid()
+
+                        //    debugDrawPhysLodGrid()
 
                         }
                         ThreeAPI.registerPrerenderCallback(update);

@@ -106,24 +106,16 @@ class ControllableForceProcessor {
             let liftCoeff = 1;
 
             let mass = controllablePiece.getMass();
-
             let surfaces = controllablePiece.surfaces;
-
             let velocity = getBodyVelocity(body);
 
             bodyTransformToObj3d(body, frameTransform);
             updatePropulsion(body);
 
-
             tempForwardVec3.copy(velocity).normalize();
-
 
             localUp.set(0, 1, 0);
             localUp.applyQuaternion(frameTransform.quaternion)
-
-
-
-
 
             speedSq = velocity.lengthSq();
             let speed = MATH.curveSqrt(speedSq)
@@ -134,13 +126,10 @@ class ControllableForceProcessor {
             let inputRoll = controllablePiece.getControlStateValue('INPUT_ROLL');
             let inputPitch = controllablePiece.getControlStateValue('INPUT_PITCH');
 
-
             forceSum.set(0, 0, 0);
             torqueSum.set(0, 0, 0)
             tempVec1.set(0, 0, 0);
             dragTorqueSum.set(0, 0, 0)
-
-
 
             let addUpForce = mass*MATH.curveQuad(getSetting(ENUMS.Settings.ADD_SURFACE_UP_FORCE) * 0.01);
 
@@ -166,9 +155,6 @@ class ControllableForceProcessor {
                     }
                 }
             }
-
-
-
 
 
             for (let key in surfaces) {
@@ -274,7 +260,6 @@ class ControllableForceProcessor {
                     }
                 }
             }
-
 
             let torqueBoost = MATH.curveQuad(getSetting(ENUMS.Settings.TORQUE_BOOST));
             if (torqueBoost !== 0) {

@@ -2,6 +2,13 @@
   "label": "Airport Alpha",
   "pos": [2250, 40, 2550],
   "buildings": [
-    {"id": "building_tower_alpha", "pos": [-110, 0, -320], "rot": [0, 0, 0], "scale": [1, 1, 1]}
+    {"id": "building_tower_alpha", "pos": [-110, 0, -320], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "building_block_alpha", "pos": [-90,  0, -260], "rot": [0, 1.87079, 0], "scale": [1.5, 1.5, 1.5]},
+    {"id": "building_block_alpha", "pos": [-30,  0, -265], "rot": [0, 1.57079, 0], "scale": [1.5, 1.5, 1.5]},
+    {"id": "building_block_alpha", "pos": [ 30,  0, -260], "rot": [0, 1.27079, 0], "scale": [1.5, 1.5, 1.5]},
+    {"id": "building_terminal_x60y7z40", "pos": [-200, 0,  60], "rot": [0, -1.27079, 0], "scale": [2, 2, 2]},
+    {"id": "building_terminal_x60y7z40", "pos": [-340, 0,  90], "rot": [0, -1.47079, 0], "scale": [2, 2, 2]},
+    {"id": "building_terminal_x60y7z40", "pos": [-480, 0,  90], "rot": [0, -1.67079, 0], "scale": [2, 2, 2]},
+    {"id": "building_terminal_x60y7z40", "pos": [-620, 0,  60], "rot": [0, -1.87079, 0], "scale": [2, 2, 2]}
   ]
 }

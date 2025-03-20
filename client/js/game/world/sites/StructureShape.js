@@ -62,17 +62,18 @@ class StructureShape{
 
                 const now = getFrame().gameTime;
 
-                if (now-info.activationTime < 5) {
+                if (now-info.activationTime > 5) {
                     const relaxing = AmmoAPI.testBodyRelaxing(info.body);
                     if (relaxing) {
-                        debugDrawToPos(obj3d.position)
+                    //    debugDrawToPos(obj3d.position)
                         deactivatePhysicsSimulation();
                     } else {
-                        debugDrawToPos(obj3d.position, 'RED')
+                    //    debugDrawToPos(obj3d.position, 'RED')
                     }
                 }
-                
+
                 if (info.visual) {
+                //    debugDrawToPos(obj3d.position, 'YELLOW')
                     info.visual.call.stickToBody(info.body)
                 } else {
                     if (info.deactivating === true) {
@@ -100,6 +101,7 @@ class StructureShape{
                     }
                 //
                     ThreeAPI.registerPrerenderCallback(update);
+
                 }
 
             } else {
@@ -109,7 +111,7 @@ class StructureShape{
 
         function deactivatePhysicsSimulation() {
             info.dynamicActive = false;
-            ThreeAPI.unregisterPostrenderCallback(update);
+            ThreeAPI.unregisterPrerenderCallback(update);
             if (info.body !== null) {
                 AmmoAPI.requestBodyDeactivation(info.body);
             }

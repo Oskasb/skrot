@@ -72,7 +72,7 @@ class BatchedShape {
 
         function stickToBody(body) {
             bodyTransformToObj3d(body, obj3d);
-            evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:obj3d.position, size: 3, color:'YELLOW'})
+        //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:obj3d.position, size: 3, color:'YELLOW'})
             for (let i = 0; i < batchInstances.length; i++) {
                 batchInstances[i].call.transformObj(obj3d);
             }
