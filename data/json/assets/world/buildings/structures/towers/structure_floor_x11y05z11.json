@@ -1,21 +1,8 @@
 {
   "shapes": [
-    {"id": "shape_box_dynamic_wood_1", "pos": [  3, 0.25,  3], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_1", "pos": [ -3, 0.25,  3], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_1", "pos": [  3, 0.25, -3], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_1", "pos": [ -3, 0.25, -3], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_borders_1", "pos": [  9, 0.25,  3], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_borders_1", "pos": [ -9, 0.25,  3], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_borders_1", "pos": [  9, 0.25, -3], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_borders_1", "pos": [ -9, 0.25, -3], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_borders_1", "pos": [  9, 0.25,  9], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_borders_1", "pos": [ -3, 0.25,  9], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_borders_1", "pos": [  3, 0.25, -9], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_borders_1", "pos": [ -9, 0.25, -9], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_borders_1", "pos": [ -3, 0.25, -9], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_borders_1", "pos": [  9, 0.25, -9], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_borders_1", "pos": [ -9, 0.25,  9], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]},
-    {"id": "shape_box_dynamic_wood_borders_1", "pos": [  3, 0.25,  9], "rot": [0, 0, 0], "scale":  [6, 0.5, 6]}
-
+    {"id": "shape_box_dynamic_wood_borders_1", "pos": [  6, 0.25,  6], "rot": [0, 0, 0], "scale":  [12, 0.5, 12]},
+    {"id": "shape_box_dynamic_wood_borders_1", "pos": [ -6, 0.25,  6], "rot": [0, 0, 0], "scale":  [12, 0.5, 12]},
+    {"id": "shape_box_dynamic_wood_borders_1", "pos": [  6, 0.25, -6], "rot": [0, 0, 0], "scale":  [12, 0.5, 12]},
+    {"id": "shape_box_dynamic_wood_borders_1", "pos": [ -6, 0.25, -6], "rot": [0, 0, 0], "scale":  [12, 0.5, 12]}
   ]
 }

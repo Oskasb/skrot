@@ -3,6 +3,8 @@ import {evt} from "../event/evt.js";
 import {ENUMS} from "../ENUMS.js";
 import {loadModelAsset} from "../utils/DataUtils.js";
 import {getGroupMesh} from "../utils/ModelUtils.js";
+import {getBodyPointer, unregisterBodyActivator} from "../utils/PhysicsUtils.js";
+import {MATH} from "../MATH.js";
 
 "use strict";
 
@@ -106,10 +108,9 @@ class AmmoAPI {
                 ammoFunctions.attachBodyBySliderJoints(world, body, bdCfg)
             }
 */
-            if (bodyIndex.indexOf(body) === -1) {
-                world.addRigidBody(body);
-                bodyIndex.push(body);
-            }
+            window.AmmoAPI.includeBody(body)
+
+
 
             bodyReadyCB(body);
         };
@@ -151,6 +152,10 @@ class AmmoAPI {
         ammoFunctions.fitBodyAABB(body, box3.min, box3.max)
     }
 
+    testBodyRelaxing(body) {
+        return ammoFunctions.testDeactivation(body)
+    }
+
     includeBody = function(body) {
 
         if (!world) return;
@@ -160,11 +165,15 @@ class AmmoAPI {
             return;
         }
 
-    //    if (bodies.indexOf(body) === -1) {
+        if (bodyIndex.indexOf(body) !== -1) {
+            console.warn("Body already included")
+        } else {
+            world.addRigidBody(body);
+            body.activate(true);
+            bodyIndex.push(body);
+            ammoFunctions.enableBodySimulation(body);
+        }
 
-    //    }
-        body.activate(true);
-        ammoFunctions.enableBodySimulation(body);
     };
 
     excludeBody = function(body) {
@@ -174,12 +183,25 @@ class AmmoAPI {
             return;
         }
 
-        ammoFunctions.disableBodySimulation(body);
+    //    ammoFunctions.disableBodySimulation(body);
         body.activate(false);
+        unregisterBodyActivator(getBodyPointer(body))
+        MATH.splice(bodyIndex, body);
         ammoFunctions.returnBodyToPool(body);
-    //    world.removeRigidBody(body);
+        world.removeRigidBody(body);
     };
 
+
+    getBodyByPointer(ptr) {
+        for (let i = 0; i < bodyIndex.length; i++) {
+            const body = bodyIndex[i];
+            const bPtr = getBodyPointer(body);
+            if (bPtr === ptr) {
+                return body;
+            }
+        }
+        return null;
+    }
 
     updatePhysicsSimulation = function(dt) {
         status.updateTime = ammoFunctions.updatePhysicalWorld(world, dt)

@@ -24,7 +24,8 @@ class BuildingStructure{
             shapes:[],
             visibleOn:false,
             physicalOn:false,
-            lodMax:4
+            lodMax:4,
+            building:null
         }
 
         this.info = info;
@@ -54,6 +55,7 @@ class BuildingStructure{
                 MATH.obj3dFromConfig(tempObj3d, shapes[i]);
                 inheritAsParent(tempObj3d, obj3d);
                 const sShape = createStructureShape(shape, tempObj3d)
+                sShape.info.parent = bStruct;
                 info.shapes.push(sShape)
                 info.box.expandByPoint(sShape.info.box.min);
                 info.box.expandByPoint(sShape.info.box.max);
@@ -71,8 +73,8 @@ class BuildingStructure{
         }
 
 
-        function debugDraqw() {
-            info.box.color = 'CYAN'
+        function debugDraqBStruct(color) {
+            info.box.color = color || 'CYAN'
             evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:obj3d.position, to:ThreeAPI.getCameraCursor().getPos(), color:'GREEN'});
             evt.dispatch(ENUMS.Event.DEBUG_DRAW_AABOX, info.box)
         }
@@ -82,7 +84,6 @@ class BuildingStructure{
                 const shape = info.shapes[i];
                 shape.call.activateVisualStructure()
             }
-            ThreeAPI.registerPrerenderCallback(debugDraqw);
         }
 
         function hideShapes() {
@@ -90,7 +91,6 @@ class BuildingStructure{
                 const shape = info.shapes[i];
                 shape.call.deactivateVisualStructure()
             }
-            ThreeAPI.unregisterPrerenderCallback(debugDraqw);
         }
 
         function setVisible(bool) {
@@ -106,22 +106,28 @@ class BuildingStructure{
 
         }
 
-        function setPhysical(bool) {
-
+        function simulatePhysical(bool) {
+            debugDraqBStruct()
+            for (let i = 0; i < info.shapes.length; i++) {
+                const shape = info.shapes[i];
+                shape.call.activatePhysicsSimulation(bool)
+            }
         }
 
         this.call = {
             setVisible:setVisible,
-            setPhysical:setPhysical,
+            simulatePhysical:simulatePhysical,
             setJson:setJson,
             applyTrx:applyTrx,
-            removeShapes:removeShapes
+            removeShapes:removeShapes,
+            debugDraqBStruct:debugDraqBStruct
         }
 
     }
 
     removeStructure() {
         this.call.removeShapes();
+        this.info.building = null;
         poolReturn(this)
     }
 

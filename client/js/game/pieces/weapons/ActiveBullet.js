@@ -2,7 +2,12 @@ import {poolFetch, poolReturn} from "../../../application/utils/PoolUtils.js";
 import {Vector3} from "../../../../../libs/three/math/Vector3.js";
 import {Object3D} from "three/webgpu";
 import {MATH} from "../../../application/MATH.js";
-import {rayTest} from "../../../application/utils/PhysicsUtils.js";
+import {
+    applyActiveBulletForce,
+    callBodyActivation, getBodyByPointer,
+    getBodyPointer,
+    rayTest
+} from "../../../application/utils/PhysicsUtils.js";
 import {activateWorldEffects} from "../../../3d/three/assets/WorldEffect.js";
 import {createGeometryInstance} from "../../../3d/three/assets/GeometryInstance.js";
 import {evt} from "../../../application/event/evt.js";
@@ -41,6 +46,7 @@ class ActiveBullet {
             geometryInstance: null,
             bulletIndex:bulletIndex
         }
+        this.info = info;
         bulletIndex++;
 
         function updateVisualBullet() {
@@ -73,7 +79,13 @@ class ActiveBullet {
             if (rayHit) {
                 obj3d.up.copy(tempVec);
                 activateWorldEffects(obj3d, info.hit_fx)
+                callBodyActivation(rayHit.ptr)
+                const body = getBodyByPointer(rayHit.ptr);
+                if (body !== null) {
+                    applyActiveBulletForce(bullet, obj3d.position, vel, body)
+                }
                 closeBullet();
+
                 return;
             } else {
                 obj3d.position.copy(tempVec);

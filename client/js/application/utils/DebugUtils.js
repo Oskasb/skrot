@@ -241,6 +241,19 @@ function debugDrawControllable(controllable) {
     debugDrawDynamicPoints(controllable.getAssetInstance().dynamicPoints)
 }
 
+const lineE = {}
+
+function debugDrawToPos(pos, color) {
+    lineE.from = ThreeAPI.getCameraCursor().getPos();
+    lineE.to = pos;
+    lineE.color = color || 'CYAN',
+    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, lineE)
+}
+
+function debugDrawBuilding(building, color) {
+    building.call.debugDrawStructures(color);
+}
+
 export {
     createDebugButton,
     getAllSceneNodes,
@@ -253,5 +266,7 @@ export {
     debugDrawActorSkeleton,
     debugDrawDynamicPoints,
     debugDrawDynamicPoint,
-    debugDrawControllable
+    debugDrawControllable,
+    debugDrawToPos,
+    debugDrawBuilding
 }

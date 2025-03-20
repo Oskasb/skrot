@@ -5,6 +5,7 @@ import {evt} from "../event/evt.js";
 import {ENUMS} from "../ENUMS.js";
 import {Vector3} from "three/webgpu";
 import {Box3} from "three";
+import {getFrame} from "../utils/DataUtils.js";
 
 const physicsSideSize = 50
 const physicsActivationCBs = []
@@ -73,7 +74,6 @@ function registerPhysicsGridCallback(indexVec, cb) {
 }
 
 function unregisterPhysicsGridCallback(indexVec, cb) {
-    gridIndexForPos(pos, indexVec, physicsSideSize)
     registerPhysIndexPos(indexVec);
     MATH.splice(physicsActivationCBs[indexVec.x][indexVec.y], cb);
 }
@@ -148,14 +148,25 @@ function notifyIndexPosActivation(i, j, value) {
 }
 
 
+let updateFrame = 0;
+
 function updatePhysicsGrid() {
+
+    const frame = getFrame().frame;
+    let deduct = false;
+    if (frame !== updateFrame) {
+        deduct = true;
+        updateFrame = frame;
+    }
 
     for (let i = 0; i < activeIndexPositions.length; i++) {
         if (activeIndexPositions[i]) {
             for (let j = 0; j < activeIndexPositions[i].length; j++) {
                 if (typeof (activeIndexPositions[i][j]) === 'number') {
                     if (activeIndexPositions[i][j] !== 0) {
-                        activeIndexPositions[i][j]--;
+                        if (deduct) {
+                            activeIndexPositions[i][j]--;
+                        }
                         notifyIndexPosActivation(i, j, activeIndexPositions[i][j])
                     }
                 }

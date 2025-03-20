@@ -2,12 +2,23 @@ import {poolFetch, poolReturn} from "../../../application/utils/PoolUtils.js";
 import {Object3D} from "../../../../../libs/three/core/Object3D.js";
 import {jsonAsset} from "../../../application/utils/AssetUtils.js";
 import {initBatchedShape} from "./BatchedShape.js";
-import {bodyForObj3dByParams, transformBody} from "../../../application/utils/PhysicsUtils.js";
+import {
+    bodyForObj3dByParams, getBodyPointer,
+    registerBodyActivationCB,
+    transformBody
+} from "../../../application/utils/PhysicsUtils.js";
 import {MATH} from "../../../application/MATH.js";
 import {Box3} from "three";
-import {physIndexForPos, registerPhysicsGridCallback} from "../../../application/physics/PhysicsLodGrid.js";
+import {
+    physIndexForPos,
+    registerPhysicsGridCallback,
+    unregisterPhysicsGridCallback
+} from "../../../application/physics/PhysicsLodGrid.js";
 import {Vector2} from "../../../../../libs/three/math/Vector2.js";
-
+import {ENUMS} from "../../../application/ENUMS.js";
+import {evt} from "../../../application/event/evt.js";
+import {debugDrawBuilding, debugDrawToPos} from "../../../application/utils/DebugUtils.js";
+import {getFrame} from "../../../application/utils/DataUtils.js";
 
 class StructureShape{
     constructor() {
@@ -22,7 +33,13 @@ class StructureShape{
             box:new Box3(),
             visual:null,
             body:null,
-            json:null
+            dynamicMass:0,
+            activating:false,
+            deactivating:false,
+            dynamicActive:false,
+            json:null,
+            parent:null,
+            activationTime:0
         }
 
         const bodyParams = {}
@@ -40,19 +57,71 @@ class StructureShape{
         }
 
         function update() {
-            if (info.visual && info.body) {
-                info.visual.call.stickToBody(info.body)
+
+            if (info.body) {
+
+                const now = getFrame().gameTime;
+
+                if (now-info.activationTime < 5) {
+                    const relaxing = AmmoAPI.testBodyRelaxing(info.body);
+                    if (relaxing) {
+                        debugDrawToPos(obj3d.position)
+                        deactivatePhysicsSimulation();
+                    } else {
+                        debugDrawToPos(obj3d.position, 'RED')
+                    }
+                }
+                
+                if (info.visual) {
+                    info.visual.call.stickToBody(info.body)
+                } else {
+                    if (info.deactivating === true) {
+                        deactivatePhysicsSimulation();
+                        detachBody()
+                    }
+                }
+            }
+
+        }
+
+        function activatePhysicsSimulation(bool) {
+
+            if (bodyParams.mass === 0) {
+                return;
+            }
+
+            if (bool) {
+
+                if (info.dynamicActive === false) {
+                    info.dynamicActive = true;
+                    if (info.body !== null) {
+                    //    console.log("requestBodyActivation", info)
+                        AmmoAPI.requestBodyActivation(info.body);
+                    }
+                //
+                    ThreeAPI.registerPrerenderCallback(update);
+                }
+
+            } else {
+                deactivatePhysicsSimulation()
             }
         }
 
-        function activatePhysicsSimulation() {
-            AmmoAPI.requestBodyActivation(info.body);
-            ThreeAPI.registerPrerenderCallback(update);
+        function deactivatePhysicsSimulation() {
+            info.dynamicActive = false;
+            ThreeAPI.unregisterPostrenderCallback(update);
+            if (info.body !== null) {
+                AmmoAPI.requestBodyDeactivation(info.body);
+            }
         }
 
-        function deactivatePhysicsSimulation() {
-            ThreeAPI.unregisterPostrenderCallback(update);
-            AmmoAPI.requestBodyDeactivation(info.body);
+        function notifyDynamicActivation() {
+            info.activationTime = getFrame().gameTime;
+            if (info.dynamicActive === false) {
+                if (info.parent) {
+                    info.parent.info.building.call.activateDynamicPhysics(true);
+                }
+            }
         }
 
         function attachBody(body) {
@@ -62,14 +131,23 @@ class StructureShape{
                 }
             }
             info.body = body
-        //    activatePhysicsSimulation()
+            info.activating = false;
+
+            if (bodyParams.mass !== 0) {
+                AmmoAPI.requestBodyDeactivation(info.body);
+                registerBodyActivationCB(getBodyPointer(info.body), notifyDynamicActivation)
+            }
         }
 
         function detachBody() {
 
-            if (info.body !== null) {
-                AmmoAPI.excludeBody(info.body);
-                info.body = null;
+            if (info.dynamicActive === false) {
+                if (info.body !== null) {
+                    AmmoAPI.excludeBody(info.body);
+                    info.body = null;
+                }
+            } else {
+                info.deactivating = true;
             }
 
         }
@@ -77,9 +155,14 @@ class StructureShape{
         function physicsActivationCB(value) {
             if (value !== 0) {
                 if (info.body === null) {
-                    bodyForObj3dByParams(obj3d, bodyParams, attachBody)
+                    if (info.activating === false) {
+                        info.activating = true;
+                    //    debugDrawToPos(obj3d.position, 'GREEN')
+                        bodyForObj3dByParams(obj3d, bodyParams, attachBody)
+                    }
                 }
             } else {
+             //   debugDrawToPos(obj3d.position, 'RED')
                 detachBody()
             }
         }
@@ -88,7 +171,18 @@ class StructureShape{
             registerPhysicsGridCallback(info.physIndexPos, physicsActivationCB)
         }
 
+        function deactivatePhysics() {
+            deactivatePhysicsSimulation()
+            detachBody();
+            unregisterPhysicsGridCallback(info.physIndexPos, physicsActivationCB)
+        }
+
         function activateVisualStructure() {
+
+            if (info.visual !== null) {
+                console.log("Visual not null", info)
+                return;
+            }
 
             const batched = info.json['batched'];
             if (typeof (batched) === 'string') {
@@ -99,6 +193,7 @@ class StructureShape{
         function deactivateVisualStructure() {
             if (info.visual !== null) {
                 info.visual.call.closeShape();
+                info.visual = null;
             }
         }
 
@@ -112,7 +207,8 @@ class StructureShape{
                 function onJson(cfg) {
                     const volume = obj3d.scale.x*obj3d.scale.y*obj3d.scale.z;
                     bodyParams.shape = cfg['shape'];
-                    bodyParams.mass = cfg['mass']*volume;
+                    info.dynamicMass = cfg['mass']*volume;
+                    bodyParams.mass = info.dynamicMass;
                     bodyParams.friction = cfg['friction'];
                     bodyParams.scale = cfg['scale'];
                     bodyParams.assetId = null;
@@ -129,7 +225,8 @@ class StructureShape{
         this.call = {
             activateVisualStructure:activateVisualStructure,
             deactivateVisualStructure:deactivateVisualStructure,
-            detachBody:detachBody,
+            activatePhysicsSimulation:activatePhysicsSimulation,
+            deactivatePhysics:deactivatePhysics,
             setJson:setJson,
             applyTrx:applyTrx
         }
@@ -138,8 +235,11 @@ class StructureShape{
 
     removeShape() {
         this.call.deactivateVisualStructure();
-        this.call.detachBody();
+        this.call.deactivatePhysics();
+        this.info.activating = false;
+        this.info.deactivating = false;
         this.info.registered = false;
+        this.info.parent = null;
         poolReturn(this);
     }
 

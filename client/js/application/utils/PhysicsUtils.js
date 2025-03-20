@@ -37,7 +37,7 @@ const probeResult = {
     destination:new Vector3()
 }
 
-
+const bodyActivationCBs = {};
 
 let physicalWorld;
 
@@ -248,24 +248,7 @@ function getBodyPointer(body) {
 }
 
 function getBodyByPointer(ptr) {
-    let world = getPhysicalWorld();
-
-    if (world.terrainBody.kB === ptr) {
-        return world.terrainBody;
-    }
-    let models = world.physicalModels;
-    for (let i = 0; i < models.length; i++){
-        let model = models[i];
-        let bodies = model.rigidBodies;
-        for (let j = 0; j < bodies.length;j++) {
-            let body = bodies[j];
-            if (body.kB === ptr) {
-                return body;
-            }
-        }
-
-    }
-    console.log("no body found for pointer ", ptr);
+    return AmmoAPI.getBodyByPointer(ptr)
 }
 
 function getModelByBodyPointer(ptr) {
@@ -616,6 +599,25 @@ function bodyForObj3dByParams(obj3d, params, bodyCb) {
     AmmoAPI.setupRigidBody(obj3d, params.shape, params.mass, params.friction, zero, tempRot, params.scale, params.assetId, params.convex, params.children, bodyCb)
 }
 
+function applyActiveBulletForce(activeBullet, position, velocity, body) {
+    tempVec.copy(velocity).multiplyScalar(activeBullet.info.mass)
+    AmmoAPI.applyForceAtPointToBody(tempVec, position, body)
+}
+
+function registerBodyActivationCB(ptr, cb) {
+    bodyActivationCBs[ptr] = cb;
+}
+
+function unregisterBodyActivator(ptr) {
+    bodyActivationCBs[ptr] = null;
+}
+
+function callBodyActivation(ptr) {
+    if (typeof (bodyActivationCBs[ptr]) ==='function') {
+        bodyActivationCBs[ptr]();
+    }
+}
+
 export {
     setPhysicalWorld,
     getTerrainBodyPointer,
@@ -644,5 +646,9 @@ export {
     activatePhysicalShockwave,
     calcBoxSubmersion,
     ammoTranformToObj3d,
-    bodyForObj3dByParams
+    bodyForObj3dByParams,
+    applyActiveBulletForce,
+    registerBodyActivationCB,
+    unregisterBodyActivator,
+    callBodyActivation
 }

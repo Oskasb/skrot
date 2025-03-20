@@ -4,7 +4,7 @@
     {"id": "structure_floor_x11y05z11",   "pos": [0, 1.5, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
     {"id": "structure_walls_x11y4z11_f0", "pos": [0, 2, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
 
-    {"id": "structure_floor_x11y05z11","pos": [0, 8.0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_ceiling_x11y05z11","pos": [0, 8.0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
 
     {"id": "structure_walls_x5y4z5",    "pos": [0, 8.5, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
     {"id": "structure_floor_x6y05z6",   "pos": [0, 14.5, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
@@ -21,12 +21,12 @@
     {"id": "structure_walls_x5y4z5",    "pos": [0, 41.0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
     {"id": "structure_floor_x11y05z11_widen",   "pos": [0, 47.0, 0], "rot": [0, 0, 0], "scale": [1.24, 1, 1.24]},
     {"id": "structure_floor_x11y05z11_widen",   "pos": [0, 47.0, 0], "rot": [0, 0.785398, 0], "scale": [1.5, 1, 1.5]},
-    {"id": "structure_floor_x11y05z11",         "pos": [0, 47.5, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_ceiling_x11y05z11",         "pos": [0, 47.5, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
     {"id": "structure_walls_x11y4z11_lookout",  "pos": [0, 48.0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
 
-    {"id": "structure_floor_x11y05z11",         "pos": [0, 54.0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
-    {"id": "structure_walls_x5y4z5",            "pos": [0, 54.5, 0], "rot": [0, 0.785398, 0], "scale": [1, 1, 1]},
+    {"id": "structure_ceiling_x11y05z11",         "pos": [0, 54.0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_walls_x5y4z5_lookout",            "pos": [0, 54.5, 0], "rot": [0, 0.785398, 0], "scale": [1, 1, 1]},
     {"id": "structure_floor_x6y05z6",           "pos": [0, 60.5, 0], "rot": [0, 0.785398, 0], "scale": [1, 1, 1]},
-    {"id": "structure_mast_x3y20z3",           "pos": [0, 60.5, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]}
+    {"id": "structure_mast_x3y20z3",           "pos": [0, 61.0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]}
   ]
 }

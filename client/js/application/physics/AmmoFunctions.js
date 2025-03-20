@@ -6,6 +6,7 @@ import {Quaternion} from "../../../../libs/three/math/Quaternion.js";
 import {getObj3dScaleKey} from "../utils/ModelUtils.js";
 import {isDev} from "../utils/DebugUtils.js";
 import {MATH} from "../MATH.js";
+import {getBodyVelocity} from "../utils/PhysicsUtils.js";
 
 let threeVec = new Vector3();
 let threeVec2 = new Vector3();
@@ -267,8 +268,8 @@ let createPrimitiveShape = function(bodyParams) {
 
 let bodyParamsDefault = {
     restitution:0.5,
-    damping:0.5,
-    dampingA:0.5,
+    damping:0.1,
+    dampingA:0.2,
     friction:2.9,
     angular_factor:[1, 1, 1,],
     linear_factor:[1, 1, 1,]
@@ -279,7 +280,7 @@ let applyBodyParams = function(body) {
     let bodyParams = bodyParamsDefault;
 
     let restitution = bodyParams.restitution || 0.5;
-    let damping = bodyParams.damping || 0.5;
+    let damping = bodyParams.damping || 0.2;
     let dampingA = bodyParams.dampingA || damping;
     let friction = bodyParams.friction || 2.9;
     body.setRestitution(restitution);
@@ -789,13 +790,41 @@ class AmmoFunctions {
     };
 
     enableBodySimulation(body) {
+        if (body.isStaticObject()) {
 
-        body.forceActivationState(STATE.ACTIVE);
+        } else {
+            body.forceActivationState(STATE.ACTIVE);
+        }
+
     };
 
+    testDeactivation(body) {
+        //    return;
+        const velVec = body.getLinearVelocity(VECTOR_AUX);
+
+        const speed = Math.abs(velVec.x()) + Math.abs(velVec.y()) + Math.abs(velVec.z());
+
+
+        if (speed > 2) return;
+
+        const aVel = body.getAngularVelocity();
+
+        const spin = Math.abs(aVel.x()) + Math.abs(aVel.y()) + Math.abs(aVel.z());
+
+        if (spin + speed < 0.01) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
     relaxBodySimulation(body) {
         //    body.deactivate();
+
+        if (body.isStaticObject()) {
+            return;
+        }
 
         if (!this.getBodyActiveState(body)) {
             //    this.disableBodySimulation(body);
@@ -804,18 +833,8 @@ class AmmoFunctions {
 
         body.forceActivationState(STATE.WANTS_DEACTIVATION);
 
-        //    return;
-        body.getLinearVelocity(VECTOR_AUX);
 
-        let speed = Math.abs(VECTOR_AUX.x()) + Math.abs(VECTOR_AUX.y()) + Math.abs(VECTOR_AUX.z());
-
-        if (speed > 2) return;
-
-        body.getAngularVelocity(VECTOR_AUX);
-
-        let spin = Math.abs(VECTOR_AUX.x()) + Math.abs(VECTOR_AUX.y()) + Math.abs(VECTOR_AUX.z());
-
-        if (spin+speed < 0.5) {
+        if (this.testDeactivation(body)) {
             this.disableBodySimulation(body);
         }
 
@@ -998,9 +1017,9 @@ class AmmoFunctions {
         let heightScale = heightDiff/100
         let margin = 0.5 // * heightScale;
 
-        let restitution =  0.4;
-        let damping     =  0.7;
-        let friction    =  45.0;
+        let restitution =  0.3;
+        let damping     =  0.2;
+        let friction    =  10.0;
 
             console.log("Ground minY maxY: ", minHeight, maxHeight)
 

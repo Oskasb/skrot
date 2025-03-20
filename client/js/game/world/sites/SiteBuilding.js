@@ -17,12 +17,15 @@ class SiteBuilding{
 
         const obj3d = new Object3D();
 
+        const building = this;
+
         const info = {
             obj3d:obj3d,
             indexPos:new Vector2(),
             pos:obj3d.position,
             structures:[],
-            json:null
+            json:null,
+            physicallyDynamic:false
         }
 
         this.info = info;
@@ -37,11 +40,25 @@ class SiteBuilding{
         }
 
 
+        function debugUpdate() {
+            debugDrawStructures('GREEN')
+        }
+
+
         function lodUpdated(lod) {
             console.log("Lod Updated building ", lod, info)
 
             for (let i = 0; i < info.structures.length; i++) {
                 const struct = info.structures[i];
+
+                /*
+                if (lod > 7) {
+                    ThreeAPI.registerPrerenderCallback(debugUpdate);
+                } else {
+                    ThreeAPI.unregisterPrerenderCallback(debugUpdate);
+                }
+*/
+
                 if (struct.info.lodMax < lod) {
                     struct.call.setVisible(true);
                 } else {
@@ -56,7 +73,10 @@ class SiteBuilding{
             for (let i = 0; i < structures.length; i++) {
                 MATH.obj3dFromConfig(tempObj3d, structures[i])
                 inheritAsParent(tempObj3d, obj3d);
-                info.structures.push(createStructure(structures[i].id, tempObj3d))
+
+                const bStruct = createStructure(structures[i].id, tempObj3d)
+                bStruct.info.building = building;
+                info.structures.push(bStruct)
             }
             registerGroundLodCallback(info.indexPos, lodUpdated)
         }
@@ -69,10 +89,27 @@ class SiteBuilding{
             }
         }
 
+        function activateDynamicPhysics(bool) {
+            if (info.physicallyDynamic !== bool) {
+                info.physicallyDynamic = bool;
+                for (let i = 0; i < info.structures.length; i++) {
+                    info.structures[i].call.simulatePhysical(bool)
+                }
+            }
+        }
+
+        function debugDrawStructures(color) {
+            for (let i = 0; i < info.structures.length; i++) {
+                info.structures[i].call.debugDraqBStruct(color)
+            }
+        }
+
         this.call = {
             setJson:setJson,
+            activateDynamicPhysics:activateDynamicPhysics,
             clearBuilding:clearBuilding,
-            applyTrx:applyTrx
+            applyTrx:applyTrx,
+            debugDrawStructures:debugDrawStructures
         }
 
     }

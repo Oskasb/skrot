@@ -1,0 +1,8 @@
+{
+  "shapes": [
+    {"id": "shape_box_dynamic_metal_1", "pos": [  6, 0.25,  6], "rot": [0, 0, 0], "scale":  [12, 0.5, 12]},
+    {"id": "shape_box_dynamic_metal_1", "pos": [ -6, 0.25,  6], "rot": [0, 0, 0], "scale":  [12, 0.5, 12]},
+    {"id": "shape_box_dynamic_metal_1", "pos": [  6, 0.25, -6], "rot": [0, 0, 0], "scale":  [12, 0.5, 12]},
+    {"id": "shape_box_dynamic_metal_1", "pos": [ -6, 0.25, -6], "rot": [0, 0, 0], "scale":  [12, 0.5, 12]}
+  ]
+}
