@@ -37,6 +37,8 @@ const probeResult = {
     destination:new Vector3()
 }
 
+
+
 let physicalWorld;
 
 function setPhysicalWorld(wrld) {

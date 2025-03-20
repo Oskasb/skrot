@@ -13,6 +13,8 @@ function vecByIndex(vec, i) {
     if (i === 2) return vec.z;
 };
 
+let hasWarned = false;
+
 class LineRenderer {
     constructor() {
         this.isActive = false;
@@ -110,11 +112,16 @@ class LineRenderer {
 
 
 
+
     _addLine(start, end, color) {
 
         //We can not continue if there is no more space in the buffers.
         if (this._numRenderingLines >= this.MAX_NUM_LINES) {
-            console.warn('MAX_NUM_LINES has been exceeded in the LineRenderer.');
+            if (hasWarned === false) {
+                console.warn('MAX_NUM_LINES has been exceeded in the LineRenderer.');
+                hasWarned = true;
+            }
+
             return;
         }
 

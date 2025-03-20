@@ -1,6 +1,6 @@
 
-let evt = {}
-let _this = evt;
+const evt = {}
+const _this = evt;
 
 evt.setEventKeys = function(eventKeys) {
 
@@ -126,7 +126,6 @@ evt.getEventSystemStatus= function() {
 
         return _this.evtStatus;
     };
-
 
 
 export { evt }

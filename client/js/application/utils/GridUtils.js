@@ -4,9 +4,9 @@ import {terrainAt} from "../../3d/three/terrain/ComputeTerrain.js";
 let tempVec3 = new Vector3();
 
 function centerByIndexPos(indexPos, sideSize) {
-    tempVec3.x = indexPos.x * sideSize;
+    tempVec3.x = indexPos.x * sideSize + sideSize*0.5;
     tempVec3.y = sideSize*0.5;
-    tempVec3.z = indexPos.y * sideSize;
+    tempVec3.z = indexPos.y * sideSize + sideSize*0.5;
     return tempVec3;
 }
 

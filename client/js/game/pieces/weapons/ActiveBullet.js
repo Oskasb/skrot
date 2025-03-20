@@ -7,6 +7,8 @@ import {activateWorldEffects} from "../../../3d/three/assets/WorldEffect.js";
 import {createGeometryInstance} from "../../../3d/three/assets/GeometryInstance.js";
 import {evt} from "../../../application/event/evt.js";
 import {ENUMS} from "../../../application/ENUMS.js";
+import {activatePhysicsProbe} from "../../../application/physics/PhysicsLodGrid.js";
+import {getGamePlayer} from "../../../Client.js";
 
 const tempVec = new Vector3();
 const defaultHitFx = ["particles_hit_cannon"]
@@ -69,14 +71,11 @@ class ActiveBullet {
             let rayHit = rayTest(obj3d.position, tempVec, obj3d.position, tempVec);
 
             if (rayHit) {
-            //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_CROSS, {pos:obj3d.position, size:2.5, color:"RED"})
-
                 obj3d.up.copy(tempVec);
                 activateWorldEffects(obj3d, info.hit_fx)
-                closeBullet()
+                closeBullet();
+                return;
             } else {
-
-            //    evt.dispatch(ENUMS.Event.DEBUG_DRAW_LINE, {from:obj3d.position, to:tempVec, color:"YELLOW"})
                 obj3d.position.copy(tempVec);
             }
 
@@ -88,8 +87,9 @@ class ActiveBullet {
                 splashEvt.normal.set(0, 1,0);
                 evt.dispatch(ENUMS.Event.SPLASH_OCEAN, splashEvt)
                 closeBullet()
+            } else {
+                activatePhysicsProbe(obj3d.position)
             }
-
 
         }
 

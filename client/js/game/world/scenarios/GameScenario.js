@@ -13,6 +13,7 @@ import {WeaponCannon} from "../../pieces/weapons/WeaponCannon.js";
 import {DomControlButton} from "../../../application/ui/dom/ui/DomControlButton.js";
 import {CameraDynamicPoint} from "../../player/CameraDynamicPoint.js";
 import {getKeyStates, isPressed, keyToValue} from "../../../application/ui/input/KeyboardState.js";
+import {activatePhysicsProbe, debugDrawPhysLodGrid} from "../../../application/physics/PhysicsLodGrid.js";
 
 let minimap = null;
 
@@ -190,6 +191,9 @@ class GameScenario {
                             const active = csMap['PRESS'];
                             scenarioUi.trigger.call.update();
                             editCannon.call.onAttachmentStateChange(active);
+
+                            activatePhysicsProbe(getGamePlayer().getPos())
+                            debugDrawPhysLodGrid()
 
                         }
                         ThreeAPI.registerPrerenderCallback(update);

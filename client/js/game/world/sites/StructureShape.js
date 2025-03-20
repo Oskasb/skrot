@@ -5,6 +5,8 @@ import {initBatchedShape} from "./BatchedShape.js";
 import {bodyForObj3dByParams, transformBody} from "../../../application/utils/PhysicsUtils.js";
 import {MATH} from "../../../application/MATH.js";
 import {Box3} from "three";
+import {physIndexForPos, registerPhysicsGridCallback} from "../../../application/physics/PhysicsLodGrid.js";
+import {Vector2} from "../../../../../libs/three/math/Vector2.js";
 
 
 class StructureShape{
@@ -14,6 +16,8 @@ class StructureShape{
 
         const info = {
             obj3d:obj3d,
+            registered:false,
+            physIndexPos:new Vector2(),
             pos:obj3d.position,
             box:new Box3(),
             visual:null,
@@ -29,6 +33,10 @@ class StructureShape{
             obj3d.quaternion.copy(trxObj.quaternion);
             obj3d.scale.copy(trxObj.scale)
             info.box.setFromCenterAndSize(obj3d.position, obj3d.scale)
+            if (info.registered === false) {
+                info.registered = true;
+                physIndexForPos(obj3d.position, info.physIndexPos)
+            }
         }
 
         function update() {
@@ -54,15 +62,30 @@ class StructureShape{
                 }
             }
             info.body = body
-            activatePhysicsSimulation()
+        //    activatePhysicsSimulation()
         }
 
         function detachBody() {
-            AmmoAPI.excludeBody(info.body);
+
+            if (info.body !== null) {
+                AmmoAPI.excludeBody(info.body);
+                info.body = null;
+            }
+
+        }
+
+        function physicsActivationCB(value) {
+            if (value !== 0) {
+                if (info.body === null) {
+                    bodyForObj3dByParams(obj3d, bodyParams, attachBody)
+                }
+            } else {
+                detachBody()
+            }
         }
 
         function activatePhysics() {
-            bodyForObj3dByParams(obj3d, bodyParams, attachBody)
+            registerPhysicsGridCallback(info.physIndexPos, physicsActivationCB)
         }
 
         function activateVisualStructure() {
@@ -106,7 +129,6 @@ class StructureShape{
         this.call = {
             activateVisualStructure:activateVisualStructure,
             deactivateVisualStructure:deactivateVisualStructure,
-            activatePhysics:activatePhysics,
             detachBody:detachBody,
             setJson:setJson,
             applyTrx:applyTrx
@@ -115,11 +137,9 @@ class StructureShape{
     }
 
     removeShape() {
-        this.call.deactivateVisualStructure()
-        if (this.info.body) {
-            this.call.detachBody();
-            this.info.body = null;
-        }
+        this.call.deactivateVisualStructure();
+        this.call.detachBody();
+        this.info.registered = false;
         poolReturn(this);
     }
 

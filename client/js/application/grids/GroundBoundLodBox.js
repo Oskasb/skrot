@@ -22,7 +22,6 @@ function registerIndexPos(indexPos) {
         lodIndexCallbacks[indexPos.x][indexPos.y] = [];
         activeLodLevels[indexPos.x][indexPos.y] = 0;
     }
-
 }
 
 function callLodUpdate(indexPos, lodLevel) {
@@ -103,8 +102,6 @@ class GroundBoundLodBox {
         }
 
     }
-
-
 
 
 
