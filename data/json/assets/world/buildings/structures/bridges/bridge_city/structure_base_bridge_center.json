@@ -3,10 +3,33 @@
     {"id": "shape_box_static_stone_1", "pos": [0,  0,     0],   "rot": [0, 0, 0],   "scale": [28, 4,  38]},
     {"id": "shape_box_static_stone_1", "pos": [0, 41.5,   0],   "rot": [0, 0, 0],   "scale": [28, 4,  38]},
     {"id": "shape_box_static_stone_1", "pos": [-90, 21.5,   0],   "rot": [0, 0, 0],     "scale": [18, 20,  32]},
-    {"id": "shape_box_dynamic_metal_1","pos": [10,    53,     8],   "rot": [0, 0, 0],   "scale": [2, 19,  4]},
-    {"id": "shape_box_dynamic_metal_1","pos": [10,    53,    -8],   "rot": [0, 0, 0],   "scale": [2, 19,  4]},
+    {"id": "shape_box_dynamic_metal_1","pos": [-82, 38,     8],   "rot": [0, 0, 0],   "scale": [2, 13,  4]},
+    {"id": "shape_box_dynamic_metal_1","pos": [-82, 38,    -8],   "rot": [0, 0, 0],   "scale": [2, 13,  4]},
+    {"id": "shape_box_dynamic_metal_1","pos": [-48.5,  53,    0],   "rot": [0, 0, 0.23], "scale": [76, 1,  24]},
+
+    {"id": "shape_box_dynamic_metal_1","pos": [ -84,   60,     -14],   "rot": [0, 0, 0],   "scale": [4, 64,  3]},
+    {"id": "shape_box_dynamic_metal_1","pos": [ -84,   60,      14],   "rot": [0, 0, 0],   "scale": [4, 64,  3]},
+    {"id": "shape_box_dynamic_metal_1","pos": [ -84,   92,      0 ],   "rot": [0, 0, 0],   "scale": [6, 1,  32]},
+
+    {"id": "shape_box_dynamic_metal_1","pos": [ 10,    53,    8],   "rot": [0, 0, 0],   "scale": [2, 19,  4]},
+    {"id": "shape_box_dynamic_metal_1","pos": [ 10,    53,   -8],   "rot": [0, 0, 0],   "scale": [2, 19,  4]},
     {"id": "shape_box_dynamic_metal_1","pos": [-10,   52,     8],   "rot": [0, 0, 0],   "scale": [2, 17,  4]},
     {"id": "shape_box_dynamic_metal_1","pos": [-10,   52,    -8],   "rot": [0, 0, 0],   "scale": [2, 17,  4]},
+
+    {"id": "shape_box_dynamic_metal_1","pos": [ 0,   80,     -14],   "rot": [0, 0, 0],   "scale": [4, 74,  3]},
+    {"id": "shape_box_dynamic_metal_1","pos": [ 0,   80,      14],   "rot": [0, 0, 0],   "scale": [4, 74,  3]},
+
+    {"id": "shape_box_dynamic_metal_1","pos": [ 0,   118,      0 ],   "rot": [0, 0, 0],   "scale": [6, 1,  32]},
+
+    {"id": "shape_box_dynamic_metal_1","pos": [100,   119,     14],   "rot": [0, 0, 0],   "scale": [200, 2,  2]},
+    {"id": "shape_box_dynamic_metal_1","pos": [-43,   106.5,    -14],   "rot": [0, 0, 0.30],   "scale": [88, 2,  2]},
+    {"id": "shape_box_dynamic_metal_1","pos": [-43,   106.5,     14],   "rot": [0, 0, 0.30],   "scale": [88, 2,  2]},
+
+    {"id": "shape_box_dynamic_metal_1","pos": [-121,   70,    -14],   "rot": [0, 0, 0.6],   "scale": [85, 2,  2]},
+    {"id": "shape_box_dynamic_metal_1","pos": [-121,   70,     14],   "rot": [0, 0, 0.6],   "scale": [85, 2,  2]},
+
+    {"id": "shape_box_static_stone_1","pos": [-159,   42,    -15],   "rot": [0, 0, 0.6],   "scale": [9, 5,  5]},
+    {"id": "shape_box_static_stone_1","pos": [-159,   42,     15],   "rot": [0, 0, 0.6],   "scale": [9, 5,  5]},
 
     {"id": "shape_box_dynamic_metal_1","pos": [ 10,    63,    0],   "rot": [0, 0, 0],   "scale": [4, 1,  24]},
     {"id": "shape_box_dynamic_metal_1","pos": [  0,    63,    0],   "rot": [0, 0, 0.1],   "scale": [20, 1,  24]},
