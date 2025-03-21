@@ -624,7 +624,7 @@ function applyActivationProbe(pos, vel) {
     tempVec2.copy(vel);
     tempVec2.multiplyScalar(0.1);
     tempVec2.add(pos);
-    const rayHit = rayTest(pos, tempVec2,tempVec, tempVec2, true);
+    const rayHit = rayTest(pos, tempVec2,tempVec, tempVec2, false);
     if (rayHit) {
         callBodyActivation(rayHit.ptr)
     }
