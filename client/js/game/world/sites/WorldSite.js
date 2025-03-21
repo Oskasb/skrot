@@ -28,7 +28,7 @@ class WorldSite {
                 for (let i = 0; i < jsn['buildings'].length; i++) {
                     MATH.obj3dFromConfig(tempObj3d, jsn['buildings'][i])
                     tempObj3d.position.add(info.pos);
-                    info.buildings.push(createBuilding(jsn['buildings'][i].id, tempObj3d))
+                    info.buildings.push(createBuilding(jsn['buildings'][i].id, tempObj3d, jsn['buildings'][i].pos[1]))
                 }
             }
         }

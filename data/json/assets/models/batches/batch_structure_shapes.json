@@ -7,7 +7,8 @@
     "box_window_grey",
     "box_window_metal",
     "box_window_wood",
-    "box_wood_borders"
+    "box_wood_borders",
+    "convex_wedge"
   ],
   "material":"material_props_opaque"
 }

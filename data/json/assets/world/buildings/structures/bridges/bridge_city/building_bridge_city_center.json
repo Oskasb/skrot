@@ -1,0 +1,6 @@
+{
+  "structures": [
+    {"id": "structure_base_bridge_center",    "pos": [-100, -60, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_base_bridge_center",    "pos": [ 100, -60, 0], "rot": [0, 3.1459, 0], "scale": [1, 1, 1]}
+  ]
+}

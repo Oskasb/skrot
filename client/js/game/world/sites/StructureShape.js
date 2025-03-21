@@ -213,8 +213,8 @@ class StructureShape{
                     bodyParams.mass = info.dynamicMass;
                     bodyParams.friction = cfg['friction'];
                     bodyParams.scale = cfg['scale'];
-                    bodyParams.assetId = null;
-                    bodyParams.convex = false;
+                    bodyParams.assetId = cfg['asset'] || null;
+                    bodyParams.convex = cfg['convex'] || false;
                     bodyParams.children = false;
                     activatePhysics()
                 }

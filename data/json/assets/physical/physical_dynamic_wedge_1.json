@@ -1,0 +1,9 @@
+
+    {
+      "shape": "mesh",
+      "asset": "convex_wedge",
+      "scale": [1.0, 1.0, 1.0],
+      "convex": true,
+      "mass": 100,
+      "friction": 2.9
+    }

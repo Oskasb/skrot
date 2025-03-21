@@ -1,0 +1,11 @@
+{
+  "label": "Bridge West",
+  "pos": [5800, 50, 13418],
+  "buildings": [
+    {"id": "building_bridge_city", "pos": [ 0,   0,  0],  "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "building_block_alpha", "pos": [-270, 0, -40], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "building_block_alpha", "pos": [-270, 0, -80], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "building_block_alpha", "pos": [-270, 0, -120], "rot": [0, 0, 0], "scale": [1, 1, 1]}
+
+  ]
+}

@@ -30,20 +30,19 @@ class SiteBuilding{
 
         this.info = info;
 
-        function applyTrx(trxObj) {
+        function applyTrx(trxObj, posY) {
             obj3d.position.copy(trxObj.position);
-            obj3d.position.y = terrainAt(obj3d.position);
+            if (posY === 0) {
+                obj3d.position.y = terrainAt(obj3d.position);
+            }
             obj3d.quaternion.copy(trxObj.quaternion);
             obj3d.scale.copy(trxObj.scale)
             gridIndexForPos(obj3d.position, info.indexPos, getBaseGridSize())
-
         }
-
 
         function debugUpdate() {
             debugDrawStructures('GREEN')
         }
-
 
         function lodUpdated(lod) {
             console.log("Lod Updated building ", lod, info)
@@ -120,9 +119,9 @@ class SiteBuilding{
 
 }
 
-function createBuilding(fileName, trxObj) {
+function createBuilding(fileName, trxObj, posY) {
     const sBuilding = poolFetch('SiteBuilding')
-    sBuilding.call.applyTrx(trxObj);
+    sBuilding.call.applyTrx(trxObj, posY);
     jsonAsset(fileName, sBuilding.call.setJson);
     return sBuilding;
 }

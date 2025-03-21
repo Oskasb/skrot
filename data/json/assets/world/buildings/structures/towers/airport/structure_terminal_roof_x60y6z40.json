@@ -1,0 +1,25 @@
+{
+  "shapes": [
+
+    {"id": "shape_wedge_dynamic_metal_1", "pos": [  29.5    , 3,  10], "rot": [0, -1.5707963, 0], "scale": [20, 6, 0.5]},
+    {"id": "shape_wedge_dynamic_metal_1", "pos": [  29.5    , 3, -10], "rot": [0, 1.5707963, 0], "scale":  [20, 6, 0.5]},
+    {"id": "shape_wedge_dynamic_metal_1", "pos": [ -29.5    , 3,  10], "rot": [0, -1.5707963, 0], "scale": [20, 6, 0.5]},
+    {"id": "shape_wedge_dynamic_metal_1", "pos": [ -29.5    , 3, -10], "rot": [0, 1.5707963, 0], "scale":  [20, 6, 0.5]},
+
+    {"id": "shape_wedge_dynamic_metal_1", "pos": [  10    , 3,  10], "rot": [0, -1.5707963, 0], "scale": [20, 6, 0.5]},
+    {"id": "shape_wedge_dynamic_metal_1", "pos": [  10    , 3, -10], "rot": [0, 1.5707963, 0], "scale":  [20, 6, 0.5]},
+    {"id": "shape_wedge_dynamic_metal_1", "pos": [ -10    , 3,  10], "rot": [0, -1.5707963, 0], "scale": [20, 6, 0.5]},
+    {"id": "shape_wedge_dynamic_metal_1", "pos": [ -10    , 3, -10], "rot": [0, 1.5707963, 0], "scale":  [20, 6, 0.5]},
+
+    {"id": "shape_box_dynamic_metal_1", "pos": [  20    , 3.25,  10.75], "rot": [ 0.29, 0, 0], "scale": [20, 1, 22.2]},
+    {"id": "shape_box_dynamic_metal_1", "pos": [  20    , 3.25, -10.75], "rot": [-0.29, 0, 0], "scale": [20, 1, 22.2]},
+    {"id": "shape_box_dynamic_metal_1", "pos": [  0     , 3.25,  10.75], "rot": [ 0.29, 0, 0], "scale": [20, 1, 22.2]},
+    {"id": "shape_box_dynamic_metal_1", "pos": [  0     , 3.25, -10.75], "rot": [-0.29, 0, 0], "scale": [20, 1, 22.2]},
+    {"id": "shape_box_dynamic_metal_1", "pos": [ -20    , 3.25,  10.75], "rot": [ 0.29, 0, 0], "scale": [20, 1, 22.2]},
+    {"id": "shape_box_dynamic_metal_1", "pos": [ -20    , 3.25, -10.75], "rot": [-0.29, 0, 0], "scale": [20, 1, 22.2]},
+
+    {"id": "shape_box_dynamic_metal_1", "pos": [  20    , 7.05, 0], "rot": [0.78539, 0, 0], "scale": [20, 0.6, 0.6]},
+    {"id": "shape_box_dynamic_metal_1", "pos": [  0     , 7.05, 0], "rot": [0.78539, 0, 0], "scale": [20, 0.6, 0.6]},
+    {"id": "shape_box_dynamic_metal_1", "pos": [ -20    , 7.05, 0], "rot": [0.78539, 0, 0], "scale": [20, 0.6, 0.6]}
+  ]
+}

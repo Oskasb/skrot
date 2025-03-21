@@ -144,7 +144,7 @@ function addChildToCompound(compoundBody, childShape, pos, rot) {
 }
 
 function createConvexHullFromBuffer(buffer) {
-//    console.log("Create Convex Hull...", [buffer]);
+    console.log("Create Convex Hull...", [buffer]);
     let btConvexHullShape = new Ammo.btConvexHullShape();
     let _vec3_1 = new Ammo.btVector3(0,0,0);
     let _vec3_2 = new Ammo.btVector3(0,0,0);
@@ -164,7 +164,7 @@ function createConvexHullFromBuffer(buffer) {
         btConvexHullShape.addPoint(_vec3_2,true);
         btConvexHullShape.addPoint(_vec3_3,true);
     }
-
+    btConvexHullShape.setMargin(0.0001);
     return btConvexHullShape;
 }
 
@@ -261,6 +261,9 @@ let createPrimitiveShape = function(bodyParams) {
     if (bodyParams.shape === 'compound') {
         shape = ammoCompoundShape(args);
     }
+
+
+
 
     return shape;
 
@@ -1142,8 +1145,8 @@ class AmmoFunctions {
     createRigidBody(obj3d, shapeKey, mass, friction, pos, rot, scale, assetId, convex, children, onReady) {
 
 
-        let dataKey = assetId || shapeKey + getObj3dScaleKey(obj3d, scale);
-
+        let dataKey = assetId || shapeKey
+        dataKey += '_'+getObj3dScaleKey(obj3d, scale);
 
         MATH.vec3FromArray(threeVec, pos);
         threeVec.applyQuaternion(obj3d.quaternion);
@@ -1272,7 +1275,7 @@ class AmmoFunctions {
 
 
         if (shapeKey === "mesh") {
-
+            console.log("Physical shapeKey Mesh ", assetId, dataKey)
             let body = fetchPoolBody(dataKey);
 
             if (!body) {
@@ -1296,7 +1299,7 @@ class AmmoFunctions {
 
 
                 shape.setLocalScaling(new Ammo.btVector3(scaleVec.x, scaleVec.y, scaleVec.z));
-                shape.setMargin(0);
+                shape.setMargin(0.00001);
                 bodyPools[dataKey] = new BodyPool(shape, createFunc);
                 body = fetchPoolBody(dataKey);
                 body.dataKey = dataKey;
