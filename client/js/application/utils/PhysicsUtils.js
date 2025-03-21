@@ -618,6 +618,18 @@ function callBodyActivation(ptr) {
     }
 }
 
+function applyActivationProbe(pos, vel) {
+
+//    tempVec.add(vel);
+    tempVec2.copy(vel);
+    tempVec2.multiplyScalar(0.1);
+    tempVec2.add(pos);
+    const rayHit = rayTest(pos, tempVec2,tempVec, tempVec2, true);
+    if (rayHit) {
+        callBodyActivation(rayHit.ptr)
+    }
+}
+
 export {
     setPhysicalWorld,
     getTerrainBodyPointer,
@@ -650,5 +662,6 @@ export {
     applyActiveBulletForce,
     registerBodyActivationCB,
     unregisterBodyActivator,
-    callBodyActivation
+    callBodyActivation,
+    applyActivationProbe
 }

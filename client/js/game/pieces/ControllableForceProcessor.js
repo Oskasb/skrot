@@ -1,5 +1,5 @@
 import {Object3D, Quaternion, Vector3} from "../../../../libs/three/Three.Core.js";
-import {bodyTransformToObj3d, getBodyVelocity} from "../../application/utils/PhysicsUtils.js";
+import {applyActivationProbe, bodyTransformToObj3d, getBodyVelocity} from "../../application/utils/PhysicsUtils.js";
 import {ENUMS} from "../../application/ENUMS.js";
 import {evt} from "../../application/event/evt.js";
 import {MATH} from "../../application/MATH.js";
@@ -179,6 +179,8 @@ class ControllableForceProcessor {
                     speedSq = tempVec1.lengthSq();
                     localDrag.copy(tempVec1).normalize();
 
+                    applyActivationProbe(globalPoint.position, tempVec1)
+
                     let liftX = 0;
                     let liftY = 0;
                     let inducedDrag = 0;
@@ -191,6 +193,8 @@ class ControllableForceProcessor {
                         let surfaceArea = surface.scale.x * surface.scale.z;
                         liftY = 1.2 * MATH.curveLift(aoaX) * speedSq * surfaceArea * airDensity + addUpForce * 5 //*  surfaceArea * 0.1 // * surfaceArea // *0.5;
 
+                        liftY = liftY*0.5 + surface.getStatus(ENUMS.SurfaceStatus.LIFT_Y)*0.5
+
                         let inducedForcesSQ = liftY*liftY;
                         inducedDrag += inducedForcesSQ / (4.5 * airDensity * speedSq * surface.scale.x * 3.14)
                         baseDrag += surface.scale.x*surface.scale.y * speedSq * airDensity * 0.1;
@@ -200,7 +204,7 @@ class ControllableForceProcessor {
                         let aoaY = surface.getStatus(ENUMS.SurfaceStatus.AOA_Y)
                         let surfaceArea = surface.scale.y * surface.scale.z;
                         liftX = MATH.curveYaw(aoaY) * speedSq * surfaceArea * airDensity // *0.5;
-
+                        liftX = liftX*0.5 + surface.getStatus(ENUMS.SurfaceStatus.LIFT_X)*0.5
                         let inducedForcesSQ = liftX*liftX;
                     //    inducedDrag += inducedForcesSQ / (5.5 * airDensity * speedSq * surface.scale.y * 3.14)
                     //    baseDrag += surface.scale.x*surface.scale.y * speedSq * airDensity * 0.05;

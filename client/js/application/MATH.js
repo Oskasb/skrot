@@ -1154,8 +1154,21 @@ MATH.curveLift = function(AoA) {
 
 MATH.curveYaw = function(AoA) {
 
-	const sinVal = Math.sin(AoA )
-	return MATH.curvePow(sinVal, 0.5) * 0.75 * Math.cos(AoA * 0.5);
+	const preSeparationAngle = 0.7;
+
+	const linearAngle = 0.2;
+	if (Math.abs(AoA) < linearAngle) {
+		return AoA*2.3;
+	} else if (Math.abs(AoA) < preSeparationAngle) {
+		const preStallFraction = MATH.calcFraction(linearAngle, preSeparationAngle, Math.abs(AoA))
+		return AoA*3.14*(1-preStallFraction) + (Math.sin(AoA * 3.14*1.5)*0.9)*preStallFraction;
+
+	} else {
+
+		const sinVal = Math.sin(AoA )
+		const l1 = Math.pow(Math.abs(sinVal), 0.5)*Math.sign(sinVal);
+		return l1 * MATH.curveSqrt(Math.cos(AoA * 0.5));
+	}
 }
 
 MATH.transformToLocalSpace = function(trx, rootTrx, store) {

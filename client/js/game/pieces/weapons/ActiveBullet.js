@@ -74,22 +74,27 @@ class ActiveBullet {
             tempVec.add(obj3d.position);
             obj3d.lookAt(tempVec);
 
-            let rayHit = rayTest(obj3d.position, tempVec, obj3d.position, tempVec);
+            if (info.age > 0.02) {
 
-            if (rayHit) {
-                obj3d.up.copy(tempVec);
-                activateWorldEffects(obj3d, info.hit_fx)
-                callBodyActivation(rayHit.ptr)
-                const body = getBodyByPointer(rayHit.ptr);
-                if (body !== null) {
-                    applyActiveBulletForce(bullet, obj3d.position, vel, body)
+                const rayHit = rayTest(obj3d.position, tempVec, obj3d.position, tempVec);
+
+                if (rayHit) {
+
+                    obj3d.up.copy(tempVec);
+                    activateWorldEffects(obj3d, info.hit_fx)
+                    callBodyActivation(rayHit.ptr)
+                    const body = getBodyByPointer(rayHit.ptr);
+                    if (body !== null) {
+                        applyActiveBulletForce(bullet, obj3d.position, vel, body)
+                    }
+                    closeBullet();
+
+                    return;
                 }
-                closeBullet();
 
-                return;
-            } else {
-                obj3d.position.copy(tempVec);
             }
+
+            obj3d.position.copy(tempVec);
 
             if (obj3d.position.y < 0) {
                 splashEvt.hitDot = 1;
@@ -118,17 +123,15 @@ class ActiveBullet {
                 info.geometryInstance = null;
             }
 
-
-
             vel.set(0, 0, exitVelMPS);
             vel.applyQuaternion(sourceObj3d.quaternion);
             vel.add(sourceVelV3)
 
             if (bulletData.spread) {
-               let rndV = MATH.randomVector();
+               const rndV = MATH.randomVector();
                rndV.multiplyScalar(MATH.randomBetween(0, bulletData.spread));
                vel.add(rndV);
-            };
+            }
 
             obj3d.position.copy(sourceObj3d.position);
             AmmoAPI.registerPhysicsStepCallback(updatePhysicalBullet);

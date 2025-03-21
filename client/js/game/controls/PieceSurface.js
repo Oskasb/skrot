@@ -18,6 +18,11 @@ class PieceSurface {
     constructor(controllablePiece, pointName, json) {
         this.controllablePiece = controllablePiece;
         this.status = new SimpleStatus()
+
+        this.status.setStatusKey(ENUMS.SurfaceStatus.LIFT_X, 0);
+        this.status.setStatusKey(ENUMS.SurfaceStatus.LIFT_Y, 0);
+        this.status.setStatusKey(ENUMS.SurfaceStatus.DRAG_N, 0);
+
         this.id = pointName;
         this.trxLocalObj = new Object3D();
         this.json = json;
