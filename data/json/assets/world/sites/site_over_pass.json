@@ -1,7 +1,9 @@
 {
   "label": "Overpass",
-  "pos": [9560, 310, 8060],
+  "pos": [9560, 300, 8120],
   "buildings": [
-    {"id": "building_bridge_160", "pos": [0, 0, 0], "rot": [0, 3.142939, 0], "scale": [2.5, 2.5, 2.5]}
+    {"id": "building_bridge_city_center", "pos": [ 0, 40,-240], "rot": [0, 1.574, 0], "scale": [1.2, 1.2, 1.2]},
+    {"id": "building_bridge_city",        "pos": [ 0,  20,-480], "rot": [0,-1.574, 0], "scale": [1.2, 1.2, 1.2]},
+    {"id": "building_bridge_city",        "pos": [ 0,  20,   0], "rot": [0, 1.574, 0], "scale": [1.2, 1.2, 1.2]}
   ]
 }

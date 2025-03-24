@@ -1,0 +1,9 @@
+{
+  "label": "South Bridge",
+  "pos": [5160, 58, 14360],
+  "buildings": [
+    {"id": "building_bridge_city_center", "pos": [ 0, 2,   0], "rot": [0, 1.574, 0], "scale": [1, 1, 1]},
+    {"id": "building_bridge_city",        "pos": [ 0, 0,-200], "rot": [0,-1.574, 0], "scale": [1, 1, 1]},
+    {"id": "building_bridge_city",        "pos": [ 0, 0, 200], "rot": [0, 1.574, 0], "scale": [1, 1, 1]}
+  ]
+}

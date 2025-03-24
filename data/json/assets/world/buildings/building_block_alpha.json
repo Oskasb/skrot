@@ -9,6 +9,6 @@
 
     {"id": "structure_floor_x11y05z11","pos": [0, 14.5, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
     {"id": "structure_walls_x11y4z11", "pos": [0, 15.0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]},
-    {"id": "structure_floor_x11y05z11","pos": [0, 21.0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]}
+    {"id": "structure_roof_x12y5z12",  "pos": [0, 21.0, 0], "rot": [0, 0, 0], "scale": [1, 1, 1]}
   ]
 }
