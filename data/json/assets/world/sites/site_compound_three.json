@@ -1,0 +1,16 @@
+{
+  "label": "Compound 3",
+  "pos": [16240, 470, 4930],
+  "buildings": [
+    {"id": "building_compound_walls_500", "pos": [ -280,  0, 0], "rot": [0, 0, 0], "scale": [1.0, 1.0, 1.0]},
+    {"id": "building_compound_walls_500", "pos": [  280,  0, 0], "rot": [0, 3.1416, 0], "scale": [1.0, 1.0, 1.0]},
+    {"id": "building_compound_walls_500", "pos": [  0,  0, -340], "rot": [0,-1.5708, 0], "scale": [1.0, 1.0, 1.0]},
+    {"id": "building_compound_walls_500", "pos": [  0,  0, 340], "rot": [0, 1.5708, 0], "scale": [1.0, 1.0, 1.0]},
+
+    {"id": "building_compound_walls_corner", "pos": [ -271,  0, -300], "rot": [0, 0, 0], "scale": [1.0, 1.0, 1.0]},
+    {"id": "building_compound_walls_corner", "pos": [  271,  0, -300], "rot": [0, 0, 0], "scale": [1.0, 1.0, 1.0]},
+    {"id": "building_compound_walls_corner", "pos": [  271,  0,  300], "rot": [0, 0, 0], "scale": [1.0, 1.0, 1.0]},
+    {"id": "building_compound_walls_corner", "pos": [ -271,  0,  300], "rot": [0, 0, 0], "scale": [1.0, 1.0, 1.0]}
+
+  ]
+}
