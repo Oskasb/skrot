@@ -1,0 +1,15 @@
+{
+  "label": "Airport South",
+  "pos": [3100, 30, 19600],
+  "buildings": [
+    {"id": "building_tower_alpha", "pos": [-50,  0, 240], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "building_block_alpha", "pos": [-110, 0, -20], "rot": [0, 1.87079, 0], "scale": [1.5, 1.5, 1.5]},
+    {"id": "building_block_alpha", "pos": [-50,  0, -25], "rot": [0, 1.57079, 0], "scale": [1.5, 1.5, 1.5]},
+    {"id": "building_block_alpha", "pos": [ 10,  0, -20], "rot": [0, 1.27079, 0], "scale": [1.5, 1.5, 1.5]},
+
+    {"id": "building_flat_x60y14z40", "pos": [ 70,   0,  -30], "rot": [0, 1.57079, 0], "scale": [1, 1, 1]},
+    {"id": "building_flat_x60y14z40", "pos": [120,   0,  -30], "rot": [0, 1.57079, 0], "scale": [1, 1, 1]},
+    {"id": "building_flat_x60y14z40", "pos": [170,   0,  -30], "rot": [0, 1.57079, 0], "scale": [1, 1, 1]},
+    {"id": "building_flat_x60y7z40", "pos": [ 220,   0,  -30], "rot": [0, 1.57079, 0], "scale": [1, 1, 1]}
+  ]
+}

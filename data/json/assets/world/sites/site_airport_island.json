@@ -1,0 +1,16 @@
+{
+  "label": "Airport Island",
+  "pos": [13900, 200, 4100],
+  "buildings": [
+    {"id": "building_tower_alpha", "pos": [80, 0, 100], "rot": [0, 0, 0], "scale": [1.6, 1.6, 1.6]},
+
+    {"id": "building_block_alpha", "pos": [-300,  0, -80],   "rot": [0, 0, 0], "scale": [1.5, 1.5, 1.5]},
+    {"id": "building_block_alpha", "pos": [-300,  0, -120],  "rot": [0, 0, 0], "scale": [1.5, 1.5, 1.5]},
+    {"id": "building_block_alpha", "pos": [-300,  0, -160],  "rot": [0, 0, 0], "scale": [1.5, 1.5, 1.5]},
+    {"id": "building_terminal_x60y7z40", "pos": [-600, 0,  30],  "rot": [0, 3.14, 0], "scale": [2, 2, 2]},
+    {"id": "building_terminal_x60y7z40", "pos": [-600, 0,  150], "rot": [0, 3.14, 0], "scale": [2, 2, 2]},
+    {"id": "building_terminal_x60y7z40", "pos": [-600, 0,  270], "rot": [0, 3.14, 0], "scale": [2, 2, 2]},
+    {"id": "building_terminal_x60y7z40", "pos": [-600, 0,  390], "rot": [0, 3.14, 0], "scale": [2, 2, 2]}
+
+  ]
+}

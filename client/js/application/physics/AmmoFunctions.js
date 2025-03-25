@@ -164,7 +164,7 @@ function createConvexHullFromBuffer(buffer) {
         btConvexHullShape.addPoint(_vec3_2,true);
         btConvexHullShape.addPoint(_vec3_3,true);
     }
-    btConvexHullShape.setMargin(0.0001);
+    btConvexHullShape.setMargin(0.000001);
     return btConvexHullShape;
 }
 
@@ -200,7 +200,7 @@ function createTriMeshFromBuffer(buffer) {
 let configureMeshShape = function(shape, mass, friction, position, quaternion) {
 
 
-    shape.setMargin(0.05);
+    shape.setMargin(0.00001);
 
     if(!mass) mass = 0;
 

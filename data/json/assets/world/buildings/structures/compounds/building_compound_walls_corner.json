@@ -1,0 +1,8 @@
+{
+  "structures": [
+    {"id": "structure_compound_wall_100","pos": [-20, 1, 0],   "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_compound_wall_100","pos": [20, 1, 0],   "rot": [0, 0, 0],  "scale": [1, 1, 1]},
+    {"id": "structure_compound_wall_corner","pos": [0, 1,-49],   "rot": [0, 1.5708, 0], "scale": [1, 1, 0.975]},
+    {"id": "structure_compound_wall_corner","pos": [0, 1, 49],   "rot": [0, 1.5708, 0],  "scale": [1, 1, 0.975]}
+  ]
+}

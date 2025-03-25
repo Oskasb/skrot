@@ -2,7 +2,7 @@
   "label": "Airport Alpha",
   "pos": [2250, 40, 2550],
   "buildings": [
-    {"id": "building_tower_alpha", "pos": [-110, 0, -320], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "building_tower_alpha", "pos": [-110, 0, -320], "rot": [0, 0, 0], "scale": [1.6, 1.6, 1.6]},
     {"id": "building_block_alpha", "pos": [-110,  0, -130], "rot": [0, -1.87079, 0], "scale": [1.5, 1.5, 1.5]},
     {"id": "building_block_alpha", "pos": [-50,  0, -125], "rot": [0, -1.57079, 0], "scale": [1.5, 1.5, 1.5]},
     {"id": "building_block_alpha", "pos": [ 10,  0, -130], "rot": [0, -1.27079, 0], "scale": [1.5, 1.5, 1.5]},

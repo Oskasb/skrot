@@ -2,6 +2,6 @@
   "label": "Peak West",
   "pos": [1890, 1800, 10630],
   "buildings": [
-    {"id": "building_tower_alpha", "pos": [-30, 0, 10], "rot": [0, -1.57079, 0], "scale": [1, 1, 1]}
+    {"id": "building_tower_alpha", "pos": [-30, 0, 10], "rot": [0, -1.57079, 0], "scale": [2, 2, 2]}
   ]
 }

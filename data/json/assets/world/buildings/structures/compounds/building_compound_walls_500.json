@@ -1,0 +1,9 @@
+{
+  "structures": [
+    {"id": "structure_compound_wall_100",     "pos": [0, 1,-200], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_compound_wall_100",     "pos": [0, 1,-100], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_compound_wall_gate_100","pos": [0, 1, 0],   "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_compound_wall_100",     "pos": [0, 1, 100], "rot": [0, 0, 0], "scale": [1, 1, 1]},
+    {"id": "structure_compound_wall_100",     "pos": [0, 1, 200], "rot": [0, 0, 0], "scale": [1, 1, 1]}
+  ]
+}

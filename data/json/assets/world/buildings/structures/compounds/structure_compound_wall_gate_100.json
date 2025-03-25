@@ -1,0 +1,46 @@
+{
+  "shapes": [
+
+    {"id": "shape_box_static_stone_1",  "pos": [0, -1.0, 45], "rot": [0, 0, 0],   "scale":[3,   2, 10]},
+    {"id": "shape_box_static_stone_1",  "pos": [0, -1.0,-45], "rot": [0, 0, 0],   "scale":[3,   2, 10]},
+    {"id": "shape_box_static_stone_1",  "pos": [0, -1.0, 30], "rot": [0, 0, 0],   "scale":[3,   2, 20]},
+    {"id": "shape_box_static_stone_1",  "pos": [0, -1.0,-30], "rot": [0, 0, 0],   "scale":[3,   2, 20]},
+    {"id": "shape_box_static_stone_1",  "pos": [0, -1.0, 10], "rot": [0, 0, 0],   "scale":[3,   2, 20]},
+    {"id": "shape_box_static_stone_1",  "pos": [0, -1.0,-10], "rot": [0, 0, 0],   "scale":[3,   2, 20]},
+
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 7, -45], "rot": [0, 0, 0], "scale":  [2,   2, 10]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 7, -35], "rot": [0, 0, 0], "scale":  [2,   2, 10]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 7, -25], "rot": [0, 0, 0], "scale":  [2,   2, 10]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 7, -15], "rot": [0, 0, 0], "scale":  [2,   2, 10]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 7,  -5], "rot": [0, 0, 0], "scale":  [2,   2, 10]},
+
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 3, -45], "rot": [0, 0, 0], "scale":  [2,   6, 10]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 3, -35], "rot": [0, 0, 0], "scale":  [2,   6, 10]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 3, -25], "rot": [0, 0, 0], "scale":  [2,   6, 10]},
+
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 3, -14], "rot": [0, 0, 0], "scale":  [1.5, 6, 12]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 3,  -6], "rot": [0, 0, 0], "scale":  [1.5, 6, 4]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 2,-3.5], "rot": [0, 0, 0], "scale":  [2.0, 4, 1]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 5.0, 0], "rot": [0, 0, 0], "scale":  [2.0, 2, 8]},
+
+    {"id": "shape_box_dynamic_stone_1", "pos": [-1.25, 11, -3],  "rot": [0, 0, 0], "scale":  [0.5, 2,  2]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [-1.25, 11, -7],  "rot": [0, 0, 0], "scale":  [0.5, 2,  2]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 9, 0],  "rot": [0, 0, 0], "scale":  [3.0, 2, 17]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [-1.25,  11, 7],  "rot": [0, 0, 0], "scale":  [0.5, 2,  2]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [-1.25,  11, 3],  "rot": [0, 0, 0], "scale":  [0.5, 2,  2]},
+
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 2, 3.5], "rot": [0, 0, 0], "scale":  [2.0, 4, 1]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 3,   6], "rot": [0, 0, 0], "scale":  [1.5, 6, 4]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 3,  14], "rot": [0, 0, 0], "scale":  [1.5, 6, 12]},
+
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 3, 45], "rot": [0, 0, 0], "scale":  [2,   6, 10]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 3, 35], "rot": [0, 0, 0], "scale":  [2,   6, 10]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 3, 25], "rot": [0, 0, 0], "scale":  [2,   6, 10]},
+
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 7,   5], "rot": [0, 0, 0], "scale":  [2,   2, 10]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 7,  15], "rot": [0, 0, 0], "scale":  [2,   2, 10]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 7,  25], "rot": [0, 0, 0], "scale":  [2,   2, 10]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 7,  35], "rot": [0, 0, 0], "scale":  [2,   2, 10]},
+    {"id": "shape_box_dynamic_stone_1", "pos": [0, 7,  45], "rot": [0, 0, 0], "scale":  [2,   2, 10]}
+  ]
+}
