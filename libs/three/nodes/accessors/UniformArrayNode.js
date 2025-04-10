@@ -4,8 +4,6 @@ import { getValueType } from '../core/NodeUtils.js';
 import ArrayElementNode from '../utils/ArrayElementNode.js';
 import BufferNode from './BufferNode.js';
 
-/** @module UniformArrayNode **/
-
 /**
  * Represents the element access on uniform array nodes.
  *
@@ -32,7 +30,7 @@ class UniformArrayElementNode extends ArrayElementNode {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -53,8 +51,8 @@ class UniformArrayElementNode extends ArrayElementNode {
 }
 
 /**
- * Similar to {@link module:BufferNode~BufferNode} this module represents array-like data as
- * uniform buffers. Unlike {@link module:BufferNode~BufferNode}, it can handle more common
+ * Similar to {@link BufferNode} this module represents array-like data as
+ * uniform buffers. Unlike {@link BufferNode}, it can handle more common
  * data types in the array (e.g `three.js` primitives) and automatically
  * manage buffer padding. It should be the first choice when working with
  * uniforms buffers.
@@ -67,7 +65,7 @@ class UniformArrayElementNode extends ArrayElementNode {
  *
  * const redColor = tintColors.element( 0 );
  *
- * @augments module:BufferNode~BufferNode
+ * @augments BufferNode
  */
 class UniformArrayNode extends BufferNode {
 
@@ -80,26 +78,26 @@ class UniformArrayNode extends BufferNode {
 	/**
 	 * Constructs a new uniform array node.
 	 *
-	 * @param {Array<Any>} value - Array holding the buffer data.
-	 * @param {String?} [elementType=null] - The data type of a buffer element.
+	 * @param {Array<any>} value - Array holding the buffer data.
+	 * @param {?string} [elementType=null] - The data type of a buffer element.
 	 */
 	constructor( value, elementType = null ) {
 
 		super( null );
 
 		/**
-		 * Array holding the buffer data. Unlike {@link module:BufferNode~BufferNode}, the array can
+		 * Array holding the buffer data. Unlike {@link BufferNode}, the array can
 		 * hold number primitives as well as three.js objects like vectors, matrices
 		 * or colors.
 		 *
-		 * @type {Array<Any>}
+		 * @type {Array<any>}
 		 */
 		this.array = value;
 
 		/**
 		 * The data type of an array element.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 */
 		this.elementType = elementType === null ? getValueType( value[ 0 ] ) : elementType;
 
@@ -107,14 +105,14 @@ class UniformArrayNode extends BufferNode {
 		 * The padded type. Uniform buffers must conform to a certain buffer layout
 		 * so a separate type is computed to ensure correct buffer size.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 */
 		this.paddedType = this.getPaddedType();
 
 		/**
 		 * Overwritten since uniform array nodes are updated per render.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 * @default 'render'
 		 */
 		this.updateType = NodeUpdateType.RENDER;
@@ -122,7 +120,7 @@ class UniformArrayNode extends BufferNode {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -132,10 +130,10 @@ class UniformArrayNode extends BufferNode {
 
 	/**
 	 * This method is overwritten since the node type is inferred from the
-	 * {@link module:UniformArrayNode~UniformArrayNode#paddedType}.
+	 * {@link UniformArrayNode#paddedType}.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {String} The node type.
+	 * @return {string} The node type.
 	 */
 	getNodeType( /*builder*/ ) {
 
@@ -147,7 +145,7 @@ class UniformArrayNode extends BufferNode {
 	 * The data type of the array elements.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {String} The element type.
+	 * @return {string} The element type.
 	 */
 	getElementType() {
 
@@ -158,7 +156,7 @@ class UniformArrayNode extends BufferNode {
 	/**
 	 * Returns the padded type based on the element type.
 	 *
-	 * @return {String} The padded type.
+	 * @return {string} The padded type.
 	 */
 	getPaddedType() {
 
@@ -323,7 +321,7 @@ class UniformArrayNode extends BufferNode {
 
 	/**
 	 * Overwrites the default `element()` method to provide element access
-	 * based on {@link module:UniformArrayNode~UniformArrayNode}.
+	 * based on {@link UniformArrayNode}.
 	 *
 	 * @param {IndexNode} indexNode - The index node.
 	 * @return {UniformArrayElementNode}
@@ -341,24 +339,26 @@ export default UniformArrayNode;
 /**
  * TSL function for creating an uniform array node.
  *
+ * @tsl
  * @function
- * @param {Array<Any>} values - Array-like data.
- * @param {String?} nodeType - The data type of the array elements.
+ * @param {Array<any>} values - Array-like data.
+ * @param {?string} [nodeType] - The data type of the array elements.
  * @returns {UniformArrayNode}
  */
 export const uniformArray = ( values, nodeType ) => nodeObject( new UniformArrayNode( values, nodeType ) );
 
 /**
+ * @tsl
  * @function
  * @deprecated since r168. Use {@link uniformArray} instead.
  *
- * @param {Array<Any>} values - Array-like data.
- * @param {String} nodeType - The data type of the array elements.
+ * @param {Array<any>} values - Array-like data.
+ * @param {string} nodeType - The data type of the array elements.
  * @returns {UniformArrayNode}
  */
 export const uniforms = ( values, nodeType ) => { // @deprecated, r168
 
-	console.warn( 'TSL.UniformArrayNode: uniforms() has been renamed to uniformArray().' );
+	console.warn( 'THREE.TSL: uniforms() has been renamed to uniformArray().' );
 	return nodeObject( new UniformArrayNode( values, nodeType ) );
 
 };

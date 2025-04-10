@@ -14,6 +14,8 @@ import QuadMesh from '../../renderers/common/QuadMesh.js';
  *
  * postProcessing.outputNode = scenePass;
  * ```
+ *
+ * Note: This module can only be used with `WebGPURenderer`.
  */
 class PostProcessing {
 
@@ -57,7 +59,7 @@ class PostProcessing {
 		 * const outputPass = renderOutput( scenePass );
 		 * ```
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 */
 		this.outputColorTransform = true;
 
@@ -101,7 +103,12 @@ class PostProcessing {
 
 		//
 
+		const currentXR = renderer.xr.enabled;
+		renderer.xr.enabled = false;
+
 		this._quadMesh.render( renderer );
+
+		renderer.xr.enabled = currentXR;
 
 		//
 
@@ -164,7 +171,12 @@ class PostProcessing {
 
 		//
 
+		const currentXR = renderer.xr.enabled;
+		renderer.xr.enabled = false;
+
 		await this._quadMesh.renderAsync( renderer );
+
+		renderer.xr.enabled = currentXR;
 
 		//
 

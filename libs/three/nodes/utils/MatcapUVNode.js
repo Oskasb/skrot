@@ -3,8 +3,6 @@ import { transformedNormalView } from '../accessors/Normal.js';
 import { positionViewDirection } from '../accessors/Position.js';
 import { nodeImmutable, vec2, vec3 } from '../tsl/TSLBase.js';
 
-/** @module MatcapUVNode **/
-
 /**
  * Can be used to compute texture coordinates for projecting a
  * matcap onto a mesh. Used by {@link MeshMatcapNodeMaterial}.
@@ -44,6 +42,7 @@ export default MatcapUVNode;
 /**
  * TSL function for creating a matcap uv node.
  *
+ * @tsl
  * @function
  * @returns {MatcapUVNode}
  */

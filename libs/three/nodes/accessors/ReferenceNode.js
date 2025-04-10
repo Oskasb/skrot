@@ -10,8 +10,6 @@ import ArrayElementNode from '../utils/ArrayElementNode.js';
 
 // TODO: Avoid duplicated code and ues only ReferenceBaseNode or ReferenceNode
 
-/** @module ReferenceNode **/
-
 /**
  * This class is only relevant if the referenced property is array-like.
  * In this case, `ReferenceElementNode` allows to refer to a specific
@@ -30,7 +28,7 @@ class ReferenceElementNode extends ArrayElementNode {
 	/**
 	 * Constructs a new reference element node.
 	 *
-	 * @param {ReferenceNode?} referenceNode - The reference node.
+	 * @param {?ReferenceNode} referenceNode - The reference node.
 	 * @param {Node} indexNode - The index node that defines the element access.
 	 */
 	constructor( referenceNode, indexNode ) {
@@ -38,10 +36,10 @@ class ReferenceElementNode extends ArrayElementNode {
 		super( referenceNode, indexNode );
 
 		/**
-		 * Similar to {@link module:ReferenceNode~ReferenceNode#reference}, an additional
+		 * Similar to {@link ReferenceNode#reference}, an additional
 		 * property references to the current node.
 		 *
-		 * @type {ReferenceNode?}
+		 * @type {?ReferenceNode}
 		 * @default null
 		 */
 		this.referenceNode = referenceNode;
@@ -49,7 +47,7 @@ class ReferenceElementNode extends ArrayElementNode {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -61,7 +59,7 @@ class ReferenceElementNode extends ArrayElementNode {
 	 * This method is overwritten since the node type is inferred from
 	 * the uniform type of the reference node.
 	 *
-	 * @return {String} The node type.
+	 * @return {string} The node type.
 	 */
 	getNodeType() {
 
@@ -100,10 +98,10 @@ class ReferenceNode extends Node {
 	/**
 	 * Constructs a new reference node.
 	 *
-	 * @param {String} property - The name of the property the node refers to.
-	 * @param {String} uniformType - The uniform type that should be used to represent the property value.
-	 * @param {Object?} [object=null] - The object the property belongs to.
-	 * @param {Number?} [count=null] - When the linked property is an array-like, this parameter defines its length.
+	 * @param {string} property - The name of the property the node refers to.
+	 * @param {string} uniformType - The uniform type that should be used to represent the property value.
+	 * @param {?Object} [object=null] - The object the property belongs to.
+	 * @param {?number} [count=null] - When the linked property is an array-like, this parameter defines its length.
 	 */
 	constructor( property, uniformType, object = null, count = null ) {
 
@@ -112,21 +110,21 @@ class ReferenceNode extends Node {
 		/**
 		 * The name of the property the node refers to.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 */
 		this.property = property;
 
 		/**
 		 * The uniform type that should be used to represent the property value.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 */
 		this.uniformType = uniformType;
 
 		/**
 		 * The object the property belongs to.
 		 *
-		 * @type {Object?}
+		 * @type {?Object}
 		 * @default null
 		 */
 		this.object = object;
@@ -134,7 +132,7 @@ class ReferenceNode extends Node {
 		/**
 		 * When the linked property is an array, this parameter defines its length.
 		 *
-		 * @type {Number?}
+		 * @type {?number}
 		 * @default null
 		 */
 		this.count = count;
@@ -143,15 +141,15 @@ class ReferenceNode extends Node {
 		 * The property name might have dots so nested properties can be referred.
 		 * The hierarchy of the names is stored inside this array.
 		 *
-		 * @type {Array<String>}
+		 * @type {Array<string>}
 		 */
 		this.properties = property.split( '.' );
 
 		/**
-		 * Points to the current referred object. This property exists next to {@link module:ReferenceNode~ReferenceNode#object}
+		 * Points to the current referred object. This property exists next to {@link ReferenceNode#object}
 		 * since the final reference might be updated from calling code.
 		 *
-		 * @type {Object?}
+		 * @type {?Object}
 		 * @default null
 		 */
 		this.reference = object;
@@ -175,7 +173,7 @@ class ReferenceNode extends Node {
 		/**
 		 * An optional label of the internal uniform node.
 		 *
-		 * @type {String?}
+		 * @type {?string}
 		 * @default null
 		 */
 		this.name = null;
@@ -183,7 +181,7 @@ class ReferenceNode extends Node {
 		/**
 		 * Overwritten since reference nodes are updated per object.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 * @default 'object'
 		 */
 		this.updateType = NodeUpdateType.OBJECT;
@@ -220,7 +218,7 @@ class ReferenceNode extends Node {
 	/**
 	 * Sets the label for the internal uniform.
 	 *
-	 * @param {String} name - The label to set.
+	 * @param {string} name - The label to set.
 	 * @return {ReferenceNode} A reference to this node.
 	 */
 	label( name ) {
@@ -235,7 +233,7 @@ class ReferenceNode extends Node {
 	 * Sets the node type which automatically defines the internal
 	 * uniform type.
 	 *
-	 * @param {String} uniformType - The type to set.
+	 * @param {string} uniformType - The type to set.
 	 */
 	setNodeType( uniformType ) {
 
@@ -280,7 +278,7 @@ class ReferenceNode extends Node {
 	 * the type of the reference node.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {String} The node type.
+	 * @return {string} The node type.
 	 */
 	getNodeType( builder ) {
 
@@ -299,7 +297,7 @@ class ReferenceNode extends Node {
 	 * Returns the property value from the given referred object.
 	 *
 	 * @param {Object} [object=this.reference] - The object to retrieve the property value from.
-	 * @return {Any} The value.
+	 * @return {any} The value.
 	 */
 	getValueFromReference( object = this.reference ) {
 
@@ -319,7 +317,7 @@ class ReferenceNode extends Node {
 
 	/**
 	 * Allows to update the reference based on the given state. The state is only
-	 * evaluated {@link module:ReferenceNode~ReferenceNode#object} is not set.
+	 * evaluated {@link ReferenceNode#object} is not set.
 	 *
 	 * @param {(NodeFrame|NodeBuilder)} state - The current state.
 	 * @return {Object} The updated reference.
@@ -347,7 +345,7 @@ class ReferenceNode extends Node {
 	}
 
 	/**
-	 * Overwritten to to update the internal uniform value.
+	 * Overwritten to update the internal uniform value.
 	 *
 	 * @param {NodeFrame} frame - A reference to the current node frame.
 	 */
@@ -386,10 +384,11 @@ export default ReferenceNode;
 /**
  * TSL function for creating a reference node.
  *
+ * @tsl
  * @function
- * @param {String} name - The name of the property the node refers to.
- * @param {String} type - The uniform type that should be used to represent the property value.
- * @param {Object} object - The object the property belongs to.
+ * @param {string} name - The name of the property the node refers to.
+ * @param {string} type - The uniform type that should be used to represent the property value.
+ * @param {?Object} [object] - The object the property belongs to.
  * @returns {ReferenceNode}
  */
 export const reference = ( name, type, object ) => nodeObject( new ReferenceNode( name, type, object ) );
@@ -398,10 +397,11 @@ export const reference = ( name, type, object ) => nodeObject( new ReferenceNode
  * TSL function for creating a reference node. Use this function if you want need a reference
  * to an array-like property that should be represented as a uniform buffer.
  *
+ * @tsl
  * @function
- * @param {String} name - The name of the property the node refers to.
- * @param {String} type - The uniform type that should be used to represent the property value.
- * @param {Number} count - The number of value inside the array-like object.
+ * @param {string} name - The name of the property the node refers to.
+ * @param {string} type - The uniform type that should be used to represent the property value.
+ * @param {number} count - The number of value inside the array-like object.
  * @param {Object} object - An array-like object the property belongs to.
  * @returns {ReferenceNode}
  */

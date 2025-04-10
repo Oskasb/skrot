@@ -1,8 +1,6 @@
 import ReferenceNode from './ReferenceNode.js';
 import { nodeObject } from '../tsl/TSLBase.js';
 
-/** @module MaterialReferenceNode **/
-
 /**
  * This node is a special type of reference node which is intended
  * for linking material properties with node values.
@@ -12,7 +10,7 @@ import { nodeObject } from '../tsl/TSLBase.js';
  * When changing `material.opacity`, the node value of `opacityNode` will
  * automatically be updated.
  *
- * @augments module:ReferenceNode~ReferenceNode
+ * @augments ReferenceNode
  */
 class MaterialReferenceNode extends ReferenceNode {
 
@@ -25,9 +23,9 @@ class MaterialReferenceNode extends ReferenceNode {
 	/**
 	 * Constructs a new material reference node.
 	 *
-	 * @param {String} property - The name of the property the node refers to.
-	 * @param {String} inputType - The uniform type that should be used to represent the property value.
-	 * @param {Material?} [material=null] - The material the property belongs to. When no material is set,
+	 * @param {string} property - The name of the property the node refers to.
+	 * @param {string} inputType - The uniform type that should be used to represent the property value.
+	 * @param {?Material} [material=null] - The material the property belongs to. When no material is set,
 	 * the node refers to the material of the current rendered object.
 	 */
 	constructor( property, inputType, material = null ) {
@@ -38,7 +36,7 @@ class MaterialReferenceNode extends ReferenceNode {
 		 * The material the property belongs to. When no material is set,
 		 * the node refers to the material of the current rendered object.
 		 *
-		 * @type {Material?}
+		 * @type {?Material}
 		 * @default null
 		 */
 		this.material = material;
@@ -46,7 +44,7 @@ class MaterialReferenceNode extends ReferenceNode {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -56,7 +54,7 @@ class MaterialReferenceNode extends ReferenceNode {
 
 	/**
 	 * Updates the reference based on the given state. The state is only evaluated
-	 * {@link module:MaterialReferenceNode~MaterialReferenceNode#material} is not set.
+	 * {@link MaterialReferenceNode#material} is not set.
 	 *
 	 * @param {(NodeFrame|NodeBuilder)} state - The current state.
 	 * @return {Object} The updated reference.
@@ -76,10 +74,11 @@ export default MaterialReferenceNode;
 /**
  * TSL function for creating a material reference node.
  *
+ * @tsl
  * @function
- * @param {String} name - The name of the property the node refers to.
- * @param {String} type - The uniform type that should be used to represent the property value.
- * @param {Material?} [material=null] - The material the property belongs to.
+ * @param {string} name - The name of the property the node refers to.
+ * @param {string} type - The uniform type that should be used to represent the property value.
+ * @param {?Material} [material=null] - The material the property belongs to.
  * When no material is set, the node refers to the material of the current rendered object.
  * @returns {MaterialReferenceNode}
  */

@@ -9,8 +9,6 @@ import { Vector4 } from '../../math/Vector4.js';
 import { MathUtils } from '../../math/MathUtils.js';
 import { InstancedBufferAttribute } from '../../core/InstancedBufferAttribute.js';
 
-/** @module RangeNode **/
-
 let min = null;
 let max = null;
 
@@ -65,7 +63,7 @@ class RangeNode extends Node {
 	 * Returns the vector length which is computed based on the range definition.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {Number} The vector length.
+	 * @return {number} The vector length.
 	 */
 	getVectorLength( builder ) {
 
@@ -80,7 +78,7 @@ class RangeNode extends Node {
 	 * This method is overwritten since the node type is inferred from range definition.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {String} The node type.
+	 * @return {string} The node type.
 	 */
 	getNodeType( builder ) {
 
@@ -165,9 +163,10 @@ export default RangeNode;
 /**
  * TSL function for creating a range node.
  *
+ * @tsl
  * @function
  * @param {Node<any>} [minNode=float()] - A node defining the lower bound of the range.
  * @param {Node<any>} [maxNode=float()] - A node defining the upper bound of the range.
  * @returns {RangeNode}
  */
-export const range = /*@__PURE__*/ nodeProxy( RangeNode );
+export const range = /*@__PURE__*/ nodeProxy( RangeNode ).setParameterLength( 2 );

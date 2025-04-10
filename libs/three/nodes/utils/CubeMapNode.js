@@ -6,8 +6,6 @@ import { cubeTexture } from '../accessors/CubeTextureNode.js';
 import CubeRenderTarget from '../../renderers/common/CubeRenderTarget.js';
 import { CubeReflectionMapping, CubeRefractionMapping, EquirectangularReflectionMapping, EquirectangularRefractionMapping } from '../../constants.js';
 
-/** @module CubeMapNode **/
-
 const _cache = new WeakMap();
 
 /**
@@ -44,7 +42,7 @@ class CubeMapNode extends TempNode {
 		 * A reference to the internal cube texture.
 		 *
 		 * @private
-		 * @type {CubeTexture}
+		 * @type {?CubeTexture}
 		 * @default null
 		 */
 		this._cubeTexture = null;
@@ -55,7 +53,7 @@ class CubeMapNode extends TempNode {
 		 * @private
 		 * @type {CubeTextureNode}
 		 */
-		this._cubeTextureNode = cubeTexture();
+		this._cubeTextureNode = cubeTexture( null );
 
 		const defaultTexture = new CubeTexture();
 		defaultTexture.isRenderTargetTexture = true;
@@ -74,7 +72,7 @@ class CubeMapNode extends TempNode {
 		 * The `updateBeforeType` is set to `NodeUpdateType.RENDER` since the node updates
 		 * the texture once per render in its {@link CubeMapNode#updateBefore} method.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 * @default 'render'
 		 */
 		this.updateBeforeType = NodeUpdateType.RENDER;
@@ -170,7 +168,7 @@ export default CubeMapNode;
  *
  * @private
  * @param {Image} image - The equirectangular image to check.
- * @return {Boolean} Whether the image is ready or not.
+ * @return {boolean} Whether the image is ready or not.
  */
 function isEquirectangularMapReady( image ) {
 
@@ -212,7 +210,7 @@ function onTextureDispose( event ) {
  *
  * @private
  * @param {Texture} texture - The cube texture.
- * @param {Number} mapping - The original texture mapping.
+ * @param {number} mapping - The original texture mapping.
  */
 function mapTextureMapping( texture, mapping ) {
 
@@ -231,8 +229,9 @@ function mapTextureMapping( texture, mapping ) {
 /**
  * TSL function for creating a cube map node.
  *
+ * @tsl
  * @function
  * @param {Node} envNode - The node representing the environment map.
  * @returns {CubeMapNode}
  */
-export const cubeMapNode = /*@__PURE__*/ nodeProxy( CubeMapNode );
+export const cubeMapNode = /*@__PURE__*/ nodeProxy( CubeMapNode ).setParameterLength( 1 );

@@ -9,8 +9,6 @@ import { RenderTarget } from '../../core/RenderTarget.js';
 import { Vector2 } from '../../math/Vector2.js';
 import { HalfFloatType } from '../../constants.js';
 
-/** @module RTTNode **/
-
 const _size = /*@__PURE__*/ new Vector2();
 
 /**
@@ -19,7 +17,7 @@ const _size = /*@__PURE__*/ new Vector2();
  * texture input for their effects. With the helper function `convertToTexture()` which is based
  * on this module, the node system can automatically ensure texture input if required.
  *
- * @augments module:TextureNode~TextureNode
+ * @augments TextureNode
  */
 class RTTNode extends TextureNode {
 
@@ -33,8 +31,8 @@ class RTTNode extends TextureNode {
 	 * Constructs a new RTT node.
 	 *
 	 * @param {Node} node - The node to render a texture with.
-	 * @param {Number?} [width=null] - The width of the internal render target. If not width is applied, the render target is automatically resized.
-	 * @param {Number?} [height=null] - The height of the internal render target.
+	 * @param {?number} [width=null] - The width of the internal render target. If not width is applied, the render target is automatically resized.
+	 * @param {?number} [height=null] - The height of the internal render target.
 	 * @param {Object} [options={type:HalfFloatType}] - The options for the internal render target.
 	 */
 	constructor( node, width = null, height = null, options = { type: HalfFloatType } ) {
@@ -54,7 +52,7 @@ class RTTNode extends TextureNode {
 		 * The width of the internal render target.
 		 * If not width is applied, the render target is automatically resized.
 		 *
-		 * @type {Number?}
+		 * @type {?number}
 		 * @default null
 		 */
 		this.width = width;
@@ -62,7 +60,7 @@ class RTTNode extends TextureNode {
 		/**
 		 * The height of the internal render target.
 		 *
-		 * @type {Number?}
+		 * @type {?number}
 		 * @default null
 		 */
 		this.height = height;
@@ -70,7 +68,7 @@ class RTTNode extends TextureNode {
 		/**
 		 * The pixel ratio
 		 *
-		 * @type {Number}
+		 * @type {number}
 		 * @default 1
 		 */
 		this.pixelRatio = 1;
@@ -85,7 +83,7 @@ class RTTNode extends TextureNode {
 		/**
 		 * Whether the texture requires an update or not.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default true
 		 */
 		this.textureNeedsUpdate = true;
@@ -93,7 +91,7 @@ class RTTNode extends TextureNode {
 		/**
 		 * Whether the texture should automatically be updated or not.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default true
 		 */
 		this.autoUpdate = true;
@@ -119,7 +117,7 @@ class RTTNode extends TextureNode {
 		 * The `updateBeforeType` is set to `NodeUpdateType.RENDER` since the node updates
 		 * the texture once per render in its {@link RTTNode#updateBefore} method.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 * @default 'render'
 		 */
 		this.updateBeforeType = NodeUpdateType.RENDER;
@@ -129,7 +127,7 @@ class RTTNode extends TextureNode {
 	/**
 	 * Whether the internal render target should automatically be resized or not.
 	 *
-	 * @type {Boolean}
+	 * @type {boolean}
 	 * @readonly
 	 * @default true
 	 */
@@ -152,8 +150,8 @@ class RTTNode extends TextureNode {
 	/**
 	 * Sets the size of the internal render target
 	 *
-	 * @param {Number} width - The width to set.
-	 * @param {Number} height - The width to set.
+	 * @param {number} width - The width to set.
+	 * @param {number} height - The width to set.
 	 */
 	setSize( width, height ) {
 
@@ -172,7 +170,7 @@ class RTTNode extends TextureNode {
 	/**
 	 * Sets the pixel ratio. This will also resize the render target.
 	 *
-	 * @param {Number} pixelRatio - The pixel ratio to set.
+	 * @param {number} pixelRatio - The pixel ratio to set.
 	 */
 	setPixelRatio( pixelRatio ) {
 
@@ -233,10 +231,11 @@ export default RTTNode;
 /**
  * TSL function for creating a RTT node.
  *
+ * @tsl
  * @function
  * @param {Node} node - The node to render a texture with.
- * @param {Number?} [width=null] - The width of the internal render target. If not width is applied, the render target is automatically resized.
- * @param {Number?} [height=null] - The height of the internal render target.
+ * @param {?number} [width=null] - The width of the internal render target. If not width is applied, the render target is automatically resized.
+ * @param {?number} [height=null] - The height of the internal render target.
  * @param {Object} [options={type:HalfFloatType}] - The options for the internal render target.
  * @returns {RTTNode}
  */
@@ -245,10 +244,11 @@ export const rtt = ( node, ...params ) => nodeObject( new RTTNode( nodeObject( n
 /**
  * TSL function for converting nodes to textures nodes.
  *
+ * @tsl
  * @function
  * @param {Node} node - The node to render a texture with.
- * @param {Number?} [width=null] - The width of the internal render target. If not width is applied, the render target is automatically resized.
- * @param {Number?} [height=null] - The height of the internal render target.
+ * @param {?number} [width=null] - The width of the internal render target. If not width is applied, the render target is automatically resized.
+ * @param {?number} [height=null] - The height of the internal render target.
  * @param {Object} [options={type:HalfFloatType}] - The options for the internal render target.
  * @returns {RTTNode}
  */

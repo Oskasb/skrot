@@ -1,8 +1,6 @@
 import Node from '../core/Node.js';
 import { nodeProxy } from '../tsl/TSLCore.js';
 
-/** @module ExpressionNode **/
-
 /**
  * This class can be used to implement basic expressions in shader code.
  * Basic examples for that are `return`, `continue` or `discard` statements.
@@ -20,8 +18,8 @@ class ExpressionNode extends Node {
 	/**
 	 * Constructs a new expression node.
 	 *
-	 * @param {String} [snippet=''] - The native code snippet.
-	 * @param {String} [nodeType='void'] - The node type.
+	 * @param {string} [snippet=''] - The native code snippet.
+	 * @param {string} [nodeType='void'] - The node type.
 	 */
 	constructor( snippet = '', nodeType = 'void' ) {
 
@@ -30,7 +28,7 @@ class ExpressionNode extends Node {
 		/**
 		 * The native code snippet.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 * @default ''
 		 */
 		this.snippet = snippet;
@@ -48,7 +46,7 @@ class ExpressionNode extends Node {
 
 		} else {
 
-			return builder.format( `( ${ snippet } )`, type, output );
+			return builder.format( snippet, type, output );
 
 		}
 
@@ -61,9 +59,10 @@ export default ExpressionNode;
 /**
  * TSL function for creating an expression node.
  *
+ * @tsl
  * @function
- * @param {String} [snippet=''] - The native code snippet.
- * @param {String} [nodeType='void'] - The node type.
+ * @param {string} [snippet] - The native code snippet.
+ * @param {?string} [nodeType='void'] - The node type.
  * @returns {ExpressionNode}
  */
-export const expression = /*@__PURE__*/ nodeProxy( ExpressionNode );
+export const expression = /*@__PURE__*/ nodeProxy( ExpressionNode ).setParameterLength( 1, 2 );

@@ -69,6 +69,8 @@ const _axisDirections = [
 	/*@__PURE__*/ new Vector3( 1, 1, 1 )
 ];
 
+const _origin = /*@__PURE__*/ new Vector3();
+
 // maps blur materials to their uniforms dictionary
 
 const _uniformsMap = new WeakMap();
@@ -93,12 +95,16 @@ const _outputDirection = /*@__PURE__*/ vec3( _direction.x, _direction.y, _direct
  * higher roughness levels. In this way we maintain resolution to smoothly
  * interpolate diffuse lighting while limiting sampling computation.
  *
- * Paper: Fast, Accurate Image-Based Lighting
- * https://drive.google.com/file/d/15y8r_UpKlU9SvV4ILb0C3qCPecS8pvLz/view
+ * Paper: Fast, Accurate Image-Based Lighting:
+ * {@link https://drive.google.com/file/d/15y8r_UpKlU9SvV4ILb0C3qCPecS8pvLz/view}
 */
-
 class PMREMGenerator {
 
+	/**
+	 * Constructs a new PMREM generator.
+	 *
+	 * @param {Renderer} renderer - The renderer.
+	 */
 	constructor( renderer ) {
 
 		this._renderer = renderer;
@@ -128,20 +134,28 @@ class PMREMGenerator {
 	 * Generates a PMREM from a supplied Scene, which can be faster than using an
 	 * image if networking bandwidth is low. Optional sigma specifies a blur radius
 	 * in radians to be applied to the scene before PMREM generation. Optional near
-	 * and far planes ensure the scene is rendered in its entirety (the cubeCamera
-	 * is placed at the origin).
+	 * and far planes ensure the scene is rendered in its entirety.
 	 *
 	 * @param {Scene} scene - The scene to be captured.
-	 * @param {Number} [sigma=0] - The blur radius in radians.
-	 * @param {Number} [near=0.1] - The near plane distance.
-	 * @param {Number} [far=100] - The far plane distance.
-	 * @param {RenderTarget?} [renderTarget=null] - The render target to use.
+	 * @param {number} [sigma=0] - The blur radius in radians.
+	 * @param {number} [near=0.1] - The near plane distance.
+	 * @param {number} [far=100] - The far plane distance.
+	 * @param {Object} [options={}] - The configuration options.
+	 * @param {number} [options.size=256] - The texture size of the PMREM.
+	 * @param {Vector3} [options.renderTarget=origin] - The position of the internal cube camera that renders the scene.
+	 * @param {?RenderTarget} [options.renderTarget=null] - The render target to use.
 	 * @return {RenderTarget} The resulting PMREM.
-	 * @see fromSceneAsync
+	 * @see {@link PMREMGenerator#fromSceneAsync}
 	 */
-	fromScene( scene, sigma = 0, near = 0.1, far = 100, renderTarget = null ) {
+	fromScene( scene, sigma = 0, near = 0.1, far = 100, options = {} ) {
 
-		this._setSize( 256 );
+		const {
+			size = 256,
+			position = _origin,
+			renderTarget = null,
+		} = options;
+
+		this._setSize( size );
 
 		if ( this._hasInitialized === false ) {
 
@@ -149,7 +163,9 @@ class PMREMGenerator {
 
 			const cubeUVRenderTarget = renderTarget || this._allocateTargets();
 
-			this.fromSceneAsync( scene, sigma, near, far, cubeUVRenderTarget );
+			options.renderTarget = cubeUVRenderTarget;
+
+			this.fromSceneAsync( scene, sigma, near, far, options );
 
 			return cubeUVRenderTarget;
 
@@ -162,7 +178,7 @@ class PMREMGenerator {
 		const cubeUVRenderTarget = renderTarget || this._allocateTargets();
 		cubeUVRenderTarget.depthBuffer = true;
 
-		this._sceneToCubeUV( scene, near, far, cubeUVRenderTarget );
+		this._sceneToCubeUV( scene, near, far, cubeUVRenderTarget, position );
 
 		if ( sigma > 0 ) {
 
@@ -186,18 +202,21 @@ class PMREMGenerator {
 	 * is placed at the origin).
 	 *
 	 * @param {Scene} scene - The scene to be captured.
-	 * @param {Number} [sigma=0] - The blur radius in radians.
-	 * @param {Number} [near=0.1] - The near plane distance.
-	 * @param {Number} [far=100] - The far plane distance.
-	 * @param {RenderTarget?} [renderTarget=null] - The render target to use.
-	 * @return {Promise<RenderTarget>} The resulting PMREM.
-	 * @see fromScene
+	 * @param {number} [sigma=0] - The blur radius in radians.
+	 * @param {number} [near=0.1] - The near plane distance.
+	 * @param {number} [far=100] - The far plane distance.
+	 * @param {Object} [options={}] - The configuration options.
+	 * @param {number} [options.size=256] - The texture size of the PMREM.
+	 * @param {Vector3} [options.position=origin] - The position of the internal cube camera that renders the scene.
+	 * @param {?RenderTarget} [options.renderTarget=null] - The render target to use.
+	 * @return {Promise<RenderTarget>} A Promise that resolve with the PMREM when the generation has been finished.
+	 * @see {@link PMREMGenerator#fromScene}
 	 */
-	async fromSceneAsync( scene, sigma = 0, near = 0.1, far = 100, renderTarget = null ) {
+	async fromSceneAsync( scene, sigma = 0, near = 0.1, far = 100, options = {} ) {
 
 		if ( this._hasInitialized === false ) await this._renderer.init();
 
-		return this.fromScene( scene, sigma, near, far, renderTarget );
+		return this.fromScene( scene, sigma, near, far, options );
 
 	}
 
@@ -207,9 +226,9 @@ class PMREMGenerator {
 	 * as this matches best with the 256 x 256 cubemap output.
 	 *
 	 * @param {Texture} equirectangular - The equirectangular texture to be converted.
-	 * @param {RenderTarget?} [renderTarget=null] - The render target to use.
+	 * @param {?RenderTarget} [renderTarget=null] - The render target to use.
 	 * @return {RenderTarget} The resulting PMREM.
-	 * @see fromEquirectangularAsync
+	 * @see {@link PMREMGenerator#fromEquirectangularAsync}
 	 */
 	fromEquirectangular( equirectangular, renderTarget = null ) {
 
@@ -237,9 +256,9 @@ class PMREMGenerator {
 	 * as this matches best with the 256 x 256 cubemap output.
 	 *
 	 * @param {Texture} equirectangular - The equirectangular texture to be converted.
-	 * @param {RenderTarget?} [renderTarget=null] - The render target to use.
+	 * @param {?RenderTarget} [renderTarget=null] - The render target to use.
 	 * @return {Promise<RenderTarget>} The resulting PMREM.
-	 * @see fromEquirectangular
+	 * @see {@link PMREMGenerator#fromEquirectangular}
 	 */
 	async fromEquirectangularAsync( equirectangular, renderTarget = null ) {
 
@@ -255,9 +274,9 @@ class PMREMGenerator {
 	 * as this matches best with the 256 x 256 cubemap output.
 	 *
 	 * @param {Texture} cubemap - The cubemap texture to be converted.
-	 * @param {RenderTarget?} [renderTarget=null] - The render target to use.
+	 * @param {?RenderTarget} [renderTarget=null] - The render target to use.
 	 * @return {RenderTarget} The resulting PMREM.
-	 * @see fromCubemapAsync
+	 * @see {@link PMREMGenerator#fromCubemapAsync}
 	 */
 	fromCubemap( cubemap, renderTarget = null ) {
 
@@ -285,9 +304,9 @@ class PMREMGenerator {
 	 * with the 256 x 256 cubemap output.
 	 *
 	 * @param {Texture} cubemap - The cubemap texture to be converted.
-	 * @param {RenderTarget?} [renderTarget=null] - The render target to use.
+	 * @param {?RenderTarget} [renderTarget=null] - The render target to use.
 	 * @return {Promise<RenderTarget>} The resulting PMREM.
-	 * @see fromCubemap
+	 * @see {@link PMREMGenerator#fromCubemap}
 	 */
 	async fromCubemapAsync( cubemap, renderTarget = null ) {
 
@@ -458,7 +477,7 @@ class PMREMGenerator {
 
 	}
 
-	_sceneToCubeUV( scene, near, far, cubeUVRenderTarget ) {
+	_sceneToCubeUV( scene, near, far, cubeUVRenderTarget, position ) {
 
 		const cubeCamera = _cubeCamera;
 		cubeCamera.near = near;
@@ -528,17 +547,22 @@ class PMREMGenerator {
 			if ( col === 0 ) {
 
 				cubeCamera.up.set( 0, upSign[ i ], 0 );
-				cubeCamera.lookAt( forwardSign[ i ], 0, 0 );
+				cubeCamera.position.set( position.x, position.y, position.z );
+				cubeCamera.lookAt( position.x + forwardSign[ i ], position.y, position.z );
 
 			} else if ( col === 1 ) {
 
 				cubeCamera.up.set( 0, 0, upSign[ i ] );
-				cubeCamera.lookAt( 0, forwardSign[ i ], 0 );
+				cubeCamera.position.set( position.x, position.y, position.z );
+				cubeCamera.lookAt( position.x, position.y + forwardSign[ i ], position.z );
+
 
 			} else {
 
 				cubeCamera.up.set( 0, upSign[ i ], 0 );
-				cubeCamera.lookAt( 0, 0, forwardSign[ i ] );
+				cubeCamera.position.set( position.x, position.y, position.z );
+				cubeCamera.lookAt( position.x, position.y, position.z + forwardSign[ i ] );
+
 
 			}
 
@@ -622,10 +646,11 @@ class PMREMGenerator {
 	 * the poles) to approximate the orthogonally-separable blur. It is least
 	 * accurate at the poles, but still does a decent job.
 	 *
+	 * @private
 	 * @param {RenderTarget} cubeUVRenderTarget - The cubemap render target.
-	 * @param {Number} lodIn - The input level-of-detail.
-	 * @param {Number} lodOut - The output level-of-detail.
-	 * @param {Number} sigma - The blur radius in radians.
+	 * @param {number} lodIn - The input level-of-detail.
+	 * @param {number} lodOut - The output level-of-detail.
+	 * @param {number} sigma - The blur radius in radians.
 	 * @param {Vector3} [poleAxis] - The pole axis.
 	 */
 	_blur( cubeUVRenderTarget, lodIn, lodOut, sigma, poleAxis ) {

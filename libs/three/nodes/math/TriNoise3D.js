@@ -3,8 +3,6 @@
 import { Loop } from '../utils/LoopNode.js';
 import { float, vec3, Fn } from '../tsl/TSLBase.js';
 
-/** @module TriNoise3D **/
-
 const tri = /*@__PURE__*/ Fn( ( [ x ] ) => {
 
 	return x.fract().sub( .5 ).abs();
@@ -32,7 +30,8 @@ const tri3 = /*@__PURE__*/ Fn( ( [ p ] ) => {
 /**
  * Generates a noise value from the given position, speed and time parameters.
  *
- * @method
+ * @tsl
+ * @function
  * @param {Node<vec3>} position - The position.
  * @param {Node<float>} speed - The speed.
  * @param {Node<float>} time - The time.

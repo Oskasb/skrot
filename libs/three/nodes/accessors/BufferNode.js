@@ -1,8 +1,6 @@
 import UniformNode from '../core/UniformNode.js';
 import { nodeObject } from '../tsl/TSLBase.js';
 
-/** @module BufferNode **/
-
 /**
  * A special type of uniform node which represents array-like data
  * as uniform buffers. The access usually happens via `element()`
@@ -15,7 +13,7 @@ import { nodeObject } from '../tsl/TSLBase.js';
  * In general, it is recommended to use the more managed {@link UniformArrayNode}
  * since it handles more input types and automatically cares about buffer paddings.
  *
- * @augments module:UniformNode~UniformNode
+ * @augments UniformNode
  */
 class BufferNode extends UniformNode {
 
@@ -28,9 +26,9 @@ class BufferNode extends UniformNode {
 	/**
 	 * Constructs a new buffer node.
 	 *
-	 * @param {Array<Number>} value - Array-like buffer data.
-	 * @param {String} bufferType - The data type of the buffer.
-	 * @param {Number} [bufferCount=0] - The count of buffer elements.
+	 * @param {Array<number>} value - Array-like buffer data.
+	 * @param {string} bufferType - The data type of the buffer.
+	 * @param {number} [bufferCount=0] - The count of buffer elements.
 	 */
 	constructor( value, bufferType, bufferCount = 0 ) {
 
@@ -39,7 +37,7 @@ class BufferNode extends UniformNode {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -48,14 +46,14 @@ class BufferNode extends UniformNode {
 		/**
 		 * The data type of the buffer.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 */
 		this.bufferType = bufferType;
 
 		/**
 		 * The uniform node that holds the value of the reference node.
 		 *
-		 * @type {Number}
+		 * @type {number}
 		 * @default 0
 		 */
 		this.bufferCount = bufferCount;
@@ -66,7 +64,7 @@ class BufferNode extends UniformNode {
 	 * The data type of the buffer elements.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {String} The element type.
+	 * @return {string} The element type.
 	 */
 	getElementType( builder ) {
 
@@ -78,7 +76,7 @@ class BufferNode extends UniformNode {
 	 * Overwrites the default implementation to return a fixed value `'buffer'`.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {String} The input type.
+	 * @return {string} The input type.
 	 */
 	getInputType( /*builder*/ ) {
 
@@ -93,10 +91,11 @@ export default BufferNode;
 /**
  * TSL function for creating a buffer node.
  *
+ * @tsl
  * @function
  * @param {Array} value - Array-like buffer data.
- * @param {String} type - The data type of a buffer element.
- * @param {Number} count - The count of buffer elements.
+ * @param {string} type - The data type of a buffer element.
+ * @param {number} count - The count of buffer elements.
  * @returns {BufferNode}
  */
 export const buffer = ( value, type, count ) => nodeObject( new BufferNode( value, type, count ) );

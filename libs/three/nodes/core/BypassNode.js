@@ -1,8 +1,6 @@
 import Node from './Node.js';
 import { addMethodChaining, nodeProxy } from '../tsl/TSLCore.js';
 
-/** @module BypassNode **/
-
 /**
  * The class generates the code of a given node but returns another node in the output.
  * This can be used to call a method or node that does not return a value, i.e.
@@ -35,7 +33,7 @@ class BypassNode extends Node {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -84,11 +82,12 @@ export default BypassNode;
 /**
  * TSL function for creating a bypass node.
  *
+ * @tsl
  * @function
  * @param {Node} outputNode - The output node.
  * @param {Node} callNode - The call node.
  * @returns {BypassNode}
  */
-export const bypass = /*@__PURE__*/ nodeProxy( BypassNode );
+export const bypass = /*@__PURE__*/ nodeProxy( BypassNode ).setParameterLength( 2 );
 
 addMethodChaining( 'bypass', bypass );

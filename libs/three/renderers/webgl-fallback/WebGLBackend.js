@@ -24,17 +24,23 @@ import WebGLTimestampQueryPool from './utils/WebGLTimestampQueryPool.js';
 class WebGLBackend extends Backend {
 
 	/**
+	 * WebGLBackend options.
+	 *
+	 * @typedef {Object} WebGLBackend~Options
+	 * @property {boolean} [logarithmicDepthBuffer=false] - Whether logarithmic depth buffer is enabled or not.
+	 * @property {boolean} [alpha=true] - Whether the default framebuffer (which represents the final contents of the canvas) should be transparent or opaque.
+	 * @property {boolean} [depth=true] - Whether the default framebuffer should have a depth buffer or not.
+	 * @property {boolean} [stencil=false] - Whether the default framebuffer should have a stencil buffer or not.
+	 * @property {boolean} [antialias=false] - Whether MSAA as the default anti-aliasing should be enabled or not.
+	 * @property {number} [samples=0] - When `antialias` is `true`, `4` samples are used by default. Set this parameter to any other integer value than 0 to overwrite the default.
+	 * @property {boolean} [forceWebGL=false] - If set to `true`, the renderer uses a WebGL 2 backend no matter if WebGPU is supported or not.
+	 * @property {WebGL2RenderingContext} [context=undefined] - A WebGL 2 rendering context.
+	 */
+
+	/**
 	 * Constructs a new WebGPU backend.
 	 *
-	 * @param {Object} parameters - The configuration parameter.
-	 * @param {Boolean} [parameters.logarithmicDepthBuffer=false] - Whether logarithmic depth buffer is enabled or not.
-	 * @param {Boolean} [parameters.alpha=true] - Whether the default framebuffer (which represents the final contents of the canvas) should be transparent or opaque.
-	 * @param {Boolean} [parameters.depth=true] - Whether the default framebuffer should have a depth buffer or not.
-	 * @param {Boolean} [parameters.stencil=false] - Whether the default framebuffer should have a stencil buffer or not.
-	 * @param {Boolean} [parameters.antialias=false] - Whether MSAA as the default anti-aliasing should be enabled or not.
-	 * @param {Number} [parameters.samples=0] - When `antialias` is `true`, `4` samples are used by default. Set this parameter to any other integer value than 0 to overwrite the default.
-	 * @param {Boolean} [parameters.forceWebGL=false] - If set to `true`, the renderer uses a WebGL 2 backend no matter if WebGPU is supported or not.
-	 * @param {WebGL2RenderingContext} [parameters.context=undefined] - A WebGL 2 rendering context.
+	 * @param {WebGLBackend~Options} [parameters] - The configuration parameter.
 	 */
 	constructor( parameters = {} ) {
 
@@ -43,7 +49,7 @@ class WebGLBackend extends Backend {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -53,7 +59,7 @@ class WebGLBackend extends Backend {
 		 * A reference to a backend module holding shader attribute-related
 		 * utility functions.
 		 *
-		 * @type {WebGLAttributeUtils?}
+		 * @type {?WebGLAttributeUtils}
 		 * @default null
 		 */
 		this.attributeUtils = null;
@@ -62,7 +68,7 @@ class WebGLBackend extends Backend {
 		 * A reference to a backend module holding extension-related
 		 * utility functions.
 		 *
-		 * @type {WebGLExtensions?}
+		 * @type {?WebGLExtensions}
 		 * @default null
 		 */
 		this.extensions = null;
@@ -71,7 +77,7 @@ class WebGLBackend extends Backend {
 		 * A reference to a backend module holding capability-related
 		 * utility functions.
 		 *
-		 * @type {WebGLCapabilities?}
+		 * @type {?WebGLCapabilities}
 		 * @default null
 		 */
 		this.capabilities = null;
@@ -80,7 +86,7 @@ class WebGLBackend extends Backend {
 		 * A reference to a backend module holding texture-related
 		 * utility functions.
 		 *
-		 * @type {WebGLTextureUtils?}
+		 * @type {?WebGLTextureUtils}
 		 * @default null
 		 */
 		this.textureUtils = null;
@@ -89,7 +95,7 @@ class WebGLBackend extends Backend {
 		 * A reference to a backend module holding renderer-related
 		 * utility functions.
 		 *
-		 * @type {WebGLBufferRenderer?}
+		 * @type {?WebGLBufferRenderer}
 		 * @default null
 		 */
 		this.bufferRenderer = null;
@@ -97,7 +103,7 @@ class WebGLBackend extends Backend {
 		/**
 		 * A reference to the rendering context.
 		 *
-		 * @type {WebGL2RenderingContext?}
+		 * @type {?WebGL2RenderingContext}
 		 * @default null
 		 */
 		this.gl = null;
@@ -106,7 +112,7 @@ class WebGLBackend extends Backend {
 		 * A reference to a backend module holding state-related
 		 * utility functions.
 		 *
-		 * @type {WebGLState?}
+		 * @type {?WebGLState}
 		 * @default null
 		 */
 		this.state = null;
@@ -115,7 +121,7 @@ class WebGLBackend extends Backend {
 		 * A reference to a backend module holding common
 		 * utility functions.
 		 *
-		 * @type {WebGLUtils?}
+		 * @type {?WebGLUtils}
 		 * @default null
 		 */
 		this.utils = null;
@@ -123,14 +129,14 @@ class WebGLBackend extends Backend {
 		/**
 		 * Dictionary for caching VAOs.
 		 *
-		 * @type {Object<String,WebGLVertexArrayObject>}
+		 * @type {Object<string,WebGLVertexArrayObject>}
 		 */
 		this.vaoCache = {};
 
 		/**
 		 * Dictionary for caching transform feedback objects.
 		 *
-		 * @type {Object<String,WebGLTransformFeedback>}
+		 * @type {Object<string,WebGLTransformFeedback>}
 		 */
 		this.transformFeedbackCache = {};
 
@@ -138,7 +144,7 @@ class WebGLBackend extends Backend {
 		 * Controls if `gl.RASTERIZER_DISCARD` should be enabled or not.
 		 * Only relevant when using compute shaders.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default false
 		 */
 		this.discard = false;
@@ -147,7 +153,7 @@ class WebGLBackend extends Backend {
 		 * A reference to the `EXT_disjoint_timer_query_webgl2` extension. `null` if the
 		 * device does not support the extension.
 		 *
-		 * @type {EXTDisjointTimerQueryWebGL2?}
+		 * @type {?EXTDisjointTimerQueryWebGL2}
 		 * @default null
 		 */
 		this.disjoint = null;
@@ -156,18 +162,10 @@ class WebGLBackend extends Backend {
 		* A reference to the `KHR_parallel_shader_compile` extension. `null` if the
 		* device does not support the extension.
 		*
-		* @type {KHRParallelShaderCompile?}
+		* @type {?KHRParallelShaderCompile}
 		* @default null
 		*/
 		this.parallel = null;
-
-		/**
-		 * Whether to track timestamps with a Timestamp Query API or not.
-		 *
-		 * @type {Boolean}
-		 * @default false
-		 */
-		this.trackTimestamp = ( parameters.trackTimestamp === true );
 
 		/**
 		 * A reference to the current render context.
@@ -186,6 +184,15 @@ class WebGLBackend extends Backend {
 		 */
 		this._knownBindings = new WeakSet();
 
+
+		/**
+		 * Whether the device supports framebuffers invalidation or not.
+		 *
+		 * @private
+		 * @type {boolean}
+		 */
+		this._supportsInvalidateFramebuffer = typeof navigator === 'undefined' ? false : /OculusBrowser/g.test( navigator.userAgent );
+
 		/**
 		 * The target framebuffer when rendering with
 		 * the WebXR device API.
@@ -194,7 +201,7 @@ class WebGLBackend extends Backend {
 		 * @type {WebGLFramebuffer}
 		 * @default null
 		 */
-		this._xrFamebuffer = null;
+		this._xrFramebuffer = null;
 
 	}
 
@@ -211,7 +218,14 @@ class WebGLBackend extends Backend {
 
 		const parameters = this.parameters;
 
-		const glContext = ( parameters.context !== undefined ) ? parameters.context : renderer.domElement.getContext( 'webgl2' );
+		const contextAttributes = {
+			antialias: renderer.samples > 0,
+			alpha: true, // always true for performance reasons
+			depth: renderer.depth,
+			stencil: renderer.stencil
+		};
+
+		const glContext = ( parameters.context !== undefined ) ? parameters.context : renderer.domElement.getContext( 'webgl2', contextAttributes );
 
 	 	function onContextLost( event ) {
 
@@ -259,7 +273,7 @@ class WebGLBackend extends Backend {
 	/**
 	 * The coordinate system of the backend.
 	 *
-	 * @type {Number}
+	 * @type {number}
 	 * @readonly
 	 */
 	get coordinateSystem() {
@@ -315,11 +329,11 @@ class WebGLBackend extends Backend {
 	/**
 	 * Sets the XR rendering destination.
 	 *
-	 * @param {WebGLFramebuffer} xrFamebuffer - The XR framebuffer.
+	 * @param {WebGLFramebuffer} xrFramebuffer - The XR framebuffer.
 	 */
-	setXRTarget( xrFamebuffer ) {
+	setXRTarget( xrFramebuffer ) {
 
-		this._xrFamebuffer = xrFamebuffer;
+		this._xrFramebuffer = xrFramebuffer;
 
 	}
 
@@ -330,7 +344,7 @@ class WebGLBackend extends Backend {
 	 *
 	 * @param {XRRenderTarget} renderTarget - The XR render target.
 	 * @param {WebGLTexture} colorTexture - A native color texture.
-	 * @param {WebGLTexture?} [depthTexture=null] - A native depth texture.
+	 * @param {?WebGLTexture} [depthTexture=null] - A native depth texture.
 	 */
 	setXRRenderTargetTextures( renderTarget, colorTexture, depthTexture = null ) {
 
@@ -343,6 +357,14 @@ class WebGLBackend extends Backend {
 			const glInternalFormat = renderTarget.stencilBuffer ? gl.DEPTH24_STENCIL8 : gl.DEPTH_COMPONENT24;
 
 			this.set( renderTarget.depthTexture, { textureGPU: depthTexture, glInternalFormat: glInternalFormat } );
+
+			// The multisample_render_to_texture extension doesn't work properly if there
+			// are midframe flushes and an external depth texture.
+			if ( ( this.extensions.has( 'WEBGL_multisampled_render_to_texture' ) === true ) && renderTarget.autoAllocateDepthBuffer ) {
+
+				console.warn( 'THREE.WebGLBackend: Render-to-texture extension was disabled because an external texture was provided' );
+
+			}
 
 			renderTarget.autoAllocateDepthBuffer = false;
 
@@ -423,18 +445,6 @@ class WebGLBackend extends Backend {
 
 		//
 
-		//
-
-		this.initTimestampQuery( renderContext );
-
-		renderContextData.previousContext = this._currentContext;
-		this._currentContext = renderContext;
-
-		this._setFramebuffer( renderContext );
-
-		this.clear( renderContext.clearColor, renderContext.clearDepth, renderContext.clearStencil, renderContext, false );
-
-		//
 		if ( renderContext.viewport ) {
 
 			this.updateViewport( renderContext );
@@ -452,6 +462,18 @@ class WebGLBackend extends Backend {
 			state.scissor( x, renderContext.height - height - y, width, height );
 
 		}
+
+		//
+
+		this.initTimestampQuery( renderContext );
+
+		renderContextData.previousContext = this._currentContext;
+		this._currentContext = renderContext;
+
+		this._setFramebuffer( renderContext );
+
+		this.clear( renderContext.clearColor, renderContext.clearDepth, renderContext.clearStencil, renderContext, false );
+
 
 		const occlusionQueryCount = renderContext.occlusionQueryCount;
 
@@ -482,6 +504,8 @@ class WebGLBackend extends Backend {
 		const { gl, state } = this;
 		const renderContextData = this.get( renderContext );
 		const previousContext = renderContextData.previousContext;
+
+		state.resetVertexState();
 
 		const occlusionQueryCount = renderContext.occlusionQueryCount;
 
@@ -523,7 +547,7 @@ class WebGLBackend extends Backend {
 
 			const { samples } = renderContext.renderTarget;
 
-			if ( samples > 0 ) {
+			if ( samples > 0 && this._useMultisampledRTT( renderContext.renderTarget ) === false ) {
 
 				const fb = renderTargetContextData.framebuffers[ renderContext.getCacheKey() ];
 
@@ -547,12 +571,22 @@ class WebGLBackend extends Backend {
 						const viewY = renderContext.height - height - y;
 
 						gl.blitFramebuffer( x, viewY, x + width, viewY + height, x, viewY, x + width, viewY + height, mask, gl.NEAREST );
-						gl.invalidateSubFramebuffer( gl.READ_FRAMEBUFFER, renderTargetContextData.invalidationArray, x, viewY, width, height );
+
+						if ( this._supportsInvalidateFramebuffer === true ) {
+
+							gl.invalidateSubFramebuffer( gl.READ_FRAMEBUFFER, renderTargetContextData.invalidationArray, x, viewY, width, height );
+
+						}
 
 					} else {
 
 						gl.blitFramebuffer( 0, 0, renderContext.width, renderContext.height, 0, 0, renderContext.width, renderContext.height, mask, gl.NEAREST );
-						gl.invalidateFramebuffer( gl.READ_FRAMEBUFFER, renderTargetContextData.invalidationArray );
+
+						if ( this._supportsInvalidateFramebuffer === true ) {
+
+							gl.invalidateFramebuffer( gl.READ_FRAMEBUFFER, renderTargetContextData.invalidationArray );
+
+						}
 
 					}
 
@@ -654,7 +688,7 @@ class WebGLBackend extends Backend {
 	 *
 	 * @param {RenderContext} renderContext - The render context.
 	 * @param {Object3D} object - The 3D object to test.
-	 * @return {Boolean} Whether the 3D object is fully occluded or not.
+	 * @return {boolean} Whether the 3D object is fully occluded or not.
 	 */
 	isOccluded( renderContext, object ) {
 
@@ -681,7 +715,7 @@ class WebGLBackend extends Backend {
 	/**
 	 * Defines the scissor test.
 	 *
-	 * @param {Boolean} boolean - Whether the scissor test should be enabled or not.
+	 * @param {boolean} boolean - Whether the scissor test should be enabled or not.
 	 */
 	setScissorTest( boolean ) {
 
@@ -692,27 +726,42 @@ class WebGLBackend extends Backend {
 	}
 
 	/**
+	 * Returns the clear color and alpha into a single
+	 * color object.
+	 *
+	 * @return {Color4} The clear color.
+	 */
+	getClearColor() {
+
+		const clearColor = super.getClearColor();
+
+		// Since the canvas is always created with alpha: true,
+		// WebGL must always premultiply the clear color.
+
+		clearColor.r *= clearColor.a;
+		clearColor.g *= clearColor.a;
+		clearColor.b *= clearColor.a;
+
+		return clearColor;
+
+	}
+
+	/**
 	 * Performs a clear operation.
 	 *
-	 * @param {Boolean} color - Whether the color buffer should be cleared or not.
-	 * @param {Boolean} depth - Whether the depth buffer should be cleared or not.
-	 * @param {Boolean} stencil - Whether the stencil buffer should be cleared or not.
-	 * @param {Object?} [descriptor=null] - The render context of the current set render target.
-	 * @param {Boolean} [setFrameBuffer=true] - TODO.
+	 * @param {boolean} color - Whether the color buffer should be cleared or not.
+	 * @param {boolean} depth - Whether the depth buffer should be cleared or not.
+	 * @param {boolean} stencil - Whether the stencil buffer should be cleared or not.
+	 * @param {?Object} [descriptor=null] - The render context of the current set render target.
+	 * @param {boolean} [setFrameBuffer=true] - TODO.
 	 */
 	clear( color, depth, stencil, descriptor = null, setFrameBuffer = true ) {
 
-		const { gl } = this;
+		const { gl, renderer } = this;
 
 		if ( descriptor === null ) {
 
 			const clearColor = this.getClearColor();
-
-			// premultiply alpha
-
-			clearColor.r *= clearColor.a;
-			clearColor.g *= clearColor.a;
-			clearColor.b *= clearColor.a;
 
 			descriptor = {
 				textures: null,
@@ -741,13 +790,10 @@ class WebGLBackend extends Backend {
 
 				clearColor = this.getClearColor();
 
-				// premultiply alpha
-
-				clearColor.r *= clearColor.a;
-				clearColor.g *= clearColor.a;
-				clearColor.b *= clearColor.a;
-
 			}
+
+			const clearDepth = renderer.getClearDepth();
+			const clearStencil = renderer.getClearStencil();
 
 			if ( depth ) this.state.setDepthMask( true );
 
@@ -764,7 +810,15 @@ class WebGLBackend extends Backend {
 
 					for ( let i = 0; i < descriptor.textures.length; i ++ ) {
 
-						gl.clearBufferfv( gl.COLOR, i, [ clearColor.r, clearColor.g, clearColor.b, clearColor.a ] );
+						if ( i === 0 ) {
+
+							gl.clearBufferfv( gl.COLOR, i, [ clearColor.r, clearColor.g, clearColor.b, clearColor.a ] );
+
+						} else {
+
+							gl.clearBufferfv( gl.COLOR, i, [ 0, 0, 0, 1 ] );
+
+						}
 
 					}
 
@@ -772,15 +826,15 @@ class WebGLBackend extends Backend {
 
 				if ( depth && stencil ) {
 
-					gl.clearBufferfi( gl.DEPTH_STENCIL, 0, 1, 0 );
+					gl.clearBufferfi( gl.DEPTH_STENCIL, 0, clearDepth, clearStencil );
 
 				} else if ( depth ) {
 
-					gl.clearBufferfv( gl.DEPTH, 0, [ 1.0 ] );
+					gl.clearBufferfv( gl.DEPTH, 0, [ clearDepth ] );
 
 				} else if ( stencil ) {
 
-					gl.clearBufferiv( gl.STENCIL, 0, [ 0 ] );
+					gl.clearBufferiv( gl.STENCIL, 0, [ clearStencil ] );
 
 				}
 
@@ -827,17 +881,17 @@ class WebGLBackend extends Backend {
 
 		const { programGPU, transformBuffers, attributes } = this.get( pipeline );
 
-		const vaoKey = this._getVaoKey( null, attributes );
+		const vaoKey = this._getVaoKey( attributes );
 
 		const vaoGPU = this.vaoCache[ vaoKey ];
 
 		if ( vaoGPU === undefined ) {
 
-			this._createVao( null, attributes );
+			this._createVao( attributes );
 
 		} else {
 
-			gl.bindVertexArray( vaoGPU );
+			state.setVertexState( vaoGPU );
 
 		}
 
@@ -907,6 +961,20 @@ class WebGLBackend extends Backend {
 	}
 
 	/**
+	 * Internal to determine if the current render target is a render target array with depth 2D array texture.
+	 *
+	 * @param {RenderContext} renderContext - The render context.
+	 * @return {boolean} Whether the render target is a render target array with depth 2D array texture.
+	 *
+	 * @private
+	 */
+	_isRenderCameraDepthArray( renderContext ) {
+
+		return renderContext.depthTexture && renderContext.depthTexture.isDepthArrayTexture && renderContext.camera.isArrayCamera;
+
+	}
+
+	/**
 	 * Executes a draw command for the given render object.
 	 *
 	 * @param {RenderObject} renderObject - The render object to draw.
@@ -935,7 +1003,7 @@ class WebGLBackend extends Backend {
 
 		state.useProgram( programGPU );
 
-		//
+		// vertex state
 
 		const renderObjectData = this.get( renderObject );
 
@@ -943,7 +1011,7 @@ class WebGLBackend extends Backend {
 
 		if ( vaoGPU === undefined || renderObjectData.geometryId !== renderObject.geometry.id ) {
 
-			const vaoKey = this._getVaoKey( renderObject.getIndex(), renderObject.getAttributes() );
+			const vaoKey = this._getVaoKey( renderObject.getAttributes() );
 
 			vaoGPU = this.vaoCache[ vaoKey ];
 
@@ -951,7 +1019,7 @@ class WebGLBackend extends Backend {
 
 				let staticVao;
 
-				( { vaoGPU, staticVao } = this._createVao( renderObject.getIndex(), renderObject.getAttributes() ) );
+				( { vaoGPU, staticVao } = this._createVao( renderObject.getAttributes() ) );
 
 				if ( staticVao ) {
 
@@ -964,11 +1032,10 @@ class WebGLBackend extends Backend {
 
 		}
 
-		gl.bindVertexArray( vaoGPU );
-
-		//
-
 		const index = renderObject.getIndex();
+		const indexGPU = ( index !== null ) ? this.get( index ).bufferGPU : null;
+
+		state.setVertexState( vaoGPU, indexGPU );
 
 		//
 
@@ -1049,6 +1116,8 @@ class WebGLBackend extends Backend {
 
 				if ( object._multiDrawInstances !== null ) {
 
+					// @deprecated, r174
+					warnOnce( 'THREE.WebGLBackend: renderMultiDrawInstances has been deprecated and will be removed in r184. Append to renderMultiDraw arguments and use indirection.' );
 					renderer.renderMultiDrawInstances( object._multiDrawStarts, object._multiDrawCounts, object._multiDrawCount, object._multiDrawInstances );
 
 				} else if ( ! this.hasFeature( 'WEBGL_multi_draw' ) ) {
@@ -1104,31 +1173,80 @@ class WebGLBackend extends Backend {
 			const cameraIndexData = this.get( cameraIndex );
 			const pixelRatio = this.renderer.getPixelRatio();
 
+			const renderTarget = this._currentContext.renderTarget;
+			const isRenderCameraDepthArray = this._isRenderCameraDepthArray( this._currentContext );
+			const prevActiveCubeFace = this._currentContext.activeCubeFace;
+
+			if ( isRenderCameraDepthArray ) {
+
+				// Clear the depth texture
+				const textureData = this.get( renderTarget.depthTexture );
+
+				if ( textureData.clearedRenderId !== this.renderer._nodes.nodeFrame.renderId ) {
+
+					textureData.clearedRenderId = this.renderer._nodes.nodeFrame.renderId;
+
+					const { stencilBuffer } = renderTarget;
+
+					for ( let i = 0, len = cameras.length; i < len; i ++ ) {
+
+						this.renderer._activeCubeFace = i;
+						this._currentContext.activeCubeFace = i;
+
+						this._setFramebuffer( this._currentContext );
+						this.clear( false, true, stencilBuffer, this._currentContext, false );
+
+					}
+
+					this.renderer._activeCubeFace = prevActiveCubeFace;
+					this._currentContext.activeCubeFace = prevActiveCubeFace;
+
+				}
+
+			}
+
 			for ( let i = 0, len = cameras.length; i < len; i ++ ) {
 
 				const subCamera = cameras[ i ];
 
 				if ( object.layers.test( subCamera.layers ) ) {
 
+					if ( isRenderCameraDepthArray ) {
+
+						// Update the active layer
+						this.renderer._activeCubeFace = i;
+						this._currentContext.activeCubeFace = i;
+
+						this._setFramebuffer( this._currentContext );
+
+					}
+
 					const vp = subCamera.viewport;
 
-					const x = vp.x * pixelRatio;
-					const y = vp.y * pixelRatio;
-					const width = vp.width * pixelRatio;
-					const height = vp.height * pixelRatio;
+					if ( vp !== undefined ) {
 
-					state.viewport(
-						Math.floor( x ),
-						Math.floor( renderObject.context.height - height - y ),
-						Math.floor( width ),
-						Math.floor( height )
-					);
+						const x = vp.x * pixelRatio;
+						const y = vp.y * pixelRatio;
+						const width = vp.width * pixelRatio;
+						const height = vp.height * pixelRatio;
+
+						state.viewport(
+							Math.floor( x ),
+							Math.floor( renderObject.context.height - height - y ),
+							Math.floor( width ),
+							Math.floor( height )
+						);
+
+					}
 
 					state.bindBufferBase( gl.UNIFORM_BUFFER, cameraIndexData.index, cameraData.indexesGPU[ i ] );
 
 					draw();
 
 				}
+
+				this._currentContext.activeCubeFace = prevActiveCubeFace;
+				this.renderer._activeCubeFace = prevActiveCubeFace;
 
 			}
 
@@ -1138,17 +1256,13 @@ class WebGLBackend extends Backend {
 
 		}
 
-		//
-
-		gl.bindVertexArray( null );
-
 	}
 
 	/**
 	 * Explain why always null is returned.
 	 *
 	 * @param {RenderObject} renderObject - The render object.
-	 * @return {Boolean} Whether the render pipeline requires an update or not.
+	 * @return {boolean} Whether the render pipeline requires an update or not.
 	 */
 	needsRenderUpdate( /*renderObject*/ ) {
 
@@ -1160,7 +1274,7 @@ class WebGLBackend extends Backend {
 	 * Explain why no cache key is computed.
 	 *
 	 * @param {RenderObject} renderObject - The render object.
-	 * @return {String} The cache key.
+	 * @return {string} The cache key.
 	 */
 	getRenderCacheKey( /*renderObject*/ ) {
 
@@ -1233,11 +1347,11 @@ class WebGLBackend extends Backend {
 	 *
 	 * @async
 	 * @param {Texture} texture - The texture to copy.
-	 * @param {Number} x - The x coordinate of the copy origin.
-	 * @param {Number} y - The y coordinate of the copy origin.
-	 * @param {Number} width - The width of the copy.
-	 * @param {Number} height - The height of the copy.
-	 * @param {Number} faceIndex - The face index.
+	 * @param {number} x - The x coordinate of the copy origin.
+	 * @param {number} y - The y coordinate of the copy origin.
+	 * @param {number} width - The width of the copy.
+	 * @param {number} height - The height of the copy.
+	 * @param {number} faceIndex - The face index.
 	 * @return {Promise<TypedArray>} A Promise that resolves with a typed array when the copy operation has finished.
 	 */
 	async copyTextureToBuffer( texture, x, y, width, height, faceIndex ) {
@@ -1381,9 +1495,9 @@ class WebGLBackend extends Backend {
 	 * Formats the source code of error messages.
 	 *
 	 * @private
-	 * @param {String} string - The code.
-	 * @param {Number} errorLine - The error line.
-	 * @return {String} The formatted code.
+	 * @param {string} string - The code.
+	 * @param {number} errorLine - The error line.
+	 * @return {string} The formatted code.
 	 */
 	_handleSource( string, errorLine ) {
 
@@ -1410,8 +1524,8 @@ class WebGLBackend extends Backend {
 	 * @private
 	 * @param {WebGL2RenderingContext} gl - The rendering context.
 	 * @param {WebGLShader} shader - The WebGL shader object.
-	 * @param {String} type - The shader type.
-	 * @return {String} The shader errors.
+	 * @param {string} type - The shader type.
+	 * @return {string} The shader errors.
 	 */
 	_getShaderErrors( gl, shader, type ) {
 
@@ -1624,8 +1738,8 @@ class WebGLBackend extends Backend {
 	 *
 	 * @param {BindGroup} bindGroup - The bind group.
 	 * @param {Array<BindGroup>} bindings - Array of bind groups.
-	 * @param {Number} cacheIndex - The cache index.
-	 * @param {Number} version - The version.
+	 * @param {number} cacheIndex - The cache index.
+	 * @param {number} version - The version.
 	 */
 	createBindings( bindGroup, bindings /*, cacheIndex, version*/ ) {
 
@@ -1663,8 +1777,8 @@ class WebGLBackend extends Backend {
 	 *
 	 * @param {BindGroup} bindGroup - The bind group.
 	 * @param {Array<BindGroup>} bindings - Array of bind groups.
-	 * @param {Number} cacheIndex - The cache index.
-	 * @param {Number} version - The version.
+	 * @param {number} cacheIndex - The cache index.
+	 * @param {number} version - The version.
 	 */
 	updateBindings( bindGroup /*, bindings, cacheIndex, version*/ ) {
 
@@ -1798,8 +1912,8 @@ class WebGLBackend extends Backend {
 	/**
 	 * Checks if the given feature is supported  by the backend.
 	 *
-	 * @param {String} name - The feature's name.
-	 * @return {Boolean} Whether the feature is supported or not.
+	 * @param {string} name - The feature's name.
+	 * @return {boolean} Whether the feature is supported or not.
 	 */
 	hasFeature( name ) {
 
@@ -1820,7 +1934,7 @@ class WebGLBackend extends Backend {
 	/**
 	 * Returns the maximum anisotropy texture filtering value.
 	 *
-	 * @return {Number} The maximum anisotropy texture filtering value.
+	 * @return {number} The maximum anisotropy texture filtering value.
 	 */
 	getMaxAnisotropy() {
 
@@ -1833,13 +1947,14 @@ class WebGLBackend extends Backend {
 	 *
 	 * @param {Texture} srcTexture - The source texture.
 	 * @param {Texture} dstTexture - The destination texture.
-	 * @param {Vector4?} [srcRegion=null] - The region of the source texture to copy.
-	 * @param {(Vector2|Vector3)?} [dstPosition=null] - The destination position of the copy.
-	 * @param {Number} [level=0] - The mip level to copy.
+	 * @param {?(Box3|Box2)} [srcRegion=null] - The region of the source texture to copy.
+	 * @param {?(Vector2|Vector3)} [dstPosition=null] - The destination position of the copy.
+	 * @param {number} [srcLevel=0] - The source mip level to copy from.
+	 * @param {number} [dstLevel=0] - The destination mip level to copy to.
 	 */
-	copyTextureToTexture( srcTexture, dstTexture, srcRegion = null, dstPosition = null, level = 0 ) {
+	copyTextureToTexture( srcTexture, dstTexture, srcRegion = null, dstPosition = null, srcLevel = 0, dstLevel = 0 ) {
 
-		this.textureUtils.copyTextureToTexture( srcTexture, dstTexture, srcRegion, dstPosition, level );
+		this.textureUtils.copyTextureToTexture( srcTexture, dstTexture, srcRegion, dstPosition, srcLevel, dstLevel );
 
 	}
 
@@ -1882,6 +1997,8 @@ class WebGLBackend extends Backend {
 
 			let msaaFb = renderTargetContextData.msaaFrameBuffer;
 			let depthRenderbuffer = renderTargetContextData.depthRenderbuffer;
+			const multisampledRTTExt = this.extensions.get( 'WEBGL_multisampled_render_to_texture' );
+			const useMultisampledRTT = this._useMultisampledRTT( renderTarget );
 
 			const cacheKey = getCacheKey( descriptor );
 
@@ -1895,7 +2012,7 @@ class WebGLBackend extends Backend {
 
 			} else if ( isXRRenderTarget && hasExternalTextures === false ) {
 
-				fb = this._xrFamebuffer;
+				fb = this._xrFramebuffer;
 
 			} else {
 
@@ -1944,11 +2061,17 @@ class WebGLBackend extends Backend {
 
 						} else {
 
-							gl.framebufferTexture2D( gl.FRAMEBUFFER, attachment, gl.TEXTURE_2D, textureData.textureGPU, 0 );
+							if ( hasExternalTextures && useMultisampledRTT ) {
+
+								multisampledRTTExt.framebufferTexture2DMultisampleEXT( gl.FRAMEBUFFER, attachment, gl.TEXTURE_2D, textureData.textureGPU, 0, samples );
+
+							} else {
+
+								gl.framebufferTexture2D( gl.FRAMEBUFFER, attachment, gl.TEXTURE_2D, textureData.textureGPU, 0 );
+
+							}
 
 						}
-
-
 
 					}
 
@@ -1956,18 +2079,67 @@ class WebGLBackend extends Backend {
 
 				}
 
-				if ( descriptor.depthTexture !== null ) {
+				if ( renderTarget.isXRRenderTarget && renderTarget.autoAllocateDepthBuffer === true ) {
 
-					const textureData = this.get( descriptor.depthTexture );
-					const depthStyle = stencilBuffer ? gl.DEPTH_STENCIL_ATTACHMENT : gl.DEPTH_ATTACHMENT;
-					textureData.renderTarget = descriptor.renderTarget;
-					textureData.cacheKey = cacheKey; // required for copyTextureToTexture()
+					const renderbuffer = gl.createRenderbuffer();
+					this.textureUtils.setupRenderBufferStorage( renderbuffer, descriptor, 0, useMultisampledRTT );
+					renderTargetContextData.xrDepthRenderbuffer = renderbuffer;
 
-					gl.framebufferTexture2D( gl.FRAMEBUFFER, depthStyle, gl.TEXTURE_2D, textureData.textureGPU, 0 );
+				} else {
+
+					if ( descriptor.depthTexture !== null ) {
+
+						const textureData = this.get( descriptor.depthTexture );
+						const depthStyle = stencilBuffer ? gl.DEPTH_STENCIL_ATTACHMENT : gl.DEPTH_ATTACHMENT;
+						textureData.renderTarget = descriptor.renderTarget;
+						textureData.cacheKey = cacheKey; // required for copyTextureToTexture()
+
+						if ( hasExternalTextures && useMultisampledRTT ) {
+
+							multisampledRTTExt.framebufferTexture2DMultisampleEXT( gl.FRAMEBUFFER, depthStyle, gl.TEXTURE_2D, textureData.textureGPU, 0, samples );
+
+						} else {
+
+							if ( descriptor.depthTexture.isDepthArrayTexture ) {
+
+								const layer = this.renderer._activeCubeFace;
+
+								gl.framebufferTextureLayer( gl.FRAMEBUFFER, depthStyle, textureData.textureGPU, 0, layer );
+
+
+							} else {
+
+								gl.framebufferTexture2D( gl.FRAMEBUFFER, depthStyle, gl.TEXTURE_2D, textureData.textureGPU, 0 );
+
+							}
+
+						}
+
+					}
 
 				}
 
 			} else {
+
+				const isRenderCameraDepthArray = this._isRenderCameraDepthArray( descriptor );
+
+				if ( isRenderCameraDepthArray ) {
+
+					state.bindFramebuffer( gl.FRAMEBUFFER, fb );
+
+					const layer = this.renderer._activeCubeFace;
+
+					const depthData = this.get( descriptor.depthTexture );
+					const depthStyle = stencilBuffer ? gl.DEPTH_STENCIL_ATTACHMENT : gl.DEPTH_ATTACHMENT;
+					gl.framebufferTextureLayer(
+						gl.FRAMEBUFFER,
+						depthStyle,
+						depthData.textureGPU,
+						0,
+						layer
+					);
+
+				}
 
 				// rebind external XR textures
 
@@ -1978,16 +2150,40 @@ class WebGLBackend extends Backend {
 					// rebind color
 
 					const textureData = this.get( descriptor.textures[ 0 ] );
-					gl.framebufferTexture2D( gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, textureData.textureGPU, 0 );
+
+					if ( useMultisampledRTT ) {
+
+						multisampledRTTExt.framebufferTexture2DMultisampleEXT( gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, textureData.textureGPU, 0, samples );
+
+					} else {
+
+						gl.framebufferTexture2D( gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, textureData.textureGPU, 0 );
+
+					}
 
 					// rebind depth
 
-					if ( descriptor.depthTexture !== null ) {
+					const depthStyle = stencilBuffer ? gl.DEPTH_STENCIL_ATTACHMENT : gl.DEPTH_ATTACHMENT;
+
+					if ( renderTarget.autoAllocateDepthBuffer === true ) {
+
+						const renderbuffer = renderTargetContextData.xrDepthRenderbuffer;
+						gl.bindRenderbuffer( gl.RENDERBUFFER, renderbuffer );
+						gl.framebufferRenderbuffer( gl.FRAMEBUFFER, depthStyle, gl.RENDERBUFFER, renderbuffer );
+
+					} else {
 
 						const textureData = this.get( descriptor.depthTexture );
-						const depthStyle = stencilBuffer ? gl.DEPTH_STENCIL_ATTACHMENT : gl.DEPTH_ATTACHMENT;
 
-						gl.framebufferTexture2D( gl.FRAMEBUFFER, depthStyle, gl.TEXTURE_2D, textureData.textureGPU, 0 );
+						if ( useMultisampledRTT ) {
+
+							multisampledRTTExt.framebufferTexture2DMultisampleEXT( gl.FRAMEBUFFER, depthStyle, gl.TEXTURE_2D, textureData.textureGPU, 0, samples );
+
+						} else {
+
+							gl.framebufferTexture2D( gl.FRAMEBUFFER, depthStyle, gl.TEXTURE_2D, textureData.textureGPU, 0 );
+
+						}
 
 					}
 
@@ -1995,7 +2191,7 @@ class WebGLBackend extends Backend {
 
 			}
 
-			if ( samples > 0 ) {
+			if ( samples > 0 && useMultisampledRTT === false ) {
 
 				if ( msaaFb === undefined ) {
 
@@ -2039,7 +2235,7 @@ class WebGLBackend extends Backend {
 					if ( depthRenderbuffer === undefined ) {
 
 						depthRenderbuffer = gl.createRenderbuffer();
-						this.textureUtils.setupRenderBufferStorage( depthRenderbuffer, descriptor );
+						this.textureUtils.setupRenderBufferStorage( depthRenderbuffer, descriptor, samples );
 
 						renderTargetContextData.depthRenderbuffer = depthRenderbuffer;
 
@@ -2070,21 +2266,12 @@ class WebGLBackend extends Backend {
 	 * Computes the VAO key for the given index and attributes.
 	 *
 	 * @private
-	 * @param {BufferAttribute?} index - The index. `null` for non-indexed geometries.
 	 * @param {Array<BufferAttribute>} attributes - An array of buffer attributes.
-	 * @return {String} The VAO key.
+	 * @return {string} The VAO key.
 	 */
-	_getVaoKey( index, attributes ) {
+	_getVaoKey( attributes ) {
 
 		let key = '';
-
-		if ( index !== null ) {
-
-			const indexData = this.get( index );
-
-			key += ':' + indexData.id;
-
-		}
 
 		for ( let i = 0; i < attributes.length; i ++ ) {
 
@@ -2102,11 +2289,10 @@ class WebGLBackend extends Backend {
 	 * Creates a VAO from the index and attributes.
 	 *
 	 * @private
-	 * @param {BufferAttribute?} index - The index. `null` for non-indexed geometries.
 	 * @param {Array<BufferAttribute>} attributes - An array of buffer attributes.
 	 * @return {Object} The VAO data.
 	 */
-	_createVao( index, attributes ) {
+	_createVao( attributes ) {
 
 		const { gl } = this;
 
@@ -2116,16 +2302,6 @@ class WebGLBackend extends Backend {
 		let staticVao = true;
 
 		gl.bindVertexArray( vaoGPU );
-
-		if ( index !== null ) {
-
-			const indexData = this.get( index );
-
-			gl.bindBuffer( gl.ELEMENT_ARRAY_BUFFER, indexData.bufferGPU );
-
-			key += ':' + indexData.id;
-
-		}
 
 		for ( let i = 0; i < attributes.length; i ++ ) {
 
@@ -2297,6 +2473,20 @@ class WebGLBackend extends Backend {
 			}
 
 		}
+
+	}
+
+	/**
+	 * Returns `true` if the `WEBGL_multisampled_render_to_texture` extension
+	 * should be used when MSAA is enabled.
+	 *
+	 * @private
+	 * @param {RenderTarget} renderTarget - The render target that should be multisampled.
+	 * @return {boolean} Whether to use the `WEBGL_multisampled_render_to_texture` extension for MSAA or not.
+	 */
+	_useMultisampledRTT( renderTarget ) {
+
+		return renderTarget.samples > 0 && this.extensions.has( 'WEBGL_multisampled_render_to_texture' ) === true && renderTarget.autoAllocateDepthBuffer !== false;
 
 	}
 

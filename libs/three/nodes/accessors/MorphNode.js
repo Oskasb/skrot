@@ -1,6 +1,6 @@
 import Node from '../core/Node.js';
 import { NodeUpdateType } from '../core/constants.js';
-import { float, nodeProxy, Fn, ivec2, int } from '../tsl/TSLBase.js';
+import { float, nodeProxy, Fn, ivec2, int, If } from '../tsl/TSLBase.js';
 import { uniform } from '../core/UniformNode.js';
 import { reference } from './ReferenceNode.js';
 import { positionLocal } from './Position.js';
@@ -14,8 +14,6 @@ import { Vector2 } from '../../math/Vector2.js';
 import { Vector4 } from '../../math/Vector4.js';
 import { FloatType } from '../../constants.js';
 
-/** @module MorphNode **/
-
 const _morphTextures = /*@__PURE__*/ new WeakMap();
 const _morphVec4 = /*@__PURE__*/ new Vector4();
 
@@ -26,7 +24,7 @@ const getMorph = /*@__PURE__*/ Fn( ( { bufferMap, influence, stride, width, dept
 	const y = texelIndex.div( width );
 	const x = texelIndex.sub( y.mul( width ) );
 
-	const bufferAttrib = textureLoad( bufferMap, ivec2( x, y ) ).depth( depth );
+	const bufferAttrib = textureLoad( bufferMap, ivec2( x, y ) ).depth( depth ).xyz;
 
 	return bufferAttrib.mul( influence );
 
@@ -198,7 +196,7 @@ class MorphNode extends Node {
 		/**
 		 * The update type overwritten since morph nodes are updated per object.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 */
 		this.updateType = NodeUpdateType.OBJECT;
 
@@ -242,31 +240,35 @@ class MorphNode extends Node {
 
 			}
 
-			if ( hasMorphPosition === true ) {
+			If( influence.notEqual( 0 ), () => {
 
-				positionLocal.addAssign( getMorph( {
-					bufferMap,
-					influence,
-					stride,
-					width,
-					depth: i,
-					offset: int( 0 )
-				} ) );
+				if ( hasMorphPosition === true ) {
 
-			}
+					positionLocal.addAssign( getMorph( {
+						bufferMap,
+						influence,
+						stride,
+						width,
+						depth: i,
+						offset: int( 0 )
+					} ) );
 
-			if ( hasMorphNormals === true ) {
+				}
 
-				normalLocal.addAssign( getMorph( {
-					bufferMap,
-					influence,
-					stride,
-					width,
-					depth: i,
-					offset: int( 1 )
-				} ) );
+				if ( hasMorphNormals === true ) {
 
-			}
+					normalLocal.addAssign( getMorph( {
+						bufferMap,
+						influence,
+						stride,
+						width,
+						depth: i,
+						offset: int( 1 )
+					} ) );
+
+				}
+
+			} );
 
 		} );
 
@@ -300,8 +302,9 @@ export default MorphNode;
 /**
  * TSL function for creating a morph node.
  *
+ * @tsl
  * @function
  * @param {Mesh} mesh - The mesh holding the morph targets.
  * @returns {MorphNode}
  */
-export const morphReference = /*@__PURE__*/ nodeProxy( MorphNode );
+export const morphReference = /*@__PURE__*/ nodeProxy( MorphNode ).setParameterLength( 1 );

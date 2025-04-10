@@ -1,11 +1,10 @@
 import { time } from './Timer.js';
 
-/** @module Oscillators **/
-
 /**
  * Generates a sine wave oscillation based on a timer.
  *
- * @method
+ * @tsl
+ * @function
  * @param {Node<float>} t - The timer to generate the oscillation with.
  * @return {Node<float>} The oscillation node.
  */
@@ -14,7 +13,8 @@ export const oscSine = ( t = time ) => t.add( 0.75 ).mul( Math.PI * 2 ).sin().mu
 /**
  * Generates a square wave oscillation based on a timer.
  *
- * @method
+ * @tsl
+ * @function
  * @param {Node<float>} t - The timer to generate the oscillation with.
  * @return {Node<float>} The oscillation node.
  */
@@ -23,7 +23,8 @@ export const oscSquare = ( t = time ) => t.fract().round();
 /**
  * Generates a triangle wave oscillation based on a timer.
  *
- * @method
+ * @tsl
+ * @function
  * @param {Node<float>} t - The timer to generate the oscillation with.
  * @return {Node<float>} The oscillation node.
  */
@@ -32,7 +33,8 @@ export const oscTriangle = ( t = time ) => t.add( 0.5 ).fract().mul( 2 ).sub( 1 
 /**
  * Generates a sawtooth wave oscillation based on a timer.
  *
- * @method
+ * @tsl
+ * @function
  * @param {Node<float>} t - The timer to generate the oscillation with.
  * @return {Node<float>} The oscillation node.
  */

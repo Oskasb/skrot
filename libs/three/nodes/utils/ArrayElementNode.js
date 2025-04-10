@@ -41,7 +41,7 @@ class ArrayElementNode extends Node { // @TODO: If extending from TempNode it br
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -53,7 +53,7 @@ class ArrayElementNode extends Node { // @TODO: If extending from TempNode it br
 	 * This method is overwritten since the node type is inferred from the array-like node.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {String} The node type.
+	 * @return {string} The node type.
 	 */
 	getNodeType( builder ) {
 
@@ -63,8 +63,10 @@ class ArrayElementNode extends Node { // @TODO: If extending from TempNode it br
 
 	generate( builder ) {
 
+		const indexType = this.indexNode.getNodeType( builder );
+
 		const nodeSnippet = this.node.build( builder );
-		const indexSnippet = this.indexNode.build( builder, 'uint' );
+		const indexSnippet = this.indexNode.build( builder, ! builder.isVector( indexType ) && builder.isInteger( indexType ) ? indexType : 'uint' );
 
 		return `${ nodeSnippet }[ ${ indexSnippet } ]`;
 

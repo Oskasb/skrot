@@ -29,7 +29,7 @@ class RectAreaLightNode extends AnalyticLightNode {
 	/**
 	 * Constructs a new rect area light node.
 	 *
-	 * @param {RectAreaLight?} [light=null] - The rect area light source.
+	 * @param {?RectAreaLight} [light=null] - The rect area light source.
 	 */
 	constructor( light = null ) {
 
@@ -53,7 +53,7 @@ class RectAreaLightNode extends AnalyticLightNode {
 		 * The `updateType` is set to `NodeUpdateType.RENDER` since the light
 		 * relies on `viewMatrix` which might vary per render call.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 * @default 'render'
 		 */
 		this.updateType = NodeUpdateType.RENDER;
@@ -86,9 +86,7 @@ class RectAreaLightNode extends AnalyticLightNode {
 
 	}
 
-	setup( builder ) {
-
-		super.setup( builder );
+	setupDirectRectArea( builder ) {
 
 		let ltc_1, ltc_2;
 
@@ -105,20 +103,17 @@ class RectAreaLightNode extends AnalyticLightNode {
 		}
 
 		const { colorNode, light } = this;
-		const lightingModel = builder.context.lightingModel;
 
 		const lightPosition = lightViewPosition( light );
-		const reflectedLight = builder.context.reflectedLight;
 
-		lightingModel.directRectArea( {
+		return {
 			lightColor: colorNode,
 			lightPosition,
 			halfWidth: this.halfWidth,
 			halfHeight: this.halfHeight,
-			reflectedLight,
 			ltc_1,
 			ltc_2
-		}, builder.stack, builder );
+		};
 
 	}
 

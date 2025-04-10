@@ -4,18 +4,18 @@ import { Vector3 } from '../../math/Vector3.js';
 import { Fn } from '../tsl/TSLBase.js';
 import { uniformArray } from './UniformArrayNode.js';
 
-/** @module Camera **/
-
 /**
  * TSL object that represents the current `index` value of the camera if used ArrayCamera.
  *
+ * @tsl
  * @type {UniformNode<uint>}
  */
-export const cameraIndex = /*@__PURE__*/ uniform( 0, 'uint' ).setGroup( sharedUniformGroup( 'cameraIndex' ) ).toVarying( 'v_cameraIndex' );
+export const cameraIndex = /*@__PURE__*/ uniform( 0, 'uint' ).label( 'u_cameraIndex' ).setGroup( sharedUniformGroup( 'cameraIndex' ) ).toVarying( 'v_cameraIndex' );
 
 /**
  * TSL object that represents the `near` value of the camera used for the current render.
  *
+ * @tsl
  * @type {UniformNode<float>}
  */
 export const cameraNear = /*@__PURE__*/ uniform( 'float' ).label( 'cameraNear' ).setGroup( renderGroup ).onRenderUpdate( ( { camera } ) => camera.near );
@@ -23,6 +23,7 @@ export const cameraNear = /*@__PURE__*/ uniform( 'float' ).label( 'cameraNear' )
 /**
  * TSL object that represents the `far` value of the camera used for the current render.
  *
+ * @tsl
  * @type {UniformNode<float>}
  */
 export const cameraFar = /*@__PURE__*/ uniform( 'float' ).label( 'cameraFar' ).setGroup( renderGroup ).onRenderUpdate( ( { camera } ) => camera.far );
@@ -30,6 +31,7 @@ export const cameraFar = /*@__PURE__*/ uniform( 'float' ).label( 'cameraFar' ).s
 /**
  * TSL object that represents the projection matrix of the camera used for the current render.
  *
+ * @tsl
  * @type {UniformNode<mat4>}
  */
 export const cameraProjectionMatrix = /*@__PURE__*/ ( Fn( ( { camera } ) => {
@@ -63,13 +65,41 @@ export const cameraProjectionMatrix = /*@__PURE__*/ ( Fn( ( { camera } ) => {
 /**
  * TSL object that represents the inverse projection matrix of the camera used for the current render.
  *
+ * @tsl
  * @type {UniformNode<mat4>}
  */
-export const cameraProjectionMatrixInverse = /*@__PURE__*/ uniform( 'mat4' ).label( 'cameraProjectionMatrixInverse' ).setGroup( renderGroup ).onRenderUpdate( ( { camera } ) => camera.projectionMatrixInverse );
+export const cameraProjectionMatrixInverse = /*@__PURE__*/ ( Fn( ( { camera } ) => {
+
+	let cameraProjectionMatrixInverse;
+
+	if ( camera.isArrayCamera && camera.cameras.length > 0 ) {
+
+		const matrices = [];
+
+		for ( const subCamera of camera.cameras ) {
+
+			matrices.push( subCamera.projectionMatrixInverse );
+
+		}
+
+		const cameraProjectionMatricesInverse = uniformArray( matrices ).setGroup( renderGroup ).label( 'cameraProjectionMatricesInverse' );
+
+		cameraProjectionMatrixInverse = cameraProjectionMatricesInverse.element( cameraIndex ).toVar( 'cameraProjectionMatrixInverse' );
+
+	} else {
+
+		cameraProjectionMatrixInverse = uniform( 'mat4' ).label( 'cameraProjectionMatrixInverse' ).setGroup( renderGroup ).onRenderUpdate( ( { camera } ) => camera.projectionMatrixInverse );
+
+	}
+
+	return cameraProjectionMatrixInverse;
+
+} ).once() )();
 
 /**
  * TSL object that represents the view matrix of the camera used for the current render.
  *
+ * @tsl
  * @type {UniformNode<mat4>}
  */
 export const cameraViewMatrix = /*@__PURE__*/ ( Fn( ( { camera } ) => {
@@ -103,6 +133,7 @@ export const cameraViewMatrix = /*@__PURE__*/ ( Fn( ( { camera } ) => {
 /**
  * TSL object that represents the world matrix of the camera used for the current render.
  *
+ * @tsl
  * @type {UniformNode<mat4>}
  */
 export const cameraWorldMatrix = /*@__PURE__*/ uniform( 'mat4' ).label( 'cameraWorldMatrix' ).setGroup( renderGroup ).onRenderUpdate( ( { camera } ) => camera.matrixWorld );
@@ -110,6 +141,7 @@ export const cameraWorldMatrix = /*@__PURE__*/ uniform( 'mat4' ).label( 'cameraW
 /**
  * TSL object that represents the normal matrix of the camera used for the current render.
  *
+ * @tsl
  * @type {UniformNode<mat3>}
  */
 export const cameraNormalMatrix = /*@__PURE__*/ uniform( 'mat3' ).label( 'cameraNormalMatrix' ).setGroup( renderGroup ).onRenderUpdate( ( { camera } ) => camera.normalMatrix );
@@ -117,6 +149,7 @@ export const cameraNormalMatrix = /*@__PURE__*/ uniform( 'mat3' ).label( 'camera
 /**
  * TSL object that represents the position in world space of the camera used for the current render.
  *
+ * @tsl
  * @type {UniformNode<vec3>}
  */
 export const cameraPosition = /*@__PURE__*/ uniform( new Vector3() ).label( 'cameraPosition' ).setGroup( renderGroup ).onRenderUpdate( ( { camera }, self ) => self.value.setFromMatrixPosition( camera.matrixWorld ) );

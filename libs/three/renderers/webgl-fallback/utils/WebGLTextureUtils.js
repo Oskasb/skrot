@@ -112,7 +112,7 @@ class WebGLTextureUtils {
 
 			glTextureType = gl.TEXTURE_CUBE_MAP;
 
-		} else if ( texture.isDataArrayTexture === true || texture.isCompressedArrayTexture === true ) {
+		} else if ( texture.isDepthArrayTexture === true || texture.isDataArrayTexture === true || texture.isCompressedArrayTexture === true ) {
 
 			glTextureType = gl.TEXTURE_2D_ARRAY;
 
@@ -134,11 +134,11 @@ class WebGLTextureUtils {
 	/**
 	 * Returns the native texture type for the given texture.
 	 *
-	 * @param {String?} internalFormatName - The internal format name. When `null`, the internal format is derived from the subsequent parameters.
+	 * @param {?string} internalFormatName - The internal format name. When `null`, the internal format is derived from the subsequent parameters.
 	 * @param {GLenum} glFormat - The WebGL format.
 	 * @param {GLenum} glType - The WebGL type.
-	 * @param {String} colorSpace - The texture's color space.
-	 * @param {Boolean} [forceLinearTransfer=false] - Whether to force a linear transfer or not.
+	 * @param {string} colorSpace - The texture's color space.
+	 * @param {boolean} [forceLinearTransfer=false] - Whether to force a linear transfer or not.
 	 * @return {GLenum} The internal format.
 	 */
 	getInternalFormat( internalFormatName, glFormat, glType, colorSpace, forceLinearTransfer = false ) {
@@ -261,7 +261,8 @@ class WebGLTextureUtils {
 
 		if ( glFormat === gl.DEPTH_COMPONENT ) {
 
-			if ( glType === gl.UNSIGNED_INT ) internalFormat = gl.DEPTH24_STENCIL8;
+			if ( glType === gl.UNSIGNED_SHORT ) internalFormat = gl.DEPTH_COMPONENT16;
+			if ( glType === gl.UNSIGNED_INT ) internalFormat = gl.DEPTH_COMPONENT24;
 			if ( glType === gl.FLOAT ) internalFormat = gl.DEPTH_COMPONENT32F;
 
 		}
@@ -305,7 +306,12 @@ class WebGLTextureUtils {
 
 		if ( textureType === gl.TEXTURE_3D || textureType === gl.TEXTURE_2D_ARRAY ) {
 
-			gl.texParameteri( textureType, gl.TEXTURE_WRAP_R, wrappingToGL[ texture.wrapR ] );
+			// WebGL 2 does not support wrapping for depth 2D array textures
+			if ( ! texture.isDepthArrayTexture ) {
+
+				gl.texParameteri( textureType, gl.TEXTURE_WRAP_R, wrappingToGL[ texture.wrapR ] );
+
+			}
 
 		}
 
@@ -403,7 +409,7 @@ class WebGLTextureUtils {
 
 		this.setTextureParameters( glTextureType, texture );
 
-		if ( texture.isDataArrayTexture || texture.isCompressedArrayTexture ) {
+		if ( texture.isDepthArrayTexture || texture.isDataArrayTexture || texture.isCompressedArrayTexture ) {
 
 			gl.texStorage3D( gl.TEXTURE_2D_ARRAY, levels, glInternalFormat, width, height, depth );
 
@@ -565,7 +571,7 @@ class WebGLTextureUtils {
 
 			}
 
-		} else if ( texture.isDataArrayTexture ) {
+		} else if ( texture.isDataArrayTexture || texture.isDepthArrayTexture ) {
 
 			const image = options.image;
 
@@ -696,33 +702,57 @@ class WebGLTextureUtils {
 	 *
 	 * @param {Texture} srcTexture - The source texture.
 	 * @param {Texture} dstTexture - The destination texture.
-	 * @param {Vector4?} [srcRegion=null] - The region of the source texture to copy.
-	 * @param {(Vector2|Vector3)?} [dstPosition=null] - The destination position of the copy.
-	 * @param {Number} [level=0] - The mip level to copy.
+	 * @param {?(Box3|Box2)} [srcRegion=null] - The region of the source texture to copy.
+	 * @param {?(Vector2|Vector3)} [dstPosition=null] - The destination position of the copy.
+	 * @param {number} [srcLevel=0] - The source mip level to copy from.
+	 * @param {number} [dstLevel=0] - The destination mip level to copy to.
 	 */
-	copyTextureToTexture( srcTexture, dstTexture, srcRegion = null, dstPosition = null, level = 0 ) {
+	copyTextureToTexture( srcTexture, dstTexture, srcRegion = null, dstPosition = null, srcLevel = 0, dstLevel = 0 ) {
 
 		const { gl, backend } = this;
 		const { state } = this.backend;
 
 		const { textureGPU: dstTextureGPU, glTextureType, glType, glFormat } = backend.get( dstTexture );
 
-		let width, height, minX, minY;
-		let dstX, dstY;
+		state.bindTexture( glTextureType, dstTextureGPU );
+
+		// gather the necessary dimensions to copy
+		let width, height, depth, minX, minY, minZ;
+		let dstX, dstY, dstZ;
+		const image = srcTexture.isCompressedTexture ? srcTexture.mipmaps[ dstLevel ] : srcTexture.image;
 
 		if ( srcRegion !== null ) {
 
 			width = srcRegion.max.x - srcRegion.min.x;
 			height = srcRegion.max.y - srcRegion.min.y;
+			depth = srcRegion.isBox3 ? srcRegion.max.z - srcRegion.min.z : 1;
 			minX = srcRegion.min.x;
 			minY = srcRegion.min.y;
+			minZ = srcRegion.isBox3 ? srcRegion.min.z : 0;
 
 		} else {
 
-			width = srcTexture.image.width;
-			height = srcTexture.image.height;
+			const levelScale = Math.pow( 2, - srcLevel );
+			width = Math.floor( image.width * levelScale );
+			height = Math.floor( image.height * levelScale );
+
+			if ( srcTexture.isDataArrayTexture || srcTexture.isDepthArrayTexture ) {
+
+				depth = image.depth;
+
+			} else if ( srcTexture.isData3DTexture ) {
+
+				depth = Math.floor( image.depth * levelScale );
+
+			} else {
+
+				depth = 1;
+
+			}
+
 			minX = 0;
 			minY = 0;
+			minZ = 0;
 
 		}
 
@@ -730,36 +760,36 @@ class WebGLTextureUtils {
 
 			dstX = dstPosition.x;
 			dstY = dstPosition.y;
+			dstZ = dstPosition.z;
 
 		} else {
 
 			dstX = 0;
 			dstY = 0;
+			dstZ = 0;
 
 		}
 
-		state.bindTexture( glTextureType, dstTextureGPU );
 
-		// As another texture upload may have changed pixelStorei
-		// parameters, make sure they are correct for the dstTexture
-		gl.pixelStorei( gl.UNPACK_ALIGNMENT, dstTexture.unpackAlignment );
 		gl.pixelStorei( gl.UNPACK_FLIP_Y_WEBGL, dstTexture.flipY );
 		gl.pixelStorei( gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, dstTexture.premultiplyAlpha );
 		gl.pixelStorei( gl.UNPACK_ALIGNMENT, dstTexture.unpackAlignment );
 
+		// used for copying data from cpu
 		const currentUnpackRowLen = gl.getParameter( gl.UNPACK_ROW_LENGTH );
 		const currentUnpackImageHeight = gl.getParameter( gl.UNPACK_IMAGE_HEIGHT );
 		const currentUnpackSkipPixels = gl.getParameter( gl.UNPACK_SKIP_PIXELS );
 		const currentUnpackSkipRows = gl.getParameter( gl.UNPACK_SKIP_ROWS );
 		const currentUnpackSkipImages = gl.getParameter( gl.UNPACK_SKIP_IMAGES );
 
-		const image = srcTexture.isCompressedTexture ? srcTexture.mipmaps[ level ] : srcTexture.image;
-
 		gl.pixelStorei( gl.UNPACK_ROW_LENGTH, image.width );
 		gl.pixelStorei( gl.UNPACK_IMAGE_HEIGHT, image.height );
 		gl.pixelStorei( gl.UNPACK_SKIP_PIXELS, minX );
 		gl.pixelStorei( gl.UNPACK_SKIP_ROWS, minY );
+		gl.pixelStorei( gl.UNPACK_SKIP_IMAGES, minZ );
 
+		// set up the src texture
+		const isDst3D = dstTexture.isDataArrayTexture || dstTexture.isData3DTexture || dstTexture.isDepthArrayTexture;
 		if ( srcTexture.isRenderTargetTexture || srcTexture.isDepthTexture ) {
 
 			const srcTextureData = backend.get( srcTexture );
@@ -785,19 +815,37 @@ class WebGLTextureUtils {
 
 		} else {
 
-			if ( srcTexture.isDataTexture ) {
+			if ( isDst3D ) {
 
-				gl.texSubImage2D( gl.TEXTURE_2D, level, dstX, dstY, width, height, glFormat, glType, image.data );
+				// copy data into the 3d texture
+				if ( srcTexture.isDataTexture || srcTexture.isData3DTexture ) {
 
-			} else {
+					gl.texSubImage3D( glTextureType, dstLevel, dstX, dstY, dstZ, width, height, depth, glFormat, glType, image.data );
 
-				if ( srcTexture.isCompressedTexture ) {
+				} else if ( dstTexture.isCompressedArrayTexture ) {
 
-					gl.compressedTexSubImage2D( gl.TEXTURE_2D, level, dstX, dstY, image.width, image.height, glFormat, image.data );
+					gl.compressedTexSubImage3D( glTextureType, dstLevel, dstX, dstY, dstZ, width, height, depth, glFormat, image.data );
 
 				} else {
 
-					gl.texSubImage2D( gl.TEXTURE_2D, level, dstX, dstY, width, height, glFormat, glType, image );
+					gl.texSubImage3D( glTextureType, dstLevel, dstX, dstY, dstZ, width, height, depth, glFormat, glType, image );
+
+				}
+
+			} else {
+
+				// copy data into the 2d texture
+				if ( srcTexture.isDataTexture ) {
+
+					gl.texSubImage2D( glTextureType, dstLevel, dstX, dstY, width, height, glFormat, glType, image.data );
+
+				} else if ( srcTexture.isCompressedTexture ) {
+
+					gl.compressedTexSubImage2D( glTextureType, dstLevel, dstX, dstY, image.width, image.height, glFormat, image.data );
+
+				} else {
+
+					gl.texSubImage2D( glTextureType, dstLevel, dstX, dstY, width, height, glFormat, glType, image );
 
 				}
 
@@ -805,6 +853,7 @@ class WebGLTextureUtils {
 
 		}
 
+		// reset values
 		gl.pixelStorei( gl.UNPACK_ROW_LENGTH, currentUnpackRowLen );
 		gl.pixelStorei( gl.UNPACK_IMAGE_HEIGHT, currentUnpackImageHeight );
 		gl.pixelStorei( gl.UNPACK_SKIP_PIXELS, currentUnpackSkipPixels );
@@ -812,11 +861,16 @@ class WebGLTextureUtils {
 		gl.pixelStorei( gl.UNPACK_SKIP_IMAGES, currentUnpackSkipImages );
 
 		// Generate mipmaps only when copying level 0
-		if ( level === 0 && dstTexture.generateMipmaps ) gl.generateMipmap( gl.TEXTURE_2D );
+		if ( dstLevel === 0 && dstTexture.generateMipmaps ) {
+
+			gl.generateMipmap( glTextureType );
+
+		}
 
 		state.unbindTexture();
 
 	}
+
 
 	/**
 	 * Copies the current bound framebuffer to the given texture.
@@ -917,13 +971,15 @@ class WebGLTextureUtils {
 	 *
 	 * @param {WebGLRenderbuffer} renderbuffer - The render buffer.
 	 * @param {RenderContext} renderContext - The render context.
+	 * @param {number} samples - The MSAA sample count.
+	 * @param {boolean} [useMultisampledRTT=false] - Whether to use WEBGL_multisampled_render_to_texture or not.
 	 */
-	setupRenderBufferStorage( renderbuffer, renderContext ) {
+	setupRenderBufferStorage( renderbuffer, renderContext, samples, useMultisampledRTT = false ) {
 
 		const { gl } = this;
 		const renderTarget = renderContext.renderTarget;
 
-		const { samples, depthTexture, depthBuffer, stencilBuffer, width, height } = renderTarget;
+		const { depthTexture, depthBuffer, stencilBuffer, width, height } = renderTarget;
 
 		gl.bindRenderbuffer( gl.RENDERBUFFER, renderbuffer );
 
@@ -931,7 +987,13 @@ class WebGLTextureUtils {
 
 			let glInternalFormat = gl.DEPTH_COMPONENT24;
 
-			if ( samples > 0 ) {
+			if ( useMultisampledRTT === true ) {
+
+				const multisampledRTTExt = this.extensions.get( 'WEBGL_multisampled_render_to_texture' );
+
+				multisampledRTTExt.renderbufferStorageMultisampleEXT( gl.RENDERBUFFER, renderTarget.samples, glInternalFormat, width, height );
+
+			} else if ( samples > 0 ) {
 
 				if ( depthTexture && depthTexture.isDepthTexture ) {
 
@@ -977,11 +1039,11 @@ class WebGLTextureUtils {
 	 *
 	 * @async
 	 * @param {Texture} texture - The texture to copy.
-	 * @param {Number} x - The x coordinate of the copy origin.
-	 * @param {Number} y - The y coordinate of the copy origin.
-	 * @param {Number} width - The width of the copy.
-	 * @param {Number} height - The height of the copy.
-	 * @param {Number} faceIndex - The face index.
+	 * @param {number} x - The x coordinate of the copy origin.
+	 * @param {number} y - The y coordinate of the copy origin.
+	 * @param {number} width - The width of the copy.
+	 * @param {number} height - The height of the copy.
+	 * @param {number} faceIndex - The face index.
 	 * @return {Promise<TypedArray>} A Promise that resolves with a typed array when the copy operation has finished.
 	 */
 	async copyTextureToBuffer( texture, x, y, width, height, faceIndex ) {
@@ -1057,7 +1119,7 @@ class WebGLTextureUtils {
 	 * @private
 	 * @param {GLenum} glType - The WebGL data type.
 	 * @param {GLenum} glFormat - The WebGL texture format.
-	 * @return {Number} The bytes-per-texel.
+	 * @return {number} The bytes-per-texel.
 	 */
 	_getBytesPerTexel( glType, glFormat ) {
 

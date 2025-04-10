@@ -1,8 +1,6 @@
 import Node from './Node.js';
 import { addMethodChaining, nodeProxy } from '../tsl/TSLCore.js';
 
-/** @module VarNode **/
-
 /**
  * Class for representing shader variables as nodes. Variables are created from
  * existing nodes like the following:
@@ -25,8 +23,8 @@ class VarNode extends Node {
 	 * Constructs a new variable node.
 	 *
 	 * @param {Node} node - The node for which a variable should be created.
-	 * @param {String?} name - The name of the variable in the shader.
-	 * @param {Boolean?} readOnly - The read-only flag.
+	 * @param {?string} [name=null] - The name of the variable in the shader.
+	 * @param {boolean} [readOnly=false] - The read-only flag.
 	 */
 	constructor( node, name = null, readOnly = false ) {
 
@@ -43,7 +41,7 @@ class VarNode extends Node {
 		 * The name of the variable in the shader. If no name is defined,
 		 * the node system auto-generates one.
 		 *
-		 * @type {String?}
+		 * @type {?string}
 		 * @default null
 		 */
 		this.name = name;
@@ -51,7 +49,7 @@ class VarNode extends Node {
 		/**
 		 * `VarNode` sets this property to `true` by default.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default true
 		 */
 		this.global = true;
@@ -59,7 +57,7 @@ class VarNode extends Node {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -69,16 +67,16 @@ class VarNode extends Node {
 		 *
 		 * The read-only flag.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default false
 		 */
 		this.readOnly = readOnly;
 
 	}
 
-	getHash( builder ) {
+	getMemberType( builder, name ) {
 
-		return this.name || super.getHash( builder );
+		return this.node.getMemberType( builder, name );
 
 	}
 
@@ -152,9 +150,10 @@ export default VarNode;
 /**
  * TSL function for creating a var node.
  *
+ * @tsl
  * @function
  * @param {Node} node - The node for which a variable should be created.
- * @param {String?} name - The name of the variable in the shader.
+ * @param {?string} name - The name of the variable in the shader.
  * @returns {VarNode}
  */
 const createVar = /*@__PURE__*/ nodeProxy( VarNode );
@@ -162,9 +161,10 @@ const createVar = /*@__PURE__*/ nodeProxy( VarNode );
 /**
  * TSL function for creating a var node.
  *
+ * @tsl
  * @function
  * @param {Node} node - The node for which a variable should be created.
- * @param {String?} name - The name of the variable in the shader.
+ * @param {?string} name - The name of the variable in the shader.
  * @returns {VarNode}
  */
 export const Var = ( node, name = null ) => createVar( node, name ).append();
@@ -172,9 +172,10 @@ export const Var = ( node, name = null ) => createVar( node, name ).append();
 /**
  * TSL function for creating a const node.
  *
+ * @tsl
  * @function
  * @param {Node} node - The node for which a constant should be created.
- * @param {String?} name - The name of the constant in the shader.
+ * @param {?string} name - The name of the constant in the shader.
  * @returns {VarNode}
  */
 export const Const = ( node, name = null ) => createVar( node, name, true ).append();
@@ -187,10 +188,11 @@ addMethodChaining( 'toConst', Const );
 // Deprecated
 
 /**
+ * @tsl
  * @function
  * @deprecated since r170. Use `Var( node )` or `node.toVar()` instead.
  *
- * @param {Any} node
+ * @param {any} node
  * @returns {VarNode}
  */
 export const temp = ( node ) => { // @deprecated, r170

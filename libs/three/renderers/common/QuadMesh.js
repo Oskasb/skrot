@@ -18,7 +18,7 @@ class QuadGeometry extends BufferGeometry {
 	/**
 	 * Constructs a new quad geometry.
 	 *
-	 * @param {Boolean} [flipY=false] - Whether the uv coordinates should be flipped along the vertical axis or not.
+	 * @param {boolean} [flipY=false] - Whether the uv coordinates should be flipped along the vertical axis or not.
 	 */
 	constructor( flipY = false ) {
 
@@ -43,6 +43,8 @@ const _geometry = /*@__PURE__*/ new QuadGeometry();
  * The intended usage is to reuse a single quad mesh for rendering
  * subsequent passes by just reassigning the `material` reference.
  *
+ * Note: This module can only be used with `WebGPURenderer`.
+ *
  * @augments Mesh
  */
 class QuadMesh extends Mesh {
@@ -50,7 +52,7 @@ class QuadMesh extends Mesh {
 	/**
 	 * Constructs a new quad mesh.
 	 *
-	 * @param {Material?} [material=null] - The material to render the quad mesh with.
+	 * @param {?Material} [material=null] - The material to render the quad mesh with.
 	 */
 	constructor( material = null ) {
 
@@ -67,7 +69,7 @@ class QuadMesh extends Mesh {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */

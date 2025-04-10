@@ -17,7 +17,7 @@ class DirectionalLightNode extends AnalyticLightNode {
 	/**
 	 * Constructs a new directional light node.
 	 *
-	 * @param {DirectionalLight?} [light=null] - The directional light source.
+	 * @param {?DirectionalLight} [light=null] - The directional light source.
 	 */
 	constructor( light = null ) {
 
@@ -25,21 +25,12 @@ class DirectionalLightNode extends AnalyticLightNode {
 
 	}
 
-	setup( builder ) {
-
-		super.setup( builder );
-
-		const lightingModel = builder.context.lightingModel;
+	setupDirect() {
 
 		const lightColor = this.colorNode;
 		const lightDirection = lightTargetDirection( this.light );
-		const reflectedLight = builder.context.reflectedLight;
 
-		lightingModel.direct( {
-			lightDirection,
-			lightColor,
-			reflectedLight
-		}, builder.stack, builder );
+		return { lightDirection, lightColor };
 
 	}
 

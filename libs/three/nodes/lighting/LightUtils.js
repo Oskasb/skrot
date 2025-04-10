@@ -1,7 +1,5 @@
 import { Fn } from '../tsl/TSLBase.js';
 
-/** @module LightUtils **/
-
 /**
  * Represents a `discard` shader operation in TSL.
  *
@@ -12,9 +10,7 @@ import { Fn } from '../tsl/TSLBase.js';
  * @param {Node<float>} inputs.decayExponent - The light's decay exponent.
  * @return {Node<float>} The distance falloff.
  */
-export const getDistanceAttenuation = /*@__PURE__*/ Fn( ( inputs ) => {
-
-	const { lightDistance, cutoffDistance, decayExponent } = inputs;
+export const getDistanceAttenuation = /*@__PURE__*/ Fn( ( { lightDistance, cutoffDistance, decayExponent } ) => {
 
 	// based upon Frostbite 3 Moving to Physically-based Rendering
 	// page 32, equation 26: E[window1]

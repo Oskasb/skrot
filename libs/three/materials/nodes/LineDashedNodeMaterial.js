@@ -9,7 +9,7 @@ import { LineDashedMaterial } from '../LineDashedMaterial.js';
 const _defaultValues = /*@__PURE__*/ new LineDashedMaterial();
 
 /**
- * Node material version of `LineDashedMaterial`.
+ * Node material version of  {@link LineDashedMaterial}.
  *
  * @augments NodeMaterial
  */
@@ -24,7 +24,7 @@ class LineDashedNodeMaterial extends NodeMaterial {
 	/**
 	 * Constructs a new line dashed node material.
 	 *
-	 * @param {Object?} parameters - The configuration parameter.
+	 * @param {Object} [parameters] - The configuration parameter.
 	 */
 	constructor( parameters ) {
 
@@ -33,7 +33,7 @@ class LineDashedNodeMaterial extends NodeMaterial {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -44,7 +44,7 @@ class LineDashedNodeMaterial extends NodeMaterial {
 		/**
 		 * The dash offset.
 		 *
-		 * @type {Number}
+		 * @type {number}
 		 * @default 0
 		 */
 		this.dashOffset = 0;
@@ -55,9 +55,9 @@ class LineDashedNodeMaterial extends NodeMaterial {
 		 * and define the offset with a node instead.
 		 *
 		 * If you don't want to overwrite the offset but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialLineDashOffset}.
+		 * value instead, use {@link materialLineDashOffset}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.offsetNode = null;
@@ -68,9 +68,9 @@ class LineDashedNodeMaterial extends NodeMaterial {
 		 * and define the scale with a node instead.
 		 *
 		 * If you don't want to overwrite the scale but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialLineScale}.
+		 * value instead, use {@link materialLineScale}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.dashScaleNode = null;
@@ -81,9 +81,9 @@ class LineDashedNodeMaterial extends NodeMaterial {
 		 * and define the dash size with a node instead.
 		 *
 		 * If you don't want to overwrite the dash size but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialLineDashSize}.
+		 * value instead, use {@link materialLineDashSize}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.dashSizeNode = null;
@@ -94,9 +94,9 @@ class LineDashedNodeMaterial extends NodeMaterial {
 		 * and define the gap size with a node instead.
 		 *
 		 * If you don't want to overwrite the gap size but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialLineGapSize}.
+		 * value instead, use {@link materialLineGapSize}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.gapSizeNode = null;

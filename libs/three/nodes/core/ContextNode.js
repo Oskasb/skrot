@@ -1,8 +1,6 @@
 import Node from './Node.js';
 import { addMethodChaining, nodeProxy } from '../tsl/TSLCore.js';
 
-/** @module ContextNode **/
-
 /**
  * This node can be used as a context management component for another node.
  * {@link NodeBuilder} performs its node building process in a specific context and
@@ -34,7 +32,7 @@ class ContextNode extends Node {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -58,9 +56,9 @@ class ContextNode extends Node {
 	}
 
 	/**
-	 * This method is overwritten to ensure it returns the reference to {@link module:ContextNode~ContextNode#node}.
+	 * This method is overwritten to ensure it returns the reference to {@link ContextNode#node}.
 	 *
-	 * @return {Node} A reference to {@link module:ContextNode~ContextNode#node}.
+	 * @return {Node} A reference to {@link ContextNode#node}.
 	 */
 	getScope() {
 
@@ -69,10 +67,10 @@ class ContextNode extends Node {
 	}
 
 	/**
-	 * This method is overwritten to ensure it returns the type of {@link module:ContextNode~ContextNode#node}.
+	 * This method is overwritten to ensure it returns the type of {@link ContextNode#node}.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {String} The node type.
+	 * @return {string} The node type.
 	 */
 	getNodeType( builder ) {
 
@@ -121,19 +119,21 @@ export default ContextNode;
 /**
  * TSL function for creating a context node.
  *
+ * @tsl
  * @function
  * @param {Node} node - The node whose context should be modified.
  * @param {Object} [value={}] - The modified context data.
  * @returns {ContextNode}
  */
-export const context = /*@__PURE__*/ nodeProxy( ContextNode );
+export const context = /*@__PURE__*/ nodeProxy( ContextNode ).setParameterLength( 1, 2 );
 
 /**
  * TSL function for defining a label context value for a given node.
  *
+ * @tsl
  * @function
  * @param {Node} node - The node whose context should be modified.
- * @param {String} name - The name/label to set.
+ * @param {string} name - The name/label to set.
  * @returns {ContextNode}
  */
 export const label = ( node, name ) => context( node, { label: name } );

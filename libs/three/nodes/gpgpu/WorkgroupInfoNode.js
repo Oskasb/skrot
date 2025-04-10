@@ -2,8 +2,6 @@ import ArrayElementNode from '../utils/ArrayElementNode.js';
 import { nodeObject } from '../tsl/TSLCore.js';
 import Node from '../core/Node.js';
 
-/** @module WorkgroupInfoNode **/
-
 /**
  * Represents an element of a 'workgroup' scoped buffer.
  *
@@ -24,7 +22,7 @@ class WorkgroupInfoElementNode extends ArrayElementNode {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -72,9 +70,9 @@ class WorkgroupInfoNode extends Node {
 	/**
 	 * Constructs a new buffer scoped to type scope.
 	 *
-	 * @param {String} scope - TODO.
-	 * @param {String} bufferType - The data type of a 'workgroup' scoped buffer element.
-	 * @param {Number} [bufferCount=0] - The number of elements in the buffer.
+	 * @param {string} scope - TODO.
+	 * @param {string} bufferType - The data type of a 'workgroup' scoped buffer element.
+	 * @param {number} [bufferCount=0] - The number of elements in the buffer.
 	 */
 	constructor( scope, bufferType, bufferCount = 0 ) {
 
@@ -83,14 +81,14 @@ class WorkgroupInfoNode extends Node {
 		/**
 		 * The buffer type.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 */
 		this.bufferType = bufferType;
 
 		/**
 		 * The buffer count.
 		 *
-		 * @type {Number}
+		 * @type {number}
 		 * @default 0
 		 */
 		this.bufferCount = bufferCount;
@@ -98,7 +96,7 @@ class WorkgroupInfoNode extends Node {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -107,14 +105,14 @@ class WorkgroupInfoNode extends Node {
 		/**
 		 * The data type of the array buffer.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 */
 		this.elementType = bufferType;
 
 		/**
 		 * TODO.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 */
 		this.scope = scope;
 
@@ -123,7 +121,7 @@ class WorkgroupInfoNode extends Node {
 	/**
 	 * Sets the name/label of this node.
 	 *
-	 * @param {String} name - The name to set.
+	 * @param {string} name - The name to set.
 	 * @return {WorkgroupInfoNode} A reference to this node.
 	 */
 	label( name ) {
@@ -137,7 +135,7 @@ class WorkgroupInfoNode extends Node {
 	/**
 	 * Sets the scope of this node.
 	 *
-	 * @param {String} scope - The scope to set.
+	 * @param {string} scope - The scope to set.
 	 * @return {WorkgroupInfoNode} A reference to this node.
 	 */
 	setScope( scope ) {
@@ -152,7 +150,7 @@ class WorkgroupInfoNode extends Node {
 	/**
 	 * The data type of the array buffer.
 	 *
-	 * @return {String} The element type.
+	 * @return {string} The element type.
 	 */
 	getElementType() {
 
@@ -165,7 +163,7 @@ class WorkgroupInfoNode extends Node {
 	 * is inferred from the scope.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {String} The input type.
+	 * @return {string} The input type.
 	 */
 	getInputType( /*builder*/ ) {
 
@@ -199,9 +197,10 @@ export default WorkgroupInfoNode;
  * TSL function for creating a workgroup info node.
  * Creates a new 'workgroup' scoped array buffer.
  *
+ * @tsl
  * @function
- * @param {String} type - The data type of a 'workgroup' scoped buffer element.
- * @param {Number} [count=0] - The number of elements in the buffer.
+ * @param {string} type - The data type of a 'workgroup' scoped buffer element.
+ * @param {number} [count=0] - The number of elements in the buffer.
  * @returns {WorkgroupInfoNode}
  */
 export const workgroupArray = ( type, count ) => nodeObject( new WorkgroupInfoNode( 'Workgroup', type, count ) );

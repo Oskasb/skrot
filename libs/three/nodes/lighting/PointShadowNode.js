@@ -11,8 +11,6 @@ import { Vector4 } from '../../math/Vector4.js';
 import { Color } from '../../math/Color.js';
 import { BasicShadowMap } from '../../constants.js';
 
-/** @module PointShadowNode **/
-
 const _clearColor = /*@__PURE__*/ new Color();
 
 // cubeToUV() maps a 3D direction vector suitable for cube texture mapping to a 2D
@@ -163,7 +161,7 @@ const _shadowMapSize = /*@__PURE__*/ new Vector2();
 /**
  * Represents the shadow implementation for point light nodes.
  *
- * @augments module:ShadowNode~ShadowNode
+ * @augments ShadowNode
  */
 class PointShadowNode extends ShadowNode {
 
@@ -177,7 +175,7 @@ class PointShadowNode extends ShadowNode {
 	 * Constructs a new point shadow node.
 	 *
 	 * @param {PointLight} light - The shadow casting point light.
-	 * @param {PointLightShadow?} [shadow=null] - An optional point light shadow.
+	 * @param {?PointLightShadow} [shadow=null] - An optional point light shadow.
 	 */
 	constructor( light, shadow = null ) {
 
@@ -189,7 +187,7 @@ class PointShadowNode extends ShadowNode {
 	 * Overwrites the default implementation to return point light shadow specific
 	 * filtering functions.
 	 *
-	 * @param {Number} type - The shadow type.
+	 * @param {number} type - The shadow type.
 	 * @return {Function} The filtering function.
 	 */
 	getShadowFilterFn( type ) {
@@ -299,9 +297,10 @@ export default PointShadowNode;
 /**
  * TSL function for creating an instance of `PointShadowNode`.
  *
+ * @tsl
  * @function
  * @param {PointLight} light - The shadow casting point light.
- * @param {PointLightShadow?} [shadow=null] - An optional point light shadow.
+ * @param {?PointLightShadow} [shadow=null] - An optional point light shadow.
  * @return {PointShadowNode} The created point shadow node.
  */
 export const pointShadow = ( light, shadow ) => nodeObject( new PointShadowNode( light, shadow ) );

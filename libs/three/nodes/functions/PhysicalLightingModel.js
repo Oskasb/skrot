@@ -352,12 +352,12 @@ class PhysicalLightingModel extends LightingModel {
 	/**
 	 * Constructs a new physical lighting model.
 	 *
-	 * @param {Boolean} [clearcoat=false] - Whether clearcoat is supported or not.
-	 * @param {Boolean} [sheen=false] - Whether sheen is supported or not.
-	 * @param {Boolean} [iridescence=false] - Whether iridescence is supported or not.
-	 * @param {Boolean} [anisotropy=false] - Whether anisotropy is supported or not.
-	 * @param {Boolean} [transmission=false] - Whether transmission is supported or not.
-	 * @param {Boolean} [dispersion=false] - Whether dispersion is supported or not.
+	 * @param {boolean} [clearcoat=false] - Whether clearcoat is supported or not.
+	 * @param {boolean} [sheen=false] - Whether sheen is supported or not.
+	 * @param {boolean} [iridescence=false] - Whether iridescence is supported or not.
+	 * @param {boolean} [anisotropy=false] - Whether anisotropy is supported or not.
+	 * @param {boolean} [transmission=false] - Whether transmission is supported or not.
+	 * @param {boolean} [dispersion=false] - Whether dispersion is supported or not.
 	 */
 	constructor( clearcoat = false, sheen = false, iridescence = false, anisotropy = false, transmission = false, dispersion = false ) {
 
@@ -366,7 +366,7 @@ class PhysicalLightingModel extends LightingModel {
 		/**
 		 * Whether clearcoat is supported or not.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default false
 		 */
 		this.clearcoat = clearcoat;
@@ -374,7 +374,7 @@ class PhysicalLightingModel extends LightingModel {
 		/**
 		 * Whether sheen is supported or not.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default false
 		 */
 		this.sheen = sheen;
@@ -382,7 +382,7 @@ class PhysicalLightingModel extends LightingModel {
 		/**
 		 * Whether iridescence is supported or not.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default false
 		 */
 		this.iridescence = iridescence;
@@ -390,7 +390,7 @@ class PhysicalLightingModel extends LightingModel {
 		/**
 		 * Whether anisotropy is supported or not.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default false
 		 */
 		this.anisotropy = anisotropy;
@@ -398,7 +398,7 @@ class PhysicalLightingModel extends LightingModel {
 		/**
 		 * Whether transmission is supported or not.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default false
 		 */
 		this.transmission = transmission;
@@ -406,7 +406,7 @@ class PhysicalLightingModel extends LightingModel {
 		/**
 		 * Whether dispersion is supported or not.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default false
 		 */
 		this.dispersion = dispersion;
@@ -414,7 +414,7 @@ class PhysicalLightingModel extends LightingModel {
 		/**
 		 * The clear coat radiance.
 		 *
-		 * @type {Node?}
+		 * @type {?Node}
 		 * @default null
 		 */
 		this.clearcoatRadiance = null;
@@ -422,7 +422,7 @@ class PhysicalLightingModel extends LightingModel {
 		/**
 		 * The clear coat specular direct.
 		 *
-		 * @type {Node?}
+		 * @type {?Node}
 		 * @default null
 		 */
 		this.clearcoatSpecularDirect = null;
@@ -430,7 +430,7 @@ class PhysicalLightingModel extends LightingModel {
 		/**
 		 * The clear coat specular indirect.
 		 *
-		 * @type {Node?}
+		 * @type {?Node}
 		 * @default null
 		 */
 		this.clearcoatSpecularIndirect = null;
@@ -438,7 +438,7 @@ class PhysicalLightingModel extends LightingModel {
 		/**
 		 * The sheen specular direct.
 		 *
-		 * @type {Node?}
+		 * @type {?Node}
 		 * @default null
 		 */
 		this.sheenSpecularDirect = null;
@@ -446,7 +446,7 @@ class PhysicalLightingModel extends LightingModel {
 		/**
 		 * The sheen specular indirect.
 		 *
-		 * @type {Node?}
+		 * @type {?Node}
 		 * @default null
 		 */
 		this.sheenSpecularIndirect = null;
@@ -454,7 +454,7 @@ class PhysicalLightingModel extends LightingModel {
 		/**
 		 * The iridescence Fresnel.
 		 *
-		 * @type {Node?}
+		 * @type {?Node}
 		 * @default null
 		 */
 		this.iridescenceFresnel = null;
@@ -462,7 +462,7 @@ class PhysicalLightingModel extends LightingModel {
 		/**
 		 * The iridescence F0.
 		 *
-		 * @type {Node?}
+		 * @type {?Node}
 		 * @default null
 		 */
 		this.iridescenceF0 = null;
@@ -473,9 +473,9 @@ class PhysicalLightingModel extends LightingModel {
 	 * Depending on what features are requested, the method prepares certain node variables
 	 * which are later used for lighting computations.
 	 *
-	 * @param {ContextNode} context - The current node context.
+	 * @param {NodeBuilder} builder - The current node builder.
 	 */
-	start( context ) {
+	start( builder ) {
 
 		if ( this.clearcoat === true ) {
 
@@ -514,6 +514,8 @@ class PhysicalLightingModel extends LightingModel {
 			const v = cameraPosition.sub( positionWorld ).normalize(); // TODO: Create Node for this, same issue in MaterialX
 			const n = transformedNormalWorld;
 
+			const context = builder.context;
+
 			context.backdrop = getIBLVolumeRefraction(
 				n,
 				v,
@@ -537,6 +539,8 @@ class PhysicalLightingModel extends LightingModel {
 			diffuseColor.a.mulAssign( mix( 1, context.backdrop.a, transmission ) );
 
 		}
+
+		super.start( builder );
 
 	}
 
@@ -568,8 +572,7 @@ class PhysicalLightingModel extends LightingModel {
 	/**
 	 * Implements the direct light.
 	 *
-	 * @param {Object} input - The input data.
-	 * @param {StackNode} stack - The current stack.
+	 * @param {Object} lightData - The light data.
 	 * @param {NodeBuilder} builder - The current node builder.
 	 */
 	direct( { lightDirection, lightColor, reflectedLight } ) {
@@ -603,7 +606,6 @@ class PhysicalLightingModel extends LightingModel {
 	 * rect area light nodes.
 	 *
 	 * @param {Object} input - The input data.
-	 * @param {StackNode} stack - The current stack.
 	 * @param {NodeBuilder} builder - The current node builder.
 	 */
 	directRectArea( { lightColor, lightPosition, halfWidth, halfHeight, reflectedLight, ltc_1, ltc_2 } ) {
@@ -641,26 +643,24 @@ class PhysicalLightingModel extends LightingModel {
 	/**
 	 * Implements the indirect lighting.
 	 *
-	 * @param {ContextNode} context - The current node context.
-	 * @param {StackNode} stack - The current stack.
 	 * @param {NodeBuilder} builder - The current node builder.
 	 */
-	indirect( context, stack, builder ) {
+	indirect( builder ) {
 
-		this.indirectDiffuse( context, stack, builder );
-		this.indirectSpecular( context, stack, builder );
-		this.ambientOcclusion( context, stack, builder );
+		this.indirectDiffuse( builder );
+		this.indirectSpecular( builder );
+		this.ambientOcclusion( builder );
 
 	}
 
 	/**
 	 * Implements the indirect diffuse term.
 	 *
-	 * @param {ContextNode} input - The current node context.
-	 * @param {StackNode} stack - The current stack.
 	 * @param {NodeBuilder} builder - The current node builder.
 	 */
-	indirectDiffuse( { irradiance, reflectedLight } ) {
+	indirectDiffuse( builder ) {
+
+		const { irradiance, reflectedLight } = builder.context;
 
 		reflectedLight.indirectDiffuse.addAssign( irradiance.mul( BRDF_Lambert( { diffuseColor } ) ) );
 
@@ -669,11 +669,11 @@ class PhysicalLightingModel extends LightingModel {
 	/**
 	 * Implements the indirect specular term.
 	 *
-	 * @param {ContextNode} input - The current node context.
-	 * @param {StackNode} stack - The current stack.
 	 * @param {NodeBuilder} builder - The current node builder.
 	 */
-	indirectSpecular( { radiance, iblIrradiance, reflectedLight } ) {
+	indirectSpecular( builder ) {
+
+		const { radiance, iblIrradiance, reflectedLight } = builder.context;
 
 		if ( this.sheen === true ) {
 
@@ -725,11 +725,11 @@ class PhysicalLightingModel extends LightingModel {
 	/**
 	 * Implements the ambient occlusion term.
 	 *
-	 * @param {ContextNode} input - The current node context.
-	 * @param {StackNode} stack - The current stack.
 	 * @param {NodeBuilder} builder - The current node builder.
 	 */
-	ambientOcclusion( { ambientOcclusion, reflectedLight } ) {
+	ambientOcclusion( builder ) {
+
+		const { ambientOcclusion, reflectedLight } = builder.context;
 
 		const dotNV = transformedNormalView.dot( positionViewDirection ).clamp(); // @ TODO: Move to core dotNV
 
@@ -758,11 +758,9 @@ class PhysicalLightingModel extends LightingModel {
 	/**
 	 * Used for final lighting accumulations depending on the requested features.
 	 *
-	 * @param {ContextNode} context - The current node context.
-	 * @param {StackNode} stack - The current stack.
 	 * @param {NodeBuilder} builder - The current node builder.
 	 */
-	finish( context ) {
+	finish( { context } ) {
 
 		const { outgoingLight } = context;
 

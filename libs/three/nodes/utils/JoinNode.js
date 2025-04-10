@@ -19,7 +19,7 @@ class JoinNode extends TempNode {
 	 * Constructs a new join node.
 	 *
 	 * @param {Array<Node>} nodes - An array of nodes that should be joined.
-	 * @param {String?} [nodeType=null] - The node type.
+	 * @param {?string} [nodeType=null] - The node type.
 	 */
 	constructor( nodes = [], nodeType = null ) {
 
@@ -39,7 +39,7 @@ class JoinNode extends TempNode {
 	 * joined data length if not explicitly defined.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {String} The node type.
+	 * @return {string} The node type.
 	 */
 	getNodeType( builder ) {
 
@@ -56,17 +56,42 @@ class JoinNode extends TempNode {
 	generate( builder, output ) {
 
 		const type = this.getNodeType( builder );
+		const maxLength = builder.getTypeLength( type );
+
 		const nodes = this.nodes;
 
 		const primitiveType = builder.getComponentType( type );
 
 		const snippetValues = [];
 
+		let length = 0;
+
 		for ( const input of nodes ) {
 
-			let inputSnippet = input.build( builder );
+			if ( length >= maxLength ) {
 
-			const inputPrimitiveType = builder.getComponentType( input.getNodeType( builder ) );
+				console.error( `THREE.TSL: Length of parameters exceeds maximum length of function '${ type }()' type.` );
+				break;
+
+			}
+
+			let inputType = input.getNodeType( builder );
+			let inputTypeLength = builder.getTypeLength( inputType );
+			let inputSnippet;
+
+			if ( length + inputTypeLength > maxLength ) {
+
+				console.error( `THREE.TSL: Length of '${ type }()' data exceeds maximum length of output type.` );
+
+				inputTypeLength = maxLength - length;
+				inputType = builder.getTypeFromLength( inputTypeLength );
+
+			}
+
+			length += inputTypeLength;
+			inputSnippet = input.build( builder, inputType );
+
+			const inputPrimitiveType = builder.getComponentType( inputType );
 
 			if ( inputPrimitiveType !== primitiveType ) {
 

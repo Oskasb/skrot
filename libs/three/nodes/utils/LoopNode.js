@@ -2,8 +2,6 @@ import Node from '../core/Node.js';
 import { expression } from '../code/ExpressionNode.js';
 import { nodeObject, nodeArray } from '../tsl/TSLBase.js';
 
-/** @module LoopNode **/
-
 /**
  * This module offers a variety of ways to implement loops in TSL. In it's basic form it's:
  * ```js
@@ -27,6 +25,16 @@ import { nodeObject, nodeArray } from '../tsl/TSLBase.js';
  * ```js
  * Loop( { start: 10 }, () => {} );
  * ```
+ * It is possible to execute with boolean values, similar to the `while` syntax.
+ * ```js
+ * const value = float( 0 ).toVar();
+ *
+ * Loop( value.lessThan( 10 ), () => {
+ *
+ * 	value.addAssign( 1 );
+ *
+ * } );
+ * ```
  * The module also provides `Break()` and `Continue()` TSL expression for loop control.
  * @augments Node
  */
@@ -41,7 +49,7 @@ class LoopNode extends Node {
 	/**
 	 * Constructs a new loop node.
 	 *
-	 * @param {Array<Any>} params - Depending on the loop type, array holds different parameterization values for the loop.
+	 * @param {Array<any>} params - Depending on the loop type, array holds different parameterization values for the loop.
 	 */
 	constructor( params = [] ) {
 
@@ -55,8 +63,8 @@ class LoopNode extends Node {
 	 * Returns a loop variable name based on an index. The pattern is
 	 * `0` = `i`, `1`= `j`, `2`= `k` and so on.
 	 *
-	 * @param {Number} index - The index.
-	 * @return {String} The loop variable name.
+	 * @param {number} index - The index.
+	 * @return {string} The loop variable name.
 	 */
 	getVarName( index ) {
 
@@ -106,7 +114,7 @@ class LoopNode extends Node {
 	 * This method is overwritten since the node type is inferred based on the loop configuration.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {String} The node type.
+	 * @return {string} The node type.
 	 */
 	getNodeType( builder ) {
 
@@ -135,15 +143,25 @@ class LoopNode extends Node {
 
 			const param = params[ i ];
 
-			let start = null, end = null, name = null, type = null, condition = null, update = null;
+			let isWhile = false, start = null, end = null, name = null, type = null, condition = null, update = null;
 
 			if ( param.isNode ) {
 
-				type = 'int';
-				name = this.getVarName( i );
-				start = '0';
-				end = param.build( builder, type );
-				condition = '<';
+				if ( param.getNodeType( builder ) === 'bool' ) {
+
+					isWhile = true;
+					type = 'bool';
+					end = param.build( builder, type );
+
+				} else {
+
+					type = 'int';
+					name = this.getVarName( i );
+					start = '0';
+					end = param.build( builder, type );
+					condition = '<';
+
+				}
 
 			} else {
 
@@ -189,41 +207,51 @@ class LoopNode extends Node {
 
 			}
 
-			const internalParam = { start, end, condition };
+			let loopSnippet;
 
-			//
+			if ( isWhile ) {
 
-			const startSnippet = internalParam.start;
-			const endSnippet = internalParam.end;
+				loopSnippet = `while ( ${ end } )`;
 
-			let declarationSnippet = '';
-			let conditionalSnippet = '';
-			let updateSnippet = '';
+			} else {
 
-			if ( ! update ) {
+				const internalParam = { start, end, condition };
 
-				if ( type === 'int' || type === 'uint' ) {
+				//
 
-					if ( condition.includes( '<' ) ) update = '++';
-					else update = '--';
+				const startSnippet = internalParam.start;
+				const endSnippet = internalParam.end;
 
-				} else {
+				let declarationSnippet = '';
+				let conditionalSnippet = '';
+				let updateSnippet = '';
 
-					if ( condition.includes( '<' ) ) update = '+= 1.';
-					else update = '-= 1.';
+				if ( ! update ) {
+
+					if ( type === 'int' || type === 'uint' ) {
+
+						if ( condition.includes( '<' ) ) update = '++';
+						else update = '--';
+
+					} else {
+
+						if ( condition.includes( '<' ) ) update = '+= 1.';
+						else update = '-= 1.';
+
+					}
 
 				}
 
+				declarationSnippet += builder.getVar( type, name ) + ' = ' + startSnippet;
+
+				conditionalSnippet += name + ' ' + condition + ' ' + endSnippet;
+				updateSnippet += name + ' ' + update;
+
+				loopSnippet = `for ( ${ declarationSnippet }; ${ conditionalSnippet }; ${ updateSnippet } )`;
+
 			}
 
-			declarationSnippet += builder.getVar( type, name ) + ' = ' + startSnippet;
-
-			conditionalSnippet += name + ' ' + condition + ' ' + endSnippet;
-			updateSnippet += name + ' ' + update;
-
-			const forSnippet = `for ( ${ declarationSnippet }; ${ conditionalSnippet }; ${ updateSnippet } )`;
-
-			builder.addFlowCode( ( i === 0 ? '\n' : '' ) + builder.tab + forSnippet + ' {\n\n' ).addFlowTab();
+			builder.addFlowCode( ( i === 0 ? '\n' : '' ) + builder.tab + loopSnippet + ' {\n\n' ).addFlowTab();
 
 		}
 
@@ -252,8 +280,9 @@ export default LoopNode;
 /**
  * TSL function for creating a loop node.
  *
+ * @tsl
  * @function
- * @param {...Any} params - A list of parameters.
+ * @param {...any} params - A list of parameters.
  * @returns {LoopNode}
  */
 export const Loop = ( ...params ) => nodeObject( new LoopNode( nodeArray( params, 'int' ) ) ).append();
@@ -261,6 +290,7 @@ export const Loop = ( ...params ) => nodeObject( new LoopNode( nodeArray( params
 /**
  * TSL function for creating a `Continue()` expression.
  *
+ * @tsl
  * @function
  * @returns {ExpressionNode}
  */
@@ -269,6 +299,7 @@ export const Continue = () => expression( 'continue' ).append();
 /**
  * TSL function for creating a `Break()` expression.
  *
+ * @tsl
  * @function
  * @returns {ExpressionNode}
  */
@@ -277,15 +308,16 @@ export const Break = () => expression( 'break' ).append();
 // Deprecated
 
 /**
+ * @tsl
  * @function
  * @deprecated since r168. Use {@link Loop} instead.
  *
- * @param  {...any} params
+ * @param {...any} params
  * @returns {LoopNode}
  */
 export const loop = ( ...params ) => { // @deprecated, r168
 
-	console.warn( 'TSL.LoopNode: loop() has been renamed to Loop().' );
+	console.warn( 'THREE.TSL: loop() has been renamed to Loop().' );
 	return Loop( ...params );
 
 };

@@ -1,8 +1,6 @@
 import Node from '../core/Node.js';
 import { nodeProxy } from '../tsl/TSLBase.js';
 
-/** @module TextureSizeNode **/
-
 /**
  * A node that represents the dimensions of a texture. The texture size is
  * retrieved in the shader via built-in shader functions like `textureDimensions()`
@@ -22,7 +20,7 @@ class TextureSizeNode extends Node {
 	 * Constructs a new texture size node.
 	 *
 	 * @param {TextureNode} textureNode - A texture node which size should be retrieved.
-	 * @param {Node<int>?} [levelNode=null] - A level node which defines the requested mip.
+	 * @param {?Node<int>} [levelNode=null] - A level node which defines the requested mip.
 	 */
 	constructor( textureNode, levelNode = null ) {
 
@@ -31,7 +29,7 @@ class TextureSizeNode extends Node {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -70,9 +68,10 @@ export default TextureSizeNode;
 /**
  * TSL function for creating a texture size node.
  *
+ * @tsl
  * @function
  * @param {TextureNode} textureNode - A texture node which size should be retrieved.
- * @param {Node<int>?} [levelNode=null] - A level node which defines the requested mip.
+ * @param {?Node<int>} [levelNode=null] - A level node which defines the requested mip.
  * @returns {TextureSizeNode}
  */
-export const textureSize = /*@__PURE__*/ nodeProxy( TextureSizeNode );
+export const textureSize = /*@__PURE__*/ nodeProxy( TextureSizeNode ).setParameterLength( 1, 2 );

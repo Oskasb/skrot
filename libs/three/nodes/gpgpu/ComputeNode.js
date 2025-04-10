@@ -2,8 +2,6 @@ import Node from '../core/Node.js';
 import { NodeUpdateType } from '../core/constants.js';
 import { addMethodChaining, nodeObject } from '../tsl/TSLCore.js';
 
-/** @module ComputeNode **/
-
 /**
  * TODO
  *
@@ -21,8 +19,8 @@ class ComputeNode extends Node {
 	 * Constructs a new compute node.
 	 *
 	 * @param {Node} computeNode - TODO
-	 * @param {Number} count - TODO.
-	 * @param {Array<Number>} [workgroupSize=[64]] - TODO.
+	 * @param {number} count - TODO.
+	 * @param {Array<number>} [workgroupSize=[64]] - TODO.
 	 */
 	constructor( computeNode, count, workgroupSize = [ 64 ] ) {
 
@@ -31,7 +29,7 @@ class ComputeNode extends Node {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -47,14 +45,14 @@ class ComputeNode extends Node {
 		/**
 		 * TODO
 		 *
-		 * @type {Number}
+		 * @type {number}
 		 */
 		this.count = count;
 
 		/**
 		 * TODO
 		 *
-		 * @type {Array<Number>}
+		 * @type {Array<number>}
 		 * @default [64]
 		 */
 		this.workgroupSize = workgroupSize;
@@ -62,21 +60,21 @@ class ComputeNode extends Node {
 		/**
 		 * TODO
 		 *
-		 * @type {Number}
+		 * @type {number}
 		 */
 		this.dispatchCount = 0;
 
 		/**
 		 * TODO
 		 *
-		 * @type {Number}
+		 * @type {number}
 		 */
 		this.version = 1;
 
 		/**
 		 * The name or label of the uniform.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 * @default ''
 		 */
 		this.name = '';
@@ -85,7 +83,7 @@ class ComputeNode extends Node {
 		 * The `updateBeforeType` is set to `NodeUpdateType.OBJECT` since {@link ComputeNode#updateBefore}
 		 * is executed once per object by default.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 * @default 'object'
 		 */
 		this.updateBeforeType = NodeUpdateType.OBJECT;
@@ -93,7 +91,7 @@ class ComputeNode extends Node {
 		/**
 		 * TODO
 		 *
-		 * @type {Function}
+		 * @type {?Function}
 		 */
 		this.onInitFunction = null;
 
@@ -113,7 +111,7 @@ class ComputeNode extends Node {
 	/**
 	 * Sets the {@link ComputeNode#name} property.
 	 *
-	 * @param {String} name - The name of the uniform.
+	 * @param {string} name - The name of the uniform.
 	 * @return {ComputeNode} A reference to this node.
 	 */
 	label( name ) {
@@ -165,7 +163,24 @@ class ComputeNode extends Node {
 
 	}
 
-	generate( builder ) {
+	setup( builder ) {
+
+		const result = this.computeNode.setup( builder );
+
+		if ( result ) {
+
+			const properties = builder.getNodeProperties( this );
+			properties.outputComputeNode = result.outputNode;
+
+			result.outputNode = null;
+
+		}
+
+		return result;
+
+	}
+
+	generate( builder, output ) {
 
 		const { shaderStage } = builder;
 
@@ -176,6 +191,17 @@ class ComputeNode extends Node {
 			if ( snippet !== '' ) {
 
 				builder.addLineFlowCode( snippet, this );
+
+			}
+
+		} else {
+
+			const properties = builder.getNodeProperties( this );
+			const outputComputeNode = properties.outputComputeNode;
+
+			if ( outputComputeNode ) {
+
+				return outputComputeNode.build( builder, output );
 
 			}
 
@@ -190,10 +216,11 @@ export default ComputeNode;
 /**
  * TSL function for creating a compute node.
  *
+ * @tsl
  * @function
  * @param {Node} node - TODO
- * @param {Number} count - TODO.
- * @param {Array<Number>} [workgroupSize=[64]] - TODO.
+ * @param {number} count - TODO.
+ * @param {Array<number>} [workgroupSize=[64]] - TODO.
  * @returns {AtomicFunctionNode}
  */
 export const compute = ( node, count, workgroupSize ) => nodeObject( new ComputeNode( nodeObject( node ), count, workgroupSize ) );

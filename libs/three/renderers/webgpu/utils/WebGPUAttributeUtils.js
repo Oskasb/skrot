@@ -71,11 +71,11 @@ class WebGPUAttributeUtils {
 			// patch for INT16 and UINT16
 			if ( attribute.normalized === false ) {
 
-				if ( array.constructor === Int16Array ) {
+				if ( array.constructor === Int16Array || array.constructor === Int8Array ) {
 
 					array = new Int32Array( array );
 
-				} else if ( array.constructor === Uint16Array ) {
+				} else if ( array.constructor === Uint16Array || array.constructor === Uint8Array ) {
 
 					array = new Uint32Array( array );
 
@@ -108,6 +108,8 @@ class WebGPUAttributeUtils {
 				// Update BufferAttribute
 				bufferAttribute.itemSize = 4;
 				bufferAttribute.array = array;
+
+				bufferData._force3to4BytesAlignment = true;
 
 			}
 
@@ -142,9 +144,27 @@ class WebGPUAttributeUtils {
 		const backend = this.backend;
 		const device = backend.device;
 
+		const bufferData = backend.get( bufferAttribute );
 		const buffer = backend.get( bufferAttribute ).buffer;
 
-		const array = bufferAttribute.array;
+		let array = bufferAttribute.array;
+
+		//  if storage buffer ensure 4 byte alignment
+		if ( bufferData._force3to4BytesAlignment === true ) {
+
+			array = new array.constructor( bufferAttribute.count * 4 );
+
+			for ( let i = 0; i < bufferAttribute.count; i ++ ) {
+
+				array.set( bufferAttribute.array.subarray( i * 3, i * 3 + 3 ), i * 4 );
+
+			}
+
+			bufferAttribute.array = array;
+
+		}
+
+
 		const isTypedArray = this._isTypedArray( array );
 		const updateRanges = bufferAttribute.updateRanges;
 
@@ -166,13 +186,27 @@ class WebGPUAttributeUtils {
 			for ( let i = 0, l = updateRanges.length; i < l; i ++ ) {
 
 				const range = updateRanges[ i ];
+				let dataOffset, size;
 
-				const dataOffset = range.start * byteOffsetFactor;
-				const size = range.count * byteOffsetFactor;
+				if ( bufferData._force3to4BytesAlignment === true ) {
+
+					const vertexStart = Math.floor( range.start / 3 );
+					const vertexCount = Math.ceil( range.count / 3 );
+					dataOffset = vertexStart * 4 * byteOffsetFactor;
+					size = vertexCount * 4 * byteOffsetFactor;
+
+				} else {
+
+					dataOffset = range.start * byteOffsetFactor;
+					size = range.count * byteOffsetFactor;
+
+				}
+
+				const bufferOffset = dataOffset * ( isTypedArray ? array.BYTES_PER_ELEMENT : 1 ); // bufferOffset is always in bytes
 
 				device.queue.writeBuffer(
 					buffer,
-					0,
+					bufferOffset,
 					array,
 					dataOffset,
 					size
@@ -325,7 +359,7 @@ class WebGPUAttributeUtils {
 	 *
 	 * @private
 	 * @param {BufferAttribute} geometryAttribute - The buffer attribute.
-	 * @return {String} The vertex format (e.g. 'float32x3').
+	 * @return {string|undefined} The vertex format (e.g. 'float32x3').
 	 */
 	_getVertexFormat( geometryAttribute ) {
 
@@ -376,8 +410,8 @@ class WebGPUAttributeUtils {
 	 * Returns `true` if the given array is a typed array.
 	 *
 	 * @private
-	 * @param {Any} array - The array.
-	 * @return {Boolean} Whether the given array is a typed array or not.
+	 * @param {any} array - The array.
+	 * @return {boolean} Whether the given array is a typed array or not.
 	 */
 	_isTypedArray( array ) {
 

@@ -10,8 +10,6 @@ import { Fn, nodeProxy, vec3 } from '../tsl/TSLBase.js';
 
 import { TangentSpaceNormalMap, ObjectSpaceNormalMap } from '../../constants.js';
 
-/** @module NormalMapNode **/
-
 // Normal Mapping Without Precomputed Tangents
 // http://www.thetenthplanet.de/archives/1180
 
@@ -60,7 +58,7 @@ class NormalMapNode extends TempNode {
 	 * Constructs a new normal map node.
 	 *
 	 * @param {Node<vec3>} node - Represents the normal map data.
-	 * @param {Node<vec2>?} [scaleNode=null] - Controls the intensity of the effect.
+	 * @param {?Node<vec2>} [scaleNode=null] - Controls the intensity of the effect.
 	 */
 	constructor( node, scaleNode = null ) {
 
@@ -76,7 +74,7 @@ class NormalMapNode extends TempNode {
 		/**
 		 * Controls the intensity of the effect.
 		 *
-		 * @type {Node<vec2>?}
+		 * @type {?Node<vec2>}
 		 * @default null
 		 */
 		this.scaleNode = scaleNode;
@@ -141,9 +139,10 @@ export default NormalMapNode;
 /**
  * TSL function for creating a normal map node.
  *
+ * @tsl
  * @function
  * @param {Node<vec3>} node - Represents the normal map data.
- * @param {Node<vec2>?} [scaleNode=null] - Controls the intensity of the effect.
+ * @param {?Node<vec2>} [scaleNode=null] - Controls the intensity of the effect.
  * @returns {NormalMapNode}
  */
-export const normalMap = /*@__PURE__*/ nodeProxy( NormalMapNode );
+export const normalMap = /*@__PURE__*/ nodeProxy( NormalMapNode ).setParameterLength( 1, 2 );

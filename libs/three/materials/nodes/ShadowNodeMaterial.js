@@ -6,7 +6,7 @@ import { ShadowMaterial } from '../ShadowMaterial.js';
 const _defaultValues = /*@__PURE__*/ new ShadowMaterial();
 
 /**
- * Node material version of `ShadowMaterial`.
+ * Node material version of {@link ShadowMaterial}.
  *
  * @augments NodeMaterial
  */
@@ -21,7 +21,7 @@ class ShadowNodeMaterial extends NodeMaterial {
 	/**
 	 * Constructs a new shadow node material.
 	 *
-	 * @param {Object?} parameters - The configuration parameter.
+	 * @param {Object} [parameters] - The configuration parameter.
 	 */
 	constructor( parameters ) {
 
@@ -30,7 +30,7 @@ class ShadowNodeMaterial extends NodeMaterial {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -40,10 +40,19 @@ class ShadowNodeMaterial extends NodeMaterial {
 		 * Set to `true` because so it's possible to implement
 		 * the shadow mask effect.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @default true
 		 */
 		this.lights = true;
+
+		/**
+		 * Overwritten since shadow materials are transparent
+		 * by default.
+		 *
+		 * @type {boolean}
+		 * @default true
+		 */
+		this.transparent = true;
 
 		this.setDefaultValues( _defaultValues );
 

@@ -1,10 +1,8 @@
 import TempNode from './TempNode.js';
 import { addMethodChaining, nodeObject } from '../tsl/TSLCore.js';
 
-/** @module ArrayNode **/
-
 /**
- * ArrayNode represents a collection of nodes, typically created using the {@link module:TSL~array} function.
+ * ArrayNode represents a collection of nodes, typically created using the {@link array} function.
  * ```js
  * const colors = array( [
  * 	vec3( 1, 0, 0 ),
@@ -14,7 +12,7 @@ import { addMethodChaining, nodeObject } from '../tsl/TSLCore.js';
  *
  * const redColor = tintColors.element( 0 );
  *
- * @augments Node
+ * @augments TempNode
  */
 class ArrayNode extends TempNode {
 
@@ -27,9 +25,9 @@ class ArrayNode extends TempNode {
 	/**
 	 * Constructs a new array node.
 	 *
-	 * @param {String} [nodeType] - The data type of the elements.
-	 * @param {Number} [count] - Size of the array.
-	 * @param {Array<Node>?} [values=null] - Array default values.
+	 * @param {?string} nodeType - The data type of the elements.
+	 * @param {number} count - Size of the array.
+	 * @param {?Array<Node>} [values=null] - Array default values.
 	 */
 	constructor( nodeType, count, values = null ) {
 
@@ -38,21 +36,21 @@ class ArrayNode extends TempNode {
 		/**
 		 * Array size.
 		 *
-		 * @type {Array<Node>}
+		 * @type {number}
 		 */
 		this.count = count;
 
 		/**
 		 * Array default values.
 		 *
-		 * @type {Array<Node>}
+		 * @type {?Array<Node>}
 		 */
 		this.values = values;
 
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -60,6 +58,12 @@ class ArrayNode extends TempNode {
 
 	}
 
+	/**
+	 * Returns the node's type.
+	 *
+	 * @param {NodeBuilder} builder - The current node builder.
+	 * @return {string} The type of the node.
+	 */
 	getNodeType( builder ) {
 
 		if ( this.nodeType === null ) {
@@ -72,12 +76,24 @@ class ArrayNode extends TempNode {
 
 	}
 
+	/**
+	 * Returns the node's type.
+	 *
+	 * @param {NodeBuilder} builder - The current node builder.
+	 * @return {string} The type of the node.
+	 */
 	getElementType( builder ) {
 
 		return this.getNodeType( builder );
 
 	}
 
+	/**
+	 * This method builds the output node and returns the resulting array as a shader string.
+	 *
+	 * @param {NodeBuilder} builder - The current node builder.
+	 * @return {string} The generated shader string.
+	 */
 	generate( builder ) {
 
 		const type = this.getNodeType( builder );
@@ -93,10 +109,11 @@ export default ArrayNode;
 /**
  * TSL function for creating an array node.
  *
+ * @tsl
  * @function
- * @param {String|Array<Node>} nodeTypeOrValues - A string representing the element type (e.g., 'vec3')
+ * @param {string|Array<Node>} nodeTypeOrValues - A string representing the element type (e.g., 'vec3')
  * or an array containing the default values (e.g., [ vec3() ]).
- * @param {Number?} [count] - Size of the array.
+ * @param {?number} [count] - Size of the array.
  * @returns {ArrayNode}
  */
 export const array = ( ...params ) => {

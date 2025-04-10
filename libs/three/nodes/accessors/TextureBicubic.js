@@ -2,8 +2,6 @@ import { add, mul, div } from '../math/OperatorNode.js';
 import { floor, ceil, fract, pow } from '../math/MathNode.js';
 import { Fn, float, vec2, vec4, int } from '../tsl/TSLBase.js';
 
-/** @module TextureBicubic **/
-
 // Mipped Bicubic Texture Filtering by N8
 // https://www.shadertoy.com/view/Dl2SDW
 
@@ -56,7 +54,8 @@ const bicubic = ( textureNode, texelSize, lod ) => {
 /**
  * Applies mipped bicubic texture filtering to the given texture node.
  *
- * @method
+ * @tsl
+ * @function
  * @param {TextureNode} textureNode - The texture node that should be filtered.
  * @param {Node<float>} [lodNode=float(3)] - Defines the LOD to sample from.
  * @return {Node} The filtered texture sample.

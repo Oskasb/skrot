@@ -15,6 +15,7 @@ const opLib = {
 	'<=': 'lessThanEqual',
 	'>=': 'greaterThanEqual',
 	'==': 'equal',
+	'!=': 'notEqual',
 	'&&': 'and',
 	'||': 'or',
 	'^^': 'xor',
@@ -43,6 +44,8 @@ const unaryLib = {
 	'++': 'increment', // incrementBefore
 	'--': 'decrement' // decrementBefore
 };
+
+const textureLookupFunctions = [ 'texture', 'texture2D', 'texture3D', 'textureCube', 'textureLod', 'texelFetch', 'textureGrad' ];
 
 const isPrimitive = ( value ) => /^(true|false|-?(\d|\.\d))/.test( value );
 
@@ -80,12 +83,11 @@ class TSLEncoder {
 	emitUniform( node ) {
 
 		let code = `const ${ node.name } = `;
+		this.global.add( node.name );
 
 		if ( this.reference === true ) {
 
 			this.addImport( 'reference' );
-
-			this.global.add( node.name );
 
 			//code += `reference( '${ node.name }', '${ node.type }', uniforms )`;
 
@@ -94,11 +96,33 @@ class TSLEncoder {
 
 		} else {
 
-			this.addImport( 'uniform' );
+			if ( node.type === 'texture' ) {
 
-			this.global.add( node.name );
+				this.addImport( 'texture' );
 
-			code += `uniform( '${ node.type }' )`;
+				code += 'texture( /* <THREE.Texture> */ )';
+
+			} else if ( node.type === 'cubeTexture' ) {
+
+				this.addImport( 'cubeTexture' );
+
+				code += 'cubeTexture( /* <THREE.CubeTexture> */ )';
+
+			} else if ( node.type === 'texture3D' ) {
+
+				this.addImport( 'texture3D' );
+
+				code += 'texture3D( /* <THREE.Data3DTexture> */ )';
+
+			} else {
+
+				// default uniform
+
+				this.addImport( 'uniform' );
+
+				code += `uniform( '${ node.type }' )`;
+
+			}
 
 		}
 
@@ -109,12 +133,6 @@ class TSLEncoder {
 	emitExpression( node ) {
 
 		let code;
-
-		/*@TODO: else if ( node.isVarying ) {
-
-			code = this.emitVarying( node );
-
-		}*/
 
 		if ( node.isAccessor ) {
 
@@ -179,11 +197,43 @@ class TSLEncoder {
 
 			}
 
-			this.addImport( node.name );
+			// handle texture lookup function calls in separate branch
 
-			const paramsStr = params.length > 0 ? ' ' + params.join( ', ' ) + ' ' : '';
+			if ( textureLookupFunctions.includes( node.name ) ) {
 
-			code = `${ node.name }(${ paramsStr })`;
+				code = `${ params[ 0 ] }.sample( ${ params[ 1 ] } )`;
+
+				if ( node.name === 'texture' || node.name === 'texture2D' || node.name === 'texture3D' || node.name === 'textureCube' ) {
+
+					if ( params.length === 3 ) {
+
+						code += `.bias( ${ params[ 2 ] } )`;
+
+					}
+
+				} else if ( node.name === 'textureLod' ) {
+
+					code += `.level( ${ params[ 2 ] } )`;
+
+				} else if ( node.name === 'textureGrad' ) {
+
+					code += `.grad( ${ params[ 2 ] }, ${ params[ 3 ] } )`;
+
+				} else if ( node.name === 'texelFetch' ) {
+
+					code += '.setSampler( false )';
+
+				}
+
+			} else {
+
+				this.addImport( node.name );
+
+				const paramsStr = params.length > 0 ? ' ' + params.join( ', ' ) + ' ' : '';
+
+				code = `${ node.name }(${ paramsStr })`;
+
+			}
 
 		} else if ( node.isReturn ) {
 
@@ -194,6 +244,12 @@ class TSLEncoder {
 				code += ' ' + this.emitExpression( node.value );
 
 			}
+
+		} else if ( node.isDiscard ) {
+
+			this.addImport( 'Discard' );
+
+			code = 'Discard()';
 
 		} else if ( node.isAccessorElements ) {
 
@@ -243,6 +299,10 @@ class TSLEncoder {
 
 			code = this.emitUniform( node );
 
+		} else if ( node.isVarying ) {
+
+			code = this.emitVarying( node );
+
 		} else if ( node.isTernary ) {
 
 			code = this.emitTernary( node );
@@ -254,6 +314,8 @@ class TSLEncoder {
 		} else if ( node.isUnary && node.expression.isNumber ) {
 
 			code = node.expression.type + '( ' + node.type + ' ' + node.expression.value + ' )';
+
+			this.addImport( node.expression.type );
 
 		} else if ( node.isUnary ) {
 
@@ -498,7 +560,16 @@ ${ this.tab }} )`;
 
 	}
 
-	/*emitVarying( node ) { }*/
+	emitVarying( node ) {
+
+		const { name, type } = node;
+
+		this.addImport( 'varying' );
+		this.addImport( type );
+
+		return `const ${ name } = varying( ${ type }(), '${ name }' )`;
+
+	}
 
 	emitOverloadingFunction( nodes ) {
 

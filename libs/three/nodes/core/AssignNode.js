@@ -2,8 +2,6 @@ import TempNode from '../core/TempNode.js';
 import { addMethodChaining, nodeProxy } from '../tsl/TSLCore.js';
 import { vectorComponents } from '../core/constants.js';
 
-/** @module AssignNode **/
-
 /**
  * These node represents an assign operation. Meaning a node is assigned
  * to another node.
@@ -48,7 +46,7 @@ class AssignNode extends TempNode {
 	 * Whether this node is used more than once in context of other nodes. This method
 	 * is overwritten since it always returns `false` (assigns are unique).
 	 *
-	 * @return {Boolean} A flag that indicates if there is more than one dependency to other nodes. Always `false`.
+	 * @return {boolean} A flag that indicates if there is more than one dependency to other nodes. Always `false`.
 	 */
 	hasDependencies() {
 
@@ -67,7 +65,7 @@ class AssignNode extends TempNode {
 	 * target and source data type does not match.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {Boolean} Whether a split is required when assigning source to target.
+	 * @return {boolean} Whether a split is required when assigning source to target.
 	 */
 	needsSplitAssign( builder ) {
 
@@ -167,11 +165,12 @@ export default AssignNode;
 /**
  * TSL function for creating an assign node.
  *
+ * @tsl
  * @function
  * @param {Node} targetNode - The target node.
  * @param {Node} sourceNode - The source type.
  * @returns {AssignNode}
  */
-export const assign = /*@__PURE__*/ nodeProxy( AssignNode );
+export const assign = /*@__PURE__*/ nodeProxy( AssignNode ).setParameterLength( 2 );
 
 addMethodChaining( 'assign', assign );

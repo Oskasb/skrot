@@ -12,7 +12,7 @@ import { MeshPhysicalMaterial } from '../MeshPhysicalMaterial.js';
 const _defaultValues = /*@__PURE__*/ new MeshPhysicalMaterial();
 
 /**
- * Node material version of `MeshPhysicalMaterial`.
+ * Node material version of {@link MeshPhysicalMaterial}.
  *
  * @augments MeshStandardNodeMaterial
  */
@@ -27,7 +27,7 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 	/**
 	 * Constructs a new mesh physical node material.
 	 *
-	 * @param {Object?} parameters - The configuration parameter.
+	 * @param {Object} [parameters] - The configuration parameter.
 	 */
 	constructor( parameters ) {
 
@@ -36,7 +36,7 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -48,9 +48,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the clearcoat with a node instead.
 		 *
 		 * If you don't want to overwrite the clearcoat but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialClearcoat}.
+		 * value instead, use {@link materialClearcoat}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.clearcoatNode = null;
@@ -61,9 +61,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the clearcoat roughness with a node instead.
 		 *
 		 * If you don't want to overwrite the clearcoat roughness but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialClearcoatRoughness}.
+		 * value instead, use {@link materialClearcoatRoughness}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.clearcoatRoughnessNode = null;
@@ -74,9 +74,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the clearcoat normal with a node instead.
 		 *
 		 * If you don't want to overwrite the clearcoat normal but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialClearcoatNormal}.
+		 * value instead, use {@link materialClearcoatNormal}.
 		 *
-		 * @type {Node<vec3>?}
+		 * @type {?Node<vec3>}
 		 * @default null
 		 */
 		this.clearcoatNormalNode = null;
@@ -87,9 +87,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the sheen with a node instead.
 		 *
 		 * If you don't want to overwrite the sheen but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialSheen}.
+		 * value instead, use {@link materialSheen}.
 		 *
-		 * @type {Node<vec3>?}
+		 * @type {?Node<vec3>}
 		 * @default null
 		 */
 		this.sheenNode = null;
@@ -100,9 +100,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the sheen roughness with a node instead.
 		 *
 		 * If you don't want to overwrite the sheen roughness but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialSheenRoughness}.
+		 * value instead, use {@link materialSheenRoughness}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.sheenRoughnessNode = null;
@@ -113,9 +113,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the iridescence with a node instead.
 		 *
 		 * If you don't want to overwrite the iridescence but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialIridescence}.
+		 * value instead, use {@link materialIridescence}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.iridescenceNode = null;
@@ -126,9 +126,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the iridescence IOR with a node instead.
 		 *
 		 * If you don't want to overwrite the iridescence IOR but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialIridescenceIOR}.
+		 * value instead, use {@link materialIridescenceIOR}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.iridescenceIORNode = null;
@@ -139,9 +139,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the iridescence thickness with a node instead.
 		 *
 		 * If you don't want to overwrite the iridescence thickness but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialIridescenceThickness}.
+		 * value instead, use {@link materialIridescenceThickness}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.iridescenceThicknessNode = null;
@@ -152,9 +152,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the specular intensity with a node instead.
 		 *
 		 * If you don't want to overwrite the specular intensity but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialSpecularIntensity}.
+		 * value instead, use {@link materialSpecularIntensity}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.specularIntensityNode = null;
@@ -165,9 +165,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the specular color with a node instead.
 		 *
 		 * If you don't want to overwrite the specular color but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialSpecularColor}.
+		 * value instead, use {@link materialSpecularColor}.
 		 *
-		 * @type {Node<vec3>?}
+		 * @type {?Node<vec3>}
 		 * @default null
 		 */
 		this.specularColorNode = null;
@@ -178,9 +178,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the ior with a node instead.
 		 *
 		 * If you don't want to overwrite the ior but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialIOR}.
+		 * value instead, use {@link materialIOR}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.iorNode = null;
@@ -191,9 +191,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the transmission with a node instead.
 		 *
 		 * If you don't want to overwrite the transmission but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialTransmission}.
+		 * value instead, use {@link materialTransmission}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.transmissionNode = null;
@@ -204,9 +204,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the thickness with a node instead.
 		 *
 		 * If you don't want to overwrite the thickness but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialThickness}.
+		 * value instead, use {@link materialThickness}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.thicknessNode = null;
@@ -217,9 +217,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the attenuation distance with a node instead.
 		 *
 		 * If you don't want to overwrite the attenuation distance but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialAttenuationDistance}.
+		 * value instead, use {@link materialAttenuationDistance}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.attenuationDistanceNode = null;
@@ -230,9 +230,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the attenuation color with a node instead.
 		 *
 		 * If you don't want to overwrite the attenuation color but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialAttenuationColor}.
+		 * value instead, use {@link materialAttenuationColor}.
 		 *
-		 * @type {Node<vec3>?}
+		 * @type {?Node<vec3>}
 		 * @default null
 		 */
 		this.attenuationColorNode = null;
@@ -243,9 +243,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the dispersion with a node instead.
 		 *
 		 * If you don't want to overwrite the dispersion but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialDispersion}.
+		 * value instead, use {@link materialDispersion}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.dispersionNode = null;
@@ -256,9 +256,9 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 		 * and define the anisotropy with a node instead.
 		 *
 		 * If you don't want to overwrite the anisotropy but modify the existing
-		 * value instead, use {@link module:MaterialNode.materialAnisotropy}.
+		 * value instead, use {@link materialAnisotropy}.
 		 *
-		 * @type {Node<float>?}
+		 * @type {?Node<float>}
 		 * @default null
 		 */
 		this.anisotropyNode = null;
@@ -272,7 +272,7 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 	/**
 	 * Whether the lighting model should use clearcoat or not.
 	 *
-	 * @type {Boolean}
+	 * @type {boolean}
 	 * @default true
 	 */
 	get useClearcoat() {
@@ -284,7 +284,7 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 	/**
 	 * Whether the lighting model should use iridescence or not.
 	 *
-	 * @type {Boolean}
+	 * @type {boolean}
 	 * @default true
 	 */
 	get useIridescence() {
@@ -296,7 +296,7 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 	/**
 	 * Whether the lighting model should use sheen or not.
 	 *
-	 * @type {Boolean}
+	 * @type {boolean}
 	 * @default true
 	 */
 	get useSheen() {
@@ -308,7 +308,7 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 	/**
 	 * Whether the lighting model should use anisotropy or not.
 	 *
-	 * @type {Boolean}
+	 * @type {boolean}
 	 * @default true
 	 */
 	get useAnisotropy() {
@@ -320,7 +320,7 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 	/**
 	 * Whether the lighting model should use transmission or not.
 	 *
-	 * @type {Boolean}
+	 * @type {boolean}
 	 * @default true
 	 */
 	get useTransmission() {
@@ -332,7 +332,7 @@ class MeshPhysicalNodeMaterial extends MeshStandardNodeMaterial {
 	/**
 	 * Whether the lighting model should use dispersion or not.
 	 *
-	 * @type {Boolean}
+	 * @type {boolean}
 	 * @default true
 	 */
 	get useDispersion() {

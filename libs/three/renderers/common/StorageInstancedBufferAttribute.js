@@ -8,7 +8,7 @@ import { InstancedBufferAttribute } from '../../core/InstancedBufferAttribute.js
  * to compute the data for an attribute more efficiently on the GPU.
  *
  * The idea is to create an instance of this class and provide it as an input
- * to {@link module:StorageBufferNode}.
+ * to {@link StorageBufferNode}.
  *
  * Note: This type of buffer attribute can only be used with `WebGPURenderer`.
  *
@@ -19,9 +19,9 @@ class StorageInstancedBufferAttribute extends InstancedBufferAttribute {
 	/**
 	 * Constructs a new storage instanced buffer attribute.
 	 *
-	 * @param {Number|TypedArray} count - The item count. It is also valid to pass a typed array as an argument.
+	 * @param {number|TypedArray} count - The item count. It is also valid to pass a typed array as an argument.
 	 * The subsequent parameters are then obsolete.
-	 * @param {Number} itemSize - The item size.
+	 * @param {number} itemSize - The item size.
 	 * @param {TypedArray.constructor} [typeClass=Float32Array] - A typed array constructor.
 	 */
 	constructor( count, itemSize, typeClass = Float32Array ) {
@@ -33,7 +33,7 @@ class StorageInstancedBufferAttribute extends InstancedBufferAttribute {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */

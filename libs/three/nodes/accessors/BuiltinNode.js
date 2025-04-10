@@ -1,8 +1,6 @@
 import Node from '../core/Node.js';
 import { nodeProxy } from '../tsl/TSLBase.js';
 
-/** @module BuiltinNode **/
-
 /**
  * The node allows to set values for built-in shader variables. That is
  * required for features like hardware-accelerated vertex clipping.
@@ -14,7 +12,7 @@ class BuiltinNode extends Node {
 	/**
 	 * Constructs a new builtin node.
 	 *
-	 * @param {String} name - The name of the built-in shader variable.
+	 * @param {string} name - The name of the built-in shader variable.
 	 */
 	constructor( name ) {
 
@@ -23,14 +21,14 @@ class BuiltinNode extends Node {
 		/**
 		 * The name of the built-in shader variable.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 */
 		this.name = name;
 
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -42,7 +40,7 @@ class BuiltinNode extends Node {
 	 * Generates the code snippet of the builtin node.
 	 *
 	 * @param {NodeBuilder} builder - The current node builder.
-	 * @return {String} The generated code snippet.
+	 * @return {string} The generated code snippet.
 	 */
 	generate( /* builder */ ) {
 
@@ -57,8 +55,9 @@ export default BuiltinNode;
 /**
  * TSL function for creating a builtin node.
  *
+ * @tsl
  * @function
- * @param {String} name - The name of the built-in shader variable.
+ * @param {string} name - The name of the built-in shader variable.
  * @returns {BuiltinNode}
  */
-export const builtin = nodeProxy( BuiltinNode );
+export const builtin = nodeProxy( BuiltinNode ).setParameterLength( 1 );

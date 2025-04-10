@@ -1,9 +1,7 @@
 import Node from '../core/Node.js';
 import { NodeUpdateType } from '../core/constants.js';
-import { vec3 } from '../tsl/TSLBase.js';
+import { property } from '../tsl/TSLBase.js';
 import { positionWorld } from '../accessors/Position.js';
-
-/** @module ShadowBaseNode **/
 
 /**
  * Base class for all shadow nodes.
@@ -41,7 +39,7 @@ class ShadowBaseNode extends Node {
 		/**
 		 * Overwritten since shadows are updated by default per render.
 		 *
-		 * @type {String}
+		 * @type {string}
 		 * @default 'render'
 		 */
 		this.updateBeforeType = NodeUpdateType.RENDER;
@@ -49,7 +47,7 @@ class ShadowBaseNode extends Node {
 		/**
 		 * This flag can be used for type testing.
 		 *
-		 * @type {Boolean}
+		 * @type {boolean}
 		 * @readonly
 		 * @default true
 		 */
@@ -60,13 +58,13 @@ class ShadowBaseNode extends Node {
 	/**
 	 * Setups the shadow position node which is by default the predefined TSL node object `shadowPositionWorld`.
 	 *
-	 * @param {(NodeBuilder|{Material})} object - A configuration object that must at least hold a material reference.
+	 * @param {NodeBuilder} object - A configuration object that must at least hold a material reference.
 	 */
-	setupShadowPosition( { material } ) {
+	setupShadowPosition( { context, material } ) {
 
 		// Use assign inside an Fn()
 
-		shadowPositionWorld.assign( material.shadowPositionNode || positionWorld );
+		shadowPositionWorld.assign( material.shadowPositionNode || context.shadowPositionWorld || positionWorld );
 
 	}
 
@@ -86,8 +84,9 @@ class ShadowBaseNode extends Node {
 /**
  * TSL object that represents the vertex position in world space during the shadow pass.
  *
+ * @tsl
  * @type {Node<vec3>}
  */
-export const shadowPositionWorld = /*@__PURE__*/ vec3().toVar( 'shadowPositionWorld' );
+export const shadowPositionWorld = /*@__PURE__*/ property( 'vec3', 'shadowPositionWorld' );
 
 export default ShadowBaseNode;
